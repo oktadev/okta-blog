@@ -29,11 +29,11 @@ Next, we'll dive into Cross-Site Scripting (XSS) and look at the built-in securi
 
 ## Cross-Site Scripting (XSS) protection
 
-In the [second post of this series](/blog/2022/07/08/spa-web-securty-csrf-xss), we covered an overview of Cross-Site Scripting (XSS). In summary, you learned that XSS occurs when code pollutes data and your application doesn't take safeguards to prevent the code from running.
+In the [second post of this series](/blog/2022/07/08/spa-web-securty-csrf-xss), we presented an overview of Cross-Site Scripting (XSS). In summary, you learned that XSS occurs when code pollutes data and your application doesn't provide safeguards to prevent the code from running.
 
 Let's recap the example attack vector.
 
-> Imagine an overly dramatic but otherwise innocent scenario like this
+> Imagine an overly dramatic but otherwise innocent scenario like this:
 > 1. A website allows you to add comments about your favorite K-Drama.
 > 2. An agitator adds the comment `<script>alert('Crash Landing on You stinks!');</script>`.
 > 3. That terrible comment saves as is to the database.
@@ -41,25 +41,25 @@ Let's recap the example attack vector.
 > 5. The terrible comment is added to the website, appending the `<script></script>` tag to the DOM.
 > 6. The K-Drama fan is outraged by the JavaScript alert saying their favorite K-Drama, [Crash Landing on You](https://www.imdb.com/title/tt10850932/), stinks.
 
-In this example, we have a `<script>` element and glossed over the steps for appending the element to the DOM. In reality, there's a variety of ways that polluted data gets pulled into the application. The main culprits are adding untrusted data in [injection sinks](https://developer.mozilla.org/en-US/docs/Web/API/Trusted_Types_API#injection_sinks) - a Web API function that allows us to add dynamic content to our applications. Examples of sinks include, but aren't limited to:
+In this example, we have a `<script>` element and glossed over the steps for appending the element to the DOM. In reality, polluted data gets pulled into the application in various ways. Adding untrusted data in an [injection sink](https://developer.mozilla.org/en-US/docs/Web/API/Trusted_Types_API#injection_sinks) - a Web API function that allows us to add dynamic content to our applications - is a major culprit. Examples of sinks include, but aren't limited to:
  * methods to append to the DOM such as  `innerHTML`, `outerHTML`
  * approaches that load external resources or navigate to external sites via a URL, such as `src` or `href` for HTML elements and `url` property on styles
  * event handlers, such as `onmouseover` and `onerror` with an invalid `src` value
  * global functions that evaluate and/or run code, such as `eval()`, `setTimeout()`
 
-As you can see, there are many vectors for the vulnerability. Many of these sinks have legitimate use cases when building dynamic web applications. Since these sinks are necessary for web app functionality, we must use trusted data by escaping and sanitizing it.
+As you can see, there are many vectors for the vulnerability. Many of these sinks have legitimate use cases when building dynamic web applications. Since the sinks are necessary for web app functionality, we must use trusted data by escaping and sanitizing it.
 
-> This is still a high-level summary. The fine print is that XSS vulnerabilities can be pretty sneaky with the different ways the attack can occur.
+> This is still a high-level summary. The fine print is that XSS vulnerabilities can be pretty sneaky in the different ways the attack can occur.
 
 There are different XSS attacks, each with a slightly different attack vector. We'll briefly cover how three attacks work.
 
 ### Stored XSS
 
-In this flavor of XSS, the attack is persisted somewhere like in a database. Stored XSS is the example recapped above where an agitator's terrible comment with the `script` tag persists in the database and then ruins someone else's day by showing the unfriendly comment in an alert.
+In this flavor of XSS, the attack is persisted somewhere, like in a database. We recapped *stored XSS* in the example above, where an agitator's terrible comment with the `script` tag persists in the database and ruins someone else's day by showing the unfriendly comment in an alert.
 
 ### Reflected XSS
 
-This attack is where the malicious code sneaks in through the HTTP request, usually through URL parameters. Suppose the K-Drama site takes a search term via a URL parameter, such as
+In this attack, the malicious code sneaks in through the HTTP request, usually through URL parameters. Suppose the K-Drama site takes a search term via a URL parameter, such as:
 
 ```
 https://myfavekdramas.com/dramas?search=crash+landing+on+you
@@ -73,11 +73,11 @@ But what if an agitator constructs a URL like this?
 https://myfavekdramas.com/dramas?search=<img src=1 onerror="alert('Doh!')"/>
 ```
 
-You may think that you'd never navigate to a link like that! Who would?! But let's remember, in a previous post, you _did_ click the link in your spam email to send money to your high school sweetheart. Pointing this out is not judgment but merely pointing out the past behavior of clicking fishy links. Also, agitators are pretty tricksy. They might use URL shorteners to obscure it.
+You may think that you'd never navigate to a link like that! Who would?! But let's remember, in a previous post, you _did_ click the link in your spam email to send money to your high school sweetheart. This isn't meant as a judgment; no one is immune to clicking fishy links. Also, agitators are pretty tricksy. They might use URL shorteners to obscure the risk. 
 
 ### DOM-based XSS
 
-In this attack, the agitator takes advantage of Web APIs and occurs entirely within the SPA. This attack is pretty much identical to Reflective XSS. 
+In this attack, the agitator takes advantage of Web APIs. The attack occurs entirely within the SPA, and it's pretty much identical to Reflective XSS. 
 
 Let's say our application depends on an external resource—the app embeds an `<iframe>` for showing trailers for the K-Dramas and sets the `iframe`'s `src` attribute to an external site. So our code might look like this.
 
@@ -93,15 +93,15 @@ We usually call out to the third-party service to get the URLs for the source, b
 
 Well, darn it, we've got some problems.
 
-## XSS Support in Angular
+## XSS support in Angular
 
-Fortunately, Angular has a lot of built-in security protections. Angular treats all values as suspicious and untrusted by default, which is incredibly helpful because the framework automatically guards us against unintentionally creating vulnerabilities in our applications. Angular automatically removes any `script` tags so we won't have to worry about the original hypothentical example.
+Fortunately, Angular has a lot of built-in security protections. It treats all values as suspicious and untrusted by default, which is incredibly helpful because the framework automatically guards us against unintentionally creating vulnerabilities in our applications. Angular automatically removes any `script` tags so we won't have to worry about the original hypothentical example.
 
 Let's see some examples of how Angular protects us against XSS.
 
 ### Angular automatically escapes values
 
-Web applications implement comment features like in the Stored XSS example by calling an API to get a list of comments, then adds the comments to the template. In Angular, an extremely simplified comments component might look something like this:
+Web applications implement comment features like in the Stored XSS example by calling an API to get a list of comments, then add the comments to the template. In Angular, an extremely simplified comments component might look something like this:
 
 {% raw %}
 ```ts
@@ -125,9 +125,9 @@ export class CommentsComponent implements OnInit {
 ```
 {% endraw %}
 
-The XSS attack vector works only if the web app treats all values as trustworthy and appends them directly to the template, such as when the web app doesn't escape or sanitize values first. Luckily for us, Angular automatically does both for us.
+The XSS attack vector works only if the web app treats all values as trustworthy and appends them directly to the template, such as when the web app doesn't escape or sanitize values first. Luckily, Angular automatically does both.
 
-When you add values through interpolation in templates (using the {% raw %}`{{}}`{% endraw %} syntax), Angular automatically escapes the data. So the comment
+When you add values through interpolation in templates (using the {% raw %}`{{}}`{% endraw %} syntax), Angular automatically escapes the data. So the comment:
 
 ```
 <a href="javascript:alert(\'Crash Landing on You stinks!\')">Click to win a free prize!</a>
@@ -179,13 +179,13 @@ By handling values "the Angular way," our application is well protected against 
 
 >🚨 **Here be dragons!** 🚨
 > 
->Be careful about bypassing the built-in security mechanism; read this section carefully if you need to! 
+>Be careful about bypassing the built-in security mechanism; if you need to, read this section carefully:  
 
 What if you need to bind trusted values that Angular thinks are unsafe? You can mark values as trusted and bypass the security checks.
 
 Let's look at the example of the image with an error handler. Instead of the value coming from an agitator, let's say there's a legitimate need to bind the image with dynamic error handling.
 
-> **Sidenote** - there are better ways to handle images with error handling in Angular if your application doesn't need to be quite so dynamic. Consider using an image element and bind to `(error)` instead, or even `HostListener`, or there are many tutorial examples of handling it cleanly using a Directive. Indeed, there are lots of better options. You should always prefer the standard Angular way using Angular building blocks. The code will be way easier to support.
+> **Sidenote** - there are better ways to handle images with error handling in Angular if your application doesn't need to be quite so dynamic. Consider using an image element and bind to `(error)` instead, or even `HostListener`. Or, there are many tutorial examples of handling it cleanly using a Directive. Indeed, there are lots of better options. You should always prefer the standard Angular way using Angular building blocks. The code will be way easier to support.
 
 Back to the example, then. In the example above, we saw that the error handler didn't run. Angular stripped it out. We need to mark the code as trusted for the error code to run.
 
@@ -269,7 +269,7 @@ If we are **sure** our link is safe and trustworthy (highly debatable in this ex
 
 > Remember, we should only use the `bypassSecurityTrust...` methods if we know the value is trustworthy. You bypass the built-in security mechanisms and open yourself to security vulnerabilities!
 
-Instead of using the entire video URL based on the external party's API response, we'll construct the URL by defining the video host URL within our app and appending the video's ID that we get back from the external party's API response. This way, we aren't entirely reliant on a potentially untrustworthy value from a third party, and we'll have some measure of ensuring we're not injecting malicious code into the URL. 
+Instead of using the entire video URL based on the external party's API response, we'll construct the URL by defining the video host URL within our app and appending the video's ID that we get back from the external party's API response. This way, we aren't entirely reliant on a potentially untrustworthy value from a third party. Instead, we'll have some measure of ensuring we're not injecting malicious code into the URL. 
 
 Then we'll mark the video URL as trusted and bind it in the template. Your `VideoComponent` changes to this:
 
@@ -298,7 +298,7 @@ Now you'll be able to show trailers of the K-Dramas on your site in an `iframe` 
 
 Great! So we're done! Not quite. There are a couple of things to note.
 
-### Use Ahead-of-time (AOT) compilation for extra security
+### Use ahead-of-time (AOT) compilation for extra security
 
 Angular's AOT compilation has extra security measures for injection attacks like XSS. AOT compilation is highly recommended for production code and has been the default compilation method since Angular v9. Not only is it more secure, but it also increases performance.
 
@@ -312,7 +312,7 @@ For example, you won't have Angular's built-in protections if you try to dynamic
 
 ### Beware of constructing DOM elements without using Angular templates
 
-Any funny business you might try using `ElementRef` or `Renderer2` is the perfect way to cause security woes for yourself. For example, you can pwn yourself if you try to do something like this.
+Any funny business you might try using `ElementRef` or `Renderer2` is the perfect way to cause security issues. For example, you can pwn yourself if you try to do something like this.
 
 ```ts
 @Component({
