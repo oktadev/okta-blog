@@ -662,4 +662,4 @@ Can't get enough of Node? Check out our [quickstarts for Node](https://developer
 - [Node.js Login with Express and OIDC](/blog/2020/06/16/nodejs-login)
 - [Build a Node.js API with TypeScript](/blog/2019/05/07/nodejs-typescript-api)
 
-Make sure you follow us on [Twitter](https://twitter.com/oktadev) and subscribe to our [YouTube](https://www.youtube.com/c/oktadev) channel. Please comment below if you have any questions or want to share what tutorial you’d like to see next.
+Make sure you follow us on [Twitter](https://twitter.com/oktadev) and subscribe to our [YouTube](https://www.youtube.com/c/oktadev) channel. Please comment below if you have any questions or want to share what tutorial you'd like to see next.
