@@ -657,7 +657,7 @@ You also learned how to build a CSS file with Tailwind CSS.  You learned the sim
 
 Finally, you learned how to secure your express application using passport.
 
-## Learn More About Node, Authentication, and Okta
+## Learn more about Node, authentication, and Okta
 
 Can't get enough of Node? Check out our [quickstarts for Node](https://developer.okta.com/code/nodejs/) and other excellent posts from the Okta Developer blog:
 - [Build and Deploy a Node.js App to Heroku](/blog/2022/02/28/build-deploy-node-app-heroku)
