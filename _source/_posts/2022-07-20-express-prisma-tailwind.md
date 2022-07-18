@@ -122,7 +122,7 @@ Next, update your `package.json` file with the following code.
 }
 ```
 
-This will add the `prisma seed` command you will need later.  
+This will add the `prisma seed` command you need later.  
 
 Now you can initialize Tailwind CSS.  
 
