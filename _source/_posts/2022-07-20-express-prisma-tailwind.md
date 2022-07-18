@@ -653,7 +653,7 @@ Use the login button at the top of the screen and navigate out to the Okta login
 
 In this article, you learned how to use Prisma to define a schema for your database.  You then learned how to create a migration from that schema and seed your database.  You saw that Prisma could be used with the most popular database options, including SQL Server, MySql, MongoDB, and more.  
 
-You also learned how to build a CSS file with Tailwind CSS.  You learned the simple tailwind configuration and how the Tailwind CLI uses your code to build its CSS file.
+You also learned how to build a CSS file with Tailwind CSS.  We walked through a simple tailwind configuration and how the Tailwind CLI uses your code to build its CSS file.
 
 Finally, you learned how to secure your express application using passport.
 
