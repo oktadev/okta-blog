@@ -602,7 +602,7 @@ block content
                                 td=log.calories                        
 ```
 
-As you saw before, this page is protected.  Therefore, it requires that you have a user to access this page.  The application will pull the user details and workout logs and reform them into a summary at the top of the page with a couple of tables of the logs based on the exercises the user has performed.  
+As you saw before, this page is protected.  Therefore, it requires that you have a user to access this page.  The application will pull the user details and workout logs and form them into a summary at the top of the page with a couple of tables of the logs based on the exercises the user has performed.  
 
 ### Create the CSS file using Tailwind CSS
 
