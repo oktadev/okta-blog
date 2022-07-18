@@ -322,7 +322,7 @@ module.exports = ensureLoggedIn;
 
 This little piece of middleware will make sure the user is authenticated.  If they aren't, you will redirect them to the `login` route, which you will configure to use Okta.  Otherwise, you will allow the user to reach the next screen.  
 
-Next, you can update your routes in the `routes` directory.  First, remove `users.js` as you won't be using that.  Next, replace the code in `index.js` with the following.
+Next, you can update your routes in the `routes` directory.  First, remove `users.js` as you won't be using that.  Replace the code in `index.js` with the following.
 
 ```javascript
 var express = require('express');
