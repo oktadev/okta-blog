@@ -27,7 +27,7 @@ This tutorial uses the following technologies but doesn't require any prior expe
 
 - An IDE for JavaScript.  I will use [Visual Studio Code](https://code.visualstudio.com/) but you can use Atom, Webstorm, or any other IDE you prefer.
 - [Node.js](https://nodejs.org/en/)
-- A database, one of PostgreSQL, MySQL, SQLite, SQL Server, or MongoDB.  In this tutorial you will use SQLite
+- A database, such as PostgreSQL, MySQL, SQLite, SQL Server, or MongoDB.  In this tutorial we'll use SQLite.
 - [Okta CLI](https://cli.okta.com)
 
 If you'd like to skip the tutorial and just check out the fully built project, you can go [view it on GitHub](https://github.com/oktadev/okta-express-prisma-tailwind-example).
