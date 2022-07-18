@@ -58,7 +58,7 @@ npm i -D tailwindcss@3.0.24
 npm i -D prisma@3.13.0
 ```
 
-- `@prisma/client` is used to access the database from your server code
+- `@prisma/client` is used to access the database from your server code.
 - `dotenv` reads configuration settings from `.env` files like the one produced by the Okta CLI
 - `passport` is a middleware for Node.js that is flexible enough to handle most authentication scenarios, including Okta.  `passport-openidconnect` is a module for passport that lets you authenticate with OpenID Connect
 - `express-session` is required for passport.  Express apps use this package for session support.  You application must intiialize session support to use passport.  
