@@ -130,7 +130,7 @@ Now you can initialize Tailwind CSS.
 npx tailwindcss init
 ```
 
-This will add a new file called `tailwind.config.js` to the root of your application.  Replace the contents of that file with the code below.
+You've now added a new file called `tailwind.config.js` to the root of your application.  Replace the contents of that file with the code below.
 
 ```javascript
 module.exports = {
