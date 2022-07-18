@@ -13,11 +13,9 @@ github: https://github.com/oktadev/okta-express-prisma-tailwind-example
 type: conversion
 ---
 
-[Express](https://expressjs.com/) is one of the most popular web frameworks available today.  Understanding the tools available when building any web application is critical to being a good developer.
-
 [Prisma](https://www.prisma.io/) is an ORM (object–relational mapping) tool for Node.js using TypeScript.  The software integrates with many of the most popular databases today, including MySQL, SQL Server, SQLite, and MongoDB, and emphasizes a human-readable schema with a type-safe database client.  Prisma also includes other features such as migrations, seed data, and a virtual database browser.   
 
- In this project, you will use Prisma to connect to a database server.  You will build a schema to model a workout tracker application.  Then you'll create some seed data and use Prisma to run migrations and seed your database.  Finally, you'll create the web application using [Pug](https://pugjs.org/api/getting-started.html) and [Tailwind CSS](https://tailwindcss.com/) to build the application frontend.  
+In this project, you will use Prisma to connect your [Express](https://expressjs.com/) application to a database server.  You will build a schema to model a workout tracker application.  Then you'll create some seed data and use Prisma to run migrations and seed your database.  Finally, you'll create the web application using [Pug](https://pugjs.org/api/getting-started.html) and [Tailwind CSS](https://tailwindcss.com/) to build the application frontend.  
 
 {% include toc.md %}
 
@@ -25,14 +23,14 @@ type: conversion
 
 This tutorial uses the following technologies but doesn't require any prior experience:
 
-- An IDE for JavaScript.  I will use [Visual Studio Code](https://code.visualstudio.com/) but you can use Atom, Webstorm, or any other IDE you prefer.
+- An IDE for JavaScript.  I will use [Visual Studio Code](https://code.visualstudio.com/) but you can use Webstorm, or any other IDE you prefer.
 - [Node.js](https://nodejs.org/en/)
 - A database, such as PostgreSQL, MySQL, SQLite, SQL Server, or MongoDB.  In this tutorial we'll use SQLite.
 - [Okta CLI](https://cli.okta.com)
 
 If you'd like to skip the tutorial and check out the fully built project, you can go [view it on GitHub](https://github.com/oktadev/okta-express-prisma-tailwind-example).
 
-## Create your Okta application
+## Create your OAuth2 authorization server
 
 Create a new directory for your application.  Use the `cd` command to navigate to that folder. 
 
@@ -43,7 +41,7 @@ Create a new directory for your application.  Use the `cd` command to navigate t
 Next, you will use the `express-generator` application generator tool to quickly scaffold your application.  Run the following command.
 
 ```console
-npx express-generator --view=pug
+npx express-generator@4.16 --view=pug
 ```
 
 Now you can install your packages.  
@@ -144,7 +142,7 @@ module.exports = {
 
 In this step, you tell Tailwind CSS where to find the classes you used in your application.  In this case, you want Tailwind to look in the `.pug` files in your `views` directory.  Tailwind CSS is highly extensible, as seen by the configuration object's `theme` and `plugins` settings.  A deep dive into this is out of the scope of this article, but I encourage you to look into Tailwind CSS's site for more information.  
 
-### Use Prisma to create your database
+## Use Prisma to create your database
 
 The next task is to create the database for your application.  Steps will involve writing the schema, writing some seed data, creating the migration, and applying the migration, which will also seed your data.
 
@@ -303,7 +301,7 @@ npx prisma migrate dev --name init
 
 The CLI has several ways to add and apply migrations.  I suggest you understand the best way to manage migrations for your environment.  The method above is the easiest and fastest way to prepare your database.  As part of the migration process, this command will look for the `seed` command from your `package.json` and run that as well.  Once complete, your database should be ready with a database full of seed data ready to work.
 
-### Complete the development of your express application
+## Add OIDC authentication
 
 Now that your database is ready, you can turn your attention to the core of your application.
 
@@ -481,7 +479,7 @@ module.exports = app;
 
 You updated your routes to properly use the `dashboard` routes as well as any login or logout routes that Okta will use.  You also set up passport to use Okta using the values the Okta CLI produced in the `.okta.env` file.  
 
-### Add your views to bring your project to life
+## Add views to your Express application
 
 By default, `express-generator` will add a few views for you.  You will need to edit them and add a new one of your own.  Start by opening the `layout.pug` file in the `views` directory and replacing the code there with the following.
 
@@ -604,7 +602,7 @@ block content
 
 As you saw before, this page is protected.  Therefore, it requires that you have a user to access this page.  The application will pull the user details and workout logs and form them into a summary at the top of the page with a couple of tables of the logs based on the exercises the user has performed.  
 
-### Create the CSS file using Tailwind CSS
+## Create the CSS file using Tailwind CSS
 
 The last part of this process is to create the actual CSS file that your application will use.  In your `public/stylesheets` directory, you'll see a file called `style.css`.  Replace the code in that file with the code below.
 
@@ -663,3 +661,5 @@ Can't get enough of Node? Check out our [quickstarts for Node](https://developer
 - [Build and Deploy a Node.js App to Heroku](/blog/2022/02/28/build-deploy-node-app-heroku)
 - [Node.js Login with Express and OIDC](/blog/2020/06/16/nodejs-login)
 - [Build a Node.js API with TypeScript](/blog/2019/05/07/nodejs-typescript-api)
+
+Make sure you follow us on [Twitter](https://twitter.com/oktadev) and subscribe to our [YouTube](https://www.youtube.com/c/oktadev) channel. Please comment below if you have any questions or want to share what tutorial you’d like to see next.
