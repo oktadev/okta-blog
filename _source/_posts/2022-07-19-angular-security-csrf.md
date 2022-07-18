@@ -18,7 +18,7 @@ Previously, I wrote about web security at a high level and the framework-agnosti
 |Posts in the SPA web security series|
 | --- |
 | 1. [Defend Your SPA from Security Woes](/blog/2022/07/06/spa-web-security) |
-| 2. [Defend Your SPA from Common Web Attacks](/blog/2022/07/08/spa-web-securty-csrf-xss) |
+| 2. [Defend Your SPA from Common Web Attacks](/blog/2022/07/08/spa-web-security-csrf-xss) |
 | 3. **Protect Your Angular App from Cross-Site Request Forgery** |
 
 Now, I want to dive a little deeper into the vulnerabilities. In this short post, we'll dive into **C**ross-**S**ite **R**equest **F**orgery (CSRF) and look at the built-in help you get when using Angular.
@@ -81,7 +81,7 @@ Watch for the fourth and final post in this series, as we dive into Cross-Site S
 |Posts in the SPA web security series|
 | --- |
 | 1. [Defend Your SPA from Security Woes](/blog/2022/07/06/spa-web-security) |
-| 2. [Defend Your SPA from Common Web Attacks](/blog/2022/07/08/spa-web-securty-csrf-xss) |
+| 2. [Defend Your SPA from Common Web Attacks](/blog/2022/07/08/spa-web-security-csrf-xss) |
 | 3. **Protect Your Angular App from Cross-Site Request Forgery** |
 
 If you liked this post, you might be interested in these links.
