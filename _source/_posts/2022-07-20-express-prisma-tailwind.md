@@ -142,7 +142,7 @@ module.exports = {
 }
 ```
 
-This will tell Tailwind CSS where to find the classes you used in your application.  In this case, you want Tailwind to look in the `.pug` files in your `views` directory.  Tailwind CSS is highly extensible, as seen by the configuration object's `theme` and `plugins` settings.  A deep dive into this is out of the scope of this article, but I encourage you to look into Tailwind CSS's site for more information.  
+In this step, you tell Tailwind CSS where to find the classes you used in your application.  In this case, you want Tailwind to look in the `.pug` files in your `views` directory.  Tailwind CSS is highly extensible, as seen by the configuration object's `theme` and `plugins` settings.  A deep dive into this is out of the scope of this article, but I encourage you to look into Tailwind CSS's site for more information.  
 
 ### Use Prisma to create your database
 
