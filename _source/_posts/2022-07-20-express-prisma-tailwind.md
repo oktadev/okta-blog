@@ -146,7 +146,7 @@ In this step, you tell Tailwind CSS where to find the classes you used in your a
 
 ### Use Prisma to create your database
 
-The next task is to create the database for your application.  This will involve writing the schema, writing some seed data, creating the migration, and applying the migration, which will also seed your data.
+The next task is to create the database for your application.  Steps will involve writing the schema, writing some seed data, creating the migration, and applying the migration, which will also seed your data.
 
 The `prisma init` task from above should have added a file called `schema.prisma` to your `prisma` directory.  Replace the code there with the code below.
 
