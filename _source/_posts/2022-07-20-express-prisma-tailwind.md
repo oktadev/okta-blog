@@ -38,7 +38,7 @@ Create a new directory for your application.  Use the `cd` command to navigate t
 
 {% include setup/cli.md type="web" loginRedirectUri="http://localhost:3000/authorization-code/callback" logoutRedirectUri="http://localhost:3000/" %}
 
-## Create your Express Application
+## Create your Express application
 
 Next, you will use the `express-generator` application generator tool to quickly scaffold your application.  Run the following command.
 
