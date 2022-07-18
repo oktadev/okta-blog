@@ -1,16 +1,15 @@
 ---
 layout: blog_post
-title: "Protect Your Angular App from Cross-Site Scripting"
+title: "Protect Your Angular App From Cross-Site Scripting"
 author: alisa-duncan
 by: advocate
 communities: [security,javascript]
 description: "Dive into Cross-site Scripting (XSS) mitigation strategies and how to protect your Angular application from XSS attacks."
 tags: [security, angular]
 tweets:
-- ""
-- ""
-- ""
-image:
+- "Built-in defense mechanisms are awesome! 🦔  Check out how #angular protects you from Cross-Site Scripting!"
+- "Cross-site scripting begone! 🪄  @angular keep us safe from XSS attacks. Read on to learn how #angular does it."
+image: blog/angular-security-xss/social.jpg
 type: awareness
 ---
 
@@ -19,9 +18,9 @@ In the last post of this SPA security series, we covered Cross-Site Request Forg
 |Posts in the SPA web security series|
 | --- |
 | 1. [Defend Your SPA from Security Woes](/blog/2022/07/06/spa-web-security) |
-| 2. [Defend Your SPA from Common Web Attacks](/blog/2022/07/08/spa-web-securty-csrf-xss) |
-| 3. [Protect Your Angular App from Cross-Site Request Forgery](/blog/2022/07/19/angular-security-csrf) |
-| 4. **Protect Your Angular App from Cross-Site Scripting** |
+| 2. [Defend Your SPA from Common Web Attacks](/blog/2022/07/08/spa-web-security-csrf-xss) |
+| 3. [Protect Your Angular App From Cross-Site Request Forgery](/blog/2022/07/19/angular-security-csrf) |
+| 4. **Protect Your Angular App From Cross-Site Scripting** |
 
 Next, we'll dive into Cross-Site Scripting (XSS) and look at the built-in security guards you get when using Angular.
 
@@ -29,7 +28,7 @@ Next, we'll dive into Cross-Site Scripting (XSS) and look at the built-in securi
 
 ## Cross-Site Scripting (XSS) protection
 
-In the [second post of this series](/blog/2022/07/08/spa-web-securty-csrf-xss), we presented an overview of Cross-Site Scripting (XSS). In summary, you learned that XSS occurs when code pollutes data and your application doesn't provide safeguards to prevent the code from running.
+In the [second post of this series](/blog/2022/07/08/spa-web-security-csrf-xss), we presented an overview of Cross-Site Scripting (XSS). In summary, you learned that XSS occurs when code pollutes data and your application doesn't provide safeguards to prevent the code from running.
 
 Let's recap the example attack vector.
 
@@ -55,7 +54,7 @@ There are different XSS attacks, each with a slightly different attack vector. W
 
 ### Stored XSS
 
-In this flavor of XSS, the attack is persisted somewhere, like in a database. We recapped *stored XSS* in the example above, where an agitator's terrible comment with the `script` tag persists in the database and ruins someone else's day by showing the unfriendly comment in an alert.
+In this flavor of XSS, the attack is persisted somewhere, like in a database. We recapped _stored XSS_ in the example above, where an agitator's terrible comment with the `script` tag persists in the database and ruins someone else's day by showing the unfriendly comment in an alert.
 
 ### Reflected XSS
 
@@ -339,7 +338,7 @@ export class YikesComponent implements AfterViewInit {
 }
 ```
 
-Something like this might be tempting in a fancy custom directive, but think again! Besides, interacting directly with the DOM like this isn't the best practice in Angular, despite any security issues it might have. You should always prefer creating and using Angular templates.
+Something like this might be tempting in a fancy custom directive, but think again! Besides, interacting directly with the DOM like this isn't the best practice in Angular, evenn beyond any security issues it might have. Always prefer creating and using Angular templates.
 
 ### Explicitly sanitize data
 
@@ -389,8 +388,8 @@ This series taught us about web security, common web attacks, and how Angular's 
 | --- |
 | 1. [Defend Your SPA from Security Woes](/blog/2022/07/06/spa-web-security) |
 | 2. [Defend Your SPA from Common Web Attacks](/blog/2022/07/08/spa-web-securty-csrf-xss) |
-| 3. [Protect Your Angular App from Cross-Site Request Forgery](/blog/2022/07/19/angular-security-csrf) |
-| 4. **Protect Your Angular App from Cross-Site Scripting** |
+| 3. [Protect Your Angular App From Cross-Site Request Forgery](/blog/2022/07/19/angular-security-csrf) |
+| 4. **Protect Your Angular App From Cross-Site Scripting** |
 
 If you liked this post, you might be interested in these links.
 * [Security documentation from Angular](https://angular.io/guide/security#security)
