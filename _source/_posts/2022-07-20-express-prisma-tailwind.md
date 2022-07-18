@@ -374,7 +374,7 @@ module.exports = router;
 
 There's a lot of magic in this route.  First, you are using the `ensureLoggedIn` middleware to protect the route.  Then you can extract the username from the request and look up the user in the database using the Prisma client.  Since the user has a property for its workout logs, you can pass the user as the model and parse the logs on the pug view you will create.  This will give view access to the user's name as well.  Of course, you could query the `workoutLogs` table directly and include features such as pagination and search if this approach better fits your workflow.  
 
-Next, replace the code in `app.js` with the following.
+Now, replace the code in `app.js` with the following.
 
 ```javascript
 var createError = require('http-errors');
