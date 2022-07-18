@@ -508,7 +508,7 @@ html
 
 You'll notice a couple of things about this file.  First, the classes are very specific and plentiful.  This is typical of Tailwind CSS.  Rather than defining how a specific element looks, Tailwind CSS strives to define how a particular style looks, then you can add and remove styles from elements to fit the desired look.  
 
-The other thing you'll see is the Login/Logout button that will change based on the `isAuthenticated` property.  
+The other thing you'll see is the **Login/Logout** button that will change based on the `isAuthenticated` property.  
 
 Next, your can update `index.pug` with the following.
 
