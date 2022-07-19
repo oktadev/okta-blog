@@ -19,7 +19,7 @@ In this project, you will use Prisma to connect your [Express](https://expressjs
 
 {% include toc.md %}
 
-### Prerequisites
+**Prerequisites**
 
 This tutorial uses the following technologies but doesn't require any prior experience:
 
