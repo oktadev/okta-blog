@@ -25,7 +25,7 @@ This is the second post in a series about web security for SPAs. In the last pos
  {% include toc.md %}
 
 ## Practice data cleanliness to mitigate XSS
-Cross-Site Scripting (XSS) is a vulnterability that continues to plague web developers. This vulnerability is a type of injection attack and is so common that it's [number 3 on the OWASP Top Ten list](https://owasp.org/Top10/A03_2021-Injection/). 
+Cross-Site Scripting (XSS) is a vulnerability that continues to plague web developers. This vulnerability is a type of injection attack and is so common that it's [number 3 on the OWASP Top Ten list](https://owasp.org/Top10/A03_2021-Injection/). 
 
 How does this vulnerability work? In short, XSS happens when code pollutes data, and you don't implement safeguards. 
 
