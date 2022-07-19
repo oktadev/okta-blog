@@ -19,6 +19,7 @@ There's a lot of information floating out there about web security. But when I r
 | --- |
 | 1. **Defend Your SPA from Security Woes** |
 | 2. [Defend Your SPA from Common Web Attacks](/blog/2022/07/08/spa-web-security-csrf-xss) |
+| 3. [Protect Your Angular App From Cross-Site Request Forgery](/blog/2022/07/19/angular-security-csrf) |
 
 So why do we worry about web security anyway? When we have vulnerabilities in our applications, it's an avenue for exploitation by bad actors. In the wrong hands, exploiting the vulnerabilities can cause risks to your application, data, reputation, and bottom line. In the words of my coworker [Aaron Parecki](https://developer.okta.com/blog/authors/aaron-parecki/), it all boils down to one thing—liability. And we don't want to expose ourselves, our applications, and our companies to liability. If you feel threatened, it's a good time to read on and identify how to harden your application.
 
@@ -136,6 +137,7 @@ Stay tuned for the next post in this series as we learn about two well-known web
 | --- |
 | 1. **Defend Your SPA from Security Woes** |
 | 2. [Defend Your SPA from Common Web Attacks](/blog/2022/07/08/spa-web-security-csrf-xss) |
+| 3. [Protect Your Angular App From Cross-Site Request Forgery](/blog/2022/07/19/angular-security-csrf) |
 
 Can't wait to learn more? Check out out the following resources.
 * [A Beginner's Guide to Application Security](/blog/2022/05/09/beginners-app-sec)
