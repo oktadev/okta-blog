@@ -105,7 +105,17 @@ You can run the project now. Type:
 
 ```python3 -m flask run --port=3000```
 
-And try walking through hosted authentication with Okta!
+And try walking through hosted authentication with Okta! If all goes well, you'll see this screen to start with: 
+
+{% img blog/einnes/1_login.png> alt:"Picture of log in page." width:"800" %}{: .center-image }
+
+When you click the **Login** button, you're then taken to a form that you can enter your email and password: 
+
+{% img blog/einnes/2_sign_in.png> alt:"Picture of sign in page where you add account credentials." width:"800" %}{: .center-image }
+
+You will know you've successfully logged in when you see a screen displaying some information about your profile:
+{% img blog/einnes/3_success.png> alt:"Picture of success page displaying retrieved account info." width:"800" %}{: .center-image }
+
 
 ## Troubleshooting - Help, it's not working!
 
