@@ -5,7 +5,7 @@ author: erikka-innes
 by: contractor
 communities: [python]
 description: "Learn how to set up the Okta CLI and run the hosted authentication sample application."
-tags: []
+tags: [python, flask, authentication]
 tweets:
 - "Configure the Okta CLI and run your first sample application using hosted authentication!"
 - "Try the Okta CLI, the easiest way to create your first Okta application with hosted authentication."
