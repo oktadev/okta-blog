@@ -20,10 +20,9 @@ Okta is a customizable, secure solution that lets you add authentication and acc
 - Set up Hosted Authentication with Okta and try it out 
 - Cover troubleshooting issues you might encounter
 
-Ready? Let's get started! 
-
 **Prerequisites**
 
+This tutorial uses the following technologies but doesn't require any prior experience:
 - Okta developer account - these instructions assume you already have signed up. If you didn't, you can sign up for an account using the CLI! 
 - Python 3
 
@@ -53,21 +52,16 @@ Not every project needs all three of these things. You will generally need a tok
 Let's get the Okta CLI installed. Okta has a great [resource page](https://cli.okta.com/) about the CLI and it contains installation instructions. We're going to do ours slightly differently from the instructions, so be sure to follow the steps here. 
 
 1. Install the CLI with the provided command:
-
 ```bash
 brew install –cask oktadeveloper/tap/okta
 ```
 
-2. Check and see if the CLI is accessible by trying out a command:
-    
+2. Check and see if the CLI is accessible by trying out a command. If everything's working you'll see some information about how to use the CLI presented. 
 ```bash
 okta –help
 ```
 
-If everything's working you'll see some information about how to use the CLI presented.
-
 3. Next, we need to log in. We already have our Okta developer account, so in the Terminal, type:
-    
 ```bash
 okta login
 ```
@@ -84,7 +78,7 @@ After you've done this, you will have a developer account associated with the CL
 
 ## Configure the project
 
-If you download the CLI, you can automatically type `okta start flask` and follow the provided instructions to get the project set up. The [GitHub repository](https://github.com/okta-samples/okta-flask-sample) will be downloaded for you and the environment variables will be configured in the `.okta.env` file. 
+If you download the CLI, you can type `okta start flask` and follow the provided instructions to get the project set up. The [GitHub repository](https://github.com/okta-samples/okta-flask-sample) will be downloaded for you and the environment variables will be configured in the `.okta.env` file. 
 
 **NOTE:** You need to enter the URIs you want to use to redirect. In the CLI these are referred to as Redirect URIs. In your developer dashboard, this is called sign-in redirect URIs. For this walkthrough, we'll use: `http://localhost:3000/authorization-code/callback` You can use other localhost ports, just be sure to write out the link with the `/authorization-code/callback` added at the end. You also need to add your **Post Logout Redirect URIs**. In the developer dashboard, these are called **Sign-out redirect URIs**. Since we used localhost:3000, the URI will be: `http://localhost:3000/` 
 
@@ -95,7 +89,6 @@ This section goes over how you can create an Okta application yourself instead o
 **NOTE:** The CLI doesn't allow you to make all kinds of applications, only some, so it is important to learn to create apps in the developer dashboard too. 
 
 1. In the terminal type:
-
 ```bash
 okta apps create
 ```
@@ -120,7 +113,7 @@ python3 -m flask run --port=3000
 
 And try walking through hosted authentication with Okta! If all goes well, you'll see this screen to start with: 
 
-{% img blog/python-okta/1_login.png alt:"Picture of log in page." width:"300" %}{: .center-image }
+{% img blog/python-okta/1_login.png alt:"Picture of log in page." width:"600" %}{: .center-image }
 
 When you click the **Login** button, you're then taken to a form that you can enter your email and password: 
 
@@ -128,7 +121,7 @@ When you click the **Login** button, you're then taken to a form that you can en
 
 You will know you've successfully logged in when you see a screen displaying some information about your profile:
 
-{% img blog/python-okta/3_success.png alt:"Picture of success page displaying retrieved account info." width:"300" %}{: .center-image }
+{% img blog/python-okta/3_success.png alt:"Picture of success page displaying retrieved account info." width:"600" %}{: .center-image }
 
 
 ## Troubleshooting - Help, it's not working!
@@ -139,20 +132,17 @@ Never fear, the troubleshooting section is here to help you figure out what's go
 
 If your Mac runs Monterey or later, it uses port 5000 for the AirPlay Receiver. If you have access to the *Sharing* folder on your computer, you may be able to shut it off and run the application at that point. If you want to try that, [follow these instructions](https://www.businessinsider.com/how-to-turn-off-airplay) to turn off the AirPlay Receiver.
 
-You should then be able to use localhost:5000 again. 
+You should then be able to use `localhost:5000` again. 
 
 ### I tried everything and I still can't view localhost:5000
 
 If you cannot access the *Sharing* folder on your Mac due to permissions, or you tried shutting off AirPlay Receiver and it still isn't letting you see `localhost:5000`, then change the project to use `localhost:3000`. You'll need to do these things for that to work: 
 
 1. In your copy of the project, navigate to *app.py*. Change:
-   
 ```bash
 app.run(host="localhost", port=5000, debug=True)
 ```
-
 To: 
-   
 ```bash
 app.run(host="localhost", port=3000, debug=True)
 ```
@@ -181,7 +171,7 @@ Sometimes, the .okta.env file does not populate with the information you need. I
 
 4. Get the **Client ID** and the **Client Secret**. These map respectively to CLIENT_ID and CLIENT_SECRET in your `.okta.env` file. 
 
-5. If you need your Organization URL, that's up in the right corner of your dashboard under your email address. Grab that URL and put it in the *okta.env* file for ORG_URL.
+5. If you need your Organization URL, that's up in the right corner of your dashboard under your email address. Grab that URL and put it in the `.okta.env` file for ORG_URL.
 
 ### I have the wrong credentials in the Okta CLI
 
