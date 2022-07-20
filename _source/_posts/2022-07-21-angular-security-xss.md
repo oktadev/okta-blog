@@ -64,7 +64,7 @@ In this attack, the malicious code sneaks in through the HTTP request, usually t
 https://myfavekdramas.com/dramas?search=crash+landing+on+you
 ```
 
-The site then takes the search terms and displays them back to the user while calling out to the back-end to run the search.
+The site then takes the search terms and displays them back to the user while calling out to the backend to run the search.
 
 But what if an agitator constructs a URL like this?
 
@@ -76,7 +76,7 @@ You may think that you'd never navigate to a link like that! Who would?! But let
 
 ### DOM-based XSS
 
-In this attack, the agitator takes advantage of Web APIs. The attack occurs entirely within the SPA, and it's pretty much identical to Reflective XSS. 
+In this attack, the agitator takes advantage of Web APIs. The attack occurs entirely within the SPA, and it's pretty much identical to _reflected XSS_. 
 
 Let's say our application depends on an external resource—the app embeds an `<iframe>` for showing trailers for the K-Dramas and sets the `iframe`'s `src` attribute to an external site. So our code might look like this.
 
@@ -136,11 +136,11 @@ displays exactly like what's written above as text. It's still a terrible commen
 
 ### Angular automatically sanitizes values
 
-Let's say we want to display the comments preserving any safe markup a user enters. We already have two malicious comments to start us off on shaky grounds:
+Let's say we want to display the comments preserving any safe markup a user enters. We already have two malicious comments to start us off on shaky ground:
 1. `<a href="javascript:alert(\'Crash Landing on You stinks!\')">Click to win a free prize!</a>`
 2. `<img src=1 onerror="alert('Doh!')"/>`
 
-And a K-Drama fan adds a new comment with safe markup.
+Then a K-Drama fan adds a new comment with safe markup.
 
 ```html
 <strong>It's a wonderful drama! The best!</strong>
@@ -295,11 +295,11 @@ Now you'll be able to show trailers of the K-Dramas on your site in an `iframe` 
 
 > It can't be stressed enough. Ensure you trust the values before bypassing the out-of-the-box security protections you get from Angular!
 
-Great! So we're done! Not quite. There are a couple of things to note.
+Great! So we're done? Not quite. There are a couple of things to note.
 
 ### Use ahead-of-time (AOT) compilation for extra security
 
-Angular's AOT compilation has extra security measures for injection attacks like XSS. AOT compilation is highly recommended for production code and has been the default compilation method since Angular v9. Not only is it more secure, but it also increases performance.
+Angular's AOT compilation has extra security measures for injection attacks like XSS. AOT compilation is highly recommended for production code and has been the default compilation method since Angular v9. Not only is it more secure, but it also improves performance.
 
 On the flip side, the other form of compilation is Just-in-time (JIT). JIT was the default for older versions of Angular. JIT compiles code for the browser on the fly, and this process skips Angular's built-in security protection, so stick with using AOT.
 
@@ -338,7 +338,7 @@ export class YikesComponent implements AfterViewInit {
 }
 ```
 
-Something like this might be tempting in a fancy custom directive, but think again! Besides, interacting directly with the DOM like this isn't the best practice in Angular, evenn beyond any security issues it might have. Always prefer creating and using Angular templates.
+Something like this might be tempting in a fancy custom directive, but think again! Besides, interacting directly with the DOM like this isn't the best practice in Angular, even beyond any security issues it might have. It's always wise to prefer creating and using Angular templates.
 
 ### Explicitly sanitize data
 
@@ -376,7 +376,7 @@ Now you'll have the image without the potentially dangerous code tagging along f
 
 ### Consider Trusted Types
 
-One more built-in security mechanism in Angular is setting up and using a Content Security Policy (CSP). CSPs are a specific HTTP security header we covered in the [first post](first post link) to help set up foundational security mechanisms.
+One more built-in security mechanism in Angular is setting up and using a Content Security Policy (CSP). CSPs are a specific HTTP security header we covered in the [first post](/blog/2022/07/06/spa-web-security) to help set up foundational security mechanisms.
 
 Angular has built-in support for defining policies for a CSP called [Trusted Types](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Content-Security-Policy/trusted-types). Trusted Types are a great way to add extra XSS security guards to your Angular app but isn't supported across all the major browsers yet. If you are interested in learning more about setting up the Trusted Types CSP for SPAs, check out this great post from the Auth0 blog - [Securing SPAs with Trusted Types](https://auth0.com/blog/securing-spa-with-trusted-types/). 
 
