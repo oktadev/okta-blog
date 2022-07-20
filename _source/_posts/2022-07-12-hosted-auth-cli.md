@@ -9,7 +9,6 @@ tags: [python, flask, authentication]
 tweets:
 - "Configure the Okta CLI and run your first sample application using hosted authentication!"
 - "Try the Okta CLI, the easiest way to create your first Okta application with hosted authentication."
-- ""
 image:
 type: conversion
 ---
