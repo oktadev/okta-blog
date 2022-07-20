@@ -299,7 +299,7 @@ You can now add and apply the migration using the Prisma CLI. From the root of y
 npx prisma migrate dev --name init
 ```
 
-The CLI has several ways to add and apply migrations.  I suggest you understand the best way to manage migrations for your environment.  The method above is the easiest and fastest way to prepare your database.  As part of the migration process, this command will look for the `seed` command from your `package.json` and run that as well.  Once complete, your database should be ready with a database full of seed data ready to work.
+The CLI has several ways to add and apply migrations.  I suggest you understand the best way to manage migrations for your environment.  The method above is the easiest and fastest way to prepare your database.  As part of the migration process, this command will look for the `seed` command from your `package.json` and run that as well.  Once complete, your database should be ready with a database full of seed data to work with.
 
 ## Add OIDC authentication
 
