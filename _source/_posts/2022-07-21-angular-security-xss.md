@@ -17,8 +17,8 @@ In the last post of this SPA security series, we covered Cross-Site Request Forg
 
 |Posts in the SPA web security series|
 | --- |
-| 1. [Defend Your SPA from Security Woes](/blog/2022/07/06/spa-web-security) |
-| 2. [Defend Your SPA from Common Web Attacks](/blog/2022/07/08/spa-web-security-csrf-xss) |
+| 1. [Defend Your SPA From Security Woes](/blog/2022/07/06/spa-web-security) |
+| 2. [Defend Your SPA From Common Web Attacks](/blog/2022/07/08/spa-web-security-csrf-xss) |
 | 3. [Protect Your Angular App From Cross-Site Request Forgery](/blog/2022/07/19/angular-security-csrf) |
 | 4. **Protect Your Angular App From Cross-Site Scripting** |
 
@@ -386,8 +386,8 @@ This series taught us about web security, common web attacks, and how Angular's 
 
 |Posts in the SPA web security series|
 | --- |
-| 1. [Defend Your SPA from Security Woes](/blog/2022/07/06/spa-web-security) |
-| 2. [Defend Your SPA from Common Web Attacks](/blog/2022/07/08/spa-web-securty-csrf-xss) |
+| 1. [Defend Your SPA From Security Woes](/blog/2022/07/06/spa-web-security) |
+| 2. [Defend Your SPA From Common Web Attacks](/blog/2022/07/08/spa-web-securty-csrf-xss) |
 | 3. [Protect Your Angular App From Cross-Site Request Forgery](/blog/2022/07/19/angular-security-csrf) |
 | 4. **Protect Your Angular App From Cross-Site Scripting** |
 
