@@ -19,13 +19,15 @@ This is the second post in a series about web security for SPAs. In the last pos
 | --- |
 | 1. [Defend Your SPA from Security Woes](/blog/2022/07/06/spa-web-security) |
 | 2. **Defend Your SPA from Common Web Attacks** |
+| 3. [Protect Your Angular App From Cross-Site Request Forgery](/blog/2022/07/19/angular-security-csrf) |
+
 
  Ready to continue and make your SPA safer? This post will use the concepts we introduced to banish some well-known web vulnerabilities.
 
  {% include toc.md %}
 
 ## Practice data cleanliness to mitigate XSS
-Cross-Site Scripting (XSS) is a vulnterability that continues to plague web developers. This vulnerability is a type of injection attack and is so common that it's [number 3 on the OWASP Top Ten list](https://owasp.org/Top10/A03_2021-Injection/). 
+Cross-Site Scripting (XSS) is a vulnerability that continues to plague web developers. This vulnerability is a type of injection attack and is so common that it's [number 3 on the OWASP Top Ten list](https://owasp.org/Top10/A03_2021-Injection/). 
 
 How does this vulnerability work? In short, XSS happens when code pollutes data, and you don't implement safeguards. 
 
@@ -103,6 +105,7 @@ Stay tuned for the next post in this series as we dive deeper into CSRF and lear
 | --- |
 | 1. [Defend Your SPA from Security Woes](/blog/2022/07/06/spa-web-security) |
 | 2. **Defend Your SPA from Common Web Attacks** |
+| 3. [Protect Your Angular App From Cross-Site Request Forgery](/blog/2022/07/19/angular-security-csrf) |
 
 Ready to learn more? Check out out the following resources.
 * [A Comparison of Cookies and Tokens for Secure Authentication](/blog/2022/02/08/cookies-vs-tokens)
