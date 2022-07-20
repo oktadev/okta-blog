@@ -16,7 +16,6 @@ type: conversion
 
 Okta is a customizable, secure solution that lets you add authentication and access management to your applications. Since this can be a complex topic, we recommend setting up your first project with our CLI. In this walkthrough, we will:
 - Configure the Okta CLI
-- Install the Okta Python SDK
 - Teach you how to create your first application
 - Learn about authentication and authorization credentials
 - Set up Hosted Authentication with Okta and try it out 
@@ -29,7 +28,7 @@ Ready? Let's get started!
 - Okta developer account - these instructions assume you already have signed up. If you didn't, you can sign up for an account using the CLI! 
 - Python 3
 
-We will go over how to install the CLI and SDK during this tutorial. 
+We will go over how to install the CLI during this tutorial. 
 
 {% include toc.md %}
 
