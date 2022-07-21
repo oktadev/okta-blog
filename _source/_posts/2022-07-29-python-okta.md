@@ -167,7 +167,7 @@ Sometimes, the `.okta.env` file does not populate with the information you need.
 
 2. From the left panel, click **Applications**.
 
-3. Choose your application, if you used the CLI to create it as instructed it should be called **okta-flask-sample**. 
+3. Choose your application. If you used the CLI to create the app as instructed, it should be called **okta-flask-sample**. 
 
 4. Get the **Client ID** and the **Client Secret**. These map respectively to CLIENT_ID and CLIENT_SECRET in your `.okta.env` file. 
 
