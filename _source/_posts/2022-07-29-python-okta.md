@@ -32,7 +32,7 @@ We will go over how to install the CLI during this tutorial.
 
 ## Overview concepts
 
-This section quickly goes over a few key concepts.
+This section quickly covers a few key concepts.
 
 ### Org URL
 
