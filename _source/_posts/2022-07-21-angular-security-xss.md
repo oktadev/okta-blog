@@ -94,7 +94,7 @@ Well, darn it, we've got some problems.
 
 ## XSS support in Angular
 
-Fortunately, Angular has a lot of built-in security protections. It treats all values as suspicious and untrusted by default, which is incredibly helpful because the framework automatically guards us against unintentionally creating vulnerabilities in our applications. Angular automatically removes any `script` tags so we won't have to worry about the original hypothentical example.
+Fortunately, Angular has a lot of built-in security protections. It treats all values as suspicious and untrusted by default, which is incredibly helpful because the framework automatically guards us against unintentionally creating vulnerabilities in our applications. Angular automatically removes any `script` tags so we won't have to worry about the original hypothetical example.
 
 Let's see some examples of how Angular protects us against XSS.
 
