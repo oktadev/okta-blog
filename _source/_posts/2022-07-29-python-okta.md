@@ -23,7 +23,7 @@ Okta is a customizable, secure solution that lets you add authentication and acc
 **Prerequisites**
 
 This tutorial uses the following technologies but doesn't require any prior experience:
-- Okta developer account - these instructions assume you already have signed up. If you didn't, you can sign up for an account using the CLI! 
+- Okta Developer account - these instructions assume you already have signed up. If you didn't, you can sign up for a free account using the CLI! 
 - Python 3
 
 We will go over how to install the CLI during this tutorial. 
