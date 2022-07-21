@@ -161,7 +161,7 @@ That should solve the issue.
 
 ### My application says I can't authenticate
 
-Sometimes, the .okta.env file does not populate with the information you need. If this is the case, you will need to navigate to your developer dashboard and grab the information manually from your application. To do that take the following steps:
+Sometimes, the `.okta.env` file does not populate with the information you need. If this is the case, you will need to navigate to your developer dashboard and grab the information manually from your application. To do that, take the following steps:
 
 1. Log in to your dashboard.
 
