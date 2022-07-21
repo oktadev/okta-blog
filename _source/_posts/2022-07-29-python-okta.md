@@ -115,7 +115,7 @@ And try walking through hosted authentication with Okta! If all goes well, you'l
 
 {% img blog/python-okta/1_login.png alt:"Picture of log in page." width:"600" %}{: .center-image }
 
-When you click the **Login** button, you're then taken to a form that you can enter your email and password: 
+When you click the **Login** button, you're then taken to a form where you can enter your email and password: 
 
 {% img blog/python-okta/2_sign_in.png alt:"Picture of sign in page where you add account credentials." width:"300" %}{: .center-image }
 
