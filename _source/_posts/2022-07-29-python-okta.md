@@ -43,7 +43,7 @@ When you're starting out with Okta, you're provided an Org URL. This is what you
 You're also provided some information for authentication. It can get a bit confusing as there are *tokens*, *client IDs*, and *client secrets*. You need to use all three for the Okta application we're working on today. Let's quickly go over what each thing does for you. 
 * Tokens - these are like an API key. You're going to provide the token so that you can authenticate with the API. You use this for every request and it contains details about what you can and can't access. Tokens are presented to you only once, and never shown again. However, if you forget your token but you authenticate with the CLI, you can retrieve it. We'll go over that in a bit. 
 * Client ID - this is a way to say which application you're working with. 
-* Client secret - a password that goes with your Client ID and gives you permission to access a particular application.
+* Client secret - a password that goes with your client ID and gives you permission to access a particular application.
 
 Not every project needs all three of these things. You will generally need a token, you may not always need the other items. Sometimes you may require additional credentials when integrating with third party applications.
 
