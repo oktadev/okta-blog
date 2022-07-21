@@ -70,7 +70,7 @@ okta login
 
 5. On the API screen you can see your organization URL(s) and a tab called **Tokens**. Click the **Tokens** tab.
 
-6. On the Token page, you can manage and see all the tokens you created. You can't see the token's value after creating it, so save the token information somewhere secure. Click **Create Token**.
+6. On the Token page, you can manage and see all the tokens you've created. You can't see the token's value after creating it, so save the token information somewhere secure. Click **Create Token**.
 
 7. Follow the Create Token wizard to make your new token, and save the value to put in the CLI when prompted for credentials.
 
