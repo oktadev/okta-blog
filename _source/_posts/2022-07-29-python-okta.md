@@ -17,7 +17,7 @@ Okta is a customizable, secure solution that lets you add authentication and acc
 - Configure the Okta CLI
 - Teach you how to create your first application
 - Learn about authentication and authorization credentials
-- Set up Hosted Authentication with Okta and try it out 
+- Set up hosted authentication with Okta and try it out 
 - Cover troubleshooting issues you might encounter
 
 **Prerequisites**
