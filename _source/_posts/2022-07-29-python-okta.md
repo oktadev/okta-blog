@@ -149,7 +149,7 @@ app.run(host="localhost", port=3000, debug=True)
 
 2. In **app.py**, go to where it says **# get request params** and in the json for **query_params** change the **redirect_uri** from `http://localhost:5000/authorization-code/callback` to `http://localhost:3000/authorization-code/callback`.
 
-3. Log in as an administrator to your Okta developer account. Your log in URL for this will be your Organization URL, with a tweak to show you're logging in as the administrator. The URL takes the form of `https://dev-assignednumber-admin.okta.com`. 
+3. Log in as an administrator to your Okta developer account. Your login URL for this will be your Organization URL, with a tweak to show you're logging in as the administrator. The URL takes the form of `https://dev-assignednumber-admin.okta.com`. 
 
 4. From the left panel, choose **Applications**. 
 
