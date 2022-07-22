@@ -86,11 +86,89 @@ We are going to build the `gateway` and `store` in a continuous integration work
 
 ## Set up CI for JHipster with CircleCI
 
+First, create the CircleCI cofniguration for the `store` microservice and the `gateway`.
+
+```shell
+cd store
+jhipster ci-cd
+```
+```shell
+cd gateway
+jhipster ci-cd
+```
+
+For both applications, choose the following options:
+- What CI/CD pipeline do you want to generate? **CircleCI**
+- What tasks/integrations do you want to include? (none)
+
+Tweak the generated configuration at `store/.circleci/config.yml` to change the execution environment of the workflow, to a dedicated VM, as that is required by the [TestContainers](https://www.testcontainers.org/supported_docker_environment/continuous_integration/circle_ci) dependency in tests. Also add two more steps, for building the docker container image and pushing the image to DockerHub. As the dedicated VM includes docker, the docker installation step in the configuration can also be removed. The final `config.yml` must look like:
+
+```yml
+version: 2.1
+jobs:
+  build:
+    environment:
+      IMAGE_NAME: your-dockerhub-user/store
+    machine:
+      image: ubuntu-2004:current
+    resource_class: 2xlarge
+    steps:
+      - checkout
+      - restore_cache:
+          keys:
+            - v1-dependencies-{{ checksum "build.gradle" }}-{{ checksum "package-lock.json" }}
+            # Perform a Partial Cache Restore (https://circleci.com/docs/2.0/caching/#restoring-cache)
+            - v1-dependencies-
+      - run:
+          name: Print Java Version
+          command: 'java -version'
+      - run:
+          name: Print Node Version
+          command: 'node -v'
+      - run:
+          name: Print NPM Version
+          command: 'npm -v'
+      - run:
+          name: Install Node Modules
+          command: 'npm install'
+      - save_cache:
+          paths:
+            - node
+            - node_modules
+            - ~/.gradle
+            key: v1-dependencies-{{ checksum "build.gradle" }}-{{ checksum "package-lock.json" }}
+      - run:
+          name: Give Executable Power
+          command: 'chmod +x gradlew'
+      - run:
+          name: Backend tests
+          command: npm run ci:backend:test
+      - run:
+          name: Build Spring Boot Docker Image
+          command: ./gradlew bootBuildImage --imageName=$IMAGE_NAME
+      - run:
+          name: Publish Docker Image
+          command: |
+            echo "$DOCKERHUB_PASS" | docker login -u your-dockerhub-user --password-stdin
+            docker push $IMAGE_NAME
+```
+
+Do the same updates to the `gateway/.circleci/config.yml` file.
+
+To take advantage of the one-step Github integration of CircleCI, you need a [Github](https://github.com/signup) account. After signing in, create a new public repository `store`. Follow the instructions to push the existing repository from your local using the command line. Do the same with the `gateway` project.
+
+[Sign up](https://circleci.com/integrations/github) at CircleCI with your Github account, and on the left menu choose **Projects**. Find the `store` project and click **Set Up Project**. Configure the project to **Use the `.circleci/config.yml` in my repo**.
+
+{% img blog/jhipster-ci-cd/circleci-project.png alt:"CircleCI project setup form" width:"500" %}{: .center-image }
+
+Do the same for the `gateway` project. Before running the pipeline, you must set up DockerHub credentials for both projects, allowing CircleCI to push the container images. At the `store` project page, on the top right, choose **Project Settings**. Then choose **Environment Variables**. Click **Add Environment Variable**. and set the following values:
+
+- Name: DOCKERHUB_PASS
+- Value: your DockerHub password, or better, a DockerHub access token if you have 2FA enabled
+
+
 <!---
-Create a microservices project
 CircleCI account
-JHipster circleci config fix
-DOCKERHUB_PASS
 Notes about CircleCI delete project?
 Notes about CircleCI cahe?
 --->
