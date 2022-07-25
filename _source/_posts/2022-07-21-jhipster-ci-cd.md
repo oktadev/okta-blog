@@ -101,7 +101,13 @@ For both applications, choose the following options:
 - What CI/CD pipeline do you want to generate? **CircleCI**
 - What tasks/integrations do you want to include? (none)
 
-Tweak the generated configuration at `store/.circleci/config.yml` to change the execution environment of the workflow, to a dedicated VM, as that is required by the [TestContainers](https://www.testcontainers.org/supported_docker_environment/continuous_integration/circle_ci) dependency in tests. Also add two more steps, for building the docker container image and pushing the image to DockerHub. As the dedicated VM includes docker, the docker installation step in the configuration can also be removed. The final `config.yml` must look like:
+Tweak the generated configuration at `store/.circleci/config.yml`, as the following changes are required for a successful execution:
+- Change the execution environment of the workflow, to a dedicated VM, as that is required by the [TestContainers](https://www.testcontainers.org/supported_docker_environment/continuous_integration/circle_ci) dependency in tests.
+- As the dedicated VM includes docker, the docker installation step in the configuration must be removed
+- Add a step for building the docker container image
+- Add a step for pushing the image to DockerHub
+
+The final `config.yml` must look like:
 
 ```yml
 version: 2.1
@@ -166,20 +172,20 @@ Do the same for the `gateway` project. Before running the pipeline, you must set
 - Name: DOCKERHUB_PASS
 - Value: your DockerHub password, or better, a DockerHub access token if you have 2FA enabled
 
-
 <!---
 CircleCI account
 Notes about CircleCI delete project?
 Notes about CircleCI cahe?
 --->
+Once a project is set up in CircleCI, a pipeline is triggered each time a commit is pushed on the branch that has a .circleci/config.yml file included. Once the commit is pushed the running pipeline appears on the **Dashboard**. You can also manually trigger the pipeline from the **Dashboard**, if you choose the project and branch from the pipeline filters, and then click **Trigger Pipeline**. Verify the pipelines execution succeeds before moving on to the next section.
 
-
-
-
+{% img blog/jhipster-ci-cd/circleci-job-success.png alt:"CircleCI project setup form" width:"500" %}{: .center-image }
 
 ## Set up CD for JHipster with Spinnaker
 
 <!--More about Spinnaker-->
+
+As an overview, Spinnaker installation options:
 
 ### Set up Spinnaker on Google Kubernetes Engine
 <!---
@@ -194,6 +200,29 @@ Notes about CircleCI cahe?
 . create github account
 
 --->
+As described on Spinnaker [docs](https://spinnaker.io/docs/setup/install/), the first step is to install [Halyard](https://spinnaker.io/docs/setup/install/halyard/). For MacOS:
+
+```shell
+curl -O https://raw.githubusercontent.com/spinnaker/halyard/master/install/macos/InstallHalyard.sh
+sudo bash InstallHalyard.sh
+```
+Verify the installation with:
+
+```shell
+hal -v
+```
+
+The second step is to choose a cloud provider, for this case, Kubernetes. As a prerequisite, Spinnaker needs a `kubeconfig` file, to access and manage the Kubernetes cluster. For creating a `kubeconfig` for a GKE cluster, you must first create your GoogleCloud account. There is a [free tier](https://cloud.google.com/free) that grants you $300 in free credits if you are new to GoogleCloud.
+
+After you signed up, install `gcloud` [CLI](https://cloud.google.com/sdk/docs/install).
+
+
+
+
+
+
+
+
 
 ### Notes on pipeline design in Spinnaker
 
