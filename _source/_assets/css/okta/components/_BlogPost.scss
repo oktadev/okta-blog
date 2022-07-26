@@ -237,6 +237,21 @@
 			width: 200px;
 		}
 
+		.m-up-10 {
+			margin-top: -10px;
+		}
+
+		.m-up-20 {
+			margin-top: -20px;
+		}
+
+		/* Fix m-up-20 on mobile */
+		@media only screen and (width: 980px), (hover: none) {
+			.m-up-20 {
+				float: unset;
+			}
+		}
+
 		/* Don't force small images in tables */
 		table td img {
 			max-width: unset;
@@ -323,7 +338,7 @@
 		.highlight .vi { color: $dark-cerulean; } /* Name Variable Instance */
 		.highlight .bp { color: $dark-cerulean; } /* Name Builtin Pseudo */
 		.highlight .g { color: $eclipse-2; } /* Base Style */
-		.highlight .gd { color: $eclipse-2; } /*  */
+		.highlight .gd { color: $eclipse-2; } /*	*/
 		.highlight .o { color: $eclipse-2; } /* Base Style */
 		.highlight .ow { color: $puerto-rico; } /* Operator Word */
 		.highlight .c { color: $nobel-2; font-style: italic; }/* Base Style */
@@ -410,15 +425,45 @@
 		// fix cursor for summary
 		summary { cursor: pointer }
 
-    // Jekyll plugins
-    .jekyll-twitter-plugin {
-      max-width: 500px;
-      margin: 0 auto 1.25rem;
-      .twitter-tweet-rendered {
-        margin-left: auto;
-        margin-right: auto;
-      }
-    }
+		// Jekyll plugins
+		.jekyll-twitter-plugin {
+			max-width: 500px;
+			margin: 0 auto 1.25rem;
+			.twitter-tweet-rendered {
+				margin-left: auto;
+				margin-right: auto;
+			}
+		}
+
+		// responsive iframes for videos in a grid
+		.video-grid {
+			width: 100%;
+			display: grid;
+			grid-template-columns: 50% 50%;
+			grid-column-gap: 20px;
+			grid-row-gap: 20px;
+
+			.video {
+				border-radius: 10px;
+				display: flex;
+				align-items: center;
+				justify-content: center;
+
+				overflow: hidden;
+				/* 16:9 aspect ratio */
+				padding-top: 56.25%;
+				position: relative;
+
+				iframe {
+					border: 0;
+					height: 100%;
+					left: 0;
+					position: absolute;
+					top: 0;
+					width: 100%;
+				}
+			}
+		}
 	}
 
 	&-more {
@@ -544,7 +589,7 @@
 			&-attribution {
 				order: 2;
 				width: 100%;
-              	padding: 20px 0;
+				padding: 20px 0;
 
 				img {
 					width: 56px;

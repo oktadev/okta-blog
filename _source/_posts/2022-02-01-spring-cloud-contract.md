@@ -600,7 +600,9 @@ To generate a valid JWT, you need to create an OpenID Connect (OIDC) application
 
 {% include setup/oidcdebugger.md %}
 
-Once you have the token value, save it in a shell variable (in the terminal window where you are going to run the HTTPie command to test the authenticated application).
+Click **Send Request** to continue.
+
+Once you have the access token's value, save it in a shell variable (in the terminal window where you are going to run the HTTPie command to test the authenticated application).
 
 ```bash
 TOKEN=eyJraWQiOiJDVkdzamc2MDBCNVFXR3VSdVRDckJuLVhLa2J...
