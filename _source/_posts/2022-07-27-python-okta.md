@@ -99,7 +99,7 @@ okta apps create
 
 4. For framework, choose 1. 
 
-5. You need to enter the URIs you want to use to redirect. In the CLI these are referred to as Redirect URIs. In your developer dashboard, they're called sign-in redirect URIs. For this walkthrough, we'll use: `http://localhost:3000/authorization-code/callback`. You can use other localhost ports, just be sure to write out the link with the `/authorization-code/callback` added at the end.
+5. You need to enter the URIs you want to use to redirect. In the CLI these are referred to as Redirect URIs. In your developer dashboard, they're called **Sign-in redirect URIs**. For this walkthrough, we'll use: `http://localhost:3000/authorization-code/callback`. You can use other localhost ports, just be sure to write out the link with the `/authorization-code/callback` added at the end.
 
 6. You also need to add your **Post Logout Redirect URIs**. In the developer dashboard, these are called **Sign-out redirect URIs**. Since we used localhost:3000, the URI will be: `http://localhost:3000/`.  
 
