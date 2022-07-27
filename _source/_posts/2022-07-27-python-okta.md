@@ -80,7 +80,7 @@ After you've done this, you will have a developer account associated with the CL
 
 If you download the CLI, you can type `okta start flask` and follow the provided instructions to get the project set up. The [GitHub repository](https://github.com/okta-samples/okta-flask-sample) will be downloaded for you and the environment variables will be configured in the `.okta.env` file. 
 
-**NOTE:** You need to enter the URIs you want to use to redirect. In the CLI these are referred to as Redirect URIs. In your developer dashboard, they're called sign-in redirect URIs. For this walkthrough, we'll use: `http://localhost:3000/authorization-code/callback`. You can use other localhost ports, just be sure to write out the link with the `/authorization-code/callback` added at the end. You also need to add your **Post Logout Redirect URIs**. In the developer dashboard, these are called **Sign-out redirect URIs**. Since we used localhost:3000, the URI will be: `http://localhost:3000/`. 
+**NOTE:** You need to enter the URIs you want to use to redirect. In the CLI these are referred to as Redirect URIs. In your developer dashboard, they're called **Sign-in redirect URIs**. For this walkthrough, we'll use: `http://localhost:3000/authorization-code/callback`. You can use other localhost ports, just be sure to write out the link with the `/authorization-code/callback` added at the end. You also need to add your **Post Logout Redirect URIs**. In the developer dashboard, these are called **Sign-out redirect URIs**. Since we used localhost:3000, the URI will be: `http://localhost:3000/`. 
 
 ## Create an application (optional)
 
