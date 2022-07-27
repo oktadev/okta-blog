@@ -114,7 +114,7 @@ version: 2.1
 jobs:
   build:
     environment:
-      IMAGE_NAME: your-dockerhub-user/store
+      IMAGE_NAME: your-docker-repo/store
     machine:
       image: ubuntu-2004:current
     resource_class: 2xlarge
@@ -155,7 +155,7 @@ jobs:
       - run:
           name: Publish Docker Image
           command: |
-            echo "$DOCKERHUB_PASS" | docker login -u your-dockerhub-user --password-stdin
+            echo "$DOCKERHUB_PASS" | docker login -u your-docker-repo --password-stdin
             docker push $IMAGE_NAME
 ```
 
@@ -179,9 +179,9 @@ Notes about CircleCI cahe?
 --->
 Once a project is set up in CircleCI, a pipeline is triggered each time a commit is pushed on the branch that has a .circleci/config.yml file included. Once the commit is pushed the running pipeline appears on the **Dashboard**. You can also manually trigger the pipeline from the **Dashboard**, if you choose the project and branch from the pipeline filters, and then click **Trigger Pipeline**. Verify the pipelines execution succeeds before moving on to the next section.
 
-{% img blog/jhipster-ci-cd/circleci-job-success.png alt:"CircleCI project setup form" width:"500" %}{: .center-image }
+{% img blog/jhipster-ci-cd/circleci-job-success.png alt:"CircleCI project setup form" width:"800" %}{: .center-image }
 
-## Set up CD for JHipster with Spinnaker on Google Kubernetes Engine
+## Install Spinnaker on Google Kubernetes Engine
 
 <!--More about Spinnaker-->
 
@@ -371,7 +371,7 @@ The __Distributed installation__ on Kubernetes deploys each Spinnaker's microser
 Select the distributed deployment with:
 
 ```shell
-hal config deploy edit --type distributed --account-name spinnaker-gce-account
+hal config deploy edit --type distributed --account-name spinnaker-gke-account
 ```
 
 ### Choose a storage service
@@ -413,7 +413,18 @@ The last `hal` commands edit the storage settings and set the storage source to 
 
 ### Deploy Spinnaker
 
-For deploying the latest version, execute:
+You can verify the deployment configuration with:
+
+```shell
+hal config deploy
+```
+
+And the storage configuration with:
+```shell
+hal config storage
+```
+
+For deploying the latest Spinnaker version, execute:
 
 ```shell
 hal deploy apply
@@ -434,6 +445,8 @@ Navigate to [localhost:9000](localhost:9000), the UI will look like:
 
 {% img blog/jhipster-ci-cd/circleci-project.png alt:"CircleCI project setup form" width:"500" %}{: .center-image }
 
+
+## Set up CD for a JHipster microservices application
 
 ### Choose GKE for applications deployment
 
@@ -581,19 +594,87 @@ hal config provider kubernetes account add jhipster-gke-account \
 
 ### Add a docker registry account
 
+As the goal is to trigger the pipeline execution when a new image is pushed to DockerHub, you need to configure a docker-registry provider with Halyard. The following `hal config` line will prompt for your password or access token if you have 2FA enabled.
+
+```shell
+ADDRESS=index.docker.io
+REPOSITORIES="your-docker-repo/store your-docker-repo/gateway"
+USERNAME=indiepopart
+
+hal config provider docker-registry account add docker-account \
+    --address $ADDRESS \
+    --repositories $REPOSITORIES \
+    --username $USERNAME \
+    --password
+```
+
 ### Add a Github artifact account
 
-### Set up the store microservice pipeline
+The pipeline will deploy k8s manifests from a Github repository, we you must also configure a Github artifact account:
+
+```shell
+ARTIFACT_ACCOUNT_NAME=indiepopart
+
+hal config artifact github account add $ARTIFACT_ACCOUNT_NAME \
+    --token
+```
+
+
+### Create the store microservice pipeline
+
+The new GKE, Docker and Github accounts configuration created with Halyard must be applied to the deployment before starting the pipeline design:
+
+```shell
+hal deploy apply
+```
+
+Connect to the Spinnaker UI again:
+```shell
+hal deploy connect
+```
+Navigate to [localhost:9000](localhost:9000), and create the store application, choosing Kubernetes as the cloud provider:
+
+{% img blog/jhipster-ci-cd/sp-store-app.png alt:"CircleCI project setup form" width:"600" %}{: .center-image }
+
+Then, on the left menu, choose **Pipelines** and click **Configure a new pipeline**. Set a name for the pipeline, for example, _store-cd_.
+
+### Configure the Docker image trigger
+
+In the pipeline configuration, click **Add Trigger**. Set the following configuration for the trigger:
+
+- Type: **Docker Registry**
+- Registry Name: **docker-account**
+- Organization: **your-docker-repo**
+- Image: **your-docker-repo/store**
+- Artifact Constraints: Choose **Define new artifact**
+
+In the _Expected Artifact_ form, set the following values:
+
+- Display Name: **store-image**
+- Account: **docker-registry**
+- Docker image: Fully qualified **index.docker.io/your-docker-repo/store**
+
+
+{% img blog/jhipster-ci-cd/sp-trigger-artifact.png alt:"CircleCI project setup form" width:"600" %}{: .center-image }
+
+**IMPORTANT NOTE**: Spinnaker provides a mechanism to override the version Docker images, Kubernetes ConfigMaps and Secrets, injecting new versions into the deployed manifests, when one of these objects exist in the pipeline context. However Spinnaker documentation does not have a clear example on the trigger configuration for the artifact to be available in the pipeline context. At this moment, the way to make the artifact available in the context, is to _set it as an artifact constraint in the trigger_. If the artifact constraint is not defined, the image version in the manifests will be deployed, instead of the newly image that triggered the pipeline. If not version is in the manifests, `latest` will the default.
+
+
+### Configure the deployment stages
+
+
 
 ### Continuous integration and delivery
 
-Test complete workflow making a small change in the gateway code. 
+Test complete workflow making a small change in the gateway code.
 
 
 
 ### Notes on pipeline design in Spinnaker
 
-### Notes on Spinnaker artifact pains
+
+
+## Manage Secrets
 
 ### Manage application secrets
 
