@@ -720,23 +720,31 @@ A successful execution will show all stages in green state:
 
 {% img blog/jhipster-ci-cd/sp-pipeline-success.png alt:"Spinnaker pipeline successful execution" width:"800" %}{: .center-image }
 
-With `kubectl` start port-forwarding to the gateway:
+
+Get the external IP of the gateway:
 
 ```shell
+kubectl get svc gateway -n demo
 ```
 
-Navigate to http://localhost:8080 and sign in to the application with your Okta credentials. Then try creating a `Product`:
+Update the redirect URIs in Okta to allow the gateway address as a valid redirect. Run `okta login`, open the returned URL in your browser, and sign in to the Okta Admin Console. Go to the **Applications** section, find your application, edit, and add:
+- Sign-in redirect URIs: `http://<external-ip>:8080/login/oauth2/code/oidc`
+- Sign-out redirect URIs: `http://<external-ip>:8080`
 
+Navigate to `http://<external-ip>:8080` and sign in to the application with your Okta credentials. Then try creating a `Product`:
 
+{% img blog/jhipster-ci-cd/app-create-product.png alt:"Create a product in the store application" width:"800" %}{: .center-image }
 
+### Trigger the CI-CD pipeline with a code commit
 
+For testing the workflow, make a code change in the gateway. Edit `webapp/content/scss/_bootstrap-variables.scss` and update the following variable:
 
+```scss
+$body-bg: steelblue;
+```
+Commit and push the change to the `main` branch, and watch the CircleCI CI pipeline triggers. After the new gateway image is pushed to DockerHub, watch the Spinnaker CD pipeline trigger and deploy the updated gateway.
 
-
-### Continuous integration and delivery
-
-Test complete workflow making a small change in the gateway code.
-
+{% img blog/jhipster-ci-cd/app-product-list.png alt:"Display products in the store application" width:"800" %}{: .center-image }
 
 
 ### Notes on pipeline design in Spinnaker
@@ -748,7 +756,9 @@ Test complete workflow making a small change in the gateway code.
 - Best practices
 - Canary
 - E2E testing
-- Manual judgements
+- Manual judgments
+- Spinnaker logs
+
 
 
 
