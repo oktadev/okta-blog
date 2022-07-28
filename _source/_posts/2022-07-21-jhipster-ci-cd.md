@@ -177,7 +177,7 @@ CircleCI account
 Notes about CircleCI delete project?
 Notes about CircleCI cahe?
 --->
-Once a project is set up in CircleCI, a pipeline is triggered each time a commit is pushed on the branch that has a .circleci/config.yml file included. Once the commit is pushed the running pipeline appears on the **Dashboard**. You can also manually trigger the pipeline from the **Dashboard**, if you choose the project and branch from the pipeline filters, and then click **Trigger Pipeline**. Verify the pipelines execution succeeds before moving on to the next section.
+Once a project is set up in CircleCI, a pipeline is triggered each time a commit is pushed on the branch that has a .circleci/config.yml file included. Once the commit is pushed the running pipeline appears on the **Dashboard**. You can also manually trigger the pipeline from the **Dashboard**, if you choose the project and branch from the pipeline filters, and then click **Trigger Pipeline**.Before moving on to the next section, manually execute the store pipeline and the gateway pipeline once, to push a first image of each to DockerHub.
 
 {% img blog/jhipster-ci-cd/circleci-job-success.png alt:"CircleCI job success" width:"800" %}{: .center-image }
 
@@ -644,7 +644,7 @@ Navigate to [localhost:9000](localhost:9000), and create the store application, 
 
 Then, on the left menu, choose **Pipelines** and click **Configure a new pipeline**. Set a name for the pipeline, for example, _store-cd_.
 
-### Configure the Docker image trigger
+### Configure the Docker image triggers
 
 In the pipeline configuration, click **Add Trigger**. Set the following configuration for the trigger:
 
@@ -659,12 +659,16 @@ In the _Expected Artifact_ form, set the following values:
 - Display Name: **store-image**
 - Account: **docker-registry**
 - Docker image: Fully qualified **index.docker.io/your-dockerhub-username/store**
+- Use prior execution: **yes**
+- Use default artifact: **yes** (set the same account and object path as before)
 
 Click **Save Changes**.
 
 {% img blog/jhipster-ci-cd/sp-trigger-artifact.png alt:"Spinnaker pipeline trigger" width:"700" %}{: .center-image }
 
-**IMPORTANT NOTE**: Spinnaker provides a mechanism to [override](https://spinnaker.io/docs/guides/user/kubernetes-v2/deploy-manifest/#override-artifacts) the version of Docker images, Kubernetes ConfigMaps and Secrets, injecting new versions into the deployed manifests, when one of these objects exist in the pipeline context. However Spinnaker documentation does not have a clear example on the trigger configuration for the artifact to be available in the pipeline context. At this moment, the way to make the artifact available in the context, is to _set it as an artifact constraint in the trigger_. If the artifact constraint is not defined, the image version in the manifests will be deployed, instead of the newly image that triggered the pipeline. If no version is in the manifests, `latest` will the default.
+**IMPORTANT NOTE**: Spinnaker provides a mechanism to [override](https://spinnaker.io/docs/guides/user/kubernetes-v2/deploy-manifest/#override-artifacts) the version of Docker images, Kubernetes ConfigMaps and Secrets in manifests, injecting new versions when one of these objects exist in the pipeline context. However Spinnaker documentation does not have a clear example on the trigger configuration for the artifact to be available in the pipeline context. At this moment, the way to make the artifact available in the context, is to _set it as an artifact constraint in the trigger_. If the artifact constraint is not defined, the original image version in the manifests will be deployed, instead of the newly image that triggered the pipeline. If no version is in the manifests, `latest` will the default.
+
+Add a second Docker registry trigger for the gateway image pushes.
 
 
 ### Configure the deployment stages
@@ -697,9 +701,37 @@ In the pipeline configuration choose **Add Stage** and set the following values:
  Click **Save Changes**.
  Repeat the process for adding stages to deploy `jhipster-registry.yml`, `gateway-postgresql.yml`, `store-mongodb.yml` manifests.
 
-Add a stage for the `store` deployment. For this manifest, you must bind the docker image from the context. In the deploy manifest configuration, in **Required Artifacts to Bind**, choose **store-image**. The option must be available as the image was set as artifact constraint in the trigger configuration, making the artifact available in the pipeline context.
+Add a stage for the `store-deployment.yml` manifest. For this manifest, you must bind the docker image from the context. In the deploy manifest configuration, in **Required Artifacts to Bind**, choose **store-image**. The option must be available as the image was set as artifact constraint in the trigger configuration, making the artifact available in the pipeline context.
 
 {% img blog/jhipster-ci-cd/sp-bind-artifact.png alt:"Spinnaker deploy manifest configuration binding artifact" width:"700" %}{: .center-image }
+
+Add also a stage for the `gateway-deployment.yml`, binding the `gateway` docker image. Finally add stages for `sstore-service.yml` and `gateway-service.yml`. Notice docker images have to be bound only for the deployment manifests, where the images are referenced.
+The complete pipeline must look like:
+
+{% img blog/jhipster-ci-cd/sp-jhipster-pipeline.png alt:"Spinnaker pipeline for jhipster microservices" width:"800" %}{: .center-image }
+
+Test the pipeline manually once. In the pipelines view, click **Start Manual Execution** for the _store-cd_ pipeline. Set the following options:
+
+- Trigger: leave **docker-account: your-dockerhub-username/store**
+- Type: **Tag**
+- Tag: **latest**
+
+A successful execution will show all stages in green state:
+
+{% img blog/jhipster-ci-cd/sp-pipeline-success.png alt:"Spinnaker pipeline successful execution" width:"800" %}{: .center-image }
+
+With `kubectl` start port-forwarding to the gateway:
+
+```shell
+```
+
+Navigate to http://localhost:8080 and sign in to the application with your Okta credentials. Then try creating a `Product`:
+
+
+
+
+
+
 
 ### Continuous integration and delivery
 
@@ -708,6 +740,15 @@ Test complete workflow making a small change in the gateway code.
 
 
 ### Notes on pipeline design in Spinnaker
+
+- Rollbacks
+- Secrets management
+- Manifest versions
+- Pipeline as code
+- Best practices
+- Canary
+- E2E testing
+- Manual judgements
 
 
 
