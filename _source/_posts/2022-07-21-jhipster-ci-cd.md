@@ -3,7 +3,7 @@ layout: blog_post
 title: "Continous integration and delivery for JHipster microservices"
 author: jimena-garbarino
 by: contractor
-communities: [devops,security,mobile,.net,java,javascript,go,php,python,ruby]
+communities: [devops,security,java]
 description: "How to set up continous integration with CircleCI and continuous delivery with Spinnaker in a JHipster microservices architecture"
 tags: [java, ci, cd, jhipster]
 tweets:
@@ -13,19 +13,17 @@ tweets:
 image:
 type: awareness
 ---
-
 <!--
 Intro
 What is CircleCI, CI
 What is Spinnaker, CD
 Workflow
 -->
+As requested by JHipster users, in this post we touch base on how to add Continous Integration and Delivery for a JHipster microservices architecture and Kubernetes as the target cloud deployment environment.
 
-{% img blog/jhipster-ci-cd/jhipster-logo.png alt:"JHipster logo" width:"400" %}{: .center-image }
+In short, continuous integration is the practice of integrating code into a main branch of a shared repository early and often. Instead integrating features at the end of a development cycle, code is integrated with the shared repository multiple times throughout the day. Each commit triggers automated tests, so issues are detected and fixed earlier and faster, improving team confidence and productivity. The chosen continuous integration platform is from CircleCI, a company founded in 2011 and headquartered in San Francisco. They offer a free cloud to test their services.
 
-Continuous integration is the practice to integrate code into a main branch of a shared repository early and often. Instead integrating features at the end of a development cycle, code is integrated with the shared repository multiple times throughout the day. Each commit triggers automated tests, so issues are detected and fixed earlier and faster, improving team confidence and productivity. For the CI part of the workflow, the chosen platform is CircleCI, a company founded in 2011 and headquartered in San Francisco. They offer a free cloud to test their services.
-
-Continous delivery
+Continous delivery is the practice of releasing to production often in a fast, safe and automatic way, allowing faster innovation and feedback loops. It's adoption requires the implementation of techniques and tools like Spinnaker, an open-source, multi-cloud, continous delivery platform that provides application management and deployment features. The intersection between CI and CD is not always clear, but for this example we assume CI produces and validates the artifacts and CD deploys them. The CI-CD workflow for the proposed tools exploration is illustrated below.
 
 {% img blog/jhipster-ci-cd/ci-cd-workflow.png alt:"CI-CD workflow" width:"900" %}{: .center-image }
 
@@ -34,7 +32,9 @@ This tutorial was created with the following frameworks and tools:
 - [JHipster 7.8.1](https://www.jhipster.tech/installation/)
 - [Java OpenJDK 11](https://jdk.java.net/java-se-ri/11)
 - [Okta CLI 0.10.0](https://cli.okta.com)
+- [Halyard 1.44.1](https://spinnaker.io/docs/setup/install/halyard/#install-on-debianubuntu-and-macos)
 - [kubectl 1.23](https://kubernetes.io/docs/tasks/tools/#kubectl)
+- [gcloud CLI 391.0.0](https://cloud.google.com/sdk/docs/install)
 - [k9s v0.25.18](https://k9scli.io/topics/install/)
 - [Docker 20.10.12](https://docs.docker.com/engine/install/)
 
@@ -210,7 +210,9 @@ To take advantage of the one-step Github integration of CircleCI, you need a [Gi
 Do the same for the `gateway` project. Before running the pipeline, you must set up DockerHub credentials for both projects, allowing CircleCI to push the container images. At the `store` project page, on the top right, choose **Project Settings**. Then choose **Environment Variables**. Click **Add Environment Variable**. and set the following values:
 
 - Name: DOCKERHUB_PASS
-- Value: your DockerHub password, or better, a DockerHub access token if you have 2FA enabled
+- Value: your DockerHub password, or better, a DockerHub access token if you have 2FA enabled.
+
+**Note**: For creating a DockerHub access token, sign to DockerHub, and choose **Account Settings** in the top right user menu. Then, on the left menu, choose **Security**. Click **New Access Token** and set a description for the token, for example, _spinnaker_. Then click **Generate** and copy the new token.
 
 <!---
 CircleCI account
@@ -789,7 +791,13 @@ Commit and push the change to the `main` branch, and watch the CircleCI CI pipel
 {% img blog/jhipster-ci-cd/app-product-list.png alt:"Display products in the store application" width:"800" %}{: .center-image }
 
 
-### Notes on pipeline design in Spinnaker
+## Manage Secrets
+
+### Manage application secrets
+
+### Manage Kubernetes secrets
+
+## Know about Spinnaker best practices
 
 - Rollbacks
 - Secrets management
@@ -800,15 +808,7 @@ Commit and push the change to the `main` branch, and watch the CircleCI CI pipel
 - E2E testing
 - Manual judgments
 - Spinnaker logs
-
-
-
-
-## Manage Secrets
-
-### Manage application secrets
-
-### Manage Kubernetes secrets
+- Multi-cloud
 
 ## Learn more
 
