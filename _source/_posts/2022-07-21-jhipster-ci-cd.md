@@ -16,11 +16,18 @@ type: awareness
 
 <!--
 Intro
-Logos
+What is CircleCI, CI
+What is Spinnaker, CD
 Workflow
 -->
 
+{% img blog/jhipster-ci-cd/jhipster-logo.png alt:"JHipster logo" width:"400" %}{: .center-image }
 
+Continuous integration is the practice to integrate code into a main branch of a shared repository early and often. Instead integrating features at the end of a development cycle, code is integrated with the shared repository multiple times throughout the day. Each commit triggers automated tests, so issues are detected and fixed earlier and faster, improving team confidence and productivity. For the CI part of the workflow, the chosen platform is CircleCI, a company founded in 2011 and headquartered in San Francisco. They offer a free cloud to test their services.
+
+Continous delivery
+
+{% img blog/jhipster-ci-cd/ci-cd-workflow.png alt:"CI-CD workflow" width:"900" %}{: .center-image }
 
 This tutorial was created with the following frameworks and tools:
 
@@ -81,6 +88,39 @@ Choose the following options when prompted:
 - Use a specific storage class? (leave empty)
 
 **NOTE**: You must set up the Docker repository name for the cloud deployment, so go ahead and create a [DockerHub](https://hub.docker.com/) personal account, if you don't have one, before running the k8s sub-generator.
+
+
+### Configure Okta for OIDC authentication
+
+One more configuration step before building the applications, let's configure Okta for authentication.
+
+{% include setup/cli.md type="jhipster" %}
+
+Add the settings from the generated `.okta.env` to `kubernetes/registry-k8s/application-configmap.yml`:
+
+```yml
+data:
+  application.yml: |-
+    ...
+    spring:
+      security:
+        oauth2:
+          client:
+            provider:
+              oidc:
+                issuer-uri: https://<your-okta-domain>/oauth2/default
+            registration:
+              oidc:
+                client-id: <client-id>
+                client-secret: <client-secret>
+```
+
+Enable the OIDC authentication in the `jhipster-registry` service by adding the `oauth2` profile in the `kubernetes/registry-k8s/jhipster-registry.yml` file:
+
+```yml
+- name: SPRING_PROFILES_ACTIVE
+  value: prod,k8s,oauth2
+```
 
 We are going to build the `gateway` and `store` in a continuous integration workflow with CircleCI.
 
@@ -184,6 +224,8 @@ Once a project is set up in CircleCI, a pipeline is triggered each time a commit
 ## Install Spinnaker on Google Kubernetes Engine
 
 <!--More about Spinnaker-->
+
+### Understand Artifacts and Accounts
 
 As an overview, Spinnaker installation options:
 
