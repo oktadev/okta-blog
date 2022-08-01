@@ -19,7 +19,7 @@ What is CircleCI, CI
 What is Spinnaker, CD
 Workflow
 -->
-As requested by JHipster users, in this post we touch base on how to add Continous Integration and Delivery for a JHipster microservices architecture and Kubernetes as the target cloud deployment environment.
+As requested by JHipster users, in this post we cover the basics on how to add Continous Integration and Delivery for a JHipster microservices architecture and Kubernetes as the target cloud deployment environment.
 
 In short, continuous integration is the practice of integrating code into a main branch of a shared repository early and often. Instead integrating features at the end of a development cycle, code is integrated with the shared repository multiple times throughout the day. Each commit triggers automated tests, so issues are detected and fixed earlier and faster, improving team confidence and productivity. The chosen continuous integration platform is from CircleCI, a company founded in 2011 and headquartered in San Francisco. They offer a free cloud to test their services.
 
@@ -205,7 +205,7 @@ To take advantage of the one-step Github integration of CircleCI, you need a [Gi
 
 [Sign up](https://circleci.com/integrations/github) at CircleCI with your Github account, and on the left menu choose **Projects**. Find the `store` project and click **Set Up Project**. Configure the project to **Use the `.circleci/config.yml` in my repo**.
 
-{% img blog/jhipster-ci-cd/circleci-project.png alt:"CircleCI project setup form" width:"500" %}{: .center-image }
+{% img blog/jhipster-ci-cd/circleci-project.png alt:"CircleCI project setup form" width:"450" %}{: .center-image }
 
 Do the same for the `gateway` project. Before running the pipeline, you must set up DockerHub credentials for both projects, allowing CircleCI to push the container images. At the `store` project page, on the top right, choose **Project Settings**. Then choose **Environment Variables**. Click **Add Environment Variable**. and set the following values:
 
@@ -219,7 +219,7 @@ CircleCI account
 Notes about CircleCI delete project?
 Notes about CircleCI cahe?
 --->
-Once a project is set up in CircleCI, a pipeline is triggered each time a commit is pushed on the branch that has a .circleci/config.yml file included. Once the commit is pushed the running pipeline appears on the **Dashboard**. You can also manually trigger the pipeline from the **Dashboard**, if you choose the project and branch from the pipeline filters, and then click **Trigger Pipeline**.Before moving on to the next section, manually execute the store pipeline and the gateway pipeline once, to push a first image of each to DockerHub.
+Once a project is set up in CircleCI, a pipeline is triggered each time a commit is pushed on the branch that has a .circleci/config.yml file included. The pipeline in execution appears on the **Dashboard** page. You can also manually trigger the pipeline from the **Dashboard**, if you choose the project and branch from the pipeline filters, and then click **Trigger Pipeline**.Before moving on to the next section, manually execute the store pipeline and the gateway pipeline once, to push a first image of each to DockerHub.
 
 {% img blog/jhipster-ci-cd/circleci-job-success.png alt:"CircleCI job success" width:"800" %}{: .center-image }
 
@@ -797,19 +797,38 @@ Commit and push the change to the `main` branch, and watch the CircleCI CI pipel
 
 ### Manage Kubernetes secrets
 
-## Know about Spinnaker best practices
+## Know about Spinnaker best practices and features
 
-- Rollbacks
+When implementing continuous delivery, be aware of some best practices and features provided by Spinnaker described below.
+
+### Deploy Docker images by digest
+
+Spinnaker documentation recommends deploying images by digest instead of tag, because the tag might reference different content each time. The digest is a content-based hash of the image and it uniquely identifies it. Spinnaker's artifact substitution allows to deploy the same manifest, with the image digest supplied by the pipeline trigger.
+
+### Rollbacks and manifests versions
+
+
+### Manual judgments
+
+
+### Spinnaker logs
+
+### Manual judgments and multi-cloud deployments
+
 - Secrets management
-- Manifest versions
 - Pipeline as code
-- Best practices
 - Canary
 - E2E testing
-- Manual judgments
-- Spinnaker logs
-- Multi-cloud
+
+
 
 ## Learn more
 
-As requested by JHipster users, this is another delivery on JHipster deployments.
+And this was another delivery on JHipster deployments. CI and CD propose a number of organizational and technical practices aimed to improve team confidence, efficiency and productivity. Spinnaker is a powerful tool for continuous deployment, [an amazing number of companies](https://spinnaker.io/docs/community/stay-informed/captains-log/#contributions-per-company) around the world are contributing to its growth. As each architecture and organization is different, your pipeline design must be customized to your particular use case. I hope this brief introduction will help you get the most out these wonderful tools. Keep learning, and for more about JHipster check out the following links:
+
+- [JHipster Microservices on AWS with Amazon Elastic Kubernetes Service](/blog/2022/07/11/kubernetes-jhipster-aws)
+- [Run Microservices on DigitalOcean with Kubernetes](/blog/2022/06/06/microservices-digitalocean-kubernetes)
+- [Kubernetes Microservices on Azure with Cosmos DB](/blog/2022/05/05/kubernetes-microservices-azure)
+- [Kubernetes to the Cloud with Spring Boot and JHipster](/blog/2021/06/01/kubernetes-spring-boot-jhipster)
+
+Be sure to follow us on [Twitter](https://twitter.com/oktadev) and subscribe to our [YouTube Channel](https://youtube.com/c/oktadev) so that you never miss any of our excellent content!
