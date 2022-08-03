@@ -226,19 +226,21 @@ Once a project is set up in CircleCI, a pipeline is triggered each time a commit
 
 ## Install Spinnaker on Google Kubernetes Engine
 
-Spinnaker pipelines
-As an overview, Spinnaker installation options:
+Spinnaker supports the following installation environments:
+- Distributed installation on Kubernetes
+- Local installation of Debian packages
+- Local git installation from Github
 
+For this example the distributed installation was selected. But before the actual installation, learn about some key concepts in Spinnaker configuration.
 
 ### Understand Artifacts and Accounts
 
 A _Spinnaker artifact_ is a named JSON object that refers to an external resource, for example, a docker image or a file stored in GitHub. In a pipeline trigger, you can specify an _expected artifact_, and Spinnaker will compare the incoming artifact from the trigger and bind it to be used by the trigger or another stage in the pipeline.
 In Kubernetes, the deployed manifests can be provided statically or as an artifact. In this example, manifests are provided as artifacts stored in GitHub.
 
-For Spinnaker to access and act on resources, like docker registries, cloud providers and code repositories, different type of accounts with credentials must be provided in Spinnaker configuration.
+For Spinnaker to access and act on resources, like docker registries, cloud providers and code repositories, different type of accounts and credentials must be provided in Spinnaker configuration.
 
-The Spinnaker service account
-
+Also, the configuration has the optional step of associating Spinnaker with a Kubernetes service account, allowing to restrict permissions over the cluster resources granted to Spinnaker.
 
 ### Install Halyard
 
@@ -260,7 +262,7 @@ You must also install [`kubectl`](https://kubernetes.io/docs/tasks/tools/), the 
 
 The second step is to choose a cloud provider for the environment in which you will install Spinnaker. For Kubernetes, Spinnaker needs a `kubeconfig` file, to access and manage the cluster. For creating a `kubeconfig` for a GKE cluster, you must first create your GoogleCloud account. There is a [free tier](https://cloud.google.com/free) that grants you $300 in free credits if you are new to GoogleCloud.
 
-After you signed up, install `gcloud` [CLI](https://cloud.google.com/sdk/docs/install). Follow the process to the end, the last step is to run `gcloud init` and set up the authorization for the tool.
+After you signed up, install [`gcloud` CLI](https://cloud.google.com/sdk/docs/install). Follow the process to the end, the last step is to run `gcloud init` and set up the authorization for the tool.
 
 Create the cluster for the Spinnaker deployment with the following line:
 ```shell
@@ -670,15 +672,16 @@ hal config artifact github account add $ARTIFACT_ACCOUNT_NAME \
     --token
 ```
 
-### Create the store microservice pipeline
-
-The new GKE, Docker and Github accounts configuration created with Halyard in the previous sections must be applied to the deployment before starting the pipeline design:
+The new GKE, Docker and Github accounts configuration must be applied to the deployment before starting the pipeline design:
 
 ```shell
 hal deploy apply
 ```
 
-Connect to the Spinnaker UI again:
+### Create the store microservice pipeline
+
+The _pipeline_ is the central concept in deployment management with Spinnaker. It is compound by a sequence of actions, named _stages_. A pipeline can be triggered manually or automatically, and have an execution history. Connect to the Spinnaker UI again, for creating the first pipeline.
+
 ```shell
 hal deploy connect
 ```
@@ -794,6 +797,11 @@ Commit and push the change to the `main` branch, and watch the CircleCI CI pipel
 
 {% img blog/jhipster-ci-cd/app-product-list.png alt:"Display products in the store application" width:"800" %}{: .center-image }
  and multi-cloud deployments
+
+
+Check cluster, objects and manifests versions
+
+
 ### Inspect Spinnaker logs
 
 
