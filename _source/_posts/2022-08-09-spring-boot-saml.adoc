@@ -16,11 +16,11 @@ github: https://github.com/oktadev/okta-spring-boot-saml-example
 :toc: macro
 :experimental:
 
-Spring is a long-time friend to enterprise companies throughout the world. When Spring Boot came along in 2014, it greatly simplified how you configure a Spring application. This led to widespread adoption and continued investment in related Spring projects.
+Spring is a long-time friend to enterprise companies throughout the world. When Spring Boot came along in 2014, it greatly simplified configuring a Spring application. This led to widespread adoption and continued investment in related Spring projects.
 
-One of my favorite Spring projects is Spring Security. It simplifies web security to just a few lines of code in most cases. HTTP Basic, JDBC, JWT, OpenID Connect/OAuth 2.0, you name it&mdash;Spring Security does it!
+One of my favorite Spring projects is Spring Security. In most cases, it simplifies web security to just a few lines of code. HTTP Basic, JDBC, JWT, OpenID Connect/OAuth 2.0, you name it&mdash;Spring Security does it!
 
-You might notice I didn't mention SAML as an authentication type. That's because I don't recommend it. The specification for SAML 2.0 was published in March 2005, before smartphones or smart devices even existed. OpenID Connect (OIDC) is much easier to use and understand as a developer. Using SAML in 2022 is like implementing a web service using WS-* instead of REST.
+You might notice I didn't mention SAML as an authentication type. That's because I don't recommend it. The specification for SAML 2.0 was published in March 2005, before smartphones or smart devices even existed. OpenID Connect (OIDC) is much easier for developers to use and understand. Using SAML in 2022 is like implementing a web service using WS-* instead of REST.
 
 My recommendation: just use OIDC.
 
@@ -34,7 +34,7 @@ toc::[]
 
 == What is SAML?
 
-**S**ecurity **A**ssertion **M**arkup **L**anguage is an XML-based way of doing web authentication and authorization. It works cross-domain so is often supported by SaaS applications and other enterprise software.
+**S**ecurity **A**ssertion **M**arkup **L**anguage is an XML-based way of doing web authentication and authorization. It works cross-domain, so SaaS applications and other enterprise software often support it.
 
 Nick Gamb has an excellent overview in https://www.youtube.com/watch?v=l-6QSEqDJPo[A Developer's Guide to SAML].
 
@@ -63,7 +63,7 @@ Then click *Next*. Select the following options:
 
 Select *Finish*.
 
-Your app will be created, and you will be redirected to its *Sign On* tab. Scroll down to the *SAML Signing Certificates* and go to *SHA-2* > *Actions* > *View IdP Metadata*. You can right-click and copy this menu item's link or open its URL. Copy the resulting link to your clipboard. It should look something like the following:
+Okta will create your app, and you will be redirected to its *Sign On* tab. Scroll down to the *SAML Signing Certificates* and go to *SHA-2* > *Actions* > *View IdP Metadata*. You can right-click and copy this menu item's link or open its URL. Copy the resulting link to your clipboard. It should look something like the following:
 
 [source,shell]
 ----
@@ -249,7 +249,7 @@ image::{% asset_path 'blog/spring-boot-saml2/logout-success.png' %}[alt=Logout s
 
 You might notice when you log in, the resulting page shows you have a `ROLE_USER` authority. However, when you assigned users to the app, you gave access to `Everyone`. You can configure your SAML app on Okta to send a user's groups as an attribute. You can add other attributes like name and email too.
 
-Edit your Okta app's SAML settings again and fill in the *Group Attribute Statements* section.
+Edit your Okta app's SAML settings and fill in the *Group Attribute Statements* section.
 
 * Name: `groups`
 * Name format: `Unspecified`
@@ -354,7 +354,7 @@ dependencies {
 }
 ----
 
-Now if you restart your app and log in, you should see your user's groups as authorities. _Huzzah!_
+Now, if you restart your app and log in, you should see your user's groups as authorities. _Huzzah!_
 
 image::{% asset_path 'blog/spring-boot-saml2/groups-as-authorities.png' %}[alt=Groups as authorities,width=800,align=center]
 
@@ -483,7 +483,7 @@ image::{% asset_path 'blog/spring-boot-saml2/auth0-groups.png' %}[alt=Auth0 grou
 
 == Support Okta and Auth0
 
-You can also support _both_ Okta and Auth0! Modify your `application.yml` to be as follows and you'll be prompted by Spring Security for which one to log in with. The `&name` and `*name` values are used to set and retrieve blocks of YAML to avoid repetition.
+You can also support _both_ Okta and Auth0! Modify your `application.yml` to be as follows, and you'll be prompted by Spring Security for which one to log in with. The `&name` and `*name` values are used to set and retrieve blocks of YAML to avoid repetition.
 
 [source,yaml]
 ----
@@ -554,11 +554,11 @@ heroku config:set GRADLE_TASK="bootJar"
 git push heroku main
 ----
 
-For authentication to work with SAML, you'll need to update your Okta and/or Auth0 apps to use your Heroku app's URL in place of `\http://localhost:8080`, wherever applicable.
+For authentication to work with SAML, you'll need to update your Okta and Auth0 apps to use your Heroku app's URL in place of `\http://localhost:8080`, wherever applicable.
 
 == Learn more about Spring Boot and Spring Security
 
-I hope you've enjoyed learning how to use Spring Security to add SAML authentication. Integration was as simple configuring a metadata URI and only became more complicated when you added a logout feature. The ability to convert groups from your identity provider to authorities is pretty slick too!
+I hope you've enjoyed learning how to use Spring Security to add SAML authentication. Integration was as simple as configuring a metadata URI and only became more complicated when you added a logout feature. The ability to convert groups from your identity provider to authorities is pretty slick too!
 
 You can find the code for this example on GitHub, in the https://github.com/oktadev/okta-spring-boot-saml-example[@oktadev/okta-spring-boot-example] repository.
 
@@ -566,6 +566,7 @@ If you enjoyed this tutorial, chances are you'll find these helpful too.
 
 * link:/blog/2022/06/16/oauth-java[OAuth for Java Developers]
 * link:/blog/2019/10/30/java-oauth2[OAuth 2.0 Java Guide: Secure Your App in 5 Minutes]
+* link:/blog/2020/10/14/spring-security-saml-database-authentication[Spring Security SAML and Database Authentication]
 * link:/blog/2022/03/24/thymeleaf-security[Use Thymeleaf Templates with Spring WebFlux to Secure Your Apps]
 * link:/blog/2021/05/05/client-credentials-spring-security[How to Use Client Credentials Flow with Spring Security]
 * link:/blog/2021/05/19/spring-security-testing[Better Testing with Spring Security Test]
