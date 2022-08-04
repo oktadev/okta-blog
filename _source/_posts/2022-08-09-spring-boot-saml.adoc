@@ -483,7 +483,7 @@ image::{% asset_path 'blog/spring-boot-saml2/auth0-groups.png' %}[alt=Auth0 grou
 
 == Support Okta and Auth0
 
-You can also support _both_ Okta and Auth0! Modify your `application.yml` to be as follows, and you'll be prompted by Spring Security for which one to log in with. The `&name` and `*name` values are used to set and retrieve blocks of YAML to avoid repetition.
+You can also support _both_ Okta and Auth0! Modify your `application.yml` to be as follows, and Spring Security will prompt you for which one to log in with. The `&name` and `*name` values are used to set and retrieve blocks of YAML to avoid repetition.
 
 [source,yaml]
 ----
