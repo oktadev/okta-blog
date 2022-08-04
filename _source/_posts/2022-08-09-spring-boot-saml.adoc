@@ -560,7 +560,7 @@ For authentication to work with SAML, you'll need to update your Okta and Auth0 
 
 I hope you've enjoyed learning how to use Spring Security to add SAML authentication. Integration was as simple as configuring a metadata URI and only became more complicated when you added a logout feature. The ability to convert groups from your identity provider to authorities is pretty slick too!
 
-You can find the code for this example on GitHub, in the https://github.com/oktadev/okta-spring-boot-saml-example[@oktadev/okta-spring-boot-example] repository.
+You can find the code for this example on GitHub, in the https://github.com/oktadev/okta-spring-boot-saml-example[@oktadev/okta-spring-boot-example] repository. You can find the Auth0 example in the https://github.com/oktadev/okta-spring-boot-saml-example/tree/auth0[auth0] branch. See the https://github.com/oktadev/okta-spring-boot-saml-example/tree/okta+auth0[okta+auth0] branch for the example that uses both identity providers.
 
 If you enjoyed this tutorial, chances are you'll find these helpful too.
 
