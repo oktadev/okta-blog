@@ -165,7 +165,7 @@ public class HomeController {
 </html>
 ----
 
-. Create a `src/main/resources/application.yml` file to contain your metadata URI.
+. Create a `src/main/resources/application.yml` file to contain the metadata URI you copied in link:#add-a-saml-application-on-okta[Add a SAML application on Okta]. This value should end with `/sso/saml/metadata`.
 +
 [source,yaml]
 ----
@@ -574,3 +574,5 @@ If you enjoyed this tutorial, chances are you'll find these helpful too.
 * link:/blog/2021/05/19/spring-security-testing[Better Testing with Spring Security Test]
 
 Keep in touch! If you have questions about this post, please ask them in the comments below. And follow us! We're https://twitter.com/oktadev[@oktadev on Twitter], https://youtube.com/c/oktadev[@oktadev on YouTube], and frequently post to our https://www.linkedin.com/company/oktadev/[LinkedIn page].
+
+_A huge thanks goes to https://twitter.com/rob_winch[Rob Winch] for his help with Spring Security SAML and review of this post._
