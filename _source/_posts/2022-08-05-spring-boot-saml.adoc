@@ -11,6 +11,7 @@ tweets:
 tags: [spring-boot, saml, spring-security]
 type: conversion
 github: https://github.com/oktadev/okta-spring-boot-saml-example
+image: blog/spring-boot-saml2/spring-boot-saml.jpg
 ---
 :page-liquid:
 :toc: macro
