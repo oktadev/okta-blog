@@ -24,7 +24,7 @@ You might notice I didn't mention SAML as an authentication type. That's because
 
 My recommendation: just use OIDC.
 
-If you _must_ use SAML, this tutorial should make it quick and easy.
+If you _must_ use SAML with Spring Boot, this tutorial should make it quick and easy.
 
 **Prerequisites:**
 
@@ -50,9 +50,9 @@ Then, log in to your account and go to *Applications* > *Create App Integration*
 
 Use the following settings:
 
-* Single sign on URL: `http://localhost:8080/login/saml2/sso/okta`
+* Single sign on URL: `\http://localhost:8080/login/saml2/sso/okta`
 * Use this for Recipient URL and Destination URL: ✅ (the default)
-* Audience URI: `http://localhost:8080/saml2/service-provider-metadata/okta`
+* Audience URI: `\http://localhost:8080/saml2/service-provider-metadata/okta`
 
 Then click *Next*. Select the following options:
 
@@ -194,7 +194,7 @@ Run your Spring Boot app with your IDE or from the command line:
 ./gradlew bootRun
 ----
 
-Open `http://localhost:8080` in your favorite browser and log in with the credentials you used to create your account.
+Open `\http://localhost:8080` in your favorite browser and log in with the credentials you used to create your account.
 
 You should see a successful result in your browser.
 
@@ -208,8 +208,8 @@ Spring Security's SAML support has a https://docs.spring.io/spring-security/refe
 
 Continue to the *Configure SAML* step and *Show Advanced Settings*. Select *Enable Single Logout* and use the following values:
 
-* Single Logout URL: `http://localhost:8080/logout/saml2/slo`
-* SP Issuer: `http://localhost:8080/saml2/service-provider-metadata/okta`
+* Single Logout URL: `\http://localhost:8080/logout/saml2/slo`
+* SP Issuer: `\http://localhost:8080/saml2/service-provider-metadata/okta`
 
 You'll need to create a certificate to sign the outgoing logout request. You can create a private key and certificate using OpenSSL. Answer at least one of the questions with a value, and it should work.
 
@@ -245,11 +245,11 @@ image::{% asset_path 'blog/spring-boot-saml2/logout-success.png' %}[alt=Logout s
 
 === Customize authorities with Spring Security SAML
 
-You might notice when you log in, the resulting page shows you have a `ROLE_USER` authority. However, when you assigned users to the app, you gave access to Everyone.
+You might notice when you log in, the resulting page shows you have a `ROLE_USER` authority. However, when you assigned users to the app, you gave access to `Everyone`.
 
-You can configure your SAML app on Okta to send the groups as an attribute. You can add other attributes like name and email too.
+You can configure your SAML app on Okta to send a user's groups as an attribute. You can add other attributes like name and email too.
 
-Edit your Okta's SAML settings again and fill in the *Group Attribute Statements* section.
+Edit your Okta app's SAML settings again and fill in the *Group Attribute Statements* section.
 
 * Name: `groups`
 * Name format: `Unspecified`
@@ -261,7 +261,9 @@ Just above, you can add other attribute statements. For instance:
 * firstName > `user.firstName`
 * lastName > `user.lastName`
 
-Then, create a `SecurityConfiguration` class that overrides the default configuration and uses a converter to change the `groups` attribute into Spring Security authorities.
+Save these changes.
+
+Then, create a `SecurityConfiguration` class that overrides the default configuration and uses a converter to converts the values in the `groups` attribute into Spring Security authorities.
 
 [source,java]
 .src/main/java/com/example/demo/SecurityConfiguration.java
@@ -331,23 +333,23 @@ public class SecurityConfiguration {
 }
 ----
 
-NOTE: You might be able to remove `permitAll()` on the  because that was https://github.com/spring-projects/spring-security/issues/11657[recently fixed in Spring Security].
+NOTE: You might be able to remove `permitAll()` on the favicon because that was https://github.com/spring-projects/spring-security/issues/11657[recently fixed in Spring Security].
 
 Finally, modify your `build.gradle` file to force the latest version of Open SAML that works with Spring Security 6.
 
 [source,groovy]
 ----
 repositories {
-	...
-	maven { url "https://build.shibboleth.net/nexus/content/repositories/releases/" }
+    ...
+    maven { url "https://build.shibboleth.net/nexus/content/repositories/releases/" }
 }
 
 dependencies {
-	constraints {
-		implementation "org.opensaml:opensaml-core:4.1.1"
-		implementation "org.opensaml:opensaml-saml-api:4.1.1"
-		implementation "org.opensaml:opensaml-saml-impl:4.1.1"
-	}
+    constraints {
+        implementation "org.opensaml:opensaml-core:4.1.1"
+        implementation "org.opensaml:opensaml-saml-api:4.1.1"
+        implementation "org.opensaml:opensaml-saml-impl:4.1.1"
+    }
   ...
 }
 ----
@@ -358,8 +360,207 @@ image::{% asset_path 'blog/spring-boot-saml2/groups-as-authorities.png' %}[alt=G
 
 == Add support for Auth0
 
+Did you know Auth0 provides support for SAML apps too? Auth0 makes it even easier to configure because its default web applications support OIDC _and_ SAML.
+
+https://auth0.com/signup[Sign up for an Auth0 account] or https://auth0.com/api/auth/login?redirectTo=dashboard[log in] with your existing one. Navigate to *Applications* > *Create Application* > *Regular Web Applications* > *Create*.
+
+Select the *Settings* tab and change the name to `Spring Boot SAML`. Add `\http://localhost:8080/login/saml2/sso/auth0` as an *Allowed Callback URL*.
+
+Scroll to the bottom, expand *Advanced Settings*, and go to *Endpoints*. Copy the value of the *SAML Metadata URL*. You'll need this soon. Select *Save Changes*.
+
+If you configured your app to use these values, authentication would work, but you wouldn't be able to log out. Scroll to the top of page, select *Addons* and enable SAML.
+
+Select the *Settings* tab and change the (commented) JSON to be as follows:
+
+[source,json]
+----
+{
+  "logout": {
+    "callback": "http://localhost:8080/logout/saml2/slo",
+    "slo_enabled": true
+  }
+}
+----
+
+Scroll to the bottom and click *Enable*.
+
+Change your `application.yml` to use `auth0` instead of Okta and copy your *SAML Metadata URL* into it.
+
+[source,yaml]
+----
+spring:
+  security:
+    saml2:
+      relyingparty:
+        registration:
+          auth0:
+            assertingparty:
+              metadata-uri: <your-auth0-metadata-uri>
+            signing:
+              credentials:
+                - private-key-location: classpath:local.key
+                  certificate-location: classpath:local.crt
+            singlelogout:
+              binding: POST
+              response-url: "{baseUrl}/logout/saml2/slo"
+----
+
+Restart your app, and you should be able to log in with Auth0.
+
+image::{% asset_path 'blog/spring-boot-saml2/auth0-login.png' %}[alt=Auth0 log in success,width=800,align=center]
+
+You might notice that the email and authorities are not calculated correctly. This is because the claim names have changed with Auth0. Update `SecurityConfiguration#groupsConverter()` to allow both Okta and Auth0 names for groups.
+
+[source,java]
+----
+private Converter<OpenSaml4AuthenticationProvider.ResponseToken, Saml2Authentication> groupsConverter() {
+
+    ...
+
+    return (responseToken) -> {
+        ...
+        List<String> groups = principal.getAttribute("groups");
+        // if groups is not preset, try Auth0 attribute name
+        if (groups == null) {
+            groups = principal.getAttribute("http://schemas.auth0.com/roles");
+        }
+        ...
+    };
+}
+----
+
+To make Auth0 populate a user's groups, navigate to *Auth Pipeline* > *Rules* and create a new Rule. Choose the Empty rule template. Provide a meaningful name like `Groups claim`, replace the `Script` content with the following, and *Save*.
+
+[source,js]
+----
+function(user, context, callback) {
+  user.preferred_username = user.email;
+  const roles = (context.authorization || {}).roles;
+
+  function prepareCustomClaimKey(claim) {
+    return `${claim}`;
+  }
+
+  const rolesClaim = prepareCustomClaimKey('roles');
+
+  if (context.idToken) {
+    context.idToken[rolesClaim] = roles;
+  }
+
+  if (context.accessToken) {
+    context.accessToken[rolesClaim] = roles;
+  }
+
+  callback(null, user, context);
+}
+----
+
+Next, modify `HomeController` to allow Auth0's email attribute name.
+
+[source,java]
+----
+public class HomeController {
+
+    @RequestMapping("/")
+    public String home(@AuthenticationPrincipal Saml2AuthenticatedPrincipal principal, Model model) {
+        model.addAttribute("name", principal.getName());
+        String email = principal.getFirstAttribute("email");
+        // if email is not preset, try Auth0 attribute name
+        if (email == null) {
+            email = principal.getFirstAttribute("http://schemas.xmlsoap.org/ws/2005/05/identity/claims/emailaddress");
+        }
+        model.addAttribute("emailAddress", email);
+        model.addAttribute("userAttributes", principal.getAttributes());
+        return "home";
+    }
+
+}
+----
+
+Restart your app, log in, and everything should work as expected.
+
+image::{% asset_path 'blog/spring-boot-saml2/auth0-groups.png' %}[alt=Auth0 groups,width=800,align=center]
+
+== Support Okta and Auth0
+
+You can also support _both_ Okta and Auth0! Modify your `application.yml` to be as follows and you'll be prompted by Spring Security for which one to log in with. The `&name` and `*name` values are used to set and retrieve blocks of YAML to avoid repetition.
+
+[source,yaml]
+----
+spring:
+  security:
+    saml2:
+      relyingparty:
+        registration:
+          auth0:
+            assertingparty:
+              metadata-uri: <your-auth0-metadata-uri>
+            signing:
+              credentials: &signing-credentials
+                - private-key-location: classpath:local.key
+                  certificate-location: classpath:local.crt
+            singlelogout: &logout-settings
+              binding: POST
+              response-url: "{baseUrl}/logout/saml2/slo"
+          okta:
+            assertingparty:
+              metadata-uri: <your-okta-metadata-uri>
+            signing:
+              credentials: *signing-credentials
+            singlelogout: *logout-settings
+----
+
+If you restart your app with these settings, you'll be prompted for both when you first hit `\http://localhost:8080`.
+
+image::{% asset_path 'blog/spring-boot-saml2/okta+auth0-login.png' %}[alt=Okta AND Auth0 login!,width=800,align=center]
+
 == Deploy to production
 
-// Show Heroku, explain how you just need to change URLs
+One quick way to see this app working in a production environment is to deploy it to Heroku. https://devcenter.heroku.com/articles/heroku-cli[Install the Heroku CLI] and create an account to begin.
+
+. Create a new app on Heroku using `heroku create`.
+
+. Create a `system.properties` file in the root directory of your app to force Java 17:
++
+[source,properties]
+----
+java.runtime.version=17
+----
+
+. Create a `Procfile` that specifies how to run your app:
++
+----
+web: java -Xmx256m -jar build/libs/*.jar --server.port=$PORT
+----
+
+. Set the Gradle task to build your app:
++
+[source,shell]
+----
+heroku config:set GRADLE_TASK="bootJar"
+----
+
+. Deploy to production using Git:
++
+[source,shell]
+----
+git push heroku main
+----
+
+For authentication to work with SAML, you'll need to update your Okta and/or Auth0 apps to use your Heroku app's URL in place of `\http://localhost:8080`, wherever applicable.
 
 == Learn more about Spring Boot and Spring Security
+
+I hope you've enjoyed learning how to use Spring Security to add SAML authentication. Integration was as simple configuring a metadata URI and only became more complicated when you added a logout feature. The ability to convert groups from your identity provider to authorities is pretty slick too!
+
+You can find the code for this example on GitHub, in the https://github.com/oktadev/okta-spring-boot-saml-example[@oktadev/okta-spring-boot-example] repository.
+
+If you enjoyed this tutorial, chances are you'll find these helpful too.
+
+* link:/blog/2022/06/16/oauth-java[OAuth for Java Developers]
+* link:/blog/2019/10/30/java-oauth2[OAuth 2.0 Java Guide: Secure Your App in 5 Minutes]
+* link:/blog/2022/03/24/thymeleaf-security[Use Thymeleaf Templates with Spring WebFlux to Secure Your Apps]
+* link:/blog/2021/05/05/client-credentials-spring-security[How to Use Client Credentials Flow with Spring Security]
+* link:/blog/2021/05/19/spring-security-testing[Better Testing with Spring Security Test]
+
+Keep in touch! If you have questions about this post, please ask them in the comments below. And follow us! We're https://twitter.com/oktadev[@oktadev on Twitter], https://youtube.com/c/oktadev[@oktadev on YouTube], and frequently post to our https://www.linkedin.com/company/oktadev/[LinkedIn page].
