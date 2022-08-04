@@ -63,7 +63,7 @@ Then click *Next*. Select the following options:
 
 Select *Finish*.
 
-Your app will be created, and you will be redirected to its *Sign On* tab. Scroll down to the *SAML Signing Certificates* and go to *SHA-2* > *Actions* > *View IdP Metadata*. You can right-click and copy this menu item or open its URL. Copy the resulting link to your clipboard. It should look something like the following:
+Your app will be created, and you will be redirected to its *Sign On* tab. Scroll down to the *SAML Signing Certificates* and go to *SHA-2* > *Actions* > *View IdP Metadata*. You can right-click and copy this menu item's link or open its URL. Copy the resulting link to your clipboard. It should look something like the following:
 
 [source,shell]
 ----
@@ -185,11 +185,11 @@ implementation 'org.thymeleaf.extras:thymeleaf-extras-springsecurity6'
 implementation 'org.springframework.security:spring-security-saml2-service-provider'
 ----
 
-If you cloned from GitHub, you only need to update `application.yml`.
+If you cloned from GitHub, you only need to update `application.yml` to include your metadata URI. You can remove the other properties as they may cause issues.
 
 === Run the app and authenticate
 
-Run your Spring Boot app with your IDE or from the command line:
+Run your Spring Boot app from your IDE or using the command line:
 
 [source,shell]
 ----
@@ -247,9 +247,7 @@ image::{% asset_path 'blog/spring-boot-saml2/logout-success.png' %}[alt=Logout s
 
 === Customize authorities with Spring Security SAML
 
-You might notice when you log in, the resulting page shows you have a `ROLE_USER` authority. However, when you assigned users to the app, you gave access to `Everyone`.
-
-You can configure your SAML app on Okta to send a user's groups as an attribute. You can add other attributes like name and email too.
+You might notice when you log in, the resulting page shows you have a `ROLE_USER` authority. However, when you assigned users to the app, you gave access to `Everyone`. You can configure your SAML app on Okta to send a user's groups as an attribute. You can add other attributes like name and email too.
 
 Edit your Okta app's SAML settings again and fill in the *Group Attribute Statements* section.
 
@@ -265,7 +263,7 @@ Just above, you can add other attribute statements. For instance:
 
 Save these changes.
 
-Then, create a `SecurityConfiguration` class that overrides the default configuration and uses a converter to converts the values in the `groups` attribute into Spring Security authorities.
+Then, create a `SecurityConfiguration` class that overrides the default configuration and uses a converter to translate the values in the `groups` attribute into Spring Security authorities.
 
 [source,java]
 .src/main/java/com/example/demo/SecurityConfiguration.java
@@ -356,7 +354,7 @@ dependencies {
 }
 ----
 
-Now if you restart your app and log in, you should see your user's groups as authorities.
+Now if you restart your app and log in, you should see your user's groups as authorities. _Huzzah!_
 
 image::{% asset_path 'blog/spring-boot-saml2/groups-as-authorities.png' %}[alt=Groups as authorities,width=800,align=center]
 
@@ -370,7 +368,7 @@ Select the *Settings* tab and change the name to `Spring Boot SAML`. Add `\http:
 
 Scroll to the bottom, expand *Advanced Settings*, and go to *Endpoints*. Copy the value of the *SAML Metadata URL*. You'll need this soon. Select *Save Changes*.
 
-If you configured your app to use these values, authentication would work, but you wouldn't be able to log out. Scroll to the top of page, select *Addons* and enable SAML.
+If you configured your app to use these values, authentication would work, but you wouldn't be able to log out. Scroll to the top of the page, select *Addons*, and enable SAML.
 
 Select the *Settings* tab and change the (commented) JSON to be as follows:
 
@@ -386,7 +384,7 @@ Select the *Settings* tab and change the (commented) JSON to be as follows:
 
 Scroll to the bottom and click *Enable*.
 
-Change your `application.yml` to use `auth0` instead of Okta and copy your *SAML Metadata URL* into it.
+Change your `application.yml` to use `auth0` instead of `okta` and copy your *SAML Metadata URL* into it.
 
 [source,yaml]
 ----
@@ -518,7 +516,7 @@ image::{% asset_path 'blog/spring-boot-saml2/okta+auth0-login.png' %}[alt=Okta A
 
 == Deploy to production
 
-One quick way to see this app working in a production environment is to deploy it to Heroku. https://devcenter.heroku.com/articles/heroku-cli[Install the Heroku CLI] and create an account to begin.
+One quick way to see this app working in a production environment is to deploy it to Heroku. https://devcenter.heroku.com/articles/heroku-cli[Install the Heroku CLI] and create an account to begin. Then, follow the steps below to prepare and deploy your app.
 
 . Create a new app on Heroku using `heroku create`.
 
@@ -533,6 +531,13 @@ java.runtime.version=17
 +
 ----
 web: java -Xmx256m -jar build/libs/*.jar --server.port=$PORT
+----
+
+. Commit your changes:
++
+----
+git add .
+git commit -m "Add Heroku configuration"
 ----
 
 . Set the Gradle task to build your app:
