@@ -42,6 +42,8 @@ Nick Gamb has an excellent overview in https://www.youtube.com/watch?v=l-6QSEqDJ
 {% youtube l-6QSEqDJPo %}
 ++++
 
+See Spring Security's documentation for a https://docs.spring.io/spring-security/reference/servlet/saml2/login/overview.html[SAML 2.0 Login Overview].
+
 == Add a SAML application on Okta
 
 To begin, you'll need an Okta developer account. You can create one at https://developer.okta.com/signup[developer.okta.com/signup] or install the https://cli.okta.com[Okta CLI] and run `okta register`.
