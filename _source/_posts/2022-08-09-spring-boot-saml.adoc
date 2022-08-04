@@ -42,7 +42,7 @@ Nick Gamb has an excellent overview in https://www.youtube.com/watch?v=l-6QSEqDJ
 {% youtube l-6QSEqDJPo %}
 ++++
 
-See Spring Security's documentation for a https://docs.spring.io/spring-security/reference/servlet/saml2/login/overview.html[SAML 2.0 Login Overview].
+If you want to learn how Spring Security implements SAML, please read its https://docs.spring.io/spring-security/reference/servlet/saml2/login/index.html[SAML 2.0 Login docs].
 
 == Add a SAML application on Okta
 
