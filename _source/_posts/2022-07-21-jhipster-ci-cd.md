@@ -29,7 +29,7 @@ Continuous delivery is the practice of releasing to production often in a fast, 
 
 This tutorial was created with the following frameworks and tools:
 
-- [JHipster 7.9.2](https://www.jhipster.tech/installation/)
+- [JHipster 7.8.1](https://www.jhipster.tech/installation/)
 - [Java OpenJDK 11](https://jdk.java.net/java-se-ri/11)
 - [Okta CLI 0.10.0](https://cli.okta.com)
 - [Halyard 1.44.1](https://spinnaker.io/docs/setup/install/halyard/#install-on-debianubuntu-and-macos)
@@ -47,7 +47,7 @@ This tutorial was created with the following frameworks and tools:
 If you don't have tried JHipster yet, you can do the classical local installation  with NPM.
 
 ```bash
-npm install -g generator-jhipster
+npm install -g generator-jhipster@7.8.1
 ```
 
 If you'd rather use Yarn or Docker, follow the instructions at [jhipster.tech](https://www.jhipster.tech/installation/#local-installation-with-npm-recommended-for-normal-users).
@@ -80,7 +80,7 @@ Choose the following options when prompted:
 - Which applications with clustered databases? select **store**
 - Admin password for JHipster Registry: (generate one)
 - Kubernetes namespace: **demo**
-- Docker repository name: **index.docker.io/your-dockerhub-username**
+- Docker repository name: **your-dockerhub-username**
 - Command to push Docker image: `docker push`
 - Enable Istio? **No**
 - Kubernetes service type? **LoadBalancer**
@@ -162,7 +162,7 @@ jobs:
       - checkout
       - restore_cache:
           keys:
-            - v1-dependencies-{{ checksum "build.gradle" }}-{{ checksum "package-lock.json" }}
+            {%raw%}- v1-dependencies-{{ checksum "build.gradle" }}-{{ checksum "package-lock.json" }}{%endraw%}
             # Perform a Partial Cache Restore (https://circleci.com/docs/2.0/caching/#restoring-cache)
             - v1-dependencies-
       - run:
@@ -182,7 +182,7 @@ jobs:
             - node
             - node_modules
             - ~/.gradle
-            key: v1-dependencies-{{ checksum "build.gradle" }}-{{ checksum "package-lock.json" }}
+            key: {%raw%}v1-dependencies-{{ checksum "build.gradle" }}-{{ checksum "package-lock.json" }}{%endraw%}
       - run:
           name: Give Executable Power
           command: 'chmod +x gradlew'
@@ -761,7 +761,7 @@ Sign in to GitHub and create a public repository `jhipster-k8s`. Follow the inst
 
 **IMPORTANT NOTE**: You will be pushing plain secrets contained in application and Kubernetes configuration. To avoid this, you can run the JHipster registry locally to encrypt application configuration, and also set up `kubeseal` for Kubernetes secrets encryption. The process is described in a previous post [Kubernetes to the Cloud with Spring Boot and JHipster](/blog/2021/06/01/kubernetes-spring-boot-jhipster).
 
-In the pipeline configuration choose **Add Stage** and set the following values:
+Go back to Spinnaker UI, and in the pipeline configuration choose **Add Stage** and set the following values:
 
 - Type: **Deploy(Manifest)**
 - Stage Name: **deploy application-configmap**
@@ -816,38 +816,50 @@ Navigate to `http://<external-ip>:8080` and sign in to the application with your
 
 ### Trigger the CI-CD pipeline with a code commit
 
-For testing the workflow, make a code change in the gateway. Edit `webapp/content/scss/_bootstrap-variables.scss` and update the following variable:
+For testing the workflow, make a code change in the gateway. Edit `src/main/webapp/content/scss/_bootstrap-variables.scss` and update the following variable:
 
 ```scss
 $body-bg: steelblue;
 ```
-Commit and push the change to the `main` branch, and watch the CircleCI CI pipeline triggers. After the new gateway image is pushed to DockerHub, watch the Spinnaker CD pipeline trigger and deploy the updated gateway.
+Also, the pipeline  under test will only trigger if a new image tag is detected. So edit `.circleci/confg.yml` and update the image name:
 
-{% img blog/jhipster-ci-cd/app-product-list.png alt:"Display products in the store application" width:"800" %}{: .center-image }
+```yml
+IMAGE_NAME: indiepopart/gateway:v1
+```
 
+Commit and push the change to the `main` branch, and watch the CircleCI CI pipeline triggers. After the new gateway image is pushed to DockerHub, watch the Spinnaker CD pipeline trigger and deploy the updated gateway. On the left menu choose **Clusters**, and verify the active gateway deployment now has a _V002_. If you click over the **V002** box, you can also verify the image tag that was deployed.
 
-
-Check cluster, objects and manifests versions
-
+{% img blog/jhipster-ci-cd/sp-version-2.png alt:"Spinnaker deployment version 2" width:"800" %}{: .center-image }
 
 ### Inspect Spinnaker logs
 
+For pipeline and trigger debugging, the Spinnaker services spin-echo and spin-igor inform docker monitoring events and also the reasons why a an execution was skipped.
+
+```shell
+kubectl get pods -n spinnaker
+kubectl logs spin-igor-7c8bdd94f5-lx5dl -n spinnaker | grep v1
+```
+```text
+2022-08-05 03:20:27.285  INFO 1 --- [   scheduling-1] c.n.spinnaker.igor.docker.DockerMonitor  : Found 1 new images for docker-account. Images: [{imageId=igor:dockerRegistry:v2:docker-account:indiepopart/gateway:v1, sendEvent=true}]
+2022-08-05 03:20:27.286  INFO 1 --- [   scheduling-1] c.n.spinnaker.igor.docker.DockerMonitor  : New tagged image: account=docker-account, image=igor:dockerRegistry:v2:docker-account:indiepopart/gateway:v1. Digest is now [null].
+2022-08-05 03:20:27.288  INFO 1 --- [   scheduling-1] c.n.spinnaker.igor.docker.DockerMonitor  : Sending tagged image info to echo: account=docker-account: image=igor:dockerRegistry:v2:docker-account:indiepopart/gateway:v1
+```
 
 ## Know about Spinnaker best practices and features
 
 When implementing continuous delivery, be aware of some best practices and features provided by Spinnaker described below.
 
-- **Deploy Docker images by digest** Spinnaker documentation recommends deploying images by digest instead of tag, because the tag might reference different content each time. The digest is a content-based hash of the image and it uniquely identifies it. Spinnaker's artifact substitution allows to deploy the same manifest, with the image digest supplied by the pipeline trigger. It is also recommended to trigger a pipeline off of a push to an docker registry instead of a GitHub push or Jenkins job, allowing development teams to chose their delivery process without more constraints.
+- **Deploy Docker images by digest** Spinnaker documentation recommends deploying images by digest instead of tag, because the tag might reference different content each time. The digest is a content-based hash of the image and it uniquely identifies it. Spinnaker's artifact substitution allows to deploy the same manifest, with the image digest supplied by the pipeline trigger. Using the proposed trigger and a free DockerHub account as registry, the digest data seems not to be available. It is also recommended to trigger a pipeline off of a push to an docker registry instead of a GitHub push or Jenkins job, allowing development teams to chose their delivery process without more constraints.
 - **Rollbacks**: Like there is a stag for deploying manifests, there are also stages for deleting, scaling and rollbacking manifests. Spinnaker also supports automated rollbacks, as it exposes the _Undo Rollout_ functionality as a stage, which can be configured to run when other stages fail, and to rollback by a number of revisios of the deployed object. CoonfigMaps and Secrets must be versioned for the automated rollback to actually roll back code or configuration.
 - **Manual judgments** The pipeline can include a manual judgement stage, that will make the execution interrupt, asking for user input to continue or cancel. This can be used to ask for confirmation before promoting a staging deployment to production.
 - **Pipeline management**: Spinnaker represents pipelines as JSON behind the scenes, and maintains a revision history of the changes made to the pipeline. It also supports pipeline templates, that can be managed through a CLI named `spin`, and help with pipeline sharing and distribution.
-- **Canary**: You can automate Canary analysis creating canary stages for your pipeline. Canary analysis must be enabled in the Spinnaker installation using `hal` commands. The Canary analysis consists of the evaluation of metrics chosen during configuration, comparing a partial rollout with the current deployment. The stage will fail based on the deviation criteria configured for the metric.
+- **Canary**: You can automate Canary analysis by creating canary stages for your pipeline. Canary must be enabled in the Spinnaker installation using `hal` commands. The Canary analysis consists of the evaluation of metrics chosen during configuration, comparing a partial rollout with the current deployment. The stage will fail based on the deviation criteria configured for the metric.
 - **Secrets management** Spinnaker does not directly support secrets management. Secrets should be encrypted at rest and in transit. Credentials encryption for application secrets and Kubernetes secrets was covered in the previous post [Kubernetes to the Cloud with Spring Boot and JHipster](/blog/2021/06/01/kubernetes-spring-boot-jhipster).
 - **Rollout strategies**: The Spinnaker Kubernetes provider supports running dark, highlander and red/black rollouts. In the Deploy Manifest stage, there is a strategy option that allows to associate workload to a service, send traffic to it and how to handle any previous versions of the workload in the same cluster and namespace.
 
 ## Learn more
 
-And this was another delivery on JHipster deployments. CI and CD propose a number of organizational and technical practices aimed to improve team confidence, efficiency and productivity. Spinnaker is a powerful tool for continuous deployment, [an amazing number of companies](https://spinnaker.io/docs/community/stay-informed/captains-log/#contributions-per-company) around the world are contributing to its growth. As each architecture and organization is different, your pipeline design must be customized to your particular use case. I hope this brief introduction will help you get the most out these wonderful tools. Keep learning, and for more about JHipster check out the following links:
+And this was another delivery on JHipster deployments. CI and CD propose a number of organizational and technical practices aimed to improve team confidence, efficiency and productivity. Spinnaker is a powerful tool for continuous deployment, a big number of [companies](https://spinnaker.io/docs/community/stay-informed/captains-log/#contributions-per-company) around the world are contributing to its growth. As each architecture and organization is different, your pipeline design must be customized to your particular use case. I hope this brief introduction will help you get the most out these wonderful tools. Keep learning, and for more about JHipster check out the following links:
 
 - [JHipster Microservices on AWS with Amazon Elastic Kubernetes Service](/blog/2022/07/11/kubernetes-jhipster-aws)
 - [Run Microservices on DigitalOcean with Kubernetes](/blog/2022/06/06/microservices-digitalocean-kubernetes)
