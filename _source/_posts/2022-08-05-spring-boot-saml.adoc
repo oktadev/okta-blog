@@ -232,6 +232,8 @@ spring:
       relyingparty:
         registration:
           okta:
+            assertingparty:
+              ...
             signing:
               credentials:
                 - private-key-location: classpath:local.key
@@ -239,8 +241,6 @@ spring:
             singlelogout:
               binding: POST
               response-url: "{baseUrl}/logout/saml2/slo"
-            assertingparty:
-              metadata-uri: <your-metadata-uri>
 ----
 
 Upload the `local.crt` to your Okta app and finish its configuration. Restart and the logout button should work.
@@ -303,7 +303,8 @@ public class SecurityConfiguration {
         // @formatter:off
         http
             .authorizeHttpRequests(authorize -> authorize
-                .antMatchers("/favicon.ico").permitAll().anyRequest().authenticated()
+                .mvcMatchers("/favicon.ico").permitAll()
+                .anyRequest().authenticated()
             )
             .saml2Login(saml2 -> saml2
                 .authenticationManager(new ProviderManager(authenticationProvider))
