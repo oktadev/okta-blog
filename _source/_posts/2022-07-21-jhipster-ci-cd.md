@@ -206,12 +206,12 @@ To take advantage of the one-step GitHub integration of CircleCI, you need a [Gi
 
 {% img blog/jhipster-ci-cd/circleci-project.png alt:"CircleCI project setup form" width:"450" %}{: .center-image }
 
-Do the same for the `gateway` project. The configuration triggers an initial pipeline execution that might fail, because you still must set up DockerHub credentials for both projects, allowing CircleCI to push the container images. At the `store` project page, on the top right, choose **Project Settings**. Then choose **Environment Variables**. Click **Add Environment Variable**. and set the following values:
+Do the same for the `gateway` project. The configuration triggers an initial pipeline execution that will fail, because you still must set up DockerHub credentials for both projects, allowing CircleCI to push the container images. At the `store` project page, on the top right, choose **Project Settings**. Then choose **Environment Variables**. Click **Add Environment Variable**. and set the following values:
 
 - Name: DOCKERHUB_PASS
 - Value: your DockerHub password, or better, a DockerHub access token if you have 2FA enabled.
 
-**Note**: For creating a DockerHub access token, sign in to DockerHub, and choose **Account Settings** in the top right user menu. Then, on the left menu, choose **Security**. Click **New Access Token** and set a description for the token, for example, _circleci-store_. Then click **Generate** and copy the new token.
+**Note**: For creating a DockerHub access token, sign in to [DockerHub](https://hub.docker.com/), and choose **Account Settings** in the top right user menu. Then, on the left menu, choose **Security**. Click **New Access Token** and set a description for the token, for example, _circleci_. Then click **Generate** and copy the new token. You can use the same token for both projects `store` and `gateway`.
 
 Once a project is set up in CircleCI, a pipeline is triggered each time a commit is pushed to the configured branch. The pipeline in execution appears on the **Dashboard** page. You can also manually trigger the pipeline from the **Dashboard** if you choose the project and branch from the pipeline filters, and then click **Trigger Pipeline**. Before moving on to the next section, manually execute the store pipeline and the gateway pipeline once, to push the first image of each to DockerHub.
 
@@ -277,7 +277,7 @@ Create a namespace for the Spinnaker cluster:
 kubectl create namespace spinnaker
 ```
 
-The Spinnaker documentation recommends creating a Kubernetes service account, using Kubernetes role definitions that restrict the permissions granted to the Spinnaker account. Create a `spinnaker` directory, and add the file `spinnaker-service-account.yml` with the following content:
+The Spinnaker [documentation](https://spinnaker.io/docs/setup/install/providers/kubernetes-v2/#optional-create-a-kubernetes-service-account) recommends creating a Kubernetes service account, using Kubernetes role definitions that restrict the permissions granted to the Spinnaker account. Create a `spinnaker` directory, and add the file `spinnaker-service-account.yml` with the following content:
 
 ```yml
 apiVersion: rbac.authorization.k8s.io/v1
@@ -389,6 +389,7 @@ Enable the Kubernetes provider in Halyard:
 ```shell
 hal config provider kubernetes enable
 ```
+Note: You will see warnings related to missing configuration. Be patient, in the following steps all will be solved.
 
 Add the service account to the Halyard configuration:
 
@@ -413,7 +414,7 @@ hal config deploy edit --type distributed --account-name spinnaker-gke-account
 
 Spinnaker requires an external storage provider for persisting application settings and configured pipelines. To avoid losing this data, using a hosted storage solution is recommended. For this example, we use Google Cloud Storage. Hosting the data externally allows us to delete clusters in between sessions, and keep the pipelines once the clusters have been recreated.
 
-In the `spinnaker` folder, run the following lines:
+In the `spinnaker` folder, run the following code:
 
 ```shell
 SERVICE_ACCOUNT_NAME=spinnaker-gcs-account
@@ -470,7 +471,7 @@ hal version list
 Set the version for the deployment with:
 
 ```shell
-hal config version edit --version $VERSION
+hal config version edit --version 1.27.0
 ```
 
 Deploy Spinnaker to GKE:
@@ -494,7 +495,7 @@ You can connect to the Spinnaker UI using the following command:
 ```shell
 hal deploy connect
 ```
-Navigate to `http://localhost:9000` and the UI should look like this:
+Navigate to `http://localhost:9000` and the UI should, in the **Projects** tab should look like this:
 
 {% img blog/jhipster-ci-cd/spinnaker-ui.png alt:"Spinnaker DeckUI" width:"800" %}{: .center-image }
 
@@ -851,7 +852,7 @@ When implementing continuous delivery, here are some best practices and key feat
 - **Manual judgments** The pipeline can include a manual judgment stage, that will make the execution interrupt, asking for user input to continue or cancel. This can be used to ask for confirmation before promoting a staging deployment to production.
 - **Pipeline management**: Spinnaker represents pipelines as JSON behind the scenes, and maintains a revision history of the changes made to the pipeline. It also supports pipeline templates, that can be managed through the `spin CLI`, and help with pipeline sharing and distribution.
 - **Canary**: You can automate Canary analysis by creating canary stages for your pipeline. Canary must be enabled in the Spinnaker installation using `hal` commands. The Canary analysis consists of the evaluation of metrics chosen during configuration, comparing a partial rollout with the current deployment. The stage will fail based on the deviation criteria configured for the metric.
-- **Secrets management** Spinnaker does not directly support secrets management. Secrets should be encrypted at rest and in transit. Credentials encryption for application secrets and Kubernetes secrets was covered in the previous post [Kubernetes to the Cloud with Spring Boot and JHipster](/blog/2021/06/01/kubernetes-spring-boot-jhipster).
+- **Secrets management** Spinnaker does not directly support secrets management. Secrets should be encrypted at rest and in transit. Credentials encryption for application secrets and Kubernetes secrets was covered in a recent post [Kubernetes to the Cloud with Spring Boot and JHipster](/blog/2021/06/01/kubernetes-spring-boot-jhipster).
 - **Rollout strategies**: The Spinnaker Kubernetes provider supports running dark, highlander, and red/black rollouts. In the Deploy Manifest stage, there is a strategy option that allows associating workload to a service, sending traffic to it, and choosing how to handle any previous versions of the workload in the same cluster and namespace.
 
 ## Learn more
