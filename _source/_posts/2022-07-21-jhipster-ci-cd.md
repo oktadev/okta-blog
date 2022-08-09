@@ -1,10 +1,10 @@
 ---
 layout: blog_post
-title: "Continous integration and delivery for JHipster microservices"
+title: "Continous Integration and Delivery for JHipster Microservices"
 author: jimena-garbarino
 by: contractor
 communities: [devops,security,java]
-description: "How to set up continuous integration with CircleCI and continuous delivery with Spinnaker in a JHipster microservices architecture"
+description: "How to set up continuous integration with CircleCI and continuous delivery with Spinnaker in a JHipster microservices architecture."
 tags: [java, ci, cd, jhipster]
 tweets:
 - ""
@@ -19,11 +19,11 @@ What is CircleCI, CI
 What is Spinnaker, CD
 Workflow
 -->
-As requested by JHipster users, in this post we cover the basics of how to add Continous Integration and Delivery for a JHipster microservices architecture and Kubernetes as the target cloud deployment environment.
+As requested by JHipster users, in this post we cover the basics of how to add continous integration and delivery (CI/CD) for a JHipster microservices architecture and Kubernetes as the target cloud deployment environment.
 
-In a few words, continuous integration is the practice of integrating code into a main branch of a shared repository early and often. Instead of integrating features at the end of a development cycle, code is integrated with the shared repository multiple times throughout the day. Each commit triggers automated tests, so issues are detected and fixed earlier and faster, improving team confidence and productivity. The chosen continuous integration platform is from CircleCI, a company founded in 2011 and headquartered in San Francisco. They offer a free cloud to test their services.
+In a few words, continuous integration is the practice of integrating code into the main branch of a shared repository early and often. Instead of integrating features at the end of a development cycle, code is integrated with the shared repository multiple times throughout the day. Each commit triggers automated tests, so issues are detected and fixed earlier and faster, improving team confidence and productivity. The chosen continuous integration platform is from CircleCI, a company founded in 2011 and headquartered in San Francisco. They offer a free cloud to test their services.
 
-Continuous delivery is the practice of releasing to production often in a fast, safe, and automatic way, allowing faster innovation and feedback loops. Its adoption requires the implementation of techniques and tools like Spinnaker, an open-source, multi-cloud, continuous delivery platform that provides application management and deployment features. The intersection between CI and CD is not always clear, but for this example, we assume CI produces and validates the artifacts and CD deploys them. The CI-CD workflow for the exploration of the proposed tools is illustrated below.
+Continuous delivery is the practice of releasing to production often in a fast, safe, and automated way, allowing faster innovation and feedback loops. Its adoption requires the implementation of techniques and tools like Spinnaker, an open-source, multi-cloud, continuous delivery platform that provides application management and deployment features. The intersection between CI and CD is not always clear, but for this example, we assume CI produces and validates the artifacts and CD deploys them. The CI-CD workflow for the exploration of the proposed tools is illustrated below.
 
 {% img blog/jhipster-ci-cd/ci-cd-workflow.png alt:"CI-CD workflow" width:"900" %}{: .center-image }
 
@@ -44,7 +44,7 @@ This tutorial was created with the following frameworks and tools:
 
 ## Create a JHipster microservices architecture
 
-If you don't have tried JHipster yet, you can do the classical local installation with NPM.
+If you haven't tried JHipster yet, you can do the classical local installation with npm.
 
 ```bash
 npm install -g generator-jhipster@7.8.1
@@ -200,9 +200,9 @@ jobs:
 
 Do the same updates to the `gateway/.circleci/config.yml` file. Be sure to replace `your-dockerhub-username` and set the correct `IMAGE_NAME`.
 
-To take advantage of the one-step GitHub integration of CircleCI, you need a [GitHub](https://github.com/signup) account. After signing in to GitHub, create a new public repository `store`. Follow the instructions to push the existing repository from your local using the command line. Do the same with the `gateway` project.
+To take advantage of the one-step GitHub integration of CircleCI, you need a [GitHub](https://github.com/signup) account. After signing in to GitHub, create a new public repository `store`. Follow the instructions to push the existing repository from your local machine to GitHub using the command line. Do the same with the `gateway` project.
 
-[Sign up](https://circleci.com/integrations/github) at CircleCI with your GitHub account, and on the left menu choose **Projects**. Find the `store` project and click **Set Up Project**. Configure the project to **Use the `.circleci/config.yml` in my repo**.
+[Sign up](https://circleci.com/integrations/github) at CircleCI with your GitHub account, and on the left menu choose **Projects**. Find the `store` project and click **Set Up Project**. Configure the project to use the **Fastest** option (Use the `.circleci/config.yml` in my repo) and type `main` for the branch. Click **Set Up Project** to continue.
 
 {% img blog/jhipster-ci-cd/circleci-project.png alt:"CircleCI project setup form" width:"450" %}{: .center-image }
 
@@ -226,16 +226,16 @@ Spinnaker supports the following installation environments:
 
 For this example, the distributed alternative was selected. But before the installation, learn about some key concepts in Spinnaker configuration.
 
-### Understand Spinnaker Artifacts and Accounts
+### Understand Spinnaker artifacts and accounts
 
 A _Spinnaker artifact_ is a named JSON object that refers to an external resource, for example, a docker image or a file stored in GitHub. In a pipeline trigger, you can specify an _expected artifact_, and Spinnaker will compare the incoming artifact from the trigger and bind it to be used by the trigger or another stage in the pipeline.
 Also in Kubernetes, the deployed manifests can be provided statically or as an artifact. In this example, manifests are provided as artifacts stored in GitHub.
 
-For Spinnaker to access and act on resources, like docker registries, cloud providers, and code repositories, different types of accounts must be enabled in Spinnaker configuration, along with the credentials. In addition, the configuration has the optional step of associating Spinnaker with a Kubernetes service account, allowing to restrict permissions over the cluster resources granted to Spinnaker.
+For Spinnaker to access and act on resources, like Docker registries, cloud providers, and code repositories, different types of accounts must be enabled in the Spinnaker configuration, along with the credentials. In addition, the configuration has the optional step of associating Spinnaker with a Kubernetes service account, allowing you to restrict permissions over the cluster resources granted to Spinnaker.
 
 ### Install Halyard
 
-As described on Spinnaker [docs](https://spinnaker.io/docs/setup/install/), the first step is to install [Halyard](https://spinnaker.io/docs/setup/install/halyard/). For a local install in MacOS:
+As described in Spinnaker [docs](https://spinnaker.io/docs/setup/install/), the first step is to install [Halyard](https://spinnaker.io/docs/setup/install/halyard/). For a local install in MacOS:
 
 ```shell
 curl -O https://raw.githubusercontent.com/spinnaker/halyard/master/install/macos/InstallHalyard.sh
@@ -247,13 +247,13 @@ Verify the installation with:
 hal -v
 ```
 
-You must also install [`kubectl`](https://kubernetes.io/docs/tasks/tools/), the Kubernetes command line too, to run commands against the clusters.
+You must also install [`kubectl`](https://kubernetes.io/docs/tasks/tools/), the Kubernetes command line tool, to run commands against the clusters.
 
 ### Choose GKE for Spinnaker deployment
 
-The second step is to choose a cloud provider for the environment in which you will install Spinnaker. For Kubernetes, Spinnaker needs a `kubeconfig` file, to access and manage the cluster. For creating a `kubeconfig` for a GKE cluster, you must first create the cluster. GoogleCloud provides a [free tier](https://cloud.google.com/free) of their services that grants you $300 in free credits if you are a new user.
+The second step is to choose a cloud provider for the environment in which you will install Spinnaker. For Kubernetes, Spinnaker needs a `kubeconfig` file, to access and manage the cluster. For creating a `kubeconfig` for a GKE cluster, you must first create the cluster. Google Cloud provides a [free tier](https://cloud.google.com/free) of their services that grants you $300 in free credits if you are a new user.
 
-After you signed up, install [`gcloud` CLI](https://cloud.google.com/sdk/docs/install). Following the process to the end, the last step is to run `gcloud init` and set up the authorization for the tool.
+After you sign up, install [`gcloud` CLI](https://cloud.google.com/sdk/docs/install). When you reach the end of the process, the last step is to run `gcloud init` and set up authorization for the tool.
 
 Create the cluster for the Spinnaker deployment with the following line:
 ```shell
@@ -269,7 +269,7 @@ Then fetch the cluster credentials with:
 gcloud container clusters get-credentials spinnaker-cluster --zone southamerica-east1-a
 ```
 
-`get-credentials` will update a `kubeconfig` file with appropriate credentials and endpoint information to point kubectl at a specific cluster in Google Kubernetes Engine.
+`get-credentials` will update a `kubeconfig` file with appropriate credentials and endpoint information to point `kubectl` at a specific cluster in Google Kubernetes Engine.
 
 Create a namespace for the Spinnaker cluster:
 
@@ -328,7 +328,7 @@ rules:
         'update',
         'watch',
       ]
-  # These permissions are necessary for halyard to operate. We use this role also to deploy Spinnaker itself.
+  # These permissions are necessary for Halyard to operate. We use this role also to deploy Spinnaker itself.
   - apiGroups: ['']
     resources: ['services/proxy', 'pods/portforward']
     verbs:
@@ -384,7 +384,7 @@ kubectl config set-credentials ${CONTEXT}-token-user --token $TOKEN
 
 kubectl config set-context $CONTEXT --user ${CONTEXT}-token-user
 ```
-Enable the kubernetes provider in Halyard:
+Enable the Kubernetes provider in Halyard:
 
 ```shell
 hal config provider kubernetes enable
@@ -411,7 +411,7 @@ hal config deploy edit --type distributed --account-name spinnaker-gke-account
 
 ### Choose a storage service
 
-Spinnaker requires an external storage provider for persisting application settings and configured pipelines. To avoid losing this data, using a hosted storage solution is recommended. For this example, use Google Cloud Storage. Hosting the data externally allows to delete clusters in between sessions, and keep the pipelines once the clusters have been recreated.
+Spinnaker requires an external storage provider for persisting application settings and configured pipelines. To avoid losing this data, using a hosted storage solution is recommended. For this example, we use Google Cloud Storage. Hosting the data externally allows us to delete clusters in between sessions, and keep the pipelines once the clusters have been recreated.
 
 In the `spinnaker` folder, run the following lines:
 
@@ -489,22 +489,22 @@ A healthy Spinnaker deployment will look like this:
 
 {% img blog/jhipster-ci-cd/spinnaker-k9s.png alt:"Spinnaker k9s view" width:"800" %}{: .center-image }
 
-Then connect to the Spinnaker UI with:
+You can connect to the Spinnaker UI using the following command:
 
 ```shell
 hal deploy connect
 ```
-Navigate to [localhost:9000](localhost:9000), the UI will look like this:
+Navigate to `http://localhost:9000` and the UI should look like this:
 
 {% img blog/jhipster-ci-cd/spinnaker-ui.png alt:"Spinnaker DeckUI" width:"800" %}{: .center-image }
 
 ## Set up CD for a JHipster microservices application
 
-Spinnaker is muti-cloud because it can manage delivery to multiple cloud providers. Some companies use different platforms for production and test environments. In this example, the same cloud provider (GKE) was chosen both for Spinnaker deployment and for the application test deployment.
+Spinnaker is multi-cloud because it can manage delivery to multiple cloud providers. Some companies use different platforms for production and test environments. In this example, the same cloud provider (GKE) was chosen both for Spinnaker deployment and for the application test deployment.
 
 ### Choose GKE for applications deployment
 
-The following lines are for adding a new Kubernetes account for a different cluster, which will be used for application deployment.
+Now I'll show you how to add a new Kubernetes account for a different cluster, which will be used for application deployment.
 
 Create a cluster for the JHipster microservices architecture:
 
@@ -522,7 +522,7 @@ Fetch the cluster credentials:
 gcloud container clusters get-credentials jhipster-cluster --zone southamerica-east1-a
 ```
 
-Create the namespace `demo` for the microservices:
+Create the namespace `demo` for your microservices:
 
 ```shell
 kubectl create namespace demo
@@ -578,7 +578,7 @@ rules:
         'update',
         'watch',
       ]
-  # These permissions are necessary for halyard to operate. We use this role also to deploy Spinnaker itself.
+  # These permissions are necessary for Halyard to operate. We use this role also to deploy Spinnaker itself.
   - apiGroups: ['']
     resources: ['services/proxy', 'pods/portforward']
     verbs:
@@ -646,7 +646,7 @@ hal config provider kubernetes account add jhipster-gke-account \
     --context $CONTEXT
 ```
 
-### Add a docker registry account
+### Add a Docker registry account
 
 As the goal is to trigger the pipeline execution when a new image is pushed to DockerHub, you need to configure a docker-registry provider with Halyard.
 
@@ -687,7 +687,7 @@ hal config artifact github account add $ARTIFACT_ACCOUNT_NAME \
     --token
 ```
 
-The new GKE, Docker, and GitHub accounts configuration must be applied to the deployment before starting the pipeline design:
+The new GKE, Docker, and GitHub account configurations must be applied to the deployment before starting the pipeline design:
 
 ```shell
 hal deploy apply
@@ -695,12 +695,13 @@ hal deploy apply
 
 ### Create the store microservice pipeline
 
-The _pipeline_ is the central concept in deployment management with Spinnaker. It is compounded by a sequence of actions, named _stages_. A pipeline can be triggered manually or automatically, and have an execution history. Connect to the Spinnaker UI again, for creating the first pipeline.
+The _pipeline_ is the central concept in deployment management with Spinnaker. It is compounded by a sequence of actions, named _stages_. A pipeline can be triggered manually or automatically, and have an execution history. Connect to the Spinnaker UI again to create the first pipeline.
 
 ```shell
 hal deploy connect
 ```
-Navigate to [localhost:9000](localhost:9000), and create the store application, choosing Kubernetes as the cloud provider. Click **Create Application** and set the following values:
+
+Navigate to `https://localhost:9000`, create the store application, and choose Kubernetes as the cloud provider. Click **Create Application** and set the following values:
 
 {% img blog/jhipster-ci-cd/sp-store-app.png alt:"Spinnaker create application" width:"550" %}{: .center-image }
 
@@ -728,7 +729,7 @@ Click **Save Artifact**.
 
 {% img blog/jhipster-ci-cd/sp-trigger-artifact.png alt:"Spinnaker pipeline trigger" width:"700" %}{: .center-image }
 
-**IMPORTANT NOTE**: Spinnaker provides a mechanism to [override](https://spinnaker.io/docs/guides/user/kubernetes-v2/deploy-manifest/#override-artifacts) the version of Docker images, Kubernetes ConfigMaps, and Secrets in manifests, injecting new versions when one of these objects exist in the pipeline context. However, Spinnaker documentation does not have a clear example of the trigger configuration for the docker image to be available in the pipeline context. To make it happen, you must _set it as an artifact constraint in the trigger_. If the artifact constraint is not defined, the original image version in the manifests will be deployed, instead of the new image that triggered the pipeline. If no version is in the manifests, `latest` will be the default.
+**IMPORTANT NOTE**: Spinnaker provides a mechanism to [override](https://spinnaker.io/docs/guides/user/kubernetes-v2/deploy-manifest/#override-artifacts) the version of Docker images, Kubernetes ConfigMaps, and Secrets in manifests, injecting new versions when one of these objects exists in the pipeline context. However, Spinnaker documentation does not have a clear example of the trigger configuration for the Docker image to be available in the pipeline context. To make it happen, you must _set it as an artifact constraint in the trigger_. If the artifact constraint is not defined, the original image version in the manifests will be deployed, instead of the new image that triggered the pipeline. If no version is in the manifests, `latest` will be the default.
 
 Add a second Docker registry trigger for the gateway image pushes and click **Save Changes**.  
 
@@ -742,10 +743,10 @@ The store pipeline will execute the following stages:
 - Deploy the store clustered database MongoDB
 - Deploy the gateway microservice
 - Deploy the store microservice
-- Enable the gateway Service
-- Enable the store Service
+- Enable the gateway service
+- Enable the store service
 
-The Kubernetes configuration created in the folder `jhipster-ci-cd/kubernetes` must be pushed to a GitHub repository, so Spinnaker can access it using the GitHub artifact account created before. But before the push, Edit `kubernetes/store-k8s/store-deployment.yml` and set the image name with the fully qualified address:
+The Kubernetes configuration created in the folder `jhipster-ci-cd/kubernetes` must be pushed to a GitHub repository, so Spinnaker can access it using the GitHub artifact account created earlier. But before you push, edit `kubernetes/store-k8s/store-deployment.yml` and set the image name with the fully qualified address:
 
 ```yml
 - name: store-app
@@ -755,7 +756,7 @@ Do the same for `kubernetes/gateway-k8s/gateway-deployment.yml`. This is also re
 
 Sign in to GitHub and create a public repository `jhipster-k8s`. Follow the instructions to push the existing `kubernetes` folder from your local using the command line.
 
-**IMPORTANT NOTE**: You will be pushing plain secrets contained in the application and Kubernetes configuration. To avoid this, you can run the JHipster registry locally to encrypt application configuration, and also set up `kubeseal` for Kubernetes secrets encryption. The process is described in a previous post [Kubernetes to the Cloud with Spring Boot and JHipster](/blog/2021/06/01/kubernetes-spring-boot-jhipster).
+**IMPORTANT NOTE**: At this point, you will be pushing plain secrets contained in the application and Kubernetes configuration. To avoid this insecure anti-pattern, you can run the JHipster registry locally to encrypt application configuration, and also set up `kubeseal` for Kubernetes secrets encryption. The process is described in a previous post [Kubernetes to the Cloud with Spring Boot and JHipster](/blog/2021/06/01/kubernetes-spring-boot-jhipster).
 
 Go back to Spinnaker UI, and in the pipeline configuration choose **Add Stage** and set the following values:
 
@@ -776,11 +777,11 @@ Go back to Spinnaker UI, and in the pipeline configuration choose **Add Stage** 
  Click **Save Changes**.
  Repeat the process for adding stages to deploy `jhipster-registry.yml`, which must depend on the previous manifest. Also repeat for `gateway-postgresql.yml`, `store-mongodb.yml` manifests, which both should depend on the `jhipster-registry` stage.
 
-Add a stage for the `store-deployment.yml` manifest. For this manifest, you must bind the docker image from the context. In the deploy manifest configuration, in **Required Artifacts to Bind**, choose **store-image**. The option must be available as the image was set as an artifact constraint in the trigger configuration, making the artifact available in the pipeline context.
+Add a stage for the `store-deployment.yml` manifest. For this manifest, you must bind the Docker image from the context. In the deploy manifest configuration, in **Required Artifacts to Bind**, choose **store-image**. The option must be available, as the image was set as an artifact constraint in the trigger configuration, making the artifact available in the pipeline context.
 
 {% img blog/jhipster-ci-cd/sp-bind-artifact.png alt:"Spinnaker deploy manifest configuration binding artifact" width:"700" %}{: .center-image }
 
-Add also a stage for the `gateway-deployment.yml`, binding the `gateway` docker image. Finally, add stages for `store-service.yml` and `gateway-service.yml`. Notice docker images have to be bound only for the deployment manifests, where the images are referenced.
+Also add a stage for the `gateway-deployment.yml`, binding the `gateway` Docker image. Finally, add stages for `store-service.yml` and `gateway-service.yml`. Notice Docker images have to be bound only for the deployment manifests, where the images are referenced.
 The complete pipeline must look like this:
 
 {% img blog/jhipster-ci-cd/sp-jhipster-pipeline.png alt:"Spinnaker pipeline for jhipster microservices" width:"800" %}{: .center-image }
@@ -829,7 +830,7 @@ Commit and push the change to the `main` branch, and watch the CircleCI CI pipel
 
 ### Inspect Spinnaker logs
 
-For pipeline and trigger debugging, the Spinnaker services `spin-echo` and `spin-igor` inform docker monitoring events and also the reasons why an execution was skipped.
+For pipeline and trigger debugging, the Spinnaker services `spin-echo` and `spin-igor` inform Docker monitoring events and indicate the reasons why an execution was skipped.
 
 ```shell
 kubectl get pods -n spinnaker
@@ -841,12 +842,12 @@ kubectl logs spin-igor-7c8bdd94f5-lx5dl -n spinnaker | grep v1
 2022-08-05 03:20:27.288  INFO 1 --- [   scheduling-1] c.n.spinnaker.igor.docker.DockerMonitor  : Sending tagged image info to echo: account=docker-account: image=igor:dockerRegistry:v2:docker-account:indiepopart/gateway:v1
 ```
 
-## Know about Spinnaker's best practices and features
+## Spinnaker features and best practices  
 
-When implementing continuous delivery, be aware of some best practices and features provided by Spinnaker described below.
+When implementing continuous delivery, here are some best practices and key features to be aware of:
 
-- **Deploy Docker images by digest** Spinnaker documentation recommends deploying images by digest instead of tag, because the tag might reference different content each time. The digest is a content-based hash of the image and it uniquely identifies it. Spinnaker's artifact substitution allows deploying the same manifest, with the image digest supplied by the pipeline trigger. Using the proposed trigger and a free DockerHub account as the registry, the digest data seems not to be available. It is also recommended to trigger a CD pipeline off of a push to a docker registry instead of a GitHub push or Jenkins job, allowing development teams to choose their delivery process without more constraints.
-- **Rollbacks**: Like there is a stage for deploying manifests, there are also stages for deleting, scaling, and rollbacking manifests. Spinnaker also supports automated rollbacks, as it exposes the _Undo Rollout_ functionality as a stage, which can be configured to run when other stages fail, and to roll back by a number of revisions of the deployed object. CoonfigMaps and Secrets must be versioned for the automated rollback to actually roll back code or configuration.
+- **Deploy Docker images by digest**: Spinnaker documentation recommends deploying images by digest instead of tag, because the tag might reference different content each time. The digest is a content-based hash of the image and it uniquely identifies it. Spinnaker's artifact substitution allows deploying the same manifest, with the image digest supplied by the pipeline trigger. Using the proposed trigger and a free DockerHub account as the registry, the digest data seems not to be available. It is also recommended to trigger a CD pipeline off of a push to a Docker registry instead of a GitHub push or Jenkins job, allowing development teams to choose their delivery process without more constraints.
+- **Rollbacks**: Just as there is a stage for deploying manifests, there are also stages for deleting, scaling, and rollbacking manifests. Spinnaker also supports automated rollbacks, as it exposes the _Undo Rollout_ functionality as a stage, which can be configured to run when other stages fail, and to roll back by a number of revisions of the deployed object. ConfigMaps and Secrets must be versioned for the automated rollback to actually roll back code or configuration.
 - **Manual judgments** The pipeline can include a manual judgment stage, that will make the execution interrupt, asking for user input to continue or cancel. This can be used to ask for confirmation before promoting a staging deployment to production.
 - **Pipeline management**: Spinnaker represents pipelines as JSON behind the scenes, and maintains a revision history of the changes made to the pipeline. It also supports pipeline templates, that can be managed through the `spin CLI`, and help with pipeline sharing and distribution.
 - **Canary**: You can automate Canary analysis by creating canary stages for your pipeline. Canary must be enabled in the Spinnaker installation using `hal` commands. The Canary analysis consists of the evaluation of metrics chosen during configuration, comparing a partial rollout with the current deployment. The stage will fail based on the deviation criteria configured for the metric.
@@ -855,7 +856,7 @@ When implementing continuous delivery, be aware of some best practices and featu
 
 ## Learn more
 
-As requested, this was another delivery on JHipster deployments. CI and CD propose several organizational and technical practices aimed to improve team confidence, efficiency, and productivity. Spinnaker is a powerful tool for continuous deployment, a big number of [companies](https://spinnaker.io/docs/community/stay-informed/captains-log/#contributions-per-company) around the world are contributing to its growth. As each architecture and organization is different, your pipeline design must be customized to your particular use case. I hope this brief introduction will help you get the most out of these wonderful tools. Keep learning, and for more about JHipster check out the following links:
+By popular demand, this article looks at the nuts and bolts of JHipster deployments. CI and CD propose several organizational and technical practices aimed at improving team confidence, efficiency, and productivity. Spinnaker is a powerful tool for continuous deployment, with more than 200 [companies](https://spinnaker.io/docs/community/stay-informed/captains-log/#contributions-per-company) around the world contributing to its growth. As each architecture and organization is different, your pipeline design must be customized to your particular use case. I hope this brief introduction will help you get the most out of these wonderful tools. To learn more about JHipster check out the following links:
 
 - [JHipster Microservices on AWS with Amazon Elastic Kubernetes Service](/blog/2022/07/11/kubernetes-jhipster-aws)
 - [Run Microservices on DigitalOcean with Kubernetes](/blog/2022/06/06/microservices-digitalocean-kubernetes)
