@@ -153,7 +153,8 @@ version: 2.1
 jobs:
   build:
     environment:
-      IMAGE_NAME: your-dockerhub-username/store
+      DOCKERHUB_USERNAME: your-dockerhub-username
+      IMAGE_NAME: $DOCKERHUB_USERNAME/store
     machine:
       image: ubuntu-2004:current
     resource_class: large
@@ -181,7 +182,7 @@ jobs:
             - node
             - node_modules
             - ~/.gradle
-            key: {%raw%}v1-dependencies-{{ checksum "build.gradle" }}-{{ checksum "package-lock.json" }}{%endraw%}
+          key: {%raw%}v1-dependencies-{{ checksum "build.gradle" }}-{{ checksum "package-lock.json" }}{%endraw%}
       - run:
           name: Give Executable Power
           command: 'chmod +x gradlew'
@@ -194,11 +195,71 @@ jobs:
       - run:
           name: Publish Docker Image
           command: |
-            docker login -u your-dockerhub-username -p $DOCKERHUB_PASS
+            docker login -u $DOCKERHUB_USERNAME -p $DOCKERHUB_PASS
             docker push $IMAGE_NAME
 ```
 
-Do the same updates to the `gateway/.circleci/config.yml` file. Be sure to replace `your-dockerhub-username` and set the correct `IMAGE_NAME`.
+Do the same updates to the `gateway/.circleci/config.yml` file. Additionally, the following change is required:
+
+- Add `~/.cache/Cypress` as a cache path
+
+Be sure to replace `your-dockerhub-username` and set the correct `IMAGE_NAME`.
+The final `config.yml` for the `gateway` must look like this:
+
+```yml
+version: 2.1
+jobs:
+  build:
+    environment:
+      DOCKERHUB_USERNAME: your-dockerhub-username
+      IMAGE_NAME: $DOCKERHUB_USERNAME/gateway
+    machine:
+      image: ubuntu-2004:current
+    resource_class: large
+    steps:
+      - checkout
+      - restore_cache:
+          keys:
+            - {%raw%}v1-dependencies-{{ checksum "build.gradle" }}-{{ checksum "package-lock.json" }}{%endraw%}
+            # Perform a Partial Cache Restore (https://circleci.com/docs/2.0/caching/#restoring-cache)
+            - v1-dependencies-
+      - run:
+          name: Print Java Version
+          command: 'java -version'
+      - run:
+          name: Print Node Version
+          command: 'node -v'
+      - run:
+          name: Print NPM Version
+          command: 'npm -v'
+      - run:
+          name: Install Node Modules
+          command: 'npm install'
+      - save_cache:
+          paths:
+            - node
+            - node_modules
+            - ~/.gradle
+            - ~/.cache/Cypress
+          key: {%raw%}v1-dependencies-{{ checksum "build.gradle" }}-{{ checksum "package-lock.json" }}{%endraw%}
+      - run:
+          name: Give Executable Power
+          command: 'chmod +x gradlew'
+      - run:
+          name: Backend tests
+          command: npm run ci:backend:test
+      - run:
+          name: Run Front End Tests
+          command: npm run ci:frontend:test
+      - run:
+          name: Build Spring Boot Docker Image
+          command: ./gradlew bootBuildImage --imageName=$IMAGE_NAME
+      - run:
+          name: Publish Docker Image
+          command: |
+            docker login -u $DOCKERHUB_USERNAME -p $DOCKERHUB_PASS
+            docker push $IMAGE_NAME
+```
 
 To take advantage of the one-step GitHub integration of CircleCI, you need a [GitHub](https://github.com/signup) account. After signing in to GitHub, create a new public repository `store`. Follow the instructions to push the existing repository from your local machine to GitHub using the command line. Do the same with the `gateway` project.
 
@@ -216,6 +277,11 @@ Do the same for the `gateway` project. The configuration triggers an initial pip
 Once a project is set up in CircleCI, a pipeline is triggered each time a commit is pushed to the configured branch. The pipeline in execution appears on the **Dashboard** page. You can also manually trigger the pipeline from the **Dashboard** if you choose the project and branch from the pipeline filters, and then click **Trigger Pipeline**. Before moving on to the next section, manually execute the store pipeline and the gateway pipeline once, to push the first image of each to DockerHub.
 
 {% img blog/jhipster-ci-cd/circleci-job-success.png alt:"CircleCI job success" width:"800" %}{: .center-image }
+
+**NOTE**: If you modify the configuration, and encounter CircleCI cache errors, the only way I found to recreate the cache is to update the version prefix, for example:
+```yml
+{%raw%}v2-dependencies-{{ checksum "build.gradle" }}-{{ checksum "package-lock.json" }}{%endraw%}
+```
 
 ## Install Spinnaker on Google Kubernetes Engine
 
@@ -702,7 +768,7 @@ The _pipeline_ is the central concept in deployment management with Spinnaker. I
 hal deploy connect
 ```
 
-Navigate to `https://localhost:9000`, create the store application, and choose Kubernetes as the cloud provider. Click **Create Application** and set the following values:
+Navigate to `https://localhost:9000`, click **Create Application** and just set the application name and owner email.
 
 {% img blog/jhipster-ci-cd/sp-store-app.png alt:"Spinnaker create application" width:"550" %}{: .center-image }
 
