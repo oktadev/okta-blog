@@ -561,7 +561,7 @@ You can connect to the Spinnaker UI using the following command:
 ```shell
 hal deploy connect
 ```
-Navigate to `http://localhost:9000` and the UI should, in the **Projects** tab should look like this:
+Navigate to `http://localhost:9000` and the UI should load. The **Projects** tab should look like the screenshot below.
 
 {% img blog/jhipster-ci-cd/spinnaker-ui.png alt:"Spinnaker DeckUI" width:"800" %}{: .center-image }
 
@@ -768,7 +768,7 @@ The _pipeline_ is the central concept in deployment management with Spinnaker. I
 hal deploy connect
 ```
 
-Navigate to `https://localhost:9000`, click **Create Application** and just set the application name and owner email.
+Navigate to `https://localhost:9000` > **Applications**. Click **Create Application** and just set the application name and owner email.
 
 {% img blog/jhipster-ci-cd/sp-store-app.png alt:"Spinnaker create application" width:"550" %}{: .center-image }
 
@@ -823,11 +823,11 @@ Do the same for `kubernetes/gateway-k8s/gateway-deployment.yml`. This is also re
 
 Sign in to GitHub and create a public repository `jhipster-k8s`. Follow the instructions to push the existing `kubernetes` folder from your local using the command line.
 
-**IMPORTANT NOTE**: At this point, you will be pushing plain secrets contained in the application and Kubernetes configuration. To avoid this insecure anti-pattern, you can run the JHipster registry locally to encrypt application configuration, and also set up `kubeseal` for Kubernetes secrets encryption. The process is described in a previous post [Kubernetes to the Cloud with Spring Boot and JHipster](/blog/2021/06/01/kubernetes-spring-boot-jhipster).
+**IMPORTANT NOTE**: At this point, you will be pushing plain secrets contained in the application and Kubernetes configuration. To avoid this insecure anti-pattern, you can run the JHipster registry locally to encrypt application configuration, and also set up `kubeseal` for Kubernetes secrets encryption. The process is described in a previous post: [Kubernetes to the Cloud with Spring Boot and JHipster](/blog/2021/06/01/kubernetes-spring-boot-jhipster).
 
 Go back to Spinnaker UI, and in the pipeline configuration choose **Add Stage** and set the following values:
 
-- Type: **Deploy(Manifest)**
+- Type: **Deploy (Manifest)**
 - Stage Name: **deploy application-configmap**
 - Account: **jhipster-gke-account**
 - Override Namespace: **yes**
@@ -853,7 +853,7 @@ The complete pipeline must look like this:
 
 {% img blog/jhipster-ci-cd/sp-jhipster-pipeline.png alt:"Spinnaker pipeline for jhipster microservices" width:"800" %}{: .center-image }
 
-Test the pipeline manually once. In the pipelines view, click **Start Manual Execution** for the _store-cd_ pipeline. Set the following options:
+Test the pipeline manually once. Go to **Pipelines** and select **Start Manual Execution** for the _store-cd_ pipeline. Set the following options:
 
 - Trigger: leave **docker-account: your-dockerhub-username/store**
 - Type: **Tag**
