@@ -141,10 +141,10 @@ For both applications, choose the following options:
 - What tasks/integrations do you want to include? (none)
 
 You must tweak the generated configuration at `store/.circleci/config.yml`, as the following changes are required for successful execution:
-- Change the execution environment of the workflow, to a dedicated VM, as that is required by the [TestContainers](https://www.testcontainers.org/supported_docker_environment/continuous_integration/circle_ci) dependency in tests.
-- As the dedicated VM includes docker, the docker installation step in the configuration must be removed
-- Add a step for building the docker container image
-- Add a step for pushing the image to DockerHub
+- Change the execution environment of the workflow, to a dedicated VM, as that is required by the [TestContainers](https://www.testcontainers.org/supported_docker_environment/continuous_integration/circle_ci) dependency in tests. The chosen environment is [LinuxVM](https://circleci.com/developer/machine/image/ubuntu-2004), a standalone Ubuntu 20.04 virtual machine.
+- As the dedicated VM includes docker, the docker installation step in the configuration must be removed.
+- Add a step for building the docker container image.
+- Add a step for pushing the image to DockerHub.
 
 The final `config.yml` must look like this:
 
