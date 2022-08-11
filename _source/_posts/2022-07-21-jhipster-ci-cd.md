@@ -143,8 +143,10 @@ For both applications, choose the following options:
 You must tweak the generated configuration at `store/.circleci/config.yml`, as the following changes are required for successful execution:
 - Change the execution environment of the workflow, to a dedicated VM, as that is required by the [TestContainers](https://www.testcontainers.org/supported_docker_environment/continuous_integration/circle_ci) dependency in tests. The chosen environment is [LinuxVM](https://circleci.com/developer/machine/image/ubuntu-2004), a standalone Ubuntu 20.04 virtual machine.
 - As the dedicated VM includes docker, the docker installation step in the configuration must be removed.
-- Add a step for building the docker container image.
-- Add a step for pushing the image to DockerHub.
+- Add a conditional step for building and pushing the image to DockerHub, only if the branch name is `main`.
+
+**Note**: You can also configure the job to only build specific [branches](https://circleci.com/docs/configuration-reference#branches).
+
 
 The final `config.yml` must look like this:
 
@@ -153,8 +155,8 @@ version: 2.1
 jobs:
   build:
     environment:
-      DOCKERHUB_USERNAME: your-dockerhub-username
-      IMAGE_NAME: $DOCKERHUB_USERNAME/store
+      DOCKERHUB_USER: your-dockerhub-username
+      IMAGE_NAME: your-dockerhub-username/store
     machine:
       image: ubuntu-2004:current
     resource_class: large
@@ -162,7 +164,7 @@ jobs:
       - checkout
       - restore_cache:
           keys:
-            {%raw%}- v1-dependencies-{{ checksum "build.gradle" }}-{{ checksum "package-lock.json" }}{%endraw%}
+            - {%raw%}v1-dependencies-{{ checksum "build.gradle" }}-{{ checksum "package-lock.json" }}{%endraw%}
             # Perform a Partial Cache Restore (https://circleci.com/docs/2.0/caching/#restoring-cache)
             - v1-dependencies-
       - run:
@@ -189,14 +191,17 @@ jobs:
       - run:
           name: Backend tests
           command: npm run ci:backend:test
-      - run:
-          name: Build Spring Boot Docker Image
-          command: ./gradlew bootBuildImage --imageName=$IMAGE_NAME
-      - run:
-          name: Publish Docker Image
-          command: |
-            docker login -u $DOCKERHUB_USERNAME -p $DOCKERHUB_PASS
-            docker push $IMAGE_NAME
+      - when:
+          condition:
+            equal: [ main, << pipeline.git.branch >> ]
+          steps:
+            - run:
+                name: Build and Publish Docker Image
+                command: |
+                  ./gradlew -Pprod bootJar jib \
+                    -Djib.to.image=$IMAGE_NAME \
+                    -Djib.to.auth.username=$DOCKERHUB_USER \
+                    -Djib.to.auth.password=$DOCKERHUB_PASS          
 ```
 
 Do the same updates to the `gateway/.circleci/config.yml` file. Additionally, the following change is required:
@@ -211,8 +216,8 @@ version: 2.1
 jobs:
   build:
     environment:
-      DOCKERHUB_USERNAME: your-dockerhub-username
-      IMAGE_NAME: $DOCKERHUB_USERNAME/gateway
+      DOCKERHUB_USER: your-dockerhub-username
+      IMAGE_NAME: your-dockerhub-username/gateway
     machine:
       image: ubuntu-2004:current
     resource_class: large
@@ -251,14 +256,17 @@ jobs:
       - run:
           name: Run Front End Tests
           command: npm run ci:frontend:test
-      - run:
-          name: Build Spring Boot Docker Image
-          command: ./gradlew bootBuildImage --imageName=$IMAGE_NAME
-      - run:
-          name: Publish Docker Image
-          command: |
-            docker login -u $DOCKERHUB_USERNAME -p $DOCKERHUB_PASS
-            docker push $IMAGE_NAME
+      - when:
+          condition:
+            equal: [ main, << pipeline.git.branch >> ]
+          steps:
+            - run:
+                name: Build and Publish Docker Image
+                command: |
+                  ./gradlew -Pprod bootJar jib \
+                    -Djib.to.image=$IMAGE_NAME \
+                    -Djib.to.auth.username=$DOCKERHUB_USER \
+                    -Djib.to.auth.password=$DOCKERHUB_PASS
 ```
 
 To take advantage of the one-step GitHub integration of CircleCI, you need a [GitHub](https://github.com/signup) account. After signing in to GitHub, create a new public repository `store`. Follow the instructions to push the existing repository from your local machine to GitHub using the command line. Do the same with the `gateway` project.
