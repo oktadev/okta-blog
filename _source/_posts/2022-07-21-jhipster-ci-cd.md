@@ -351,7 +351,7 @@ Create a namespace for the Spinnaker cluster:
 kubectl create namespace spinnaker
 ```
 
-The Spinnaker [documentation](https://spinnaker.io/docs/setup/install/providers/kubernetes-v2/#optional-create-a-kubernetes-service-account) recommends creating a Kubernetes service account, using Kubernetes role definitions that restrict the permissions granted to the Spinnaker account. Create a `spinnaker` directory, and add the file `spinnaker-service-account.yml` with the following content:
+The Spinnaker [documentation](https://spinnaker.io/docs/setup/install/providers/kubernetes-v2/#optional-create-a-kubernetes-service-account) recommends creating a Kubernetes service account, using Kubernetes role definitions that restrict the permissions granted to the Spinnaker account. Create a `spinnaker` folder, in the root folder or any other location. Add the file `spinnaker-service-account.yml` with the following content:
 
 ```yml
 apiVersion: rbac.authorization.k8s.io/v1
@@ -774,7 +774,7 @@ The _pipeline_ is the central concept in deployment management with Spinnaker. I
 hal deploy connect
 ```
 
-Navigate to `https://localhost:9000` > **Applications**. Click **Create Application** and just set the application name and owner email.
+Navigate to `https://localhost:9000` > **Applications**. Click **Create Application** and just set the application name and owner email. The repository type and additional fields are not mandatory and you can leave all blank for this test.
 
 {% img blog/jhipster-ci-cd/sp-store-app.png alt:"Spinnaker create application" width:"550" %}{: .center-image }
 
@@ -848,13 +848,15 @@ Go back to Spinnaker UI, and in the pipeline configuration choose **Add Stage** 
  - Commit/Branch: **main**
 
  Click **Save Changes**.
- Repeat the process for adding stages to deploy `jhipster-registry.yml`, which must depend on the previous manifest. Also repeat for `gateway-postgresql.yml`, `store-mongodb.yml` manifests, which both should depend on the `jhipster-registry` stage.
+ Repeat the process for adding stages to deploy `jhipster-registry.yml`, which must depend on the previous manifest. Also repeat for `gateway-postgresql.yml`, `store-mongodb.yml` manifests, which both should depend on the `jhipster-registry` stage. Make sure to set the correct **Content URL** for the GitHub artifact. It must have the form `https://api.github.com/repos/<your-github-username>/<repo-name>/contents/<path>`. If you open the URL in a browser, it should render a JSON response.
 
-Add a stage for the `store-deployment.yml` manifest. For this manifest, you must bind the Docker image from the context. In the deploy manifest configuration, in **Required Artifacts to Bind**, choose **store-image**. The option must be available, as the image was set as an artifact constraint in the trigger configuration, making the artifact available in the pipeline context.
+Add a stage for the `store-deployment.yml` manifest, it must depend on the `store-mongodb` stage. For this manifest, you must bind the Docker image from the context. In the deploy manifest configuration, in **Required Artifacts to Bind**, choose **store-image**. The option must be available, as the image was set as an artifact constraint in the trigger configuration, making the artifact available in the pipeline context.
 
 {% img blog/jhipster-ci-cd/sp-bind-artifact.png alt:"Spinnaker deploy manifest configuration binding artifact" width:"700" %}{: .center-image }
 
-Also add a stage for the `gateway-deployment.yml`, binding the `gateway` Docker image. Finally, add stages for `store-service.yml` and `gateway-service.yml`. Notice Docker images have to be bound only for the deployment manifests, where the images are referenced.
+Also add a stage for the `gateway-deployment.yml`, binding the `gateway` Docker image. It must depend on the `gateway-postgresql` stage.
+
+Finally, add a stage for `store-service.yml`, which must depend on the `store-deployment` stage, and a stage for `gateway-service.yml`, which must depend on the `gateway-postgresql` stage. Notice that Docker images have to be bound only for the manifests that contain a reference to the image.
 The complete pipeline must look like this:
 
 {% img blog/jhipster-ci-cd/sp-jhipster-pipeline.png alt:"Spinnaker pipeline for jhipster microservices" width:"800" %}{: .center-image }
@@ -909,10 +911,11 @@ For pipeline and trigger debugging, the Spinnaker services `spin-echo` and `spin
 kubectl get pods -n spinnaker
 kubectl logs spin-igor-7c8bdd94f5-lx5dl -n spinnaker | grep v1
 ```
-```text
-2022-08-05 03:20:27.285  INFO 1 --- [   scheduling-1] c.n.spinnaker.igor.docker.DockerMonitor  : Found 1 new images for docker-account. Images: [{imageId=igor:dockerRegistry:v2:docker-account:indiepopart/gateway:v1, sendEvent=true}]
-2022-08-05 03:20:27.286  INFO 1 --- [   scheduling-1] c.n.spinnaker.igor.docker.DockerMonitor  : New tagged image: account=docker-account, image=igor:dockerRegistry:v2:docker-account:indiepopart/gateway:v1. Digest is now [null].
-2022-08-05 03:20:27.288  INFO 1 --- [   scheduling-1] c.n.spinnaker.igor.docker.DockerMonitor  : Sending tagged image info to echo: account=docker-account: image=igor:dockerRegistry:v2:docker-account:indiepopart/gateway:v1
+
+```
+Found 1 new images for docker-account. Images: [{imageId=igor:dockerRegistry:v2:docker-account:indiepopart/gateway:v1, sendEvent=true}]
+New tagged image: account=docker-account, image=igor:dockerRegistry:v2:docker-account:indiepopart/gateway:v1. Digest is now [null].
+Sending tagged image info to echo: account=docker-account: image=igor:dockerRegistry:v2:docker-account:indiepopart/gateway:v1
 ```
 
 ## Spinnaker features and best practices  
