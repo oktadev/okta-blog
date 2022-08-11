@@ -463,7 +463,7 @@ Enable the Kubernetes provider in Halyard:
 ```shell
 hal config provider kubernetes enable
 ```
-Note: You will see warnings related to missing configuration. Be patient, in the following steps all will be solved.
+**NOTE**: You will see warnings related to missing configuration. Be patient, in the following steps all will be solved.
 
 Add the service account to the Halyard configuration:
 
@@ -697,8 +697,6 @@ CONTEXT=$(kubectl config current-context)
 
 kubectl apply --context $CONTEXT \
     -f ./jhipster-service-account.yml
-
-
 TOKEN=$(kubectl get secret --context $CONTEXT \
    $(kubectl get serviceaccount jhipster-service-account \
        --context $CONTEXT \
@@ -731,7 +729,7 @@ First, enable the docker-registry provider:
 hal config provider docker-registry enable
 ```
 
-The following `hal config` line will prompt for your password or access token if you have 2FA enabled. Make sure to replace `your-dockerhub-username`.
+The following `hal config` line will prompt for your password (or access token if you have 2FA enabled). Make sure to replace `your-dockerhub-username`.
 
 ```shell
 ADDRESS=index.docker.io
@@ -899,7 +897,7 @@ Also, the pipeline under test will only trigger if a new image tag is detected. 
 IMAGE_NAME: indiepopart/gateway:v1
 ```
 
-Commit and push the change to the `main` branch, and watch the CircleCI CI pipeline triggers. After the new gateway image is pushed to DockerHub, watch the Spinnaker CD pipeline trigger and deploy the updated gateway. On the left menu choose **Clusters**, and verify the active gateway deployment now has a _V002_. If you click over the **V002** box, you can also verify the image tag that was deployed.
+Commit and push the change to the `main` branch, and watch the CircleCI CI pipeline triggers. After the new gateway image is pushed to Docker Hub, watch the Spinnaker CD pipeline trigger and deploy the updated gateway. On the left menu choose **Clusters**, and verify the active gateway deployment now has a _V002_. If you click over the **V002** box, you can also verify the image tag that was deployed.
 
 {% img blog/jhipster-ci-cd/sp-version-2.png alt:"Spinnaker deployment version 2" width:"800" %}{: .center-image }
 
@@ -921,7 +919,7 @@ kubectl logs spin-igor-7c8bdd94f5-lx5dl -n spinnaker | grep v1
 
 When implementing continuous delivery, here are some best practices and key features to be aware of:
 
-- **Deploy Docker images by digest**: Spinnaker documentation recommends deploying images by digest instead of tag, because the tag might reference different content each time. The digest is a content-based hash of the image and it uniquely identifies it. Spinnaker's artifact substitution allows deploying the same manifest, with the image digest supplied by the pipeline trigger. Using the proposed trigger and a free DockerHub account as the registry, the digest data seems not to be available. It is also recommended to trigger a CD pipeline off of a push to a Docker registry instead of a GitHub push or Jenkins job, allowing development teams to choose their delivery process without more constraints.
+- **Deploy Docker images by digest**: Spinnaker documentation recommends deploying images by digest instead of tag, because the tag might reference different content each time. The digest is a content-based hash of the image and it uniquely identifies it. Spinnaker's artifact substitution allows deploying the same manifest, with the image digest supplied by the pipeline trigger. Using the proposed trigger and a free Docker Hub account as the registry, the digest data seems not to be available. It is also recommended to trigger a CD pipeline off of a push to a Docker registry instead of a GitHub push or Jenkins job, allowing development teams to choose their delivery process without more constraints.
 - **Rollbacks**: Just as there is a stage for deploying manifests, there are also stages for deleting, scaling, and rollbacking manifests. Spinnaker also supports automated rollbacks, as it exposes the _Undo Rollout_ functionality as a stage, which can be configured to run when other stages fail, and to roll back by a number of revisions of the deployed object. ConfigMaps and Secrets must be versioned for the automated rollback to actually roll back code or configuration.
 - **Manual judgments** The pipeline can include a manual judgment stage, that will make the execution interrupt, asking for user input to continue or cancel. This can be used to ask for confirmation before promoting a staging deployment to production.
 - **Pipeline management**: Spinnaker represents pipelines as JSON behind the scenes, and maintains a revision history of the changes made to the pipeline. It also supports pipeline templates, that can be managed through the `spin CLI`, and help with pipeline sharing and distribution.
