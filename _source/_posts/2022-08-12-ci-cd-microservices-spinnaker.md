@@ -1,27 +1,22 @@
 ---
 layout: blog_post
-title: "CI/CD for JHipster Microservices with CircleCI and Spinnaker"
+title: "CI/CD with CircleCI and Spinnaker for JHipster Microservices"
 author: jimena-garbarino
 by: contractor
 communities: [devops,security,java]
 description: "Learn how to set up continuous integration with CircleCI and continuous delivery with Spinnaker for a JHipster microservices architecture."
 tags: [java, ci, cd, jhipster, circleci, spinnaker]
 tweets:
-- ""
-- ""
-- ""
-image:
-type: awareness
+- "CI/CD are essential practices for modern software development. Learn how to test and deploy microservices with @circleci and @spinnakerio in this awesome tutorial!"
+- "We love this tutorial from @indiepopart! It shows how to create Spring Boot microservices, CI them with CircleCI, and deploy them with Spinnaker to Google Cloud."
+- "Generate microservices and @kubernetesio configuration with @jhipster, then automate all its CI/CD! This tutorial shows you how!"
+image: blog/jhipster-ci-cd/ci-cd-baby.jpg
+type: conversion
 ---
-<!--
-Intro
-What is CircleCI, CI
-What is Spinnaker, CD
-Workflow
--->
-Continuous integration and delivery (CI/CD) are essential practices to modern software development. In this post we cover the basics of how to add CI/CD for a JHipster microservices architecture and Kubernetes as the target cloud deployment environment.
 
-In a few words, continuous integration is the practice of integrating code into the main branch of a shared repository early and often. Instead of integrating features at the end of a development cycle, code is integrated with the shared repository multiple times throughout the day. Each commit triggers automated tests, so issues are detected and fixed earlier and faster, improving team confidence and productivity. The chosen continuous integration platform is from CircleCI, a company founded in 2011 and headquartered in San Francisco. They offer a free cloud to test their services.
+Continuous integration and delivery (CI/CD) are essential practices for modern software development. In this post we cover the basics of how to add CI/CD for a JHipster microservices architecture and Kubernetes as the target cloud deployment environment.
+
+Briefly, continuous integration is the practice of integrating code into the main branch of a shared repository early and often. Instead of integrating features at the end of a development cycle, code is integrated with the shared repository multiple times throughout the day. Each commit triggers automated tests, so issues are detected and fixed earlier and faster, improving team confidence and productivity. The chosen continuous integration platform is from CircleCI, a company founded in 2011 and headquartered in San Francisco. They offer a free cloud to test their services.
 
 Continuous delivery is the practice of releasing to production often in a fast, safe, and automated way, allowing faster innovation and feedback loops. Its adoption requires the implementation of techniques and tools like Spinnaker, an open-source, multi-cloud, continuous delivery platform that provides application management and deployment features. The intersection between CI and CD is not always clear, but for this example, we assume CI produces and validates the artifacts and CD deploys them. The CI-CD workflow for the exploration of the proposed tools is illustrated below.
 
@@ -29,7 +24,7 @@ Continuous delivery is the practice of releasing to production often in a fast, 
 
 This tutorial was created with the following frameworks and tools:
 
-- [JHipster 7.8.1](https://www.jhipster.tech/installation/)
+- [JHipster 7.9.2](https://www.jhipster.tech/installation/)
 - [Java OpenJDK 11](https://jdk.java.net/java-se-ri/11)
 - [Okta CLI 0.10.0](https://cli.okta.com)
 - [Halyard 1.44.1](https://spinnaker.io/docs/setup/install/halyard/#install-on-debianubuntu-and-macos)
@@ -38,16 +33,14 @@ This tutorial was created with the following frameworks and tools:
 - [k9s v0.25.18](https://k9scli.io/topics/install/)
 - [Docker 20.10.12](https://docs.docker.com/engine/install/)
 
-**Table of Contents**{: .hide }
-* Table of Contents
-{:toc}
+{% include toc.md %}
 
 ## Create a JHipster microservices architecture
 
 If you haven't tried JHipster yet, you can do the classical local installation with npm.
 
 ```bash
-npm install -g generator-jhipster@7.8.1
+npm install -g generator-jhipster@7.9.2
 ```
 
 If you'd rather use Yarn or Docker, follow the instructions at [jhipster.tech](https://www.jhipster.tech/installation/#local-installation-with-npm-recommended-for-normal-users).
@@ -287,7 +280,8 @@ Once a project is set up in CircleCI, a pipeline is triggered each time a commit
 {% img blog/jhipster-ci-cd/circleci-job-success.png alt:"CircleCI job success" width:"800" %}{: .center-image }
 
 **NOTE**: If you modify the configuration, and encounter CircleCI cache errors, the only way I found to recreate the cache is to update the version prefix, for example:
-```yml
+
+```yaml
 {%raw%}v2-dependencies-{{ checksum "build.gradle" }}-{{ checksum "package-lock.json" }}{%endraw%}
 ```
 
@@ -446,7 +440,6 @@ CONTEXT=$(kubectl config current-context)
 
 kubectl apply --context $CONTEXT \
     -f ./spinnaker-service-account.yml
-
 
 TOKEN=$(kubectl get secret --context $CONTEXT \
    $(kubectl get serviceaccount spinnaker-service-account \
@@ -873,7 +866,6 @@ Successful execution will show all stages in a green state:
 
 {% img blog/jhipster-ci-cd/sp-pipeline-success.png alt:"Spinnaker pipeline successful execution" width:"800" %}{: .center-image }
 
-
 Get the external IP of the gateway:
 
 ```shell
@@ -897,7 +889,7 @@ $body-bg: steelblue;
 ```
 Also, the pipeline under test will only trigger if a new image tag is detected. So edit `.circleci/confg.yml` and update the image name:
 
-```yml
+```yaml
 IMAGE_NAME: indiepopart/gateway:v1
 ```
 
@@ -909,9 +901,10 @@ You can delete clusters in between sessions to save costs with the following `gc
 
 ```shell
 gcloud container clusters delete <cluster-name> \
---zone <cluster-zone>
+  --zone <cluster-zone>
 ```
-The cloud storage used by Spinnaker for pipeline persistence generate some costs, you can also delete it with the CLI or using the web console.
+
+The cloud storage used by Spinnaker for pipeline persistence generates some costs, you can also delete it with the CLI or using the web console.
 
 ### Inspect Spinnaker logs
 
@@ -940,9 +933,13 @@ When implementing continuous delivery, here are some best practices and key feat
 - **Secrets management** Spinnaker does not directly support secrets management. Secrets should be encrypted at rest and in transit. Credentials encryption for application secrets and Kubernetes secrets was covered in a recent post [Kubernetes to the Cloud with Spring Boot and JHipster](/blog/2021/06/01/kubernetes-spring-boot-jhipster).
 - **Rollout strategies**: The Spinnaker Kubernetes provider supports running dark, highlander, and red/black rollouts. In the Deploy Manifest stage, there is a strategy option that allows associating workload to a service, sending traffic to it, and choosing how to handle any previous versions of the workload in the same cluster and namespace.
 
-## Learn more
+## Learn more about JHipster, Microservices, and Kubernetes
 
-This article looks at the nuts and bolts of JHipster deployments. CI and CD propose several organizational and technical practices aimed at improving team confidence, efficiency, and productivity. Spinnaker is a powerful tool for continuous deployment, with more than 200 [companies](https://spinnaker.io/docs/community/stay-informed/captains-log/#contributions-per-company) around the world contributing to its growth. As each architecture and organization is different, your pipeline design must be customized to your particular use case. I hope this brief introduction will help you get the most out of these wonderful tools. To learn more about JHipster check out the following links:
+This article looks at the nuts and bolts of JHipster deployments. CI and CD propose several organizational and technical practices aimed at improving team confidence, efficiency, and productivity. Spinnaker is a powerful tool for continuous deployment, with more than 200 [companies](https://spinnaker.io/docs/community/stay-informed/captains-log/#contributions-per-company) around the world contributing to its growth. 
+
+As each architecture and organization is different, your pipeline design must be customized to your particular use case. I hope this brief introduction will help you get the most out of these wonderful tools. 
+
+To learn more about JHipster and its microservices support, check out the following links:
 
 - [JHipster Microservices on AWS with Amazon Elastic Kubernetes Service](/blog/2022/07/11/kubernetes-jhipster-aws)
 - [Run Microservices on DigitalOcean with Kubernetes](/blog/2022/06/06/microservices-digitalocean-kubernetes)
