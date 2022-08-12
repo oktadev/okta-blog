@@ -148,7 +148,7 @@ version: 2.1
 jobs:
   build:
     environment:
-      Docker Hub_USER: your-dockerhub-username
+      DOCKERHUB_USER: your-dockerhub-username
       IMAGE_NAME: your-dockerhub-username/store
     machine:
       image: ubuntu-2004:current
@@ -193,8 +193,8 @@ jobs:
                 command: |
                   ./gradlew -Pprod bootJar jib \
                     -Djib.to.image=$IMAGE_NAME \
-                    -Djib.to.auth.username=$Docker Hub_USER \
-                    -Djib.to.auth.password=$Docker Hub_PASS          
+                    -Djib.to.auth.username=$DOCKERHUB_USER \
+                    -Djib.to.auth.password=$DOCKERHUB_PASS          
 ```
 
 Do the same updates to the `gateway/.circleci/config.yml` file. Additionally, the following change is required:
@@ -209,7 +209,7 @@ version: 2.1
 jobs:
   build:
     environment:
-      Docker Hub_USER: your-dockerhub-username
+      DOCKERHUB_USER: your-dockerhub-username
       IMAGE_NAME: your-dockerhub-username/gateway
     machine:
       image: ubuntu-2004:current
@@ -258,8 +258,8 @@ jobs:
                 command: |
                   ./gradlew -Pprod bootJar jib \
                     -Djib.to.image=$IMAGE_NAME \
-                    -Djib.to.auth.username=$Docker Hub_USER \
-                    -Djib.to.auth.password=$Docker Hub_PASS
+                    -Djib.to.auth.username=$DOCKERHUB_USER \
+                    -Djib.to.auth.password=$DOCKERHUB_PASS
 ```
 
 To take advantage of the one-step GitHub integration of CircleCI, you need a [GitHub](https://github.com/signup) account. After signing in to GitHub, create a new public repository `store`. Follow the instructions to push the existing repository from your local machine to GitHub using the command line. Do the same with the `gateway` project.
@@ -270,7 +270,7 @@ To take advantage of the one-step GitHub integration of CircleCI, you need a [Gi
 
 Do the same for the `gateway` project. The configuration triggers an initial pipeline execution that will fail, because you still must set up Docker Hub credentials for both projects, allowing CircleCI to push the container images. At the `store` project page, on the top right, choose **Project Settings**. Then choose **Environment Variables**. Click **Add Environment Variable**. and set the following values:
 
-- Name: Docker Hub_PASS
+- Name: `DOCKERHUB_PASS`
 - Value: your Docker Hub password, or better, a Docker Hub access token if you have 2FA enabled.
 
 **Note**: For creating a Docker Hub access token, sign in to [Docker Hub](https://hub.docker.com/), and choose **Account Settings** in the top right user menu. Then, on the left menu, choose **Security**. Click **New Access Token** and set a description for the token, for example, _circleci_. Then click **Generate** and copy the new token. You can use the same token for both projects `store` and `gateway`.
