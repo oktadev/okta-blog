@@ -568,11 +568,11 @@ Navigate to `http://localhost:9000` and the UI should load. The **Projects** tab
 
 {% img blog/jhipster-ci-cd/spinnaker-ui.png alt:"Spinnaker DeckUI" width:"800" %}{: .center-image }
 
-## Set up CD for a JHipster microservices application
+## Set up CD for a JHipster microservices architecture
 
 Spinnaker is multi-cloud because it can manage delivery to multiple cloud providers. Some companies use different platforms for production and test environments. In this example, the same cloud provider (GKE) was chosen both for Spinnaker deployment and for the application test deployment.
 
-### Choose GKE for applications deployment
+### Use GKE for Kubernetes deployment
 
 Now I'll show you how to add a new Kubernetes account for a different cluster, which will be used for application deployment.
 
