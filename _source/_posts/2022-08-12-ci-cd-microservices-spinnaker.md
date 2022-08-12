@@ -1,11 +1,11 @@
 ---
 layout: blog_post
-title: "Continous Integration and Delivery for JHipster Microservices"
+title: "CI/CD for JHipster Microservices with CircleCI and Spinnaker"
 author: jimena-garbarino
 by: contractor
 communities: [devops,security,java]
-description: "How to set up continuous integration with CircleCI and continuous delivery with Spinnaker in a JHipster microservices architecture."
-tags: [java, ci, cd, jhipster]
+description: "Learn how to set up continuous integration with CircleCI and continuous delivery with Spinnaker for a JHipster microservices architecture."
+tags: [java, ci, cd, jhipster, circleci, spinnaker]
 tweets:
 - ""
 - ""
