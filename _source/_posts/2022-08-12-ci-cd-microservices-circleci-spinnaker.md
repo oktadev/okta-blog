@@ -64,7 +64,7 @@ cd kubernetes
 jhipster k8s
 ```
 
-**NOTE**: You must set up the Docker repository name for the cloud deployment, so go ahead and create a [DockerHub](https://hub.docker.com/) personal account, if you don't have one, before running the k8s sub-generator.
+**NOTE**: You must set up the Docker repository name for the cloud deployment, so go ahead and create a [Docker Hub](https://hub.docker.com/) personal account, if you don't have one, before running the k8s sub-generator.
 
 Choose the following options when prompted:
 
@@ -75,7 +75,7 @@ Choose the following options when prompted:
 - Which applications with clustered databases? select **store**
 - Admin password for JHipster Registry: (generate one)
 - Kubernetes namespace: **demo**
-- Docker repository name: **your-dockerhub-username**
+- Docker repository name: **your-Docker Hub-username**
 - Command to push Docker image: `docker push`
 - Enable Istio? **No**
 - Kubernetes service type? **LoadBalancer**
@@ -136,7 +136,7 @@ For both applications, choose the following options:
 You must tweak the generated configuration at `store/.circleci/config.yml`, as the following changes are required for successful execution:
 - Change the execution environment of the workflow, to a dedicated VM, as that is required by the [TestContainers](https://www.testcontainers.org/supported_docker_environment/continuous_integration/circle_ci) dependency in tests. The chosen environment is [LinuxVM](https://circleci.com/developer/machine/image/ubuntu-2004), a standalone Ubuntu 20.04 virtual machine.
 - As the dedicated VM includes docker, the docker installation step in the configuration must be removed.
-- Add a conditional step for building and pushing the image to DockerHub, only if the branch name is `main`.
+- Add a conditional step for building and pushing the image to Docker Hub, only if the branch name is `main`.
 
 **Note**: You can also configure the job to only build specific [branches](https://circleci.com/docs/configuration-reference#branches).
 
@@ -148,8 +148,8 @@ version: 2.1
 jobs:
   build:
     environment:
-      DOCKERHUB_USER: your-dockerhub-username
-      IMAGE_NAME: your-dockerhub-username/store
+      Docker Hub_USER: your-Docker Hub-username
+      IMAGE_NAME: your-Docker Hub-username/store
     machine:
       image: ubuntu-2004:current
     resource_class: large
@@ -193,15 +193,15 @@ jobs:
                 command: |
                   ./gradlew -Pprod bootJar jib \
                     -Djib.to.image=$IMAGE_NAME \
-                    -Djib.to.auth.username=$DOCKERHUB_USER \
-                    -Djib.to.auth.password=$DOCKERHUB_PASS          
+                    -Djib.to.auth.username=$Docker Hub_USER \
+                    -Djib.to.auth.password=$Docker Hub_PASS          
 ```
 
 Do the same updates to the `gateway/.circleci/config.yml` file. Additionally, the following change is required:
 
 - Add `~/.cache/Cypress` as a cache path
 
-Be sure to replace `your-dockerhub-username` and set the correct `IMAGE_NAME`.
+Be sure to replace `your-Docker Hub-username` and set the correct `IMAGE_NAME`.
 The final `config.yml` for the `gateway` must look like this:
 
 ```yml
@@ -209,8 +209,8 @@ version: 2.1
 jobs:
   build:
     environment:
-      DOCKERHUB_USER: your-dockerhub-username
-      IMAGE_NAME: your-dockerhub-username/gateway
+      Docker Hub_USER: your-Docker Hub-username
+      IMAGE_NAME: your-Docker Hub-username/gateway
     machine:
       image: ubuntu-2004:current
     resource_class: large
@@ -258,8 +258,8 @@ jobs:
                 command: |
                   ./gradlew -Pprod bootJar jib \
                     -Djib.to.image=$IMAGE_NAME \
-                    -Djib.to.auth.username=$DOCKERHUB_USER \
-                    -Djib.to.auth.password=$DOCKERHUB_PASS
+                    -Djib.to.auth.username=$Docker Hub_USER \
+                    -Djib.to.auth.password=$Docker Hub_PASS
 ```
 
 To take advantage of the one-step GitHub integration of CircleCI, you need a [GitHub](https://github.com/signup) account. After signing in to GitHub, create a new public repository `store`. Follow the instructions to push the existing repository from your local machine to GitHub using the command line. Do the same with the `gateway` project.
@@ -268,14 +268,14 @@ To take advantage of the one-step GitHub integration of CircleCI, you need a [Gi
 
 {% img blog/jhipster-ci-cd/circleci-project.png alt:"CircleCI project setup form" width:"450" %}{: .center-image }
 
-Do the same for the `gateway` project. The configuration triggers an initial pipeline execution that will fail, because you still must set up DockerHub credentials for both projects, allowing CircleCI to push the container images. At the `store` project page, on the top right, choose **Project Settings**. Then choose **Environment Variables**. Click **Add Environment Variable**. and set the following values:
+Do the same for the `gateway` project. The configuration triggers an initial pipeline execution that will fail, because you still must set up Docker Hub credentials for both projects, allowing CircleCI to push the container images. At the `store` project page, on the top right, choose **Project Settings**. Then choose **Environment Variables**. Click **Add Environment Variable**. and set the following values:
 
-- Name: DOCKERHUB_PASS
-- Value: your DockerHub password, or better, a DockerHub access token if you have 2FA enabled.
+- Name: Docker Hub_PASS
+- Value: your Docker Hub password, or better, a Docker Hub access token if you have 2FA enabled.
 
-**Note**: For creating a DockerHub access token, sign in to [DockerHub](https://hub.docker.com/), and choose **Account Settings** in the top right user menu. Then, on the left menu, choose **Security**. Click **New Access Token** and set a description for the token, for example, _circleci_. Then click **Generate** and copy the new token. You can use the same token for both projects `store` and `gateway`.
+**Note**: For creating a Docker Hub access token, sign in to [Docker Hub](https://hub.docker.com/), and choose **Account Settings** in the top right user menu. Then, on the left menu, choose **Security**. Click **New Access Token** and set a description for the token, for example, _circleci_. Then click **Generate** and copy the new token. You can use the same token for both projects `store` and `gateway`.
 
-Once a project is set up in CircleCI, a pipeline is triggered each time a commit is pushed to the configured branch. The pipeline in execution appears on the **Dashboard** page. You can also manually trigger the pipeline from the **Dashboard** if you choose the project and branch from the pipeline filters, and then click **Trigger Pipeline**. Before moving on to the next section, manually execute the store pipeline and the gateway pipeline once, to push the first image of each to DockerHub.
+Once a project is set up in CircleCI, a pipeline is triggered each time a commit is pushed to the configured branch. The pipeline in execution appears on the **Dashboard** page. You can also manually trigger the pipeline from the **Dashboard** if you choose the project and branch from the pipeline filters, and then click **Trigger Pipeline**. Before moving on to the next section, manually execute the store pipeline and the gateway pipeline once, to push the first image of each to Docker Hub.
 
 {% img blog/jhipster-ci-cd/circleci-job-success.png alt:"CircleCI job success" width:"800" %}{: .center-image }
 
@@ -716,7 +716,7 @@ hal config provider kubernetes account add jhipster-gke-account \
 
 ### Add a Docker registry account
 
-As the goal is to trigger the pipeline execution when a new image is pushed to DockerHub, you need to configure a docker-registry provider with Halyard.
+As the goal is to trigger the pipeline execution when a new image is pushed to Docker Hub, you need to configure a docker-registry provider with Halyard.
 
 First, enable the docker-registry provider:
 
@@ -724,11 +724,11 @@ First, enable the docker-registry provider:
 hal config provider docker-registry enable
 ```
 
-The following `hal config` line will prompt for your password (or access token if you have 2FA enabled). Make sure to replace `your-dockerhub-username`.
+The following `hal config` line will prompt for your password (or access token if you have 2FA enabled). Make sure to replace `your-Docker Hub-username`.
 
 ```shell
 ADDRESS=index.docker.io
-USERNAME=your-dockerhub-username
+USERNAME=your-Docker Hub-username
 
 hal config provider docker-registry account add docker-account \
     --address $ADDRESS \
@@ -781,15 +781,15 @@ In the pipeline configuration, click **Add Trigger**. Set the following configur
 
 - Type: **Docker Registry**
 - Registry Name: **docker-account**
-- Organization: **your-dockerhub-username**
-- Image: **your-dockerhub-username/store**
+- Organization: **your-Docker Hub-username**
+- Image: **your-Docker Hub-username/store**
 - Artifact Constraints: Choose **Define new artifact**
 
 In the _Expected Artifact_ form, set the following values:
 
 - Display Name: **store-image**
 - Account: **docker-registry**
-- Docker image: Fully qualified **index.docker.io/your-dockerhub-username/store**
+- Docker image: Fully qualified **index.docker.io/your-Docker Hub-username/store**
 - Use prior execution: **yes**
 - Use default artifact: **yes** (set the same account and object path as before)
 
@@ -858,7 +858,7 @@ The complete pipeline must look like this:
 
 Test the pipeline manually once. Go to **Pipelines** and select **Start Manual Execution** for the _store-cd_ pipeline. Set the following options:
 
-- Trigger: leave **docker-account: your-dockerhub-username/store**
+- Trigger: leave **docker-account: your-Docker Hub-username/store**
 - Type: **Tag**
 - Tag: **latest**
 
