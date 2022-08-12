@@ -75,7 +75,7 @@ Choose the following options when prompted:
 - Which applications with clustered databases? select **store**
 - Admin password for JHipster Registry: (generate one)
 - Kubernetes namespace: **demo**
-- Docker repository name: **your-Docker Hub-username**
+- Docker repository name: **your-dockerhub-username**
 - Command to push Docker image: `docker push`
 - Enable Istio? **No**
 - Kubernetes service type? **LoadBalancer**
@@ -148,8 +148,8 @@ version: 2.1
 jobs:
   build:
     environment:
-      Docker Hub_USER: your-Docker Hub-username
-      IMAGE_NAME: your-Docker Hub-username/store
+      Docker Hub_USER: your-dockerhub-username
+      IMAGE_NAME: your-dockerhub-username/store
     machine:
       image: ubuntu-2004:current
     resource_class: large
@@ -201,7 +201,7 @@ Do the same updates to the `gateway/.circleci/config.yml` file. Additionally, th
 
 - Add `~/.cache/Cypress` as a cache path
 
-Be sure to replace `your-Docker Hub-username` and set the correct `IMAGE_NAME`.
+Be sure to replace `your-dockerhub-username` and set the correct `IMAGE_NAME`.
 The final `config.yml` for the `gateway` must look like this:
 
 ```yml
@@ -209,8 +209,8 @@ version: 2.1
 jobs:
   build:
     environment:
-      Docker Hub_USER: your-Docker Hub-username
-      IMAGE_NAME: your-Docker Hub-username/gateway
+      Docker Hub_USER: your-dockerhub-username
+      IMAGE_NAME: your-dockerhub-username/gateway
     machine:
       image: ubuntu-2004:current
     resource_class: large
@@ -724,11 +724,11 @@ First, enable the docker-registry provider:
 hal config provider docker-registry enable
 ```
 
-The following `hal config` line will prompt for your password (or access token if you have 2FA enabled). Make sure to replace `your-Docker Hub-username`.
+The following `hal config` line will prompt for your password (or access token if you have 2FA enabled). Make sure to replace `your-dockerhub-username`.
 
 ```shell
 ADDRESS=index.docker.io
-USERNAME=your-Docker Hub-username
+USERNAME=your-dockerhub-username
 
 hal config provider docker-registry account add docker-account \
     --address $ADDRESS \
@@ -781,15 +781,15 @@ In the pipeline configuration, click **Add Trigger**. Set the following configur
 
 - Type: **Docker Registry**
 - Registry Name: **docker-account**
-- Organization: **your-Docker Hub-username**
-- Image: **your-Docker Hub-username/store**
+- Organization: **your-dockerhub-username**
+- Image: **your-dockerhub-username/store**
 - Artifact Constraints: Choose **Define new artifact**
 
 In the _Expected Artifact_ form, set the following values:
 
 - Display Name: **store-image**
 - Account: **docker-registry**
-- Docker image: Fully qualified **index.docker.io/your-Docker Hub-username/store**
+- Docker image: Fully qualified **index.docker.io/your-dockerhub-username/store**
 - Use prior execution: **yes**
 - Use default artifact: **yes** (set the same account and object path as before)
 
@@ -858,7 +858,7 @@ The complete pipeline must look like this:
 
 Test the pipeline manually once. Go to **Pipelines** and select **Start Manual Execution** for the _store-cd_ pipeline. Set the following options:
 
-- Trigger: leave **docker-account: your-Docker Hub-username/store**
+- Trigger: leave **docker-account: your-dockerhub-username/store**
 - Type: **Tag**
 - Tag: **latest**
 
