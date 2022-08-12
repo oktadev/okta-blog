@@ -1,18 +1,18 @@
 ---
 layout: blog_post
-title: Using Redux with React
+title: Use Redux to Manage Authenticated State in a React App
 author: gabi-dombrowski
 by: contractor
 communities: [javascript]
 description: ""
-tags: [javascript, typescript, react, redux, usecontext, usestate, authentication]
+tags: [javascript, typescript, react, redux, authentication]
 tweets:
   - ""
   - ""
   - ""
 image:
 type: conversion
-canonical: https://auth0.com/blog/using-redux-with-react/
+canonical:
 ---
 
 There are a myriad of state management options available for React. React provides the option of using the built-in [Context](https://reactjs.org/docs/context.html) for when you have a nested tree of components that share a state. There is also a built-in [useState hook](https://reactjs.org/docs/context.html) that will allow you to set local state for a component.
@@ -21,7 +21,7 @@ For more complex scenarios where you might need a single source of truth that sh
 
 Let's compare when to use the useState hook vs. React Context vs. a more global state management solution like one of the most popular ones, [Redux](https://redux.js.org/).
 
-## Initial Setup
+## Create the React app
 
 We'll get started with the built-in React template for [Create React App](https://github.com/facebook/create-react-app) that uses Redux and Typescript. This includes the recommended Redux Toolkit and Redux's integration with React components.
 
@@ -53,7 +53,7 @@ npm add -D @types/react-router-dom
 npm start
 ```
 
-## How does Redux work?
+## How Redux works
 
 To update state using Redux, an action is dispatched and the store then uses the root reducer to calculate a new state as compared to the old state, which then notifies the proper subscribers of the update so that the UI can properly be updated.
 
@@ -90,7 +90,7 @@ A Dispatch is a method with triggers an action that in turn updates the Redux st
 
 **NOTE:** The built-in Redux template we used includes a great counter example of how Redux works. You can also take a look at [Redux's explanation of the counter example](https://redux.js.org/introduction/examples/).
 
-## Okta Authentication Setup
+## Add authentication using OAuth2 and OIDC
 
 For this demo app, we'll be using [Okta's SPA redirect model](https://developer.okta.com/docs/guides/sign-into-spa-redirect/react/main/) to authenticate and fetch user info.
 
