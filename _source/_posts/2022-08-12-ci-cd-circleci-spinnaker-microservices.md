@@ -18,9 +18,9 @@ Continuous integration and delivery (CI/CD) are essential practices for modern s
 
 Briefly, continuous integration is the practice of integrating code into the main branch of a shared repository early and often. Instead of integrating features at the end of a development cycle, code is integrated with the shared repository multiple times throughout the day. Each commit triggers automated tests, so issues are detected and fixed earlier and faster, improving team confidence and productivity. The chosen continuous integration platform is from CircleCI, a company founded in 2011 and headquartered in San Francisco. They offer a free cloud to test their services.
 
-Continuous delivery is the practice of releasing to production often in a fast, safe, and automated way, allowing faster innovation and feedback loops. Its adoption requires the implementation of techniques and tools like Spinnaker, an open-source, multi-cloud, continuous delivery platform that provides application management and deployment features. The intersection between CI and CD is not always clear, but for this example, we assume CI produces and validates the artifacts and CD deploys them. The CI-CD workflow for the exploration of the proposed tools is illustrated below.
+Continuous delivery is the practice of releasing to production often in a fast, safe, and automated way, allowing faster innovation and feedback loops. Its adoption requires the implementation of techniques and tools like Spinnaker, an open-source, multi-cloud, continuous delivery platform that provides application management and deployment features. The intersection between CI and CD is not always clear, but for this example, we assume CI produces and validates the artifacts and CD deploys them. The CI/CD workflow for the exploration of the proposed tools is illustrated below.
 
-{% img blog/jhipster-ci-cd/ci-cd-workflow.png alt:"CI-CD workflow" width:"900" %}{: .center-image }
+{% img blog/jhipster-ci-cd/ci-cd-workflow.png alt:"CI/CD workflow" width:"900" %}{: .center-image }
 
 This tutorial was created with the following frameworks and tools:
 
@@ -880,7 +880,7 @@ Navigate to `http://<external-ip>:8080` and sign in to the application with your
 
 {% img blog/jhipster-ci-cd/app-create-product.png alt:"Create a product in the store application" width:"800" %}{: .center-image }
 
-### Trigger the CI-CD pipeline with a GitHub push
+### Trigger the CI/CD pipeline with a GitHub push
 
 For testing the workflow, make a code change in the gateway. Edit `src/main/webapp/content/scss/_bootstrap-variables.scss` and update the following variable:
 
