@@ -1,6 +1,6 @@
 ---
 layout: blog_post
-title: "CI/CD with CircleCI and Spinnaker for JHipster Microservices"
+title: "CI/CD Java Microservices with CircleCI and Spinnaker"
 author: jimena-garbarino
 by: contractor
 communities: [devops,security,java]
