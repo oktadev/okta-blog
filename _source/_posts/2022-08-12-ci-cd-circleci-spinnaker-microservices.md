@@ -716,7 +716,7 @@ hal config provider kubernetes account add jhipster-gke-account \
 
 ### Add a Docker registry account
 
-As the goal is to trigger the pipeline execution when a new image is pushed to Docker Hub, you need to configure a docker-registry provider with Halyard.
+As the goal is to trigger the pipeline execution when a new image is pushed to Docker Hub, you need to configure a Docker Registry provider with Halyard.
 
 First, enable the docker-registry provider:
 
