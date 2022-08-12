@@ -16,6 +16,7 @@ tweets:
 image: blog/reactive-java-kubernetes/reactive-java-k8s.png
 type: conversion
 changelog:
+- 2022-08-12: Added link to [CI/CD Java Microservices with CircleCI and Spinnaker](/blog/2022/08/12/ci-cd-circleci-spinnaker-microservices) as a downstream blog post. Changes can be viewed in [okta-blog#1241](https://github.com/oktadev/okta-blog/pull/1241).
 - 2021-08-11: Fixed missing namespace parameters and Ingress definition. See the code changes in the [example on GitHub](https://github.com/oktadev/java-microservices-examples/pull/24). Changes to this post can be viewed in [okta-blog#857](https://github.com/oktadev/okta-blog/pull/857).
 ---
 :page-liquid:
@@ -901,7 +902,7 @@ If for some reason you don't like CLI's, you can try https://www.kubernetic.com/
 
 == Continuous Integration and Delivery of JHipster Microservices
 
-This tutorial doesn't mention continuous integration and delivery of your reactive microservice architecture. I plan to cover that in a future post. If you have a solution you like, please leave a comment.
+This tutorial doesn't mention continuous integration and delivery of your reactive microservice architecture. To learn how to automate testing and publishing, see link:/blog/2022/08/12/ci-cd-circleci-spinnaker-microservices[CI/CD Java Microservices with CircleCI and Spinnaker].
 
 == Spring on Google Cloud Platform
 
@@ -940,12 +941,12 @@ See JHipster's documentation on https://www.jhipster.tech/kubernetes/[Kubernetes
 
 If you enjoyed this post, I think you'll like these others as well:
 
+- link:/blog/2022/08/12/ci-cd-circleci-spinnaker-microservices[CI/CD Java Microservices with CircleCI and Spinnaker]
 - link:/blog/2021/01/20/reactive-java-microservices[Reactive Java Microservices with Spring Boot and JHipster]
 - link:/blog/2020/08/17/micronaut-jhipster-heroku[Build a Secure Micronaut and Angular App with JHipster]
 - link:/blog/2021/03/08/jhipster-quarkus-oidc[Fast Java Made Easy with Quarkus and JHipster]
 - link:/blog/2020/12/28/spring-boot-docker[How to Docker with Spring Boot]
 - link:/blog/2020/03/23/microservice-security-patterns[Security Patterns for Microservice Architectures]
-- link:/blog/2019/04/01/spring-boot-microservices-with-kubernetes[Build a Microservice Architecture with Spring Boot and Kubernetes] (uses Spring Boot 2.1)
 
 If you have any questions, please ask them in the comments below.
 
