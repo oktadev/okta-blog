@@ -261,9 +261,21 @@ Edit your Okta app's SAML settings and fill in the *Group Attribute Statements* 
 
 Just above, you can add other attribute statements. For instance:
 
-* **email** > `user.email`
-* **firstName** > `user.firstName`
-* **lastName** > `user.lastName`
+|===
+|Name |Name format|Value
+
+|`email`
+|`Unspecified`
+|`user.email`
+
+|`firstName`
+|`Unspecified`
+|`user.firstName`
+
+|`lastName`
+|`Unspecified`
+|`user.lastName`
+|===
 
 Save these changes.
 
