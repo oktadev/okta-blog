@@ -16,9 +16,9 @@ type: conversion
 
 Continuous integration and delivery (CI/CD) are essential practices for modern software development. In this post we cover the basics of how to add CI/CD for a JHipster microservices architecture and Kubernetes as the target cloud deployment environment.
 
-Briefly, continuous integration is the practice of integrating code into the main branch of a shared repository early and often. Instead of integrating features at the end of a development cycle, code is integrated with the shared repository multiple times throughout the day. Each commit triggers automated tests, so issues are detected and fixed earlier and faster, improving team confidence and productivity. The chosen continuous integration platform is from CircleCI, a company founded in 2011 and headquartered in San Francisco. They offer a free cloud to test their services.
+Briefly, *continuous integration* is the practice of integrating code into the main branch of a shared repository early and often. Instead of integrating features at the end of a development cycle, code is integrated with the shared repository multiple times throughout the day. Each commit triggers automated tests, so issues are detected and fixed earlier and faster, improving team confidence and productivity. The chosen continuous integration platform is from CircleCI, a company founded in 2011 and headquartered in San Francisco. They offer a free cloud to test their services.
 
-Continuous delivery is the practice of releasing to production often in a fast, safe, and automated way, allowing faster innovation and feedback loops. Its adoption requires the implementation of techniques and tools like Spinnaker, an open-source, multi-cloud, continuous delivery platform that provides application management and deployment features. The intersection between CI and CD is not always clear, but for this example, we assume CI produces and validates the artifacts and CD deploys them. The CI/CD workflow for the exploration of the proposed tools is illustrated below.
+*Continuous delivery* is the practice of releasing to production often in a fast, safe, and automated way, allowing faster innovation and feedback loops. Its adoption requires the implementation of techniques and tools like Spinnaker, an open-source, multi-cloud, continuous delivery platform that provides application management and deployment features. The intersection between CI and CD is not always clear, but for this example, we assume CI produces and validates the artifacts and CD deploys them. The CI/CD workflow for the exploration of the proposed tools is illustrated below.
 
 {% img blog/jhipster-ci-cd/ci-cd-workflow.png alt:"CI/CD workflow" width:"900" %}{: .center-image }
 
@@ -45,7 +45,7 @@ npm install -g generator-jhipster@7.9.2
 
 If you'd rather use Yarn or Docker, follow the instructions at [jhipster.tech](https://www.jhipster.tech/installation/#local-installation-with-npm-recommended-for-normal-users).
 
-You can also use the example [reactive-jhipster](https://github.com/oktadev/java-microservices-examples/tree/main/reactive-jhipster) from GitHub, a reactive microservices architecture with Spring Cloud Gateway and Spring WebFlux, Vue as the client framework, and Gradle as the build tool. You can find the complete instructions for building the architecture in the previous post [Reactive Java Microservices with Spring Boot and JHipster](/blog/2021/01/20/reactive-java-microservices).
+You can also use the example [reactive-jhipster](https://github.com/oktadev/java-microservices-examples/tree/main/reactive-jhipster) from GitHub, a reactive microservices architecture with Spring Cloud Gateway and Spring WebFlux, Vue as the client framework, and Gradle as the build tool. You can find the complete instructions for building the architecture in a previous post: [Reactive Java Microservices with Spring Boot and JHipster](/blog/2021/01/20/reactive-java-microservices).
 Create a project folder `jhipster-ci-cd`.
 
 ```bash
@@ -54,7 +54,7 @@ http -d https://raw.githubusercontent.com/oktadev/java-microservices-examples/bc
 jhipster jdl reactive-ms.jdl
 ```
 
-After the generation, you will find sub-folders were created for the `gateway`, `store`, and `blog` services. The `gateway` will act as the front-end application and a secure router to the `store` and `blog` microservices.
+After the generation, you will find sub-folders were created for the `gateway`, `store`, and `blog` services. The `gateway` will act as the front-end application and as a secure router to the `store` and `blog` microservices.
 
 The next step is to generate the Kubernetes deployment descriptors. In the project root folder, create a `kubernetes` directory and run the `k8s` JHipster sub-generator:
 
@@ -118,7 +118,7 @@ We are going to build the `gateway` and `store` in a continuous integration work
 
 ## Set up CI for JHipster with CircleCI
 
-First, create the CircleCI configuration for the `store` microservice and the `gateway`.
+First, create the CircleCI configuration for the `store` microservice and the `gateway`. "What about the `blog` app?", you might ask. I'm not including it in this example to streamline this tutorial. You should be able to configure it similar to the `store` if you want to deploy everything. 
 
 ```shell
 cd store
@@ -134,8 +134,8 @@ For both applications, choose the following options:
 - What tasks/integrations do you want to include? (none)
 
 You must tweak the generated configuration at `store/.circleci/config.yml`, as the following changes are required for successful execution:
-- Change the execution environment of the workflow, to a dedicated VM, as that is required by the [TestContainers](https://www.testcontainers.org/supported_docker_environment/continuous_integration/circle_ci) dependency in tests. The chosen environment is [LinuxVM](https://circleci.com/developer/machine/image/ubuntu-2004), a standalone Ubuntu 20.04 virtual machine.
-- As the dedicated VM includes docker, the docker installation step in the configuration must be removed.
+- Change the execution environment of the workflow to a dedicated VM, as that is required by the [TestContainers](https://www.testcontainers.org/supported_docker_environment/continuous_integration/circle_ci) dependency in tests. The chosen environment is [LinuxVM](https://circleci.com/developer/machine/image/ubuntu-2004), a standalone Ubuntu 20.04 virtual machine.
+- As the dedicated VM includes Docker, the Docker installation step in the configuration must be removed.
 - Add a conditional step for building and pushing the image to Docker Hub, only if the branch name is `main`.
 
 **Note**: You can also configure the job to only build specific [branches](https://circleci.com/docs/configuration-reference#branches).
@@ -298,7 +298,7 @@ For this example, the distributed alternative was selected. But before the insta
 
 ### Understand Spinnaker artifacts and accounts
 
-A _Spinnaker artifact_ is a named JSON object that refers to an external resource, for example, a docker image or a file stored in GitHub. In a pipeline trigger, you can specify an _expected artifact_, and Spinnaker will compare the incoming artifact from the trigger and bind it to be used by the trigger or another stage in the pipeline.
+A _Spinnaker artifact_ is a named JSON object that refers to an external resource, for example, a Docker image or a file stored in GitHub. In a pipeline trigger, you can specify an _expected artifact_, and Spinnaker will compare the incoming artifact from the trigger and bind it to be used by the trigger or another stage in the pipeline.
 Also in Kubernetes, the deployed manifests can be provided statically or as an artifact. In this example, manifests are provided as artifacts stored in GitHub.
 
 For Spinnaker to access and act on resources, like Docker registries, cloud providers, and code repositories, different types of accounts must be enabled in the Spinnaker configuration, along with the credentials. In addition, the configuration has the optional step of associating Spinnaker with a Kubernetes service account, allowing you to restrict permissions over the cluster resources granted to Spinnaker.
@@ -323,7 +323,7 @@ You must also install [`kubectl`](https://kubernetes.io/docs/tasks/tools/), the 
 
 The second step is to choose a cloud provider for the environment in which you will install Spinnaker. For Kubernetes, Spinnaker needs a `kubeconfig` file, to access and manage the cluster. For creating a `kubeconfig` for a GKE cluster, you must first create the cluster. Google Cloud provides a [free tier](https://cloud.google.com/free) of their services that grants you $300 in free credits if you are a new user.
 
-After you sign up, install [`gcloud` CLI](https://cloud.google.com/sdk/docs/install). When you reach the end of the process, the last step is to run `gcloud init` and set up authorization for the tool. Also install [Kubectl authentication plugin](https://cloud.google.com/blog/products/containers-kubernetes/kubectl-auth-changes-in-gke).
+After you sign up, install [`gcloud` CLI](https://cloud.google.com/sdk/docs/install). When you reach the end of the process, the last step is to run `gcloud init` and set up authorization for the tool. Also install the [Kubectl authentication plugin](https://cloud.google.com/blog/products/containers-kubernetes/kubectl-auth-changes-in-gke).
 
 Create the cluster for the Spinnaker deployment with the following line:
 ```shell
@@ -347,7 +347,7 @@ Create a namespace for the Spinnaker cluster:
 kubectl create namespace spinnaker
 ```
 
-The Spinnaker [documentation](https://spinnaker.io/docs/setup/install/providers/kubernetes-v2/#optional-create-a-kubernetes-service-account) recommends creating a Kubernetes service account, using Kubernetes role definitions that restrict the permissions granted to the Spinnaker account. Create a `spinnaker` folder, in the root folder or any other location. Add the file `spinnaker-service-account.yml` with the following content:
+The Spinnaker [documentation](https://spinnaker.io/docs/setup/install/providers/kubernetes-v2/#optional-create-a-kubernetes-service-account) recommends creating a Kubernetes service account, using Kubernetes role definitions that restrict the permissions granted to the Spinnaker account. Create a `spinnaker` folder in the root folder or any other location. Add the file `spinnaker-service-account.yml` with the following content:
 
 ```yml
 apiVersion: rbac.authorization.k8s.io/v1
@@ -683,7 +683,7 @@ metadata:
   namespace: demo
 ```
 
-Notice there are some differences with the Spinnaker service account. The k8s manifests generated by JHipster include the creation of `secrets`, `configmaps`, and `persistentvolumeclaims`, and the management of those Kubernetes resources must be granted to the service account used for deploying the JHipster k8s manifests.
+Notice there are some differences with the Spinnaker service account. The k8s manifests generated by JHipster include the creation of `secrets`, `configmaps`, and `persistentvolumeclaims`. The management of those Kubernetes resources must be granted to the service account used for deploying the JHipster k8s manifests.
 
 Create the Kubernetes `jhipster-service-account`:
 
@@ -926,14 +926,14 @@ Sending tagged image info to echo: account=docker-account: image=igor:dockerRegi
 When implementing continuous delivery, here are some best practices and key features to be aware of:
 
 - **Deploy Docker images by digest**: Spinnaker documentation recommends deploying images by digest instead of tag, because the tag might reference different content each time. The digest is a content-based hash of the image and it uniquely identifies it. Spinnaker's artifact substitution allows deploying the same manifest, with the image digest supplied by the pipeline trigger. Using the proposed trigger and a free Docker Hub account as the registry, the digest data seems not to be available. It is also recommended to trigger a CD pipeline off of a push to a Docker registry instead of a GitHub push or Jenkins job, allowing development teams to choose their delivery process without more constraints.
-- **Rollbacks**: Just as there is a stage for deploying manifests, there are also stages for deleting, scaling, and rollbacking manifests. Spinnaker also supports automated rollbacks, as it exposes the _Undo Rollout_ functionality as a stage, which can be configured to run when other stages fail, and to roll back by a number of revisions of the deployed object. ConfigMaps and Secrets must be versioned for the automated rollback to actually roll back code or configuration.
-- **Manual judgments** The pipeline can include a manual judgment stage, that will make the execution interrupt, asking for user input to continue or cancel. This can be used to ask for confirmation before promoting a staging deployment to production.
+- **Rollbacks**: Just as there is a stage for deploying manifests, there are also stages for deleting, scaling, and rolling back manifests. Spinnaker also supports automated rollbacks, as it exposes the _Undo Rollout_ functionality as a stage, which can be configured to run when other stages fail, and to roll back by a number of revisions of the deployed object. ConfigMaps and Secrets must be versioned for the automated rollback to actually roll back code or configuration.
+- **Manual judgments**: The pipeline can include a manual judgment stage, that will make the execution interrupt, asking for user input to continue or cancel. This can be used to ask for confirmation before promoting a staging deployment to production.
 - **Pipeline management**: Spinnaker represents pipelines as JSON behind the scenes, and maintains a revision history of the changes made to the pipeline. It also supports pipeline templates, that can be managed through the `spin CLI`, and help with pipeline sharing and distribution.
 - **Canary**: You can automate Canary analysis by creating canary stages for your pipeline. Canary must be enabled in the Spinnaker installation using `hal` commands. The Canary analysis consists of the evaluation of metrics chosen during configuration, comparing a partial rollout with the current deployment. The stage will fail based on the deviation criteria configured for the metric.
-- **Secrets management** Spinnaker does not directly support secrets management. Secrets should be encrypted at rest and in transit. Credentials encryption for application secrets and Kubernetes secrets was covered in a recent post [Kubernetes to the Cloud with Spring Boot and JHipster](/blog/2021/06/01/kubernetes-spring-boot-jhipster).
+- **Secrets management**: Spinnaker does not directly support secrets management. Secrets should be encrypted at rest and in transit. Credentials encryption for application secrets and Kubernetes secrets was covered in a recent post: [Kubernetes to the Cloud with Spring Boot and JHipster](/blog/2021/06/01/kubernetes-spring-boot-jhipster).
 - **Rollout strategies**: The Spinnaker Kubernetes provider supports running dark, highlander, and red/black rollouts. In the Deploy Manifest stage, there is a strategy option that allows associating workload to a service, sending traffic to it, and choosing how to handle any previous versions of the workload in the same cluster and namespace.
 
-## Learn more about JHipster, Microservices, and Kubernetes
+## Learn more about JHipster, microservices, and Kubernetes
 
 This article looks at the nuts and bolts of JHipster deployments. CI and CD propose several organizational and technical practices aimed at improving team confidence, efficiency, and productivity. Spinnaker is a powerful tool for continuous deployment, with more than 200 [companies](https://spinnaker.io/docs/community/stay-informed/captains-log/#contributions-per-company) around the world contributing to its growth. 
 
