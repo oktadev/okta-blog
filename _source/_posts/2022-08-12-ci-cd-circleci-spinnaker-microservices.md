@@ -273,7 +273,7 @@ Do the same for the `gateway` project. The configuration triggers an initial pip
 - Name: `DOCKERHUB_PASS`
 - Value: your Docker Hub password, or better, a Docker Hub access token if you have 2FA enabled.
 
-**Note**: For creating a Docker Hub access token, sign in to [Docker Hub](https://hub.docker.com/), and choose **Account Settings** in the top right user menu. Then, on the left menu, choose **Security**. Click **New Access Token** and set a description for the token, for example, _circleci_. Then click **Generate** and copy the new token. You can use the same token for both projects `store` and `gateway`.
+**NOTE**: For creating a Docker Hub access token, sign in to [Docker Hub](https://hub.docker.com/), and choose **Account Settings** in the top right user menu. Then, on the left menu, choose **Security**. Click **New Access Token** and set a description for the token, for example, _circleci_. Then click **Generate** and copy the new token. You can use the same token for both projects `store` and `gateway`.
 
 Once a project is set up in CircleCI, a pipeline is triggered each time a commit is pushed to the configured branch. The pipeline in execution appears on the **Dashboard** page. You can also manually trigger the pipeline from the **Dashboard** if you choose the project and branch from the pipeline filters, and then click **Trigger Pipeline**. Before moving on to the next section, manually execute the store pipeline and the gateway pipeline once, to push the first image of each to Docker Hub.
 
