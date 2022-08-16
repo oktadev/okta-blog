@@ -493,6 +493,7 @@ Replace `App.vue` with the following.
 
 `src/App.vue`
 
+{% raw %}
 ```vue
 <template>
   <q-layout view="hHh lpR fFf">
@@ -505,7 +506,7 @@ Replace `App.vue` with the following.
           </q-avatar>
           Todo App
         </q-toolbar-title>
-        {{ '{{' }} this.claims && this.claims.email ? claims.email : '' }}
+        {{this.claims && this.claims.email ? claims.email : '' }}
         <q-btn flat round dense icon="logout" v-if='authState && authState.isAuthenticated' @click="logout"/>
         <q-btn flat round dense icon="account_circle" v-else @click="login"/>
       </q-toolbar>
@@ -551,6 +552,7 @@ export default {
 }
 </script>
 ```
+{% endraw %}
 
 This is the top-level component that defines the header bar and includes the router component. The header bar has a login or logout button and will show the authenticated user's email address when logged in.
 
@@ -655,13 +657,14 @@ Create the `Home` component.
 
 `src/components/Home.vue`
 
+{% raw %}
 ```vue
 <template>
   <div class="column justify-center items-center" id="row-container">
     <q-card class="my-card">
       <q-card-section style="text-align: center">
         <div v-if='authState && authState.isAuthenticated' >
-          <h6 v-if="claims && claims.email">You are logged in as {{ '{{' }}claims.email}}</h6>
+          <h6 v-if="claims && claims.email">You are logged in as {{claims.email}}</h6>
           <h6 v-else>You are logged in</h6>
           <q-btn flat color="primary" @click="todo">Go to Todo app</q-btn>
           <q-btn flat @click="logout">Log out</q-btn>
@@ -701,11 +704,13 @@ export default {
 }
 </script>
 ```
+{% endraw %}
 
 Create the `TodoItem` component.
 
 `src/components/TodoItem.vue`
 
+{% raw %}
 ```vue
 <template>
   <q-item-section avatar class="check-icon" v-if="this.item.completed">
@@ -714,7 +719,7 @@ Create the `TodoItem` component.
   <q-item-section avatar class="check-icon" v-else>
     <q-icon color="gray" name="check_box_outline_blank" @click="handleClickSetCompleted(true)"/>
   </q-item-section>
-  <q-item-section v-if="!editing">{{ '{{' }}this.item.title}}</q-item-section>
+  <q-item-section v-if="!editing">{{this.item.title}}</q-item-section>
   <q-item-section v-else>
     <input
         class="list-item-input"
@@ -809,6 +814,7 @@ input.list-item-input {
 }
 </style>
 ```
+{% endraw %}
 
 This component encapsulates a single todo item. It has logic for editing the title, setting the completed status, and deleting items. If you look closely at the code, you'll notice that it both sends changes to the server and also updates the local copy stored in the `todos` array in the parent component. 
 
@@ -816,6 +822,7 @@ Create the `Todos` component.
 
 `src/components/Todos.vue`
 
+{% raw %}
 ```vue
 <template>
   <div class="column justify-center items-center" id="row-container">
@@ -871,7 +878,7 @@ Create the `Todos` component.
     </q-card>
     <div v-if="error" class="error">
       <q-banner inline-actions class="text-white bg-red" @click="handleErrorClick">
-        ERROR: {{ '{{' }}this.error}}
+        ERROR: {{this.error}}
       </q-banner>
     </div>
   </div>
@@ -1019,6 +1026,7 @@ export default {
 }
 </style>
 ```
+{% endraw %}
 
 This component encapsulates the card that holds all of the todos, as well as the todo-associated interface elements. It also handles the rest of the functions related to updating todos on the server as well as in the local cache. 
 
