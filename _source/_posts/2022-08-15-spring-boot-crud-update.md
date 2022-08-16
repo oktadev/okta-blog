@@ -416,7 +416,7 @@ npm i --save axios vuejs3-logger vue-router@4 @okta/okta-vue
 
 To learn more about how Okta integrates with Vue, take a look at [the GitHub page](https://github.com/okta/okta-vue) for the `okta/okta-vue` project. There are also more resources and example applications listed on in [the general Okta docs](https://developer.okta.com/code/vue/).
 
-Replace `main.js` with the following. Look at the `OktaAuth` configuration object. Notice there are two values that are pulled from a `.env` file.
+Replace `main.js` with the following. Look at the `OktaAuth` configuration object. Notice the client ID and issuer URI are pulled from a `.env` file.
 
 `src/main.js`
 
