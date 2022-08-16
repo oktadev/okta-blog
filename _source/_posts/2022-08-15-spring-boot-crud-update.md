@@ -117,18 +117,18 @@ okta.oauth2.issuer=<your-issuer-uri>
 okta.oauth2.clientId=<your-client-id>
 ```
 
+**You need to replace the two bracketed values** with the values you generated above for the OIDC app using the Okta CLI.
+
 Open the `build.gradle` file and change the `sourceCompatibility` from 17 to 11. I think this should have been done by the `jvmVersion` flag when the project was downloaded via the REST API. However, for me, it wasn't. If you're running Java 17 locally, it won't matter, but if you're running Java 11 this will cause an error when you try and run the project.
 ```groovy
 sourceCompatibility = '11'
 ```
 
-You can run the bare project right now and see if it starts.
+You can run the bootstrapped project right now and see if it starts. It should start but won't do much.
 
 ```bash
 ./gradlew bootRun
 ```
-
-**You need to replace the two bracketed values** with the values you generated above for the OIDC app using the Okta CLI.
 
 Create a class to configure web security. The class below configures web security to allow all requests, effectively bypassing security. This is just so you can test the resource server initially. You'll enable security shortly.
 
@@ -366,7 +366,7 @@ protected void configure(HttpSecurity http) throws Exception {
 
 This configuration requires JWT auth on all requests.
 
-Re-start the server.
+Re-start the server. Use `control-c` stop it if it's running.
 
 ```bash
 ./gradlew bootRun
@@ -487,6 +487,8 @@ VUE_APP_ISSUER_URI=<your-issuer-uri>
 VUE_APP_SERVER_URI=http://localhost:9000
 ```
 
+It's important to note that putting values like this in a `.env` file in a client application does not make then secure. It helps by keeping them out of a repository. However, they are still public in the sense that they are necessarily visible in the Javascript code sent to the browser. In this use case, it's more of a configuration and organizational tool than a security tool. 
+
 Replace `App.vue` with the following.
 
 `src/App.vue`
@@ -503,7 +505,7 @@ Replace `App.vue` with the following.
           </q-avatar>
           Todo App
         </q-toolbar-title>
-        {{ this.claims && this.claims.email ? claims.email : '' }}
+        {{ '{{' }} this.claims && this.claims.email ? claims.email : '' }}
         <q-btn flat round dense icon="logout" v-if='authState && authState.isAuthenticated' @click="logout"/>
         <q-btn flat round dense icon="account_circle" v-else @click="login"/>
       </q-toolbar>
@@ -659,7 +661,7 @@ Create the `Home` component.
     <q-card class="my-card">
       <q-card-section style="text-align: center">
         <div v-if='authState && authState.isAuthenticated' >
-          <h6 v-if="claims && claims.email">You are logged in as {{claims.email}}</h6>
+          <h6 v-if="claims && claims.email">You are logged in as {{ '{{' }}claims.email}}</h6>
           <h6 v-else>You are logged in</h6>
           <q-btn flat color="primary" @click="todo">Go to Todo app</q-btn>
           <q-btn flat @click="logout">Log out</q-btn>
@@ -712,7 +714,7 @@ Create the `TodoItem` component.
   <q-item-section avatar class="check-icon" v-else>
     <q-icon color="gray" name="check_box_outline_blank" @click="handleClickSetCompleted(true)"/>
   </q-item-section>
-  <q-item-section v-if="!editing">{{this.item.title}}</q-item-section>
+  <q-item-section v-if="!editing">{{ '{{' }}this.item.title}}</q-item-section>
   <q-item-section v-else>
     <input
         class="list-item-input"
@@ -869,7 +871,7 @@ Create the `Todos` component.
     </q-card>
     <div v-if="error" class="error">
       <q-banner inline-actions class="text-white bg-red" @click="handleErrorClick">
-        ERROR: {{this.error}}
+        ERROR: {{ '{{' }}this.error}}
       </q-banner>
     </div>
   </div>
