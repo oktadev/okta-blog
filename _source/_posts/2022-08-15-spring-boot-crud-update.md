@@ -12,6 +12,7 @@ tweets:
 - ""
 image:
 type: conversion
+
 ---
 
 You're going to use Vue and Spring Boot to build a todo list web application. The application will include CRUD abilities, meaning that you will be able to **c**reate, **r**ead, **u**pdate, and **d**elete the todo items on the Spring Boot server via the client. The Vue front-end client will use the Quasar framework for presentation. Both the Spring Boot server and the Vue client will be secured with OAuth 2.0 and OpenID Connect (OIDC) using Okta as the security provider.
@@ -415,7 +416,7 @@ npm i --save axios vuejs3-logger vue-router@4 @okta/okta-vue
 
 To learn more about how Okta integrates with Vue, take a look at [the GitHub page](https://github.com/okta/okta-vue) for the `okta/okta-vue` project. There are also more resources and example applications listed on in [the general Okta docs](https://developer.okta.com/code/vue/).
 
-Replace `main.js` with the following. Look at the `OktaAuth` configuration object. Notice **there are two values that need to be filled in**: the client ID and the Okta domain for the issuer URI.
+Replace `main.js` with the following. Look at the `OktaAuth` configuration object. Notice there are two values that are pulled from a `.env` file.
 
 `src/main.js`
 
@@ -431,9 +432,13 @@ import createApi from './Api'
 import { OktaAuth } from '@okta/okta-auth-js'
 import OktaVue from '@okta/okta-vue'
 
+if (process.env.VUE_APP_ISSUER_URI == null || process.env.VUE_APP_CLIENT_ID == null || process.env.VUE_APP_SERVER_URI == null) {
+	throw "Please define VUE_APP_ISSUER_URI, VUE_APP_CLIENT_ID, and VUE_APP_SERVER_URI in .env file"
+}
+
 const oktaAuth = new OktaAuth({
-    issuer: 'https://<your-okta-domain>/oauth2/default',
-    clientId: '<your-client-id>',
+    issuer: process.env.VUE_APP_ISSUER_URI,
+    clientId: process.env.VUE_APP_CLIENT_ID,
     redirectUri: window.location.origin + '/login/callback',
     scopes: ['openid', 'profile', 'email']
 })
@@ -459,7 +464,17 @@ app.config.globalProperties.$api = createApi(app.config.globalProperties.$auth)
 app.mount('#app')
 ```
 
-I'm not going to go deep into explaining Vue as a framework, but briefly the file above creates the main Vue app and configures it to use our dependencies: Quasar, VueLogger, OktaVue, and the router. It also creates the Api class that handles the requests to the resource server and passes it the `$auth` object it needs to get the JWT.
+Stated very briefly, the file above creates the main Vue app and configures it to use our dependencies: Quasar, VueLogger, OktaVue, and the router. It also creates the Api class that handles the requests to the resource server and passes it the `$auth` object it needs to get the JWT.
+
+Create a `.env` file in the client project root directory. The **Client ID** and **Issuer URI** are the values you used above in the Spring Boot `application.properties` file. The **Server URI** is the local URI for the Spring Boot server is you can leave as it is unless you made a change (this gets used in the `Api.js` module).
+
+`.env`
+
+```env
+VUE_APP_CLIENT_ID=<your-client-id>
+VUE_APP_ISSUER_URI=<your-issuer-uri>
+VUE_APP_SERVER_URI=http://localhost:9000
+```
 
 Replace `App.vue` with the following.
 
@@ -468,8 +483,7 @@ Replace `App.vue` with the following.
 ```vue
 <template>
   <q-layout view="hHh lpR fFf">
-      
-	<!-- header -->
+
     <q-header elevated class="bg-primary text-white">
       <q-toolbar>
         <q-toolbar-title>
@@ -484,7 +498,6 @@ Replace `App.vue` with the following.
       </q-toolbar>
     </q-header>
 
-    <!-- content -->
     <q-page-container>
       <router-view></router-view>
     </q-page-container>
@@ -502,6 +515,7 @@ export default {
   },
   watch: {
     'authState.isAuthenticated'() {
+      this.$log.debug(("watch triggered!"))
       this.updateClaims()
     }
   },
@@ -536,36 +550,33 @@ Create a new file to encapsulate the resource server access logic.
 ```js
 import axios from 'axios'
 
-const SERVER_URL = 'http://localhost:9000';
-
 const instance = axios.create({
-    baseURL: SERVER_URL,
+    baseURL: process.env.VUE_APP_SERVER_URI,
     timeout: 1000
 });
 
 const createApi = (auth) => {
+
+    instance.interceptors.request.use(async function (config) {
+        let accessToken = await auth.getAccessToken()
+        config.headers = {
+            Authorization: `Bearer ${accessToken}`
+        }
+        return config;
+    }, function (error) {
+        return Promise.reject(error);
+    });
+
     return {
-        async execute(method, resource, data, config) {
-            let accessToken = await auth.getAccessToken()
-            return instance({
-                method: method,
-                url: resource,
-                data,
-                headers: {
-                    Authorization: `Bearer ${accessToken}`
-                },
-                ...config
-            })
-        },
 
         // (C)reate
         createNew(text, completed) {
-            return this.execute('POST', 'todos', {title: text, completed: completed})
+            return instance.post('/todos', {title: text, completed: completed})
         },
 
         // (R)ead
         getAll() {
-            return this.execute('GET', 'todos', null, {
+            return instance.get( '/todos', {
                 transformResponse: [function (data) {
                     return data ? JSON.parse(data)._embedded.todos : data;
                 }]
@@ -574,12 +585,12 @@ const createApi = (auth) => {
 
         // (U)pdate
         updateForId(id, text, completed) {
-            return this.execute('PUT', 'todos/' + id, {title: text, completed: completed})
+            return instance.put('todos/' + id, {title: text, completed: completed})
         },
 
         // (D)elete
         removeForId(id) {
-            return this.execute('DELETE', 'todos/' + id)
+            return instance.delete('todos/' + id)
         }
     }
 }
@@ -794,204 +805,104 @@ Create the `Todos` component.
 
 ```vue
 <template>
-  <div class="column justify-center items-center" id="row-container">
-    <q-card class="my-card">
-      <q-card-section>
-        <div class="text-h4">Todos</div>
-        <q-list padding>
-          <q-item
-              v-for="item in filteredTodos" :key="item.id"
-              clickable
-              v-ripple
-              rounded
-              class="todo-item"
-          >
-            <TodoItem
-                :item="item"
-                :deleteMe="handleClickDelete"
-                :showError="handleShowError"
-                :setCompleted="handleSetCompleted"
-                :setTitle="handleSetTitle"
-                v-if="filter === 'all' || (filter === 'incomplete' && !item.completed) || (filter === 'complete' && item.completed)"
-            ></TodoItem>
-          </q-item>
-        </q-list>
-      </q-card-section>
-      <q-card-section>
-        <q-item>
-          <q-item-section avatar class="add-item-icon">
-            <q-icon color="green" name="add_circle_outline"/>
-          </q-item-section>
-          <q-item-section>
-            <input
-                type="text"
-                ref="newTodoInput"
-                v-model="newTodoTitle"
-                @change="handleDoneEditingNewTodo"
-                @blur="handleCancelEditingNewTodo"
-            />
-          </q-item-section>
-        </q-item>
-      </q-card-section>
-      <q-card-section style="text-align: center">
-        <q-btn color="amber" text-color="black" label="Remove Completed" style="margin-right: 10px" @click="handleDeleteCompleted"></q-btn>
-        <q-btn-group>
-          <q-btn glossy :color="filter === 'all' ? 'primary' : 'white'" text-color="black" label="All" @click="handleSetFilter('all')"/>
-          <q-btn glossy :color="filter === 'complete' ? 'primary' : 'white'" text-color="black" label="Completed" @click="handleSetFilter('complete')"/>
-          <q-btn glossy :color="filter === 'incomplete' ? 'primary' : 'white'" text-color="black" label="Incomplete" @click="handleSetFilter('incomplete')"/>
-          <q-tooltip>
-            Filter the todos
-          </q-tooltip>
-        </q-btn-group>
-      </q-card-section>
-    </q-card>
-    <div v-if="error" class="error">
-      <q-banner inline-actions class="text-white bg-red" @click="handleErrorClick">
-        ERROR: {{this.error}}
-      </q-banner>
-    </div>
-  </div>
+  <q-item-section avatar class="check-icon" v-if="this.item.completed">
+    <q-icon color="green" name="done" @click="handleClickSetCompleted(false)"/>
+  </q-item-section>
+  <q-item-section avatar class="check-icon" v-else>
+    <q-icon color="gray" name="check_box_outline_blank" @click="handleClickSetCompleted(true)"/>
+  </q-item-section>
+  <q-item-section v-if="!editing">{{this.item.title}}</q-item-section>
+  <q-item-section v-else>
+    <input
+        class="list-item-input"
+        type="text"
+        name="textinput"
+        ref="input"
+        v-model="editingTitle"
+        @change="handleDoneEditing"
+        @blur="handleCancelEditing"
+    />
+  </q-item-section>
+  <q-item-section avatar class="hide-icon" @click="handleClickEdit">
+    <q-icon color="primary" name="edit" />
+  </q-item-section>
+  <q-item-section avatar class="hide-icon close-icon" @click="handleClickDelete">
+    <q-icon color="red" name="close" />
+  </q-item-section>
 </template>
-
 <script>
 
-import TodoItem from "@/components/TodoItem";
-import { ref } from 'vue'
+import { nextTick } from 'vue'
 
 export default {
-  name: 'LayoutDefault',
-
-  components: {
-    TodoItem
+  name: "TodoItem",
+  props: {
+    item: Object,
+    deleteMe: Function,
+    showError: Function,
+    setCompleted: Function,
+    setTitle: Function
   },
-
-  data: function() {
+  data: function () {
     return {
-      todos: [],
-      newTodoTitle: '',
-      visibility: 'all',
-      loading: true,
-      error: "",
-      filter: "all"
+      editing: false,
+      editingTitle: this.item.title,
     }
   },
-
-  setup () {
-    return {
-      alert: ref(false),
-    }
-  },
-  mounted() {
-    this.$api.getAll()
-        .then(response => {
-          this.$log.debug("Data loaded: ", response.data)
-          this.todos = response.data
-        })
-        .catch(error => {
-          this.$log.debug(error)
-          this.error = "Failed to load todos"
-        })
-        .finally(() => this.loading = false)
-  },
-
-  computed: {
-    filteredTodos() {
-      if (this.filter === 'all') return this.todos
-      else if (this.filter === 'complete') return this.todos.filter(todo => todo.completed)
-      else if (this.filter === 'incomplete') return this.todos.filter(todo => !todo.completed)
-      else return []
-    }
-  },
-
   methods: {
-
-    handleSetFilter(value) {
-      this.filter = value
+    handleClickEdit () {
+      this.editing = true
+      this.editingTitle = this.item.title
+      nextTick(function () {
+        this.$refs.input.focus()
+      }.bind(this))
     },
-
-    handleClickDelete(id) {
-      const todoToRemove = this.todos.find(todo => todo.id === id)
-      this.$api.removeForId(id).then(() => {
-        this.$log.debug("Item removed:", todoToRemove);
-        this.todos.splice(this.todos.indexOf(todoToRemove), 1)
+    handleCancelEditing () {
+      this.editing = false
+    },
+    handleDoneEditing () {
+      this.editing = false
+      this.$api.updateForId(this.item.id, this.editingTitle, this.item.completed).then((response) => {
+        this.setTitle(this.item.id, this.editingTitle)
+        this.$log.info("Item updated:", response.data);
       }).catch((error) => {
-        this.$log.debug(error);
-        this.error = "Failed to remove todo"
+        this.showError("Failed to update todo title")
+        this.$log.debug(error)
       });
     },
-
-    handleDeleteCompleted() {
-      const completed = this.todos.filter(todo => todo.completed)
-      Promise.all(completed.map( todoToRemove => {
-        return this.$api.removeForId(todoToRemove.id).then(() => {
-          this.$log.debug("Item removed:", todoToRemove);
-          this.todos.splice(this.todos.indexOf(todoToRemove), 1)
-        }).catch((error) => {
-          this.$log.debug(error);
-          this.error = "Failed to remove todo"
-          return error
-        })
-      }))
-    },
-
-    handleDoneEditingNewTodo() {
-      const value = this.newTodoTitle && this.newTodoTitle.trim()
-      if (!value) {
-        return
-      }
-      this.$api.createNew(value, false).then( (response) => {
-        this.$log.debug("New item created:", response)
-        this.newTodoTitle = ""
-        this.todos.push({
-          id: response.data.id,
-          title: value,
-          completed: false
-        })
-        this.$refs.newTodoInput.blur()
+    handleClickSetCompleted(value) {
+      this.$api.updateForId(this.item.id, this.item.title, value).then((response) => {
+        this.setCompleted(this.item.id, value)
+        this.$log.info("Item updated:", response.data);
       }).catch((error) => {
-        this.$log.debug(error);
-        this.error = "Failed to add todo"
+        this.showError("Failed to update todo completed status")
+        this.$log.debug(error)
       });
     },
-    handleCancelEditingNewTodo() {
-      this.newTodoTitle = ""
-    },
-
-    handleSetCompleted(id, value) {
-      let todo = this.todos.find(todo => id === todo.id)
-      todo.completed = value
-    },
-
-    handleSetTitle(id, value) {
-      let todo = this.todos.find(todo => id === todo.id)
-      todo.title = value
-    },
-
-    handleShowError(message) {
-      this.error = message
-    },
-
-    handleErrorClick () {
-      this.error = null;
-    },
-
-  },
-  
+    handleClickDelete() {
+      this.deleteMe(this.item.id)
+    }
+  }
 }
 </script>
 
-<style>
-#row-container {
-  margin-top: 100px;
+<style scoped>
+.todo-item .close-icon {
+  min-width: 0px;
+  padding-left: 5px !important;
 }
-.my-card {
-  min-width: 600px;
+.todo-item .hide-icon {
+  opacity: 0.1;
 }
-.error {
-  color: red;
-  text-align: center;
-  min-width: 600px;
-  margin-top: 10px;
+.todo-item:hover .hide-icon {
+  opacity: 0.8;
+}
+.check-icon {
+  min-width: 0px;
+  padding-right: 5px !important;
+}
+input.list-item-input {
+  border: none;
 }
 </style>
 ```
