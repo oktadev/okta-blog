@@ -62,7 +62,7 @@ okta apps create
 
 **Type of Application**: `2: Single Page App`
 
-**Redirect URI(s)**: `http://localhost:8000/login/callback`
+**Redirect URI(s)**: `http://localhost:8080/login/callback`
 
 All other defaults are fine.
 
@@ -88,7 +88,7 @@ The following command will download the starter project and un-tar it to a new d
 
 ```bash
 curl https://start.spring.io/starter.tgz \
-  -d bootVersion=2.6.8 \
+  -d bootVersion=2.6.10 \
   -d jvmVersion=11 \
   -d dependencies=web,data-rest,lombok,data-jpa,h2,okta \
   -d type=gradle-project \
@@ -115,6 +115,17 @@ Open the application properties file and update it. You're changing the server p
 server.port=9000
 okta.oauth2.issuer=<your-issuer-uri>
 okta.oauth2.clientId=<your-client-id>
+```
+
+Open the `build.gradle` file and change the `sourceCompatibility` from 17 to 11. I think this should have been done by the `jvmVersion` flag when the project was downloaded via the REST API. However, for me, it wasn't. If you're running Java 17 locally, it won't matter, but if you're running Java 11 this will cause an error when you try and run the project.
+```groovy
+sourceCompatibility = '11'
+```
+
+You can run the bare project right now and see if it starts.
+
+```bash
+./gradlew bootRun
 ```
 
 **You need to replace the two bracketed values** with the values you generated above for the OIDC app using the Okta CLI.
@@ -805,109 +816,211 @@ Create the `Todos` component.
 
 ```vue
 <template>
-  <q-item-section avatar class="check-icon" v-if="this.item.completed">
-    <q-icon color="green" name="done" @click="handleClickSetCompleted(false)"/>
-  </q-item-section>
-  <q-item-section avatar class="check-icon" v-else>
-    <q-icon color="gray" name="check_box_outline_blank" @click="handleClickSetCompleted(true)"/>
-  </q-item-section>
-  <q-item-section v-if="!editing">{{this.item.title}}</q-item-section>
-  <q-item-section v-else>
-    <input
-        class="list-item-input"
-        type="text"
-        name="textinput"
-        ref="input"
-        v-model="editingTitle"
-        @change="handleDoneEditing"
-        @blur="handleCancelEditing"
-    />
-  </q-item-section>
-  <q-item-section avatar class="hide-icon" @click="handleClickEdit">
-    <q-icon color="primary" name="edit" />
-  </q-item-section>
-  <q-item-section avatar class="hide-icon close-icon" @click="handleClickDelete">
-    <q-icon color="red" name="close" />
-  </q-item-section>
+  <div class="column justify-center items-center" id="row-container">
+    <q-card class="my-card">
+      <q-card-section>
+        <div class="text-h4">Todos</div>
+        <q-list padding>
+          <q-item
+              v-for="item in filteredTodos" :key="item.id"
+              clickable
+              v-ripple
+              rounded
+              class="todo-item"
+          >
+            <TodoItem
+                :item="item"
+                :deleteMe="handleClickDelete"
+                :showError="handleShowError"
+                :setCompleted="handleSetCompleted"
+                :setTitle="handleSetTitle"
+                v-if="filter === 'all' || (filter === 'incomplete' && !item.completed) || (filter === 'complete' && item.completed)"
+            ></TodoItem>
+          </q-item>
+        </q-list>
+      </q-card-section>
+      <q-card-section>
+        <q-item>
+          <q-item-section avatar class="add-item-icon">
+            <q-icon color="green" name="add_circle_outline"/>
+          </q-item-section>
+          <q-item-section>
+            <input
+                type="text"
+                ref="newTodoInput"
+                v-model="newTodoTitle"
+                @change="handleDoneEditingNewTodo"
+                @blur="handleCancelEditingNewTodo"
+            />
+          </q-item-section>
+        </q-item>
+      </q-card-section>
+      <q-card-section style="text-align: center">
+        <q-btn color="amber" text-color="black" label="Remove Completed" style="margin-right: 10px" @click="handleDeleteCompleted"></q-btn>
+        <q-btn-group>
+          <q-btn glossy :color="filter === 'all' ? 'primary' : 'white'" text-color="black" label="All" @click="handleSetFilter('all')"/>
+          <q-btn glossy :color="filter === 'complete' ? 'primary' : 'white'" text-color="black" label="Completed" @click="handleSetFilter('complete')"/>
+          <q-btn glossy :color="filter === 'incomplete' ? 'primary' : 'white'" text-color="black" label="Incomplete" @click="handleSetFilter('incomplete')"/>
+          <q-tooltip>
+            Filter the todos
+          </q-tooltip>
+        </q-btn-group>
+      </q-card-section>
+    </q-card>
+    <div v-if="error" class="error">
+      <q-banner inline-actions class="text-white bg-red" @click="handleErrorClick">
+        ERROR: {{this.error}}
+      </q-banner>
+    </div>
+  </div>
 </template>
+
 <script>
 
-import { nextTick } from 'vue'
+import TodoItem from "@/components/TodoItem";
+import { ref } from 'vue'
 
 export default {
-  name: "TodoItem",
-  props: {
-    item: Object,
-    deleteMe: Function,
-    showError: Function,
-    setCompleted: Function,
-    setTitle: Function
+  name: 'LayoutDefault',
+
+  components: {
+    TodoItem
   },
-  data: function () {
+
+  data: function() {
     return {
-      editing: false,
-      editingTitle: this.item.title,
+      todos: [],
+      newTodoTitle: '',
+      visibility: 'all',
+      loading: true,
+      error: "",
+      filter: "all"
     }
   },
-  methods: {
-    handleClickEdit () {
-      this.editing = true
-      this.editingTitle = this.item.title
-      nextTick(function () {
-        this.$refs.input.focus()
-      }.bind(this))
-    },
-    handleCancelEditing () {
-      this.editing = false
-    },
-    handleDoneEditing () {
-      this.editing = false
-      this.$api.updateForId(this.item.id, this.editingTitle, this.item.completed).then((response) => {
-        this.setTitle(this.item.id, this.editingTitle)
-        this.$log.info("Item updated:", response.data);
-      }).catch((error) => {
-        this.showError("Failed to update todo title")
-        this.$log.debug(error)
-      });
-    },
-    handleClickSetCompleted(value) {
-      this.$api.updateForId(this.item.id, this.item.title, value).then((response) => {
-        this.setCompleted(this.item.id, value)
-        this.$log.info("Item updated:", response.data);
-      }).catch((error) => {
-        this.showError("Failed to update todo completed status")
-        this.$log.debug(error)
-      });
-    },
-    handleClickDelete() {
-      this.deleteMe(this.item.id)
+
+  setup () {
+    return {
+      alert: ref(false),
     }
-  }
+  },
+  mounted() {
+    this.$api.getAll()
+        .then(response => {
+          this.$log.debug("Data loaded: ", response.data)
+          this.todos = response.data
+        })
+        .catch(error => {
+          this.$log.debug(error)
+          this.error = "Failed to load todos"
+        })
+        .finally(() => this.loading = false)
+  },
+
+  computed: {
+    filteredTodos() {
+      if (this.filter === 'all') return this.todos
+      else if (this.filter === 'complete') return this.todos.filter(todo => todo.completed)
+      else if (this.filter === 'incomplete') return this.todos.filter(todo => !todo.completed)
+      else return []
+    }
+  },
+
+  methods: {
+
+    handleSetFilter(value) {
+      this.filter = value
+    },
+
+    handleClickDelete(id) {
+      const todoToRemove = this.todos.find(todo => todo.id === id)
+      this.$api.removeForId(id).then(() => {
+        this.$log.debug("Item removed:", todoToRemove);
+        this.todos.splice(this.todos.indexOf(todoToRemove), 1)
+      }).catch((error) => {
+        this.$log.debug(error);
+        this.error = "Failed to remove todo"
+      });
+    },
+
+    handleDeleteCompleted() {
+      const completed = this.todos.filter(todo => todo.completed)
+      Promise.all(completed.map( todoToRemove => {
+        return this.$api.removeForId(todoToRemove.id).then(() => {
+          this.$log.debug("Item removed:", todoToRemove);
+          this.todos.splice(this.todos.indexOf(todoToRemove), 1)
+        }).catch((error) => {
+          this.$log.debug(error);
+          this.error = "Failed to remove todo"
+          return error
+        })
+      }))
+    },
+
+    handleDoneEditingNewTodo() {
+      const value = this.newTodoTitle && this.newTodoTitle.trim()
+      if (!value) {
+        return
+      }
+      this.$api.createNew(value, false).then( (response) => {
+        this.$log.debug("New item created:", response)
+        this.newTodoTitle = ""
+        this.todos.push({
+          id: response.data.id,
+          title: value,
+          completed: false
+        })
+        this.$refs.newTodoInput.blur()
+      }).catch((error) => {
+        this.$log.debug(error);
+        this.error = "Failed to add todo"
+      });
+    },
+    handleCancelEditingNewTodo() {
+      this.newTodoTitle = ""
+    },
+
+    handleSetCompleted(id, value) {
+      let todo = this.todos.find(todo => id === todo.id)
+      todo.completed = value
+    },
+
+    handleSetTitle(id, value) {
+      let todo = this.todos.find(todo => id === todo.id)
+      todo.title = value
+    },
+
+    handleShowError(message) {
+      this.error = message
+    },
+
+    handleErrorClick () {
+      this.error = null;
+    },
+
+  },
+
 }
 </script>
 
-<style scoped>
-.todo-item .close-icon {
-  min-width: 0px;
-  padding-left: 5px !important;
+<style>
+#row-container {
+  margin-top: 100px;
 }
-.todo-item .hide-icon {
-  opacity: 0.1;
+.my-card {
+  min-width: 600px;
 }
-.todo-item:hover .hide-icon {
-  opacity: 0.8;
-}
-.check-icon {
-  min-width: 0px;
-  padding-right: 5px !important;
-}
-input.list-item-input {
-  border: none;
+.error {
+  color: red;
+  text-align: center;
+  min-width: 600px;
+  margin-top: 10px;
 }
 </style>
 ```
 
 This component encapsulates the card that holds all of the todos, as well as the todo-associated interface elements. It also handles the rest of the functions related to updating todos on the server as well as in the local cache. 
+
+You're welcome to delete the `HelloWorld.vue` component, if you want. Or you can leave it. It's not needed.
 
 ## Test the todo app
 
