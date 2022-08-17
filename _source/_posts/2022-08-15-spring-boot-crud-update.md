@@ -401,7 +401,7 @@ cd client
 
 Pick `Default Vue 3`
 
-Wait for it to finish. Add the Quasar Framework.
+Wait for it to finish. Add the Quasar framework.
 
 ```bash
 vue add quasar
