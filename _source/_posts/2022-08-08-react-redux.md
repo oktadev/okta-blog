@@ -25,7 +25,9 @@ Let's compare when to use the useState hook vs. React Context vs. a more global 
 
 ## Prerequisites
 
-Add in prereqs.
+As of the time of this publication, Node >= 14.0.0 and npm >= 5.6 are required for Create React App. You can check for the latest required versions at https://reactjs.org/docs/create-a-new-react-app.html.
+
+**NOTE:** Redux also recommends you install the [Chrome React DevTools Extension](https://chrome.google.com/webstore/detail/react-developer-tools/fmkadmapgofadopljbjfkapdkoienihi?hl=en).
 
 ## Create the React app
 
@@ -33,8 +35,10 @@ We'll get started with the built-in React template for [Create React App](https:
 
 1. First, run:
 ```bash
-npx create-react-app <YOUR_APP_NAME> --template redux-typescript
+npx create-react-app okta-react-redux --template redux-typescript
 ```
+
+**NOTE:** Our demo repository uses React `^18.2.0` and React Scripts `5.0.1`.
 
 2. Then we'll add the Redux core by running:
 ```bash
@@ -163,7 +167,7 @@ export default App;
 mkdir src/redux-state
 ```
 
-2. Add a `dashboardSlice.tsx` file in the created `redux-state` directory with the following:
+2. Add a `userProfileSlice.tsx` file in the created `redux-state` directory with the following:
 ```bash
 import { createSlice } from "@reduxjs/toolkit";
 import { RootState } from "../app/store";
@@ -209,7 +213,7 @@ We'll add the `email`, `given_name`, and `family_name` to the global store here.
 ```bash
 import { configureStore, ThunkAction, Action } from "@reduxjs/toolkit";
 import counterReducer from "../features/counter/counterSlice";
-import userProfileReducer from "../redux-state/dashboardSlice";
+import userProfileReducer from "../redux-state/userProfileSlice";
 
 export const store = configureStore({
   reducer: {
@@ -243,7 +247,7 @@ mkdir src/components
 import { useOktaAuth } from "@okta/okta-react";
 import { createContext, useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
-import { setUserProfile } from "../redux-state/dashboardSlice";
+import { setUserProfile } from "../redux-state/userProfileSlice";
 import "../App.css";
 import Dashboard from "./dashboard";
 import { UserClaims } from "@okta/okta-auth-js";
@@ -268,19 +272,18 @@ export default function Home() {
     if (authState?.isAuthenticated) {
       oktaAuth
         .getUser()
-        .then((userInfo: unknown) => {
-          const userInfoPayload = userInfo as UserProfileExtra;
+        .then((userInfo: UserProfileExtra) => {
 
           dispatch(
             setUserProfile({
               type: "userProfile/userProfileSet",
-              payload: userInfoPayload,
+              payload: userInfo,
             })
           );
 
           setUserProfileExtra({
-            locale: userInfoPayload.locale || "",
-            preferred_username: userInfoPayload.preferred_username || "",
+            locale: userInfo.locale,
+            preferred_username: userInfo.preferred_username,
           });
         })
         .catch((err) => {
@@ -295,7 +298,7 @@ export default function Home() {
     </UserContext.Provider>
   ) : (
     <div className="section-wrapper">
-      <div className="title">Using React, Redux, and Okta</div>
+      <div className="title">Use Redux to Manage Authenticated State in a React App</div>
       <button className="button" onClick={login}>
         Login
       </button>
@@ -307,13 +310,13 @@ export default function Home() {
 
 Here we use React's [useEffect hook](https://reactjs.org/docs/hooks-effect.html) to set the global user state we set up earlier using `setUserProfile` and the local user state we set up in this file with [useState](https://reactjs.org/docs/hooks-state.html).
 
-Once the user is authenticated, we're using the [getUser method](https://github.com/okta/okta-auth-js#getuser) that is built into `oktaAuth` to fetch the user profile information.
+Once the user is authenticated, we're using the [getUser method](https://github.com/okta/okta-auth-js#getuser) that is built into `oktaAuth` to fetch the user profile information. If the user is not yet authenticated, we render the login page instead.
 
 #### dashboard.tsx
 ```bash
 import { useOktaAuth } from "@okta/okta-react";
 import { useSelector } from "react-redux";
-import { selectUserProfile } from "../redux-state/dashboardSlice";
+import { selectUserProfile } from "../redux-state/userProfileSlice";
 import "../App.css";
 import { useState } from "react";
 import UserProfile from "./userProfile";
@@ -357,14 +360,14 @@ export default function Dashboard() {
 
 ```
 
-In this file, we're using a Redux selector to get the current state for `userProfile` to then render it in our component.
+In this file, we're using a Redux selector to get the current state for `userProfile` to then render those values in our component.
 
 We're also setting an `isExpandable` property that toggles whether or not additional user profile information is hidden or shown. This is another example of how to use local state using the `useState` hook. 
 
 #### userProfile.tsx
 ```bash
 import { useSelector } from "react-redux";
-import { selectUserProfile } from "../redux-state/dashboardSlice";
+import { selectUserProfile } from "../redux-state/userProfileSlice";
 import "../App.css";
 
 export default function UserProfile() {
@@ -415,7 +418,7 @@ export default function UserProfileExtra() {
 
 Here, another way to manage state is demonstrated. This time, React's built-in `useContext` hook is used to get what we set prior in the `UserContext` we created with React's `createContext` method.
 
-**NOTE:** The following custom styling has also been added to `src/App.css`.
+**NOTE:** The following custom styling has also been added to `src/App.css` in the demo repository.
 
 ```bash
 .section-wrapper > div {
@@ -458,6 +461,7 @@ Here, another way to manage state is demonstrated. This time, React's built-in `
 
 .title {
   font-size: 48px;
+  text-align: center;
 }
 
 .profile-greeting {
@@ -491,31 +495,42 @@ Here, another way to manage state is demonstrated. This time, React's built-in `
 
 Our app is now complete! Next we'll run it to log a user in and render our applicable states.
 
-### Start the App
+## Running the App
 
+To start the app, run `npm start`.
+
+After your app starts and you've clicked `login` on the home screen, you'll be redirected to the Okta-hosted sign-in page. Here, enter your user credentials. Once your user is authenticated, the dashboard component we created will render.
+
+{% img blog/react-redux/dashboard.png alt:"Screenshot of dashboard." width:"600" %}{: .center-image }
+
+If you recall, the value for the user's `given_name` is part of the Redux slice from our created selector `selectUserProfile`. Clicking `Show more` or `Show less` toggles our local state for `isExpanded` in the dashboard component to show or hide additional user profile info, which is a mix of other values from the `userProfileSlice` and additional values from the `UserContext` we created.
 
 ## Further Reading
 
-[Custom Sign-In Widget](https://developer.okta.com/docs/guides/custom-widget/main/)
+This walkthrough will get you started with a basic setup using Okta's redirect model to manage authenticated state and user profile information within a React app. It provides examples on when to use Redux, local state using React's `useState` hook, or React Context. As you scale your apps, you might find that a mix of all three solutions is the right choice.
+
+You may also want to go further to handle more complex state management logic or add more customizations to your apps. The following links should help with potential next steps.
+
+**[Custom Sign-In Widget](https://developer.okta.com/docs/guides/custom-widget/main/)**
 
 Add custom styled to your sign in widget.
 
-[Custom URL Domain](https://developer.okta.com/docs/guides/custom-url-domain/main/)
+**[Custom URL Domain](https://developer.okta.com/docs/guides/custom-url-domain/main/)**
 
 Use a custom URL for the Okta sign in widget.
 
-[Open ID Connect](https://developer.okta.com/docs/guides/build-sso-integration/openidconnect/main/)
+**[Open ID Connect](https://developer.okta.com/docs/guides/build-sso-integration/openidconnect/main/)**
 
 Set up Single Sign-On for your Okta integrated app.
 
-[Customize Tokens Returned From Okta](https://developer.okta.com/docs/guides/customize-tokens-returned-from-okta/main/)
+**[Customize Tokens Returned From Okta](https://developer.okta.com/docs/guides/customize-tokens-returned-from-okta/main/)**
 
 Add custom claims to your user access tokens that add custom information or attributes stored in a user profile.
 
-[Redux Async Logic](https://redux.js.org/tutorials/essentials/part-5-async-logic)
+**[Redux Async Logic](https://redux.js.org/tutorials/essentials/part-5-async-logic)**
 
 Use async logic in Redux with [Redux "thunk" middleware](https://github.com/reduxjs/redux-thunk) for handling things like login, data fetching, and handling loading state.
 
-[Redux Learning Resources](https://redux.js.org/introduction/learning-resources)
+**[Redux Learning Resources](https://redux.js.org/introduction/learning-resources)**
 
 Further resources to learn Redux.
