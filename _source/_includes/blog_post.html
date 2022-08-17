@@ -15,7 +15,7 @@
               {% assign sortedTags = page.tags | sort %}
               {% for tag in sortedTags %}
               <li>
-                  <a class="smoothscroll" href="{{site.baseurl}}/tags#{{ tag | replace: " ","-" }}">{{ tag }}</a>
+                  <a class="smoothscroll" href="{{site.baseurl}}/blog/tags/{{ tag | replace: " ","-" }}">{{ tag }}</a>
               </li>
               {% endfor %}
           </ul>
@@ -43,7 +43,7 @@
             </div>
             <span class="vertical-spacer"></span>
             <!-- post dates -->
-            <div>
+            <div class="BlogPost-date-published">
               <time class="BlogPost-date dt-published" datetime="{{ post.date | date: '%F'}}">{{ post.date | date: "%B %-d, %Y" }}</time>
             </div>
             <span class="vertical-spacer md-hide"></span>
@@ -51,7 +51,7 @@
             {% assign last_updated_date = post.changelog[0] | split: '=>' | first | date: "%B %-d, %Y" %}
             <span class="vertical-spacer md-show"></span>
             <div class="BlogPost-last-updated">
-                Last Updated: <a href="#changelog">{{ last_updated_date }}</a>
+                Last Updated:<a href="#changelog">&nbsp;{{ last_updated_date }}</a>
             </div>
             <span class="vertical-spacer md-hide"></span>
             {% endif %}
