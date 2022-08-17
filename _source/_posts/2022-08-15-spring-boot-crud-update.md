@@ -50,21 +50,7 @@ mkdir spring-boot-vue-crud
 cd spring-boot-vue-crud
 ```
 
-If you already have an Okta account, log in using `okta login`. If you need to register for a new, free account: `okta register`.
-
-Create an OIDC app using the following command:
-
-```bash
-okta apps create
-```
-
-**Application name**: `spring-boot-vue-crud`
-
-**Type of Application**: `2: Single Page App`
-
-**Redirect URI(s)**: `http://localhost:8080/login/callback`
-
-All other defaults are fine.
+{% include setup/cli.md type="spa" loginRedirectUri="http://localhost:8080/login/callback" %}
 
 Your console should finish with something like this:
 
@@ -104,6 +90,8 @@ The dependencies you're including are:
 - `h2`: the [H2](https://www.h2database.com/html/main.html) in-memory database used for demonstration purposes
 - `lombok`: [Project Lombok](https://projectlombok.org/), adds some helpful annotations that eliminate the need to write a lot of getters and setters
 - `okta`: [Okta Spring Boot Starter](https://github.com/okta/okta-spring-boot) that helps OAuth 2.0 and OIDC configuration
+
+Project Lombok saves a lot of clutter and ceremony code. However, if you're using an IDE, you'll need to install a plugin for Lombok.
 
 ## Update the Secure Spring Boot app
 
@@ -238,7 +226,7 @@ This demo application does three things that are helpful for demonstration purpo
 
 Second, it configures the rest repository to expose IDs for the todo items. 
 
-Third, it defines a filter to allow cross-origin requests from `localhost:8080`. This is necessary so that the Vue application, which is loaded from `localhost:9000` via the local test server, can load data from the Spring Boot resource server at `localhost:8080`. 
+Third, it defines a filter to allow cross-origin requests from `http://localhost:8080`. This is necessary so that the Vue application, which is loaded from `http://localhost:9000` via the local test server, can load data from the Spring Boot resource server at `http://localhost:8080`. 
 
 For more info on CORS (cross-origin resource sharing), take a look at [the Mozilla docs](https://developer.mozilla.org/en-US/docs/Web/HTTP/CORS).
 
@@ -432,43 +420,44 @@ Replace `main.js` with the following. Look at the `OktaAuth` configuration objec
 `src/main.js`
 
 ```js
-import { createApp } from 'vue'
+/* eslint-disable */
+import {createApp} from 'vue'
 import App from './App.vue'
-import { Quasar } from 'quasar'
+import {Quasar} from 'quasar'
 import quasarUserOptions from './quasar-user-options'
 import VueLogger from 'vuejs3-logger'
 import router from './router'
 import createApi from './Api'
 
-import { OktaAuth } from '@okta/okta-auth-js'
+import {OktaAuth} from '@okta/okta-auth-js'
 import OktaVue from '@okta/okta-vue'
 
 if (process.env.VUE_APP_ISSUER_URI == null || process.env.VUE_APP_CLIENT_ID == null || process.env.VUE_APP_SERVER_URI == null) {
-    throw "Please define VUE_APP_ISSUER_URI, VUE_APP_CLIENT_ID, and VUE_APP_SERVER_URI in .env file"
+  throw "Please define VUE_APP_ISSUER_URI, VUE_APP_CLIENT_ID, and VUE_APP_SERVER_URI in .env file"
 }
 
 const oktaAuth = new OktaAuth({
-    issuer: process.env.VUE_APP_ISSUER_URI,
-    clientId: process.env.VUE_APP_CLIENT_ID,
-    redirectUri: window.location.origin + '/login/callback',
-    scopes: ['openid', 'profile', 'email']
+  issuer: process.env.VUE_APP_ISSUER_URI,
+  clientId: process.env.VUE_APP_CLIENT_ID,
+  redirectUri: window.location.origin + '/login/callback',
+  scopes: ['openid', 'profile', 'email']
 })
 
 const options = {
-    isEnabled: true,
-    logLevel : 'debug',
-    stringifyArguments : false,
-    showLogLevel : true,
-    showMethodName : false,
-    separator: '|',
-    showConsoleColors: true
+  isEnabled: true,
+  logLevel: 'debug',
+  stringifyArguments: false,
+  showLogLevel: true,
+  showMethodName: false,
+  separator: '|',
+  showConsoleColors: true
 };
 
 const app = createApp(App)
-    .use(Quasar, quasarUserOptions)
-    .use(VueLogger, options)
-    .use(OktaVue, {oktaAuth})
-    .use(router)
+  .use(Quasar, quasarUserOptions)
+  .use(VueLogger, options)
+  .use(OktaVue, {oktaAuth})
+  .use(router)
 
 app.config.globalProperties.$api = createApi(app.config.globalProperties.$auth)
 
@@ -506,7 +495,7 @@ Replace `App.vue` with the following.
           </q-avatar>
           Todo App
         </q-toolbar-title>
-        {{this.claims && this.claims.email ? claims.email : '' }}
+        {{ this.claims && this.claims.email ? claims.email : '' }}
         <q-btn flat round dense icon="logout" v-if='authState && authState.isAuthenticated' @click="logout"/>
         <q-btn flat round dense icon="account_circle" v-else @click="login"/>
       </q-toolbar>
@@ -566,48 +555,48 @@ Create a new file to encapsulate the resource server access logic.
 import axios from 'axios'
 
 const instance = axios.create({
-    baseURL: process.env.VUE_APP_SERVER_URI,
-    timeout: 1000
+  baseURL: process.env.VUE_APP_SERVER_URI,
+  timeout: 1000
 });
 
 const createApi = (auth) => {
 
-    instance.interceptors.request.use(async function (config) {
-        let accessToken = await auth.getAccessToken()
-        config.headers = {
-            Authorization: `Bearer ${accessToken}`
-        }
-        return config;
-    }, function (error) {
-        return Promise.reject(error);
-    });
-
-    return {
-
-        // (C)reate
-        createNew(text, completed) {
-            return instance.post('/todos', {title: text, completed: completed})
-        },
-
-        // (R)ead
-        getAll() {
-            return instance.get( '/todos', {
-                transformResponse: [function (data) {
-                    return data ? JSON.parse(data)._embedded.todos : data;
-                }]
-            })
-        },
-
-        // (U)pdate
-        updateForId(id, text, completed) {
-            return instance.put('todos/' + id, {title: text, completed: completed})
-        },
-
-        // (D)elete
-        removeForId(id) {
-            return instance.delete('todos/' + id)
-        }
+  instance.interceptors.request.use(async function (config) {
+    let accessToken = await auth.getAccessToken()
+    config.headers = {
+      Authorization: `Bearer ${accessToken}`
     }
+    return config;
+  }, function (error) {
+    return Promise.reject(error);
+  });
+
+  return {
+
+    // (C)reate
+    createNew(text, completed) {
+      return instance.post('/todos', {title: text, completed: completed})
+    },
+
+    // (R)ead
+    getAll() {
+      return instance.get('/todos', {
+        transformResponse: [function (data) {
+          return data ? JSON.parse(data)._embedded.todos : data;
+        }]
+      })
+    },
+
+    // (U)pdate
+    updateForId(id, text, completed) {
+      return instance.put('todos/' + id, {title: text, completed: completed})
+    },
+
+    // (D)elete
+    removeForId(id) {
+      return instance.delete('todos/' + id)
+    }
+  }
 }
 
 export default createApi
@@ -620,30 +609,30 @@ Create the router file.
 `src/router/index.js`
 
 ```js
-import { createRouter, createWebHistory } from 'vue-router'
-import { navigationGuard } from '@okta/okta-vue'
+import {createRouter, createWebHistory} from 'vue-router'
+import {navigationGuard} from '@okta/okta-vue'
 import Todos from "@/components/Todos";
 import Home from "@/components/Home";
-import { LoginCallback } from '@okta/okta-vue'
+import {LoginCallback} from '@okta/okta-vue'
 
 const routes = [
-    {
-        path: '/',
-        component: Home
-    },
-    {
-        path: '/todos',
-        component: Todos,
-        meta: {
-            requiresAuth: true
-        }
-    },
-    { path: '/login/callback', component: LoginCallback },
+  {
+    path: '/',
+    component: Home
+  },
+  {
+    path: '/todos',
+    component: Todos,
+    meta: {
+      requiresAuth: true
+    }
+  },
+  {path: '/login/callback', component: LoginCallback},
 ]
 
 const router = createRouter({
-    history: createWebHistory(process.env.BASE_URL),
-    routes,
+  history: createWebHistory(process.env.BASE_URL),
+  routes,
 })
 
 router.beforeEach(navigationGuard)
