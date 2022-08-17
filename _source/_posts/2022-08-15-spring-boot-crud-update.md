@@ -50,7 +50,7 @@ mkdir spring-boot-vue-crud
 cd spring-boot-vue-crud
 ```
 
-If you already have an Okta account, log in using `okta login`. If you need to register for a new, free account: `okta register`.
+If you already have an Okta account, log in using `okta login`. If you need to register for a new, free account, use: `okta register`.
 
 Create an OIDC app using the following command:
 
