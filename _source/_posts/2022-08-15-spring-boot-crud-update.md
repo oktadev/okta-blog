@@ -26,11 +26,11 @@ This project has two major parts:
 
 The Spring Boot app will include an H2 in-memory database and will use Spring Data JPA to map our todo data model to a database table for persistence. As you'll see, the server will leverage Spring Boot's ability to quickly expose data via a REST API with a minimum of configuration.
 
-The client will use [Vue 3](https://vuejs.org/) and the Quasar Framework. [The Quasar Framework](https://quasar.dev/) provides components and layout tools to help build Vue applications quickly with a consistent, high-quality user interface.
+The client will use [Vue 3](https://vuejs.org/) and the Quasar framework. [The Quasar framework](https://quasar.dev/) provides components and layout tools to help build Vue applications quickly with a consistent, high-quality user interface.
 
 **Prerequisites:**
 
-- [Java 11](https://adoptium.net/): or use [SDKMAN!](https://sdkman.io/) to manage and install multiple version
+- [Java 11](https://adoptium.net/): or use [SDKMAN!](https://sdkman.io/) to manage and install multiple versions
 
 - [Okta CLI](https://cli.okta.com/manual/#installation)
 
@@ -64,7 +64,7 @@ Issuer:    https://dev-123567.okta.com/oauth2/default
 Client ID: 0oa5rdbh01J0293u209
 ```
 
-Copy the client ID and issuer URI somewhere. You'll need them for both the client and resource server applications.
+Copy the client ID and issuer URI somewhere safe. You'll need them for both the client and resource server applications.
 
 ## Bootstrap the Spring Boot app using Spring Initializr
 
@@ -75,7 +75,7 @@ The following command will download the starter project and un-tar it to a new d
 ```bash
 curl https://start.spring.io/starter.tgz \
   -d bootVersion=2.6.10 \
-  -d jvmVersion=11 \
+  -d javaVersion=11 \
   -d dependencies=web,data-rest,lombok,data-jpa,h2,okta \
   -d type=gradle-project \
   -d baseDir=resource-server \
@@ -84,9 +84,9 @@ curl https://start.spring.io/starter.tgz \
 
 The dependencies you're including are:
 
-- `web`: [Spring Web MVC](https://docs.spring.io/spring-framework/docs/3.2.x/spring-framework-reference/html/mvc.html), adds basic HTTP rest functionality
+- `web`: [Spring Web MVC](https://docs.spring.io/spring-framework/docs/3.2.x/spring-framework-reference/html/mvc.html), adds basic HTTP REST functionality
 - `data-jpa`: [Spring Data JPA](https://spring.io/projects/spring-data-jpa), makes it easy to create JPA-based repositories
-- `data-rest`: [Spring Data Rest](https://spring.io/projects/spring-data-rest), exposes Spring Data repositories as resource servers
+- `data-rest`: [Spring Data REST](https://spring.io/projects/spring-data-rest), exposes Spring Data repositories as resource servers
 - `h2`: the [H2](https://www.h2database.com/html/main.html) in-memory database used for demonstration purposes
 - `lombok`: [Project Lombok](https://projectlombok.org/), adds some helpful annotations that eliminate the need to write a lot of getters and setters
 - `okta`: [Okta Spring Boot Starter](https://github.com/okta/okta-spring-boot) that helps OAuth 2.0 and OIDC configuration
@@ -224,7 +224,7 @@ public class DemoApplication {
 
 This demo application does three things that are helpful for demonstration purposes. First, it loads some test todo items into the repository. 
 
-Second, it configures the rest repository to expose IDs for the todo items. 
+Second, it configures the REST repository to expose IDs for the todo items. 
 
 Third, it defines a filter to allow cross-origin requests from `http://localhost:8080`. This is necessary so that the Vue application, which is loaded from `http://localhost:9000` via the local test server, can load data from the Spring Boot resource server at `http://localhost:8080`. 
 
@@ -354,7 +354,7 @@ public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
 
 This configuration requires JWT auth on all requests.
 
-Re-start the server. Use `control-c` stop it if it's running.
+Restart the server. Use `control-c` to stop it if it's running.
 
 ```bash
 ./gradlew bootRun
@@ -378,17 +378,18 @@ HTTP/1.1 401
 
 The resource server is finished. The next step is to create the Vue client.
 
-## Create the Vue Javascript client
+## Create the Vue JavaScript client
 
 From the project parent directory, use the Vue CLI to create a new application and navigate into the newly created `client` directory.
 
 ```bash
- vue create client && cd client
+vue create client
+cd client
 ```
 
 Pick `Default Vue 3`
 
-Wait for it to finish. Add the Quasar Framework.
+Wait for it to finish. Add the Quasar framework.
 
 ```bash
 vue add quasar
@@ -464,7 +465,7 @@ app.config.globalProperties.$api = createApi(app.config.globalProperties.$auth)
 app.mount('#app')
 ```
 
-Stated very briefly, the file above creates the main Vue app and configures it to use our dependencies: Quasar, VueLogger, OktaVue, and the router. It also creates the Api class that handles the requests to the resource server and passes it the `$auth` object it needs to get the JWT.
+Stated very briefly, the file above creates the main Vue app and configures it to use our dependencies: Quasar, VueLogger, OktaVue, and the router. It also creates the API class that handles the requests to the resource server and passes it the `$auth` object it needs to get the JWT.
 
 Create a `.env` file in the client project root directory. The **Client ID** and **Issuer URI** are the values you used above in the Spring Boot `application.properties` file. The **Server URI** is the local URI for the Spring Boot API. You can leave this as it is unless you made a change (this gets used in the `Api.js` module).
 
@@ -476,7 +477,7 @@ VUE_APP_ISSUER_URI=<your-issuer-uri>
 VUE_APP_SERVER_URI=http://localhost:9000
 ```
 
-It's important to note that putting values like this in a `.env` file in a client application does not make then secure. It helps by keeping them out of a repository. However, they are still public in the sense that they are necessarily visible in the Javascript code sent to the browser. In this use case, it's more of a configuration and organizational tool than a security tool. 
+It's important to note that putting values like this in a `.env` file in a client application does not make then secure. It helps by keeping them out of a repository. However, they are still public in the sense that they are necessarily visible in the JavaScript code sent to the browser. In this use case, it's more of a configuration and organizational tool than a security tool. 
 
 Replace `App.vue` with the following.
 
@@ -545,7 +546,7 @@ export default {
 
 This is the top-level component that defines the header bar and includes the router component. The header bar has a login or logout button and will show the authenticated user's email address when logged in.
 
-The app gets the authenticated user's email address from the JWT claims (a claim is a piece of information asserted about the subject by the authenticating authority). This happens in the `updateClaims()` method, which is triggered when the component is created and is also triggered by a watch method so that it is updated as the authenticated state changes.
+The app gets the authenticated user's email address from the JWT claims. (A claim is a piece of information asserted about the subject by the authenticating authority.) This happens in the `updateClaims()` method, which is triggered when the component is created, and is also triggered by a watch method so that it is updated as the authenticated state changes.
 
 Create a new file to encapsulate the resource server access logic.
 
@@ -640,7 +641,7 @@ router.beforeEach(navigationGuard)
 export default router
 ```
 
-The router has three paths. The home path and the todos path are straightforward. The last path, `/login/callback`, is provided by the Okta module and it is what handles the login redirect from the Okta servers after authentication.
+The router has three paths. The home path and the todos path are straightforward. The last path, `/login/callback`, is provided by the Okta module to handle the login redirect from the Okta servers after authentication.
 
 Create the `Home` component.
 
@@ -663,7 +664,8 @@ Create the `Home` component.
         </div>
       </q-card-section>
     </q-card>
-  </div></template>
+  </div>
+</template>
 
 <script>
 export default {
@@ -1035,16 +1037,16 @@ Start the Vue app using the embedded development server. From the client directo
 npm run serve
 ```
 
-Open a browser and navigate to [http://localhost:8080](http://localhost:8080). You'll see the "please log in" page.
+Open a browser and navigate to `http://localhost:8080`. You'll see the "please log in" page.
 
 
 {% img blog/spring-boot-crud-update/please-log-in.png alt:"Please log in" width:"1000" %}{: .center-image }
 
-Log into the app using Okta SSO.
+Log into the app using Okta's sign-in interface. 
 
 {% img blog/spring-boot-crud-update/okta-login.png alt:"Okta SSO login" width:"600" %}{: .center-image }
 
-That will redirect you to the Todo app main screen.
+That will redirect you to the Todo app's main screen.
 
 {% img blog/spring-boot-crud-update/app-main-screen.png alt:"Todo app main screen" width:"1000" %}{: .center-image }
 
