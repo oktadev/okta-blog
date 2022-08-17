@@ -557,7 +557,7 @@ export default {
 
 This is the top-level component that defines the header bar and includes the router component. The header bar has a login or logout button and will show the authenticated user's email address when logged in.
 
-The app gets the authenticated user's email address from the JWT claims (a claim is a piece of information asserted about the subject by the authenticating authority). This happens in the `updateClaims()` method, which is triggered when the component is created and is also triggered by a watch method so that it is updated as the authenticated state changes.
+The app gets the authenticated user's email address from the JWT claims. (A claim is a piece of information asserted about the subject by the authenticating authority.) This happens in the `updateClaims()` method, which is triggered when the component is created, and is also triggered by a watch method so that it is updated as the authenticated state changes.
 
 Create a new file to encapsulate the resource server access logic.
 
