@@ -100,7 +100,7 @@ The dependencies you're including are:
 
 - `web`: [Spring Web MVC](https://docs.spring.io/spring-framework/docs/3.2.x/spring-framework-reference/html/mvc.html), adds basic HTTP rest functionality
 - `data-jpa`: [Spring Data JPA](https://spring.io/projects/spring-data-jpa), makes it easy to create JPA-based repositories
-- `data-rest`: [Spring Data Rest](https://spring.io/projects/spring-data-rest), exposes Spring Data repositories as resource servers
+- `data-rest`: [Spring Data REST](https://spring.io/projects/spring-data-rest), exposes Spring Data repositories as resource servers
 - `h2`: the [H2](https://www.h2database.com/html/main.html) in-memory database used for demonstration purposes
 - `lombok`: [Project Lombok](https://projectlombok.org/), adds some helpful annotations that eliminate the need to write a lot of getters and setters
 - `okta`: [Okta Spring Boot Starter](https://github.com/okta/okta-spring-boot) that helps OAuth 2.0 and OIDC configuration
