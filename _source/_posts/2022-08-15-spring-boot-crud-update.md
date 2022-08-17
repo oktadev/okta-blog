@@ -1053,7 +1053,7 @@ Open a browser and navigate to `http://localhost:8080`. You'll see the "please l
 
 {% img blog/spring-boot-crud-update/please-log-in.png alt:"Please log in" width:"1000" %}{: .center-image }
 
-Log into the app using Okta SSO.
+Log into the app using Okta's sign-in interface. 
 
 {% img blog/spring-boot-crud-update/okta-login.png alt:"Okta SSO login" width:"600" %}{: .center-image }
 
