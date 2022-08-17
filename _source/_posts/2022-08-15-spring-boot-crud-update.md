@@ -15,16 +15,16 @@ type: conversion
 
 ---
 
-You're going to use Vue and Spring Boot to build a todo list web application. The application will include CRUD abilities, meaning that you will be able to **c**reate, **r**ead, **u**pdate, and **d**elete the todo items on the Spring Boot server via the client. The Vue front-end client will use the Quasar framework for presentation. Both the Spring Boot server and the Vue client will be secured with OAuth 2.0 and OpenID Connect (OIDC) using Okta as the security provider.
+You're going to use Vue and Spring Boot to build a todo list web application. The application will include CRUD abilities, meaning that you will be able to **c**reate, **r**ead, **u**pdate, and **d**elete the todo items on the Spring Boot API via the client. The Vue front-end client will use the Quasar framework for presentation. Both the Spring Boot API and the Vue client will be secured with OAuth 2.0 and OpenID Connect (OIDC) using Okta as the security provider.
 
 {% img blog/spring-boot-crud-update/spring-and-vue.png alt:"Spring Boot, Vue, and Okta logos" width:"500" %}{: .center-image }
 
 This project has two major parts:
 
-- Spring Boot server
+- Spring Boot API
 - Vue client
 
-The Spring Boot server will include an H2 in-memory database and will use Spring Data JPA to map our todo data model to a database table for persistence. As you'll see, the server will leverage Spring Boot's ability to quickly expose data via a REST API with a minimum of configuration.
+The Spring Boot app will include an H2 in-memory database and will use Spring Data JPA to map our todo data model to a database table for persistence. As you'll see, the server will leverage Spring Boot's ability to quickly expose data via a REST API with a minimum of configuration.
 
 The client will use [Vue 3](https://vuejs.org/) and the Quasar Framework. [The Quasar Framework](https://quasar.dev/) provides components and layout tools to help build Vue applications quickly with a consistent, high-quality user interface.
 
@@ -132,7 +132,7 @@ You can run the bootstrapped project right now and see if it starts. It should s
 
 Create a class to configure web security. The class below configures web security to allow all requests, effectively bypassing security. This is just so you can test the resource server initially. You'll enable security shortly.
 
-`src/main/java/com/example/demo/OAuth2ResourceServerSecurityConfiguration.java`
+`src/main/java/com/example/demo/SecurityConfiguration.java`
 
 ```java
 package com.example.demo;
@@ -144,17 +144,18 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 
 @EnableWebSecurity
-public class OAuth2ResourceServerSecurityConfiguration extends WebSecurityConfigurerAdapter {
-
-    @Override
-    protected void configure(HttpSecurity http) throws Exception {
-
+@Configuration
+public class SecurityConfiguration {
+    
+    @Bean
+    public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         http.authorizeRequests()
             .anyRequest().permitAll();
-
         // Send a 401 message to the browser (w/o this, you'll see a blank page)
         Okta.configureResourceServer401ResponseBody(http);
+        return http.build();
     }
+
 }
 ```
 
@@ -186,49 +187,49 @@ import java.util.stream.Stream;
 @SpringBootApplication
 public class DemoApplication {
 
-	public static void main(String[] args) {
-		SpringApplication.run(DemoApplication.class, args);
-	}
+    public static void main(String[] args) {
+        SpringApplication.run(DemoApplication.class, args);
+    }
 
-	// Bootstrap some test data into the in-memory database
-	@Bean
-	ApplicationRunner init(TodoRepository repository) {
-		return args -> {
-			Random rd = new Random();
-			Stream.of("Buy milk", "Eat pizza", "Update tutorial", "Study Vue", "Go kayaking").forEach(name -> {
-				Todo todo = new Todo();
-				todo.setTitle(name);
-				todo.setCompleted(rd.nextBoolean());
-				repository.save(todo);
-			});
-			repository.findAll().forEach(System.out::println);
-		};
-	}
+    // Bootstrap some test data into the in-memory database
+    @Bean
+    ApplicationRunner init(TodoRepository repository) {
+        return args -> {
+            Random rd = new Random();
+            Stream.of("Buy milk", "Eat pizza", "Update tutorial", "Study Vue", "Go kayaking").forEach(name -> {
+                Todo todo = new Todo();
+                todo.setTitle(name);
+                todo.setCompleted(rd.nextBoolean());
+                repository.save(todo);
+            });
+            repository.findAll().forEach(System.out::println);
+        };
+    }
 
-	// Fix the CORS errors
-	@Bean
-	public FilterRegistrationBean simpleCorsFilter() {
-		UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
-		CorsConfiguration config = new CorsConfiguration();
-		config.setAllowCredentials(true);
-		// *** URL below needs to match the Vue client URL and port ***
-		config.setAllowedOrigins(Collections.singletonList("http://localhost:8080"));
-		config.setAllowedMethods(Collections.singletonList("*"));
-		config.setAllowedHeaders(Collections.singletonList("*"));
-		source.registerCorsConfiguration("/**", config);
-		FilterRegistrationBean bean = new FilterRegistrationBean<>(new CorsFilter(source));
-		bean.setOrder(Ordered.HIGHEST_PRECEDENCE);
-		return bean;
-	}
+    // Fix the CORS errors
+    @Bean
+    public FilterRegistrationBean simpleCorsFilter() {
+        UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
+        CorsConfiguration config = new CorsConfiguration();
+        config.setAllowCredentials(true);
+        // *** URL below needs to match the Vue client URL and port ***
+        config.setAllowedOrigins(Collections.singletonList("http://localhost:8080"));
+        config.setAllowedMethods(Collections.singletonList("*"));
+        config.setAllowedHeaders(Collections.singletonList("*"));
+        source.registerCorsConfiguration("/**", config);
+        FilterRegistrationBean bean = new FilterRegistrationBean<>(new CorsFilter(source));
+        bean.setOrder(Ordered.HIGHEST_PRECEDENCE);
+        return bean;
+    }
 
     // Expose IDs of Todo items
-	@Component
-	class RestRespositoryConfigurator implements RepositoryRestConfigurer {
-		public void configureRepositoryRestConfiguration(RepositoryRestConfiguration config, CorsRegistry cors) {
-			config.exposeIdsFor(Todo.class);
-		}
-	}
-	
+    @Component
+    class RestRespositoryConfigurator implements RepositoryRestConfigurer {
+        public void configureRepositoryRestConfiguration(RepositoryRestConfiguration config, CorsRegistry cors) {
+            config.exposeIdsFor(Todo.class);
+        }
+    }
+    
 }
 
 ```
@@ -346,21 +347,20 @@ HTTP/1.1 200
 
 Stop the resource server using `control-c`. 
 
-Edit the security configuration file, updating the configure method to the following.
+Edit the security configuration file, updating the security configuration bean definition to the following.
 
 `src/main/java/com/example/demo/OAuth2ResourceServerSecurityConfiguration.java`
 
 ```java
-@Override
-protected void configure(HttpSecurity http) throws Exception {
-
+@Bean
+public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
     http.authorizeRequests()
         .anyRequest().authenticated()
         .and()
         .oauth2ResourceServer().jwt();
-
     // Send a 401 message to the browser (w/o this, you'll see a blank page)
     Okta.configureResourceServer401ResponseBody(http);
+    return http.build();
 }
 ```
 
@@ -444,7 +444,7 @@ import { OktaAuth } from '@okta/okta-auth-js'
 import OktaVue from '@okta/okta-vue'
 
 if (process.env.VUE_APP_ISSUER_URI == null || process.env.VUE_APP_CLIENT_ID == null || process.env.VUE_APP_SERVER_URI == null) {
-	throw "Please define VUE_APP_ISSUER_URI, VUE_APP_CLIENT_ID, and VUE_APP_SERVER_URI in .env file"
+    throw "Please define VUE_APP_ISSUER_URI, VUE_APP_CLIENT_ID, and VUE_APP_SERVER_URI in .env file"
 }
 
 const oktaAuth = new OktaAuth({
@@ -477,7 +477,7 @@ app.mount('#app')
 
 Stated very briefly, the file above creates the main Vue app and configures it to use our dependencies: Quasar, VueLogger, OktaVue, and the router. It also creates the Api class that handles the requests to the resource server and passes it the `$auth` object it needs to get the JWT.
 
-Create a `.env` file in the client project root directory. The **Client ID** and **Issuer URI** are the values you used above in the Spring Boot `application.properties` file. The **Server URI** is the local URI for the Spring Boot server is you can leave as it is unless you made a change (this gets used in the `Api.js` module).
+Create a `.env` file in the client project root directory. The **Client ID** and **Issuer URI** are the values you used above in the Spring Boot `application.properties` file. The **Server URI** is the local URI for the Spring Boot API. You can leave this as it is unless you made a change (this gets used in the `Api.js` module).
 
 `.env`
 
@@ -1034,7 +1034,7 @@ You're welcome to delete the `HelloWorld.vue` component, if you want. Or you can
 
 ## Test the todo app
 
-Make sure the Spring Boot server is still running. In a separate Bash shell, from the resource server directory, run the following command (if it is not already still running)
+Make sure the Spring Boot API is still running. In a separate Bash shell, from the resource server directory, run the following command (if it is not already still running)
 
 ```bash
 ./gradlew bootRun
