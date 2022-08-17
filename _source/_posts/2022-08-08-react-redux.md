@@ -43,13 +43,13 @@ npm add redux@4.2
 
 3. Redux provides its own types, but we'll want to add our `react-redux` types since we're using Typescript:
 ```bash
-npm add -D @types/react-redux
+npm add -D @types/react-redux@7.1
 ```
 
 4. We'll also need routing (and routing types) for our app:
 ```bash
 npm install react-router-dom@5
-npm add -D @types/react-router-dom
+npm add -D @types/react-router-dom@5.3
 ```
 
 5. To start your app, run:
