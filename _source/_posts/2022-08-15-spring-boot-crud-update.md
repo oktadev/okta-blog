@@ -390,7 +390,7 @@ HTTP/1.1 401
 
 The resource server is finished. The next step is to create the Vue client.
 
-## Create the Vue Javascript client
+## Create the Vue JavaScript client
 
 From the project parent directory, use the Vue CLI to create a new application and navigate into the newly created `client` directory.
 
