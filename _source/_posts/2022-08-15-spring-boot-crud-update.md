@@ -111,7 +111,7 @@ Open the application properties file and update it. You're changing the server p
 
 `src/main/resources/application.properties`
 
-```bash
+```properties
 server.port=9000
 okta.oauth2.issuer=<your-issuer-uri>
 okta.oauth2.clientId=<your-client-id>
