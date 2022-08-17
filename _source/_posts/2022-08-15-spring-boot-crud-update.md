@@ -1055,7 +1055,7 @@ Log into the app using Okta SSO.
 
 {% img blog/spring-boot-crud-update/okta-login.png alt:"Okta SSO login" width:"600" %}{: .center-image }
 
-That will redirect you to the Todo app main screen.
+That will redirect you to the Todo app's main screen.
 
 {% img blog/spring-boot-crud-update/app-main-screen.png alt:"Todo app main screen" width:"1000" %}{: .center-image }
 
