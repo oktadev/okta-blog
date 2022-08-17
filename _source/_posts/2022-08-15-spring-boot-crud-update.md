@@ -652,7 +652,7 @@ router.beforeEach(navigationGuard)
 export default router
 ```
 
-The router has three paths. The home path and the todos path are straightforward. The last path, `/login/callback`, is provided by the Okta module and it is what handles the login redirect from the Okta servers after authentication.
+The router has three paths. The home path and the todos path are straightforward. The last path, `/login/callback`, is provided by the Okta module to handle the login redirect from the Okta servers after authentication.
 
 Create the `Home` component.
 
