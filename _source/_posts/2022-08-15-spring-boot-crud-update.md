@@ -98,7 +98,7 @@ curl https://start.spring.io/starter.tgz \
 
 The dependencies you're including are:
 
-- `web`: [Spring Web MVC](https://docs.spring.io/spring-framework/docs/3.2.x/spring-framework-reference/html/mvc.html), adds basic HTTP rest functionality
+- `web`: [Spring Web MVC](https://docs.spring.io/spring-framework/docs/3.2.x/spring-framework-reference/html/mvc.html), adds basic HTTP REST functionality
 - `data-jpa`: [Spring Data JPA](https://spring.io/projects/spring-data-jpa), makes it easy to create JPA-based repositories
 - `data-rest`: [Spring Data REST](https://spring.io/projects/spring-data-rest), exposes Spring Data repositories as resource servers
 - `h2`: the [H2](https://www.h2database.com/html/main.html) in-memory database used for demonstration purposes
