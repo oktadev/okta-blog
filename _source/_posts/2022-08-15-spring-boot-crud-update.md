@@ -675,7 +675,8 @@ Create the `Home` component.
         </div>
       </q-card-section>
     </q-card>
-  </div></template>
+  </div>
+</template>
 
 <script>
 export default {
