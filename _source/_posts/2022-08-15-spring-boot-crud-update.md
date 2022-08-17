@@ -488,7 +488,7 @@ VUE_APP_ISSUER_URI=<your-issuer-uri>
 VUE_APP_SERVER_URI=http://localhost:9000
 ```
 
-It's important to note that putting values like this in a `.env` file in a client application does not make then secure. It helps by keeping them out of a repository. However, they are still public in the sense that they are necessarily visible in the Javascript code sent to the browser. In this use case, it's more of a configuration and organizational tool than a security tool. 
+It's important to note that putting values like this in a `.env` file in a client application does not make then secure. It helps by keeping them out of a repository. However, they are still public in the sense that they are necessarily visible in the JavaScript code sent to the browser. In this use case, it's more of a configuration and organizational tool than a security tool. 
 
 Replace `App.vue` with the following.
 
