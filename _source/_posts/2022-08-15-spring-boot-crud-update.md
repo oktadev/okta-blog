@@ -421,8 +421,7 @@ Replace `main.js` with the following. Look at the `OktaAuth` configuration objec
 `src/main.js`
 
 ```js
-/* eslint-disable */
-import {createApp} from 'vue'
+import { createApp } from 'vue'
 import App from './App.vue'
 import {Quasar} from 'quasar'
 import quasarUserOptions from './quasar-user-options'
