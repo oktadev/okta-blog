@@ -30,7 +30,7 @@ The client will use [Vue 3](https://vuejs.org/) and the Quasar Framework. [The Q
 
 **Prerequisites:**
 
-- [Java 11](https://adoptium.net/): or use [SDKMAN!](https://sdkman.io/) to manage and install multiple version
+- [Java 11](https://adoptium.net/): or use [SDKMAN!](https://sdkman.io/) to manage and install multiple versions
 
 - [Okta CLI](https://cli.okta.com/manual/#installation)
 
