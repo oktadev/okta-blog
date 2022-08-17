@@ -26,7 +26,7 @@ This project has two major parts:
 
 The Spring Boot app will include an H2 in-memory database and will use Spring Data JPA to map our todo data model to a database table for persistence. As you'll see, the server will leverage Spring Boot's ability to quickly expose data via a REST API with a minimum of configuration.
 
-The client will use [Vue 3](https://vuejs.org/) and the Quasar Framework. [The Quasar Framework](https://quasar.dev/) provides components and layout tools to help build Vue applications quickly with a consistent, high-quality user interface.
+The client will use [Vue 3](https://vuejs.org/) and the Quasar framework. [The Quasar framework](https://quasar.dev/) provides components and layout tools to help build Vue applications quickly with a consistent, high-quality user interface.
 
 **Prerequisites:**
 
