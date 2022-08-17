@@ -78,7 +78,7 @@ Issuer:    https://dev-123567.okta.com/oauth2/default
 Client ID: 0oa5rdbh01J0293u209
 ```
 
-Copy the client ID and issuer URI somewhere. You'll need them for both the client and resource server applications.
+Copy the client ID and issuer URI somewhere safe. You'll need them for both the client and resource server applications.
 
 ## Bootstrap the Spring Boot app using Spring Initializr
 
