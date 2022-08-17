@@ -395,7 +395,8 @@ The resource server is finished. The next step is to create the Vue client.
 From the project parent directory, use the Vue CLI to create a new application and navigate into the newly created `client` directory.
 
 ```bash
- vue create client && cd client
+vue create client
+cd client
 ```
 
 Pick `Default Vue 3`
