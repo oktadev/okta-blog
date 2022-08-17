@@ -130,7 +130,7 @@ You can run the bootstrapped project right now and see if it starts. It should s
 ./gradlew bootRun
 ```
 
-Create a class to configure web security. The class below configures web security to allow all requests, effectively bypassing security. This is just so you can test the resource server initially. You'll enable security shortly.
+Create a `SecurityConfiguration` class to configure Spring Security. The class below configures web security to allow all requests, effectively bypassing security. This is just so you can test the resource server initially. You'll enable security shortly.
 
 `src/main/java/com/example/demo/OAuth2ResourceServerSecurityConfiguration.java`
 
