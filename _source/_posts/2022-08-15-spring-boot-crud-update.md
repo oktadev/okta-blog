@@ -1047,7 +1047,7 @@ Start the Vue app using the embedded development server. From the client directo
 npm run serve
 ```
 
-Open a browser and navigate to [http://localhost:8080](http://localhost:8080). You'll see the "please log in" page.
+Open a browser and navigate to `http://localhost:8080`. You'll see the "please log in" page.
 
 
 {% img blog/spring-boot-crud-update/please-log-in.png alt:"Please log in" width:"1000" %}{: .center-image }
