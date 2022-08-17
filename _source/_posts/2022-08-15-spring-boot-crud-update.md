@@ -236,7 +236,7 @@ public class DemoApplication {
 
 This demo application does three things that are helpful for demonstration purposes. First, it loads some test todo items into the repository. 
 
-Second, it configures the rest repository to expose IDs for the todo items. 
+Second, it configures the REST repository to expose IDs for the todo items. 
 
 Third, it defines a filter to allow cross-origin requests from `localhost:8080`. This is necessary so that the Vue application, which is loaded from `localhost:9000` via the local test server, can load data from the Spring Boot resource server at `localhost:8080`. 
 
