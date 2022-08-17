@@ -38,7 +38,7 @@ npx create-react-app <YOUR_APP_NAME> --template redux-typescript
 
 2. Then we'll add the Redux core by running:
 ```bash
-npm add redux
+npm add redux@4.2
 ```
 
 3. Redux provides its own types, but we'll want to add our `react-redux` types since we're using Typescript:
