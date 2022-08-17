@@ -366,7 +366,7 @@ public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
 
 This configuration requires JWT auth on all requests.
 
-Re-start the server. Use `control-c` stop it if it's running.
+Restart the server. Use `control-c` to stop it if it's running.
 
 ```bash
 ./gradlew bootRun
