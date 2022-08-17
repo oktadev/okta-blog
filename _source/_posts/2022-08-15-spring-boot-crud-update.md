@@ -111,7 +111,7 @@ Open the application properties file and update it. You're changing the server p
 
 `src/main/resources/application.properties`
 
-```bash
+```properties
 server.port=9000
 okta.oauth2.issuer=<your-issuer-uri>
 okta.oauth2.clientId=<your-client-id>
@@ -130,7 +130,7 @@ You can run the bootstrapped project right now and see if it starts. It should s
 ./gradlew bootRun
 ```
 
-Create a class to configure web security. The class below configures web security to allow all requests, effectively bypassing security. This is just so you can test the resource server initially. You'll enable security shortly.
+Create a `SecurityConfiguration` class to configure Spring Security. The class below configures web security to allow all requests, effectively bypassing security. This is just so you can test the resource server initially. You'll enable security shortly.
 
 `src/main/java/com/example/demo/SecurityConfiguration.java`
 
