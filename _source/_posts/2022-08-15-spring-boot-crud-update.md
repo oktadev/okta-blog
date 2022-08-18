@@ -401,7 +401,7 @@ You can just accept the defaults. For me they were the following.
 Add our dependencies.
 
 ```bash
-npm i --save axios vuejs3-logger vue-router@4 @okta/okta-vue
+npm i axios@^0.27.2 vuejs3-logger@^1.0.0 vue-router@^4.0.16 @okta/okta-vue@^5.3.0
 ```
 
 - `axios` is an HTTP client request library
@@ -432,8 +432,8 @@ if (process.env.VUE_APP_ISSUER_URI == null || process.env.VUE_APP_CLIENT_ID == n
 }
 
 const oktaAuth = new OktaAuth({
-  issuer: process.env.VUE_APP_ISSUER_URI,
-  clientId: process.env.VUE_APP_CLIENT_ID,
+  issuer: process.env.VUE_APP_ISSUER_URI,  // pulling from .env file
+  clientId: process.env.VUE_APP_CLIENT_ID,  // pulling from .env file
   redirectUri: window.location.origin + '/callback',
   scopes: ['openid', 'profile', 'email']
 })
