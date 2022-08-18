@@ -559,7 +559,7 @@ export default {
       }
     },
     async login() {
-      await this.$auth.signInWithRedirect({originalUri: '/todos'})
+      await this.$auth.signInWithRedirect({ originalUri: '/todos' })
     },
     async logout() {
       await this.$auth.signOut()
