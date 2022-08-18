@@ -85,18 +85,6 @@ cd spring-boot-vue-crud
 
 {% include setup/cli.md type="spa" framework="Vue" loginRedirectUri="http://localhost:8080/callback" %}
 
-Your console should finish with something like this:
-
-```bash
-...
-Configuring a new OIDC Application, almost done:
-Created OIDC application, client-id: 0oa5rdbh01J0293u209
-|
-Okta application configuration: 
-Issuer:    https://dev-123567.okta.com/oauth2/default
-Client ID: 0oa5rdbh01J0293u209
-```
-
 Copy the client ID and issuer URI somewhere safe. You'll need them for both the client and resource server applications.
 
 ## Bootstrap the Spring Boot app using Spring Initializr
@@ -159,14 +147,13 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.web.SecurityFilterChain;
 
-@EnableWebSecurity
 @Configuration
 public class SecurityConfiguration {
 
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         http.authorizeRequests()
-                .anyRequest().permitAll();
+            .anyRequest().permitAll();
         return http.build();
     }
 
@@ -366,12 +353,12 @@ Edit the security configuration file, updating the security configuration bean d
 `src/main/java/com/example/demo/OAuth2ResourceServerSecurityConfiguration.java`
 
 ```java
-@Bean
+@Beanf
 public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
     http.authorizeRequests()
-            .anyRequest().authenticated()
-            .and()
-            .oauth2ResourceServer().jwt();
+        .anyRequest().authenticated()
+        .and()
+        .oauth2ResourceServer().jwt();
     return http.build();
 }
 ```
@@ -421,22 +408,22 @@ vue add quasar
 
 You can just accept the defaults. For me they were the following.
 
-- **Allow Quasar to replace App.vue, About.vue, Home.vue and (if available) router.js?** Yes
-- **Pick your favorite CSS preprocessor:** Sass
-- **Choose Quasar Icon Set:** Material
-- **Default Quasar language pack:** en-US
-- **Use RTL support?** No
+- Allow Quasar to replace App.vue, About.vue, Home.vue and (if available) router.js? **Yes**
+- Pick your favorite CSS preprocessor: **Sass**
+- Choose Quasar Icon Set: **Material**
+- Default Quasar language pack: **en-US**
+- Use RTL support? **No**
 
 Add our dependencies.
 
 ```bash
-npm i axios@^0.27.2 vuejs3-logger@^1.0.0 vue-router@^4.0.16 @okta/okta-vue@^5.3.0
+npm i axios@0.27.2 vuejs3-logger@1.0.0 vue-router@4.0.16 @okta/okta-vue@5.3.0
 ```
 
-- `axios` is an HTTP client request library
-- `vuejs3-logger` is a logging library
-- `vue-router` is the standard for routing between pages in Vue
-- `okta/okta-vue` is the Okta helper for Vue
+- `axios`: an HTTP client request library
+- `vuejs3-logger`: a logging library
+- `vue-router`: the standard for routing between pages in Vue
+- `okta/okta-vue`: the Okta helper for Vue
 
 To learn more about how Okta integrates with Vue, take a look at [the GitHub page](https://github.com/okta/okta-vue) for the `okta/okta-vue` project. There are also more resources and example applications listed on in [the general Okta docs](https://developer.okta.com/code/vue/).
 
@@ -490,7 +477,7 @@ app.mount('#app')
 
 Stated very briefly, the file above creates the main Vue app and configures it to use our dependencies: Quasar, VueLogger, OktaVue, and the router. It also creates the API class that handles the requests to the resource server and passes it the `$auth` object it needs to get the JWT.
 
-Create a `.env` file in the client project root directory. The **Client ID** and **Issuer URI** are the values you used above in the Spring Boot `application.properties` file. The **Server URI** is the local URI for the Spring Boot API. You can leave this as it is unless you made a change (this gets used in the `Api.js` module).
+Create a `.env` file in the client project root directory. The **Client ID** and **Issuer URI** are the values you used above in the Spring Boot `application.properties` file. The **Server URI** is the local URI for the Spring Boot API. You can leave this as it is unless you made a change (this gets used in the `Api.js` file).
 
 `.env`
 
