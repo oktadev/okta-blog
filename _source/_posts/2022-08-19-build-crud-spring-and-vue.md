@@ -361,7 +361,7 @@ HTTP/1.1 200
 }
 ```
 
-Stop the resource server using `control-c`. 
+Stop the resource server using `CTRL + C`. 
 
 Edit the security configuration file, updating the security configuration bean definition to the following.
 
