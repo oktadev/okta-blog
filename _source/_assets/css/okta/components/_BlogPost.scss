@@ -166,11 +166,17 @@
 		display: flex;
 	}
 
+  &-prev-next {
+    display: flex;
+    justify-content: space-between;
+  }
+
 	&-author-bio {
 		@include color('charcoal');
 		border-top: 1px #ccc solid;
-		padding-top: 20px;
-		margin-top: 20px;
+		border-bottom: 1px #ccc solid;
+		padding: 20px 0;
+		margin: 20px 0;
 
     .author {
       font-size: 18px;
