@@ -303,7 +303,7 @@ import org.springframework.data.rest.core.annotation.RepositoryRestResource;
 interface TodoRepository extends JpaRepository<Todo, Long> {}
 ```
 
-This is a Spring JpaRepository that can persist the data model you just defined. Because it is annotated with `@RepositoryRestResource` (and because the `data-rest` dependency was included), this repository will be automatically exposed as a web resource.
+This is a Spring Data JpaRepository that can persist the data model you just defined. Because it is annotated with `@RepositoryRestResource` (and because the `data-rest` dependency was included), this repository will be automatically exposed as a web resource.
 
 ## Test the unsecured app and secure it
 
