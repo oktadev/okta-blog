@@ -33,13 +33,13 @@ Before you dig into the tutorial, I want to quickly introduce the technologies f
 
 **What is Vue.js?**
 
-Vue is a JavaScript view library, like React and Angular. It’s designed to be incrementally adoptable, and the core library focuses solely on the view layer.
+Vue is a JavaScript view library, like React and Angular. It's designed to be incrementally adoptable, and the core library focuses solely on the view layer.
 
 In my experience, Vue.js is a great alternative to React. I learned React first, and came to use Vue later. Like React, Vue uses a virtual DOM, provides reactive and composable view components, and enforces a strict one-way parent-child relationship when defining properties and state. This means that it is performant and it avoids a lot of the confusing state relationships that can occur without one-way data binding. 
 
-However, unlike React, Vue uses templates instead of JSX (a potentially welcome and more immediately accessible option) and Vue gives you component scoped css using style tags in single-file components. In practice this difference is pretty great because in React the JSX and css-like syntax is close enough to HTML and CSS to be confusing but not actually the same, which creates problems initially (ever gone from a language that doesn’t require semicolons back to one that does? It’s something like that).
+However, unlike React, Vue uses templates instead of JSX (a potentially welcome and more immediately accessible option) and Vue gives you component scoped css using style tags in single-file components. In practice this difference is pretty great because in React the JSX and css-like syntax is close enough to HTML and CSS to be confusing but not actually the same, which creates problems initially (ever gone from a language that doesn't require semicolons back to one that does? It's something like that).
 
-I find Vue to be a simpler, cleaner implementation. React requires a deep dive. You gotta take the red pill and go all the way. It’s a super powerful system, but you have to be all in. Vue is a little friendlier and a little easier to get started.
+I find Vue to be a simpler, cleaner implementation. React requires a deep dive. You gotta take the red pill and go all the way. It's a super powerful system, but you have to be all in. Vue is a little friendlier and a little easier to get started.
 
 **Quasar Framework**
 
@@ -47,11 +47,11 @@ The [Quasar Framework](https://quasar.dev/) builds on top of Vue to add a cross-
 
 **About Spring Boot**
 
-The server technology you’re going to use is Spring Boot. Pure, unadulterated Spring (pre-Spring Boot) is a bit of a behemoth: super powerful but potentially time-sucking and frustrating. I’m pretty sure the whole computer conference phenomena came about so that people could learn and understand old-school Spring XML files. It certainly drove large sections of the computer publishing empires.
+The server technology you're going to use is Spring Boot. Pure, unadulterated Spring (pre-Spring Boot) is a bit of a behemoth: super powerful but potentially time-sucking and frustrating. I'm pretty sure the whole computer conference phenomena came about so that people could learn and understand old-school Spring XML files. It certainly drove large sections of the computer publishing empires.
 
-Spring Boot was Spring’s answer to this complexity (and to frameworks like Ruby on Rails and Grails). They did a great job of distilling down all of the power of Spring into a simple, quick, easy-to-use web framework. With a ridiculously small number of lines of code and a few annotations, you can have a fully functioning resource server.
+Spring Boot was Spring's answer to this complexity (and to frameworks like Ruby on Rails and Grails). They did a great job of distilling down all of the power of Spring into a simple, quick, easy-to-use web framework. With a ridiculously small number of lines of code and a few annotations, you can have a fully functioning resource server.
 
-Plus, when you’re ready, you have all the power of Spring under the hood, just waiting.
+Plus, when you're ready, you have all the power of Spring under the hood, just waiting.
 
 **Prerequisites:**
 
