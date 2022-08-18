@@ -6,7 +6,6 @@
 {% endif %}
 
 <article class="BlogPost h-entry{% if page.layout != 'blog_post' %} is-excerpt{% endif %}">
-
     <header class="BlogPost-header">
       <!-- post tags -->
         {% if page.tags %}
@@ -78,6 +77,9 @@
         {% endif %}
       </div>
     </header>
+    {%- if post.image and post.hide-cover-img != true -%}
+      {% img '{{ post.image }}' alt:'{{ post.title }}' class:BlogPost-cover %}
+    {%- endif -%}
 
     <div class="BlogPost-content">
     {% if page.update-url %}

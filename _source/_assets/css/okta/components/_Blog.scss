@@ -1,6 +1,7 @@
 .Blog {
 	@extend %Wrap;
 	display: flex;
+  flex-direction: column;
 	max-width: 900px;
 	padding-bottom: get-spacing('x-large');
 	padding-top: 90 + get-spacing('x-large');

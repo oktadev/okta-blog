@@ -176,6 +176,7 @@ See [How to Create an OIDC App on Okta](https://developer.okta.com/blog/setup) f
 - http://localhost links should be wrapped in back ticks (e.g. `http://localhost:3000`)
 - Links that start with developer.okta.com should be relative (e.g. instead of `https://developer.okta.com/docs/whatever.html`, just use `/docs/whatever.html`)
 - Code with {{ variable }} needs a "raw" wrapper. For example:
+- To hide the cover image on post set `hide-cover-img: true` on the front matter.
 
 <pre>
 {% raw %}
@@ -184,6 +185,7 @@ See [How to Create an OIDC App on Okta](https://developer.okta.com/blog/setup) f
 ```
 {% endraw %}
 </pre>
+
 
 For Markdown images, the macro looks as follows:
 
@@ -196,6 +198,7 @@ For AsciiDoc:
 ```
 image::{% asset_path 'blog/<post-images-dir>/<image-file-name>' %}[alt=text for screen readers,width=800,align=center]
 ```
+
 
 To add a table of contents, use the following:
 

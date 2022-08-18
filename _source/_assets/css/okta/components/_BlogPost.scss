@@ -230,6 +230,10 @@
     align-items: center;
   }
 
+  &-cover {
+    margin-bottom: 50px;
+  }
+
 	&-content {
 		@include color('charcoal');
 
@@ -568,6 +572,10 @@
 			border-color: currentcolor;
 			text-decoration: none;
 		}
+	}
+
+  &.is-excerpt &-cover {
+		display: none;
 	}
 
 	&.is-excerpt &-header {
