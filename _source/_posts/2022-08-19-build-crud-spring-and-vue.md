@@ -57,22 +57,16 @@ Plus, when you're ready, you have all the power of Spring under the hood, just w
 Before you start, please make sure you have the following prerequisites installed (or install them now).
 
 - [Java 11](https://adoptium.net/): or use [SDKMAN!](https://sdkman.io/) to manage and install multiple versions
-<<<<<<< HEAD:_source/_posts/2022-08-15-spring-boot-crud-update.md
-
 - [Okta CLI](https://cli.okta.com/manual/#installation): the Okta command-line interface
-
 - [HTTPie](https://httpie.org/doc#installation): a simple tool for making HTTP requests from a Bash shell
-
-=======
-- [Okta CLI](https://cli.okta.com/manual/#installation)
-- [HTTPie](https://httpie.org/doc#installation)
->>>>>>> 71e5ccee4fd760323ba602451f4b0f034ada8d4c:_source/_posts/2022-08-19-build-crud-spring-and-vue.md
 - [Node 16+](https://nodejs.org)
 - [Vue CLI](https://cli.vuejs.org/guide/installation.html): you'll use this to bootstrap the Vue client
 
 You will need a free Okta Developer account if you don't already have one. But you can wait until later in the tutorial and use the Okta CLI to log in or register for a new account.
 
 {% include toc.md %}
+
+Instead of building the project, you can also [clone the repo](https://github.com/oktadev/okta-spring-boot-vue-crud-example) and follow the instructions there to configure it.
 
 ## Create Okta OIDC app
 
@@ -112,7 +106,7 @@ The dependencies you're including are:
 - `lombok`: [Project Lombok](https://projectlombok.org/), adds some helpful annotations that eliminate the need to write a lot of getters and setters
 - `okta`: [Okta Spring Boot Starter](https://github.com/okta/okta-spring-boot) that helps OAuth 2.0 and OIDC configuration
 
-Project Lombok saves a lot of clutter and ceremony code. However, if you're using an IDE, **you'll need to install a plugin for Lombok**.
+Project Lombok saves a lot of clutter and ceremony code. However, if you're using an IDE, **you'll need to install a plugin for Lombok**. See the [project's installation docs](https://projectlombok.org/) for more information.
 
 ## Update the Secure Spring Boot app
 
@@ -290,7 +284,7 @@ import org.springframework.data.rest.core.annotation.RepositoryRestResource;
 interface TodoRepository extends JpaRepository<Todo, Long> {}
 ```
 
-This is a Spring JpaRepository that can persist the data model you just defined. Because it is annotated with `@RepositoryRestResource` (and because the `data-rest` dependency was included), this repository will be automatically exposed as a web resource.
+This is a Spring Data JpaRepository that can persist the data model you just defined. Because it is annotated with `@RepositoryRestResource` (and because the `data-rest` dependency was included), this repository will be automatically exposed as a web resource.
 
 ## Test the unsecured app and secure it
 
@@ -305,6 +299,8 @@ Open a new Bash shell and use HTTPie to test the resource server.
 ```bash
 http :9000/todos
 ```
+
+You should see a response like the following:
 
 ```bash
 HTTP/1.1 200 
@@ -342,13 +338,13 @@ HTTP/1.1 200
             ...
         ]
     },
-...
+    ...
 }
 ```
 
-Stop the resource server using `control-c`. 
+Stop the resource server using `CTRL + C`. 
 
-Edit the security configuration file, updating the security configuration bean definition to the following.
+Edit the `SecurityConfiguration.java` file and change the filter chain's bean definition to enable a resource server.
 
 `src/main/java/com/example/demo/OAuth2ResourceServerSecurityConfiguration.java`
 
@@ -365,7 +361,7 @@ public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
 
 This configuration requires JWT auth on all requests.
 
-Restart the server. Use `control-c` to stop it if it's running.
+Restart the server. Use `CTRL + C` to stop it if it's running.
 
 ```bash
 ./gradlew bootRun
@@ -391,14 +387,14 @@ The resource server is finished. The next step is to create the Vue client.
 
 ## Create the Vue JavaScript client
 
-From the project parent directory, use the Vue CLI to create a new application and navigate into the newly created `client` directory.
+From the project's root directory, use the Vue CLI to create a new application and navigate into the newly created `client` directory. Install the Vue CLI if you don't have it installed with `npm i -g @vue/cli`.
 
 ```bash
 vue create client
 cd client
 ```
 
-Pick `Default Vue 3`
+Pick **Default ([Vue 3] babel, eslint)** when prompted.
 
 Wait for it to finish. Add the Quasar framework.
 
@@ -406,15 +402,16 @@ Wait for it to finish. Add the Quasar framework.
 vue add quasar
 ```
 
-You can just accept the defaults. For me they were the following.
+You can just accept the defaults. For me, they were the following.
 
 - Allow Quasar to replace App.vue, About.vue, Home.vue and (if available) router.js? **Yes**
-- Pick your favorite CSS preprocessor: **Sass**
-- Choose Quasar Icon Set: **Material**
+- Pick your favorite CSS preprocessor: **Sass with indented syntax**
+- Choose Quasar Icon Set: **Material Icons (recommended)**
 - Default Quasar language pack: **en-US**
 - Use RTL support? **No**
+- Select features: **Enter** to select none
 
-Add our dependencies.
+Add additional dependencies for HTTP requests, logging, routing, and authentication.
 
 ```bash
 npm i axios@0.27.2 vuejs3-logger@1.0.0 vue-router@4.0.16 @okta/okta-vue@5.3.0
@@ -425,7 +422,7 @@ npm i axios@0.27.2 vuejs3-logger@1.0.0 vue-router@4.0.16 @okta/okta-vue@5.3.0
 - `vue-router`: the standard for routing between pages in Vue
 - `okta/okta-vue`: the Okta helper for Vue
 
-To learn more about how Okta integrates with Vue, take a look at [the GitHub page](https://github.com/okta/okta-vue) for the `okta/okta-vue` project. There are also more resources and example applications listed on in [the general Okta docs](https://developer.okta.com/code/vue/).
+To learn more about how Okta integrates with Vue, take a look at [the GitHub page](https://github.com/okta/okta-vue) for the `okta/okta-vue` project. There are also more resources and example applications listed on in [the Okta docs for Vue](https://developer.okta.com/code/vue/).
 
 Replace `main.js` with the following. Look at the `OktaAuth` configuration object. Notice the client ID and issuer URI are pulled from a `.env` file.
 
@@ -448,7 +445,7 @@ if (process.env.VUE_APP_ISSUER_URI == null || process.env.VUE_APP_CLIENT_ID == n
 }
 
 const oktaAuth = new OktaAuth({
-  issuer: process.env.VUE_APP_ISSUER_URI,  // pulling from .env file
+  issuer: process.env.VUE_APP_ISSUER_URI,  // pulled from .env file
   clientId: process.env.VUE_APP_CLIENT_ID,  // pulling from .env file
   redirectUri: window.location.origin + '/callback',
   scopes: ['openid', 'profile', 'email']
@@ -475,7 +472,7 @@ app.config.globalProperties.$api = createApi(app.config.globalProperties.$auth)
 app.mount('#app')
 ```
 
-Stated very briefly, the file above creates the main Vue app and configures it to use our dependencies: Quasar, VueLogger, OktaVue, and the router. It also creates the API class that handles the requests to the resource server and passes it the `$auth` object it needs to get the JWT.
+Stated very briefly, the file above creates the main Vue app and configures it to use the dependencies you added: Quasar, VueLogger, OktaVue, and the router. It also creates the API class that handles the requests to the resource server and passes it the `$auth` object it needs to get the JWT.
 
 Create a `.env` file in the client project root directory. The **Client ID** and **Issuer URI** are the values you used above in the Spring Boot `application.properties` file. The **Server URI** is the local URI for the Spring Boot API. You can leave this as it is unless you made a change (this gets used in the `Api.js` file).
 
@@ -544,7 +541,7 @@ export default {
       }
     },
     async login() {
-      await this.$auth.signInWithRedirect({originalUri: '/todos'})
+      await this.$auth.signInWithRedirect({ originalUri: '/todos' })
     },
     async logout() {
       await this.$auth.signOut()
@@ -615,18 +612,18 @@ const createApi = (auth) => {
 export default createApi
 ```
 
-All of the requests to the server go through this module. Notice that the server URI is hard coded at the top as `SERVER_URL`. In production this would be moved to a config file or an environment variable. Also take a look at how the access token is retrieved from the global `auth` object and injected into every request.
+All of the requests to the server go through this module. Take a look at how the access token is retrieved from the global `auth` object and injected into every request.
 
 Create the router file.
 
 `src/router/index.js`
 
 ```js
-import {createRouter, createWebHistory} from 'vue-router'
-import {navigationGuard} from '@okta/okta-vue'
+import { createRouter, createWebHistory } from 'vue-router'
+import { navigationGuard } from '@okta/okta-vue'
 import Todos from "@/components/Todos";
 import Home from "@/components/Home";
-import {LoginCallback} from '@okta/okta-vue'
+import { LoginCallback } from '@okta/okta-vue'
 
 const routes = [
   {
@@ -653,7 +650,7 @@ router.beforeEach(navigationGuard)
 export default router
 ```
 
-The router has three paths. The home path and the todos path are straightforward. The last path, `/login/callback`, is provided by the Okta module to handle the login redirect from the Okta servers after authentication.
+The router has three paths. The home path and the todos path are straightforward. The last path, `/callback`, is provided by the Okta Vue SDK to handle the login redirect from the Okta servers after authentication.
 
 Create the `Home` component.
 
