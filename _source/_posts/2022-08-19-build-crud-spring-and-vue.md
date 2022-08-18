@@ -406,7 +406,7 @@ The resource server is finished. The next step is to create the Vue client.
 
 ## Create the Vue JavaScript client
 
-From the project parent directory, use the Vue CLI to create a new application and navigate into the newly created `client` directory.
+From the project's root directory, use the Vue CLI to create a new application and navigate into the newly created `client` directory. Install the Vue CLI if you don't have it installed with `npm i -g @vue/cli`.
 
 ```bash
 vue create client
