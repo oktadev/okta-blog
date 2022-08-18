@@ -440,7 +440,7 @@ npm i axios@^0.27.2 vuejs3-logger@^1.0.0 vue-router@^4.0.16 @okta/okta-vue@^5.3.
 - `vue-router` is the standard for routing between pages in Vue
 - `okta/okta-vue` is the Okta helper for Vue
 
-To learn more about how Okta integrates with Vue, take a look at [the GitHub page](https://github.com/okta/okta-vue) for the `okta/okta-vue` project. There are also more resources and example applications listed on in [the general Okta docs](https://developer.okta.com/code/vue/).
+To learn more about how Okta integrates with Vue, take a look at [the GitHub page](https://github.com/okta/okta-vue) for the `okta/okta-vue` project. There are also more resources and example applications listed on in [the Okta docs for Vue](https://developer.okta.com/code/vue/).
 
 Replace `main.js` with the following. Look at the `OktaAuth` configuration object. Notice the client ID and issuer URI are pulled from a `.env` file.
 
