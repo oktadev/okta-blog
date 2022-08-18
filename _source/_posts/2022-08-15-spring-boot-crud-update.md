@@ -1049,7 +1049,7 @@ That will redirect you to the Todo app's main screen.
 
 {% img blog/spring-boot-crud-update/app-main-screen.png alt:"Todo app main screen" width:"1000" %}{: .center-image }
 
-You should be able to delete items, add new items, rename items, and filter items. All data is stored on the Spring Boot resource server and is presented by the Vue + Quasar frontend. 
+You should be able to delete items, add new items, rename, and filter items. All data is stored on the Spring Boot resource server and is presented by the Vue + Quasar frontend. 
 
 ## Wrapping up
 
