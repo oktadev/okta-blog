@@ -14,7 +14,7 @@ tweets:
 tags: [spring-boot, saml, okta]
 type: conversion
 redirect_to:
-  - "/blog/2022/08/09/spring-boot-saml"
+  - "/blog/2022/08/19/build-crud-spring-and-vue"
 update-url: /blog/2020/10/14/spring-security-saml-database-authentication
 update-title: "Spring Security SAML and Database Authentication"
 changelog:

@@ -15,6 +15,8 @@ tweets:
 - "Client/Server application tutorial with #SpringBoot and #VuewJS"
 image: blog/featured/okta-java-short-headphones.jpg
 type: conversion
+redirect_to:
+  - "/blog/2022/08/09/spring-boot-saml"
 update-url: /blog/2020/06/26/spring-boot-vue-kotlin
 update-title: "Build a CRUD App with Vue.js, Spring Boot, and Kotlin"
 ---
