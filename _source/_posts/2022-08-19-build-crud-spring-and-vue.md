@@ -1085,7 +1085,7 @@ That will redirect you to the Todo app's main screen.
 
 You should be able to delete items, add new items, rename, and filter items. All data is stored on the Spring Boot resource server and is presented by the Vue + Quasar frontend. 
 
-## Wrapping up
+## Do More with Okta, Vue, and Spring Boot
 
 In this tutorial, you built a Spring Boot resource server backend and a Vue front-end. The Vue client used the latest Vue 3 version with the Quasar framework. The app included full CRUD (create, read, update, and delete) capabilities. It was all secured using Okta.
 
