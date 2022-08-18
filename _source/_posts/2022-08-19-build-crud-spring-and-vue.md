@@ -12,12 +12,7 @@ tweets:
 - ""
 image:
 type: conversion
-<<<<<<< HEAD:_source/_posts/2022-08-15-spring-boot-crud-update.md
-
-
-=======
 github: https://github.com/oktadev/okta-spring-boot-vue-crud-example
->>>>>>> 71e5ccee4fd760323ba602451f4b0f034ada8d4c:_source/_posts/2022-08-19-build-crud-spring-and-vue.md
 ---
 
 You're going to use Vue and Spring Boot to build a todo list web application. The application will include CRUD abilities, meaning that you will be able to **c**reate, **r**ead, **u**pdate, and **d**elete the todo items on the Spring Boot API via the client. The Vue frontend client will use the Quasar framework for presentation. Both the Spring Boot API and the Vue client will be secured with OAuth 2.0 and OpenID Connect (OIDC) using Okta as the security provider.
