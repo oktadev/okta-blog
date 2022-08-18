@@ -429,7 +429,7 @@ You can just accept the defaults. For me, they were the following.
 - **Default Quasar language pack:** en-US
 - **Use RTL support?** No
 
-Add our dependencies.
+Add additional dependencies for HTTP requests, logging, routing, and authentication.
 
 ```bash
 npm i axios@^0.27.2 vuejs3-logger@^1.0.0 vue-router@^4.0.16 @okta/okta-vue@^5.3.0
