@@ -421,7 +421,7 @@ Wait for it to finish. Add the Quasar framework.
 vue add quasar
 ```
 
-You can just accept the defaults. For me they were the following.
+You can just accept the defaults. For me, they were the following.
 
 - **Allow Quasar to replace App.vue, About.vue, Home.vue and (if available) router.js?** Yes
 - **Pick your favorite CSS preprocessor:** Sass with indented syntax
