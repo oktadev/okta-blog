@@ -65,12 +65,10 @@ Before you read the instructions on how to do this, you can try running the Clou
 Launch this CloudFormation Template:
 
 ```
-https://console.aws.amazon.com/cloudformation/home?region=us-east-1#/stacks/new?stackName=HTMLtoS3&templateURL=https://s3.amazonaws.com/htmlformation/s3template.yml
+https://console.aws.amazon.com/cloudformation/home?region=us-east-1#/stacks/new?stackName=HTMLtoS3&templateURL=https://s3.amazonaws.com/<your-s3bucket-name>/s3template.yml
 ```
 
-[Click here to do this.](https://console.aws.amazon.com/cloudformation/home?region=us-east-1#/stacks/new?stackName=ttmltoS3&templateURL=https://s3.amazonaws.com/htmlformation/s3template.yml)
-
-The above link will load this Stack from my Amazon S3 Bucket and configure the Stack for you.
+If you substitute your S3 bucket name into the above URL and navigate to it, it will load this Stack from your Amazon S3 Bucket and configure the Stack for you.
 
 You will now see that the Template can be loaded into CloudFormation.
 

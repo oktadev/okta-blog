@@ -11,7 +11,7 @@ jobs:
     - name: Set up node and npm
       uses: actions/setup-node@v3
       with:
-        version: 12.13.0
+        version: 18
 
     - name: Install node dependencies
       run: npm install
@@ -27,7 +27,7 @@ jobs:
         bundle install
 
     - name: Set up python and pip
-      uses: actions/setup-python@v3
+      uses: actions/setup-python@v4
       with:
         python-version: 3.7
         architecture: x64
@@ -54,13 +54,3 @@ jobs:
 
     - name: Prep for Deploy
       run: npm run prep-for-deploy
-
-    - name: Deploy
-      env:
-        AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
-        AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-        AWS_S3_BUCKET: ${{ secrets.AWS_S3_BUCKET }}
-      if: success() && github.event_name == 'push' && github.ref == 'refs/heads/main'
-      run: |
-        aws s3 sync --content-type 'text/html' --sse --size-only --acl public-read dist/blog s3://$AWS_S3_BUCKET/blog
-        aws s3 sync --exclude 'blog' --sse --size-only --acl public-read dist s3://$AWS_S3_BUCKET

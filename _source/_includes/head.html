@@ -68,7 +68,7 @@
     {% capture image %}"image": "{{ site.external_domain }}{{ blog_image }}",{% endcapture %}
   <script type="application/ld+json">
     {
-      "@context": "http://schema.org",
+      "@context": "https://schema.org",
       "@type": "BlogPosting",
       "headline": "{{ page.title }}",
       "genre": "Technology",
@@ -84,7 +84,10 @@
       "url": "{{ site.external_domain }}{{ page.url }}",
       "datePublished": "{{ page.date | date: "%Y-%m-%d" }}",
       "dateCreated": "{{ page.date | date: "%Y-%m-%d" }}",
-      "dateModified": "{{ page.date | date: "%Y-%m-%d" }}",
+    {%- if page.layout == 'blog_post' and page.changelog -%}
+    {% assign last_updated_date = page.changelog[0] | split: '=>' | first | date: "%Y-%m-%d" %}
+      "dateModified": "{{ last_updated_date }}",{% else %}
+      "dateModified": "{{ page.date | date: "%Y-%m-%d" }}",{% endif %}
       "articleBody": "{% if page.description %}{{ page.description | strip_html | strip_newlines | truncate: 300 }}{% elsif page.excerpt %}{{ page.excerpt | strip_html | strip_newlines | truncate 300 }}{% else %}{{ site.description }}{% endif %}",
       "author": {
         "@type": "Person",

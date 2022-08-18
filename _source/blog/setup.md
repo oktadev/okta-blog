@@ -30,7 +30,7 @@ This page is designed for authors of the Okta developer blog. However, these sni
 
 To describe how to set up a new application on Okta, you can use `cli.md`, `maven.md`, and `oidcdebugger.md` includes.
 
-These will render instructions using the [Okta CLI](https://cli.okta.com) (or [Okta Maven Plugin](https://github.com/oktadeveloper/okta-maven-plugin)) and link to instructions for the Admin Console. Screenshots are discouraged because they're hard to keep up-to-date.
+These will render instructions using the [Okta CLI](https://cli.okta.com) (or [Okta Maven Plugin](https://github.com/oktadev/okta-maven-plugin)) and link to instructions for the Admin Console. Screenshots are discouraged because they're hard to keep up-to-date.
   
 ## Blog Post Syntax
 
