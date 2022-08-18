@@ -16,7 +16,7 @@ tweets:
 image: blog/featured/okta-java-short-headphones.jpg
 type: conversion
 redirect_to:
-  - "/blog/2022/08/09/spring-boot-saml"
+  - "/blog/2022/08/19/build-crud-spring-and-vue"
 update-url: /blog/2020/06/26/spring-boot-vue-kotlin
 update-title: "Build a CRUD App with Vue.js, Spring Boot, and Kotlin"
 ---
