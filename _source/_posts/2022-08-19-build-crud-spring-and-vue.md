@@ -363,7 +363,7 @@ HTTP/1.1 200
 
 Stop the resource server using `CTRL + C`. 
 
-Edit the security configuration file, updating the security configuration bean definition to the following.
+Edit the `SecurityConfiguration.java` file and change the filter chain's bean definition to enable a resource server.
 
 `src/main/java/com/example/demo/OAuth2ResourceServerSecurityConfiguration.java`
 
