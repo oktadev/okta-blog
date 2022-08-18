@@ -1089,6 +1089,9 @@ You should be able to delete items, add new items, rename, and filter items. All
 
 In this tutorial, you built a Spring Boot resource server backend and a Vue front-end. The Vue client used the latest Vue 3 version with the Quasar framework. The app included full CRUD (create, read, update, and delete) capabilities. It was all secured using Okta.
 
+You can find the source code for this example on GitHub, in the [@oktadev/okta-spring-boot-vue-crud-example](https://github.com/oktadev/okta-spring-boot-vue-crud-example) repository.
+
+
 If you liked this post, there's a good chance you'll like similar ones:
 
 - [Introducing Spring Native for JHipster: Serverless Full-Stack Made Easy](/blog/2022/03/03/spring-native-jhipster)
