@@ -1,10 +1,10 @@
 ---
 layout: blog_post
-title: "Spring Boot CRUD app with Vue and Quasar"
+title: "Build a Simple CRUD App with Spring Boot and Vue.js"
 author: andrew-hughes
 by: contractor
 communities: [java,javascript]
-description: "Build a Spring Boot Todo app with a Vue client using Okta for security and the Quasar framework for client components"
+description: "Create a CRUD (create, read, update, and delete) application using Spring Boot and Vue.js."
 tags: []
 tweets:
 - ""
@@ -50,7 +50,7 @@ mkdir spring-boot-vue-crud
 cd spring-boot-vue-crud
 ```
 
-{% include setup/cli.md type="spa" loginRedirectUri="http://localhost:8080/login/callback" %}
+{% include setup/cli.md type="spa" %}
 
 Your console should finish with something like this:
 
@@ -91,7 +91,7 @@ The dependencies you're including are:
 - `lombok`: [Project Lombok](https://projectlombok.org/), adds some helpful annotations that eliminate the need to write a lot of getters and setters
 - `okta`: [Okta Spring Boot Starter](https://github.com/okta/okta-spring-boot) that helps OAuth 2.0 and OIDC configuration
 
-Project Lombok saves a lot of clutter and ceremony code. However, if you're using an IDE, you'll need to install a plugin for Lombok.
+Project Lombok saves a lot of clutter and ceremony code. However, if you're using an IDE, **you'll need to install a plugin for Lombok**.
 
 ## Update the Secure Spring Boot app
 
@@ -106,11 +106,6 @@ okta.oauth2.clientId=<your-client-id>
 ```
 
 **You need to replace the two bracketed values** with the values you generated above for the OIDC app using the Okta CLI.
-
-Open the `build.gradle` file and change the `sourceCompatibility` from 17 to 11. I think this should have been done by the `jvmVersion` flag when the project was downloaded via the REST API. However, for me, it wasn't. If you're running Java 17 locally, it won't matter, but if you're running Java 11 this will cause an error when you try and run the project.
-```groovy
-sourceCompatibility = '11'
-```
 
 You can run the bootstrapped project right now and see if it starts. It should start but won't do much.
 
@@ -439,7 +434,7 @@ if (process.env.VUE_APP_ISSUER_URI == null || process.env.VUE_APP_CLIENT_ID == n
 const oktaAuth = new OktaAuth({
   issuer: process.env.VUE_APP_ISSUER_URI,
   clientId: process.env.VUE_APP_CLIENT_ID,
-  redirectUri: window.location.origin + '/login/callback',
+  redirectUri: window.location.origin + '/callback',
   scopes: ['openid', 'profile', 'email']
 })
 
