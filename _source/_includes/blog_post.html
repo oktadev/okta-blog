@@ -77,14 +77,14 @@
         {% endif %}
       </div>
     </header>
-    {%- if post.image and post.hide-cover-img != true -%}
-      {% img '{{ post.image }}' alt:'{{ post.title }}' class:BlogPost-cover %}
-    {%- endif -%}
 
     <div class="BlogPost-content">
-    {% if page.update-url %}
+      {% if page.update-url %}
       {%- include update.html title=page.update-title url=page.update-url extra=page.update-extra -%}
-    {%- endif -%}
+      {%- endif -%}
+      {%- if post.image and post.hide-cover-img != true -%}
+        {% img '{{ post.image }}' alt:'{{ post.title }}' class:BlogPost-cover %}
+      {%- endif -%}
         <div class="e-content">{{ include.post_content }}</div>
 
         {%- if page.layout == 'blog_post' and post.changelog -%}
