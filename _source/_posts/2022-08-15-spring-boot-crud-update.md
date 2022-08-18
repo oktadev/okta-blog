@@ -13,6 +13,7 @@ tweets:
 image:
 type: conversion
 
+
 ---
 
 You're going to use Vue and Spring Boot to build a todo list web application. The application will include CRUD abilities, meaning that you will be able to **c**reate, **r**ead, **u**pdate, and **d**elete the todo items on the Spring Boot API via the client. The Vue frontend client will use the Quasar framework for presentation. Both the Spring Boot API and the Vue client will be secured with OAuth 2.0 and OpenID Connect (OIDC) using Okta as the security provider.
@@ -28,16 +29,42 @@ The Spring Boot app will include an H2 in-memory database and will use Spring Da
 
 The client will use [Vue 3](https://vuejs.org/) and the Quasar framework. [The Quasar framework](https://quasar.dev/) provides components and layout tools to help build Vue applications quickly with a consistent, high-quality user interface.
 
+Before you dig into the tutorial, I want to quickly introduce the technologies for those that might be unfamiliar. Feel free to skip down to the **Prerequisites** section if you're already familiar with Vue and Spring Boot.
+
+**What is Vue.js?**
+
+Vue is a JavaScript view library, like React and Angular. It’s designed to be incrementally adoptable, and the core library focuses solely on the view layer.
+
+In my experience, Vue.js is a great alternative to React. I learned React first, and came to use Vue later. Like React, Vue uses a virtual DOM, provides reactive and composable view components, and enforces a strict one-way parent-child relationship when defining properties and state. This means that it is performant and it avoids a lot of the confusing state relationships that can occur without one-way data binding. 
+
+However, unlike React, Vue uses templates instead of JSX (a potentially welcome and more immediately accessible option) and Vue gives you component scoped css using style tags in single-file components. In practice this difference is pretty great because in React the JSX and css-like syntax is close enough to HTML and CSS to be confusing but not actually the same, which creates problems initially (ever gone from a language that doesn’t require semicolons back to one that does? It’s something like that).
+
+I find Vue to be a simpler, cleaner implementation. React requires a deep dive. You gotta take the red pill and go all the way. It’s a super powerful system, but you have to be all in. Vue is a little friendlier and a little easier to get started.
+
+**Quasar Framework**
+
+The [Quasar Framework](https://quasar.dev/) builds on top of Vue to add a cross-platform component library and grid layout system. It also provides a lot of tools for deploying Vue-based applications to basically any platform you can think of, from web single-page apps and progressive web apps, to mobile apps and Electron-based desktop apps. In this tutorial, you'll only be using the layout and component library features, but Quasar's big push to allow developers to write a single web application and deploy it to any platform with a consistent look with minimal changes. 
+
+**About Spring Boot**
+
+The server technology you’re going to use is Spring Boot. Pure, unadulterated Spring (pre-Spring Boot) is a bit of a behemoth: super powerful but potentially time-sucking and frustrating. I’m pretty sure the whole computer conference phenomena came about so that people could learn and understand old-school Spring XML files. It certainly drove large sections of the computer publishing empires.
+
+Spring Boot was Spring’s answer to this complexity (and to frameworks like Ruby on Rails and Grails). They did a great job of distilling down all of the power of Spring into a simple, quick, easy-to-use web framework. With a ridiculously small number of lines of code and a few annotations, you can have a fully functioning resource server.
+
+Plus, when you’re ready, you have all the power of Spring under the hood, just waiting.
+
 **Prerequisites:**
+
+Before you start, please make sure you have the following prerequisites installed (or install them now).
 
 - [Java 11](https://adoptium.net/): or use [SDKMAN!](https://sdkman.io/) to manage and install multiple versions
 
-- [Okta CLI](https://cli.okta.com/manual/#installation)
+- [Okta CLI](https://cli.okta.com/manual/#installation): the Okta command-line interface
 
-- [HTTPie](https://httpie.org/doc#installation)
+- [HTTPie](https://httpie.org/doc#installation): a simple tool for making HTTP requests from a Bash shell
 
 - [Node 16+](https://nodejs.org)
-- [Vue CLI](https://cli.vuejs.org/guide/installation.html)
+- [Vue CLI](https://cli.vuejs.org/guide/installation.html): you'll use this to bootstrap the Vue client
 
 You will need a free Okta Developer account if you don't already have one. But you can wait until later in the tutorial and use the Okta CLI to login or register for a new account.
 
@@ -474,6 +501,7 @@ Replace `App.vue` with the following.
 `src/App.vue`
 
 {% raw %}
+
 ```vue
 <template>
   <q-layout view="hHh lpR fFf">
@@ -532,6 +560,7 @@ export default {
 }
 </script>
 ```
+
 {% endraw %}
 
 This is the top-level component that defines the header bar and includes the router component. The header bar has a login or logout button and will show the authenticated user's email address when logged in.
@@ -638,6 +667,7 @@ Create the `Home` component.
 `src/components/Home.vue`
 
 {% raw %}
+
 ```vue
 <template>
   <div class="column justify-center items-center" id="row-container">
@@ -685,6 +715,7 @@ export default {
 }
 </script>
 ```
+
 {% endraw %}
 
 Create the `TodoItem` component.
@@ -692,6 +723,7 @@ Create the `TodoItem` component.
 `src/components/TodoItem.vue`
 
 {% raw %}
+
 ```vue
 <template>
   <q-item-section avatar class="check-icon" v-if="this.item.completed">
@@ -795,6 +827,7 @@ input.list-item-input {
 }
 </style>
 ```
+
 {% endraw %}
 
 This component encapsulates a single todo item. It has logic for editing the title, setting the completed status, and deleting items. If you look closely at the code, you'll notice that it both sends changes to the server and also updates the local copy stored in the `todos` array in the parent component. 
@@ -804,6 +837,7 @@ Create the `Todos` component.
 `src/components/Todos.vue`
 
 {% raw %}
+
 ```vue
 <template>
   <div class="column justify-center items-center" id="row-container">
@@ -1007,6 +1041,7 @@ export default {
 }
 </style>
 ```
+
 {% endraw %}
 
 This component encapsulates the card that holds all of the todos, as well as the todo-associated interface elements. It also handles the rest of the functions related to updating todos on the server as well as in the local cache. 
