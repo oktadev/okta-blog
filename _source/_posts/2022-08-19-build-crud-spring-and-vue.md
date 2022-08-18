@@ -5,14 +5,14 @@ author: andrew-hughes
 by: contractor
 communities: [java,javascript]
 description: "Create a CRUD (create, read, update, and delete) application using Spring Boot and Vue.js."
-tags: []
+tags: [java, spring-boot, vue, javascript]
 tweets:
 - ""
 - ""
 - ""
 image:
 type: conversion
-
+github: https://github.com/oktadev/okta-spring-boot-vue-crud-example
 ---
 
 You're going to use Vue and Spring Boot to build a todo list web application. The application will include CRUD abilities, meaning that you will be able to **c**reate, **r**ead, **u**pdate, and **d**elete the todo items on the Spring Boot API via the client. The Vue frontend client will use the Quasar framework for presentation. Both the Spring Boot API and the Vue client will be secured with OAuth 2.0 and OpenID Connect (OIDC) using Okta as the security provider.
@@ -31,15 +31,14 @@ The client will use [Vue 3](https://vuejs.org/) and the Quasar framework. [The Q
 **Prerequisites:**
 
 - [Java 11](https://adoptium.net/): or use [SDKMAN!](https://sdkman.io/) to manage and install multiple versions
-
 - [Okta CLI](https://cli.okta.com/manual/#installation)
-
 - [HTTPie](https://httpie.org/doc#installation)
-
 - [Node 16+](https://nodejs.org)
 - [Vue CLI](https://cli.vuejs.org/guide/installation.html)
 
-You will need a free Okta Developer account if you don't already have one. But you can wait until later in the tutorial and use the Okta CLI to login or register for a new account.
+You will need a free Okta Developer account if you don't already have one. But you can wait until later in the tutorial and use the Okta CLI to log in or register for a new account.
+
+{% include toc.md %}
 
 ## Create Okta OIDC app
 
@@ -50,7 +49,7 @@ mkdir spring-boot-vue-crud
 cd spring-boot-vue-crud
 ```
 
-{% include setup/cli.md type="spa" %}
+{% include setup/cli.md type="spa" framework="Vue" loginRedirectUri="http://localhost:8080/callback" %}
 
 Your console should finish with something like this:
 
