@@ -490,7 +490,7 @@ app.config.globalProperties.$api = createApi(app.config.globalProperties.$auth)
 app.mount('#app')
 ```
 
-Stated very briefly, the file above creates the main Vue app and configures it to use our dependencies: Quasar, VueLogger, OktaVue, and the router. It also creates the API class that handles the requests to the resource server and passes it the `$auth` object it needs to get the JWT.
+Stated very briefly, the file above creates the main Vue app and configures it to use the dependencies you added: Quasar, VueLogger, OktaVue, and the router. It also creates the API class that handles the requests to the resource server and passes it the `$auth` object it needs to get the JWT.
 
 Create a `.env` file in the client project root directory. The **Client ID** and **Issuer URI** are the values you used above in the Spring Boot `application.properties` file. The **Server URI** is the local URI for the Spring Boot API. You can leave this as it is unless you made a change (this gets used in the `Api.js` module).
 
