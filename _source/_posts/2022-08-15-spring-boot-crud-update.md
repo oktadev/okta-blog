@@ -15,7 +15,7 @@ type: conversion
 
 ---
 
-You're going to use Vue and Spring Boot to build a todo list web application. The application will include CRUD abilities, meaning that you will be able to **c**reate, **r**ead, **u**pdate, and **d**elete the todo items on the Spring Boot API via the client. The Vue front-end client will use the Quasar framework for presentation. Both the Spring Boot API and the Vue client will be secured with OAuth 2.0 and OpenID Connect (OIDC) using Okta as the security provider.
+You're going to use Vue and Spring Boot to build a todo list web application. The application will include CRUD abilities, meaning that you will be able to **c**reate, **r**ead, **u**pdate, and **d**elete the todo items on the Spring Boot API via the client. The Vue frontend client will use the Quasar framework for presentation. Both the Spring Boot API and the Vue client will be secured with OAuth 2.0 and OpenID Connect (OIDC) using Okta as the security provider.
 
 {% img blog/spring-boot-crud-update/spring-and-vue.png alt:"Spring Boot, Vue, and Okta logos" width:"500" %}{: .center-image }
 
@@ -1044,7 +1044,7 @@ That will redirect you to the Todo app's main screen.
 
 {% img blog/spring-boot-crud-update/app-main-screen.png alt:"Todo app main screen" width:"1000" %}{: .center-image }
 
-You should be able to delete items, add new items, rename items, and filter items. All data is stored on the Spring Boot resource server and is presented by the Vue + Quasar frontend. 
+You should be able to delete items, add new items, rename, and filter items. All data is stored on the Spring Boot resource server and is presented by the Vue + Quasar frontend. 
 
 ## Wrapping up
 
