@@ -414,7 +414,7 @@ You can just accept the defaults. For me, they were the following.
 Add additional dependencies for HTTP requests, logging, routing, and authentication.
 
 ```bash
-npm i axios@0.27.2 vuejs3-logger@1.0.0 vue-router@4.0.16 @okta/okta-vue@5.3.0
+npm i axios@0.27.2 vuejs3-logger@1.0.0 vue-router@4.1.3 @okta/okta-vue@5.3.0
 ```
 
 - `axios`: an HTTP client request library
@@ -485,6 +485,8 @@ VUE_APP_SERVER_URI=http://localhost:9000
 ```
 
 It's important to note that putting values like this in a `.env` file in a client application does not make then secure. It helps by keeping them out of a repository. However, they are still public in the sense that they are necessarily visible in the JavaScript code sent to the browser. In this use case, it's more of a configuration and organizational tool than a security tool. 
+
+If you want to keep the `.env` file out of the repository, you need to update the `.gitignore` file. There's no particuliar need to do this for the Client ID as it's going to be publicly available anyway.
 
 Replace `App.vue` with the following.
 
