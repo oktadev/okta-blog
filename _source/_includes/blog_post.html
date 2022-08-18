@@ -79,8 +79,6 @@
       </div>
     </header>
 
-    <div class="BlogPost-header-divider"></div>
-
     <div class="BlogPost-content">
     {% if page.update-url %}
       {%- include update.html title=page.update-title url=page.update-url extra=page.update-extra -%}
@@ -104,32 +102,32 @@
     {% if page.layout == 'blog_post' %}
         {% for author_id in authors %}
             {%- assign author = site.data.authors[author_id] -%}
-            {% if author.bio %}
-        <div class="BlogPost-author-bio u-author h-card">
-            <div class="BlogPost-attribution">
+            <div class="BlogPost-author-bio u-author h-card">
+              <div class="BlogPost-attribution">
                 {% if author.avatar %}
                 <a href="/blog/authors/{{ author_id }}/">{% img '{{ author.avatar }}' alt:'{{ author.avatar }}' class:BlogPost-avatar-social %}</a>
                 {% endif %}
                 <span class="author"><a href="/blog/authors/{{ author_id }}/" class="u-url p-name">{{ author.full_name }}</a></span>
                 <div class="social">
-                    {%- if author.github -%}
-                    <a href="{{ author.github }}" target="_blank"><i class="fa fa-github"></i></a>
-                    {%- endif -%}
-                    {%- if author.twitter -%}
-                    <a href="{{ author.twitter }}" target="_blank"><i class="fa fa-twitter"></i></a>
-                    {%- endif -%}
-                    {%- if author.linkedin -%}
-                    <a href="{{ author.linkedin }}" target="_blank"><i class="fa fa-linkedin"></i></a>
-                    {%- endif -%}
-                    {%- if author.web -%}
-                    <a href="{{ author.web }}" target="_blank"><i class="fa fa-external-link"></i></a>
-                    {%- endif -%}
+                  {%- if author.github -%}
+                  <a href="{{ author.github }}" target="_blank"><i class="fa fa-github"></i></a>
+                  {%- endif -%}
+                  {%- if author.twitter -%}
+                  <a href="{{ author.twitter }}" target="_blank"><i class="fa fa-twitter"></i></a>
+                  {%- endif -%}
+                  {%- if author.linkedin -%}
+                  <a href="{{ author.linkedin }}" target="_blank"><i class="fa fa-linkedin"></i></a>
+                  {%- endif -%}
+                  {%- if author.web -%}
+                  <a href="{{ author.web }}" target="_blank"><i class="fa fa-external-link"></i></a>
+                  {%- endif -%}
                 </div>
-            </div>
+              </div>
 
+            {% if author.bio %}
             <p class="p-bio">{{ author.bio }}</p>
-        </div>
             {% endif %}
+        </div>
         {% endfor %}
     {% endif %}
 
