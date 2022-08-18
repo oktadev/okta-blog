@@ -425,7 +425,7 @@ You can just accept the defaults. For me they were the following.
 
 - **Allow Quasar to replace App.vue, About.vue, Home.vue and (if available) router.js?** Yes
 - **Pick your favorite CSS preprocessor:** Sass with indented syntax
-- **Choose Quasar Icon Set:** Material
+- **Choose Quasar Icon Set:** Material Icons (recommended)
 - **Default Quasar language pack:** en-US
 - **Use RTL support?** No
 
