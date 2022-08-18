@@ -319,6 +319,8 @@ Open a new Bash shell and use HTTPie to test the resource server.
 http :9000/todos
 ```
 
+You should see a response like the following:
+
 ```bash
 HTTP/1.1 200 
 ...
