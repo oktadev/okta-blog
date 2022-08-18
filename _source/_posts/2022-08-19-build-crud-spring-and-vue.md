@@ -119,22 +119,20 @@ Create a `SecurityConfiguration` class to configure Spring Security. The class b
 ```java
 package com.example.demo;
 
-import com.okta.spring.boot.oauth.Okta;
-import org.springframework.http.HttpMethod;
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
-import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+import org.springframework.security.web.SecurityFilterChain;
 
 @EnableWebSecurity
 @Configuration
 public class SecurityConfiguration {
-    
+
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         http.authorizeRequests()
-            .anyRequest().permitAll();
-        // Send a 401 message to the browser (w/o this, you'll see a blank page)
-        Okta.configureResourceServer401ResponseBody(http);
+                .anyRequest().permitAll();
         return http.build();
     }
 
@@ -337,11 +335,9 @@ Edit the security configuration file, updating the security configuration bean d
 @Bean
 public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
     http.authorizeRequests()
-        .anyRequest().authenticated()
-        .and()
-        .oauth2ResourceServer().jwt();
-    // Send a 401 message to the browser (w/o this, you'll see a blank page)
-    Okta.configureResourceServer401ResponseBody(http);
+            .anyRequest().authenticated()
+            .and()
+            .oauth2ResourceServer().jwt();
     return http.build();
 }
 ```
@@ -621,7 +617,7 @@ const routes = [
       requiresAuth: true
     }
   },
-  {path: '/login/callback', component: LoginCallback},
+  {path: '/callback', component: LoginCallback},
 ]
 
 const router = createRouter({
