@@ -463,7 +463,7 @@ if (process.env.VUE_APP_ISSUER_URI == null || process.env.VUE_APP_CLIENT_ID == n
 }
 
 const oktaAuth = new OktaAuth({
-  issuer: process.env.VUE_APP_ISSUER_URI,  // pulling from .env file
+  issuer: process.env.VUE_APP_ISSUER_URI,  // pulled from .env file
   clientId: process.env.VUE_APP_CLIENT_ID,  // pulling from .env file
   redirectUri: window.location.origin + '/callback',
   scopes: ['openid', 'profile', 'email']
