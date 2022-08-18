@@ -179,11 +179,10 @@ spring:
               metadata-uri: <your-metadata-uri>
 ----
 
-. Then, change `build.gradle` to use `thymeleaf-extras-springsecurity6` instead of `thymeleaf-extras-springsecurity5` and add Spring Security SAML's dependency:
+. Then, change `build.gradle` to add Spring Security SAML's dependency:
 +
 [source,groovy]
 ----
-implementation 'org.thymeleaf.extras:thymeleaf-extras-springsecurity6'
 implementation 'org.springframework.security:spring-security-saml2-service-provider'
 ----
 
