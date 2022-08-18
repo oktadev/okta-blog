@@ -411,7 +411,7 @@ vue create client
 cd client
 ```
 
-Pick `Default Vue 3`
+Pick **Default ([Vue 3] babel, eslint)** when prompted.
 
 Wait for it to finish. Add the Quasar framework.
 
