@@ -138,7 +138,6 @@ package com.example.demo;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
-import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.web.SecurityFilterChain;
 
 @Configuration
@@ -255,14 +254,15 @@ import javax.persistence.Entity;
 @NoArgsConstructor
 public class Todo {
 
-    @Id @GeneratedValue
+    @Id 
+    @GeneratedValue
     private Long id;
 
     @NonNull
     private String title;
 
     private Boolean completed = false;
-
+    
 }
 ```
 
@@ -349,7 +349,7 @@ Edit the `SecurityConfiguration.java` file and change the filter chain's bean de
 `src/main/java/com/example/demo/OAuth2ResourceServerSecurityConfiguration.java`
 
 ```java
-@Beanf
+@Bean
 public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
     http.authorizeRequests()
         .anyRequest().authenticated()
@@ -446,7 +446,7 @@ if (process.env.VUE_APP_ISSUER_URI == null || process.env.VUE_APP_CLIENT_ID == n
 
 const oktaAuth = new OktaAuth({
   issuer: process.env.VUE_APP_ISSUER_URI,  // pulled from .env file
-  clientId: process.env.VUE_APP_CLIENT_ID,  // pulling from .env file
+  clientId: process.env.VUE_APP_CLIENT_ID,  // pulled from .env file
   redirectUri: window.location.origin + '/callback',
   scopes: ['openid', 'profile', 'email']
 })
@@ -493,7 +493,6 @@ Replace `App.vue` with the following.
 `src/App.vue`
 
 {% raw %}
-
 ```vue
 <template>
   <q-layout view="hHh lpR fFf">
@@ -552,7 +551,6 @@ export default {
 }
 </script>
 ```
-
 {% endraw %}
 
 This is the top-level component that defines the header bar and includes the router component. The header bar has a login or logout button and will show the authenticated user's email address when logged in.
@@ -639,7 +637,7 @@ const routes = [
       requiresAuth: true
     }
   },
-  {path: '/callback', component: LoginCallback},
+  { path: '/callback', component: LoginCallback },
 ]
 
 const router = createRouter({
@@ -659,14 +657,13 @@ Create the `Home` component.
 `src/components/Home.vue`
 
 {% raw %}
-
 ```vue
 <template>
   <div class="column justify-center items-center" id="row-container">
     <q-card class="my-card">
       <q-card-section style="text-align: center">
-        <div v-if='authState && authState.isAuthenticated' >
-          <h6 v-if="claims && claims.email">You are logged in as {{claims.email}}</h6>
+        <div v-if='authState && authState.isAuthenticated'>
+          <h6 v-if="claims && claims.email">You are logged in as {{ claims.email }}</h6>
           <h6 v-else>You are logged in</h6>
           <q-btn flat color="primary" @click="todo">Go to Todo app</q-btn>
           <q-btn flat @click="logout">Log out</q-btn>
@@ -687,9 +684,11 @@ export default {
       claims: ''
     }
   },
-  created () { this.setup() },
+  created() { 
+    this.setup() 
+  },
   methods: {
-    async setup () {
+    async setup() {
       if (this.authState && this.authState.isAuthenticated) {
         this.claims = await this.$auth.getUser()
       }
@@ -697,17 +696,16 @@ export default {
     todo() {
       this.$router.push("/todos")
     },
-    async login () {
-      await this.$auth.signInWithRedirect({ originalUri: '/todos'} )
+    async login() {
+      await this.$auth.signInWithRedirect({ originalUri: '/todos' })
     },
-    async logout () {
+    async logout() {
       await this.$auth.signOut()
     }
   }
 }
 </script>
 ```
-
 {% endraw %}
 
 Create the `TodoItem` component.
@@ -715,7 +713,6 @@ Create the `TodoItem` component.
 `src/components/TodoItem.vue`
 
 {% raw %}
-
 ```vue
 <template>
   <q-item-section avatar class="check-icon" v-if="this.item.completed">
@@ -724,7 +721,7 @@ Create the `TodoItem` component.
   <q-item-section avatar class="check-icon" v-else>
     <q-icon color="gray" name="check_box_outline_blank" @click="handleClickSetCompleted(true)"/>
   </q-item-section>
-  <q-item-section v-if="!editing">{{this.item.title}}</q-item-section>
+  <q-item-section v-if="!editing">{{ this.item.title }}</q-item-section>
   <q-item-section v-else>
     <input
         class="list-item-input"
@@ -737,10 +734,10 @@ Create the `TodoItem` component.
     />
   </q-item-section>
   <q-item-section avatar class="hide-icon" @click="handleClickEdit">
-    <q-icon color="primary" name="edit" />
+    <q-icon color="primary" name="edit"/>
   </q-item-section>
   <q-item-section avatar class="hide-icon close-icon" @click="handleClickDelete">
-    <q-icon color="red" name="close" />
+    <q-icon color="red" name="close"/>
   </q-item-section>
 </template>
 <script>
@@ -763,17 +760,17 @@ export default {
     }
   },
   methods: {
-    handleClickEdit () {
+    handleClickEdit() {
       this.editing = true
       this.editingTitle = this.item.title
       nextTick(function () {
         this.$refs.input.focus()
       }.bind(this))
     },
-    handleCancelEditing () {
+    handleCancelEditing() {
       this.editing = false
     },
-    handleDoneEditing () {
+    handleDoneEditing() {
       this.editing = false
       this.$api.updateForId(this.item.id, this.editingTitle, this.item.completed).then((response) => {
         this.setTitle(this.item.id, this.editingTitle)
@@ -804,22 +801,25 @@ export default {
   min-width: 0px;
   padding-left: 5px !important;
 }
+
 .todo-item .hide-icon {
   opacity: 0.1;
 }
+
 .todo-item:hover .hide-icon {
   opacity: 0.8;
 }
+
 .check-icon {
   min-width: 0px;
   padding-right: 5px !important;
 }
+
 input.list-item-input {
   border: none;
 }
 </style>
 ```
-
 {% endraw %}
 
 This component encapsulates a single todo item. It has logic for editing the title, setting the completed status, and deleting items. If you look closely at the code, you'll notice that it both sends changes to the server and also updates the local copy stored in the `todos` array in the parent component. 
@@ -829,7 +829,6 @@ Create the `Todos` component.
 `src/components/Todos.vue`
 
 {% raw %}
-
 ```vue
 <template>
   <div class="column justify-center items-center" id="row-container">
@@ -872,11 +871,15 @@ Create the `Todos` component.
         </q-item>
       </q-card-section>
       <q-card-section style="text-align: center">
-        <q-btn color="amber" text-color="black" label="Remove Completed" style="margin-right: 10px" @click="handleDeleteCompleted"></q-btn>
+        <q-btn color="amber" text-color="black" label="Remove Completed" style="margin-right: 10px" 
+               @click="handleDeleteCompleted"></q-btn>
         <q-btn-group>
-          <q-btn glossy :color="filter === 'all' ? 'primary' : 'white'" text-color="black" label="All" @click="handleSetFilter('all')"/>
-          <q-btn glossy :color="filter === 'complete' ? 'primary' : 'white'" text-color="black" label="Completed" @click="handleSetFilter('complete')"/>
-          <q-btn glossy :color="filter === 'incomplete' ? 'primary' : 'white'" text-color="black" label="Incomplete" @click="handleSetFilter('incomplete')"/>
+          <q-btn glossy :color="filter === 'all' ? 'primary' : 'white'" text-color="black" label="All" 
+                 @click="handleSetFilter('all')"/>
+          <q-btn glossy :color="filter === 'complete' ? 'primary' : 'white'" text-color="black" label="Completed" 
+                 @click="handleSetFilter('complete')"/>
+          <q-btn glossy :color="filter === 'incomplete' ? 'primary' : 'white'" text-color="black" label="Incomplete" 
+                 @click="handleSetFilter('incomplete')"/>
           <q-tooltip>
             Filter the todos
           </q-tooltip>
@@ -885,7 +888,7 @@ Create the `Todos` component.
     </q-card>
     <div v-if="error" class="error">
       <q-banner inline-actions class="text-white bg-red" @click="handleErrorClick">
-        ERROR: {{this.error}}
+        ERROR: {{ this.error }}
       </q-banner>
     </div>
   </div>
@@ -914,7 +917,7 @@ export default {
     }
   },
 
-  setup () {
+  setup() {
     return {
       alert: ref(false),
     }
@@ -960,7 +963,7 @@ export default {
 
     handleDeleteCompleted() {
       const completed = this.todos.filter(todo => todo.completed)
-      Promise.all(completed.map( todoToRemove => {
+      Promise.all(completed.map(todoToRemove => {
         return this.$api.removeForId(todoToRemove.id).then(() => {
           this.$log.debug("Item removed:", todoToRemove);
           this.todos.splice(this.todos.indexOf(todoToRemove), 1)
@@ -977,7 +980,7 @@ export default {
       if (!value) {
         return
       }
-      this.$api.createNew(value, false).then( (response) => {
+      this.$api.createNew(value, false).then((response) => {
         this.$log.debug("New item created:", response)
         this.newTodoTitle = ""
         this.todos.push({
@@ -1009,7 +1012,7 @@ export default {
       this.error = message
     },
 
-    handleErrorClick () {
+    handleErrorClick() {
       this.error = null;
     },
 
@@ -1022,9 +1025,11 @@ export default {
 #row-container {
   margin-top: 100px;
 }
+
 .my-card {
   min-width: 600px;
 }
+
 .error {
   color: red;
   text-align: center;
@@ -1033,7 +1038,6 @@ export default {
 }
 </style>
 ```
-
 {% endraw %}
 
 This component encapsulates the card that holds all of the todos, as well as the todo-associated interface elements. It also handles the rest of the functions related to updating todos on the server as well as in the local cache. 
@@ -1074,7 +1078,6 @@ You should be able to delete items, add new items, rename, and filter items. All
 In this tutorial, you built a Spring Boot resource server backend and a Vue front-end. The Vue client used the latest Vue 3 version with the Quasar framework. The app included full CRUD (create, read, update, and delete) capabilities. It was all secured using Okta.
 
 You can find the source code for this example on GitHub, in the [@oktadev/okta-spring-boot-vue-crud-example](https://github.com/oktadev/okta-spring-boot-vue-crud-example) repository.
-
 
 If you liked this post, there's a good chance you'll like similar ones:
 
