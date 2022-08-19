@@ -38,7 +38,7 @@ Vue is a JavaScript view library, like React and Angular. It's designed to be in
 
 In my experience, Vue.js is a great alternative to React. I learned React first and came to use Vue later. Like React, Vue uses a virtual DOM, provides reactive and composable view components, and enforces a strict one-way parent-child relationship when defining properties and state. This means that it is performant and avoids many confusing state relationships that can occur without one-way data binding.
 
-However, unlike React, Vue uses templates instead of JSX (a potentially welcome and more immediately accessible option). Vue gives you component scoped CSS using style tags in single-file components. In practice, this difference is pretty significant because, in React, the JSX and CSS-like syntax are close enough to HTML and CSS to be confusing but not the same, which creates problems initially (ever gone from a language that doesn't require semicolons back to one that does? It's something like that).
+However, unlike React, Vue uses templates instead of JSX (a potentially welcome and more immediately accessible option). Vue gives you component-scoped CSS using style tags in single-file components. In practice, this difference is pretty significant because, in React, the JSX and CSS-like syntax are close enough to HTML and CSS to be confusing but not the same, which creates problems initially. (Ever gone from a language that doesn't require semicolons back to one that does? It's something like that.)
 
 I find Vue to be a simpler, cleaner implementation. React requires a deep dive. You gotta take the red pill and go all the way. It's a super powerful system, but you have to be all in. Vue is a little friendlier and a little easier to get started.
 
@@ -1043,11 +1043,11 @@ export default {
 
 This component encapsulates the card that holds all of the todos and the todo-associated interface elements. It also handles the rest of the functions related to updating todos on the server and in the local cache.
 
-You're welcome to delete the `HelloWorld.vue` component, if you want. Or you can leave it. It's not needed.
+You're welcome to delete the `HelloWorld.vue` component if you want. Or you can leave it. It's not needed.
 
-## Confirm your Spring Boot and Vue Todo app works
+## Confirm your Spring Boot and Vue todo app works
 
-Make sure the Spring Boot API is still running. In a separate Bash shell, from the resource server directory, run the following command (if it is not already still running)
+Make sure the Spring Boot API is still running. In a separate Bash shell, from the resource server directory, run the following command (if it is not already still running).
 
 ```bash
 ./gradlew bootRun
