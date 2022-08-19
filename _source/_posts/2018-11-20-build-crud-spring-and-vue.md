@@ -12,7 +12,7 @@ tags: [java, spring, spring-boot, vue, crud, tutorial]
 tweets:
 - "Build a Spring Boot + Vue.js app!"
 - "Tutorial - @SpringBoot & @VueJS example application"
-- "Client/Server application tutorial with #SpringBoot and #VuewJS"
+- "Client/Server application tutorial with #SpringBoot and #VueJS"
 image: blog/featured/okta-java-short-headphones.jpg
 type: conversion
 update-url: /blog/2020/06/26/spring-boot-vue-kotlin

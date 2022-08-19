@@ -7,10 +7,10 @@ communities: [java,javascript]
 description: "Create a CRUD (create, read, update, and delete) application using Spring Boot and Vue.js."
 tags: [java, spring-boot, vue, javascript]
 tweets:
-- ""
-- ""
-- ""
-image:
+- "Build a secure Spring Boot + Vue.js app with this in-depth tutorial!"
+- "💚 Vue and Spring Boot? This full-stack tutorial is for you!"
+- "Learn how to build a full-stack application with Spring Boot and @vuejs in this excellent tutorial."
+image: blog/featured/okta-java-short-headphones.jpg
 type: conversion
 github: https://github.com/oktadev/okta-spring-boot-vue-crud-example
 ---
