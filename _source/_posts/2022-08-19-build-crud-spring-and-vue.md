@@ -15,7 +15,7 @@ type: conversion
 github: https://github.com/oktadev/okta-spring-boot-vue-crud-example
 ---
 
-You're going to use Vue and Spring Boot to build a todo list web application. The application will include CRUD abilities, meaning that you will be able to **c**reate, **r**ead, **u**pdate, and **d**elete the todo items on the Spring Boot API via the client. The Vue frontend client will use the Quasar framework for presentation. Both the Spring Boot API and the Vue client will be secured with OAuth 2.0 and OpenID Connect (OIDC) using Okta as the security provider.
+You will use Vue and Spring Boot to build a todo list web application. The application will include CRUD abilities, meaning that you can **c**reate, **r**ead, **u**pdate, and **d**elete the todo items on the Spring Boot API via the client. The Vue frontend client will use the Quasar framework for the presentation. OAuth 2.0 and OpenID Connect (OIDC) will secure the Spring Boot API and the Vue client using Okta as the security provider.
 
 {% img blog/spring-boot-vue3/spring-and-vue.png alt:"Spring Boot, Vue, and Okta logos" width:"500" %}{: .center-image }
 
@@ -24,7 +24,7 @@ This project has two major parts:
 - Spring Boot API
 - Vue client
 
-The Spring Boot app will include an H2 in-memory database and will use Spring Data JPA to map our todo data model to a database table for persistence. As you'll see, the server will leverage Spring Boot's ability to quickly expose data via a REST API with a minimum of configuration.
+The Spring Boot app will include an H2 in-memory database and will use Spring Data JPA to map our todo data model to a database table for persistence. As you'll see, the server will leverage Spring Boot's ability to quickly expose data via a REST API with minimal configuration.
 
 The client will use [Vue 3](https://vuejs.org/) and the Quasar framework. [The Quasar framework](https://quasar.dev/) provides components and layout tools to help build Vue applications quickly with a consistent, high-quality user interface.
 
@@ -36,21 +36,21 @@ Before you dig into the tutorial, I want to quickly introduce the technologies f
 
 Vue is a JavaScript view library, like React and Angular. It's designed to be incrementally adoptable, and the core library focuses solely on the view layer.
 
-In my experience, Vue.js is a great alternative to React. I learned React first, and came to use Vue later. Like React, Vue uses a virtual DOM, provides reactive and composable view components, and enforces a strict one-way parent-child relationship when defining properties and state. This means that it is performant and it avoids a lot of the confusing state relationships that can occur without one-way data binding. 
+In my experience, Vue.js is a great alternative to React. I learned React first and came to use Vue later. Like React, Vue uses a virtual DOM, provides reactive and composable view components, and enforces a strict one-way parent-child relationship when defining properties and state. This means that it is performant and avoids many confusing state relationships that can occur without one-way data binding.
 
-However, unlike React, Vue uses templates instead of JSX (a potentially welcome and more immediately accessible option) and Vue gives you component scoped css using style tags in single-file components. In practice this difference is pretty great because in React the JSX and css-like syntax is close enough to HTML and CSS to be confusing but not actually the same, which creates problems initially (ever gone from a language that doesn't require semicolons back to one that does? It's something like that).
+However, unlike React, Vue uses templates instead of JSX (a potentially welcome and more immediately accessible option). Vue gives you component scoped CSS using style tags in single-file components. In practice, this difference is pretty significant because, in React, the JSX and CSS-like syntax are close enough to HTML and CSS to be confusing but not the same, which creates problems initially (ever gone from a language that doesn't require semicolons back to one that does? It's something like that).
 
 I find Vue to be a simpler, cleaner implementation. React requires a deep dive. You gotta take the red pill and go all the way. It's a super powerful system, but you have to be all in. Vue is a little friendlier and a little easier to get started.
 
 ## Introducing the Quasar Framework
 
-The [Quasar Framework](https://quasar.dev/) builds on top of Vue to add a cross-platform component library and grid layout system. It also provides a lot of tools for deploying Vue-based applications to basically any platform you can think of, from web single-page apps and progressive web apps, to mobile apps and Electron-based desktop apps. In this tutorial, you'll only be using the layout and component library features, but Quasar's big push to allow developers to write a single web application and deploy it to any platform with a consistent look with minimal changes. 
+The [Quasar Framework](https://quasar.dev/) builds on top of Vue to add a cross-platform component library and grid layout system. It also provides many tools for deploying Vue-based applications to basically any platform you can think of, from web single-page and progressive web apps to mobile apps and Electron-based desktop apps. In this tutorial, you'll only be using the layout and component library features. Still, Quasar's big push is to allow developers to write a single web application and deploy it to any platform with a consistent look with minimal changes.
 
 ## About Spring Boot
 
 The server technology you're going to use is Spring Boot. Pure, unadulterated Spring (pre-Spring Boot) is a bit of a behemoth: super powerful but potentially time-sucking and frustrating. I'm pretty sure the whole computer conference phenomena came about so that people could learn and understand old-school Spring XML files. It certainly drove large sections of the computer publishing empires.
 
-Spring Boot was Spring's answer to this complexity (and to frameworks like Ruby on Rails and Grails). They did a great job of distilling down all of the power of Spring into a simple, quick, easy-to-use web framework. With a ridiculously small number of lines of code and a few annotations, you can have a fully functioning resource server.
+Spring Boot was Spring's answer to this complexity (and to frameworks like Ruby on Rails and Grails). They did a great job of distilling down all the power of Spring into a simple, quick, easy-to-use web framework. You can have a fully functioning resource server with a ridiculously small number of lines of code and a few annotations.
 
 Plus, when you're ready, you have all the power of Spring under the hood, just waiting.
 
@@ -83,7 +83,7 @@ Copy the client ID and issuer URI somewhere safe. You'll need them for both the 
 
 ## Bootstrap a Spring Boot app using Spring Initializr
 
-You're going to use [the Spring Initializr](start.spring.io/) to create a starter project for the resource server. You can take a look at the project website if you want, but here you're going to use the REST API to download a pre-configured starter.
+You're going to use [the Spring Initializr](start.spring.io/) to create a starter project for the resource server. You can look at the project website if you want, but here you'll use the REST API to download a pre-configured starter.
 
 The following command will download the starter project and un-tar it to a new directory named `resource-server`.
 
@@ -110,7 +110,7 @@ Project Lombok saves a lot of clutter and ceremony code. However, if you're usin
 
 ## Configure Spring Security
 
-Open the application properties file and update it. You're changing the server port so it doesn't conflict with the default Vue local server (which also defaults `8080`). 
+Open the application properties file and update it. You're changing the server port so it doesn't conflict with the default Vue local server (which also defaults `8080`).
 
 `src/main/resources/application.properties`
 
@@ -227,15 +227,15 @@ public class DemoApplication {
 }
 ```
 
-This demo application does three things that are helpful for demonstration purposes. First, it loads some test todo items into the repository. 
+This demo application does three things that are helpful for demonstration purposes. First, it loads some test todo items into the repository.
 
-Second, it configures the REST repository to expose IDs for the todo items. 
+Second, it configures the REST repository to expose IDs for the todo items.
 
-Third, it defines a filter to allow cross-origin requests from `http://localhost:8080`. This is necessary so that the Vue application, which is loaded from `http://localhost:9000` via the local test server, can load data from the Spring Boot resource server at `http://localhost:8080`. 
+Third, it defines a filter to allow cross-origin requests from `http://localhost:8080`. This is necessary so that the Vue application, which is loaded from `http://localhost:9000` via the local test server, can load data from the Spring Boot resource server at `http://localhost:8080`.
 
 For more info on CORS (cross-origin resource sharing), take a look at [the Mozilla docs](https://developer.mozilla.org/en-US/docs/Web/HTTP/CORS).
 
-Now, create the data model for the todo items. 
+Now, create the data model for the todo items.
 
 `src/main/java/com/example/demo/Todo.java`
 
@@ -388,7 +388,7 @@ The resource server is finished. The next step is to create the Vue client.
 
 ## Create a Vue JavaScript client
 
-From the project's root directory, use the Vue CLI to create a new application and navigate into the newly created `client` directory. Install the Vue CLI if you don't have it installed with `npm i -g @vue/cli`.
+Use the Vue CLI to create a new application from the project's root directory and navigate into the newly created `client` directory. Install the Vue CLI if you don't have it installed with `npm i -g @vue/cli`.
 
 ```bash
 vue create client
@@ -423,7 +423,7 @@ npm i axios@0.27.2 vuejs3-logger@1.0.0 vue-router@4.1.3 @okta/okta-vue@5.3.0
 - `vue-router`: the standard for routing between pages in Vue
 - `okta/okta-vue`: the Okta helper for Vue
 
-To learn more about how Okta integrates with Vue, take a look at [the GitHub page](https://github.com/okta/okta-vue) for the `okta/okta-vue` project. There are also more resources and example applications listed on in [the Okta docs for Vue](https://developer.okta.com/code/vue/).
+To learn more about how Okta integrates with Vue, look at [the GitHub page](https://github.com/okta/okta-vue) for the `okta/okta-vue` project. More resources and example applications are listed in [the Okta docs for Vue](https://developer.okta.com/code/vue/).
 
 Replace `main.js` with the following. Look at the `OktaAuth` configuration object. Notice the client ID and issuer URI are pulled from a `.env` file.
 
@@ -475,7 +475,7 @@ app.mount('#app')
 
 Stated very briefly, the file above creates the main Vue app and configures it to use the dependencies you added: Quasar, VueLogger, OktaVue, and the router. It also creates the API class that handles the requests to the resource server and passes it the `$auth` object it needs to get the JWT.
 
-Create a `.env` file in the client project root directory. The **Client ID** and **Issuer URI** are the values you used above in the Spring Boot `application.properties` file. The **Server URI** is the local URI for the Spring Boot API. You can leave this as it is unless you made a change (this gets used in the `Api.js` file).
+Create a `.env` file in the client project root directory. The **Client ID** and **Issuer URI** are the values you used above in the Spring Boot `application.properties` file. The **Server URI** is the local URI for the Spring Boot API. You can leave this unless you made a change (this gets used in the `Api.js` file).
 
 `.env`
 
@@ -485,9 +485,9 @@ VUE_APP_ISSUER_URI=<your-issuer-uri>
 VUE_APP_SERVER_URI=http://localhost:9000
 ```
 
-It's important to note that putting values like this in a `.env` file in a client application does not make then secure. It helps by keeping them out of a repository. However, they are still public in the sense that they are necessarily visible in the JavaScript code sent to the browser. In this use case, it's more of a configuration and organizational tool than a security tool. 
+It's important to note that putting values like this in a `.env` file in a client application does not make them secure. It helps by keeping them out of a repository. However, they are still public because they are necessarily visible in the JavaScript code sent to the browser. In this use case, it's more of a configuration and organizational tool than a security tool.
 
-If you want to keep the `.env` file out of the repository, you need to update the `.gitignore` file. There's no particuliar need to do this for the Client ID as it's going to be publicly available anyway.
+If you want to keep the `.env` file out of the repository, you need to update the `.gitignore` file. There's no particular need to do this for the Client ID as it will be publicly available anyway.
 
 Replace `App.vue` with the following.
 
@@ -554,7 +554,7 @@ export default {
 ```
 {% endraw %}
 
-This is the top-level component that defines the header bar and includes the router component. The header bar has a login or logout button and will show the authenticated user's email address when logged in.
+This top-level component defines the header bar and includes the router component. The header bar has a login or logout button and will show the authenticated user's email address when logged in.
 
 The app gets the authenticated user's email address from the JWT claims. (A claim is a piece of information asserted about the subject by the authenticating authority.) This happens in the `updateClaims()` method, which is triggered when the component is created, and is also triggered by a watch method so that it is updated as the authenticated state changes.
 
@@ -651,7 +651,7 @@ router.beforeEach(navigationGuard)
 export default router
 ```
 
-The router has three paths. The home path and the todos path are straightforward. The last path, `/callback`, is provided by the Okta Vue SDK to handle the login redirect from the Okta servers after authentication.
+The router has three paths. The home path and the todos path are straightforward. The Okta Vue SDK provides the last path, `/callback`, to handle the login redirect from the Okta servers after authentication.
 
 Create the `Home` component.
 
@@ -823,7 +823,7 @@ input.list-item-input {
 ```
 {% endraw %}
 
-This component encapsulates a single todo item. It has logic for editing the title, setting the completed status, and deleting items. If you look closely at the code, you'll notice that it both sends changes to the server and also updates the local copy stored in the `todos` array in the parent component. 
+This component encapsulates a single todo item. It has logic for editing the title, setting the completed status, and deleting items. If you look closely at the code, you'll notice that it sends changes to the server and updates the local copy stored in the `todos` array in the parent component.
 
 Create the `Todos` component.
 
@@ -1041,7 +1041,7 @@ export default {
 ```
 {% endraw %}
 
-This component encapsulates the card that holds all of the todos, as well as the todo-associated interface elements. It also handles the rest of the functions related to updating todos on the server as well as in the local cache. 
+This component encapsulates the card that holds all of the todos and the todo-associated interface elements. It also handles the rest of the functions related to updating todos on the server and in the local cache.
 
 You're welcome to delete the `HelloWorld.vue` component, if you want. Or you can leave it. It's not needed.
 
@@ -1063,7 +1063,7 @@ Open a browser and navigate to `http://localhost:8080`. You'll see the "please l
 
 {% img blog/spring-boot-vue3/please-log-in.png alt:"Please log in" width:"1000" %}{: .center-image }
 
-Log into the app using Okta's sign-in interface. 
+Log into the app using Okta's sign-in interface.
 
 {% img blog/spring-boot-vue3/okta-login.png alt:"Okta SSO login" width:"600" %}{: .center-image }
 
@@ -1071,13 +1071,13 @@ That will redirect you to the Todo app's main screen.
 
 {% img blog/spring-boot-vue3/app-main-screen.png alt:"Todo app main screen" width:"1000" %}{: .center-image }
 
-You should be able to delete items, add new items, rename, and filter items. All data is stored on the Spring Boot resource server and is presented by the Vue + Quasar frontend. 
+You should be able to delete items, add new items, rename, and filter items. All data is stored on the Spring Boot resource server and is presented by the Vue + Quasar frontend.
 
 ## Do more with Spring Boot, Vue, and Okta
 
-In this tutorial, you built a Spring Boot resource server backend and a Vue frontend. The Vue client used the latest Vue 3 version with the Quasar framework. The app included full CRUD (create, read, update, and delete) capabilities. It was all secured using Okta.
+You built a Spring Boot resource server backend and a Vue frontend in this tutorial. The Vue client used the latest Vue 3 version with the Quasar framework. The app included full CRUD (create, read, update, and delete) capabilities. It was all secured using Okta.
 
-You can find the source code for this example on GitHub, in the [@oktadev/okta-spring-boot-vue-crud-example](https://github.com/oktadev/okta-spring-boot-vue-crud-example) repository.
+You can find the source code for this example on GitHub in the [@oktadev/okta-spring-boot-vue-crud-example](https://github.com/oktadev/okta-spring-boot-vue-crud-example) repository.
 
 If you liked this post, there's a good chance you'll like similar ones:
 
