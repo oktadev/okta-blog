@@ -28,9 +28,11 @@ The Spring Boot app will include an H2 in-memory database and will use Spring Da
 
 The client will use [Vue 3](https://vuejs.org/) and the Quasar framework. [The Quasar framework](https://quasar.dev/) provides components and layout tools to help build Vue applications quickly with a consistent, high-quality user interface.
 
-Before you dig into the tutorial, I want to quickly introduce the technologies for those that might be unfamiliar. Feel free to skip down to the **Prerequisites** section if you're already familiar with Vue and Spring Boot.
+Before you dig into the tutorial, I want to quickly introduce the technologies for those that might be unfamiliar. Feel free to skip down to the [prerequisites](#prerequisites) section if you're already familiar with Vue and Spring Boot.
 
-**What is Vue.js?**
+{% include toc.md %}
+
+## What is Vue.js?x
 
 Vue is a JavaScript view library, like React and Angular. It's designed to be incrementally adoptable, and the core library focuses solely on the view layer.
 
@@ -40,11 +42,11 @@ However, unlike React, Vue uses templates instead of JSX (a potentially welcome 
 
 I find Vue to be a simpler, cleaner implementation. React requires a deep dive. You gotta take the red pill and go all the way. It's a super powerful system, but you have to be all in. Vue is a little friendlier and a little easier to get started.
 
-**Quasar Framework**
+## Introducing the Quasar Framework
 
 The [Quasar Framework](https://quasar.dev/) builds on top of Vue to add a cross-platform component library and grid layout system. It also provides a lot of tools for deploying Vue-based applications to basically any platform you can think of, from web single-page apps and progressive web apps, to mobile apps and Electron-based desktop apps. In this tutorial, you'll only be using the layout and component library features, but Quasar's big push to allow developers to write a single web application and deploy it to any platform with a consistent look with minimal changes. 
 
-**About Spring Boot**
+## About Spring Boot
 
 The server technology you're going to use is Spring Boot. Pure, unadulterated Spring (pre-Spring Boot) is a bit of a behemoth: super powerful but potentially time-sucking and frustrating. I'm pretty sure the whole computer conference phenomena came about so that people could learn and understand old-school Spring XML files. It certainly drove large sections of the computer publishing empires.
 
@@ -52,7 +54,7 @@ Spring Boot was Spring's answer to this complexity (and to frameworks like Ruby 
 
 Plus, when you're ready, you have all the power of Spring under the hood, just waiting.
 
-**Prerequisites:**
+<a id="prerequisites"></a>**Prerequisites:**
 
 Before you start, please make sure you have the following prerequisites installed (or install them now).
 
@@ -63,8 +65,6 @@ Before you start, please make sure you have the following prerequisites installe
 - [Vue CLI](https://cli.vuejs.org/guide/installation.html): you'll use this to bootstrap the Vue client
 
 You will need a free Okta Developer account if you don't already have one. But you can wait until later in the tutorial and use the Okta CLI to log in or register for a new account.
-
-{% include toc.md %}
 
 Instead of building the project, you can also [clone the repo](https://github.com/oktadev/okta-spring-boot-vue-crud-example) and follow the instructions there to configure it.
 
@@ -81,7 +81,7 @@ cd spring-boot-vue-crud
 
 Copy the client ID and issuer URI somewhere safe. You'll need them for both the client and resource server applications.
 
-## Bootstrap the Spring Boot app using Spring Initializr
+## Bootstrap a Spring Boot app using Spring Initializr
 
 You're going to use [the Spring Initializr](start.spring.io/) to create a starter project for the resource server. You can take a look at the project website if you want, but here you're going to use the REST API to download a pre-configured starter.
 
@@ -89,7 +89,7 @@ The following command will download the starter project and un-tar it to a new d
 
 ```bash
 curl https://start.spring.io/starter.tgz \
-  -d bootVersion=2.6.10 \
+  -d bootVersion=2.7.3 \
   -d javaVersion=11 \
   -d dependencies=web,data-rest,lombok,data-jpa,h2,okta \
   -d type=gradle-project \
@@ -108,7 +108,7 @@ The dependencies you're including are:
 
 Project Lombok saves a lot of clutter and ceremony code. However, if you're using an IDE, **you'll need to install a plugin for Lombok**. See the [project's installation docs](https://projectlombok.org/) for more information.
 
-## Update the Secure Spring Boot app
+## Secure the Spring Boot app
 
 Open the application properties file and update it. You're changing the server port so it doesn't conflict with the default Vue local server (which also defaults `8080`). 
 
