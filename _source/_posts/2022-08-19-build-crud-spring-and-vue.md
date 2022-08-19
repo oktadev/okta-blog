@@ -306,38 +306,38 @@ HTTP/1.1 200
 ...
 
 {
-    "_embedded": {
-        "todos": [
-            {
-                "_links": {
-                    "self": {
-                        "href": "http://localhost:9000/todos/1"
-                    },
-                    "todo": {
-                        "href": "http://localhost:9000/todos/1"
-                    }
-                },
-                "completed": false,
-                "id": 1,
-                "title": "Buy milk"
-            },
-            {
-                "_links": {
-                    "self": {
-                        "href": "http://localhost:9000/todos/2"
-                    },
-                    "todo": {
-                        "href": "http://localhost:9000/todos/2"
-                    }
-                },
-                "completed": true,
-                "id": 2,
-                "title": "Eat pizza"
-            },
-            ...
-        ]
-    },
-    ...
+  "_embedded": {
+    "todos": [
+      {
+        "_links": {
+          "self": {
+            "href": "http://localhost:9000/todos/1"
+          },
+          "todo": {
+            "href": "http://localhost:9000/todos/1"
+          }
+        },
+        "completed": false,
+        "id": 1,
+        "title": "Buy milk"
+      },
+      {
+        "_links": {
+          "self": {
+            "href": "http://localhost:9000/todos/2"
+          },
+          "todo": {
+            "href": "http://localhost:9000/todos/2"
+          }
+        },
+        "completed": true,
+        "id": 2,
+        "title": "Eat pizza"
+      },
+      ...
+    ]
+  },
+  ...
 }
 ```
 
