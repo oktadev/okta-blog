@@ -567,13 +567,13 @@ import axios from 'axios'
 
 const instance = axios.create({
   baseURL: process.env.VUE_APP_SERVER_URI,
-  timeout: 1000
+  timeout: 2000
 });
 
 const createApi = (auth) => {
 
   instance.interceptors.request.use(async function (config) {
-    let accessToken = await auth.getAccessToken()
+    let accessToken = auth.getAccessToken()
     config.headers = {
       Authorization: `Bearer ${accessToken}`
     }
