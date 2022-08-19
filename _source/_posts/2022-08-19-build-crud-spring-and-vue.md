@@ -68,7 +68,7 @@ You will need a free Okta Developer account if you don't already have one. But y
 
 Instead of building the project, you can also [clone the repo](https://github.com/oktadev/okta-spring-boot-vue-crud-example) and follow the instructions there to configure it.
 
-## Create an OpenID Connect application
+## Create an OpenID Connect app
 
 Open a Bash shell. Create a parent directory for the project. Eventually, this will include both the resource server and client projects.
 
@@ -343,7 +343,7 @@ HTTP/1.1 200
 
 Stop the resource server using `CTRL + C`.
 
-## Secure your Spring Boot resource server
+## Secure your Spring Boot API
 
 Edit the `SecurityConfiguration.java` file and change the filter chain's bean definition to enable a resource server.
 
