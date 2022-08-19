@@ -10,14 +10,14 @@ tweets:
 - "Build a secure Spring Boot + Vue.js app with this in-depth tutorial!"
 - "💚 Vue and Spring Boot? This full-stack tutorial is for you!"
 - "Learn how to build a full-stack application with Spring Boot and @vuejs in this excellent tutorial."
-image: blog/featured/okta-java-short-headphones.jpg
+image: blog/spring-boot-vue3/spring-boot-vue.jpg
 type: conversion
 github: https://github.com/oktadev/okta-spring-boot-vue-crud-example
 ---
 
 You're going to use Vue and Spring Boot to build a todo list web application. The application will include CRUD abilities, meaning that you will be able to **c**reate, **r**ead, **u**pdate, and **d**elete the todo items on the Spring Boot API via the client. The Vue frontend client will use the Quasar framework for presentation. Both the Spring Boot API and the Vue client will be secured with OAuth 2.0 and OpenID Connect (OIDC) using Okta as the security provider.
 
-{% img blog/spring-boot-crud-update/spring-and-vue.png alt:"Spring Boot, Vue, and Okta logos" width:"500" %}{: .center-image }
+{% img blog/spring-boot-vue3/spring-and-vue.png alt:"Spring Boot, Vue, and Okta logos" width:"500" %}{: .center-image }
 
 This project has two major parts:
 
@@ -32,7 +32,7 @@ Before you dig into the tutorial, I want to quickly introduce the technologies f
 
 {% include toc.md %}
 
-## What is Vue.js?x
+## What is Vue.js?
 
 Vue is a JavaScript view library, like React and Angular. It's designed to be incrementally adoptable, and the core library focuses solely on the view layer.
 
@@ -68,7 +68,7 @@ You will need a free Okta Developer account if you don't already have one. But y
 
 Instead of building the project, you can also [clone the repo](https://github.com/oktadev/okta-spring-boot-vue-crud-example) and follow the instructions there to configure it.
 
-## Create Okta OIDC app
+## Create an OpenID Connect application
 
 Open a Bash shell. Create a parent directory for the project. Eventually, this will include both the resource server and client projects.
 
@@ -108,7 +108,7 @@ The dependencies you're including are:
 
 Project Lombok saves a lot of clutter and ceremony code. However, if you're using an IDE, **you'll need to install a plugin for Lombok**. See the [project's installation docs](https://projectlombok.org/) for more information.
 
-## Secure the Spring Boot app
+## Configure Spring Security
 
 Open the application properties file and update it. You're changing the server port so it doesn't conflict with the default Vue local server (which also defaults `8080`). 
 
@@ -225,7 +225,6 @@ public class DemoApplication {
     }
     
 }
-
 ```
 
 This demo application does three things that are helpful for demonstration purposes. First, it loads some test todo items into the repository. 
@@ -286,7 +285,7 @@ interface TodoRepository extends JpaRepository<Todo, Long> {}
 
 This is a Spring Data JpaRepository that can persist the data model you just defined. Because it is annotated with `@RepositoryRestResource` (and because the `data-rest` dependency was included), this repository will be automatically exposed as a web resource.
 
-## Test the unsecured app and secure it
+## Test your Vue and Spring Boot app
 
 Run the app using the following command from the `resource-server` subdirectory.
 
@@ -342,7 +341,9 @@ HTTP/1.1 200
 }
 ```
 
-Stop the resource server using `CTRL + C`. 
+Stop the resource server using `CTRL + C`.
+
+## Secure your Spring Boot resource server
 
 Edit the `SecurityConfiguration.java` file and change the filter chain's bean definition to enable a resource server.
 
@@ -385,7 +386,7 @@ HTTP/1.1 401
 
 The resource server is finished. The next step is to create the Vue client.
 
-## Create the Vue JavaScript client
+## Create a Vue JavaScript client
 
 From the project's root directory, use the Vue CLI to create a new application and navigate into the newly created `client` directory. Install the Vue CLI if you don't have it installed with `npm i -g @vue/cli`.
 
@@ -1044,7 +1045,7 @@ This component encapsulates the card that holds all of the todos, as well as the
 
 You're welcome to delete the `HelloWorld.vue` component, if you want. Or you can leave it. It's not needed.
 
-## Test the todo app
+## Confirm your Spring Boot and Vue Todo app works
 
 Make sure the Spring Boot API is still running. In a separate Bash shell, from the resource server directory, run the following command (if it is not already still running)
 
@@ -1060,22 +1061,21 @@ npm run serve
 
 Open a browser and navigate to `http://localhost:8080`. You'll see the "please log in" page.
 
-
-{% img blog/spring-boot-crud-update/please-log-in.png alt:"Please log in" width:"1000" %}{: .center-image }
+{% img blog/spring-boot-vue3/please-log-in.png alt:"Please log in" width:"1000" %}{: .center-image }
 
 Log into the app using Okta's sign-in interface. 
 
-{% img blog/spring-boot-crud-update/okta-login.png alt:"Okta SSO login" width:"600" %}{: .center-image }
+{% img blog/spring-boot-vue3/okta-login.png alt:"Okta SSO login" width:"600" %}{: .center-image }
 
 That will redirect you to the Todo app's main screen.
 
-{% img blog/spring-boot-crud-update/app-main-screen.png alt:"Todo app main screen" width:"1000" %}{: .center-image }
+{% img blog/spring-boot-vue3/app-main-screen.png alt:"Todo app main screen" width:"1000" %}{: .center-image }
 
 You should be able to delete items, add new items, rename, and filter items. All data is stored on the Spring Boot resource server and is presented by the Vue + Quasar frontend. 
 
-## Do More with Okta, Vue, and Spring Boot
+## Do more with Spring Boot, Vue, and Okta
 
-In this tutorial, you built a Spring Boot resource server backend and a Vue front-end. The Vue client used the latest Vue 3 version with the Quasar framework. The app included full CRUD (create, read, update, and delete) capabilities. It was all secured using Okta.
+In this tutorial, you built a Spring Boot resource server backend and a Vue frontend. The Vue client used the latest Vue 3 version with the Quasar framework. The app included full CRUD (create, read, update, and delete) capabilities. It was all secured using Okta.
 
 You can find the source code for this example on GitHub, in the [@oktadev/okta-spring-boot-vue-crud-example](https://github.com/oktadev/okta-spring-boot-vue-crud-example) repository.
 
