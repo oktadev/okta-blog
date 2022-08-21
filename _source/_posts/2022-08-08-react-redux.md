@@ -17,15 +17,13 @@ canonical:
 
 There are a myriad of state management options available for React. React provides the option of using the built-in [Context](https://reactjs.org/docs/context.html) for when you have a nested tree of components that share a state. There is also a built-in [useState hook](https://reactjs.org/docs/context.html) that will allow you to set local state for a component.
 
-For more complex scenarios where you might need a single source of truth that shared across large sections of your application and is frequently changing, you might want to consider using a more robust state management library.
+For more complex scenarios where you might need a single source of truth that is shared across large sections of your application and is frequently changing, you might want to consider using a more robust state management library.
 
-Our demo app will utilize all three, needing authentication checks and user profile information.
-
-Let's compare when to use the useState hook vs. React Context vs. a more global state management solution like one of the most popular ones, [Redux](https://redux.js.org/).
+Our demo app will show use cases for all three. Let's compare when to use the useState hook vs. React Context vs. a more global state management solution like one of the most popular ones, [Redux](https://redux.js.org/).
 
 ## Prerequisites
 
-As of the time of this publication, Node >= 14.0.0 and npm >= 5.6 are required for Create React App. You can check for the latest required versions at https://reactjs.org/docs/create-a-new-react-app.html.
+As of the time of this publication, Node >= 14.0.0 and npm >= 5.6 are required for Create React App. You can check for the latest required versions at [https://reactjs.org/docs/create-a-new-react-app.html](https://reactjs.org/docs/create-a-new-react-app.html).
 
 **NOTE:** Redux also recommends you install the [Chrome React DevTools Extension](https://chrome.google.com/webstore/detail/react-developer-tools/fmkadmapgofadopljbjfkapdkoienihi?hl=en).
 
@@ -72,33 +70,33 @@ After the UI for your application is initially rendered using an initial global 
 3. The store notifies subscribed parts in the UI that there has been an update.
 4. Those subscribed parts then check to see if a re-render is needed to update whatever needs updating in the UI.
 
-### Terms
+**NOTE:** The built-in Redux template we used includes a great counter example of how Redux works. You can take a closer look at [Redux's explanation of the counter example](https://redux.js.org/introduction/examples/).
 
-[Action](https://redux.js.org/tutorials/essentials/part-1-overview-concepts#reducers)
+### Useful Terms
+
+**[Action](https://redux.js.org/tutorials/essentials/part-1-overview-concepts#reducers)**
 
 An Action is an JS object with a type and a payload. It describes an actionable interaction within your application, and typically is named something like `createUser` or `addToDo`.
 
-[Action Creators](https://redux.js.org/tutorials/essentials/part-1-overview-concepts#reducers)
+**[Action Creators](https://redux.js.org/tutorials/essentials/part-1-overview-concepts#reducers)**
 
 Action Creators can be used to dynamically create actions. NOT IN APP
 
-[Reducers](https://redux.js.org/tutorials/essentials/part-1-overview-concepts#reducers)
+**[Reducers](https://redux.js.org/tutorials/essentials/part-1-overview-concepts#reducers)**
 
 A Reducer returns the proper current state with applicable changes as compared to the previous state when it's passed a new state. They work similarly to the Array.reduce method.
 
-[Redux Store](https://redux.js.org/tutorials/fundamentals/part-4-store#redux-store)
+**[Redux Store](https://redux.js.org/tutorials/fundamentals/part-4-store#redux-store)**
 
 The current live state for your app lives in the Redux Store.
 
-[Selectors](https://redux.js.org/tutorials/essentials/part-1-overview-concepts#selectors)
+**[Selectors](https://redux.js.org/tutorials/essentials/part-1-overview-concepts#selectors)**
 
 A selector returns a piece of the live Redux state as stored in the live Redux store.
 
-[Dispatch](https://redux.js.org/tutorials/essentials/part-1-overview-concepts#dispatch)
+**[Dispatch](https://redux.js.org/tutorials/essentials/part-1-overview-concepts#dispatch)**
 
 A Dispatch is a method with triggers an action that in turn updates the Redux store.
-
-**NOTE:** The built-in Redux template we used includes a great counter example of how Redux works. You can take a closer look at [Redux's explanation of the counter example](https://redux.js.org/introduction/examples/).
 
 ## Add authentication using OAuth2 and OIDC
 
@@ -206,7 +204,7 @@ export default userProfileSlice.reducer;
 
 ```
 
-We'll add the `email`, `given_name`, and `family_name` to the global store here. This will be returned from the built-in method in the `oktaAuth` module to fetch user info that we will use later.
+We'll add the `email`, `given_name`, and `family_name` to the global store here. This will be returned from a built-in method in the `oktaAuth` module to fetch user info that we will use later.
 
 3. In the `src/app/store.ts` file, add the created Redux slice to the Redux store:
 
