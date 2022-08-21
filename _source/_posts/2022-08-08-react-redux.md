@@ -120,6 +120,7 @@ REACT_APP_OKTA_BASE_REDIRECT_URI=http://localhost:3000
 ## Add Okta authentication, create routes, and use environment variables
 
 1. Modify the existing `App.tsx` file:
+
 ```bash
 import "./App.css";
 import { OktaAuth, toRelativeUrl } from "@okta/okta-auth-js";
@@ -155,7 +156,6 @@ function App() {
 }
 
 export default App;
-
 ```
 
 ## Add Initial State, Create Redux Slice, and Create Selector
@@ -166,6 +166,7 @@ mkdir src/redux-state
 ```
 
 2. Add a `userProfileSlice.tsx` file in the created `redux-state` directory with the following:
+
 ```bash
 import { createSlice } from "@reduxjs/toolkit";
 import { RootState } from "../app/store";
@@ -201,7 +202,6 @@ export const selectUserProfile = (state: RootState): IUserProfile =>
 
 export const { setUserProfile } = userProfileSlice.actions;
 export default userProfileSlice.reducer;
-
 ```
 
 We'll add the `email`, `given_name`, and `family_name` to the global store here. This will be returned from a built-in method in the `oktaAuth` module to fetch user info that we will use later.
@@ -228,7 +228,6 @@ export type AppThunk<ReturnType = void> = ThunkAction<
   unknown,
   Action<string>
 >;
-
 ```
 
 ## Create Components
@@ -303,7 +302,6 @@ export default function Home() {
     </div>
   );
 }
-
 ```
 
 Here we use React's [useEffect hook](https://reactjs.org/docs/hooks-effect.html) to set the global user state we set up earlier using `setUserProfile` and the local user state we set up in this file with [useState](https://reactjs.org/docs/hooks-state.html).
@@ -355,7 +353,6 @@ export default function Dashboard() {
     </div>
   );
 }
-
 ```
 
 In this file, we're using a Redux selector to get the current state for `userProfile` to then render those values in our component.
@@ -384,7 +381,6 @@ export default function UserProfile() {
     </>
   );
 }
-
 ```
 
 In this file, we are using the Redux selector we created prior to get the current state for the state slice that includes the user profile information we set earlier.
@@ -411,7 +407,6 @@ export default function UserProfileExtra() {
     </>
   );
 }
-
 ```
 
 Here, another way to manage state is demonstrated. This time, React's built-in `useContext` hook is used to get what we set prior in the `UserContext` we created with React's `createContext` method.
@@ -488,7 +483,6 @@ Here, another way to manage state is demonstrated. This time, React's built-in `
   font-size: 20px;
   font-weight: 500;
 }
-
 ```
 
 Our app is now complete! Next we'll run it to log a user in and render our applicable states.
