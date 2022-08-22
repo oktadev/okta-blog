@@ -8,7 +8,7 @@ author: nickolas-fisher
 by: contractor
 communities: [javascript]
 description: "Learn how to build a secure GraphQL API with Node.js."
-tags: [nodejs, graphql]
+tags: [node, graphql]
 tweets:
 - "Want to learn how to build a secure GraphQL API in Node.js? Check this out!"
 - "Need to get up to speed with GraphQL and Node.js? We've got you covered!"

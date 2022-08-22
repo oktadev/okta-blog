@@ -8,7 +8,7 @@ author: andrew-hughes
 by: contractor
 communities: [java]
 description: "This post walks through creating a Spring Boot app and enabling multi-factor authentication with Okta."
-tags: [java, spring, spring-boot, oidc, openid-connect, mfa]
+tags: [java, spring, spring-boot, oidc, mfa]
 tweets:
  - "Add Multi-Factor Authentication to your Spring Boot app with Okta, no code needed:"
  - "Don't let hackers steal your credentials! Enable MFA for your Spring Boot app with OAuth 2.0 and Okta:"

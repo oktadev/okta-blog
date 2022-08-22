@@ -8,7 +8,7 @@ author: matt-raible
 by: advocate
 communities: [java, javascript]
 description: "Vue is a lean and mean JavaScript framework. It has a smalling learning curve and is great for mobile apps. Learn how to build a Spring Boot API with Java, a Vue UI with TypeScript, and secure it all with OIDC."
-tags: [authentication, spring-boot, spring-boot-2-dot-1, vuejs, vue, oidc]
+tags: [authentication, spring-boot, spring-boot-2, vue, oidc]
 tweets:
 - "Vue.js + Spring Boot makes for a nice development experience. Learn how to make them work together with OIDC authentication →"
 - "Spring Boot with @java + Vue with @typescriptlang == 💚. Learn how to build a @springboot + @vuejs app today!"

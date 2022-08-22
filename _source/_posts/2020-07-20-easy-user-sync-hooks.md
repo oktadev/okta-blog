@@ -8,7 +8,7 @@ author: heather-wallander
 by: internal-contributor
 communities: [javascript]
 description: "Okta's hooks feature makes it easy to have event driven side effects for external api calls."
-tags: [nodejs, node, api, webhooks, hooks]
+tags: [node, api, webhooks, hooks]
 tweets:
   - "Heard of webhooks? Check out how Okta's Event Hooks can make it easy to update your data on the fly!"
   - "You've probably heard of webhooks, but what are they really? Learn about Okta's Event Hooks in this post."

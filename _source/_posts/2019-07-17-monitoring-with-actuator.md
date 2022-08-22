@@ -8,7 +8,7 @@ author: jimena-garbarino
 by: contractor
 communities: [java]
 description: "Spring Boot Actuator provides out-of-the-box monitoring for your app. It's also easily extended for new functionailty."
-tags: [spring-boot, actuator, openid-connect, oidc]
+tags: [spring-boot, actuator, oidc]
 tweets:
 - "Ever wanted to see the precise http traffic going through your Spring Boot API? With Actuator and some code, you can!"
 - "Use Spring Boot Actuator for production strength app monitoring."

@@ -8,7 +8,7 @@ author: brandon-parise
 by: contractor
 communities: [javascript, devops]
 description: "This article shows you how to create a secure Vue.js app and deploy it to AWS."
-tags: [vue-dot-js, vue, aws, serverless]
+tags: [vue, aws, serverless]
 tweets:
 - "Want to learn how to deploy a secure @vuejs to AWS? This article is for you!"
 - "In this tutorial, you'll learn how to build a @vuejs app that you can easily deploy to AWS and CloudFront. As an added bonus, it leverages a serverless API for its backend."

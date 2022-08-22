@@ -8,7 +8,7 @@ author: matt-raible
 by: advocate
 communities: [java, javascript]
 description: "Angular and Spring Boot are arguably the two most popular frameworks in all of web development. Matt Raible shows you how to use them together in the same app, and how to secure it all with Okta."
-tags: [authentication, spring-boot, spring-boot-2-dot-0, angular, angular-5, okta, oidc]
+tags: [authentication, spring-boot, spring-boot-2, angular, angular-5, okta, oidc]
 tweets:
   - "Angular + Spring Boot makes for a nice development experience. Learn how to make them work together with OIDC authentication →"
   - "Spring Boot with @java + Angular with @typescriptlang = ❤️. Learn how to build a @springboot + @angular CRUD app today!"

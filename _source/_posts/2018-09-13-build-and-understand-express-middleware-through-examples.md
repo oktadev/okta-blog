@@ -8,7 +8,7 @@ author: lee-brandt
 by: advocate
 communities: [javascript]
 description: "This tutorial walks you through creating and understanding middleware for Express."
-tags: [express, expressjs, node, nodejs, middleware]
+tags: [express, expressjs, node, node, middleware]
 tweets:
 - "Learn #express middleware by example with @leebrandt →"
 - "Need to build and understand #express middleware? We've got you covered. <3"

@@ -8,7 +8,7 @@ author: matt-raible
 by: advocate
 communities: [javascript]
 description: "This screencast shows you how to create an Express app and add login to it in just a few steps."
-tags: [nodejs, javascript, login, oidc, authentication, logout]
+tags: [node, javascript, login, oidc, authentication, logout]
 tweets:
 - "Add login to your @nodejs in just a few minutes!"
 - "Do you love adding login to your Node.js apps? Probably not! Learn how to do it with an easy button from @mraible."

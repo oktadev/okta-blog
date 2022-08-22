@@ -8,7 +8,7 @@ author: braden-kelley
 by: contractor
 communities: [javascript]
 description: "JavaScript is used everywhere on the web, but can also be used server-side. This tutorial shows you how to create a server-to-server REST API complete with OAuth 2.0 authentication."
-tags: [authentication, node, nodejs, oauth-2-dot-0, server-to-server, machine-to-machine, client-credentials-flow, express, sequelize, finale, rest-api]
+tags: [authentication, node, oauth2, server-to-server, machine-to-machine, client-credentials-flow, express, sequelize, finale, rest-api]
 tweets:
 - "Learn how to easily build a secure REST API in @nodejs with OAuth 2.0 Client Credentials."
 - "Need a secure server-to-server REST API? It's simple to do with @nodejs and Okta."

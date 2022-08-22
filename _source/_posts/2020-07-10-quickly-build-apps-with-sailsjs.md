@@ -8,7 +8,7 @@ author: nickolas-fisher
 by: contractor
 communities: [javascript]
 description: "Learn how to use the Sails.js framework to rapidly build a new web application"
-tags: [sailsjs, nodejs, javascript, node]
+tags: [sailsjs, node, javascript, node]
 tweets:
   - "Learn how to use the Sails.js framework to rapidly build a new Node.js web application!"
   - "Sails.js is a fantastic web application framework for Node.js. Follow this tutorial to learn how to build your first Sails.js app!"

@@ -8,7 +8,7 @@ author: charlie-holland
 by: contractor
 communities: [.net]
 description: "Learn to use C# and WebSockets to build a multiplayer game."
-tags: [c-sharp, csharp, websockets]
+tags: [csharp, websockets]
 tweets:
 - "Build a simple multiplayer game using C# and WebSockets in this killer tutorial!"
 - "Tutorial: Build a multiplayer game with C# and WebSockets!"

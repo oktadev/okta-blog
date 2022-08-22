@@ -8,7 +8,7 @@ author: micah-silverman
 by: advocate
 communities: [security]
 description: "This blog series is a primer on OIDC. In this first post, we'll review some key concepts around OIDC and tokens, explained in human terms."
-tags: [oauth, oauth2, openid, openid-connect, oidc]
+tags: [oauth, oauth2, oidc]
 redirect_from:
   - "/blog/2017/08/01/oidc-primer-part-1"
 type: awareness
