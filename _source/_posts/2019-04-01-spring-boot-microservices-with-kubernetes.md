@@ -8,7 +8,7 @@ author: andrew-hughes
 by: contractor
 communities: [java, devops]
 description: "This tutorial shows you how to use Kubernetes to deploy a Spring Boot microservice architecture to Google Cloud and Google Kubernetes Engine (GKE)."
-tags: [java, spring-boot, microservices, kubernetes, k8s]
+tags: [java, spring-boot, microservices, kubernetes]
 tweets:
 - "Learn how to use Spring Boot to build a microservices architecture, then deploy it to Google Cloud using @kubernetesio!"
 - "Using @kubernetesio to deploy your microservices architecture is all the rage. Check out this post to learn how to do it!"
@@ -851,7 +851,7 @@ So close! The last thing you need to do is to use the OIDC Debugger tool to gene
 
 At the bottom, click **Send Request**.
 
-Copy the generated token, and store it in a shell variable for convenience:
+Copy the generated access token, and store it in a shell variable for convenience:
 
 ```bash
 TOKEN=eyJraWQiOiI4UlE5REJGVUJOTnJER0VGaEExekd6bWJqREp...

@@ -13,6 +13,8 @@ tweets:
   - "Spring Boot + SAML + Okta = 💙! Learn more → "
 tags: [spring-boot, saml, okta]
 type: conversion
+redirect_to:
+  - "/blog/2022/08/09/spring-boot-saml"
 update-url: /blog/2020/10/14/spring-security-saml-database-authentication
 update-title: "Spring Security SAML and Database Authentication"
 changelog:

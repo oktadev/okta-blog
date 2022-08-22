@@ -5,7 +5,7 @@ author: teniola-fatunmbi
 by: contractor
 communities: [javascript]
 description: "This article examines the use of cookies vs. tokens for authentication, comparing the pros and cons of each method, so that you can determine which is best for your project."
-tags: [security, javascript, jwt, json-web-tokens, tokens, https, cookies]
+tags: [security, javascript, jwt, tokens, https, cookies]
 tweets:
 - "Trouble deciding between cookies or tokens? Here are some pros and cons of each method to capture your authentication data. "
 - "Cookies and tokens, apples and oranges. See which method fits your authentication use case the best?"

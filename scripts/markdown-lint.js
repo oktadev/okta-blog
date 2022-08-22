@@ -24,10 +24,7 @@ const regexValidator = [
   // For global ignores, update the getFiles() method.
   {
     regex: 'https?:\/\/(your-org|example|rain|your-subdomain|your-domain|{org}).okta*',
-    omitFiles: [
-      '/_docs/api/postman/apps.json',
-      '/_docs/api/postman/example.oktapreview.com.environment'
-    ]
+    omitFiles: []
   },
   {
     regex: 'https?:\/\/{yourOktaDomain}.com*',
@@ -75,10 +72,7 @@ async function getFiles(dir) {
   for (let file of files) {
     const relative = file.replace(dir, '');
     fileMap[relative] = true;
-    if (!file.includes('_sdk/')
-      && !file.includes('/_assets')
-      && !file.includes('/.asset-cache')
-      ) {
+    if (!file.includes('/_assets') && !file.includes('/.asset-cache')) {
       filesToCheck.push({ orig: file, relative });
     }
   }

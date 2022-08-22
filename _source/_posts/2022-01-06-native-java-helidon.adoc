@@ -13,6 +13,10 @@ tweets:
 image: blog/native-java-helidon/native-java-helidon.jpg
 type: conversion
 github: https://github.com/oktadev/native-java-examples
+changelog:
+- 2022-05-11: Updated to use GraalVM 22.1. See this post's changes in [okta-blog#1166](https://github.com/oktadev/okta-blog/pull/1166).
+- 2022-04-19: Updated to use Helidon 2.5.0. See this post's changes in [okta-blog#1143](https://github.com/oktadev/okta-blog/pull/1143) and the example app changes in [native-java-examples#23](https://github.com/oktadev/native-java-examples/pull/23).
+- 2022-03-31: Updated to use GraalVM 22.0 and Helidon 2.4.2. See this post's changes in [okta-blog#1124](https://github.com/oktadev/okta-blog/pull/1124) and the example app changes in [native-java-examples#17](https://github.com/oktadev/native-java-examples/pull/17).
 ---
 :page-liquid:
 :toc: macro
@@ -61,14 +65,7 @@ You will need a JDK with GraalVM and its `native-image` compiler. Using SDKMAN, 
 
 [source,shell]
 ----
-sdk install java 21.3.0.r17-grl
-----
-
-Add the native extension to the JDK:
-
-[source,shell]
-----
-gu install native-image
+sdk install java 22.1.0.r17-grl
 ----
 
 == Run a Helidon Java API
@@ -91,7 +88,7 @@ $ http :8080/hello
 
 HTTP/1.1 401 Unauthorized
 Content-Length: 0
-Date: Tue, 4 Jan 2022 10:17:11 -0700
+Date: Wed, 11 May 2022 11:23:16 -0600
 connection: keep-alive
 ----
 
@@ -156,25 +153,23 @@ To compile this Helidon app into a native binary, run:
 mvn package -Pnative-image
 ----
 
-This command will take a few minutes to complete. My 2019 MacBook Pro with a 2.4 GHz 8-Core Intel Core i9 processor and 64 GB of RAM took 2 min. 14 s. to finish.
+This command will take a few minutes to complete. My 2019 MacBook Pro with a 2.4 GHz 8-Core Intel Core i9 processor and 64 GB of RAM took 1 min. 23 s. to finish.
 
 Start it with `./target/helidon`:
 
 ----
 $ ./target/helidon
-...
-
-2022.01.04 10:28:37 INFO io.helidon.microprofile.server.ServerCdiExtension Thread[main,5,main]: Registering JAX-RS Application: HelloApplication
-2022.01.04 10:28:37 WARNING org.glassfish.jersey.internal.Errors Thread[main,5,main]: The following warnings have been detected: WARNING: The (sub)resource method hello in com.okta.rest.controller.HelloResource contains empty path annotation.
-
-2022.01.04 10:28:37 INFO io.helidon.webserver.NettyWebServer Thread[nioEventLoopGroup-2-1,10,main]: Channel '@default' started: [id: 0xbecd2683, L:/[0:0:0:0:0:0:0:0]:8080]
-2022.01.04 10:28:37 INFO io.helidon.microprofile.server.ServerCdiExtension Thread[main,5,main]: Server started on http://localhost:8080 (and all other host addresses) in 53 milliseconds (since JVM startup).
-2022.01.04 10:28:37 INFO io.helidon.common.HelidonFeatures Thread[features-thread,5,main]: Helidon MP 2.4.1 features: [CDI, Config, Fault Tolerance, Health, JAX-RS, Metrics, Open API, REST Client, Security, Server, Tracing, Web Client]
-2022.01.04 10:28:37 INFO io.helidon.common.HelidonFeatures.experimental Thread[features-thread,5,main]: You are using experimental features. These APIs may change, please follow changelog!
-2022.01.04 10:28:37 INFO io.helidon.common.HelidonFeatures.experimental Thread[features-thread,5,main]: 	Experimental feature: Web Client (WebClient)
+2022.05.11 11:25:37 INFO io.helidon.common.LogConfig Thread[main,5,main]: Logging at runtime configured using classpath: /logging.properties
+2022.05.11 11:25:37 INFO io.helidon.microprofile.security.SecurityCdiExtension Thread[main,5,main]: Authorization provider is missing from security configuration, but security extension for microprofile is enabled (requires providers configuration at key security.providers). ABAC provider is configured for authorization.
+2022.05.11 11:25:37 INFO io.helidon.microprofile.server.ServerCdiExtension Thread[main,5,main]: Registering JAX-RS Application: HelloApplication
+2022.05.11 11:25:37 INFO io.helidon.webserver.NettyWebServer Thread[nioEventLoopGroup-2-1,10,main]: Channel '@default' started: [id: 0x440397cf, L:/[0:0:0:0:0:0:0:0]:8080]
+2022.05.11 11:25:37 INFO io.helidon.microprofile.server.ServerCdiExtension Thread[main,5,main]: Server started on http://localhost:8080 (and all other host addresses) in 39 milliseconds (since JVM startup).
+2022.05.11 11:25:37 INFO io.helidon.common.HelidonFeatures Thread[features-thread,5,main]: Helidon MP 2.5.0 features: [CDI, Config, Health, JAX-RS, Metrics, Security, Server, Web Client]
+2022.05.11 11:25:37 INFO io.helidon.common.HelidonFeatures.experimental Thread[features-thread,5,main]: You are using experimental features. These APIs may change, please follow changelog!
+2022.05.11 11:25:37 INFO io.helidon.common.HelidonFeatures.experimental Thread[features-thread,5,main]: 	Experimental feature: Web Client (WebClient)
 ----
 
-As you can see, it starts in just over 50 milliseconds! Test it with HTTPie and an access token. You may have to generate a new JWT with https://oidcdebugger.com[oidcdebugger.com] if yours has expired.
+As you can see, it starts in just 39 milliseconds! Test it with HTTPie and an access token. You may have to generate a new JWT with https://oidcdebugger.com[oidcdebugger.com] if yours has expired.
 
 [source,shell]
 ----
@@ -183,14 +178,14 @@ http :8080/hello Authorization:"Bearer $TOKEN"
 
 == Create a Helidon app from scratch
 
-You might be wondering, "how did you build a secure Helidon app"? Did I just hide the complexity? No. It only takes five steps to create the same app.
+You might be wondering, "how did you build a secure Helidon app"? Did I just hide the complexity? No. It only takes six steps to create the same app.
 
 . Install https://helidon.io/docs/v2/#/about/05_cli[Helidon's CLI] and run `helidon init` or use Maven:
 
    mvn -U archetype:generate -DinteractiveMode=false \
     -DarchetypeGroupId=io.helidon.archetypes \
     -DarchetypeArtifactId=helidon-quickstart-mp \
-    -DarchetypeVersion=2.4.1 \
+    -DarchetypeVersion=2.5.0 \
     -DgroupId=com.okta.rest \
     -DartifactId=helidon \
     -Dpackage=com.okta.rest
@@ -198,6 +193,16 @@ You might be wondering, "how did you build a secure Helidon app"? Did I just hid
 If you use `helidon init`, answer the questions like I did.
 +
 image::{% asset_path 'blog/native-java-helidon/helidon-init.png' %}[alt=helidon init command,width=800,align=center]
++
+. Add MicroProfile JWT support in `pom.xml`:
++
+[source,xml]
+----
+<dependency>
+    <groupId>io.helidon.microprofile.jwt</groupId>
+    <artifactId>helidon-microprofile-jwt-auth</artifactId>
+</dependency>
+----
 
 . Add a `HelloResource` in `src/main/java/com/okta/rest/controller/HelloResource.java`:
 +
@@ -220,7 +225,6 @@ import static javax.ws.rs.core.MediaType.TEXT_PLAIN;
 public class HelloResource {
 
     @GET
-    @Path("/")
     @Produces(TEXT_PLAIN)
     public String hello(@Context SecurityContext context) {
         Optional<Principal> userPrincipal = context.userPrincipal();
@@ -290,24 +294,29 @@ mvn package -Pnative-image
 
 I ran each image three times before I started recording the numbers. I then ran each command five times.
 
-_These numbers are from a 2019 MacBook Pro with a 2.4 GHz 8-Core Intel Core i9 processor and 64 GB of RAM. I think it's important to note that my WiFi connection was 9.88 Mbps down and 0.37 Mbps up (according to the Speedtest app)._
+_These numbers are from a 2019 MacBook Pro with a 2.4 GHz 8-Core Intel Core i9 processor and 64 GB of RAM. I think it's important to note that my WiFi connection was 73.9 Mbps down and 10.1 Mbps up (according to the Speedtest app)._
 
 ////
-Helidon: (53 + 53 + 55 + 53 + 54) / 5 = 53.6
-Micronaut: (29 + 33 + 31 + 30 + 33) / 5 = 31.2
-Quarkus: (21 + 20 + 17 + 17 + 20) / 5 = 19
-Spring Boot: (57 + 57 + 55 + 61 + 66) / 5 = 59.2
+Helidon: (40 + 42 + 48 + 41 + 41) / 5 = 42.4
+Micronaut: (27 + 29 + 26 + 29 + 28) / 5 = 27.8
+Quarkus: (19 + 19 + 20 + 19 + 19) / 5 = 19.2
+Spring Boot: (58 + 58 + 58 + 60 + 59) / 5 = 58.6
 ////
+
+[.scrollable]
+--
 
 .Native Java startup times in milliseconds
 |===
 |Framework | Command executed | Milliseconds to start
 
-|Helidon | `./helidon/target/helidon` | 53.6
-|Micronaut | `./micronaut/target/app` | 31.2
-|Quarkus | `./quarkus/target/quarkus-1.0.0-SNAPSHOT-runner` | 19
-|Spring Boot | `./spring-boot/target/demo` | 59.2
+|Helidon | `./helidon/target/helidon` | 42.4
+|Micronaut | `./micronaut/target/app` | 27.8
+|Quarkus | `./quarkus/target/quarkus-1.0.0-SNAPSHOT-runner` | 19.2
+|Spring Boot | `./spring-boot/target/demo` | 58.6
 |===
+
+--
 
 The chart below should help you visualize this comparison.
 
@@ -320,10 +329,10 @@ google.charts.setOnLoadCallback(drawChart);
 function drawChart() {
   var data = google.visualization.arrayToDataTable([
     ['Framework', 'Milliseconds to start', { role: 'style' }],
-    ['Helidon', 53.6, 'orange'],
-    ['Micronaut', 31.2, 'blue'],
-    ['Quarkus', 19, 'red'],
-    ['Spring Boot', 59.2, 'green']
+    ['Helidon', 42.4, 'orange'],
+    ['Micronaut', 27.8, 'blue'],
+    ['Quarkus', 19.2, 'red'],
+    ['Spring Boot', 58.6, 'green']
   ]);
   var options = {
     title: 'Startup times of native Java frameworks',
@@ -351,15 +360,22 @@ ps -o pid,rss,command | grep --color <executable> | awk '{$2=int($2/1024)"M";}{ 
 
 I substituted `<executable>` as follows:
 
+[.scrollable]
+--
+
 .Native Java memory used in megabytes
 |===
 |Framework | Executable | Megabytes before request | Megabytes after 1 request | Megabytes after 5 requests
 
-|Helidon | `helidon` | 66 | 127 | 259
-|Micronaut | `app` | 28 | 44 | 55
-|Quarkus | `runner` | 20 | 32 | 34
-|Spring Boot | `demo` | 47 | 62 | 63
+|Helidon | `helidon` | 42 | 54 | 62
+|Micronaut | `app` | 31 | 45 | 56
+|Quarkus | `runner` | 23 | 34 | 36
+|Spring Boot | `demo` | 50 | 61 | 62
 |===
+
+--
+
+The chart below shows the memory usage after five requests.
 
 ++++
 <div id="memory-usage"></div>
@@ -369,13 +385,13 @@ google.charts.setOnLoadCallback(drawChart);
 function drawChart() {
   var data = google.visualization.arrayToDataTable([
     ['Framework', 'Memory usage (MB)', { role: 'style' }],
-    ['Helidon', 259, 'orange'],
-    ['Micronaut', 55, 'blue'],
-    ['Quarkus', 34, 'red'],
-    ['Spring Boot', 63, 'green']
+    ['Helidon', 62, 'orange'],
+    ['Micronaut', 56, 'blue'],
+    ['Quarkus', 36, 'red'],
+    ['Spring Boot', 62, 'green']
   ]);
   var options = {
-    title: 'Memory usage of Native Java frameworks',
+    title: 'Memory usage of native Java frameworks',
     chartArea: {width: '50%'},
     hAxis: {
       title: 'Megabytes',
@@ -391,7 +407,7 @@ function drawChart() {
 </script>
 ++++
 
-This data shows that Helidon has some work to do to catch up to its competition!
+This data shows that Helidon has _almost_ caught up to its competition!
 
 I asked https://twitter.com/bercut2000[Dmitry Alexandrov] about these numbers and he's what he had to say:
 
@@ -403,12 +419,13 @@ The numbers may look higher than expected, but, in Helidon MP you've got a fully
 
 In this post, you learned how to develop, build, and run a native Java app with Helidon. You also learned how to secure it with OpenID Connect and access it with a JWT access token.
 
-You can find the source code for this example on GitHub in the https://github.com/oktadev/native-java-examples/tree/main/helidon[native-java-examples repository].
+You can find the source code for this example on GitHub in the https://github.com/oktadev/native-java-examples/[native-java-examples repository].
 
 If you liked this post, chances are you'll like others we've published:
 
 - link:/blog/2021/06/18/native-java-framework-comparison[Build Native Java Apps with Micronaut, Quarkus, and Spring Boot]
 - link:/blog/2021/09/16/spring-native-okta-starter[Spring Native in Action with the Okta Spring Boot Starter]
 - link:/blog/2019/11/27/graalvm-java-binaries[Watch GraalVM Turn Your Java Into Binaries]
+- link:/blog/2022/03/03/spring-native-jhipster[Introducing Spring Native for JHipster: Serverless Full-Stack Made Easy]
 
 Got questions? Leave them in the comments below! You can also follow us on our social channels: https://twitter.com/oktadev[@oktadev on Twitter], https://www.linkedin.com/company/oktadev[Okta for Developers on LinkedIn], https://www.facebook.com/oktadevelopers[OktaDev] on Facebook. If you like learning via video, subscribe to https://youtube.com/oktadev[our YouTube channel].

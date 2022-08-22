@@ -8,7 +8,7 @@ author: daniel-pereira
 by: contractor
 communities: [java, devops]
 description: "Find out how easy it is to secure and deploy your Spring Boot app with AWS Elastic Beanstalk."
-tags: [spring-boot, spring-security, security, oauth2, oauth, openid-connect, oidc, aws, elastic-beanstalk]
+tags: [spring-boot, spring-security, security, oauth2, oauth, oidc, aws, elastic-beanstalk]
 tweets:
 - "Find out how easy it is to secure and deploy your Spring Boot app with AWS Elastic Beanstalk ->"
 - "Writing Spring Boot apps? Add OpenID Connect and easy deployment with Okta and AWS ->"

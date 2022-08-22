@@ -509,7 +509,7 @@ Submit the form to start the authentication process. You'll receive an Okta logi
 
 {% img blog/junit5-spring-boot/access-token.png alt:"OAuth 2.0 Access Token" width:"700" %}{: .center-image }
 
-**NOTE:** The token will be valid for one hour, so you may have to repeat the process if you are testing for a long time.
+**NOTE:** The access token will be valid for one hour, so you may have to repeat the process if you are testing for a long time.
 
 ## Test Your Secured Spring Boot Application with JUnit 5
 

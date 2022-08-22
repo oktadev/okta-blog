@@ -8,7 +8,7 @@ author: lee-brandt
 by: advocate
 description: "Learn how to map your Okta `Groups` to `Roles` claims and let the regular ASP.NET `AuthorizeAttribute` handle authorization."
 communities: [.net]
-tags: [asp-dot-net, aspnet-core, authz, authorization]
+tags: [asp-dot-net, aspnetcore, authz, authorization]
 type: conversion
 ---
 

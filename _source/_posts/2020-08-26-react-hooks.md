@@ -8,7 +8,7 @@ author: holger-schmitz
 by: contractor
 communities: [javascript]
 description: "This tutorial shows you how to use React Hooks to build a simple, secure app."
-tags: [reactjs, reacthooks, javascript]
+tags: [react, reacthooks, javascript]
 tweets:
 - "Learn how to use functional components in @reactjs in this quick tutorial."
 - "⚛️ React Hooks will let you embrace your inner functional programmer. Learn how to use them today!"
