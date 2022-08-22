@@ -8,7 +8,7 @@ author: david-neal
 by: advocate
 communities: [javascript]
 description: "Learn how to build command line applications using Node.js"
-tags: [nodejs, cli, command-line, automation, devops, tasks]
+tags: [node, cli, command-line, automation, devops, tasks]
 tweets:
 - "Learn how to automate tasks by building a command line application (CLI) with @nodejs! #nodejs #cli"
 - "Can you use OAuth with a CLI application? Yes! Here's how to build one using @nodejs! #nodejs #cli #oauth #pkce"

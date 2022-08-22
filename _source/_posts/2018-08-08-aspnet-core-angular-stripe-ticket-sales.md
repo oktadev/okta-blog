@@ -8,7 +8,7 @@ author: lee-brandt
 by: advocate
 communities: [.net, javascript]
 description: "This tutorial walks you through building an online ticket sales app using ASP.NET Core 2.1, Stripe, and Angular 6."
-tags: [asp-dot-net, dotnet, core, asp-dot-net-core, dotnet-core, dot-net-core, angular, crud]
+tags: [asp-dot-net, dotnet, core, asp-dot-net-core, dotnetcore, angular, crud]
 tweets:
 - "Build a ticket sales app using @stripe, #aspnetcore 2.1, and @angular 6! →"
 - "Need to learn the basics of #aspnetcore 2.1, @stripe, and @angular 6? We've got you covered. <3"

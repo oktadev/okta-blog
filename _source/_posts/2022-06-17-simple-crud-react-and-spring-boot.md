@@ -5,7 +5,7 @@ author: matt-raible
 by: advocate
 communities: [java, javascript]
 description: "React is one of the most popular JavaScript frameworks, and Spring Boot is wildly popular in the Java ecosystem. This article shows you how to use them in the same app and secure it all with Okta."
-tags: [java, spring-boot, react, reactjs]
+tags: [java, spring-boot, react]
 tweets:
 - "React + Spring Boot makes for a nice development experience. Learn how to make them work together with OIDC authentication."
 - "Spring Boot with @java + React with @javascript == 💙. Learn how to build a @springboot + @reactjs CRUD app today!"

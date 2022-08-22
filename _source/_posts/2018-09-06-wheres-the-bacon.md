@@ -7,7 +7,7 @@ title: "Hey, Okta! Where's the Bacon?"
 author: david-neal
 by: advocate
 description: "Welcome David Neal to the Okta team!"
-tags: [javascript, okta, node, nodejs, team]
+tags: [javascript, okta, node, node, team]
 tweets:
 - "Welcome @reverentgeek to the @oktadev team!"
 - "Excited to have @reverentgeek join the @oktadev team!"

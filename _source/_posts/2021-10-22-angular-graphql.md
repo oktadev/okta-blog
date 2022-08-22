@@ -8,7 +8,7 @@ author: holger-schmitz
 by: contractor
 communities: [javascript]
 description: "A tutorial that shows how to create an Angular GraphQL client for a Node.js GraphQL API."
-tags: [javascript, typescript, angular, graphql, nodejs, expressjs]
+tags: [javascript, typescript, angular, graphql, node, expressjs]
 tweets:
 - "Learn how to use Angular + GraphQL to build an app to get Star Wars characters and species."
 - "Angular + GraphQL is pretty easy with modern clients from @apollographql."

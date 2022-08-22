@@ -8,7 +8,7 @@ author: ibrahim-suta
 by: contractor
 communities: [.net, javascript]
 description: "This tutorial walks you through building a simple CRUD application in ASP.NET Framework 4.x WebAPI and Angular 6."
-tags: [asp-dot-net, dotnet, framwork, dot-net, angular, crud]
+tags: [asp-dot-net, dotnet, angular, crud]
 tweets:
 - "Learn how to build a simple CRUD app using @ASPNET Framework and @angular 6! →"
 - "Need to learn the basics of @aspnet framework 4 and @angular 6? We've got you covered. <3"

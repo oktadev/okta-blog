@@ -8,7 +8,7 @@ author: lee-brandt
 by: advocate
 communities: [.net]
 description: "This is a quick tutorial demonstrating how to add authorization to an ASP.NET MVC Application using OpenID Connect and Okta."
-tags: [asp-dot-net, asp-dot-net-mvc, asp-dot-net-mvc-4-dot-x, oidc, openid-connect]
+tags: [asp-dot-net, asp-dot-net-mvc, asp-dot-net-mvc-4-dot-x, oidc]
 tweets:
     - "Quickly add OpenID Connect Authorization to your ASP.NET MVC 4.x Application"
     - "Use OpenID Connect in your ASP.NET MVC 4.x Application to authorize users"

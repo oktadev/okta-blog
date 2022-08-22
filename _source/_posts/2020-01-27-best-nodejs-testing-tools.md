@@ -8,7 +8,7 @@ author: david-neal
 by: advocate
 communities: [javascript]
 description: "The best testing tools available for Node.js"
-tags: [node, nodejs, testing, tdd, bdd, mocha, jest]
+tags: [node, testing, tdd, bdd, mocha, jest]
 tweets:
 - "What are the best testing tools available for @nodejs? Let's take a look! #tdd #bdd #testing #qa #node"
 - "You *are* writing tests for Node.js, right?? Here are the best testing tools available! #tdd #bdd #testing #qa #node"

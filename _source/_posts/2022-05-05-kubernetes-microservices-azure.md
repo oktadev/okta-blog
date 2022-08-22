@@ -5,7 +5,7 @@ author: andrew-hughes
 by: contractor
 communities: [java,devops]
 description: "A in-depth guide to deploying JHipster microservices to Azure. Tech stack: Spring Boot, Spring Cloud, Cosmos DB, and Vue."
-tags: [java,jhipster,kubernetes,k8s,devops,microservices]
+tags: [java,jhipster,kubernetes,devops,microservices]
 tweets:
 - "Want to deploy your @Java microservices architecture on @Azure? Use Kubernetes!"
 - "Learn how to deploy your @kubernetesio microservices on #Azure with this in-depth tutorial."

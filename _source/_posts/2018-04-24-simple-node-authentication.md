@@ -8,7 +8,7 @@ author: braden-kelley
 by: contractor
 communities: [javascript]
 description: "Learn how to build authentication and registration into your Node.js application with Okta."
-tags: [javascript, nodejs, authentication, security]
+tags: [javascript, node, authentication, security]
 tweets:
 - "Building authentication into your Node.js apps doesn't have to be hard. Check out our latest article on the subject:"
 - "Want to build standards-based, simple, straightforward authentication into your next Node app? Read our new guide:"

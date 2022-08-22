@@ -8,7 +8,7 @@ author: nickolas-fisher
 by: contractor
 communities: [javascript]
 description: "Learn to build a secure realtime application using WebSockets and Node.js!"
-tags: [javascript,nodejs,websockets]
+tags: [javascript,node,websockets]
 tweets:
 - "Learn to build a secure realtime chat application using WebSockets and Node.js! #nodejs #websockets"
 - "Build a secure chat room web app using WebSockets and Node.js! #nodejs #websockets"

@@ -8,7 +8,7 @@ author: chase-aucoin
 by: contractor
 communities: [.net]
 description: "Learn how to speed up a data-heavy website with a micro ORM like Dapper."
-tags: [c-sharp, csharp, dotnet, dot-net, dapper-c-sharp, dapper, dapper-orm, orm]
+tags: [csharp, dotnet, dapper-c-sharp, dapper, dapper-orm, orm]
 tweets:
 - "Speed up your website data with a micro ORM like #Dapper with #dotnetcore ->"
 - "Ever heard of #Dapper? Learn how to use this lightweight ORM with #dotnet in this tutorial ->"

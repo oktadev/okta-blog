@@ -8,7 +8,7 @@ author: andrew-hughes
 by: contractor
 communities: [java]
 description: "This tutorial adds secure controllers with Grails, OAuth 2.0, and Okta."
-tags: [java, groovy, grails, spring, spring-boot, oidc, openid-connect]
+tags: [java, groovy, grails, spring, spring-boot, oidc]
 tweets:
     - "Add role based authorization to Grails application using Okta"
     - "OAuth2 and role based authorization with Grails and Okta"

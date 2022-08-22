@@ -8,7 +8,7 @@ author: matt-raible
 by: advocate
 communities: [java]
 description: "This post shows you how to use JHipster to create a microservices architecture based on Spring Boot, Spring Security, and OAuth."
-tags: [jhipster, microservices, spring-boot, spring-boot-2-dot-0, spring-security, oidc, oauth]
+tags: [jhipster, microservices, spring-boot, spring-boot-2, spring-security, oidc, oauth]
 tweets:
 - "Learn how to use JHipster to create a microservices architecture based on Spring Boot, Spring Security, and OAuth, all from one JDL file!"
 - "Did you know @java_hipster makes it easy to build microservice applications with @springboot and @angular? You can even use its @oauth_2 support to add SSO!"

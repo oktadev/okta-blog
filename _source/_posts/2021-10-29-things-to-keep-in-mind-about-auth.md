@@ -5,7 +5,7 @@ author: alisa-duncan
 by: advocate
 communities: [security]
 description: "Five things to keep in mind about auth for the busy developer."
-tags: [oauth, oidc, openid-connect, security, authorization, authentication]
+tags: [oauth, oidc, security, authorization, authentication]
 tweets:
 - "Hey busy dev! Check out the 5 things to keep in mind when adding auth. #OAuth #OIDC #security"
 - "😻 Need auth right meow? Here's a fun-to-read quick overview of things to keep in mind. 😻  #OAuth #security"

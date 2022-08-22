@@ -8,7 +8,7 @@ author: nate-barbettini
 by: advocate
 communities: [.net, javascript]
 description: "In this tutorial, you'll learn how to build a lightweight, secure to-do app with a Vue.js frontend and an ASP.NET Core backend."
-tags: [vue-dot-js, vue, oidc, dotnet, aspnetcore]
+tags: [vue, oidc, dotnet, aspnetcore]
 tweets: 
   - "ICYMI: @nbarbettini shows how to build a to-do app with #vuejs and #aspnetcore step-by-step"
   - "In-depth tutorial on building full-stack #vuejs and #aspnetcore apps by our own @nbarbettini"

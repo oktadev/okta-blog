@@ -8,7 +8,7 @@ author: braden-kelley
 by: contractor
 communities: [javascript]
 description: 'A tutorial on building simple authentication in Express.'
-tags: [node, nodejs, express, authentication]
+tags: [node, express, authentication]
 tweets:
   - 'Learn to build simple authentication in #ExpressJS!'
   - 'Want to build authentication in #ExpressJS? Check this out!'
