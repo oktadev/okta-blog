@@ -8,7 +8,7 @@ author: micah-silverman
 by: advocate
 communities: [security]
 description: "This blog series is a primer on OIDC. In this final post, we'll look at what's encoded into the various types of tokens and how to control their contents."
-tags: [oauth, oauth2, openid, openid-connect, oidc]
+tags: [oauth, oauth2, oidc]
 redirect_from:
   - "/blog/2017-07-25-oidc-primer-part-3"
   - "/blog/2017/07/25/oidc-primer-part-3"

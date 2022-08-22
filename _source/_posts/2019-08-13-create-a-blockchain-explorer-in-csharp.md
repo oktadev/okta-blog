@@ -8,7 +8,7 @@ author: terje-kolderup
 by: contractor
 communities: [.net]
 description: "Learn to build a blockchain explorer in C#."
-tags: [blockchain, c-sharp, csharp]
+tags: [blockchain, csharp]
 tweets:
 - "Learn to build a blockchain explorer using Visual Studio and C#."
 - "Curious about blockchain? Build a blockchain explorer in C#!"

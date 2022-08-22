@@ -8,7 +8,7 @@ author: chris-green
 by: contractor
 communities: [.net, devops]
 description: "A tutorial on using Azure Functions in C# to build a simple microservice."
-tags: [azure-function, microservice, c-sharp, csharp]
+tags: [azure-function, microservice, csharp]
 tweets:
 - "Learn how to build a simple microservice with C# Azure Functions."
 - "Need a quick tutorial on microservices in C# using Azure Functions? We've got you covered!"

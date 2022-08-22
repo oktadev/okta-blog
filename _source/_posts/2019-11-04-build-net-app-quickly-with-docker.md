@@ -8,7 +8,7 @@ author: charlie-holland
 by: contractor
 communities: [.net, devops]
 description: "Learn to containerize your .NET Framework app with Docker."
-tags: [docker, dot-net, dot-net-framework, windows-container]
+tags: [docker, dotnet, dot-net-framework, windows-container]
 tweets:
 - "Learn how to quickly put your .NET Framework app into a Docker container."
 - "Need to learn how to containerize your .NET Framework app with Docker? We've got you covered."
