@@ -32,12 +32,17 @@
           <div>
             <!-- author details -->
             <div class="BlogPost-attribution">
+              {%- assign author_size = authors | size -%}
+              {%- assign author_index = 0 -%}
               {% for author_id in authors %}
+                {%- assign author_index = author_index | plus:1 -%}
                 {%- assign author = site.data.authors[author_id] -%}
                 {% if author.avatar %}
                 <a href="/blog/authors/{{ author_id }}/">{% img '{{ author.avatar }}' alt:'{{ author.avatar }}' class:BlogPost-avatar %}</a>
                 {% endif %}
-                <span class="BlogPost-author"><a href="/blog/authors/{{ author_id }}/">{{ author.full_name }}</a></span>
+                <span class="BlogPost-author {% if author_index < author_size %}pad-right{% endif %}">
+                  <a href="/blog/authors/{{ author_id }}/">{{ author.full_name }}</a>
+                </span>
               {% endfor %}
             </div>
             <span class="vertical-spacer"></span>
@@ -102,27 +107,30 @@
     </div>
 
     {% if page.layout == 'blog_post' %}
+        {%- assign author_size = authors | size -%}
+        {%- assign author_index = 0 -%}
         {% for author_id in authors %}
+            {%- assign author_index = author_index | plus:1 -%}
             {%- assign author = site.data.authors[author_id] -%}
-            <div class="BlogPost-author-bio u-author h-card">
+            <div class="BlogPost-author-bio u-author h-card {% if author_index == author_size %}border-bottom{% endif %}">
               <div class="BlogPost-attribution">
                 {% if author.avatar %}
                 <a href="/blog/authors/{{ author_id }}/">{% img '{{ author.avatar }}' alt:'{{ author.avatar }}' class:BlogPost-avatar-social %}</a>
                 {% endif %}
                 <span class="author"><a href="/blog/authors/{{ author_id }}/" class="u-url p-name">{{ author.full_name }}</a></span>
                 <div class="social">
-                  {%- if author.github -%}
-                  <a href="{{ author.github }}" target="_blank"><i class="fa fa-github"></i></a>
-                  {%- endif -%}
-                  {%- if author.twitter -%}
-                  <a href="{{ author.twitter }}" target="_blank"><i class="fa fa-twitter"></i></a>
-                  {%- endif -%}
-                  {%- if author.linkedin -%}
-                  <a href="{{ author.linkedin }}" target="_blank"><i class="fa fa-linkedin"></i></a>
-                  {%- endif -%}
-                  {%- if author.web -%}
-                  <a href="{{ author.web }}" target="_blank"><i class="fa fa-external-link"></i></a>
-                  {%- endif -%}
+                  {% if author.github %}
+                  <a href="{{ author.github }}" target="_blank" title="GitHub Profile"><i class="fa fa-github"></i></a>
+                  {% endif %}
+                  {% if author.twitter %}
+                  <a href="{{ author.twitter }}" target="_blank" title="Twitter Profile"><i class="fa fa-twitter"></i></a>
+                  {% endif %}
+                  {% if author.linkedin %}
+                  <a href="{{ author.linkedin }}" target="_blank" title="Linkedin Profile"><i class="fa fa-linkedin"></i></a>
+                  {% endif %}
+                  {% if author.web%}
+                  <a href="{{ author.web }}" target="_blank" title="Website"><i class="fa fa-external-link-square"></i></a>
+                  {% endif %}
                 </div>
               </div>
 
