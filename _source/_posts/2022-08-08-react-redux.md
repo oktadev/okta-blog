@@ -21,13 +21,15 @@ For more complex scenarios where you might need a single source of truth that is
 
 Our demo app will show use cases for all three. Let's compare when to use the useState hook vs. React Context vs. a more global state management solution like one of the most popular ones, [Redux](https://redux.js.org/).
 
-## Prerequisites
+This walkthrough will get you started with a basic setup using Okta's redirect model to manage authenticated state and user profile information within a React app. It provides examples on when to use Redux, local state using React's `useState` hook, or React Context. 
+
+**Prerequisites**
 
 As of the time of this publication, Node >= 14.0.0 and npm >= 5.6 are required for Create React App. You can check for the latest required versions at [https://reactjs.org/docs/create-a-new-react-app.html](https://reactjs.org/docs/create-a-new-react-app.html).
 
 **NOTE:** Redux also recommends you install the [Chrome React DevTools Extension](https://chrome.google.com/webstore/detail/react-developer-tools/fmkadmapgofadopljbjfkapdkoienihi?hl=en).
-
-## Create the React app
+{% include toc.md %}
+## Create the React app using TypeScript
 
 We'll get started with the built-in React template for [Create React App](https://github.com/facebook/create-react-app) that uses Redux and Typescript. This includes the recommended Redux Toolkit and Redux's integration with React components.
 
@@ -72,7 +74,7 @@ After the UI for your application is initially rendered using an initial global 
 
 **NOTE:** The built-in Redux template we used includes a great counter example of how Redux works. You can take a closer look at [Redux's explanation of the counter example](https://redux.js.org/introduction/examples/).
 
-### Useful Terms
+### Useful terms to know when working with Redux
 
 **[Action](https://redux.js.org/tutorials/essentials/part-1-overview-concepts#reducers)**
 
@@ -98,30 +100,30 @@ A selector returns a piece of the live Redux state as stored in the live Redux s
 
 A Dispatch is a method with triggers an action that in turn updates the Redux store.
 
-## Add authentication using OAuth2 and OIDC
+## Add authentication using OAuth2 and OpenID Connect (OIDC)
 
 For this demo app, we'll be using [Okta's SPA redirect model](https://developer.okta.com/docs/guides/sign-into-spa-redirect/react/main/) to authenticate and fetch user info.
 
-{% include setup/cli.md type="spa" %}
+{% include setup/cli.md type="spa" framework="React" loginRedirectUri="http://localhost:3000/login/callback" %}
 
-## Application Setup with State Management
+## TypeScript React application setup with Redux state management
 
 ## Setup Environment Variables
 
 1. Create a `.env` file to your root directory and add the following:
 ```bash
-REACT_APP_OKTA_ISSUER=https://<YOUR_OKTA_DOMAIN>/oauth2/default
-REACT_APP_OKTA_CLIENTID=<YOUR_CLIENT_ID>
+REACT_APP_OKTA_ISSUER=https://{yourOktaDomain}/oauth2/default
+REACT_APP_OKTA_CLIENTID={yourOktaClientId}
 REACT_APP_OKTA_BASE_REDIRECT_URI=http://localhost:3000
 ```
 
 **NOTE:** Remember to not include your `.env` file in any version control for security reasons.
 
-## Add Okta authentication, create routes, and use environment variables
+## Add authentication and create routes
 
 1. Modify the existing `App.tsx` file:
-
-```bash
+{% raw %}
+```tsx
 import "./App.css";
 import { OktaAuth, toRelativeUrl } from "@okta/okta-auth-js";
 import { BrowserRouter as Router, Route } from "react-router-dom";
@@ -157,7 +159,7 @@ function App() {
 
 export default App;
 ```
-
+{% endraw %}
 ## Add Initial State, Create Redux Slice, and Create Selector
 
 1. Create a `src/redux-state` directory:
@@ -167,7 +169,7 @@ mkdir src/redux-state
 
 2. Add a `userProfileSlice.tsx` file in the created `redux-state` directory with the following:
 
-```bash
+```tsx
 import { createSlice } from "@reduxjs/toolkit";
 import { RootState } from "../app/store";
 
@@ -208,7 +210,7 @@ We'll add the `email`, `given_name`, and `family_name` to the global store here.
 
 3. In the `src/app/store.ts` file, add the created Redux slice to the Redux store:
 
-```bash
+```ts
 import { configureStore, ThunkAction, Action } from "@reduxjs/toolkit";
 import counterReducer from "../features/counter/counterSlice";
 import userProfileReducer from "../redux-state/userProfileSlice";
@@ -230,7 +232,7 @@ export type AppThunk<ReturnType = void> = ThunkAction<
 >;
 ```
 
-## Create Components
+## Show user profile information using state management
 
 1. Create a `src/components` directory:
 ```bash
@@ -240,7 +242,7 @@ mkdir src/components
 2. In the `src/components` directory, add the following files:
 
 #### home.tsx
-```bash
+```tsx
 import { useOktaAuth } from "@okta/okta-react";
 import { createContext, useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
@@ -309,7 +311,7 @@ Here we use React's [useEffect hook](https://reactjs.org/docs/hooks-effect.html)
 Once the user is authenticated, we're using the [getUser method](https://github.com/okta/okta-auth-js#getuser) that is built into `oktaAuth` to fetch the user profile information. If the user is not yet authenticated, we render the login page instead.
 
 #### dashboard.tsx
-```bash
+```tsx
 import { useOktaAuth } from "@okta/okta-react";
 import { useSelector } from "react-redux";
 import { selectUserProfile } from "../redux-state/userProfileSlice";
@@ -360,7 +362,7 @@ In this file, we're using a Redux selector to get the current state for `userPro
 We're also setting an `isExpandable` property that toggles whether or not additional user profile information is hidden or shown. This is another example of how to use local state using the `useState` hook. 
 
 #### userProfile.tsx
-```bash
+```tsx
 import { useSelector } from "react-redux";
 import { selectUserProfile } from "../redux-state/userProfileSlice";
 import "../App.css";
@@ -386,7 +388,7 @@ export default function UserProfile() {
 In this file, we are using the Redux selector we created prior to get the current state for the state slice that includes the user profile information we set earlier.
 
 #### userProfileExtra.tsx
-``` bash
+``` tsx
 import "../App.css";
 import { useContext } from "react";
 import { UserContext } from "./home";
@@ -413,7 +415,7 @@ Here, another way to manage state is demonstrated. This time, React's built-in `
 
 **NOTE:** The following custom styling has also been added to `src/App.css` in the demo repository.
 
-```bash
+```css
 .section-wrapper > div {
   padding: 24px;
   font-family: Roboto, sans-serif;
@@ -497,7 +499,7 @@ After your app starts and you've clicked `login` on the home screen, you'll be r
 
 If you recall, the value for the user's `given_name` is part of the Redux slice from our created selector `selectUserProfile`. Clicking `Show more` or `Show less` toggles our local state for `isExpanded` in the dashboard component to show or hide additional user profile info, which is a mix of other values from the `userProfileSlice` and additional values from the `UserContext` we created.
 
-## Further Reading
+## Learn more about authentication, React, and Redux
 
 This walkthrough will get you started with a basic setup using Okta's redirect model to manage authenticated state and user profile information within a React app. It provides examples on when to use Redux, local state using React's `useState` hook, or React Context. As you scale your apps, you might find that a mix of all three solutions is the right choice.
 
@@ -526,3 +528,5 @@ Use async logic in Redux with [Redux "thunk" middleware](https://github.com/redu
 **[Redux Learning Resources](https://redux.js.org/introduction/learning-resources)**
 
 Further resources to learn Redux.
+
+Be sure you follow us on [Twitter](https://twitter.com/oktadev) and subscribe to our [YouTube](https://www.youtube.com/c/oktadev) channel. Please comment below if you have any questions or want to share what tutorial you'd like to see next.
