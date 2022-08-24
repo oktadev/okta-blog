@@ -23,7 +23,7 @@ This walkthrough will get you started with a basic setup using Okta's redirect m
 
 As of the time of this publication, Node >= 14.0.0 and npm >= 5.6 are required for Create React App. You can check for the latest required versions at [https://reactjs.org/docs/create-a-new-react-app.html](https://reactjs.org/docs/create-a-new-react-app.html).
 
-**NOTE:** Refile in the createddux also recommends you install the [Chrome React DevTools Extension](https://chrome.google.com/webstore/detail/react-developer-tools/fmkadmapgofadopljbjfkapdkoienihi?hl=en).
+**NOTE:** Redux also recommends you install the [Chrome React DevTools Extension](https://chrome.google.com/webstore/detail/react-developer-tools/fmkadmapgofadopljbjfkapdkoienihi?hl=en).
 {% include toc.md %}
 ## Create the React app using TypeScript
 
@@ -101,6 +101,11 @@ A Dispatch is a method with triggers an action that in turn updates the Redux st
 For this demo app, we'll be using [Okta's SPA redirect model](https://developer.okta.com/docs/guides/sign-into-spa-redirect/react/main/) to authenticate and fetch user info.
 
 {% include setup/cli.md type="spa" framework="React" loginRedirectUri="http://localhost:3000/login/callback" %}
+
+1. Add the Okta SDKs to your project by running:
+```bash
+npm install @okta/okta-react@6.4 @okta/okta-auth-js@6.0
+```
 
 ## TypeScript React application setup with Redux state management
 
