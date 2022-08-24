@@ -5,7 +5,7 @@ author: nickolas-fisher
 by: contractor 
 communities: [.net]
 description: "Learn how Cosmos DB helps protect data at rest and how to remove sensitive personally identifiable information (PII) from data you intend to store in Cosmos DB."
-tags: [dotnet, aspnet-core, dotnet-core, cosmos-db, azure]
+tags: [dotnet, aspnetcore, dotnetcore, cosmos-db, azure]
 tweets:
 - "Learn how to build an ASP.NET Core web application that accepts a CSV file, then secure the data to protect your users' PII 😎 #cosmosDB #.NET6"
 

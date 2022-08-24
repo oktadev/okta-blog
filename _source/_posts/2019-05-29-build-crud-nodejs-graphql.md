@@ -8,7 +8,7 @@ author: braden-kelley
 by: contractor
 communities: [javascript]
 description: "A tutorial on building a CRUD app with Node.js and GraphQL."
-tags: [node, nodejs, typscript, api]
+tags: [node, typscript, api]
 tweets:
 - "Learn to build a CRUD app with @NodeJS and @GraphQL!"
 - "Want to build a CRUD app with @NodeJS and @GraphQL? Check this out!"

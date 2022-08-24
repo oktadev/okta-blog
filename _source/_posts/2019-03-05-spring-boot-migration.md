@@ -8,7 +8,7 @@ author: micah-silverman
 by: advocate
 communities: [java]
 description: "Migrate Spring Boot with OAuth 2.0 support from version 1.5.x to 2.1.x"
-tags: [java, oauth, oauth2, oidc, openid-connect, spring, spring-boot, spring-security, learning, programming, programming-languages, education]
+tags: [java, oauth, oauth2, oidc, spring, spring-boot, spring-security, learning, programming, programming-languages, education]
 tweets:
 - "Checkout how easy OAuth 2.0 and OpenID Connect are with the latest version of Spring Boot and Spring Security!"
 - "🍃 Migration Guide from @afitnerd on Spring Security's OAuth 2.0 and OIDC support. It's bomb diggity! 👍"

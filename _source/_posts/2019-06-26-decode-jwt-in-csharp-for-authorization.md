@@ -8,7 +8,7 @@ author: ryan-foster
 by: contractor
 communities: [.net]
 description: "Learn how to decode JWTs using C#."
-tags: [csharp, jwt, authorization, c-sharp]
+tags: [csharp, jwt, authorization]
 tweets:
 - "If you need to learn how to decode JWTs in C#, check out this post!"
 - "Check out this easy-to-follow tutorial for creating a CRUD app with @aspnetcore and #typescript."

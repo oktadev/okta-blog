@@ -8,7 +8,7 @@ author: ivo-katunaric
 by: contractor
 communities: [javascript]
 description: "Koa.js is a modern server framework from the creators of Express. Learn how to get started with Koa.js by building a fun facial recognition app!"
-tags: [nodejs, node, koa, api, authentication, machine-learning]
+tags: [node, koa, api, authentication, machine-learning]
 tweets:
 - "Learn how to build a facial recognition Node.js app with Koa.js! #nodejs #koa"
 - "Learn how to build a fun facial recognition web app using Node.js and Koa!"

@@ -8,7 +8,7 @@ author: matt-raible
 by: advocate
 communities: [java]
 description: "Secure a Spring microservices architecture with Spring Security and OAuth + this tutorial. No Okta SDKs required!"
-tags: [spring, spring-boot, microservices, oauth-2-dot-0, spring-security, java]
+tags: [spring, spring-boot, microservices, oauth2, spring-security, java]
 tweets:
 - "Did you know you can secure your @springboot microservices using OAuth 2.0 and Okta? This tutorial gives you the low-down."
 - "Feel the heat? A lot of the 🔥 in the #Java ecosystem is coming from Spring Boot. Learn how to 🔒 it down with @SpringSecurity, OAuth 2.0, and Okta!"

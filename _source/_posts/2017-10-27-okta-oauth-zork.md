@@ -8,7 +8,7 @@ author: micah-silverman
 by: advocate
 communities: [security]
 description: "Learn how Micah Silverman created a Spring Boot / Spring Security application that interacts with Okta for OAuth so that you can play Zork."
-tags: [oauth, oauth2, oauth2-dot-0, oauth-2-dot-0, openid, openid-connect, oidc, spring, spring-boot, spring-security, rbac]
+tags: [oauth, oauth2, oidc, spring, spring-boot, spring-security, rbac]
 type: awareness
 ---
 

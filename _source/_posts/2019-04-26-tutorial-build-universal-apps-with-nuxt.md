@@ -8,7 +8,7 @@ author: andy-march
 by: internal-contributor
 communities: [javascript]
 description: "Learn how to build a secure server-side rendered web application using Nuxt.js and Okta"
-tags: [ nuxt, vue, nodejs, ssr, okta ]
+tags: [ nuxt, vue, node, ssr, okta ]
 tweets:
 - "Tutorial: Build a secure universal application using @nuxt_js and @vuejs #nuxtjs #ssr #vue"
 - "Learn how to build a secure server-side rendered web application using @nuxt_js #ssr"

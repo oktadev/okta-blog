@@ -8,7 +8,7 @@ author: andrew-hughes
 by: contractor
 communities: [java]
 description: "In this tutorial, you're going to use Spring Boot to build a simple web application with a user registration system and a login system."
-tags: [authentication, spring-boot, oidc, oauth2-dot-0]
+tags: [authentication, spring-boot, oidc, oauth2]
 tweets:
 - "Spring Boot + OAuth 2.0 + Okta = ❤️"
 - "Spring Boot Web apps are easy to secure with OAuth 2.0 & Okta!"

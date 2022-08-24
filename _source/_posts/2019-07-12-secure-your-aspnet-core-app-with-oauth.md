@@ -8,7 +8,7 @@ author: ryan-foster
 by: contractor
 communities: [.net]
 description: "Learn how to use OAuth 2.0 to secure your ASP.NET Core Application."
-tags: [aspnet, asp-dot-net, asp-net, oauth, oauth-2-dot-0]
+tags: [aspnet, asp-dot-net, asp-net, oauth, oauth2]
 tweets:
 - "If you need to learn how to secure your @aspnetcore app with OAuth 2.0, check out this post!"
 - "Check out this easy-to-follow tutorial for securing an @aspnetcore app with OAuth 2.0."

@@ -8,7 +8,7 @@ author: david-neal
 by: advocate
 communities: [javascript]
 description: "Node.js is changing in 2020, here are the updates to be on the lookout for!"
-tags: [nodejs, node, javascript, ecmascript, es-modules]
+tags: [node, javascript, ecmascript, es-modules]
 tweets:
 - "Want a peek at what's coming to Node.js in 2020? #nodejs #wasm"
 - "2020 is almost here! What's in store for Node.js in the new year? #nodejs #wasm"

@@ -8,7 +8,7 @@ author: david-neal
 by: advocate
 communities: [javascript]
 description: "Our recommendations for the essential Visual Studio Code extensions for Node.js developers."
-tags: [nodejs, vscode, javascript, extensions]
+tags: [node, vscode, javascript, extensions]
 tweets:
  - "VS @code is awesome for @nodejs development! Here are the top 10 VS Code extensions you need!"
  - "Are you a @nodejs developer new to VS @code? Check out the top 10 VS Code extensions you need!"

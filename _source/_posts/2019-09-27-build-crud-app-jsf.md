@@ -8,7 +8,7 @@ author: thiago-negri
 by: contractor
 communities: [java]
 description: "Tutorial: Build a CRUD application with JSF."
-tags: [jsf, spring, oauth, oauth-2-dot-0, java]
+tags: [jsf, spring, oauth, oauth2, java]
 tweets:
 - "Working with the @jsf_spec? This tutorial will walk you through building a CRUD app 🛠"
 - "Want to build a JSF app with @ApacheTomEE? Check out this tutorial!"

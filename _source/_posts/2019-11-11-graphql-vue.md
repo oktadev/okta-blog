@@ -8,7 +8,7 @@ author: holger-schmitz
 by: contractor
 communities: [javascript]
 description: "Learn how to build a secure Node.js GraphQL backend with a Vue.js frontend."
-tags: [graphql, vuejs, vue, javascript]
+tags: [graphql, vue, javascript]
 tweets:
 - "GraphQL allows flexible queries and @vuejs is a joy to work with. Learn how to use them together in a secure fashion with this tutorial."
 - "Learn how to create a secure GraphQL app with Vue and @nodejs."

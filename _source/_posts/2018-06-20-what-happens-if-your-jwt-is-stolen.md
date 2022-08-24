@@ -8,7 +8,7 @@ author: randall-degges
 by: advocate
 communities: [security]
 description: "What happens if a JSON Web Token is stolen or compromised? What are the security considerations you need to understand? In this post, we'll look at what JWTs are, and what happens when they're stolen or compromised."
-tags: [authentication, security, json-web-tokens]
+tags: [authentication, security, jwt]
 tweets:
  - "Curious what happens if your JSON Web Tokens are stolen or compromisd? Learn more about what happens in @rdegges' new article:"
  - "JSON Web Tokens aren't magical security bullets. Read @rdegges' new article about what happens when they're compromised:"

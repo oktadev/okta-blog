@@ -8,7 +8,7 @@ author: braden-kelley
 by: contractor
 communities: [javascript]
 description: "A tutorial on building APIs with Node.js and TypeScript."
-tags: [node, nodejs, typscript, api]
+tags: [node, typscript, api]
 tweets:
 - "Learn to build an API with @NodeJS and @TypeScript!"
 - "Want to build an API with @NodeJS and @TypeScript? Check this out!"
