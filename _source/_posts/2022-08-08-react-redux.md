@@ -4,15 +4,13 @@ title: Use Redux to Manage Authenticated State in a React App
 author: gabi-dombrowski
 by: contractor
 communities: [javascript]
-description: ""
+description: "In this post, we'll create a project that manages authenticated state in a React application using TypeScript and state management. We'll compare state management options in React, and provide examples on when to use Redux, local state using useState, and React Context."
 tags: [javascript, typescript, react, redux, authentication]
 tweets:
-  - ""
-  - ""
-  - ""
+  - "Overwhelmed by state management options in #react? Learn about Redux, useState, and React Context and when to use each in this post by @gabzilladev! 🎉"
 image:
 type: conversion
-canonical:
+github: https://github.com/oktadev/okta-react-typescript-redux-example
 ---
 
 There are a myriad of state management options available for React. React provides the option of using the built-in [Context](https://reactjs.org/docs/context.html) for when you have a nested tree of components that share a state. There is also a built-in [useState hook](https://reactjs.org/docs/context.html) that will allow you to set local state for a component.
