@@ -4,15 +4,13 @@ title: Use Redux to Manage Authenticated State in a React App
 author: gabi-dombrowski
 by: contractor
 communities: [javascript]
-description: ""
+description: "In this post, we'll create a project that manages authenticated state in a React application using TypeScript and state management. We'll compare state management options in React, and provide examples on when to use Redux, local state using useState, and React Context."
 tags: [javascript, typescript, react, redux, authentication]
 tweets:
-  - ""
-  - ""
-  - ""
-image:
+  - "Overwhelmed by state management options in #react? Learn about Redux, useState, and React Context and when to use each in this post by @gabzilladev! 🎉"
+image: blog/react-typescript-redux/social.jpg
 type: conversion
-canonical:
+github: https://github.com/oktadev/okta-react-typescript-redux-example
 ---
 
 There are a myriad of state management options available for React. React provides the option of using the built-in [Context](https://reactjs.org/docs/context.html) for when you have a nested tree of components that share a state. There is also a built-in [useState hook](https://reactjs.org/docs/context.html) that will allow you to set local state for a component.
@@ -156,6 +154,7 @@ function App() {
 export default App;
 ```
 {% endraw %}
+
 ## Add Initial State, Create Redux Slice, and Create Selector
 
 1. Create a `src/redux-state` directory:
@@ -487,7 +486,7 @@ To start the app, run `npm start`.
 
 After your app starts and you've clicked `login` on the home screen, you'll be redirected to the Okta-hosted sign-in page. Here, enter your user credentials. Once your user is authenticated, the dashboard component we created will render.
 
-{% img blog/react-redux/dashboard.png alt:"Screenshot of dashboard." width:"600" %}{: .center-image }
+{% img blog/react-typescript-redux/dashboard.jpg alt:"Screenshot of dashboard." width:"600" %}{: .center-image }
 
 If you recall, the value for the user's `given_name` is part of the Redux slice from our created selector `selectUserProfile`. Clicking `Show more` or `Show less` toggles our local state for `isExpanded` in the dashboard component to show or hide additional user profile info, which is a mix of other values from the `userProfileSlice` and additional values from the `UserContext` we created.
 
