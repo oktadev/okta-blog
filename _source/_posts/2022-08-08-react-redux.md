@@ -19,15 +19,13 @@ There are a myriad of state management options available for React. React provid
 
 For more complex scenarios where you might need a single source of truth that is shared across large sections of your application and is frequently changing, you might want to consider using a more robust state management library.
 
-Our demo app will show use cases for all three. Let's compare when to use the useState hook vs. React Context vs. a more global state management solution like one of the most popular ones, [Redux](https://redux.js.org/).
-
-This walkthrough will get you started with a basic setup using Okta's redirect model to manage authenticated state and user profile information within a React app. It provides examples on when to use Redux, local state using React's `useState` hook, or React Context. 
+This walkthrough will get you started with a basic setup using Okta's redirect model to manage authenticated state and user profile information within a React app. It provides examples on when to use [Redux](https://redux.js.org/), local state using React's `useState` hook, or React Context. 
 
 **Prerequisites**
 
 As of the time of this publication, Node >= 14.0.0 and npm >= 5.6 are required for Create React App. You can check for the latest required versions at [https://reactjs.org/docs/create-a-new-react-app.html](https://reactjs.org/docs/create-a-new-react-app.html).
 
-**NOTE:** Redux also recommends you install the [Chrome React DevTools Extension](https://chrome.google.com/webstore/detail/react-developer-tools/fmkadmapgofadopljbjfkapdkoienihi?hl=en).
+**NOTE:** Refile in the createddux also recommends you install the [Chrome React DevTools Extension](https://chrome.google.com/webstore/detail/react-developer-tools/fmkadmapgofadopljbjfkapdkoienihi?hl=en).
 {% include toc.md %}
 ## Create the React app using TypeScript
 
@@ -108,8 +106,6 @@ For this demo app, we'll be using [Okta's SPA redirect model](https://developer.
 
 ## TypeScript React application setup with Redux state management
 
-## Setup Environment Variables
-
 1. Create a `.env` file to your root directory and add the following:
 ```bash
 REACT_APP_OKTA_ISSUER=https://{yourOktaDomain}/oauth2/default
@@ -168,7 +164,6 @@ mkdir src/redux-state
 ```
 
 2. Add a `userProfileSlice.tsx` file in the created `redux-state` directory with the following:
-
 ```tsx
 import { createSlice } from "@reduxjs/toolkit";
 import { RootState } from "../app/store";
@@ -206,10 +201,7 @@ export const { setUserProfile } = userProfileSlice.actions;
 export default userProfileSlice.reducer;
 ```
 
-We'll add the `email`, `given_name`, and `family_name` to the global store here. This will be returned from a built-in method in the `oktaAuth` module to fetch user info that we will use later.
-
 3. In the `src/app/store.ts` file, add the created Redux slice to the Redux store:
-
 ```ts
 import { configureStore, ThunkAction, Action } from "@reduxjs/toolkit";
 import counterReducer from "../features/counter/counterSlice";
@@ -501,13 +493,15 @@ If you recall, the value for the user's `given_name` is part of the Redux slice 
 
 ## Learn more about authentication, React, and Redux
 
-This walkthrough will get you started with a basic setup using Okta's redirect model to manage authenticated state and user profile information within a React app. It provides examples on when to use Redux, local state using React's `useState` hook, or React Context. As you scale your apps, you might find that a mix of all three solutions is the right choice.
+In this post, we used Okta's redirect model to manage authenticated state and user profile information within a React app. We also saw examples on when to use Redux, local state using React's `useState` hook, or React Context. As you scale your apps, you might find that a mix of all three solutions is the right choice.
 
 You may also want to go further to handle more complex state management logic or add more customizations to your apps. The following links should help with potential next steps.
 
-**[Custom Sign-In Widget](https://developer.okta.com/docs/guides/custom-widget/main/)**
+**[A Developer's Guide to Session Management in React](/blog/2021/06/16/session-mgmt-react)**
 
-Add custom styled to your sign in widget.
+**[Build a Secure React Application with JWTs and Redux](/blog/2019/08/12/build-secure-react-application-redux-jwt)**
+
+**[Build a React App with Styled Components](/blog/2020/03/16/react-styled-components)**
 
 **[Custom URL Domain](https://developer.okta.com/docs/guides/custom-url-domain/main/)**
 
