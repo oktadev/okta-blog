@@ -15,19 +15,19 @@ github: https://github.com/oktadev/okta-react-typescript-redux-example
 
 There are a myriad of state management options available for React. React provides the option of using the built-in [Context](https://reactjs.org/docs/context.html) for when you have a nested tree of components that share a state. There is also a built-in [useState hook](https://reactjs.org/docs/context.html) that will allow you to set local state for a component.
 
-For more complex scenarios where you might need a single source of truth that is shared across large sections of your application and is frequently changing, you might want to consider using a more robust state management library.
+For more complex scenarios where you need a single source of truth that changes frequently and is shared across large sections of your application, consider using a more robust state management library.
 
 This walkthrough will get you started with a basic setup using Okta's redirect model to manage authenticated state and user profile information within a React app. It provides examples on when to use [Redux](https://redux.js.org/), local state using React's `useState` hook, or React Context. 
 
 **Prerequisites**
 
-As of the time of this publication, Node >= 14.0.0 and npm >= 5.6 are required for Create React App. You can check for the latest required versions at [https://reactjs.org/docs/create-a-new-react-app.html](https://reactjs.org/docs/create-a-new-react-app.html).
+As of the time of this publication, Create React App requires Node >= 14.0.0 and npm >= 5.6. You can check for the latest required versions at [https://reactjs.org/docs/create-a-new-react-app.html](https://reactjs.org/docs/create-a-new-react-app.html).
 
 **NOTE:** Redux also recommends you install the [Chrome React DevTools Extension](https://chrome.google.com/webstore/detail/react-developer-tools/fmkadmapgofadopljbjfkapdkoienihi?hl=en).
 {% include toc.md %}
 ## Create the React app using TypeScript
 
-We'll get started with the built-in React template for [Create React App](https://github.com/facebook/create-react-app) that uses Redux and Typescript. This includes the recommended Redux Toolkit and Redux's integration with React components.
+We'll get started with the built-in React template for [Create React App](https://github.com/facebook/create-react-app) that uses Redux and TypeScript. This includes the recommended Redux Toolkit and Redux's integration with React components.
 
 1. First, run:
 ```bash
@@ -41,7 +41,7 @@ npx create-react-app okta-react-redux --template redux-typescript
 npm add redux@4.2
 ```
 
-3. Redux provides its own types, but we'll want to add our `react-redux` types since we're using Typescript:
+3. Redux provides its own types, but we'll want to add our `react-redux` types since we're using TypeScript:
 ```bash
 npm add -D @types/react-redux@7.1
 ```
@@ -59,30 +59,30 @@ npm start
 
 ## How Redux works
 
-To update state using Redux, an action is dispatched and the store then uses the root reducer to calculate a new state as compared to the old state, which then notifies the proper subscribers of the update so that the UI can properly be updated.
+To update state using Redux, an action is dispatched. Then the store uses the root reducer to calculate a new state as compared to the old state, which notifies the proper subscribers of the update, so that the UI can be updated properly.
 
-After the UI for your application is initially rendered using an initial global Redux store created using the root reducer, a typical redux workflow goes like this:
+A typical Redux workflow goes like this. First, the UI for your application is rendered using an initial global Redux store, created with the root reducer:
 
-1. An event in the UI such as a user button interaction happens in your app which triggers an action.
+1. An event occurs in the UI of your app, such as a user button interaction, which triggers an action.
 2. The action is then dispatched to the store and an event handler that handles the needed logic makes the changes to your global state.
 3. The store notifies subscribed parts in the UI that there has been an update.
-4. Those subscribed parts then check to see if a re-render is needed to update whatever needs updating in the UI.
+4. Those subscribed parts then check to see if a re-render is necessary to update the UI as needed. 
 
 **NOTE:** The built-in Redux template we used includes a great counter example of how Redux works. You can take a closer look at [Redux's explanation of the counter example](https://redux.js.org/introduction/examples/).
 
-### Useful terms to know when working with Redux
+### Useful terms for working with Redux
 
 **[Action](https://redux.js.org/tutorials/essentials/part-1-overview-concepts#reducers)**
 
-An Action is an JS object with a type and a payload. It describes an actionable interaction within your application, and typically is named something like `createUser` or `addToDo`.
+An **action** is a JS object with a type and a payload. It describes an actionable interaction within your app, and typically is named something like `createUser` or `addToDo`.
 
-**[Action Creators](https://redux.js.org/tutorials/essentials/part-1-overview-concepts#reducers)**
+**[Action Creators](https://redux.js.org/tutorials/essentials/part-1-overview-concepts#action-creators)**
 
 Action Creators can be used to dynamically create actions. NOT IN APP
 
 **[Reducers](https://redux.js.org/tutorials/essentials/part-1-overview-concepts#reducers)**
 
-A Reducer returns the proper current state with applicable changes as compared to the previous state when it's passed a new state. They work similarly to the Array.reduce method.
+When passed a new state, a **reducer** returns the proper current state by comparing it with the previous state, and making the applicable changes. Reducers work similarly to the `Array.reduce` method.
 
 **[Redux Store](https://redux.js.org/tutorials/fundamentals/part-4-store#redux-store)**
 
