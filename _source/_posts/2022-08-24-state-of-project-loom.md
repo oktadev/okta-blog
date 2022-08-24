@@ -254,7 +254,7 @@ Check out these additional resources to learn more about Java, multi-threading, 
 - [State of Loom](http://cr.openjdk.java.net/~rpressler/loom/loom/sol1_part1.html)
 - [Project Loom: Modern Scalable Concurrency for the Java Platform](https://www.youtube.com/watch?v=EO9oMiL1fFo)
 - [Thinking About Massive Throughput? Meet Virtual Threads!](https://foojay.io/today/thinking-about-massive-throughput-meet-virtual-threads/)
-- [Does Java 18 finally have a better alternative to JNI?](https://developer.okta.com/blog/2022/04/08/state-of-ffi-java)
+- [Does Java 18 finally have a better alternative to JNI?](/blog/2022/04/08/state-of-ffi-java)
 - [OAuth for Java Developers](/blog/2022/06/16/oauth-java)
 - [Cloud Native Java Microservices with JHipster and Istio](/blog/2022/06/09/cloud-native-java-microservices-with-istio)
 
