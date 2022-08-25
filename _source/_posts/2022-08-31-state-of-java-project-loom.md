@@ -4,16 +4,16 @@ title: "What the Heck Is Project Loom for Java?"
 author: deepu-sasidharan
 by: advocate
 communities: [java]
-description: "What the heck is Java's Project Loom and what does it mean for average Java developers?"
+description: "What the heck is Java's Project Loom and what does it mean for regular Java developers?"
 tags: [java, concurrency, project-loom]
 tweets:
-  - "What the heck is #Java Project Loom and what does it mean for average Java developers?"
+  - "What the heck is #Java Project Loom and what does it mean for regular Java developers?"
   - "What is the hottest new thing in #Java? Learn all about Virtual threads and Project Loom"
 image:
 type: awareness
 ---
 
-Java has good multi-threading and concurrency capabilities from early on in its evolution and can effectively utilize multi-threaded and multi-core CPUs. JDK 1.1 had basic support for platform threads (or Operating System (OS) threads), and JDK 1.5 had more utilities and updates to improve concurrency and multi-threading. JDK 8 brought asynchronous programming support and more concurrency improvements. While things improved over multiple versions, there was nothing groundbreaking apart from support for concurrency and multi-threading using OS threads for the last three decades.
+Java has good multi-threading and concurrency capabilities from early on in its evolution and can effectively utilize multi-threaded and multi-core CPUs. Java Development Kit (JDK) 1.1 had basic support for platform threads (or Operating System (OS) threads), and JDK 1.5 had more utilities and updates to improve concurrency and multi-threading. JDK 8 brought asynchronous programming support and more concurrency improvements. While things improved over multiple versions, there was nothing groundbreaking apart from support for concurrency and multi-threading using OS threads for the last three decades.
 
 Though the concurrency model in Java is powerful and flexible as a feature, it was not the easiest to use, and the developer experience hasn't been great. This is primarily due to the shared state concurrency model used by default. One has to resort to synchronizing threads to avoid issues like data races and thread blocking. I wrote more about Java concurrency in my [Concurrency in modern programming languages: Java](https://deepu.tech/concurrency-in-modern-languages-java/) post.
 
@@ -67,7 +67,7 @@ runBlocking {
 }
 ```
 
-A fun fact is that before Java 1.1, Java had support for green threads (a.k.a virtual threads). The new implementation of virtual threads is done in the JVM, where it maps multiple virtual threads to one or more OS threads, and the developer can use virtual threads or platform threads as per their needs. A few other important aspects of virtual threads are:
+A fun fact is that before JDK 1.1, Java had support for green threads (a.k.a virtual threads), but the feature was removed in JDK 1.1 as that implementation was not any better than platform threads. The new implementation of virtual threads is done in the JVM, where it maps multiple virtual threads to one or more OS threads, and the developer can use virtual threads or platform threads as per their needs. A few other important aspects of virtual threads are:
 
 - They are a `Thread` in code, runtime, debugger, and profiler
 - It's a Java entity and not a wrapper around a native thread
@@ -82,7 +82,7 @@ Let's look at some examples to show how powerful virtual threads are.
 
 #### Total number of threads
 
-First, let's see how many platform threads vs. virtual threads we can create on a machine (My machine is Intel Core i9-11900H, 8 cores, 16 threads, and 64GB RAM).
+First, let's see how many platform threads vs. virtual threads we can create on a machine (My machine is Intel Core i9-11900H with 8 cores, 16 threads, and 64GB RAM running Fedora 36).
 
 **Platform threads**
 
@@ -128,7 +128,7 @@ try (var executor = Executors.newThreadPerTaskExecutor(Executors.defaultThreadFa
 }
 ```
 
-This uses the `newThreadPerTaskExecutor` with the default thread factory and thus uses a thread group. If we run this code and time it, we get the below numbers. We get better performance if we use a thread pool with `Executors.newCachedThreadPool()`.
+This uses the `newThreadPerTaskExecutor` with the default thread factory and thus uses a thread group. When I ran this code and timed it, I get the below numbers. I get better performance when I use a thread pool with `Executors.newCachedThreadPool()`.
 
 ```bash
 # 'newThreadPerTaskExecutor' with 'defaultThreadFactory'
@@ -157,7 +157,7 @@ If I run and time it, I get the below numbers.
 
 This is far more performant than using platform threads with thread pools. Of course, these are simple use cases; both thread pools and virtual thread implementations can be further optimized for better performance, but that's not the point of this post.
 
-Running JMH benchmarks with the same code gives the below results, and you can see that virtual threads outperform platform threads by a huge margin.
+Running Java Microbenchmark Harness (JMH) with the same code gives the below results, and you can see that virtual threads outperform platform threads by a huge margin.
 
 ```bash
 # Throughput
@@ -175,9 +175,9 @@ LoomBenchmark.virtualThreadPerTask    avgt    5  1.098 ± 0.020   s/op
 
 You can find the benchmark [source code on GitHub](https://github.com/deepu105/java-loom-benchmarks). Here are some other meaningful benchmarks for virtual threads:
 
-- An interesting benchmark using ApacheBench [on GitHub](https://github.com/ebarlas/project-loom-comparison)
-- A benchmark using Akka actors [on Medium](https://medium.com/@zakgof/a-simple-benchmark-for-jdk-project-looms-virtual-threads-4f43ef8aeb1)
-- JMH benchmarks for I/O and non-I/O tasks [on GitHub](https://github.com/colincachia/loom-benchmark)
+- An interesting benchmark using ApacheBench [on GitHub](https://github.com/ebarlas/project-loom-comparison) by [Elliot Barlas](https://twitter.com/ElliotBarlas)
+- A benchmark using Akka actors [on Medium](https://medium.com/@zakgof/a-simple-benchmark-for-jdk-project-looms-virtual-threads-4f43ef8aeb1) by [Alexander Zakusylo](https://medium.com/@zakgof)
+- JMH benchmarks for I/O and non-I/O tasks [on GitHub](https://github.com/colincachia/loom-benchmark) by [Colin Cachia](https://twitter.com/colincachia)
 
 ### Structured Concurrency
 
@@ -226,7 +226,7 @@ void handleOrder() throws ExecutionException, InterruptedException {
 }
 ```
 
-Unlike the previous sample using `ExecutorService`, we can now use `StructuredTaskScope` to achieve the same result while confining the lifetimes of the subtasks to the lexical scope, in this case, the body of the `try-with-resources` statement. The code is much more readable, and the intent is also clear. `StructuredTaskScope` also ensures the below behavior automatically
+Unlike the previous sample using `ExecutorService`, we can now use `StructuredTaskScope` to achieve the same result while confining the lifetimes of the subtasks to the lexical scope, in this case, the body of the _try-with-resources_ statement. The code is much more readable, and the intent is also clear. `StructuredTaskScope` also ensures the below behavior automatically
 
 - **Error handling with short-circuiting** — If either the `updateInventory()` or `updateOrder()` fails, the other is cancelled unless its already completed. This is managed by the cancellation policy implemented by `ShutdownOnFailure()`; other policies are possible.
 
@@ -238,13 +238,13 @@ Unlike the previous sample using `ExecutorService`, we can now use `StructuredTa
 
 The Loom project started in 2017 and has undergone many changes and proposals. Virtual threads were initially called fibers, but later on, they were renamed to avoid confusion. Today with Java 19 getting closer to release, the project has delivered two features discussed above. One as a preview and another as an incubator. Hence the path to stabilization of the features should be more precise.
 
-## What does this mean to average Java developers?
+## What does this mean to regular Java developers?
 
-When these features are production ready, it should not affect average Java developers much, as most Java developers might be using libraries for most of the concurrency use cases. But it can be a big deal in those rare scenarios where you are doing a lot of multi-threading or parallel programming without using libraries. Virtual threads will increase performance and scalability in most cases, and structured concurrency can help simplify the codebase and make it less fragile and maintainable.
+When these features are production ready, it should not affect regular Java developers much, as most Java developers might be using libraries for most of the concurrency use cases. But it can be a big deal in those rare scenarios where you are doing a lot of multi-threading without using libraries. Virtual threads could be a no-brainer replacement for all usecases where you are using thread pools today. It will increase performance and scalability in most cases based on the benchmarks out there. Structured concurrency can help simplify the multi-threading or parallel processing use cases and make it less fragile and more maintainable.
 
 ## What does this mean to Java library developers?
 
-When these features are production ready, it will be a big deal for libraries and frameworks that use threads or parallelism. Library authors will see huge performance and scalability improvements while simplifying the codebase and making it maintainable. Web frameworks like Spring and Micronaut can switch to virtual threads to improve throughput further. I would expect most web frameworks and libraries to migrate to virtual threads from thread pools and the trendy reactive programming libraries like RxJava and Akka might be able to use structured concurrency effectively.
+When these features are production ready, it will be a big deal for libraries and frameworks that use threads or parallelism. Library authors will see huge performance and scalability improvements while simplifying the codebase and making it more maintainable. Most Java projects using thread pools and platform threads will benefit from switching to Virtual threads. Some candidates are Java server software like Tomcat, Undertow, Netty, and Web frameworks like Spring and Micronaut. I expect most Java web technologies to migrate to virtual threads from thread pools. Java Web technologies and trendy reactive programming libraries like RxJava and Akka could also use structured concurrency effectively. This doesn't mean that virtual threads will be the one solution for all; there will still be use cases and benefits for asynchronous and reactive programming.
 
 ## Learn more about Java, multi-threading, and Project Loom
 
