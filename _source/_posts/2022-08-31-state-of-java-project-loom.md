@@ -9,7 +9,7 @@ tags: [java, concurrency, project-loom]
 tweets:
   - "What the heck is #Java Project Loom and what does it mean for regular Java developers?"
   - "What is the hottest new thing in #Java? Learn all about Virtual threads and Project Loom"
-image:
+image: /blog/state-of-project-loom/cover.jpg
 type: awareness
 ---
 
@@ -259,3 +259,5 @@ Check out these additional resources to learn more about Java, multi-threading, 
 - [Cloud Native Java Microservices with JHipster and Istio](/blog/2022/06/09/cloud-native-java-microservices-with-istio)
 
 If you liked this tutorial, chances are you'll enjoy the others we publish. Please follow [@oktadev on Twitter](https://twitter.com/oktadev) and [subscribe to our YouTube channel](https://youtube.com/oktadev) to get notified when we publish new developer tutorials.
+
+Cover image by [Peter Herrmann](https://unsplash.com/@tama66) on [Unsplash](https://unsplash.com)
