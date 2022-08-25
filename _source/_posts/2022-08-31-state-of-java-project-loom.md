@@ -9,7 +9,7 @@ tags: [java, concurrency, project-loom]
 tweets:
   - "What the heck is #Java Project Loom and what does it mean for regular Java developers?"
   - "What is the hottest new thing in #Java? Learn all about Virtual threads and Project Loom"
-image: /blog/state-of-project-loom/cover.jpg
+image: blog/state-of-project-loom/cover.jpg
 type: awareness
 ---
 
