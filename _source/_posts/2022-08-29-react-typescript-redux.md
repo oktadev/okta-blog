@@ -84,17 +84,17 @@ Action Creators can be used to dynamically create actions. NOT IN APP
 
 When passed a new state, a **reducer** returns the proper current state by comparing it with the previous state, and making the applicable changes. Reducers work similarly to the `Array.reduce` method.
 
-**[Redux Store](https://redux.js.org/tutorials/fundamentals/part-4-store#redux-store)**
+**[Redux store](https://redux.js.org/tutorials/fundamentals/part-4-store#redux-store)**
 
-The current live state for your app lives in the Redux Store.
+The current live state for your app lives in the **Redux store**.
 
 **[Selectors](https://redux.js.org/tutorials/essentials/part-1-overview-concepts#selectors)**
 
-A selector returns a piece of the live Redux state as stored in the live Redux store.
+A **selector** returns a piece of the live Redux state as stored in the live Redux store.
 
 **[Dispatch](https://redux.js.org/tutorials/essentials/part-1-overview-concepts#dispatch)**
 
-A Dispatch is a method with triggers an action that in turn updates the Redux store.
+**Dispatch** is a method that triggers an action, which in turn updates the Redux store.
 
 ## Add authentication using OAuth2 and OpenID Connect (OIDC)
 
@@ -160,7 +160,7 @@ export default App;
 ```
 {% endraw %}
 
-## Add Initial State, Create Redux Slice, and Create Selector
+## Add initial state, create Redux slice, and create selector
 
 1. Create a `src/redux-state` directory:
 ```bash
@@ -228,7 +228,7 @@ export type AppThunk<ReturnType = void> = ThunkAction<
 >;
 ```
 
-## Show user profile information using state management
+## Show user profile information with state management
 
 1. Create a `src/components` directory:
 ```bash
@@ -302,9 +302,9 @@ export default function Home() {
 }
 ```
 
-Here we use React's [useEffect hook](https://reactjs.org/docs/hooks-effect.html) to set the global user state we set up earlier using `setUserProfile` and the local user state we set up in this file with [useState](https://reactjs.org/docs/hooks-state.html).
+Here we use React's [`useEffect` hook](https://reactjs.org/docs/hooks-effect.html) to set the global user state we set up earlier with `setUserProfile` and the local user state we set up in this file with [`useState`](https://reactjs.org/docs/hooks-state.html).
 
-Once the user is authenticated, we're using the [getUser method](https://github.com/okta/okta-auth-js#getuser) that is built into `oktaAuth` to fetch the user profile information. If the user is not yet authenticated, we render the login page instead.
+Once the user is authenticated, we rely on the [`getUser` method](https://github.com/okta/okta-auth-js#getuser) that is built into `oktaAuth` to fetch the user profile information. If the user is not yet authenticated, we render the login page instead.
 
 #### dashboard.tsx
 ```tsx
@@ -353,9 +353,9 @@ export default function Dashboard() {
 }
 ```
 
-In this file, we're using a Redux selector to get the current state for `userProfile` to then render those values in our component.
+In this file, we use a Redux selector to get the current state for `userProfile` to then render those values in our component.
 
-We're also setting an `isExpandable` property that toggles whether or not additional user profile information is hidden or shown. This is another example of how to use local state using the `useState` hook. 
+We also set an `isExpandable` property that toggles whether or not additional user profile information is hidden or shown. This is another example of how to use local state with the `useState` hook. 
 
 #### userProfile.tsx
 ```tsx
@@ -381,7 +381,7 @@ export default function UserProfile() {
 }
 ```
 
-In this file, we are using the Redux selector we created prior to get the current state for the state slice that includes the user profile information we set earlier.
+In this file, we use the Redux selector created earlier to get the current state for the state slice. This includes the user profile information we set earlier.
 
 #### userProfileExtra.tsx
 ``` tsx
@@ -407,7 +407,7 @@ export default function UserProfileExtra() {
 }
 ```
 
-Here, another way to manage state is demonstrated. This time, React's built-in `useContext` hook is used to get what we set prior in the `UserContext` we created with React's `createContext` method.
+Here, we demonstrate another way to manage state. This time, React's built-in `useContext` hook is used to get what we set earlier in the `UserContext` we created with React's `createContext` method.
 
 **NOTE:** The following custom styling has also been added to `src/App.css` in the demo repository.
 
@@ -485,7 +485,7 @@ Here, another way to manage state is demonstrated. This time, React's built-in `
 
 Our app is now complete! Next we'll run it to log a user in and render our applicable states.
 
-## Running the App
+## Running the app
 
 To start the app, run `npm start`.
 
@@ -493,11 +493,11 @@ After your app starts and you've clicked `login` on the home screen, you'll be r
 
 {% img blog/react-typescript-redux/dashboard.jpg alt:"Screenshot of dashboard." width:"600" %}{: .center-image }
 
-If you recall, the value for the user's `given_name` is part of the Redux slice from our created selector `selectUserProfile`. Clicking `Show more` or `Show less` toggles our local state for `isExpanded` in the dashboard component to show or hide additional user profile info, which is a mix of other values from the `userProfileSlice` and additional values from the `UserContext` we created.
+If you recall, the value for the user's `given_name` is part of the Redux slice from our created selector `selectUserProfile`. Clicking `Show more` or `Show less` toggles our local state for `isExpanded` in the dashboard component. This allows us to show or hide additional user profile info, which is a mix of values from the `userProfileSlice` and additional values from the `UserContext` we created.
 
 ## Learn more about authentication, React, and Redux
 
-In this post, we used Okta's redirect model to manage authenticated state and user profile information within a React app. We also saw examples on when to use Redux, local state using React's `useState` hook, or React Context. As you scale your apps, you might find that a mix of all three solutions is the right choice.
+In this post, we used Okta's redirect model to manage authenticated state and user profile information within a React app. We also looked at examples for when to use Redux, local state using React's `useState` hook, or React context. As you scale your apps, you might find that a mix of all three solutions is the right choice.
 
 You may also want to go further to handle more complex state management logic or add more customizations to your apps. The following links should help with potential next steps.
 
@@ -509,22 +509,22 @@ You may also want to go further to handle more complex state management logic or
 
 **[Custom URL Domain](https://developer.okta.com/docs/guides/custom-url-domain/main/)**
 
-Use a custom URL for the Okta sign in widget.
+Use a custom URL for the Okta Sign-In Widget.
 
 **[Open ID Connect](https://developer.okta.com/docs/guides/build-sso-integration/openidconnect/main/)**
 
 Set up Single Sign-On for your Okta integrated app.
 
-**[Customize Tokens Returned From Okta](https://developer.okta.com/docs/guides/customize-tokens-returned-from-okta/main/)**
+**[Customize tokens returned from Okta](https://developer.okta.com/docs/guides/customize-tokens-returned-from-okta/main/)**
 
-Add custom claims to your user access tokens that add custom information or attributes stored in a user profile.
+Add custom claims to your user access tokens to add custom information or attributes stored in a user profile.
 
-**[Redux Async Logic](https://redux.js.org/tutorials/essentials/part-5-async-logic)**
+**[Redux async logic](https://redux.js.org/tutorials/essentials/part-5-async-logic)**
 
-Use async logic in Redux with [Redux "thunk" middleware](https://github.com/reduxjs/redux-thunk) for handling things like login, data fetching, and handling loading state.
+Use async logic with [Redux "thunk" middleware](https://github.com/reduxjs/redux-thunk) for handling things like login, data fetching, and handling loading state.
 
 **[Redux Learning Resources](https://redux.js.org/introduction/learning-resources)**
 
-Further resources to learn Redux.
+Additional resources to learn Redux.
 
 Be sure you follow us on [Twitter](https://twitter.com/oktadev) and subscribe to our [YouTube](https://www.youtube.com/c/oktadev) channel. Please comment below if you have any questions or want to share what tutorial you'd like to see next.
