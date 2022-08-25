@@ -8,7 +8,7 @@ author: lee-brandt
 by: advocate
 communities: [.net]
 description: "Secure an ASP.NET Core 3.0 MVC app using OAuth2, OpenID Connect and Okta."
-tags: [oauth, oauth2, oidc, openid-connect, aspnet-core, aspnet-core-3, dotnet-core, dotnet-core-3]
+tags: [oauth, oauth2, oidc, aspnetcore, aspnetcore-3, dotnetcore, dotnetcore-3]
 tweets:
 - "Wanna learn how to secure your ASP.NET Core 3.0 MVC app with OAuth and OpenID Connect? Check this out!"
 - "Check out this simple tutorial for setting up OAuth2 and OpenID Connect in your ASP.NET Core 3.0 MVC app!"

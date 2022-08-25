@@ -8,7 +8,7 @@ author: micah-silverman
 by: advocate
 communities: [security]
 description: "This blog series is a primer on OIDC. In this post, we'll dive into the mechanics of OIDC and see the various flows in action."
-tags: [oauth, oauth2, oauth2-dot-0, oauth-2-dot-0, openid, openid-connect, oidc]
+tags: [oauth, oauth2, oidc]
 redirect_from:
   - "/blog/2017-08-01-oidc-primer-part-2"
 type: awareness

@@ -5,7 +5,7 @@ author: andrew-hughes
 by: contractor
 communities: [java,devops]
 description: "Build a JHipster Microservice on AWS with Amazon Elastic Kubernetes Service and secure it with OAuth 2.0 and OIDC using Okta as a provider"
-tags: [java,jhipster,kubernetes,k8s,devops,microservices]
+tags: [java,jhipster,kubernetes,devops,microservices]
 tweets:
 - "From soup 🍲 to nuts 🥜: here's everything you need to build a microservice stack and deploy it to Amazon Elastic Kubernetes Service #EKS. 
 Not-so-secret ingredients: @jhipster for your generator and @okta for #OIDC "

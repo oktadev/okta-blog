@@ -8,7 +8,7 @@ author: matt-raible
 by: advocate
 communities: [security]
 description: "OAuth 2.0 is a standard that apps can use to provide client applications with secure delegated access. OAuth works over HTTPS and authorizes devices, APIs, servers, and applications with access tokens rather than credentials. OIDC adds a signed ID token and a UserInfo endpoint."
-tags: [oauth, authorization, security, oidc, openid-connect, oauth2, okta]
+tags: [oauth, authorization, security, oidc, oauth2, okta]
 tweets:
 - "Do you know what OAuth is? This post attempts to clarify what it does and how OIDC fits into the mix."
 - "OAuth is not an API or a service. It's an open standard for authorization and anyone can implement it. Learn more →"

@@ -5,7 +5,7 @@ author: nickolas-fisher
 by: contractor
 communities: [.net]
 description: "Compare different #dependencyinjection options in .NET and discover the best one for you."
-tags: [csharp-8, csharp-9, dotnet, dotnetcore, csharp, aspnetcore, di, dependencyinjection, ]
+tags: [csharp-8, csharp-9, dotnet, dotnetcore, csharp, aspnetcore, dependencyinjection, ]
 tweets:
 - "Confused about #DI? Learn how to compare #dependencyinjection options in #dotnet ->"
 - "Get up to speed on using the right #dependencyinjection for your #dotnet project"

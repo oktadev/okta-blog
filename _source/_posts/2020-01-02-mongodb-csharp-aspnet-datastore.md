@@ -8,7 +8,7 @@ author: terje-kolderup
 by: contractor
 communities: [.net]
 description: "Use MongoDB as a document data store for your C# ASP.NET Applications."
-tags: [mongodb, c-sharp, csharp, asp-dot-net, aspnet]
+tags: [mongodb, csharp, asp-dot-net, aspnet]
 tweets:
 - "Want to build C# ASP.NET applications with a MongoDB data store? Check this out?"
 - "Want to use MongoDB as a data store for your C# ASP.NET Apps, but don't know where to start? Start here!"

@@ -8,7 +8,7 @@ author: matt-raible
 by: advocate
 communities: [javascript]
 description: "In this article, you'll see how build a simple web application with Angular CLI, a tool for Angular development. You'll also create an application with search and edit features, then add authentication."
-tags: [angular, authentication, oidc, openid-connect, okta, typescript, angular-cli]
+tags: [angular, authentication, oidc, okta, typescript, angular-cli]
 update-url: /blog/2019/02/12/secure-angular-login
 update-title: "Build Secure Login for Your Angular App"
 tweets:

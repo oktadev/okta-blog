@@ -8,7 +8,7 @@ author: randall-degges
 by: advocate
 communities: [javascript]
 description: "In this article you'll learn how to build a simple static website using Vue.js that shows you the current prices of the top 10 cryptocurrencies as well as a lot of other data."
-tags: [vuejs, javascript, bitcoin, cryptocurrency]
+tags: [vue, javascript, bitcoin, cryptocurrency]
 tweets:
     - "Like cryptocurrencies? Like @vuejs? Let's build something fun! <3"
     - "Spend your next hour building a fun cryptocurrency website instead of scrolling through twitter"

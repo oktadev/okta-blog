@@ -8,7 +8,7 @@ author: ibrahim-suta
 by: contractor
 communities: [.net, javascript]
 description: "This tutorial walks you through creating a basic CRUD application with ASP.NET WebAPI and Vue"
-tags: [aspnet, webapi, vue, vuejs, web-api, crud]
+tags: [aspnet, webapi, vue, web-api, crud]
 tweets:
 - "Getting started with @aspnet WebAPI and @vuejs? @ibro has you covered!"
 - "If you want to learn how to build a basic CRUD app using @aspnet WebAPI and @vuejs, check this out!"

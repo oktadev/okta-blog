@@ -8,7 +8,7 @@ author: randall-degges
 by: advocate
 communities: [python]
 description: "This post walks you through building a simple Flask web app with user registration, login, databases, etc."
-tags: [python, flask, oidc, openid-connect, user-management, databases]
+tags: [python, flask, oidc, user-management, databases]
 tweets:
 - "Are you a Python developer? Check out our latest #python #flask tutorial that shows you how to build a simple CRUD App with Flask!"
 - "Like building web apps in #python #flask? @rdegges just published a tutorial that walks you through building a simpel Flask web app complete with user registration, login, databases, etc."
