@@ -1,10 +1,10 @@
 ---
 layout: blog_post
-title: "What the Heck Is Java Project Loom?"
+title: "What the Heck Is Project Loom for Java?"
 author: deepu-sasidharan
 by: advocate
 communities: [java]
-description: "What the heck is Java Project Loom and what does it mean for average Java developers?"
+description: "What the heck is Java's Project Loom and what does it mean for average Java developers?"
 tags: [java, concurrency, project-loom]
 tweets:
   - "What the heck is #Java Project Loom and what does it mean for average Java developers?"
@@ -13,17 +13,17 @@ image:
 type: awareness
 ---
 
-Java has good multi-threading and concurrency capabilities from early on in its evolution and could effectively utilize multi-threaded and multi-core CPUs. JDK 1.1 had basic support for platform threads (or Operating System (OS) threads), and JDK 1.5 had more utilities and updates to improve concurrency and multi-threading. JDK 8 brought asynchronous programming support and more concurrency improvements. While things improved over multiple versions, there was nothing groundbreaking apart from support for concurrency and multi-threading using OS threads for the last three decades.
+Java has good multi-threading and concurrency capabilities from early on in its evolution and can effectively utilize multi-threaded and multi-core CPUs. JDK 1.1 had basic support for platform threads (or Operating System (OS) threads), and JDK 1.5 had more utilities and updates to improve concurrency and multi-threading. JDK 8 brought asynchronous programming support and more concurrency improvements. While things improved over multiple versions, there was nothing groundbreaking apart from support for concurrency and multi-threading using OS threads for the last three decades.
 
-Though the concurrency model in Java was powerful and flexible as a feature, it was not the easiest to use, and the developer experience was not that great. This was primarily due to the shared state concurrency model used by default. One has to resort to synchronizing threads to avoid issues like data races and thread blocking. I wrote more about Java concurrency in my [Concurrency in modern programming languages: Java](https://deepu.tech/concurrency-in-modern-languages-java/) post.
+Though the concurrency model in Java is powerful and flexible as a feature, it was not the easiest to use, and the developer experience hasn't been great. This is primarily due to the shared state concurrency model used by default. One has to resort to synchronizing threads to avoid issues like data races and thread blocking. I wrote more about Java concurrency in my [Concurrency in modern programming languages: Java](https://deepu.tech/concurrency-in-modern-languages-java/) post.
 
-## What is Project Loom
+## What is Project Loom?
 
 > Project Loom aims to drastically reduce the effort of writing, maintaining, and observing high-throughput concurrent applications that make the best use of available hardware.
 >
 > — Ron Pressler (Tech lead, Project Loom)
 
-OS threads are at the core of Java's concurrency model and have a very mature ecosystem around them, but it also comes with some drawbacks and is expensive computationally. Let's look at the two most common use cases for concurrency and the drawbacks of the current Java concurrency model in these cases.
+OS threads are at the core of Java's concurrency model and have a very mature ecosystem around them, but they also come with some drawbacks and are expensive computationally. Let's look at the two most common use cases for concurrency and the drawbacks of the current Java concurrency model in these cases.
 
 One of the most common concurrency use cases is serving requests over the wire using a server. For this, the most preferred approach is the thread-per-request model, where a separate thread handles each request. Throughput of such systems can be explained using [Little's law](https://en.wikipedia.org/wiki/Little%27s_law), which states that in a **stable system**, the average concurrency (number of requests concurrently processed by the server), **L** is equal to the throughput (average rate of requests), **λ**, times the latency (average duration of processing each request), **W**. With this, you can derive that throughput equals average concurrency divided by latency (**λ = L/W**).
 
@@ -31,7 +31,7 @@ So in a thread-per-request model, the throughput will be limited by the number o
 
 Another common use case is parallel processing or multi-threading. You must ensure thread synchronization when executing a parallel task distributed over multiple threads to avoid data races. The implementation becomes even more fragile and puts a lot more responsibility on the developer to ensure there are no issues like thread leaks and cancellation delays.
 
-Project Loom aims to fix these issues in the current concurrency model by introducing two new features, virtual threads, and structured concurrency.
+Project Loom aims to fix these issues in the current concurrency model by introducing two new features: virtual threads and structured concurrency.
 
 ### Virtual Threads
 
@@ -39,7 +39,7 @@ Project Loom aims to fix these issues in the current concurrency model by introd
 
 [Virtual threads](https://openjdk.org/jeps/425) are lightweight threads that are not tied to OS threads but are managed by the JVM. They are suitable for thread-per-request programming styles without having the limitations of OS threads. You can create millions of virtual threads without affecting throughput. This is quite similar to coroutines, like [Goroutines](https://go.dev/tour/concurrency/1), made famous by the Go programming language.
 
-The new virtual threads in java 19 will be pretty easy to use. Compare the below with Golang's Goroutines or Kotlin's coroutines.
+The new virtual threads in Java 19 will be pretty easy to use. Compare the below with Golang's Goroutines or Kotlin's coroutines.
 
 **Virtual thread**
 
@@ -112,7 +112,7 @@ while (true) {
 }
 ```
 
-On my machine, the process hanged after **14_625_956** virtual threads but didn't crash, and as memory became available, it kept going slowly.
+On my machine, the process hung after **14_625_956** virtual threads but didn't crash, and as memory became available, it kept going slowly.
 
 #### Task throughput
 
@@ -149,7 +149,7 @@ try (var executor = Executors.newVirtualThreadPerTaskExecutor()) {
 }
 ```
 
-If we run and time it, we get the below numbers.
+If I run and time it, I get the below numbers.
 
 ```bash
 0:02.62 real,   6.83 s user,    1.46 s sys,     316% 14840pu,   0 amem,         350268 mmem
@@ -236,11 +236,11 @@ Unlike the previous sample using `ExecutorService`, we can now use `StructuredTa
 
 ## State of Project Loom
 
-The project started in 2017 and has undergone many changes and proposals. Virtual threads were initially called fibers, but later on, it was renamed to avoid confusion. Today with Java 19 getting closer to release, the project has delivered two features discussed above. One as a preview and another as an incubator. Hence the path to stabilization of the features should be more precise.
+The Loom project started in 2017 and has undergone many changes and proposals. Virtual threads were initially called fibers, but later on, they were renamed to avoid confusion. Today with Java 19 getting closer to release, the project has delivered two features discussed above. One as a preview and another as an incubator. Hence the path to stabilization of the features should be more precise.
 
 ## What does this mean to average Java developers?
 
-When these features are production ready, it should not affect average Java developers much, as most java developers might be using libraries for most of the concurrency use cases. But it can be a big deal in those rare scenarios where you are doing a lot of multi-threading or parallel programming without using libraries. Virtual threads will increase performance and scalability in most cases, and structured concurrency can help simplify the codebase and make it less fragile and maintainable.
+When these features are production ready, it should not affect average Java developers much, as most Java developers might be using libraries for most of the concurrency use cases. But it can be a big deal in those rare scenarios where you are doing a lot of multi-threading or parallel programming without using libraries. Virtual threads will increase performance and scalability in most cases, and structured concurrency can help simplify the codebase and make it less fragile and maintainable.
 
 ## What does this mean to Java library developers?
 
