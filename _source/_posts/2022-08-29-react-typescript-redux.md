@@ -168,6 +168,7 @@ mkdir src/redux-state
 ```
 
 2. Add a `userProfileSlice.tsx` file in the created `redux-state` directory with the following:
+{% raw %}
 ```tsx
 import { createSlice } from "@reduxjs/toolkit";
 import { RootState } from "../app/store";
@@ -204,8 +205,11 @@ export const selectUserProfile = (state: RootState): IUserProfile =>
 export const { setUserProfile } = userProfileSlice.actions;
 export default userProfileSlice.reducer;
 ```
+{% endraw %}
 
+{:start="3"}
 3. In the `src/app/store.ts` file, add the created Redux slice to the Redux store:
+{% raw %}
 ```ts
 import { configureStore, ThunkAction, Action } from "@reduxjs/toolkit";
 import counterReducer from "../features/counter/counterSlice";
@@ -227,6 +231,7 @@ export type AppThunk<ReturnType = void> = ThunkAction<
   Action<string>
 >;
 ```
+{% endraw %}
 
 ## Show user profile information using state management
 
@@ -236,8 +241,8 @@ mkdir src/components
 ```
 
 2. In the `src/components` directory, add the following files:
-
 #### home.tsx
+
 ```tsx
 import { useOktaAuth } from "@okta/okta-react";
 import { createContext, useEffect, useState } from "react";
@@ -307,6 +312,7 @@ Here we use React's [useEffect hook](https://reactjs.org/docs/hooks-effect.html)
 Once the user is authenticated, we're using the [getUser method](https://github.com/okta/okta-auth-js#getuser) that is built into `oktaAuth` to fetch the user profile information. If the user is not yet authenticated, we render the login page instead.
 
 #### dashboard.tsx
+
 ```tsx
 import { useOktaAuth } from "@okta/okta-react";
 import { useSelector } from "react-redux";
@@ -358,6 +364,7 @@ In this file, we're using a Redux selector to get the current state for `userPro
 We're also setting an `isExpandable` property that toggles whether or not additional user profile information is hidden or shown. This is another example of how to use local state using the `useState` hook. 
 
 #### userProfile.tsx
+
 ```tsx
 import { useSelector } from "react-redux";
 import { selectUserProfile } from "../redux-state/userProfileSlice";
@@ -384,6 +391,7 @@ export default function UserProfile() {
 In this file, we are using the Redux selector we created prior to get the current state for the state slice that includes the user profile information we set earlier.
 
 #### userProfileExtra.tsx
+
 ``` tsx
 import "../App.css";
 import { useContext } from "react";
