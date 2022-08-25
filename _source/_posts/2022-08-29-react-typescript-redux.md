@@ -78,7 +78,7 @@ An **action** is a JS object with a type and a payload. It describes an actionab
 
 **[Action Creators](https://redux.js.org/tutorials/essentials/part-1-overview-concepts#action-creators)**
 
-**Action creators** can be used to dynamically create actions. NOT IN APP
+**Action creators** can be used to dynamically create actions. Our demo does not use action creators, but you can read more about it at the link above.
 
 **[Reducers](https://redux.js.org/tutorials/essentials/part-1-overview-concepts#reducers)**
 
