@@ -259,4 +259,4 @@ Check out these additional resources to learn more about Java, multi-threading, 
 
 If you liked this tutorial, chances are you'll enjoy the others we publish. Please follow [@oktadev on Twitter](https://twitter.com/oktadev) and [subscribe to our YouTube channel](https://youtube.com/oktadev) to get notified when we publish new developer tutorials.
 
-Cover image by [Peter Herrmann](https://unsplash.com/@tama66) on [Unsplash](https://unsplash.com)
+The cover image was created using a photo by [Peter Herrmann](https://unsplash.com/@tama66) on [Unsplash](https://unsplash.com)
