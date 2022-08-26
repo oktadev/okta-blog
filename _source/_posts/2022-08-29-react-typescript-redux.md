@@ -27,7 +27,7 @@ As of the time of this publication, Create React App requires Node >= 14.0.0 and
 {% include toc.md %}
 ## Create the React app using TypeScript
 
-We'll get started with the built-in React template for [Create React App](https://github.com/facebook/create-react-app) that uses Redux and TypeScript. This includes the recommended Redux Toolkit and Redux's integration with React components.
+We'll get started with the built-in React template for [Create React App](https://github.com/facebook/create-react-app) that uses Redux and TypeScript. This includes the recommended Redux Toolkit and Redux's integration with React components. You can also [clone the GitHub repo](https://github.com/oktadev/okta-react-typescript-redux-example) and follow the instructions there to configure it instead of building the project.
 
 1. First, run:
 ```bash
@@ -501,7 +501,7 @@ After your app starts and you've clicked `login` on the home screen, you'll be r
 
 {% img blog/react-typescript-redux/dashboard.jpg alt:"Screenshot of dashboard." width:"600" %}{: .center-image }
 
-If you recall, the value for the user's `given_name` is part of the Redux slice from our created selector `selectUserProfile`. Clicking `Show more` or `Show less` toggles our local state for `isExpanded` in the dashboard component. This allows us to show or hide additional user profile info, which is a mix of values from the `userProfileSlice` and additional values from the `UserContext` we created.
+If you recall, the value for the user's `given_name` is part of the Redux slice from our created selector `selectUserProfile`. Clicking `Show more` or `Show less` toggles our local state for `isExpanded` in the dashboard component. This allows us to show or hide additional user profile info, which is a mix of values from the `userProfileSlice` and additional values from the `UserContext` we created. 
 
 ## Learn more about authentication, React, and Redux
 
