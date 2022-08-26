@@ -13,7 +13,7 @@ image: blog/state-of-project-loom/cover.jpg
 type: awareness
 ---
 
-Java has good multi-threading and concurrency capabilities from early on in its evolution and can effectively utilize multi-threaded and multi-core CPUs. Java Development Kit (JDK) 1.1 had basic support for platform threads (or Operating System (OS) threads), and JDK 1.5 had more utilities and updates to improve concurrency and multi-threading. JDK 8 brought asynchronous programming support and more concurrency improvements. While things improved over multiple versions, there was nothing groundbreaking apart from support for concurrency and multi-threading using OS threads for the last three decades.
+Java has had good multi-threading and concurrency capabilities from early on in its evolution and can effectively utilize multi-threaded and multi-core CPUs. Java Development Kit (JDK) 1.1 had basic support for platform threads (or Operating System (OS) threads), and JDK 1.5 had more utilities and updates to improve concurrency and multi-threading. JDK 8 brought asynchronous programming support and more concurrency improvements. While things have continued to improve over multiple versions, there has been nothing groundbreaking in Java for the last three decades, apart from support for concurrency and multi-threading using OS threads.
 
 Though the concurrency model in Java is powerful and flexible as a feature, it was not the easiest to use, and the developer experience hasn't been great. This is primarily due to the shared state concurrency model used by default. One has to resort to synchronizing threads to avoid issues like data races and thread blocking. I wrote more about Java concurrency in my [Concurrency in modern programming languages: Java](https://deepu.tech/concurrency-in-modern-languages-java/) post.
 
@@ -25,21 +25,21 @@ Though the concurrency model in Java is powerful and flexible as a feature, it w
 
 OS threads are at the core of Java's concurrency model and have a very mature ecosystem around them, but they also come with some drawbacks and are expensive computationally. Let's look at the two most common use cases for concurrency and the drawbacks of the current Java concurrency model in these cases.
 
-One of the most common concurrency use cases is serving requests over the wire using a server. For this, the most preferred approach is the thread-per-request model, where a separate thread handles each request. Throughput of such systems can be explained using [Little's law](https://en.wikipedia.org/wiki/Little%27s_law), which states that in a **stable system**, the average concurrency (number of requests concurrently processed by the server), **L** is equal to the throughput (average rate of requests), **λ**, times the latency (average duration of processing each request), **W**. With this, you can derive that throughput equals average concurrency divided by latency (**λ = L/W**).
+One of the most common concurrency use cases is serving requests over the wire using a server. For this, the preferred approach is the thread-per-request model, where a separate thread handles each request. Throughput of such systems can be explained using [Little's law](https://en.wikipedia.org/wiki/Little%27s_law), which states that in a **stable system**, the average concurrency (number of requests concurrently processed by the server), **L**, is equal to the throughput (average rate of requests), **λ**, times the latency (average duration of processing each request), **W**. With this, you can derive that throughput equals average concurrency divided by latency (**λ = L/W**).
 
-So in a thread-per-request model, the throughput will be limited by the number of OS threads available, which depends on the number of physical cores/threads available on the hardware. To work around this, you have to use shared thread pools or asynchronous concurrency, both of which have their drawbacks. Thread pools have many limitations, like thread leaking, deadlocks, resource thrashing, etc. Asynchronous concurrency means you must adapt to a more complex programming style and handle data races carefully. There are also chances of memory leaks, thread locking, etc.
+So in a thread-per-request model, the throughput will be limited by the number of OS threads available, which depends on the number of physical cores/threads available on the hardware. To work around this, you have to use shared thread pools or asynchronous concurrency, both of which have their drawbacks. Thread pools have many limitations, like thread leaking, deadlocks, resource thrashing, etc. Asynchronous concurrency means you must adapt to a more complex programming style and handle data races carefully. There are also chances for memory leaks, thread locking, etc.
 
-Another common use case is parallel processing or multi-threading. You must ensure thread synchronization when executing a parallel task distributed over multiple threads to avoid data races. The implementation becomes even more fragile and puts a lot more responsibility on the developer to ensure there are no issues like thread leaks and cancellation delays.
+Another common use case is parallel processing or multi-threading. To avoid data races, you must ensure thread synchronization when executing a parallel task distributed over multiple threads. The implementation becomes even more fragile and puts a lot more responsibility on the developer to ensure there are no issues like thread leaks and cancellation delays.
 
-Project Loom aims to fix these issues in the current concurrency model by introducing two new features: virtual threads and structured concurrency.
+Project Loom aims to fix these issues in the current concurrency model by introducing two new features: *virtual threads* and *structured concurrency*.
 
-### Virtual Threads
+### Virtual threads
 
 > Java 19 is scheduled to be released in September 2022, and Virtual threads will be a preview feature. Yayyy!
 
-[Virtual threads](https://openjdk.org/jeps/425) are lightweight threads that are not tied to OS threads but are managed by the JVM. They are suitable for thread-per-request programming styles without having the limitations of OS threads. You can create millions of virtual threads without affecting throughput. This is quite similar to coroutines, like [Goroutines](https://go.dev/tour/concurrency/1), made famous by the Go programming language.
+[Virtual threads](https://openjdk.org/jeps/425) are lightweight threads that are not tied to OS threads but are managed by the JVM. They are suitable for thread-per-request programming styles without having the limitations of OS threads. You can create millions of virtual threads without affecting throughput. This is quite similar to coroutines, like [goroutines](https://go.dev/tour/concurrency/1), made famous by the Go programming language (Golang).
 
-The new virtual threads in Java 19 will be pretty easy to use. Compare the below with Golang's Goroutines or Kotlin's coroutines.
+The new virtual threads in Java 19 will be pretty easy to use. Compare the below with Golang's goroutines or Kotlin's coroutines.
 
 **Virtual thread**
 
@@ -67,22 +67,22 @@ runBlocking {
 }
 ```
 
-A fun fact is that before JDK 1.1, Java had support for green threads (a.k.a virtual threads), but the feature was removed in JDK 1.1 as that implementation was not any better than platform threads. The new implementation of virtual threads is done in the JVM, where it maps multiple virtual threads to one or more OS threads, and the developer can use virtual threads or platform threads as per their needs. A few other important aspects of virtual threads are:
+Fun fact:  before JDK 1.1, Java had support for green threads (aka virtual threads), but the feature was removed in JDK 1.1 as that implementation was not any better than platform threads. The new implementation of virtual threads is done in the JVM, where it maps multiple virtual threads to one or more OS threads, and the developer can use virtual threads or platform threads as per their needs. A few other important aspects of this implementation of virtual threads:
 
-- They are a `Thread` in code, runtime, debugger, and profiler
+- It is a `Thread` in code, runtime, debugger, and profiler
 - It's a Java entity and not a wrapper around a native thread
 - Creating and blocking them are cheap operations
 - They should not be pooled
-- It uses a work-stealing `ForkJoinPool` scheduler
+- Virtual threads use a work-stealing `ForkJoinPool` scheduler
 - Pluggable schedulers can be used for asynchronous programming
-- Virtual thread will have its own stack memory
-- API is very similar to OS threads and hence easier to adopt/migrate
+- A virtual thread will have its own stack memory
+- The virtual threads API is very similar to OS threads and hence easier to adopt/migrate
 
-Let's look at some examples to show how powerful virtual threads are.
+Let's look at some examples that show the power of virtual threads.
 
 #### Total number of threads
 
-First, let's see how many platform threads vs. virtual threads we can create on a machine (My machine is Intel Core i9-11900H with 8 cores, 16 threads, and 64GB RAM running Fedora 36).
+First, let's see how many platform threads vs. virtual threads we can create on a machine. (My machine is Intel Core i9-11900H with 8 cores, 16 threads, and 64GB RAM running Fedora 36.)
 
 **Platform threads**
 
@@ -128,7 +128,7 @@ try (var executor = Executors.newThreadPerTaskExecutor(Executors.defaultThreadFa
 }
 ```
 
-This uses the `newThreadPerTaskExecutor` with the default thread factory and thus uses a thread group. When I ran this code and timed it, I get the below numbers. I get better performance when I use a thread pool with `Executors.newCachedThreadPool()`.
+This uses the `newThreadPerTaskExecutor` with the default thread factory and thus uses a thread group. When I ran this code and timed it, I got the numbers shown here. I get better performance when I use a thread pool with `Executors.newCachedThreadPool()`.
 
 ```bash
 # 'newThreadPerTaskExecutor' with 'defaultThreadFactory'
@@ -149,7 +149,7 @@ try (var executor = Executors.newVirtualThreadPerTaskExecutor()) {
 }
 ```
 
-If I run and time it, I get the below numbers.
+If I run and time it, I get the following numbers.
 
 ```bash
 0:02.62 real,   6.83 s user,    1.46 s sys,     316% 14840pu,   0 amem,         350268 mmem
@@ -157,7 +157,7 @@ If I run and time it, I get the below numbers.
 
 This is far more performant than using platform threads with thread pools. Of course, these are simple use cases; both thread pools and virtual thread implementations can be further optimized for better performance, but that's not the point of this post.
 
-Running Java Microbenchmark Harness (JMH) with the same code gives the below results, and you can see that virtual threads outperform platform threads by a huge margin.
+Running Java Microbenchmark Harness (JMH) with the same code gives the following results, and you can see that virtual threads outperform platform threads by a huge margin.
 
 ```bash
 # Throughput
@@ -179,11 +179,11 @@ You can find the benchmark [source code on GitHub](https://github.com/deepu105/j
 - A benchmark using Akka actors [on Medium](https://medium.com/@zakgof/a-simple-benchmark-for-jdk-project-looms-virtual-threads-4f43ef8aeb1) by [Alexander Zakusylo](https://medium.com/@zakgof)
 - JMH benchmarks for I/O and non-I/O tasks [on GitHub](https://github.com/colincachia/loom-benchmark) by [Colin Cachia](https://twitter.com/colincachia)
 
-### Structured Concurrency
+### Structured concurrency
 
 > Structured concurrency will be an incubator feature in Java 19.
 
-[Structured Concurrency](https://openjdk.org/jeps/428) aims to simplify multi-threaded and parallel programming. It treats multiple tasks running in different threads as a single unit of work, streamlining error handling and cancellation while improving reliability and observability. This helps to avoid issues like thread leaking and cancellation delays. Being an incubator feature, this might go through further changes during stabilization.
+[Structured concurrency](https://openjdk.org/jeps/428) aims to simplify multi-threaded and parallel programming. It treats multiple tasks running in different threads as a single unit of work, streamlining error handling and cancellation while improving reliability and observability. This helps to avoid issues like thread leaking and cancellation delays. Being an incubator feature, this might go through further changes during stabilization.
 
 Consider the following example using `java.util.concurrent.ExecutorService`.
 
@@ -203,8 +203,8 @@ void handleOrder() throws ExecutionException, InterruptedException {
 
 We want `updateInventory()` and `updateOrder()` subtasks to be executed concurrently. Each of those can succeed or fail independently. Ideally, the `handleOrder()` method should fail if any subtask fails. However, if a failure occurs in one subtask, things get messy.
 
-- Imagine that `updateInventory()` failed and throws an exception. Then, the `handleOrder()` method will throw an exception when calling `inventory.get()`. So far is fine, but what about `updateOrder()`? Since it runs on its own thread, it can complete successfully. But now we have an issue with a mismatch in inventory and order. Suppose the `updateOrder()` is an expensive operation. In that case, we are just wasting the resources for nothing, and we would have to write some sort of guard logic to revert the updates done to order as our overall operation failed.
-- Imagine that `updateInventory()` is an expensive long-running operation and `updateOrder()` threw an error. The `handleOrder()` task will be blocked on `inventory.get()` even though `updateOrder()` threw an error. Ideally, we would like the `handleOrder()` task to cancel `updateInventory()` when a failure occurs in `updateOrder()` so that we are not wasting time.
+- Imagine that `updateInventory()` fails and throws an exception. Then, the `handleOrder()` method throws an exception when calling `inventory.get()`. So far this is fine, but what about `updateOrder()`? Since it runs on its own thread, it can complete successfully. But now we have an issue with a mismatch in inventory and order. Suppose the `updateOrder()` is an expensive operation. In that case, we are just wasting the resources for nothing, and we will have to write some sort of guard logic to revert the updates done to order as our overall operation has failed.
+- Imagine that `updateInventory()` is an expensive long-running operation and `updateOrder()` throws an error. The `handleOrder()` task will be blocked on `inventory.get()` even though `updateOrder()` threw an error. Ideally, we would like the `handleOrder()` task to cancel `updateInventory()` when a failure occurs in `updateOrder()` so that we are not wasting time.
 - If the thread executing `handleOrder()` is interrupted, the interruption is not propagated to the subtasks. In this case `updateInventory()` and `updateOrder()` will leak and continue to run in the background.
 
 For these situations, we would have to carefully write workarounds and failsafe, putting all the burden on the developer.
@@ -226,9 +226,9 @@ void handleOrder() throws ExecutionException, InterruptedException {
 }
 ```
 
-Unlike the previous sample using `ExecutorService`, we can now use `StructuredTaskScope` to achieve the same result while confining the lifetimes of the subtasks to the lexical scope, in this case, the body of the _try-with-resources_ statement. The code is much more readable, and the intent is also clear. `StructuredTaskScope` also ensures the below behavior automatically
+Unlike the previous sample using `ExecutorService`, we can now use `StructuredTaskScope` to achieve the same result while confining the lifetimes of the subtasks to the lexical scope, in this case, the body of the _try-with-resources_ statement. The code is much more readable, and the intent is also clear. `StructuredTaskScope` also ensures the following behavior automatically.
 
-- **Error handling with short-circuiting** — If either the `updateInventory()` or `updateOrder()` fails, the other is cancelled unless its already completed. This is managed by the cancellation policy implemented by `ShutdownOnFailure()`; other policies are possible.
+- **Error handling with short-circuiting** — If either the `updateInventory()` or `updateOrder()` fails, the other is canceled unless its already completed. This is managed by the cancellation policy implemented by `ShutdownOnFailure()`; other policies are possible.
 
 - **Cancellation propagation** — If the thread running `handleOrder()` is interrupted before or during the call to `join()`, both forks are canceled automatically when the thread exits the scope.
 
@@ -236,15 +236,15 @@ Unlike the previous sample using `ExecutorService`, we can now use `StructuredTa
 
 ## State of Project Loom
 
-The Loom project started in 2017 and has undergone many changes and proposals. Virtual threads were initially called fibers, but later on, they were renamed to avoid confusion. Today with Java 19 getting closer to release, the project has delivered two features discussed above. One as a preview and another as an incubator. Hence the path to stabilization of the features should be more precise.
+The Loom project started in 2017 and has undergone many changes and proposals. Virtual threads were initially called fibers, but later on they were renamed to avoid confusion. Today with Java 19 getting closer to release, the project has delivered the two features discussed above. One as a preview and another as an incubator. Hence the path to stabilization of the features should be more precise.
 
 ## What does this mean to regular Java developers?
 
-When these features are production ready, it should not affect regular Java developers much, as most Java developers might be using libraries for most of the concurrency use cases. But it can be a big deal in those rare scenarios where you are doing a lot of multi-threading without using libraries. Virtual threads could be a no-brainer replacement for all usecases where you are using thread pools today. It will increase performance and scalability in most cases based on the benchmarks out there. Structured concurrency can help simplify the multi-threading or parallel processing use cases and make it less fragile and more maintainable.
+When these features are production ready, it should not affect generalist Java developers much, as these developers may be using libraries for concurrency use cases. But it can be a big deal in those rare scenarios where you are doing a lot of multi-threading without using libraries. Virtual threads could be a no-brainer replacement for all use cases where you use thread pools today. This will increase performance and scalability in most cases based on the benchmarks out there. Structured concurrency can help simplify the multi-threading or parallel processing use cases and make them less fragile and more maintainable.
 
 ## What does this mean to Java library developers?
 
-When these features are production ready, it will be a big deal for libraries and frameworks that use threads or parallelism. Library authors will see huge performance and scalability improvements while simplifying the codebase and making it more maintainable. Most Java projects using thread pools and platform threads will benefit from switching to Virtual threads. Some candidates are Java server software like Tomcat, Undertow, Netty, and Web frameworks like Spring and Micronaut. I expect most Java web technologies to migrate to virtual threads from thread pools. Java Web technologies and trendy reactive programming libraries like RxJava and Akka could also use structured concurrency effectively. This doesn't mean that virtual threads will be the one solution for all; there will still be use cases and benefits for asynchronous and reactive programming.
+When these features are production ready, it will be a big deal for libraries and frameworks that use threads or parallelism. Library authors will see huge performance and scalability improvements while simplifying the codebase and making it more maintainable. Most Java projects using thread pools and platform threads will benefit from switching to virtual threads. Candidates include Java server software like Tomcat, Undertow, and Netty; and web frameworks like Spring and Micronaut. I expect most Java web technologies to migrate to virtual threads from thread pools. Java web technologies and trendy reactive programming libraries like RxJava and Akka could also use structured concurrency effectively. This doesn't mean that virtual threads will be the one solution for all; there will still be use cases and benefits for asynchronous and reactive programming.
 
 ## Learn more about Java, multi-threading, and Project Loom
 
