@@ -13,17 +13,17 @@ type: conversion
 github: https://github.com/oktadev/okta-react-typescript-redux-example
 ---
 
-There are a myriad of state management options available for React. React provides the option of using the built-in [Context](https://reactjs.org/docs/context.html) for when you have a nested tree of components that share a state. There is also a built-in [useState hook](https://reactjs.org/docs/context.html) that will allow you to set local state for a component.
+There are a myriad of state management options available for React. React provides the option of using the built-in [Context](https://reactjs.org/docs/context.html) for when you have a nested tree of components that share a state. There is also a built-in [useState hook](https://reactjs.org/docs/hooks-reference.html#usestate) that will allow you to set local state for a component.
 
 For more complex scenarios where you need a single source of truth that changes frequently and is shared across large sections of your application, consider using a more robust state management library.
 
-This walkthrough will get you started with a basic setup using Okta's redirect model to manage authenticated state and user profile information within a React app. It provides examples on when to use [Redux](https://redux.js.org/), local state using React's `useState` hook, or React Context. 
+This walkthrough will get you started with a basic setup using Okta's redirect model to manage authenticated state and user profile information within a React app. It provides examples on when to use [Redux](https://redux.js.org/) versus local state using React's `useState` hook versus React Context. 
 
 **Prerequisites**
 
-As of the time of this publication, Create React App requires Node >= 14.0.0 and npm >= 5.6. You can check for the latest required versions at [https://reactjs.org/docs/create-a-new-react-app.html](https://reactjs.org/docs/create-a-new-react-app.html).
+As of the time of this publication, *Create React App* requires Node >= 14.0.0 and npm >= 5.6. You can check for the latest required versions at [https://reactjs.org/docs/create-a-new-react-app.html](https://reactjs.org/docs/create-a-new-react-app.html).
 
-**NOTE:** Redux also recommends you install the [Chrome React DevTools Extension](https://chrome.google.com/webstore/detail/react-developer-tools/fmkadmapgofadopljbjfkapdkoienihi?hl=en).
+**NOTE:** Redux also recommends you install the [React Developer Tools] Chrome extension (https://chrome.google.com/webstore/detail/react-developer-tools/fmkadmapgofadopljbjfkapdkoienihi?hl=en).
 {% include toc.md %}
 ## Create the React app using TypeScript
 
@@ -120,7 +120,7 @@ REACT_APP_OKTA_BASE_REDIRECT_URI=http://localhost:3000
 
 ## Add authentication and create routes
 
-1. Modify the existing `App.tsx` file:
+Modify the existing `App.tsx` file:
 {% raw %}
 ```tsx
 import "./App.css";
