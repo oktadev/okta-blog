@@ -29,9 +29,9 @@ One of the most common concurrency use cases is serving requests over the wire u
 
 So in a thread-per-request model, the throughput will be limited by the number of OS threads available, which depends on the number of physical cores/threads available on the hardware. To work around this, you have to use shared thread pools or asynchronous concurrency, both of which have their drawbacks. Thread pools have many limitations, like thread leaking, deadlocks, resource thrashing, etc. Asynchronous concurrency means you must adapt to a more complex programming style and handle data races carefully. There are also chances for memory leaks, thread locking, etc.
 
-Another common use case is parallel processing or multi-threading. To avoid data races, you must ensure thread synchronization when executing a parallel task distributed over multiple threads. The implementation becomes even more fragile and puts a lot more responsibility on the developer to ensure there are no issues like thread leaks and cancellation delays.
+Another common use case is parallel processing or multi-threading, where you might split a task into subtasks across multiple threads. Here you have to write solutions to avoid data corruption and data races. In some cases, you must also ensure thread synchronization when executing a parallel task distributed over multiple threads. The implementation becomes even more fragile and puts a lot more responsibility on the developer to ensure there are no issues like thread leaks and cancellation delays.
 
-Project Loom aims to fix these issues in the current concurrency model by introducing two new features: *virtual threads* and *structured concurrency*.
+Project Loom aims to fix these issues in the current concurrency model by introducing two new features: _virtual threads_ and _structured concurrency_.
 
 ### Virtual threads
 
@@ -67,7 +67,7 @@ runBlocking {
 }
 ```
 
-Fun fact:  before JDK 1.1, Java had support for green threads (aka virtual threads), but the feature was removed in JDK 1.1 as that implementation was not any better than platform threads. The new implementation of virtual threads is done in the JVM, where it maps multiple virtual threads to one or more OS threads, and the developer can use virtual threads or platform threads as per their needs. A few other important aspects of this implementation of virtual threads:
+Fun fact: before JDK 1.1, Java had support for green threads (aka virtual threads), but the feature was removed in JDK 1.1 as that implementation was not any better than platform threads. The new implementation of virtual threads is done in the JVM, where it maps multiple virtual threads to one or more OS threads, and the developer can use virtual threads or platform threads as per their needs. A few other important aspects of this implementation of virtual threads:
 
 - It is a `Thread` in code, runtime, debugger, and profiler
 - It's a Java entity and not a wrapper around a native thread
@@ -76,14 +76,13 @@ Fun fact:  before JDK 1.1, Java had support for green threads (aka virtual threa
 - Virtual threads use a work-stealing `ForkJoinPool` scheduler
 - Pluggable schedulers can be used for asynchronous programming
 - A virtual thread will have its own stack memory
-- The virtual threads API is very similar to OS threads and hence easier to adopt/migrate
+- The virtual threads API is very similar to platform threads and hence easier to adopt/migrate
 
 Let's look at some examples that show the power of virtual threads.
 
 #### Total number of threads
 
-First, let's see how many platform threads vs. virtual threads we can create on a machine. (My machine is Intel Core i9-11900H with 8 cores, 16 threads, and 64GB RAM running Fedora 36.)
-
+First, let's see how many platform threads vs. virtual threads we can create on a machine. My machine is Intel Core i9-11900H with 8 cores, 16 threads, and 64GB RAM running Fedora 36.
 **Platform threads**
 
 ```java
@@ -240,7 +239,7 @@ The Loom project started in 2017 and has undergone many changes and proposals. V
 
 ## What does this mean to regular Java developers?
 
-When these features are production ready, it should not affect generalist Java developers much, as these developers may be using libraries for concurrency use cases. But it can be a big deal in those rare scenarios where you are doing a lot of multi-threading without using libraries. Virtual threads could be a no-brainer replacement for all use cases where you use thread pools today. This will increase performance and scalability in most cases based on the benchmarks out there. Structured concurrency can help simplify the multi-threading or parallel processing use cases and make them less fragile and more maintainable.
+When these features are production ready, it should not affect regular Java developers much, as these developers may be using libraries for concurrency use cases. But it can be a big deal in those rare scenarios where you are doing a lot of multi-threading without using libraries. Virtual threads could be a no-brainer replacement for all use cases where you use thread pools today. This will increase performance and scalability in most cases based on the benchmarks out there. Structured concurrency can help simplify the multi-threading or parallel processing use cases and make them less fragile and more maintainable.
 
 ## What does this mean to Java library developers?
 
