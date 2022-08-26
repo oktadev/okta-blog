@@ -29,29 +29,6 @@ show_bottom_cta: true
 {% endcapture %}
 
 <section class="Blog is-single">
-  <div class="Blog-social">
-  {% for author_id in authors %}
-    {%- assign author = site.data.authors[author_id] -%}
-    {%- if authors.size > 1 and author.avatar -%}
-    <a href="/blog/authors/{{ author_id }}/">{% img '{{ author.avatar }}' alt:'{{ author.avatar }}' class:BlogPost-avatar-social %}</a>
-    {%- endif -%}
-
-    {%- if post.github -%}
-    <a href="{{ post.github }}" target="_blank"><i class="fa fa-github"></i></a>
-    {%- elsif author.github -%}
-    <a href="{{ author.github }}" target="_blank"><i class="fa fa-github"></i></a>
-    {%- endif -%}
-    {%- if author.twitter -%}
-    <a href="{{ author.twitter }}" target="_blank"><i class="fa fa-twitter"></i></a>
-    {%- endif -%}
-    {%- if author.linkedin -%}
-    <a href="{{ author.linkedin }}" target="_blank"><i class="fa fa-linkedin"></i></a>
-    {%- endif -%}
-    {%- if author.web -%}
-    <a href="{{ author.web }}" target="_blank"><i class="fa fa-external-link"></i></a>
-    {%- endif -%}
-  {% endfor %}
-  </div>
   {% include blog_post.html post_content=_post_content %}
 </section>
 
