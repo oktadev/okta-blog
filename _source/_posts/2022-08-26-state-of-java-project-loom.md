@@ -67,7 +67,9 @@ runBlocking {
 }
 ```
 
-Fun fact: before JDK 1.1, Java had support for green threads (aka virtual threads), but the feature was removed in JDK 1.1 as that implementation was not any better than platform threads. The new implementation of virtual threads is done in the JVM, where it maps multiple virtual threads to one or more OS threads, and the developer can use virtual threads or platform threads as per their needs. A few other important aspects of this implementation of virtual threads:
+Fun fact: before JDK 1.1, Java had support for green threads (aka virtual threads), but the feature was removed in JDK 1.1 as that implementation was not any better than platform threads. 
+
+The new implementation of virtual threads is done in the JVM, where it maps multiple virtual threads to one or more OS threads, and the developer can use virtual threads or platform threads as per their needs. A few other important aspects of this implementation of virtual threads:
 
 - It is a `Thread` in code, runtime, debugger, and profiler
 - It's a Java entity and not a wrapper around a native thread
@@ -83,6 +85,7 @@ Let's look at some examples that show the power of virtual threads.
 #### Total number of threads
 
 First, let's see how many platform threads vs. virtual threads we can create on a machine. My machine is Intel Core i9-11900H with 8 cores, 16 threads, and 64GB RAM running Fedora 36.
+
 **Platform threads**
 
 ```java
