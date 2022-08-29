@@ -10,7 +10,7 @@ tags: [mobile, swift, sdk, device-flow, oidc]
 
 For years the Okta OIDC SDK was the primary tool mobile developers used to integrate their apps with Okta, but as with all things in life, entropy takes its toll. Over time, as platforms and languages change, or new features become available, a refactor is required. Today we're proud to announce that the Okta Mobile SDKs for Swift and Kotlin are now available!
 
-Recent advances at Okta, such as support for Device Single Sign On (SSO), the Device Authorization Grant (used in most streaming smart TV apps, or devices without an interface), and most especially the Okta Identity Engine (OIE), have proved difficult to integrate into the aging OIDC SDK. We realized it was time for something new. As a result, for the past few months, we've been hard at work developing our next-generation SDK targeting native and mobile environments across Apple and Android platforms.
+Recent advances at Okta, such as support for Device Single Sign On (SSO), the Device Authorization Grant (used in most streaming smart TV apps, or devices without a browser), and most especially the Okta Identity Engine (OIE), have proved difficult to integrate into the aging OIDC SDK. We realized it was time for something new. As a result, for the past few months, we've been hard at work developing our next-generation SDK targeting native and mobile environments across Apple and Android platforms.
 
 These SDKs take a whole new approach to authentication that goes beyond simple browser-based sign in (also known as the OAuth 2.0 _authorization code flow_). We took a modular approach to assembling the SDK; you choose to include only the components needed to build your applications. This architecture enables leaner builds and puts more power and flexibility into your hands. It also opens the doors to integration with other SDKs, such as the Okta Identity Engine (OIE) using the Okta Identity Experience (IDX) SDK.
 
@@ -39,7 +39,7 @@ We had several goals when designing the new SDK:
 
 These goals helped shape the architecture for our SDKs, from the high-level capabilities down to the naming of individual functions.
 
-Note: Since I'm predominately a Swift engineer I'll be using examples from the [Okta Mobile SDK for Swift](https://github.com/okta/okta-mobile-swift), though everything discussed here also works within our [Okta Mobile Kotlin SDK](https://github.com/okta/okta-mobile-kotlin).
+**Note:** Since I'm predominately a Swift engineer I'll be using examples from the [Okta Mobile SDK for Swift](https://github.com/okta/okta-mobile-swift), though everything discussed here also works within our [Okta Mobile Kotlin SDK](https://github.com/okta/okta-mobile-kotlin).
 
 ### A walk through the new developer experience
 
@@ -151,7 +151,7 @@ Depending on your application's needs, there are many ways to configure your cli
 
 ### Device Authorization Grant
 
-This is an OAuth 2 flow meant for use with headless devices, kiosks, or for clients that have limited text input. The prime example for this is a tvOS application running on the Apple TV. In this flow, a user is presented with a code they enter on a different device (a mobile phone, laptop computer, etc.) and finish logging in on the second device. 
+This is an OAuth 2.0 flow meant for use with headless devices, kiosks, or for clients that have limited text input. The prime example for this is a tvOS application running on the Apple TV. In this flow, a user is presented with a code they enter on a different device (a mobile phone, laptop computer, etc.) and finish logging in on the second device. 
 
 {% img blog/introducing-the-new-okta-mobile-sdks/device-authorization-tvos-screenshot.png alt:"Screenshot of a sample tvOS application showing a QR code to authenticate using the device authorization grant." width:"500" %}{: .center-image }
 
