@@ -4,7 +4,7 @@ title: "Introducing the New Okta Mobile SDKs"
 author: mike-nachbaur
 by: internal-contributor
 communities: [mobile]
-description: "Announcing Okta's new, modular, streamlined mobile SDKs! Add auth in a couple lines💥"
+description: "Announcing Okta's new Mobile SDKs: easier to use, way more features, and a fresh new lemon scent! 🍋"
 tags: [mobile, swift, sdk, device-flow, oidc]
 ---
 
@@ -233,7 +233,7 @@ We now support storing multiple tokens or user accounts in a single application.
 * Applications that utilize app extensions, or widgets that wish to use separate tokens for each extension, for security reasons
 * Apps that use separate tokens with different scopes for escalated access
 
-For a host of reasons, the AuthFoundation library now supports the storage and use of multiple tokens simultaneously, while still supporting traditional single-user applications via the Credential.default property.
+For a host of reasons, the AuthFoundation library now supports the storage and use of multiple tokens simultaneously, while still supporting traditional single-user applications via the [`Credential.default`]( https://okta.github.io/okta-mobile-swift/development/authfoundation/documentation/authfoundation/credential/default) property.
 
 ```swift
 // Retrieve the credential created when storing a token
@@ -305,7 +305,7 @@ let (data, response) = try await URLSession.shared
     .data(for: request)
 ```
 
-When using the Swift Concurrency [Credential.authorize()](https://okta.github.io/okta-mobile-swift/development/authfoundation/documentation/authfoundation/credential/authorize(_:)) async function, this will automatically refresh the credential's access token if it's expired, and add the appropriate HTTP authorization header to the request object. If you're not using Swift Concurrency, the same thing can be accomplished with the [refreshIfNeeded(graceInterval:completion:)](https://okta.github.io/okta-mobile-swift/development/authfoundation/documentation/authfoundation/credential/refreshifneeded(graceinterval:completion:)) and [authorize(request:)](https://okta.github.io/okta-mobile-swift/development/authfoundation/documentation/authfoundation/credential/authorize(request:)) functions.
+When using the Swift Concurrency [`Credential.authorize()`](https://okta.github.io/okta-mobile-swift/development/authfoundation/documentation/authfoundation/credential/authorize(_:)) async function, this will automatically refresh the credential's access token if it's expired, and add the appropriate HTTP authorization header to the request object. If you're not using Swift Concurrency, the same thing can be accomplished with the [`refreshIfNeeded(graceInterval:completion:)`](https://okta.github.io/okta-mobile-swift/development/authfoundation/documentation/authfoundation/credential/refreshifneeded(graceinterval:completion:)) and [`authorize(request:)`](https://okta.github.io/okta-mobile-swift/development/authfoundation/documentation/authfoundation/credential/authorize(request:)) functions.
 
 ## Get started using the Okta Mobile SDK
 
