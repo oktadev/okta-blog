@@ -23,7 +23,8 @@ This walkthrough will get you started with a basic setup using Okta's redirect m
 
 As of the time of this publication, *Create React App* requires Node >= 14.0.0 and npm >= 5.6. You can check for the latest required versions at [https://reactjs.org/docs/create-a-new-react-app.html](https://reactjs.org/docs/create-a-new-react-app.html).
 
-**NOTE:** Redux also recommends you install the [React Developer Tools] Chrome extension (https://chrome.google.com/webstore/detail/react-developer-tools/fmkadmapgofadopljbjfkapdkoienihi?hl=en).
+**NOTE:** Redux also recommends you install the [React Developer Tools Chrome extension](https://chrome.google.com/webstore/detail/react-developer-tools/fmkadmapgofadopljbjfkapdkoienihi?hl=en).
+
 {% include toc.md %}
 ## Create the React app using TypeScript
 
