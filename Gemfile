@@ -6,7 +6,7 @@ gem 'jekyll-include-cache'
 gem 'html-proofer', '3.19.4'
 gem 'tzinfo-data'
 gem 'kramdown-parser-gfm'
-gem 'octokit', '~> 4.25'
+gem 'octokit', '~> 5.3'
 
 
 # This is only used for the blog and can be removed after it moves to Hugo
