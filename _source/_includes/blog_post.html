@@ -54,23 +54,30 @@
             {%- if page.layout == 'blog_post' and post.changelog -%}
             {% assign last_updated_date = post.changelog[0] | split: '=>' | first | date: "%B %-d, %Y" %}
             <span class="vertical-spacer md-show"></span>
-            <div class="BlogPost-last-updated">
+            <div class="BlogPost-last-updated no-excerpt">
                 Last Updated:<a href="#changelog">&nbsp;{{ last_updated_date }}</a>
             </div>
             <span class="vertical-spacer md-hide"></span>
             {% endif %}
           </div>
-          <div>
+          <div class="BlogPost-extra-byline">
             <!-- time to read -->
             <div class="BlogPost-readtime">
               {% include reading-time.html content=post.content %}
-           </div>
-           <!-- social share -->
-           <div class="BlogPost-social-share">
-              <span class="vertical-spacer"></span>
+            </div>
+            {%- if post.github -%}
+            <!-- Sample repo -->
+            <span class="vertical-spacer no-excerpt"></span>
+            <div class="BlogPost-sample-repo no-excerpt">
+              <a href="{{ post.github }}" target="_blank" title="Sample code on GitHub"><i class="fa fa-github"></i> REPO</a>
+            </div>
+            {% endif %}
+            <!-- social share -->
+            <span class="vertical-spacer no-excerpt"></span>
+            <div class="BlogPost-social-share no-excerpt">
               <a href="https://twitter.com/intent/tweet?text={{ page.title }} by @oktadev &url={{ page.url | absolute_url }}" target="_blank" onclick="window.open(this.href, 'twitter-share', 'width=550,height=235');return false;" title="Share on Twitter"><i class="fa fa-twitter"></i></a>
               <a target="_blank" href="https://www.linkedin.com/shareArticle?mini=true&url={{ page.url | absolute_url }}" onclick="window.open(this.href, 'linkedin-share', 'width=550,height=435');return false;" title="Share on Linkedin"><i class="fa fa-linkedin"></i></a>
-           </div>
+            </div>
           </div>
       </div>
       <div class="BlogPost-canonical-container">
