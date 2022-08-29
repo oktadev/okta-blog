@@ -3,10 +3,10 @@ layout: blog_post
 title: "Introducing the New Okta Mobile SDKs"
 author: mike-nachbaur
 by: internal-contributor
-communities: []
-description: ""
+communities: [mobile]
+description: "Announcing Okta's new, modular, streamlined mobile SDKs! Add auth in a couple lines💥"
 tags: [mobile, swift, sdk, device-flow, oidc]
---
+---
 
 For years the Okta OIDC SDK was the primary tool mobile developers used to integrate their apps with Okta, but as with all things in life, entropy takes its toll. Over time, as platforms and languages change, or new features become available, a refactor is required. Today we're proud to announce that the Okta Mobile SDKs for Swift and Kotlin are now available!
 
@@ -133,7 +133,7 @@ The [shared property](https://okta.github.io/okta-mobile-swift/development/webau
 
 ```swift
 let auth = WebAuthentication(
-    issuer: URL(string: "https://example.okta.com"),
+    issuer: URL(string: "https://dev-133337.okta.com"),
     clientId: "0oa1234567890abcdefg",
     scopes: "openid profile email offline_access",
     redirectUri: URL(string: "myapp://login"),
@@ -179,7 +179,7 @@ All the details for how authentication occurs, including the polling process, er
 
 ### Device SSO (aka Token Exchange Flow)
 
-We're excited about the ability to perform single sign-on across a suite of apps on the same device, or across separate app extensions within the same app. We've [discussed this feature before on the Okta developer blog](https://developer.okta.com/blog/2021/11/12/native-sso), but the amount of code necessary to implement device SSO had been prohibitive to developers who wanted to try this feature.
+We're excited about the ability to perform single sign-on across a suite of apps on the same device, or across separate app extensions within the same app. We've [discussed this feature before on the Okta developer blog](/blog/2021/11/12/native-sso), but the amount of code necessary to implement device SSO had been prohibitive to developers who wanted to try this feature.
 
 So with the new [TokenExchangeFlow](https://okta.github.io/okta-mobile-swift/development/oktaoauth2/documentation/oktaoauth2/tokenexchangeflow) we've drastically simplified the process, reducing it to just a single line of code.
 
