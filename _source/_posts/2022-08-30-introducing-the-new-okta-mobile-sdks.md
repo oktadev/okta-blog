@@ -6,6 +6,7 @@ by: internal-contributor
 communities: [mobile]
 description: "Announcing Okta's new Mobile SDKs: easier to use, way more features, and a fresh new lemon scent! 🍋"
 tags: [mobile, swift, sdk, device-flow, oidc]
+image: blog/introducing-the-new-okta-mobile-sdks/new-mobile-sdks-social.jpg
 ---
 
 For years the Okta OIDC SDK was the primary tool mobile developers used to integrate their apps with Okta, but as with all things in life, entropy takes its toll. Over time, as platforms and languages change, or new features become available, a refactor is required. Today we're proud to announce that the Okta Mobile SDKs for Swift and Kotlin are now available!
