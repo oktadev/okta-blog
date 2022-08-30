@@ -15,6 +15,8 @@ Recent advances at Okta, such as support for Device Single Sign On (SSO), the De
 
 These SDKs take a whole new approach to authentication that goes beyond simple browser-based sign in (also known as the OAuth 2.0 _authorization code flow_). We took a modular approach to assembling the SDK; you choose to include only the components needed to build your applications. This architecture enables leaner builds and puts more power and flexibility into your hands. It also opens the doors to integration with other SDKs, such as the Okta Identity Engine (OIE) using the Okta Identity Experience (IDX) SDK.
 
+{% include toc.md %}
+
 ## Why replace our current SDKs?
 
 First, I'd like to explain why we chose to replace our current mobile SDKs. We didn't make this decision lightly, but several reasons made it the best choice:
