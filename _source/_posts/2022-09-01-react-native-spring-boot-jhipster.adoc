@@ -10,7 +10,7 @@ tweets:
 - ""
 image:
 type: conversion
-github:
+github: https://github.com/oktadev/auth0-react-native-jhipster-example
 ---
 :page-liquid:
 :toc: macro
@@ -25,12 +25,14 @@ toc::[]
 
 == Build a Photo Gallery with JHipster (React + Spring Boot)
 
-. Create a new directory to hold your frontend and backend projects: `take react-native-spring-boot`
+. Create a new directory to hold your frontend and backend projects:
+
+  take react-native-spring-boot
+  git init
 
 . Clone an existing JHipster app into a `backend` directory:
 
   git clone https://github.com/oktadev/auth0-full-stack-java-example.git backend
-  rm -rf backend/.git
 
 . Start Keycloak:
 
