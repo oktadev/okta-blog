@@ -17,7 +17,7 @@ These SDKs take a whole new approach to authentication that goes beyond simple b
 
 ## Why replace our current SDKs?
 
-First, I'd like to explain why we chose to replace our current mobile SDKs. We didn't make this decision lightly, several reasons made it the best choice:
+First, I'd like to explain why we chose to replace our current mobile SDKs. We didn't make this decision lightly, but several reasons made it the best choice:
 
 * Okta OIDC for iOS and Android is built upon an aging code base, which was difficult to maintain, and didn't follow modern mobile best practices. 
 * The OIDC libraries are focused on web-based authentication, which introduces overhead when native sign-in is used.
@@ -40,7 +40,7 @@ We had several goals when designing the new SDK:
 
 These goals helped shape the architecture for our SDKs, from the high-level capabilities down to the naming of individual functions.
 
-**Note:** Since I'm predominately a Swift engineer I'll be using examples from the [Okta Mobile SDK for Swift](https://github.com/okta/okta-mobile-swift), though everything discussed here also works within our [Okta Mobile Kotlin SDK](https://github.com/okta/okta-mobile-kotlin).
+**Note:** Since I'm predominately a Swift engineer I'll be using examples from the [Okta Mobile SDK for Swift](https://github.com/okta/okta-mobile-swift), though everything discussed here also works within our [Okta Mobile SDK for Kotlin](https://github.com/okta/okta-mobile-kotlin).
 
 ### A walk through the new developer experience
 
@@ -110,7 +110,7 @@ You can override everything, from the way ID token validation occurs to how toke
 
 As Okta continues to innovate, introducing new features and capabilities, our mobile SDKs need to update to take advantage of them. By refactoring these SDKs, we aim to make it as easy as possible for you to adopt new features, which has been our primary motivation. Let's take a look at a few of the more exciting features we now support.
 
-Many platform features center around support for new authentication flows. Classic web-based sign-in, through OIDC, is implemented using the OAuth2 Authorization Code Flow. Instead of locking this functionality away, we've exposed it, along with our new flows. We tried our best to follow similar patterns for all [authentication flows](https://okta.github.io/okta-mobile-swift/development/oktaoauth2/documentation/oktaoauth2/introductiontoauthenticationflows), to reduce a lot of the guesswork necessary to get a feature to work.
+Many platform features center around support for new authentication flows. Classic web-based sign-in, through OIDC, is implemented using the OAuth 2.0 Authorization Code Flow. Instead of locking this functionality away, we've exposed it, along with our new flows. We tried our best to follow similar patterns for all [authentication flows](https://okta.github.io/okta-mobile-swift/development/oktaoauth2/documentation/oktaoauth2/introductiontoauthenticationflows), to reduce a lot of the guesswork necessary to get a feature to work.
 
 ## Benefits of the new Okta Mobile SDK
 
@@ -120,7 +120,7 @@ As mentioned above, our aim has been to do more than build parity functionality 
 
 Signing in with a web browser using OIDC should be a straightforward process, and it is the easiest way to get started using Okta in a mobile application. And yet, we felt we could make it even easier.
 
-Just like within Okta OIDC, the [WebAuthenticationUI](https://okta.github.io/okta-mobile-swift/development/webauthenticationui/documentation/webauthenticationui) library is capable of using a configuration file named Okta.plist to define your client settings. From there, you can sign into your application using a single line of code.
+Just like within Okta OIDC, the [WebAuthenticationUI](https://okta.github.io/okta-mobile-swift/development/webauthenticationui/documentation/webauthenticationui) library is capable of using a configuration file named `Okta.plist` to define your client settings. From there, you can sign into your application using a single line of code.
 
 ```swift
 // Sign in using the default configuration
@@ -230,7 +230,7 @@ The tags option can be used to help manage the tokens stored in the keychain, wh
 
 We now support storing multiple tokens or user accounts in a single application. This is a big improvement over the legacy Okta OIDC SDK, which made the assumption that an app would only ever have a single user at a time. Storing multiple tokens helps you create more sophisticated apps, such as:
 
-* Multi-user applications that allow users to quick switch between profiles
+* Multi-user applications that allow users to quickly switch between profiles
 * Applications that utilize app extensions, or widgets that wish to use separate tokens for each extension, for security reasons
 * Apps that use separate tokens with different scopes for escalated access
 
