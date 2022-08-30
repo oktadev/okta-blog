@@ -8,7 +8,7 @@ author: andrew-hughes
 by: contractor
 communities: [java]
 description: "This is a quick tutorial demonstrating how to add authentication to a Grails application with Okta."
-tags: [java, groovy, grails, spring, spring-boot, oidc, openid-connect]
+tags: [java, groovy, grails, spring, spring-boot, oidc]
 tweets:
     - "Add single sign on to your Grails application using Okta"
     - "Use OAuth2 to connect your Grails app with Okta"

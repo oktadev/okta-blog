@@ -8,7 +8,7 @@ author: brandon-parise
 by: contractor
 communities: [javascript]
 description: "This post shows you how to use build a basic CRUD application with Vue.js and Node. You'll also learn how to use Okta's Vue SDK to add authentication using OIDC."
-tags: [vue, vue-dot-js, node, oidc, oauth-2-dot-0, crud]
+tags: [vue, node, oidc, oauth2, crud]
 tweets:
 - "Learn how to use @vuejs together with @nodejs to create a CRUD application →"
 - "Create a CRUD application with Vue.js and Node, then add some authentication love with Okta! #vuejs #nodejs #okta"

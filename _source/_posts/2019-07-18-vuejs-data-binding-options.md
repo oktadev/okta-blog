@@ -8,7 +8,7 @@ author: micah-silverman
 by: advocate
 communities: [javascript]
 description: "In this tutorial, you'll learn three different approaches for managing reactive data-binding in your Vue.js applications, each with their own pros and cons."
-tags: [javascript, vuejs, vue-dot-js, data-binding, reactive]
+tags: [javascript, vue, data-binding, reactive]
 image: blog/featured/okta-vue-bottle-headphones.jpg
 type: conversion
 ---

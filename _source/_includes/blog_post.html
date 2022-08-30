@@ -6,21 +6,21 @@
 {% endif %}
 
 <article class="BlogPost h-entry{% if page.layout != 'blog_post' %} is-excerpt{% endif %}">
-
     <header class="BlogPost-header">
-
-        <time class="BlogPost-date dt-published" datetime="{{ post.date | date: '%F'}}">{{ post.date | date: "%B %-d, %Y" }}</time>
-        {%- if page.layout == 'blog_post' and post.changelog -%}
-        {% assign last_updated_date = post.changelog[0] | split: '=>' | first | date: "%B %-d, %Y" %}
-        <div class="BlogPost-last-updated">
-            Last Updated: <a href="#changelog">{{ last_updated_date }}</a>
+      <!-- post tags -->
+        {% if page.tags %}
+        <div class="before-post-tags">
+          <ul class="tags">
+              {% assign sortedTags = page.tags | sort %}
+              {% for tag in sortedTags %}
+              <li>
+                  <a class="smoothscroll" href="{{site.baseurl}}/blog/tags/{{ tag | replace: " ","-" }}">{{ tag }}</a>
+              </li>
+              {% endfor %}
+          </ul>
         </div>
         {% endif %}
-        {%- if page.canonical -%}
-        <div class="BlogPost-canonical">
-           Originally published at <a href="{{ page.canonical }}">{{ page.canonical | split: '//' | last | split: '/' | first }}</a>.
-        </div>
-        {% endif %}
+        <!-- Post title -->
         <h1 class="BlogPost-title p-name">
             {% if page.layout == 'blog_index' or page.layout == 'author' or page.layout == 'tag' %}
             <a href="{{ post.url }}">{{ post.title }}</a>
@@ -28,21 +28,68 @@
             <span>{{ post.title }}</span>
             {% endif %}
         </h1>
-        <div class="BlogPost-attribution">
-          {% for author_id in authors %}
-            {%- assign author = site.data.authors[author_id] -%}
-            {% if author.avatar %}
-            <a href="/blog/authors/{{ author_id }}/">{% img '{{ author.avatar }}' alt:'{{ author.avatar }}' class:BlogPost-avatar %}</a>
+        <div class="BlogPost-metadata">
+          <div>
+            <!-- author details -->
+            <div class="BlogPost-attribution">
+              {%- assign author_size = authors | size -%}
+              {%- assign author_index = 0 -%}
+              {% for author_id in authors %}
+                {%- assign author_index = author_index | plus:1 -%}
+                {%- assign author = site.data.authors[author_id] -%}
+                {% if author.avatar %}
+                <a href="/blog/authors/{{ author_id }}/">{% img '{{ author.avatar }}' alt:'{{ author.avatar }}' class:BlogPost-avatar %}</a>
+                {% endif %}
+                <span class="BlogPost-author {% if author_index < author_size %}pad-right{% endif %}">
+                  <a href="/blog/authors/{{ author_id }}/">{{ author.full_name }}</a>
+                </span>
+              {% endfor %}
+            </div>
+            <span class="vertical-spacer"></span>
+            <!-- post dates -->
+            <div class="BlogPost-date-published">
+              <time class="BlogPost-date dt-published" datetime="{{ post.date | date: '%F'}}">{{ post.date | date: "%B %-d, %Y" }}</time>
+            </div>
+            <span class="vertical-spacer md-hide"></span>
+            {%- if page.layout == 'blog_post' and post.changelog -%}
+            {% assign last_updated_date = post.changelog[0] | split: '=>' | first | date: "%B %-d, %Y" %}
+            <span class="vertical-spacer md-show"></span>
+            <div class="BlogPost-last-updated">
+                Last Updated:<a href="#changelog">&nbsp;{{ last_updated_date }}</a>
+            </div>
+            <span class="vertical-spacer md-hide"></span>
             {% endif %}
-            <span class="BlogPost-author"><a href="/blog/authors/{{ author_id }}/">{{ author.full_name }}</a></span>
-          {% endfor %}
+          </div>
+          <div>
+            <!-- time to read -->
+            <div class="BlogPost-readtime">
+              {% include reading-time.html content=post.content %}
+           </div>
+           <!-- social share -->
+           <div class="BlogPost-social-share">
+              <span class="vertical-spacer"></span>
+              <a href="https://twitter.com/intent/tweet?text={{ page.title }} by @oktadev &url={{ page.url | absolute_url }}" target="_blank" onclick="window.open(this.href, 'twitter-share', 'width=550,height=235');return false;" title="Share on Twitter"><i class="fa fa-twitter"></i></a>
+              <a target="_blank" href="https://www.linkedin.com/shareArticle?mini=true&url={{ page.url | absolute_url }}" onclick="window.open(this.href, 'linkedin-share', 'width=550,height=435');return false;" title="Share on Linkedin"><i class="fa fa-linkedin"></i></a>
+           </div>
+          </div>
+      </div>
+      <div class="BlogPost-canonical-container">
+        <!-- canonical info -->
+        {%- if page.canonical -%}
+        <div class="BlogPost-canonical">
+            Originally published at <a href="{{ page.canonical }}">{{ page.canonical | split: '//' | last | split: '/' | first }}</a>.
         </div>
+        {% endif %}
+      </div>
     </header>
 
     <div class="BlogPost-content">
-    {% if page.update-url %}
+      {% if page.update-url %}
       {%- include update.html title=page.update-title url=page.update-url extra=page.update-extra -%}
-    {%- endif -%}
+      {%- endif -%}
+      {%- if post.image and post.hide-cover-img != true -%}
+        {% img '{{ post.image }}' alt:'{{ post.title }}' class:BlogPost-cover %}
+      {%- endif -%}
         <div class="e-content">{{ include.post_content }}</div>
 
         {%- if page.layout == 'blog_post' and post.changelog -%}
@@ -60,21 +107,47 @@
     </div>
 
     {% if page.layout == 'blog_post' %}
+        {%- assign author_size = authors | size -%}
+        {%- assign author_index = 0 -%}
         {% for author_id in authors %}
+            {%- assign author_index = author_index | plus:1 -%}
             {%- assign author = site.data.authors[author_id] -%}
-            {% if author.bio %}
-        <div class="BlogPost-author-bio u-author h-card">
-            <div class="BlogPost-attribution">
+            <div class="BlogPost-author-bio u-author h-card {% if author_index == author_size %}border-bottom{% endif %}">
+              <div class="BlogPost-attribution">
                 {% if author.avatar %}
-                <a href="/blog/authors/{{ author_id }}/">{% img '{{ author.avatar }}' alt:'{{ author.avatar }}' class:BlogPost-avatar %}</a>
+                <a href="/blog/authors/{{ author_id }}/">{% img '{{ author.avatar }}' alt:'{{ author.avatar }}' class:BlogPost-avatar-social %}</a>
                 {% endif %}
-                <span class="BlogPost-author"><a href="/blog/authors/{{ post.author }}/" class="u-url p-name">{{ author.full_name }}</a></span>
-            </div>
+                <span class="author"><a href="/blog/authors/{{ author_id }}/" class="u-url p-name">{{ author.full_name }}</a></span>
+                <div class="social">
+                  {% if author.github %}
+                  <a href="{{ author.github }}" target="_blank" title="GitHub Profile"><i class="fa fa-github"></i></a>
+                  {% endif %}
+                  {% if author.twitter %}
+                  <a href="{{ author.twitter }}" target="_blank" title="Twitter Profile"><i class="fa fa-twitter"></i></a>
+                  {% endif %}
+                  {% if author.linkedin %}
+                  <a href="{{ author.linkedin }}" target="_blank" title="Linkedin Profile"><i class="fa fa-linkedin"></i></a>
+                  {% endif %}
+                  {% if author.web%}
+                  <a href="{{ author.web }}" target="_blank" title="Website"><i class="fa fa-external-link-square"></i></a>
+                  {% endif %}
+                </div>
+              </div>
 
-            <p class="p-bio">{{ author.bio }}</p>
-        </div>
-            {% endif %}
+              {% if author.bio %}
+              <p class="p-bio">{{ author.bio }}</p>
+              {% endif %}
+            </div>
         {% endfor %}
+        <!-- Prev/Next -->
+        <div class="BlogPost-prev-next">
+          {% if page.previous.url %}
+          <a class="prev" href="{{ site.baseurl }}{{page.previous.url}}" title="{{page.previous.title}}"> <i class="fa fa-arrow-left"></i> Previous post</a>
+          {% endif %}
+          {% if page.next.url %}
+          <a class="next" href="{{ site.baseurl }}{{page.next.url}}" title="{{page.next.title}}">Next post <i class="fa fa-arrow-right"></i> </a>
+          {% endif %}
+        </div>
     {% endif %}
 
     <a href="{{ post.url }}" class="u-url" aria-hidden="true"></a>

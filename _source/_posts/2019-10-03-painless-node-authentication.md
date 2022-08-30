@@ -8,7 +8,7 @@ author: ivo-katunaric
 by: contractor
 communities: [javascript]
 description: "Learn how to implement secure authentication for your Node.js applications."
-tags: [javascript, node, authentication, openid-connect, oidc]
+tags: [javascript, node, authentication, oidc]
 tweets:
 - "Learn how to add #authentication to your @nodejs applications without the pain:"
 - "Painless authentication in @nodejs? Check out our latest article!"

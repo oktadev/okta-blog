@@ -8,7 +8,7 @@ author: randall-degges
 by: advocate
 communities: [security]
 description: "An in-depth look at the successor to JSON Web Tokens: PASETO."
-tags: [security, json-web-tokens, jwts, paseto, cryptography]
+tags: [security, jwt, paseto, cryptography]
 tweets:
 - "Using JSON Web Tokens in your applications? If so, you'll definitely enjoy reading our new article on PASETO tokens!"
 - "JSON Web Tokens vs PASETO -- @rdegges breaks it down for you in his recent article."

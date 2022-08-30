@@ -5,7 +5,7 @@ discourse_comment_url: https://devforum.okta.com/t/17123
 layout: blog_post
 title: Make Java Tests Groovy With Hamcrest
 description: 'A tutorial on testing Java code with Groovy.'
-tags: [spring, oauth, oauth-2-dot-0, java, spring-boot, testing, hamcrest, groovy]
+tags: [spring, oauth, oauth2, java, spring-boot, testing, hamcrest, groovy]
 author: brian-demers
 by: advocate
 communities: [java]

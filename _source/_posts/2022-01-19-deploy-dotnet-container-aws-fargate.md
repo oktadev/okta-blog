@@ -5,7 +5,7 @@ author: [deepu-sasidharan, chase-aucoin]
 by: advocate
 communities: [.net]
 description: "This is a tutorial on how to secure your .NET containerized chat app with AWS ECS Fargate and Okta."
-tags: [containers, aws, fargate, c-sharp, csharp, dotnet, dot-net, asp-dot-net, vuejs]
+tags: [containers, aws, fargate, csharp, dotnet, asp-dot-net, vuejs]
 tweets:
   - "Ever played with AWS Fargate? Learn how to authenticate users to your #dotnetcore #container hosted in #aws ->."
   - "Unsure about #containerized #dotnet with #Fargate in #AWS? We've got a primer just waiting for you ->"

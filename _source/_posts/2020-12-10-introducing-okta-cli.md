@@ -19,7 +19,7 @@ communities: [
     "devops"
 ]
 description: "Use the Okta CLI to get started with OAuth and Okta in under five minutes!"
-tags: [security, dotnet, oauth2, oidc, openid-connect, cli]
+tags: [security, dotnet, oauth2, oidc, cli]
 tweets:
 - "Add an Okta integration for your custom app in less than five minutes with the Okta CLI"
 - "Do you spend your day on the command line? The Okta CLI is for you!"
@@ -311,22 +311,21 @@ We'd love your contributions! If you want to set up a new sample, create a new r
 
 ## Watch the Okta CLI in Action
 
-We've created a few screencasts to show the Okta CLI in action. The videos below show how to use `okta start` with Spring Boot, Angular, and React Native!
+We've created a few screencasts to show the Okta CLI in action. The videos below show how to use `okta start` with Spring Boot, Angular, React Native, and JHipster!
 
-<div class="table-wrapper">
-<table>
-<tr>
-<td style="vertical-align: top">
-<iframe width="267" height="150" src="https://www.youtube.com/embed/dURkaz0kBSU" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-</td>
-<td style="vertical-align: top">
-<iframe width="267" height="150" src="https://www.youtube.com/embed/aMmTcLnoZzc" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-</td>
-<td style="vertical-align: top">
-<iframe width="267" height="150" src="https://www.youtube.com/embed/jUOjIw-NBJ0" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-</td>
-</tr>
-</table>
+<div class="video-grid">
+  <div class="video">
+    <iframe width="267" height="150" src="https://www.youtube.com/embed/dURkaz0kBSU" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+  </div>
+  <div class="video">
+    <iframe width="267" height="150" src="https://www.youtube.com/embed/aMmTcLnoZzc" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+  </div>
+  <div class="video">
+    <iframe width="267" height="150" src="https://www.youtube.com/embed/jUOjIw-NBJ0" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+  </div>
+  <div class="video">
+    <iframe width="267" height="150" src="https://www.youtube.com/embed/ThytrcxL31s" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+  </div>
 </div>
 
 We'll publish more videos in the future. Check out our [Okta CLI playlist](https://www.youtube.com/watch?v=dURkaz0kBSU&list=PLshTZo9V1-aFHCxDn080fmNTigfinjdRq) to see the latest.

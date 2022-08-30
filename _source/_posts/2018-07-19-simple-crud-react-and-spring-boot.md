@@ -8,7 +8,7 @@ author: matt-raible
 by: advocate
 communities: [java, javascript]
 description: "React is one of the most popular JavaScript frameworks, and Spring Boot is wildly popular in the Java ecosystem. This article shows you how to use them in the same app, and secure it all with Okta."
-tags: [authentication, spring-boot, spring-boot-2-dot-1, react, reactjs, oidc]
+tags: [authentication, spring-boot, spring-boot-2, react, oidc]
 tweets:
 - "React + Spring Boot makes for a nice development experience. Learn how to make them work together with OIDC authentication →"
 - "Spring Boot with @java + React with @javascript == 💙. Learn how to build a @springboot + @reactjs CRUD app today!"
@@ -16,6 +16,8 @@ image: blog/featured/okta-react-bottle-headphones.jpg
 type: conversion
 update-url: /blog/2020/01/13/kotlin-react-crud
 update-title: "Build a CRUD Application with Kotlin and React"
+redirect_to:
+  - "/blog/2022/06/17/simple-crud-react-and-spring-boot"
 changelog:
   - 2020-03-24: Streamlined OIDC setup with the Okta CLI. You can see the example app changes in [okta-spring-boot-react-crud-example#28](https://github.com/oktadeveloper/okta-spring-boot-react-crud-example/pull/28); changes to this post can be viewed in [okta-blog#623](https://github.com/oktadeveloper/okta-blog/pull/623).
   - 2020-11-14: Fixed `app/src/GroupEdit.js` PUT request in [Add a React GroupEdit Component](/blog/2018/07/19/simple-crud-react-and-spring-boot#add-a-react-groupedit-component) section. Thanks to [@alansegar](https://github.com/alansegar)! Changes to this post can be viewed in [okta-blog#471](https://github.com/oktadeveloper/okta-blog/pull/471).

@@ -8,7 +8,7 @@ author: randall-degges
 by: advocate
 communities: [javascript]
 description: "Learn how to build and understand authentication in Node.js websites in this in-depth post."
-tags: [node, nodejs, authentication, auth, user-management]
+tags: [node, authentication, auth, user-management]
 tweets:
 - "Are you a @NodeJS developer? Read this post to actually understand how web authentication works!"
 - "Like building web apps in @nodejs? @rdegges just published a tutorial that walks you through building and understanding web authentication."

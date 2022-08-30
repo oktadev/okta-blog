@@ -8,7 +8,7 @@ author: chase-aucoin
 by: contractor
 communities: [.net]
 description: "This is a tutorial on how to secure your c# lambda function on AWS with Okta."
-tags: [serverless, aws, lambda, c-sharp, csharp, dotnet, dot-net, asp-dot-net]
+tags: [serverless, aws, lambda, csharp, dotnet, asp-dot-net]
 tweets:
 - "Do you secure your #csharp #lambda functions? Learn how to authenticate users to your #dotnetcore site hosted in #aws ->."
 - "Unsure about #OAuth + #csharp + #lambda functions in #dotnet? We've got a primer just waiting for you ->"

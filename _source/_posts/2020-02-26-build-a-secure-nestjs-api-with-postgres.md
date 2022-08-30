@@ -8,7 +8,7 @@ author: ivo-katunaric
 by: contractor
 communities: [javascript]
 description: "Learn to build a secure Node.js API using NestJS, TypeScript, and Postgres!"
-tags: [nestjs, nodejs, typescript, postgres, javascript, typeorm]
+tags: [nestjs, node, typescript, postgres, javascript, typeorm]
 tweets:
 - "Want to learn how to build a secure API using the NestJS framework? Check out this tutorial on building an Instagram clone! @nestframework #nestjs #nodejs #typescript #postgres"
 - "Learn how to build an Instagram clone with the #NestJS framework using #Postgres! #typescript #nodejs"

@@ -8,7 +8,7 @@ author: chase-aucoin
 by: contractor
 communities: [.net]
 description: "Dive into CLI template creation for .NET in this tutorial."
-tags: [c-sharp, csharp, dotnet, dot-net, dot-net-cli, cli-templates, dot-net-cli-templates]
+tags: [csharp, dotnet, dot-net-cli, cli-templates, dot-net-cli-templates]
 tweets:
 - "Love using the .NET CLI in @code? Here's a tutorial on how to create your own CLI templates ->"
 - "Ever wanted to create your own templates to use with the .NET CLI? Check out this tutorial!"

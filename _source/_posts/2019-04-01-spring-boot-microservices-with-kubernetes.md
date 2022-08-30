@@ -8,7 +8,7 @@ author: andrew-hughes
 by: contractor
 communities: [java, devops]
 description: "This tutorial shows you how to use Kubernetes to deploy a Spring Boot microservice architecture to Google Cloud and Google Kubernetes Engine (GKE)."
-tags: [java, spring-boot, microservices, kubernetes, k8s]
+tags: [java, spring-boot, microservices, kubernetes]
 tweets:
 - "Learn how to use Spring Boot to build a microservices architecture, then deploy it to Google Cloud using @kubernetesio!"
 - "Using @kubernetesio to deploy your microservices architecture is all the rage. Check out this post to learn how to do it!"

@@ -8,7 +8,7 @@ author: nickolas-fisher
 by: contractor
 communities: [javascript]
 description: "Fastify is fast! Learn to build a modern Node.js API using Fastify and JSON web tokens!"
-tags: [javascript,nodejs,fastify,api,jwt]
+tags: [javascript,node,fastify,api,jwt]
 tweets:
 - "Fastify is fast! In this tutorial, you'll learn to build a modern Node.js API using Fastify! #nodejs #fastify @fastifyjs"
 - "Learn how to build a modern Node.js API using Fastify! #nodejs #fastify @fastifyjs"

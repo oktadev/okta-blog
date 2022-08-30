@@ -8,7 +8,7 @@ author: lee-brandt
 by: advocate
 communities: [.net]
 description: "I originally thought that default implementtions in C# 8.0 were a bad idea, but a little digging and I think I love them."
-tags: [c-sharp, csharp, dotnet, dot-net, default-implementation]
+tags: [csharp, dotnet, default-implementation]
 tweets:
 - "Doctor C# 8.0, or how I learned to love deault implementations!"
 - "Keep your implementations out of my interfaces. Wait, that's cool!"

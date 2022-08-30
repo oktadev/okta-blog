@@ -8,7 +8,7 @@ author: lee-brandt
 by: advocate
 communities: [.net, javascript]
 description: "This tutorial walks you through building a simple CRUD application in ASP.NET Core 2.1 and Angular 6."
-tags: [asp-dot-net, dotnet, core, asp-dot-net-core, dotnet-core, dot-net-core, angular, crud]
+tags: [asp-dot-net, dotnet, asp-dot-net-core, dotnetcore, angular, crud]
 tweets:
 - "Learn how to build a simple CRUD app using #aspnetcore 2.1 and @angular 6! →"
 - "Need to learn the basics of #aspnetcore 2.1 and @angular 6? We've got you covered. <3"

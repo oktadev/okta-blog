@@ -8,7 +8,7 @@ author: nickolas-fisher
 by: contractor
 communities: [javascript]
 description: "A tutorial to build a simple web application with Node.js and PostgreSQL."
-tags: [node, nodejs, postgres, postgresql]
+tags: [node, postgres, postgresql]
 tweets:
   - "Wanna learn how to build a simple web app using @nodejs and @PostgreSQL? Check this out!"
   - "Need to learn the basics of building web apps with @nodejs and @PostgreSQL? We've got you covered!"

@@ -8,7 +8,7 @@ author: randall-degges
 by: advocate
 communities: [security]
 description: "Developers don't care about OAuth or OpenID Connect. Learn why."
-tags: [web, programming, security, oauth, openid-connect]
+tags: [web, programming, security, oauth, oidc]
 tweets:
 - "Does anyone care about OAuth or OpenID Connect? @rdegges doesn't think so >:o"
 - "Do you care about #oauth or #openidconnect?"

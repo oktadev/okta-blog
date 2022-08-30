@@ -8,7 +8,7 @@ author: daniel-pereira
 by: contractor
 communities: [java]
 description: "Tutorial: Build a secure Spring Boot App with Kotlin"
-tags: [spring, oauth, oauth-2-dot-0, kotlin, java, spring-boot]
+tags: [spring, oauth, oauth2, kotlin, java, spring-boot]
 tweets:
 - "Are you a @Java Developer and want to see what all of the @Kotlin buzz is about?"
 - "Spring + Kotlin = ❤"

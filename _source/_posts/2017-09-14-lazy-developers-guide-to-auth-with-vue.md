@@ -8,7 +8,7 @@ author: matt-raible
 by: advocate
 communities: [javascript]
 description: "This article shows you how to add authentication to a Vue.js application using the Okta Auth SDK and Okta API."
-tags: [authentication, auth, vue-dot-js, vue, oidc, lazy-developer]
+tags: [authentication, auth, vue, oidc, lazy-developer]
 tweets:
 - "Are you a lazy developer that loves @vuejs? Cool! Check out our lazy developer's guide to authentication with Vue.js > "
 - "Learn how to build a PWA with @vuejs and add authentication in this quick and easy tutorial →"
