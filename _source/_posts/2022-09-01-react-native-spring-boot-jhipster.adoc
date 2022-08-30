@@ -19,7 +19,7 @@ github:
 **Prerequisites:**
 
 * https://adoptopenjdk.net/[Java 11+]
-* https://nodejs.org[Node 14+]
+* https://nodejs.org[Node 16+]
 
 toc::[]
 
@@ -36,8 +36,26 @@ toc::[]
 
   cd backend
   docker-compose -f src/main/docker/keycloak.yml up -d
++
+[TIP]
+====
+If you're using a Mac M1, Keycloak will fail to start because its Docker image isn't available for an M1. To fix, run the script below.
 
-. Start app using `./mvnw`, show project in IDE, and browse `http://localhost:8080`
+----
+VERSION=15.0.2 # set version here
+
+cd /tmp
+git clone git@github.com:keycloak/keycloak-containers.git
+cd keycloak-containers/server
+git checkout $VERSION
+docker build -t "jboss/keycloak:${VERSION}" .
+docker build -t "quay.io/keycloak/keycloak:${VERSION}" .
+----
+
+_If you'd rather skip this part, I'll show you how to configure and use Auth0 in a minute._
+====
+
+. Start app using `./mvnw`, show project in IDE, and browse `\http://localhost:8080`
 
 . Add a few photos and show lightbox
 
@@ -90,9 +108,9 @@ cors:
   allowed-origins: 'http://localhost:19006,...'
 ----
 
-. Add `\https://auth.expo.io/@mraible/Flickr2` as a Login redirect URI in http://localhost:9080/auth/admin/[Keycloak]
+. Add `\https://auth.expo.io/@mraible/Flickr2` and `exp://192.168.7.222:19000` Login redirect URIs in to the `web_app` client in http://localhost:9080/auth/admin/[Keycloak].
 
-. Hide metadata in add photo screen when `isNewEntity`
+. Hide metadata in add photo screen (`app/modules/entities/photo/photo-edit-screen.js`) when `isNewEntity`
 +
 [source,jsx]
 ----
@@ -100,6 +118,8 @@ cors:
     <div>...</div>
   )
   const metadataRows = isNewEntity ? '' : metadata;
+
+  {metadataRows}
 ----
 
 . To run on emulators, you'll need an https://expo.io/[Expo] account
@@ -108,7 +128,7 @@ cors:
 
 . In the `mobile` directory, run `npm start`. Make sure to use `localhost` and not `0.0.0.0` or CORS won't work!
 
-. For Android emulators to communicate with your API and Keycloak, add some port mappings
+. Web and iOS should work just fine. For Android emulators to communicate with your API and Keycloak, add some port mappings
 
   adb reverse tcp:8080 tcp:8080 && adb reverse tcp:9080 tcp:9080
 
@@ -133,35 +153,23 @@ cors:
 +
 _Make sure your new user's email is verified before attempting to log in!_
 
-. Next, head to *Auth Pipeline* > *Rules* > *Create*. Select the `Empty rule` template. Provide a meaningful name like `Group claims` and replace the Script content with the following.
+. Next, head to **Actions** > **Flows** and select **Login**. Create a new action named `Add Roles` and use the default trigger and runtime. Change the `onExecutePostLogin` handler to be as follows:
 +
 [source,js]
 ----
-function(user, context, callback) {
-  user.preferred_username = user.email;
-  const roles = (context.authorization || {}).roles;
-
-  function prepareCustomClaimKey(claim) {
-    return `https://www.jhipster.tech/${claim}`;
+exports.onExecutePostLogin = async (event, api) => {
+  const namespace = 'https://www.jhipster.tech';
+  if (event.authorization) {
+    api.idToken.setCustomClaim('preferred_username', event.user.email);
+    api.idToken.setCustomClaim(`${namespace}/roles`, event.authorization.roles);
+    api.accessToken.setCustomClaim(`${namespace}/roles`, event.authorization.roles);
   }
-
-  const rolesClaim = prepareCustomClaimKey('roles');
-
-  if (context.idToken) {
-    context.idToken[rolesClaim] = roles;
-  }
-
-  if (context.accessToken) {
-    context.accessToken[rolesClaim] = roles;
-  }
-
-  callback(null, user, context);
 }
 ----
 +
 This code is adding the user's roles to a custom claim (prefixed with `https://www.jhipster.tech/roles`). This claim is mapped to Spring Security authorities in `SecurityUtils.java`.
 
-. Click *Save changes* to continue.
+. Select **Deploy** and drag the `Add Roles` action to your Login flow.
 
 . Create a `backend/.auth0.env` file and populate it with your Auth0 settings.
 +
@@ -179,7 +187,11 @@ You can use the default `Auth0 Management API` audience value from the *Applicat
 
 . For React Native, create a *Native* app and add the following Allowed Callback URLs:
 
-  http://localhost:19006/,https://auth.expo.io/@mraible/Flickr2
+  http://localhost:19006/,https://auth.expo.io/@mraible/Flickr2,exp://192.168.7.222:19000
+
+. Add to Allowed Logout URLs:
+
+  exp://192.168.7.222:19000, http://localhost:19006
 
 . Set the Allowed Origins (CORS):
 
@@ -190,6 +202,22 @@ You can use the default `Auth0 Management API` audience value from the *Applicat
 . Update the `audience` in `app/modules/login/login.utils.ts`:
 
   audience: 'https://<your-auth0-domain>/api/v2/',
++
+While you're in there, set `useExpoAuthProxy` to `false` so full logout is possible.
+
+. Modify the `logoutFromIdp()` method in `login.utils.ts` to add an else condition for Auth0.
++
+[source,js]
+----
+if (endSessionEndpoint) {
+  ...
+} else if (issuer.includes('auth0.com')) {
+  const redirectUri = makeRedirectUri({ useProxy: AppConfig.useExpoAuthProxy });
+  await WebBrowser.openAuthSessionAsync(`${issuer}/v2/logout?client_id=${clientId}&returnTo=${redirectUri}`, redirectUri);
+}
+----
++
+NOTE: If this clause already exists, you must be using a newer version with the fix!
 
 . Restart your React Native app and log in with Auth0!
 +
@@ -199,6 +227,5 @@ npm start
 
 == Doesn't work
 
-    - React Native Android login (probably need to add `https://localhost` as an allowed origin on Auth0, or make sure the scheme for the app is being used as the redirect URI)
-    - Auth0 logout (we might have to update the React Native blueprint to do something https://github.com/jhipster/generator-jhipster-ionic/commit/2c3e73fa7b9a6b3904054768c4393011964cd1ed#diff-ed2d76eda842ee95cc732713079be326b1948dd3904f5ad2bd006df6c5f152a9R35[like we did in the Ionic blueprint])
+  - React Native Android login (probably need to add `https://localhost` as an allowed origin on Auth0, or make sure the scheme for the app is being used as the redirect URI)
 
