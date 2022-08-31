@@ -32,6 +32,7 @@
         flex-direction: row;
         padding: 0;
         margin: 0;
+        flex-wrap: wrap;
         li {
           height: 24px;
           margin: 0 10px 0 0;
@@ -42,6 +43,7 @@
           flex-direction: row;
           justify-content: center;
           align-items: center;
+          white-space: nowrap;
           a {
             color: $navy-blue;
           }
@@ -897,6 +899,9 @@
       .vertical-spacer.md-show {
         display: none !important;
       }
+    }
+    .before-post-tags ul.tags > li {
+      margin-top: 10px;
     }
   }
 }
