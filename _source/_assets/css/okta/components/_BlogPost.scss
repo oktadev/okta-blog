@@ -24,7 +24,6 @@
     display: flex;
     flex-direction: column;
     width: 100%;
-    // max-width: 900px;
 
     .before-post-tags {
       ul.tags {
@@ -87,11 +86,12 @@
     align-items: center;
     > div {
       display: flex;
+      align-items: center;
     }
     .vertical-spacer {
       width: 0px;
-      min-height: 25px;
-      border: 1px solid #ebebed;
+      min-height: 20px;
+      border-right: 1px solid #ebebed;
       margin: 8px 20px 8px 20px;
       &.md-show {
         display: none;
@@ -100,6 +100,18 @@
   }
 
   &-readtime {
+    background: $bluegray;
+    border-radius: 50px;
+    padding: 2px 15px;
+    font-weight: bold;
+    font-size: 12px;
+    font-variant: small-caps;
+    color: $shark;
+    height: 26px;
+    line-height: 24px;
+  }
+
+  &-sample-repo {
     background: $bluegray;
     border-radius: 50px;
     padding: 2px 15px;
@@ -401,7 +413,6 @@
       background: get-color("code-background");
       display: block;
       margin: get-spacing("small") 0;
-      max-width: 900px;
       overflow: auto;
 
       code {
@@ -784,11 +795,7 @@
     width: 100%;
   }
 
-  &.is-excerpt &-social-share {
-    display: none;
-  }
-
-  &.is-excerpt &-last-updated {
+  &.is-excerpt .no-excerpt {
     display: none;
   }
 
@@ -881,6 +888,7 @@
       > div {
         flex-direction: column !important;
         margin-top: 0px !important;
+        align-items: baseline;
         > * {
           margin-top: 10px !important;
         }

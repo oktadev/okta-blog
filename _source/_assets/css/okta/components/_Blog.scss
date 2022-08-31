@@ -2,7 +2,7 @@
 	@extend %Wrap;
 	display: flex;
   flex-direction: column;
-	max-width: 900px;
+	max-width: 1000px;
 	padding-bottom: get-spacing('x-large');
 	padding-top: 90 + get-spacing('x-large');
 	position: relative;
@@ -11,13 +11,6 @@
 
 	&.is-index {
 		flex-direction: column;
-	}
-
-	&.is-single {
-		.BlogPost {
-			max-width: 900px;
-			width: calc(100% - 74px);
-		}
 	}
 
 	&-pagination {

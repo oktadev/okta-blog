@@ -813,7 +813,7 @@ alina-yurenko:
 alex-doukas:
   full_name: Alex Doukas
   display_name: "Alex Doukas"
-  avatar:  avatar-ADoukas.png
+  avatar: avatar-ADoukas.png
   linkedin: https://www.linkedin.com/in/alexdoukas/
   bio: I'm Alex, a front end developer. My main area of expertise is web development and everything that comes along with it. I also have extensive knowledge of topics such as software testing, UX design, big data, social media marketing, and SEO techniques.
 
@@ -854,3 +854,22 @@ arek-nawo:
   web: https://areknawo.com/
   twitter: https://twitter.com/areknawo
   github: https://github.com/areknawo
+
+mike-nachbaur:
+  full_name: Michael A. Nachbaur
+  display_name: Mike Nachbaur 
+  avatar: avatar-mike-nachbaur.jpg
+  web: https://nachbaur.com/
+  twitter: https://twitter.com/nachoman
+  github: https://github.com/nachoman
+  linkedin: https://www.linkedin.com/in/michaelnachbaur/
+  bio: "Mike Nachbaur is currently an Apple / Swift software engineer, specializing in mobile & desktop native app and SDK development. Also a father, sailor, rocket nerd, and amateur science teacher."
+
+gabi-dombrowski:
+  full_name: Gabi Dombrowski
+  display_name: Gabi Dombrowski
+  avatar: avatar-gabi.jpg
+  web: http://gabidombrowski.com
+  twitter: https://twitter.com/gabzilladev
+  github: https://github.com/gabidombrowski
+  bio: Gabi spent her youth immersed in MS-DOS, server rooms, and Geocities fan page HTML. She transitioned to a development career in 2016 after life as a Systems Administrator and is active in her local tech community as a volunteer and as Mentor Director for a monthly coding session to help women break into the industry. Her other interests include ashtanga yoga, learning languages, and curating stellar playlists.
