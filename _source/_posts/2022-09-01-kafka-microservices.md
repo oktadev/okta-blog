@@ -167,7 +167,7 @@ The generator will ask you to define the following things:
 2. Type of gateway: **JHipster gateway based on Spring Cloud Gateway**
 3. Leave the root directory for services as default: **../**
 4. Which applications to include: **gateway**, **store**, **alert**
-4. Which applications do you want to use with clustered databases: **store**
+4. Which applications do you want to use with clustered databases: **(none)**
 5. If monitoring should be enabled: **No**
 6. Password for JHipster Registry: `<default>`
 
@@ -230,7 +230,7 @@ The registry, gateway, store, and alert applications are all configured to read 
 
 ## Communicate Between Store and Alert Microservices
 
-The JHipster generator adds a `kafka-clients` dependency to applications that declare `messageBroker kafka` (in JDL), enabling the [Kafka Consumer and Producer Core APIs](https://kafka.apache.org/documentation/#api).
+The JHipster generator adds a `spring-cloud-starter-stream-kafka` dependency to applications that declare `messageBroker kafka` (in JDL), enabling the Spring Cloud Stream [programming model](https://docs.spring.io/spring-cloud-stream/docs/current/reference/html/spring-cloud-stream.html#_main_concepts) with the [Apache Kafka binder](https://docs.spring.io/spring-cloud-stream/docs/current/reference/html/spring-cloud-stream-binder-kafka.html#_usage_examples) for using Kafka as the messaging middleware.
 
 For the sake of this example, update the `store` microservice to send a message to the `alert` microservice through Kafka, whenever a store entity is updated.
 
@@ -452,7 +452,47 @@ logging:
 
 ### Add Email Service to Alert Microservice
 
-Now let's customize the `alert` microservice. First, create an `EmailService` to send the store update notification, using the Spring Framework's `JavaMailSender`.
+Now let's customize the `alert` microservice. First, add the consumer declaration `KafkaStoreAlertConsumer` to the config:
+
+```java
+package com.okta.developer.alert.config;
+
+import org.springframework.cloud.stream.annotation.Input;
+import org.springframework.messaging.MessageChannel;
+
+public interface KafkaStoreAlertConsumer {
+    String CHANNELNAME = "binding-in-store-alert";
+
+    @Input(CHANNELNAME)
+    MessageChannel input();
+}
+```
+Include the binding in the `WebConfigurer`:
+
+```java
+package com.okta.developer.alert.config;
+
+@EnableBinding({ KafkaSseConsumer.class, KafkaSseProducer.class, KafkaStoreAlertConsumer.class })
+@Configuration
+public class WebConfigurer implements ServletContextInitializer {
+...
+```
+
+Add the inbound binding configuration to `application.yml`:
+
+```yml
+spring:
+  cloud:
+    stream:
+      bindings:
+        ...
+        binding-in-store-alert:
+          destination: store-alerts-topic
+          content-type: application/json
+          group: store-alerts
+```
+
+Create an `EmailService` to send the store update notification, using the Spring Framework's `JavaMailSender`.
 
 ```java
 package com.okta.developer.alert.service;
@@ -550,13 +590,11 @@ spring:
     host: smtp.gmail.com
     port: 587
     username: {username}
-    password: {password}
     protocol: smtp
     tls: true
     properties.mail.smtp:
       auth: true
       starttls.enable: true
-      ssl.trust: smtp.gmail.com
 ```
 
 ### Add a Kafka Consumer to Persist Alert and Send Email
@@ -566,101 +604,47 @@ Create an `AlertConsumer` service to persist a `StoreAlert` and send the email n
 ```java
 package com.okta.developer.alert.service;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.okta.developer.alert.config.KafkaProperties;
+import com.okta.developer.alert.config.KafkaStoreAlertConsumer;
 import com.okta.developer.alert.domain.StoreAlert;
 import com.okta.developer.alert.repository.StoreAlertRepository;
 import com.okta.developer.alert.service.dto.StoreAlertDTO;
-import org.apache.kafka.clients.consumer.ConsumerRecord;
-import org.apache.kafka.clients.consumer.ConsumerRecords;
-import org.apache.kafka.clients.consumer.KafkaConsumer;
-import org.apache.kafka.common.errors.WakeupException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.cloud.stream.annotation.StreamListener;
+import org.springframework.messaging.Message;
 import org.springframework.stereotype.Service;
 
-import javax.annotation.PostConstruct;
-import javax.annotation.PreDestroy;
-import java.time.Duration;
 import java.time.Instant;
-import java.util.Collections;
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
-import java.util.concurrent.atomic.AtomicBoolean;
 
 @Service
 public class AlertConsumer {
 
     private final Logger log = LoggerFactory.getLogger(AlertConsumer.class);
 
-    private final AtomicBoolean closed = new AtomicBoolean(false);
-
-    public static final String TOPIC = "topic_alert";
-
-    private final KafkaProperties kafkaProperties;
-
-    private KafkaConsumer<String, String> kafkaConsumer;
-
     private StoreAlertRepository storeAlertRepository;
 
     private EmailService emailService;
 
-    private ExecutorService executorService = Executors.newCachedThreadPool();
-
-    public AlertConsumer(KafkaProperties kafkaProperties, StoreAlertRepository storeAlertRepository, EmailService emailService) {
-        this.kafkaProperties = kafkaProperties;
+    public AlertConsumer(StoreAlertRepository storeAlertRepository, EmailService emailService) {
         this.storeAlertRepository = storeAlertRepository;
         this.emailService = emailService;
     }
 
-    @PostConstruct
-    public void start() {
+    @StreamListener(value = KafkaStoreAlertConsumer.CHANNELNAME, copyHeaders = "false")
+    public void consume(Message<StoreAlertDTO> message) {
+        log.debug("Got message from kafka stream: {}", message.getPayload());
+        try {
+            StoreAlertDTO dto = message.getPayload();
+            StoreAlert storeAlert = new StoreAlert();
+            storeAlert.setStoreName(dto.getStoreName());
+            storeAlert.setStoreStatus(dto.getStoreStatus());
+            storeAlert.setTimestamp(Instant.now());
 
-        log.info("Kafka consumer starting...");
-        this.kafkaConsumer = new KafkaConsumer<>(kafkaProperties.getConsumerProps());
-        Runtime.getRuntime().addShutdownHook(new Thread(this::shutdown));
-        kafkaConsumer.subscribe(Collections.singletonList(TOPIC));
-        log.info("Kafka consumer started");
-
-        executorService.execute(() -> {
-            try {
-                while (!closed.get()) {
-                    ConsumerRecords<String, String> records = kafkaConsumer.poll(Duration.ofSeconds(3));
-                    for (ConsumerRecord<String, String> record : records) {
-                        log.info("Consumed message in {} : {}", TOPIC, record.value());
-
-                        ObjectMapper objectMapper = new ObjectMapper();
-                        StoreAlertDTO storeAlertDTO = objectMapper.readValue(record.value(), StoreAlertDTO.class);
-                        StoreAlert storeAlert = new StoreAlert();
-                        storeAlert.setStoreName(storeAlertDTO.getStoreName());
-                        storeAlert.setStoreStatus(storeAlertDTO.getStoreStatus());
-                        storeAlert.setTimestamp(Instant.now());
-                        storeAlertRepository.save(storeAlert);
-
-                        emailService.sendSimpleMessage(storeAlertDTO);
-                    }
-                }
-                kafkaConsumer.commitSync();
-            } catch (WakeupException e) {
-                // Ignore exception if closing
-                if (!closed.get()) throw e;
-            } catch (Exception e) {
-                log.error(e.getMessage(), e);
-            } finally {
-                log.info("Kafka consumer close");
-                kafkaConsumer.close();
-            }
-        });
-    }
-
-    public KafkaConsumer<String, String> getKafkaConsumer() {
-        return kafkaConsumer;
-    }
-
-    public void shutdown() {
-        log.info("Shutdown Kafka consumer");
-        closed.set(true);
-        kafkaConsumer.wakeup();
+            storeAlertRepository.save(storeAlert);
+            emailService.sendSimpleMessage(dto);
+        } catch (Exception e) {
+            log.error(e.getMessage(), e);
+        }
     }
 }
 ```
@@ -671,7 +655,7 @@ As a last customization step, update the logging configuration the same way you 
 
 ## Microservices + Kafka Container Deployment
 
-Modify `docker-compose/docker-compose.yml` and add the following environment variables for the `alert-app` application:
+Modify `docker-compose/docker-compose.yml` and add the following environment variables for the `alert` application:
 
 ```yaml
 - SPRING_MAIL_USERNAME=${MAIL_USERNAME}
@@ -701,35 +685,39 @@ Then, run everything using Docker Compose:
 
 ```bash
 cd docker-compose
-docker-compose up
+docker compose up
 ```
 
 You will see a huge amount of logging while each service starts. Wait a minute or two, then open `http://localhost:8761` and log in with your Okta account. This is the JHipster Registry which you can use to monitor your apps' statuses. Wait for all the services to be up.
 
-{% img blog/kafka-microservices/jhipster-registry.png alt:"JHipster Registry" width:"800" %}{: .center-image }
-
-
+{% img blog/kafka-microservices-update/jhipster-registry.png alt:"JHipster Registry" width:"800" %}{: .center-image }
 
 Open a new terminal window and tail the `alert` microservice logs to verify it's processing `StoreAlert` records:
 
 ```bash
-docker exec -it docker-compose_alert-app_1 /bin/bash
-tail -f /tmp/spring.log
+docker logs -f docker-compose-alert-1 | grep Consumer
 ```
 
 You should see log entries indicating the consumer group to which the `alert` microservice joined on startup:
 
 ```bash
-2020-01-22 03:12:08.186  INFO 1 --- [Thread-7] o.a.k.c.c.internals.AbstractCoordinator  : [Consumer clientId=consumer-1, groupId=alert] (Re-)joining group
-2020-01-22 03:12:08.215  INFO 1 --- [Thread-7] o.a.k.c.c.internals.AbstractCoordinator  : [Consumer clientId=consumer-1, groupId=alert] (Re-)joining group
-2020-01-22 03:12:11.237  INFO 1 --- [Thread-7] o.a.k.c.c.internals.AbstractCoordinator  : [Consumer clientId=consumer-1, groupId=alert] Successfully joined group with generation 1
+2022-09-05 15:20:44.146  INFO 1 --- [           main] org.apache.kafka.clients.Metadata        : [Consumer clientId=consumer-store-alerts-4, groupId=store-alerts] Cluster ID: pyoOBVa3T3Gr1VP3rJBOlQ
+2022-09-05 15:20:44.151  INFO 1 --- [           main] o.a.k.c.c.internals.ConsumerCoordinator  : [Consumer clientId=consumer-store-alerts-4, groupId=store-alerts] Resetting generation due to: consumer pro-actively leaving the group
+2022-09-05 15:20:44.151  INFO 1 --- [           main] o.a.k.c.c.internals.ConsumerCoordinator  : [Consumer clientId=consumer-store-alerts-4, groupId=store-alerts] Request joining group due to: consumer pro-actively leaving the group
+2022-09-05 15:20:44.162  INFO 1 --- [           main] o.a.k.clients.consumer.ConsumerConfig    : ConsumerConfig values:
+2022-09-05 15:20:44.190  INFO 1 --- [           main] o.a.k.clients.consumer.KafkaConsumer     : [Consumer clientId=consumer-store-alerts-5, groupId=store-alerts] Subscribed to topic(s): store-alerts-topic
+2022-09-05 15:20:44.225  INFO 1 --- [container-0-C-1] org.apache.kafka.clients.Metadata        : [Consumer clientId=consumer-store-alerts-5, groupId=store-alerts] Resetting the last seen epoch of partition store-alerts-topic-0 to 0 since the associated topicId changed from null to 0G-IFWw-S9C3fEGLXDCOrw
+2022-09-05 15:20:44.226  INFO 1 --- [container-0-C-1] org.apache.kafka.clients.Metadata        : [Consumer clientId=consumer-store-alerts-5, groupId=store-alerts] Cluster ID: pyoOBVa3T3Gr1VP3rJBOlQ
+2022-09-05 15:20:44.227  INFO 1 --- [container-0-C-1] o.a.k.c.c.internals.ConsumerCoordinator  : [Consumer clientId=consumer-store-alerts-5, groupId=store-alerts] Discovered group coordinator kafka:9092 (id: 2147483645 rack: null)
+2022-09-05 15:20:44.229  INFO 1 --- [container-0-C-1] o.a.k.c.c.internals.ConsumerCoordinator  : [Consumer clientId=consumer-store-alerts-5, groupId=store-alerts] (Re-)joining group
+2022-09-05 15:20:44.238  INFO 1 --- [container-0-C-1] o.a.k.c.c.internals.ConsumerCoordinator  : [Consumer clientId=consumer-store-alerts-5, groupId=store-alerts] Request joining group due to: need to re-join with the given member-id
+2022-09-05 15:20:44.239  INFO 1 --- [container-0-C-1] o.a.k.c.c.internals.ConsumerCoordinator  : [Consumer clientId=consumer-store-alerts-5, groupId=store-alerts] (Re-)joining group
+
 ```
 
-Once everything is up, go to the gateway at `http://localhost:8080` and log in. Create a store entity and then update it. The `alert` microservice should log entries when processing the received message from the `store` service.
+Once everything is up, go to the gateway at `http://localhost:8081` and log in. Create a store entity and then update it. The `alert` microservice should log entries when processing the received message from the `store` service.
 
 ```bash
-2020-01-22 03:18:26.528  INFO 1 --- [Thread-7] c.o.d.alert.service.AlertConsumer   : Consumed message in topic_alert : {"storeName":"Zara","storeStatus":"CLOSED"}
-2020-01-22 03:18:26.664 DEBUG 1 --- [Thread-7] c.o.d.alert.aop.logging.LoggingAspect    : Enter: com.okta.developer.alert.service.EmailService.sendSimpleMessage() with argument[s] = [com.okta.developer.alert.service.dto.StoreAlertDTO@13038372]
 ```
 
 If you see a `MailAuthenticationException` in the `alert` microservices log, when attempting to send the notification, it might be your Gmail security configuration.
@@ -741,9 +729,14 @@ alert-app_1           |
 alert-app_1           | 	at org.springframework.mail.javamail.JavaMailSenderImpl.doSend(JavaMailSenderImpl.java:440)
 ```
 
-To enable the login from the `alert` application, go to <https://myaccount.google.com/lesssecureapps> and allow less secure applications. This is required because the `alert` application is unknown to Google and sign-on is [blocked for third-party applications](https://support.google.com/accounts/answer/6010255?p=less-secure-apps&hl=en&visit_id=637123668729530601-366764189&rd=1) that don't meet Google security standards.
+To enable the login from the `alert` application, go to [https://myaccount.google.com/](https://myaccount.google.com/) and then choose the **Security** tab. Turn on 2-Step Verification for your account. In the section _Signing in to Google_, choose **App passwords** and create a new [app password](https://support.google.com/accounts/answer/185833). In _Select app_ drop down set **Other (Custom name)** and type the name for this password. Click **Generate** and copy the password. Update docker-compose/.env` and set the app password for gmail authentication.
 
- **IMPORTANT**: Don't forget to turn off _Less secure app access_ once you finish the test.
+```bash
+MAIL_PASSWORD={yourAppPassword}
+```
+
+
+ **IMPORTANT**: Don't forget to delete the app password once the test is done.
 
 Restart the `alert` microservice:
 
