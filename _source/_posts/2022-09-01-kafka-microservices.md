@@ -231,6 +231,9 @@ The registry, gateway, store, and alert applications are all configured to read 
 ## Communicate Between Store and Alert Microservices
 
 The JHipster generator adds a `spring-cloud-starter-stream-kafka` dependency to applications that declare `messageBroker kafka` (in JDL), enabling the Spring Cloud Stream [programming model](https://docs.spring.io/spring-cloud-stream/docs/current/reference/html/spring-cloud-stream.html#_main_concepts) with the [Apache Kafka binder](https://docs.spring.io/spring-cloud-stream/docs/current/reference/html/spring-cloud-stream-binder-kafka.html#_usage_examples) for using Kafka as the messaging middleware.
+Spring Cloud Stream was recently added back to JHipster. Now, instead of working with Kafka Core APIs, we can use the binder abstraction, declaring input/output arguments in the code, and letting the specific binder implementation handle the mapping to the broker destination.
+
+**IMPORTANT NOTE**: At this moment, JHipster includes Spring Cloud Stream 3.2.4, which has [deprecated](https://docs.spring.io/spring-cloud-stream/docs/current/reference/html/spring-cloud-stream.html#spring-cloud-stream-preface-notable-deprecations) the annotation-based programming model, `@EnableBinding` and `@StreamListener` annotations, in favor of the functional programming model. Stay tuned for future JHipster updates.
 
 For the sake of this example, update the `store` microservice to send a message to the `alert` microservice through Kafka, whenever a store entity is updated.
 
@@ -615,7 +618,6 @@ import org.springframework.messaging.Message;
 import org.springframework.stereotype.Service;
 
 import java.time.Instant;
-
 @Service
 public class AlertConsumer {
 
@@ -632,9 +634,9 @@ public class AlertConsumer {
 
     @StreamListener(value = KafkaStoreAlertConsumer.CHANNELNAME, copyHeaders = "false")
     public void consume(Message<StoreAlertDTO> message) {
-        log.debug("Got message from kafka stream: {}", message.getPayload());
+        StoreAlertDTO dto = message.getPayload();
+        log.info("Got message from kafka stream: {} {}", dto.getStoreName(), dto.getStoreStatus());
         try {
-            StoreAlertDTO dto = message.getPayload();
             StoreAlert storeAlert = new StoreAlert();
             storeAlert.setStoreName(dto.getStoreName());
             storeAlert.setStoreStatus(dto.getStoreStatus());
@@ -718,6 +720,7 @@ You should see log entries indicating the consumer group to which the `alert` mi
 Once everything is up, go to the gateway at `http://localhost:8081` and log in. Create a store entity and then update it. The `alert` microservice should log entries when processing the received message from the `store` service.
 
 ```bash
+2022-09-05 18:08:31.546  INFO 1 --- [container-0-C-1] c.o.d.alert.service.AlertConsumer        : Got message from kafka stream: Candle Shop CLOSED
 ```
 
 If you see a `MailAuthenticationException` in the `alert` microservices log, when attempting to send the notification, it might be your Gmail security configuration.
@@ -735,8 +738,7 @@ To enable the login from the `alert` application, go to [https://myaccount.googl
 MAIL_PASSWORD={yourAppPassword}
 ```
 
-
- **IMPORTANT**: Don't forget to delete the app password once the test is done.
+**IMPORTANT**: Don't forget to delete the app password once the test is done.
 
 Restart the `alert` microservice:
 
@@ -758,10 +760,9 @@ This tutorial showed how a Kafka-centric architecture allows decoupling microser
 
 There are also a few tutorials Kafka, microservices, and JHipster that you might enjoy on this blog:
 
-- [Kafka with Java: Build a Secure, Scalable Messaging App](/blog/2019/11/19/java-kafka)
-- [Java Microservices with Spring Cloud Config and JHipster](/blog/2019/05/23/java-microservices-spring-cloud-config)
-- [Secure Reactive Microservices with Spring Cloud Gateway](/blog/2019/08/28/reactive-microservices-spring-cloud-gateway)
 - [Reactive Java Microservices with Spring Boot and JHipster](/blog/2021/01/20/reactive-java-microservices)
+- [Secure Kafka Streams with Quarkus and Java](/blog/2020/04/08/kafka-streams)
+- [A Quick Guide to Spring Cloud Stream](/blog/2020/04/15/spring-cloud-stream)
 
 You can find all the code for this tutorial [on GitHub](https://github.com/oktadeveloper/okta-kafka-microservices-example).
 
