@@ -189,7 +189,7 @@ You will generate the images later, but first, let's add some security and Kafka
 
 This microservices architecture is set up to authenticate against Keycloak. Let's update the settings to use Okta as the authentication provider.
 
-{% include setup/cli.md type="jhipster" %}
+{% include setup/cli.md type="jhipster" loginRedirectUri="http://localhost:8081/login/oauth2/code/oidc,http://localhost:8761/login/oauth2/code/oidc" logoutRedirectUri="http://localhost:8081,http://localhost:8761" %}
 
 In the project, create a `docker-compose/.env` file and add the following variables. For the values, use the settings from the Okta web application you created:
 
