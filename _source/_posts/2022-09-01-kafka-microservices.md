@@ -31,7 +31,7 @@ In this tutorial you will learn how to:
 **Apache Kafka** is a distributed streaming platform. It was initially conceived as a message queue and open-sourced by LinkedIn in 2011. Its community evolved Kafka to provide key capabilities:
 
 - **Publish and Subscribe** to streams of records, like a message queue.
-- **Storage system** so messages can be consumed asynchronously. Kafka writes data to a scalable disk structure and replicates for fault-tolerance. Producers can wait for write acknowledgments.
+- **Storage system** so messages can be consumed asynchronously. Kafka writes data to a scalable disk structure and replicates it for fault-tolerance. Producers can wait for write acknowledgments.
 - **Stream processing** with Kafka Streams API, enables complex aggregations or joins of input streams onto an output stream of processed data.
 
 Traditional messaging models are queue and publish-subscribe. In a queue, each record goes to one consumer. In publish-subscribe, the record is received by all consumers.
@@ -198,7 +198,7 @@ OIDC_CLIENT_ID={yourClientId}
 OIDC_CLIENT_SECRET={yourClientSecret}
 ```
 
-Edit `docker-compose/docker-compose.yml` and update the `SPRING_SECURITY_*` settings for the services `store-app`, `alert-app`, `gateway-app` and `jhipster-registry`:
+Edit `docker-compose/docker-compose.yml` and update the `SPRING_SECURITY_*` settings for the services `store-app`, `alert-app`, `gateway-app`, and `jhipster-registry`:
 
 ```yaml
 - SPRING_SECURITY_OAUTH2_CLIENT_PROVIDER_OIDC_ISSUER_URI=${OIDC_ISSUER_URI}
@@ -237,7 +237,7 @@ Spring Cloud Stream was recently added back to JHipster. Now, instead of working
 
 For the sake of this example, update the `store` microservice to send a message to the `alert` microservice through Kafka, whenever a store entity is updated.
 
-First, create a outbound binding for a new topic `store-alerts`. Add the interface `KafkaStoreAlertProducer`:
+First, create an outbound binding for a new topic `store-alerts`. Add the interface `KafkaStoreAlertProducer`:
 
 ```java
 package com.okta.developer.store.config;
@@ -758,7 +758,7 @@ This tutorial showed how a Kafka-centric architecture allows decoupling microser
 - [JHipster: OAuth2 and OpenID Connect](https://www.jhipster.tech/security/#-oauth2-and-openid-connect)
 - [Apache Kafka Introduction](https://kafka.apache.org/intro)
 
-There are also a few tutorials Kafka, microservices, and JHipster that you might enjoy on this blog:
+There are also a few tutorials on Kafka, microservices, and JHipster that you might enjoy on this blog:
 
 - [Reactive Java Microservices with Spring Boot and JHipster](/blog/2021/01/20/reactive-java-microservices)
 - [Secure Kafka Streams with Quarkus and Java](/blog/2020/04/08/kafka-streams)
