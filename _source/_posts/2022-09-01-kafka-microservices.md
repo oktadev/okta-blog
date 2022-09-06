@@ -54,6 +54,7 @@ Let's build a microservices architecture with JHipster and Kafka support. In thi
 > - [Java 11+](https://adoptopenjdk.net/)
 > - [Docker 20.10.17](https://docs.docker.com/install)
 > - [Node.js 16.17.0](https://nodejs.org/en/)
+> - [Okta CLI 0.10.0](https://cli.okta.com/)
 
 Install JHipster.
 
@@ -743,7 +744,7 @@ MAIL_PASSWORD={yourAppPassword}
 Restart the `alert` microservice:
 
 ```bash
-docker restart docker-compose_alert-app_1
+docker restart docker-compose-alert-1
 ```
 
 Update a store again and you should receive an email with the store's status this time.
@@ -764,6 +765,6 @@ There are also a few tutorials on Kafka, microservices, and JHipster that you mi
 - [Secure Kafka Streams with Quarkus and Java](/blog/2020/04/08/kafka-streams)
 - [A Quick Guide to Spring Cloud Stream](/blog/2020/04/15/spring-cloud-stream)
 
-You can find all the code for this tutorial [on GitHub](https://github.com/oktadeveloper/okta-kafka-microservices-example).
+You can find all the code for this tutorial [on GitHub](https://github.com/indiepopart/jhipster-kafka-cloud-stream).
 
 Please follow us [@oktadev on Twitter](https://twitter.com/oktadev) for more tutorials like this one. We also have a [YouTube channel](https://www.youtube.com/c/oktadev) where we frequently publish videos.
