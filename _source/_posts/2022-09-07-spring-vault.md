@@ -25,9 +25,12 @@ Nowadays it is widely recommended to never store secret values in code. Therefor
 - Secrets management with HashiCorp's Vault
 - Using Spring Cloud Vault
 
-> **Prerequisites**:
-> - [Java 8](https://adoptopenjdk.net/)
-> - [Docker](https://docs.docker.com/engine/install/).
+> **This tutorial was created with the following frameworks and tools**:
+> - [JHipster 7.9.2](https://www.jhipster.tech/installation/)
+> - [Java OpenJDK 17](https://jdk.java.net/java-se-ri/17)
+> - [Okta CLI 0.10.0](https://cli.okta.com)
+> - [Docker 20.10.12](https://docs.docker.com/engine/install/)
+> - [HTTPie 3.2.1](https://httpie.io/docs/cli/installation)
 
 {% include toc.md %}
 
@@ -36,15 +39,14 @@ Nowadays it is widely recommended to never store secret values in code. Therefor
 Spring Boot applications can bind property values from environment variables. To demonstrate, create a `vault-demo-app` with OpenID Connect authentication, using the Spring Initializr. Then add `web`, `okta`, and `cloud-config-client` dependencies, some of which will be required later in the tutorial:
 
 ```shell
-curl https://start.spring.io/starter.zip \
-  -d bootVersion=2.2.6.RELEASE \
-  -d dependencies=web,okta,cloud-config-client \
-  -d groupId=com.okta.developer \
-  -d artifactId=vault-demo-app  \
-  -d name="Spring Boot Application" \
-  -d description="Demo project of a Spring Boot application with Vault protected secrets" \
-  -d packageName=com.okta.developer.vault \
-  -o vault-demo-app.zip
+http https://start.spring.io/starter.zip \
+  bootVersion==2.7.3 \
+  dependencies==web,okta,cloud-config-client \
+  groupId==com.okta.developer \
+  artifactId==vault-demo-app  \
+  name=="Spring Boot Application" \
+  description=="Demo project of a Spring Boot application with Vault protected secrets" \
+  packageName==com.okta.developer.vault > vault-demo-app.zip
 ```
 
 Unzip the file and open the project. Modify its `src/main/java/.../Application.java` class to add the `/` HTTP endpoint:
@@ -74,27 +76,14 @@ public class Application {
 
 }
 ```
-
-For the Okta authentication set up, register for a [free developer account](https://developer.okta.com/signup/). After you log in, go to **API** > **Authorization Servers** and copy your Issuer URI into a text editor.
-
-Then go to **Applications** and create a new **Web** application. Configure it as follows:
-
-- Name: `Vault Demo`
-- Base URIs: `http://localhost:8080/`
-- Login redirect URIs: `http://localhost:8080/login/oauth2/code/okta`
-- Logout redirect URIs: `http://localhost:8080`
-- Grant type allowed:
-  - [x] Authorization Code
-  - [x] Refresh Token
-
-Click **Done** and copy the **Client ID** and **Client secret** into a text editor for later.
+{% include setup/cli.md type="web" framework="Okta Spring Boot Starter" %}
 
 Instead of storing Okta credentials in `application.properties`, Spring Boot allows you to bind properties from environment variables. You can see this in action by starting your application with the Maven command below:
 
 ```shell
-SPRING_SECURITY_OAUTH2_CLIENT_PROVIDER_OKTA_ISSUER_URI={yourIssuerURI} \
-SPRING_SECURITY_OAUTH2_CLIENT_REGISTRATION_OKTA_CLIENT_ID={yourClientId} \
-SPRING_SECURITY_OAUTH2_CLIENT_REGISTRATION_OKTA_CLIENT_SECRET={yourClientSecret} \
+OKTA_OAUTH2_ISSUER={yourIssuerURI} \
+OKTA_OAUTH2_CLIENT_ID={yourClientId} \
+OKTA_OAUTH2_CLIENT_SECRET={yourClientSecret} \
 ./mvnw spring-boot:run
 ```
 
@@ -105,24 +94,7 @@ In an incognito window, go to `http://localhost:8080`. Here, you should see the 
 In the application logs, you'll see the security filter chain initializes an OAuth 2.0 authentication flow:
 
 ```
-2020-05-01 00:19:45.952  INFO 12058 --- [main] o.s.s.web.DefaultSecurityFilterChain: Creating filter chain: any request,
- [org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@5c080ef3,
- org.springframework.security.web.context.SecurityContextPersistenceFilter@6ecdbab8,
- org.springframework.security.web.header.HeaderWriterFilter@5a2fa51f,
- org.springframework.security.web.csrf.CsrfFilter@2016f509,
- org.springframework.security.web.authentication.logout.LogoutFilter@23a5818e,
- org.springframework.security.oauth2.client.web.OAuth2AuthorizationRequestRedirectFilter@14823f76,
- org.springframework.security.oauth2.client.web.OAuth2AuthorizationRequestRedirectFilter@7b6e5c12,
- org.springframework.security.oauth2.client.web.OAuth2LoginAuthenticationFilter@7979b8b7,
- org.springframework.security.web.authentication.ui.DefaultLoginPageGeneratingFilter@17d32e9b,
- org.springframework.security.web.authentication.ui.DefaultLogoutPageGeneratingFilter@188cbcde,
- org.springframework.security.web.savedrequest.RequestCacheAwareFilter@19f7222e,
- org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@5ba26eb0,
- org.springframework.security.web.authentication.AnonymousAuthenticationFilter@4ee6291f,
- org.springframework.security.oauth2.client.web.OAuth2AuthorizationCodeGrantFilter@2def7a7a,
- org.springframework.security.web.session.SessionManagementFilter@22a0d4ea,
- org.springframework.security.web.access.ExceptionTranslationFilter@73d4066e,
- org.springframework.security.web.access.intercept.FilterSecurityInterceptor@7342e05d]
+2022-09-07 08:50:09.460  INFO 20676 --- [           main] o.s.s.web.DefaultSecurityFilterChain     : Will secure any request with [org.springframework.security.web.session.DisableEncodeUrlFilter@6b4a4e40, org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@46a8c2b4, org.springframework.security.web.context.SecurityContextPersistenceFilter@640d604, org.springframework.security.web.header.HeaderWriterFilter@7b96de8d, org.springframework.security.web.csrf.CsrfFilter@2a0b901c, org.springframework.security.web.authentication.logout.LogoutFilter@38ac8968, org.springframework.security.oauth2.client.web.OAuth2AuthorizationRequestRedirectFilter@7739aac4, org.springframework.security.oauth2.client.web.OAuth2AuthorizationRequestRedirectFilter@36c07c75, org.springframework.security.oauth2.client.web.OAuth2LoginAuthenticationFilter@353c6da1, org.springframework.security.web.authentication.ui.DefaultLoginPageGeneratingFilter@7e61e25c, org.springframework.security.web.authentication.ui.DefaultLogoutPageGeneratingFilter@4f664bee, org.springframework.security.oauth2.server.resource.web.BearerTokenAuthenticationFilter@21b51e59, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@5438fa43, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@512abf25, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@76563ae7, org.springframework.security.oauth2.client.web.OAuth2AuthorizationCodeGrantFilter@3e14d390, org.springframework.security.web.session.SessionManagementFilter@4dc52559, org.springframework.security.web.access.ExceptionTranslationFilter@51ac12ac, org.springframework.security.web.access.intercept.FilterSecurityInterceptor@2407a36c]
 ```
 
 Using environment variables for passing secrets to containerized applications is now considered bad practice because the environment can be inspected or logged in a number of cases. So, let's move on to using Spring Cloud Config server for secrets storage.
