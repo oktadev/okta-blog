@@ -16,6 +16,14 @@ github: https://github.com/oktadev/auth0-react-native-jhipster-example
 :toc: macro
 :experimental:
 
+React Native is a mobile app framework from Facebook. It allows you to develop apps using React's API and deploy it to iOS and Android with ease. It allows you to quickly refresh the apps when you make changes and generally offers a pleasant experience for web developers.
+
+https://necolas.github.io/react-native-web/[React Native for Web] is a recent addition to the React Native family. It allows you to run your app in a browser and enjoy the developer tools it offers. It's optimized for mobile and uses the same components as React Native so it looks good too!
+
+In this tutorial, I'll show you how to create a React Native application that deploys to web, iOS, and Android. You'll configure it to use OpenID Connect (OIDC) for authentication and use OAuth 2.0 access tokens to talk securely to a Spring Boot API.
+
+// todo: architecture diagram
+
 **Prerequisites:**
 
 * https://adoptopenjdk.net/[Java 11+]
@@ -23,29 +31,55 @@ github: https://github.com/oktadev/auth0-react-native-jhipster-example
 
 toc::[]
 
-== Build a Photo Gallery with JHipster (React + Spring Boot)
+== Quick Apps with JHipster
 
-. Create a new directory to hold your frontend and backend projects:
+JHipster is a full-stack application generator that uses Spring Boot on the backend and Angular, React, or Vue on the frontend. It started as an open source project in 2013, before any of these frameworks existed. Back then, it used Spring MVC for the backend and AngularJS for the frontend.
 
-  take react-native-spring-boot
-  git init
+Its popularity grew quickly along with its adoption and rise of the aforementioned frameworks. Today, it averages over 100K downloads per month. It even has a healthy budget thanks sponsors and backers via https://opencollective.com/generator-jhipster[Open Collective].
 
-. Clone an existing JHipster app into a `backend` directory:
+Why am I telling you this? Because JHipster is going to help you build your React Native app _and_ it was used to create the backend in a previous tutorial.
 
-  git clone https://github.com/oktadev/auth0-full-stack-java-example.git backend
+== JHipster blueprints for more power!
 
-. Start Keycloak:
+A **blueprints** feature was added to JHipster several years ago. It allows you, as a developer, to create a project that overrides the default behavior of JHipster. This has feature has lead to a thriving ecosystem of blueprints, from Kotlin to Micronaut to .NET Core to NestJS to Svelte to Ionic and even React Native.
 
-  cd backend
-  docker-compose -f src/main/docker/keycloak.yml up -d
-+
-[TIP]
-====
-If you're using a Mac M1, Keycloak will fail to start because its Docker image isn't available for an M1. To fix, run the script below.
+Today, I'll show you how to use JHipster's React Native blueprint to build a Flickr clone. The backend will be powered by the Spring Boot app created in https://auth0.com/blog/full-stack-java-with-react-spring-boot-and-jhipster/[Full Stack Java with React, Spring Boot, and JHipster] tutorial.
 
+The React Native app's screens will be generated from the same JDL (JHipster Domain Language) file that created the backend entities.
+
+== Build a Photo Gallery with React and Spring Boot
+
+Start by creating a new directory to hold your frontend and backend projects:
+
+[source,shell]
 ----
-VERSION=15.0.2 # set version here
+take react-native-spring-boot
+----
 
+NOTE: `take` is a command that makes a directory and moves into it.
+
+Clone an existing JHipster app into a `backend` directory:
+
+[source,shell]
+----
+git clone https://github.com/oktadev/auth0-full-stack-java-example.git backend
+----
+
+This app is configured to use OIDC for authentication and needs a provider configured to start correctly. To make things easy, there's a pre-configured Keycloak instanced configured with a Docker Compose file. You can start it:
+
+[source,shell]
+----
+cd backend
+docker-compose -f src/main/docker/keycloak.yml up -d
+----
++
+.Optional Title
+****
+If you're using Apple Silicon (aka M1 or M2), Keycloak will fail to start because its Docker image wasn't available for an M1 when the backend project was created. To fix, run the script below.
+
+[source,shell]
+----
+VERSION=15.0.2 # Keycloak version
 cd /tmp
 git clone git@github.com:keycloak/keycloak-containers.git
 cd keycloak-containers/server
@@ -55,15 +89,15 @@ docker build -t "quay.io/keycloak/keycloak:${VERSION}" .
 ----
 
 _If you'd rather skip this part, I'll show you how to configure and use Auth0 in a minute._
-====
+****
 
-. Start app using `./mvnw`, show project in IDE, and browse `\http://localhost:8080`
+Then, start the backend using `./mvnw` and open your favorite browser to `\http://localhost:8080`. You should be able to upload photos and have them displayed in nice grid. You can click on each photo to zoom in.
 
-. Add a few photos and show lightbox
+{% img blog/full-stack-java/photo-gallery.jpg alt:"Gallery with Photos" width:"800" %}{: .center-image }
 
 == Generate a React Native App
 
-. Install React Native JHipster and Expo CLI
+. Install React Native JHipster and the Expo CLI
 
   npm install -g generator-jhipster-react-native expo-cli
 
@@ -227,7 +261,10 @@ NOTE: If this clause already exists, you must be using a newer version with the 
 npm start
 ----
 
-== Doesn't work
 
-  - React Native Android login (probably need to add `https://localhost` as an allowed origin on Auth0, or make sure the scheme for the app is being used as the redirect URI)
+https://developer.okta.com/blog/2019/11/14/react-native-login
 
+// JHipster React Native was recently updated to use Expo 46, React Native 0.69.5, and React 18.
+// https://twitter.com/mraible/status/1567163914449813510
+
+// {% twitter 1567163914449813510 %}
