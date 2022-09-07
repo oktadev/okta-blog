@@ -15,6 +15,7 @@ github: https://github.com/oktadev/auth0-react-native-jhipster-example
 :page-liquid:
 :toc: macro
 :experimental:
+:commandkey: &#8984;
 
 React Native is a mobile app framework from Facebook. It allows you to develop apps using React's API and deploy it to iOS and Android with ease. It allows you to quickly refresh the apps when you make changes and generally offers a pleasant experience for web developers.
 
@@ -28,6 +29,10 @@ In this tutorial, I'll show you how to create a React Native application that de
 
 * https://adoptopenjdk.net/[Java 11+]
 * https://nodejs.org[Node 16+]
+
+If you're on Windows, you may need to install the [Windows Subsystem for Linux](https://docs.microsoft.com/en-us/windows/wsl/about) for some commands to work.
+
+I recommend using SDKMAN to manage your OpenJDK installations. Just run `sdk install java 11.0.2-open` to install Java 11 and `sdk install java 17-open` for Java 17.
 
 toc::[]
 
@@ -81,7 +86,7 @@ If you're using Apple Silicon (aka M1 or M2), Keycloak will fail to start becaus
 
 [source,shell]
 ----
-VERSION=15.0.2 # Keycloak version
+VERSION=15.0.2 # Keycloak version specified in keycloak.yml
 cd /tmp
 git clone git@github.com:keycloak/keycloak-containers.git
 cd keycloak-containers/server
@@ -137,7 +142,7 @@ When prompted, use the following values:
 |`No`
 |===
 
-Next, generate screens based on the entities in the backend project. Press *a* (for all) when prompted to overwrite files.
+Next, generate screens based on the entities in the backend project. Press **a** (for **all**) when prompted to overwrite files.
 
 [source,shell]
 ----
@@ -152,53 +157,194 @@ cors:
   allowed-origins: 'http://localhost:19006,...'
 ----
 
-. Add `\https://auth.expo.io/@mraible/Flickr2` and `exp://192.168.7.222:19000` Login redirect URIs in to the `web_app` client in http://localhost:9080/auth/admin/[Keycloak].
+Sign up for an https://expo.dev/[Expo] account and take note of your username.
 
-. Hide metadata in add photo screen (`app/modules/entities/photo/photo-edit-screen.js`) when `isNewEntity`
-+
+Login to http://localhost:9080/auth/admin/[Keycloak] (with `admin/admin` as credentials). Navigate to **Clients** > **web_app** and add `\https://auth.expo.io/@<your-expo-username>/Flickr2` as a Valid Redirect URI. **Save** your changes.
+
+image::{% asset_path blog/react-native-jhipster/keycloak-expo-redirect.png %}[alt=Add Expo redirect to Keycloak,width=666,align=center]
+
+Hide the metadata (height, width, date taken, and date uploaded) for photos in the add photo screen (`mobile/app/modules/entities/photo/photo-edit-screen.js`) when uploading a new photo. This isn't necessary, but the backend calculates these values for you, so they won't be saved. Below are the changes you need to make.
+
 [source,jsx]
 ----
-  const metadata = (
-    <div>...</div>
-  )
-  const metadataRows = isNewEntity ? '' : metadata;
+const metadata = (
+  <div>
+  // move the form fields for height, width, taken, and uploaded here
+  </div>
+)
+const metadataRows = isNewEntity ? '' : metadata;
 
-  {metadataRows}
+// Replace the form fields you moved with the following
+{metadataRows}
 ----
 
-. To run on emulators, you'll need an https://expo.io/[Expo] account
+Here's what it looks like from a diff perspective.
 
-. In the `backend` directory, run `./mvnw`
+[source,diff]
+----
+diff --git a/mobile/app/modules/entities/photo/photo-edit-screen.js b/mobile/app/modules/entities/photo/photo-edit-screen.js
+index 7a74a97..8aba557 100644
+--- a/mobile/app/modules/entities/photo/photo-edit-screen.js
++++ b/mobile/app/modules/entities/photo/photo-edit-screen.js
+@@ -97,6 +97,48 @@ function PhotoEditScreen(props) {
+   const albumRef = createRef();
+   const tagsRef = createRef();
 
-. In the `mobile` directory, run `npm start`. Make sure to use `localhost` and not `0.0.0.0` or CORS won't work!
++  const metadata = (
++    <div>
++      <FormField
++        name="height"
++        ref={heightRef}
++        label="Height"
++        placeholder="Enter Height"
++        testID="heightInput"
++        inputType="number"
++        onSubmitEditing={() => widthRef.current?.focus()}
++      />
++      <FormField
++        name="width"
++        ref={widthRef}
++        label="Width"
++        placeholder="Enter Width"
++        testID="widthInput"
++        inputType="number"
++        onSubmitEditing={() => takenRef.current?.focus()}
++      />
++      <FormField
++        name="taken"
++        ref={takenRef}
++        label="Taken"
++        placeholder="Enter Taken"
++        testID="takenInput"
++        inputType="datetime"
++        onSubmitEditing={() => uploadedRef.current?.focus()}
++      />
++      <FormField
++        name="uploaded"
++        ref={uploadedRef}
++        label="Uploaded"
++        placeholder="Enter Uploaded"
++        testID="uploadedInput"
++        inputType="datetime"
++      />
++    </div>
++  );
++
++  const metadataRows = isNewEntity ? '' : metadata;
++
+   return (
+     <View style={styles.container}>
+       <KeyboardAwareScrollView
+@@ -145,41 +187,7 @@ function PhotoEditScreen(props) {
+               autoCapitalize="none"
+               onSubmitEditing={() => heightRef.current?.focus()}
+             />
+-            <FormField
+-              name="height"
+-              ref={heightRef}
+-              label="Height"
+-              placeholder="Enter Height"
+-              testID="heightInput"
+-              inputType="number"
+-              onSubmitEditing={() => widthRef.current?.focus()}
+-            />
+-            <FormField
+-              name="width"
+-              ref={widthRef}
+-              label="Width"
+-              placeholder="Enter Width"
+-              testID="widthInput"
+-              inputType="number"
+-              onSubmitEditing={() => takenRef.current?.focus()}
+-            />
+-            <FormField
+-              name="taken"
+-              ref={takenRef}
+-              label="Taken"
+-              placeholder="Enter Taken"
+-              testID="takenInput"
+-              inputType="datetime"
+-              onSubmitEditing={() => uploadedRef.current?.focus()}
+-            />
+-            <FormField
+-              name="uploaded"
+-              ref={uploadedRef}
+-              label="Uploaded"
+-              placeholder="Enter Uploaded"
+-              testID="uploadedInput"
+-              inputType="datetime"
+-            />
++            {metadataRows}
+             <FormField
+               name="album"
+               inputType="select-one"
+----
 
-. Web and iOS should work just fine. For Android emulators to communicate with your API and Keycloak, add some port mappings
+== Run your React Native app
 
-  adb reverse tcp:8080 tcp:8080 && adb reverse tcp:9080 tcp:9080
+If the backend app isn't running, open a terminal and navigate to the `backend` directory. Then, run `./mvnw` (or `mvnw` on Windows). Of course, if you have Maven installed, you can simply run `mvn`.
 
-. Refresh your app in Simulator using kbd:[{commandKey} + R] or by hitting kbd:[R] twice in Android
+Open a new terminal window and navigate into the `mobile` directory. Run `npm start` and type **w** to open in a web browser. You should be able to log in and view any photos you added to the backend.
+
+// todo: use HTML to arrange these in a single row
+image::{% asset_path blog/react-native-jhipster/react-native-web.png %}[alt=React Native web,width=800,align=center]
+
+image::{% asset_path blog/react-native-jhipster/react-native-web-photos.png %}[alt=React Native photos list,width=800,align=center]
+
+image::{% asset_path blog/react-native-jhipster/react-native-web-photo.png %}[alt=React Native photo with Josh,width=800,align=center]
+
+=== Test on iOS
+
+To see your React Native app running on iOS, press **i** in the window you ran `npm start` from. You will need to be on a Mac with Xcode installed for this to work.
+
+// todo: arrange these images in a single row
+image::{% asset_path blog/react-native-jhipster/react-native-ios.png %}[alt=React Native app on iOS,width=400,align=center]
+
+image::{% asset_path blog/react-native-jhipster/react-native-ios-photo.png %}[alt=React Native photo on iOS,width=400,align=center]
+
+TIP: You can reload your app in Simulator using kbd:[{commandKey} + R].
+
+=== Test on Android
+
+To see your React Native app running on Android, press **a** in the window you ran `npm start` from. You will need to have Android Studio installed and an AVD (Android Virtual Device) running. I tested on a Pixel 5 with API 31 (Android 12.0).
+
+For the Android emulator to communicate with your API and Keycloak, you'll need to add some port mappings. If `8080` and `9080` are printed to your terminal, the command worked.
+
+[source,shell]
+----
+adb reverse tcp:8080 tcp:8080 && adb reverse tcp:9080 tcp:9080
+----
+
+TIP: If you get a `command not found` error, see https://stackoverflow.com/questions/10303639/adb-command-not-found[this Stack Overflow Q & A] to solve it. I used `echo export "PATH=~/Library/Android/sdk/platform-tools:$PATH" >> ~/.zshrc` on my Mac.
+
+To reload your app, hit kbd:[r] twice with focus on the Android emulator. You should be able to log in.
+
+// todo: would this be better as three images in one row? Probably, but my emulator is frozen and I can't login
+image::{% asset_path blog/react-native-jhipster/react-native-android.png %}[alt=React Native app on Android,width=800,align=center]
 
 == Use Auth0 for Identity
 
-. Log in to your Auth0 account (or https://auth0.com/signup[sign up] if you don't have an account). You should have a unique domain like `dev-xxx.us.auth0.com`.
+JHipster ships with Keycloak by default, when you choose OAuth 2.0 / OIDC as the authentication type. However, you can easily change it to another identity provider, like Auth0!
 
-. Press the *Create Application* button in https://manage.auth0.com/#/applications[Applications section]. Use a name like `JHipster Baby!`, select `Regular Web Applications`, and click *Create*.
+First, you'll need to configure the backend to use Auth0 by registering a regular web application. Log in to your Auth0 account (or https://auth0.com/signup[sign up] if you don't have an account). You should have a unique domain like `dev-xxx.us.auth0.com`.
 
-. Switch to the *Settings* tab and configure your application settings:
-+
+Select *Create Application* in the https://manage.auth0.com/#/applications[Applications section]. Use a name like `JHipster Baby!`, select `Regular Web Applications`, and click *Create*.
+
+Switch to the *Settings* tab and configure your application settings:
+
 - Allowed Callback URLs: `\http://localhost:8080/login/oauth2/code/oidc`
 - Allowed Logout URLs: `\http://localhost:8080/`
 
-. Scroll to the bottom and click *Save Changes*.
+Scroll to the bottom and click *Save Changes*.
 
-. In the https://manage.auth0.com/#/roles[roles] section, create new roles named `ROLE_ADMIN` and `ROLE_USER`.
+In the https://manage.auth0.com/#/roles[roles] section, create new roles named `ROLE_ADMIN` and `ROLE_USER`.
 
-. Create a new user account in the https://manage.auth0.com/#/users[users] section. Click on the *Role* tab to assign the roles you just created to the new account.
-+
+Create a new user account in the https://manage.auth0.com/#/users[users] section. Click on the *Role* tab to assign the roles you just created to the new account.
+
 _Make sure your new user's email is verified before attempting to log in!_
 
-. Next, head to **Actions** > **Flows** and select **Login**. Create a new action named `Add Roles` and use the default trigger and runtime. Change the `onExecutePostLogin` handler to be as follows:
-+
+Next, head to **Actions** > **Flows** and select **Login**. Create a new action named `Add Roles` and use the default trigger and runtime. Change the `onExecutePostLogin` handler to be as follows:
+
 [source,js]
 ----
 exports.onExecutePostLogin = async (event, api) => {
@@ -210,13 +356,11 @@ exports.onExecutePostLogin = async (event, api) => {
   }
 }
 ----
-+
-This code is adding the user's roles to a custom claim (prefixed with `https://www.jhipster.tech/roles`). This claim is mapped to Spring Security authorities in `SecurityUtils.java`.
 
-. Select **Deploy** and drag the `Add Roles` action to your Login flow.
+This code is adding the user's roles to a custom claim (prefixed with `\https://www.jhipster.tech/roles`). This claim is mapped to Spring Security authorities in `SecurityUtils.java`.
 
-. Create a `backend/.auth0.env` file and populate it with your Auth0 settings.
-+
+Select **Deploy** and drag the `Add Roles` action to your Login flow. Create a `backend/.auth0.env` file and populate it with your Auth0 settings.
+
 [source,shell]
 ----
 export SPRING_SECURITY_OAUTH2_CLIENT_PROVIDER_OIDC_ISSUER_URI=https://<your-auth0-domain>/
@@ -224,56 +368,59 @@ export SPRING_SECURITY_OAUTH2_CLIENT_REGISTRATION_OIDC_CLIENT_ID=<your-client-id
 export SPRING_SECURITY_OAUTH2_CLIENT_REGISTRATION_OIDC_CLIENT_SECRET=<your-client-secret>
 export JHIPSTER_SECURITY_OAUTH2_AUDIENCE=https://<your-auth0-domain>/api/v2/
 ----
-+
-You can use the default `Auth0 Management API` audience value from the *Applications* > *API* > *API Audience* field. You can also define your own custom API and use the identifier as the API audience.
 
-=== Create a Native OIDC App
+NOTE: Want to have all these steps automated for you? Watch https://github.com/auth0/auth0-cli/issues/351[issue #351] in the Auth0 CLI project.
 
-. For React Native, create a *Native* app and add the following Allowed Callback URLs:
+Stop your backend app with kbd:[Ctrl+C] and run the following commands to make it use Auth0.
 
-  http://localhost:19006/,https://auth.expo.io/@mraible/Flickr2,exp://192.168.7.222:19000
+[source,shell]
+----
+source .auth0.env
+./mvnw
+----
 
-. Add to Allowed Logout URLs:
+=== Create a Native OIDC App for React Native
 
-  exp://192.168.7.222:19000, http://localhost:19006
+For the React Native app to use Auth0, you'll need to create a *Native* app and add the following Allowed Callback URLs:
 
-. Set the Allowed Origins (CORS):
+[source,shell]
+----
+http://localhost:19006/,https://auth.expo.io/@<your-expo-username>/Flickr2
+----
 
-  http://localhost:19006
+Configure an Allowed Logout URL:
 
-. Copy the client ID to `app/config/app-config.js`.
+[source,shell]
+----
+http://localhost:19006
+----
 
-. Update the `audience` in `app/modules/login/login.utils.ts`:
+Set the Allowed Origins (CORS):
 
-  audience: 'https://<your-auth0-domain>/api/v2/',
-+
-While you're in there, set `useExpoAuthProxy` to `false` so full logout is possible.
+[source,shell]
+----
+http://localhost:19006
+----
 
-. Modify the `logoutFromIdp()` method in `login.utils.ts` to add an else condition for Auth0.
-+
+Copy the client ID to `app/config/app-config.js` and update the `audience` in `app/modules/login/login.utils.ts`:
+
 [source,js]
 ----
-if (endSessionEndpoint) {
-  ...
-} else if (issuer.includes('auth0.com')) {
-  const redirectUri = makeRedirectUri({ useProxy: AppConfig.useExpoAuthProxy });
-  await WebBrowser.openAuthSessionAsync(`${issuer}/v2/logout?client_id=${clientId}&returnTo=${redirectUri}`, redirectUri);
-}
+audience: 'https://<your-auth0-domain>/api/v2/',
 ----
-+
-NOTE: If this clause already exists, you must be using a newer version with the fix!
 
-. Restart your React Native app and log in with Auth0!
-+
-----
-npm start
-----
+Restart your React Native app and log in with Auth0!
+
+// todo: arrange in a single row
+image::{% asset_path blog/react-native-jhipster/auth0-login.png %}[alt=Auth0 login,width=400,align=center]
+
+image::{% asset_path blog/react-native-jhipster/auth0-login-success.png %}[alt=Auth0 login success,width=400,align=center]
 
 === Use Okta for Identity
 
 If you'd like to use Okta as your identity provider, see https://www.jhipster.tech/security/#okta[JHipster's documentation] for how to configure the backend app.
 
-TIP: It's easy with the https://cli.okta.com[Okta CLI]: `okta apps create jhipster`
+TIP: You can configure JHipster quickly with the https://cli.okta.com[Okta CLI]: `okta apps create jhipster`
 
 You'll need to https://www.jhipster.tech/security/#create-a-native-app-for-mobile-on-okta[create a native app on Okta] for React Native too.
 
@@ -283,3 +430,14 @@ You'll need to https://www.jhipster.tech/security/#create-a-native-app-for-mobil
 // https://twitter.com/mraible/status/1567163914449813510
 
 // {% twitter 1567163914449813510 %}
+
+
+== Learn more about React Native, Spring Boot, and JHipster
+
+// summary
+
+// github
+
+// CTA to other posts
+
+// follow us!
