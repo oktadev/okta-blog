@@ -277,7 +277,7 @@ TIP: It's easy with the https://cli.okta.com[Okta CLI]: `okta apps create jhipst
 
 You'll need to https://www.jhipster.tech/security/#create-a-native-app-for-mobile-on-okta[create a native app on Okta] for React Native too.
 
-// https://developer.okta.com/blog/2019/11/14/react-native-login
+// developer.okta.com/blog/2019/11/14/react-native-login
 
 // JHipster React Native was recently updated to use Expo 46, React Native 0.69.5, and React 18.
 // https://twitter.com/mraible/status/1567163914449813510
