@@ -289,9 +289,9 @@ Open a new terminal window and navigate into the `mobile` directory. Run `npm st
 // question: should I retake the last image so they're all the same height?
 [cols="a,a,a", frame=none, grid=none]
 |===
-| image::{% asset_path blog/react-native-jhipster/react-native-web.png %}[alt=React Native web,width=300,align=center,link={% asset_path blog/react-native-jhipster/react-native-web.png %}]
-| image::{% asset_path blog/react-native-jhipster/react-native-web-photos.png %}[alt=React Native photos list,width=300,align=center,link={% asset_path blog/react-native-jhipster/react-native-web-photos.png %}]
-| image::{% asset_path blog/react-native-jhipster/react-native-web-photo.png %}[alt=React Native photo with Josh,width=300,align=center,link={% asset_path blog/react-native-jhipster/react-native-web-photo.png %}]
+| image::{% asset_path blog/react-native-jhipster/react-native-web.jpg %}[alt=React Native web,width=300,align=center,link={% asset_path blog/react-native-jhipster/react-native-web.jpg %}]
+| image::{% asset_path blog/react-native-jhipster/react-native-web-photos.jpg %}[alt=React Native photos list,width=300,align=center,link={% asset_path blog/react-native-jhipster/react-native-web-photos.png %}]
+| image::{% asset_path blog/react-native-jhipster/react-native-web-photo.jpg %}[alt=React Native photo with Josh,width=300,align=center,link={% asset_path blog/react-native-jhipster/react-native-web-photo.png %}]
 |===
 
 === Test on iOS
