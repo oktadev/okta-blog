@@ -72,8 +72,10 @@ This app is configured to use OIDC for authentication and needs a provider confi
 cd backend
 docker-compose -f src/main/docker/keycloak.yml up -d
 ----
-+
-.Optional Title
+
+// _If you'd rather skip this part, I'll show you how to configure and use Auth0 in a minute._
+
+.Apple Silicon and Keycloak
 ****
 If you're using Apple Silicon (aka M1 or M2), Keycloak will fail to start because its Docker image wasn't available for an M1 when the backend project was created. To fix, run the script below.
 
@@ -87,60 +89,66 @@ git checkout $VERSION
 docker build -t "jboss/keycloak:${VERSION}" .
 docker build -t "quay.io/keycloak/keycloak:${VERSION}" .
 ----
-
-_If you'd rather skip this part, I'll show you how to configure and use Auth0 in a minute._
 ****
 
 Then, start the backend using `./mvnw` and open your favorite browser to `\http://localhost:8080`. You should be able to upload photos and have them displayed in nice grid. You can click on each photo to zoom in.
 
-{% img blog/full-stack-java/photo-gallery.jpg alt:"Gallery with Photos" width:"800" %}{: .center-image }
+image::{% asset_path blog/full-stack-java/photo-gallery.jpg %}[alt=Gallery with Photos,width=800,align=center]
+
+Now, let's create a React Native app that talks to the same API.
 
 == Generate a React Native App
 
-. Install React Native JHipster and the Expo CLI
+Install React Native JHipster and the Expo CLI:
 
-  npm install -g generator-jhipster-react-native expo-cli
+[source,shell]
+----
+npm install -g generator-jhipster-react-native expo-cli
+----
 
-. Create a directory for your React Native app:
+Create a directory for your React Native app:
 
-  take mobile
+[source,shell]
+----
+take mobile
+----
 
-. Create a JDL file with information about your backend app.
+Run the following command to use the React Native blueprint to create an app.
 
-  application {
-    config {
-      applicationType monolith
-      baseName flickr2
-      packageName com.auth0.flickr2
-      authenticationType oauth2
-      prodDatabaseType postgresql
-      testFrameworks [cypress]
-      clientFramework react
-      enableTranslation true
-      nativeLanguage en
-      languages [en, es]
-    }
-    entities *
-  }
+[source,shell]
+----
+jhipster --blueprints react-native
+# or rnhipster
+----
 
-. Create your React Native app:
+When prompted, use the following values:
 
-  jhipster --blueprints react-native jdl app.jdl
-+
-Name your app `Flickr2` when prompted
+[cols="1,1"]
+|===
+|Prompt |Answer
 
-. Generate entities
+|What do you want to name your React Native application?
+|`Flickr2`
 
-  jhipster --blueprints react-native jdl ../backend/flickr2.jdl
-+
-Press *a* (for all) when prompted to overwrite files.
+|Enter the directory where your JHipster app is located:
+|`../backend`
 
-. Change `application-dev.yml` in backend to allow `\http://localhost:19006` for CORS:
-+
+|Do you want to enable end-to-end tests with Detox?
+|`No`
+|===
+
+Next, generate screens based on the entities in the backend project. Press *a* (for all) when prompted to overwrite files.
+
+[source,shell]
+----
+rnhipster jdl ../backend/flickr2.jdl
+----
+
+In the backend project, change its `src/main/resources/config/application-dev.yml` to allow `\http://localhost:19006` for CORS (cross-origin resource sharing):
+
 [source,yaml]
 ----
 cors:
-  # Allow Ionic for JHipster by default (* no longer allowed in Spring Boot 2.4+)
   allowed-origins: 'http://localhost:19006,...'
 ----
 
@@ -261,6 +269,13 @@ NOTE: If this clause already exists, you must be using a newer version with the 
 npm start
 ----
 
+=== Use Okta for Identity
+
+If you'd like to use Okta as your identity provider, see https://www.jhipster.tech/security/#okta[JHipster's documentation] for how to configure the backend app.
+
+TIP: It's easy with the https://cli.okta.com[Okta CLI]: `okta apps create jhipster`
+
+You'll need to https://www.jhipster.tech/security/#create-a-native-app-for-mobile-on-okta[create a native app on Okta] for React Native too.
 
 https://developer.okta.com/blog/2019/11/14/react-native-login
 
