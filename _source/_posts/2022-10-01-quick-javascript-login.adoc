@@ -10,7 +10,7 @@ tweets:
 - ""
 - ""
 - ""
-image:
+image: blog/oktadev-schematics-auth0/quick-javascript-login.jpg
 type: conversion
 ---
 :page-liquid:
