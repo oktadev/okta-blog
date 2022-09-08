@@ -17,20 +17,33 @@ github: https://github.com/oktadev/auth0-react-native-jhipster-example
 :experimental:
 :commandkey: &#8984;
 
+// If this post is not targeting keywords, "Get started with React Native for JHipster" is probably a better title.
+//   - 55: Integrate React Native and Spring Boot Securely
+//   - 57: React Native Authentication with OAuth and Spring Boot
+//   - 60: Secure React Native and Spring Boot with OpenID Connect
+//   - 61: Build React Native Apps Quickly with JHipster
+//   - 65: Build Secure React Native Apps Quickly with JHipster
+// Keywords:
+//   - react native security: 320, react native spring boot: 140, react native oauth: 260
+//   - react native authentication: 1300, react native tutorial: 18,100
+//
+// https://auth0.com/blog/get-started-auth0-authentication-react-native-android/ is #5 for react native authentication
+// https://developer.okta.com/code/react-native/ is #18 for react native authentication
+
 React Native is a mobile app framework from Facebook. It allows you to develop apps using React's API and deploy it to iOS and Android with ease. It allows you to quickly refresh the apps when you make changes and generally offers a pleasant experience for web developers.
 
-https://necolas.github.io/react-native-web/[React Native for Web] is a recent addition to the React Native family. It allows you to run your app in a browser and enjoy the developer tools it offers. It's optimized for mobile and uses the same components as React Native so it looks good too!
+https://necolas.github.io/react-native-web/[React Native for Web] is a recent addition to the React Native family. It allows you to run your app in a browser and enjoy the developer tools it offers. It's optimized for mobile and uses the same components as React Native, so it looks good too!
 
 In this tutorial, I'll show you how to create a React Native application that deploys to web, iOS, and Android. You'll configure it to use OpenID Connect (OIDC) for authentication and use OAuth 2.0 access tokens to talk securely to a Spring Boot API.
 
-// todo: architecture diagram
+[.red]#todo: add architecture diagram#
 
 **Prerequisites:**
 
 * https://adoptopenjdk.net/[Java 11+]
 * https://nodejs.org[Node 16+]
 
-If you're on Windows, you may need to install the [Windows Subsystem for Linux](https://docs.microsoft.com/en-us/windows/wsl/about) for some commands to work.
+If you're on Windows, you may need to install the https://docs.microsoft.com/en-us/windows/wsl/about[Windows Subsystem for Linux] for some commands to work.
 
 I recommend using SDKMAN to manage your OpenJDK installations. Just run `sdk install java 11.0.2-open` to install Java 11 and `sdk install java 17-open` for Java 17.
 
@@ -46,11 +59,11 @@ Why am I telling you this? Because JHipster is going to help you build your Reac
 
 == JHipster blueprints for more power!
 
-A **blueprints** feature was added to JHipster several years ago. It allows you, as a developer, to create a project that overrides the default behavior of JHipster. This has feature has lead to a thriving ecosystem of blueprints, from Kotlin to Micronaut to .NET Core to NestJS to Svelte to Ionic and even React Native.
+A **blueprints** feature was added to JHipster several years ago. It allows you, as a developer, to create a project that overrides the default behavior of JHipster. This has feature has lead to a https://www.jhipster.tech/modules/official-blueprints/[thriving ecosystem of blueprints], from Kotlin to Micronaut to .NET Core to NestJS to Svelte to Ionic and even React Native.
 
-Today, I'll show you how to use JHipster's React Native blueprint to build a Flickr clone. The backend will be powered by the Spring Boot app created in https://auth0.com/blog/full-stack-java-with-react-spring-boot-and-jhipster/[Full Stack Java with React, Spring Boot, and JHipster] tutorial.
+Today, I'll show you how to use https://github.com/jhipster/generator-jhipster-react-native[JHipster's React Native blueprint] to build a Flickr clone. The backend will be powered by the Spring Boot app created in https://auth0.com/blog/full-stack-java-with-react-spring-boot-and-jhipster/[Full Stack Java with React, Spring Boot, and JHipster] tutorial. The React Native app's screens will be generated from the same JDL (JHipster Domain Language) file that created the backend entities.
 
-The React Native app's screens will be generated from the same JDL (JHipster Domain Language) file that created the backend entities.
+I'm excited to show you how to use JHipster React Native because its https://github.com/jhipster/generator-jhipster-react-native/releases/tag/v4.3.0[4.3.0 release] upgrades it Expo 46, React Native 0.69.5, and React 18. Let's giddyup! 🤠
 
 == Build a Photo Gallery with React and Spring Boot
 
@@ -96,7 +109,7 @@ docker build -t "quay.io/keycloak/keycloak:${VERSION}" .
 ----
 ****
 
-Then, start the backend using `./mvnw` and open your favorite browser to `\http://localhost:8080`. You should be able to upload photos and have them displayed in nice grid. You can click on each photo to zoom in.
+Then, start the backend using `./mvnw` and open your favorite browser to `\http://localhost:8080`. You should be able login with `admin/admin` and upload photos. They'll be displayed in nice grid, and you can click on each photo to zoom in.
 
 image::{% asset_path blog/full-stack-java/photo-gallery.jpg %}[alt=Gallery with Photos,width=800,align=center]
 
@@ -122,8 +135,7 @@ Run the following command to use the React Native blueprint to create an app.
 
 [source,shell]
 ----
-jhipster --blueprints react-native
-# or rnhipster
+jhipster --blueprints react-native # you can also use `rnhipster`
 ----
 
 When prompted, use the following values:
@@ -157,7 +169,7 @@ cors:
   allowed-origins: 'http://localhost:19006,...'
 ----
 
-Sign up for an https://expo.dev/[Expo] account and take note of your username.
+https://expo.dev/signup[Sign up for an Expo account] and take note of your username.
 
 Login to http://localhost:9080/auth/admin/[Keycloak] (with `admin/admin` as credentials). Navigate to **Clients** > **web_app** and add `\https://auth.expo.io/@<your-expo-username>/Flickr2` as a Valid Redirect URI. **Save** your changes.
 
@@ -178,8 +190,10 @@ const metadataRows = isNewEntity ? '' : metadata;
 {metadataRows}
 ----
 
-Here's what it looks like from a diff perspective.
-
+++++
+<details>
+<summary>Click here to see what it looks like from a diff perspective.</summary>
+++++
 [source,diff]
 ----
 diff --git a/mobile/app/modules/entities/photo/photo-edit-screen.js b/mobile/app/modules/entities/photo/photo-edit-screen.js
@@ -279,19 +293,27 @@ index 7a74a97..8aba557 100644
                name="album"
                inputType="select-one"
 ----
+++++
+</details>
+++++
 
 == Run your React Native app
 
 If the backend app isn't running, open a terminal and navigate to the `backend` directory. Then, run `./mvnw` (or `mvnw` on Windows). Of course, if you have Maven installed, you can simply run `mvn`.
 
-Open a new terminal window and navigate into the `mobile` directory. Run `npm start` and type **w** to open in a web browser. You should be able to log in and view any photos you added to the backend.
+Open a new terminal window and navigate into the `mobile` directory. Run `npm start` and type **w** to open in a web browser. You should be able to log in and view any photos you added to the backend. You can even edit and replace them.
 
 // question: should I retake the last image so they're all the same height?
-[cols="a,a,a", frame=none, grid=none]
+[cols="a,a", frame=none, grid=none]
 |===
-| image::{% asset_path blog/react-native-jhipster/react-native-web.jpg %}[alt=React Native web,width=300,align=center,link={% asset_path blog/react-native-jhipster/react-native-web.jpg %}]
-| image::{% asset_path blog/react-native-jhipster/react-native-web-photos.jpg %}[alt=React Native photos list,width=300,align=center,link={% asset_path blog/react-native-jhipster/react-native-web-photos.jpg %}]
-| image::{% asset_path blog/react-native-jhipster/react-native-web-photo.jpg %}[alt=React Native photo with Josh,width=300,align=center,link={% asset_path blog/react-native-jhipster/react-native-web-photo.jpg %}]
+| image::{% asset_path blog/react-native-jhipster/react-native-web.jpg %}[alt=React Native web,width=400,align=center,link={% asset_path blog/react-native-jhipster/react-native-web.jpg %}]
+| image::{% asset_path blog/react-native-jhipster/react-native-web-photos.jpg %}[alt=React Native photos list,width=400,align=center,link={% asset_path blog/react-native-jhipster/react-native-web-photos.jpg %}]
+|===
+
+[cols="a,a", frame=none, grid=none]
+|===
+| image::{% asset_path blog/react-native-jhipster/react-native-web-photo.jpg %}[alt=React Native photo with Josh,width=400,align=center,link={% asset_path blog/react-native-jhipster/react-native-web-photo.jpg %}]
+| image::{% asset_path blog/react-native-jhipster/react-native-edit-photo.jpg %}[alt=Edit photo,width=400,align=center,link={% asset_path blog/react-native-jhipster/react-native-edit-photo.jpg %}]
 |===
 
 === Test on iOS
@@ -300,8 +322,8 @@ To see your React Native app running on iOS, press **i** in the window you ran `
 
 [cols="a,a", frame=none, grid=none]
 |===
-| image::{% asset_path blog/react-native-jhipster/react-native-ios.png %}[alt=React Native app on iOS,width=400,align=center]
-| image::{% asset_path blog/react-native-jhipster/react-native-ios-photo.png %}[alt=React Native photo on iOS,width=400,align=center]
+| image::{% asset_path blog/react-native-jhipster/react-native-ios.png %}[alt=React Native app on iOS,width=350,align=center]
+| image::{% asset_path blog/react-native-jhipster/react-native-ios-photo.jpg %}[alt=React Native photo on iOS,width=350,align=center]
 |===
 
 TIP: You can reload your app in Simulator using kbd:[{commandKey} + R].
@@ -317,12 +339,16 @@ For the Android emulator to communicate with your API and Keycloak, you'll need 
 adb reverse tcp:8080 tcp:8080 && adb reverse tcp:9080 tcp:9080
 ----
 
-TIP: If you get a `command not found` error, see https://stackoverflow.com/questions/10303639/adb-command-not-found[this Stack Overflow Q & A] to solve it. I used `echo export "PATH=~/Library/Android/sdk/platform-tools:$PATH" >> ~/.zshrc` on my Mac.
+CAUTION: If you get a `command not found` error, see https://stackoverflow.com/questions/10303639/adb-command-not-found[this Stack Overflow Q & A] to solve it. I used `echo export "PATH=~/Library/Android/sdk/platform-tools:$PATH" >> ~/.zshrc` on my Mac.
 
-To reload your app, hit kbd:[r] twice with focus on the Android emulator. You should be able to log in.
+To reload your app, hit kbd:[r] twice with focus on the Android emulator.
 
-// todo: would this be better as three images in one row? Probably, but my emulator is frozen and I can't login
-image::{% asset_path blog/react-native-jhipster/react-native-android.png %}[alt=React Native app on Android,width=800,align=center]
+[cols="a,a,a", frame=none, grid=none]
+|===
+| image::{% asset_path blog/react-native-jhipster/android-expo-prompt.png %}[alt=Android Expo prompt,width=300,align=center]
+| image::{% asset_path blog/react-native-jhipster/android-keycloak-login.png %}[alt=Android Keycloak login,width=300,align=center]
+| image::{% asset_path blog/react-native-jhipster/android-keycloak-signed-in.png %}[alt=Android Keycloak login,width=300,align=center]
+|===
 
 == Use Auth0 for Identity
 
@@ -373,7 +399,7 @@ export JHIPSTER_SECURITY_OAUTH2_AUDIENCE=https://<your-auth0-domain>/api/v2/
 
 NOTE: Want to have all these steps automated for you? Watch https://github.com/auth0/auth0-cli/issues/351[issue #351] in the Auth0 CLI project.
 
-Stop your backend app with kbd:[Ctrl+C] and run the following commands to make it use Auth0.
+Stop your backend app with kbd:[Ctrl+C] and run the following commands to configure Spring Security use Auth0.
 
 [source,shell]
 ----
@@ -385,26 +411,23 @@ source .auth0.env
 
 For the React Native app to use Auth0, you'll need to create a *Native* app and add the following Allowed Callback URLs:
 
-[source,shell]
 ----
 http://localhost:19006/,https://auth.expo.io/@<your-expo-username>/Flickr2
 ----
 
-Configure an Allowed Logout URL:
+Configure Allowed Logout URLs:
 
-[source,shell]
 ----
-http://localhost:19006
-----
-
-Set the Allowed Origins (CORS):
-
-[source,shell]
-----
-http://localhost:19006
+http://localhost:19006,https://auth.expo.io/@<your-expo-username>/Flickr2
 ----
 
-Copy the client ID to `app/config/app-config.js` and update the `audience` in `app/modules/login/login.utils.ts`:
+And, set the Allowed Origins (CORS):
+
+----
+http://localhost:19006,http://localhost
+----
+
+The second value is the origin header that Android sends. Copy the client ID to `app/config/app-config.js` and update the `audience` in `app/modules/login/login.utils.ts`:
 
 [source,js]
 ----
@@ -415,8 +438,16 @@ Restart your React Native app and log in with Auth0!
 
 [cols="a,a", frame=none, grid=none]
 |===
-| image::{% asset_path blog/react-native-jhipster/auth0-login.png %}[alt=Auth0 login,width=400,align=center]
-| image::{% asset_path blog/react-native-jhipster/auth0-login-success.png %}[alt=Auth0 login success,width=400,align=center]
+| image::{% asset_path blog/react-native-jhipster/auth0-login.png %}[alt=Auth0 login,width=300,align=center]
+| image::{% asset_path blog/react-native-jhipster/auth0-login-success.png %}[alt=Auth0 login success,width=300,align=center]
+|===
+
+It works on Android too. 🥳
+
+[cols="a,a", frame=none, grid=none]
+|===
+| image::{% asset_path blog/react-native-jhipster/android-auth0-login.png %}[alt=Android Auth0 login,width=300,align=center]
+| image::{% asset_path blog/react-native-jhipster/android-signed-in.png %}[alt=Android Auth0 login,width=300,align=center]
 |===
 
 === Use Okta for Identity
@@ -427,20 +458,77 @@ TIP: You can configure JHipster quickly with the https://cli.okta.com[Okta CLI]:
 
 You'll need to https://www.jhipster.tech/security/#create-a-native-app-for-mobile-on-okta[create a native app on Okta] for React Native too.
 
-// developer.okta.com/blog/2019/11/14/react-native-login
+== Log out from your identity provider
 
-// JHipster React Native was recently updated to use Expo 46, React Native 0.69.5, and React 18.
-// https://twitter.com/mraible/status/1567163914449813510
+You probably didn't notice, but if you log in to your app when it's running on iOS or Android, then log out, when you try to log in again, you aren't prompted for credentials. This is because the React Native blueprint configures the best developer experience. It's kind of a pain to enter your credentials each time on a mobile device. Also, Expo's auth proxy does not currently work with logging out from the identity provider. If you look at `app/config/app-config.js`, you'll see that only `web` disables the auth proxy.
 
-// {% twitter 1567163914449813510 %}
+[source,js]
+----
+useExpoAuthProxy: Platform.select({ web: false, default: true }),
+----
 
+If you want to completely sign out on native apps, change the value to `false`.
+
+[source,js]
+----
+useExpoAuthProxy: false,
+----
+
+This will cause your app's redirect URIs to change. You'll need to update your identity provider to add the following to your login and logout URLs:
+
+[source,shell]
+----
+exp://<your-ip-address>:19000 # e.g., exp://172.20.10.4:19000
+----
+
+TIP: You can open your Auth0 app quickly with the https://github.com/auth0/auth0-cli[Auth0 CLI]: `auth0 apps open`
+
+After making these changes, reload your app. On iOS, it'll show a permission dialog when you try to log out.
+
+image::{% asset_path blog/react-native-jhipster/auth0-logout-prompt.jpg %}[alt=Logout prompt on iOS,width=350,align=center]
+
+Unfortunately, this is part of iOS and not something that can be suppressed. On the upside, your users probably don't want to fully log out. You haven't logged out of Gmail recently, have you?
+
+== Deploying to production
+
+The React Native project is configured to work with Expo Application Services (EAS) Build. To use it, you'll need to install the EAS CLI:
+
+[source,shell]
+----
+npm install -g eas-cli
+----
+
+Then, log in to your Expo account:
+
+[source,shell]
+----
+eas login
+----
+
+And configure your project:
+
+[source,shell]
+----
+eas build:configure
+----
+
+For more information, see https://docs.expo.dev/build/setup/[Creating your first build docs]. To learn how to deploy to production and make your app available in app stores, explore https://docs.expo.dev/eas-update/deployment-patterns/[EAS Deployment patterns].
 
 == Learn more about React Native, Spring Boot, and JHipster
 
-// summary
+I hope you enjoyed this quick tour of how to securely integrate a Spring Boot backend with a React Native frontend. JHipster generated most of the code, leaving you more time to implement your custom business logic. It's nice that OIDC authentication is supported out-of-the-box. It works so smooth with Keycloak, Auth0, and Okta!
 
-// github
+You can find the source code for this example on GitHub, in the https://github.com/oktadev/auth0-react-native-jhipster-example[@oktadev/auth0-react-native-jhipster-example] repository.
 
-// CTA to other posts
+If you liked this post, you might find these resources helpful:
 
-// follow us!
+- https://auth0.com/docs/quickstart/native/react-native[Auth0's React Native QuickStart]
+- https://auth0.com/blog/get-started-auth0-authentication-react-native-android/[Get Started with Auth0 Authentication in React Native Android Apps]
+- https://auth0.com/blog/get-started-auth0-authentication-react-native-ios/[Get Started with Auth0 Authentication in React Native iOS Apps]
+- https://auth0.com/blog/ionic-angular-jhipster/[Build Secure Ionic Apps with Angular and JHipster]
+- https://dev.to/ruddell/jhipster-react-native-demo-1c54[JHipster React Native Demo]
+// - link:/blog/2019/11/14/react-native-login[Create a React Native App with Login in 10 Minutes]
+
+Please follow me at https://twitter.com/mraible[@mraible] on Twitter. Follow my team https://twitter.com/oktadev[@oktadev] and subscribe to our https://www.youtube.com/c/oktadev[YouTube channel]. Please comment below if you have any questions or have suggestions for future tutorials.
+
+
