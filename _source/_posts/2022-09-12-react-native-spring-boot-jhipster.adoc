@@ -5,10 +5,10 @@ author: matt-raible
 by: advocate
 communities: [mobile,java,javascript]
 description: ""
-tags: []
+tags: [react-native, spring-boot, jhipster]
 tweets:
 - ""
-image:
+image: blog/react-native-jhipster/react-native-jhipster.jpg
 type: conversion
 github: https://github.com/oktadev/auth0-react-native-jhipster-example
 ---
