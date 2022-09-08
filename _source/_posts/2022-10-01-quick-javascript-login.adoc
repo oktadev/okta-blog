@@ -1,0 +1,161 @@
+---
+layout: blog_post
+title: "Quick JavaScript Login with Schematics"
+author: matt-raible
+by: advocate
+communities: [javascript]
+description: ""
+tags: []
+tweets:
+- ""
+- ""
+- ""
+image:
+type: conversion
+---
+:page-liquid:
+:toc: macro
+:experimental:
+
+// Other title ideas:
+//   - Quick JavaScript Login with Schematics (current, 58)
+//   - Schematics for Quick JavaScript Authentication (59)
+//   - Quick Templates for JavaScript Authentication (59)
+//   - CLI to App to Auth in Minutes with OktaDev Schematics! (60)
+
+// Keywords:
+//   - javascript authentication: 480 (there's an Okta post on the first page)
+//   - javascript auth: 210
+//   - javascript login: 880
+//   - javascript security: 720
+//   - javascript frameworks: 27,100
+//   - react oidc: 720
+//   - oidc authentication: 2900
+//   - jwt auth: 2400
+//   - jwt javascript: 720
+
+// Should we emphasis this is a developer story moreso than a product pitch?
+
+Hello,
+
+My name is Matt Raible, and I am a developer advocate at Okta. I've worked here for over five years; before that I was an independent consultant for 20 years, doing mostly Java and web development for clients.
+
+I've learned a lot about OpenID Connect (OIDC) and Okta's SDKs over my Okta years and only recently tried to use Auth0's. Over the last couple of weeks, I integrated many Auth0 SDKs into OktaDev Schematics.
+
+I was pleasantly surprised by the experience because the configuration often boils down to two values: `domain` and `clientId`. And then, it just works! There's no need to worry about issuers, redirect URIs, or callback URLs.
+
+This is a strong departure of how we've done things in Okta's SDKs where we expect people to know about OpenID Connect. And, from a developer advocacy standpoint, we often try to educate developers about OAuth and OIDC. Since these topics are complex, it can be difficult. I like the approach of just needing two values and everything works!
+
+toc::[]
+
+== What is OktaDev Schematics?
+
+https://github.com/oktadev/schematics[OktaDev Schematics] is a tool I developed to help streamline integrating OIDC authentication into JavaScript (or TypeScript) applications. In my first couple of years at Okta, I'd demo how to use our Angular SDK at conferences, and I'd inevitably miss a step, causing the demo to fail.
+
+Having a failing demo is frustrating, so I created OktaDev Schematics to fix it. My idea was simple:
+
+1. Create an app using the framework's CLI
+2. Integrate OIDC authentication using templates
+3. Add a unit test to prove nothing breaks
+
+The project is based on https://angular.io/guide/schematics[Angular Schematics] and so it's very easy to use in Angular projects.
+
+[source,shell]
+----
+ng add @oktadev/schematics
+----
+
+You'll be prompted for an issuer and client ID, then your app will be configured to use them. If you're using the https://github.com/auth0/auth0-cli[Auth0 CLI], you'll need to create a Single-Page Application (SPA) app to get these values.
+
+[source,shell]
+----
+auth0 apps create
+----
+
+What I've done in the latest release is make it so adding an `--auth0` flag will configure Auth0 instead of Okta.
+
+// https://twitter.com/mraible/status/1566907778161049600
+++++
+{% twitter 1566907778161049600 %}
+++++
+
+That is, if you're using Angular or Ionic with Angular, you can create an app and then add OIDC authentication in just two commands!
+
+- Angular: `ng new` and `ng add @oktadev/schematics --auth0`
+- Ionic: `ionic start` and `ng add @oktadev/schematics --auth0`
+
+The tool is smart enough to detect the framework you're using as well as if you're using TypeScript or JavaScript.
+
+If you want to create a React app, you'll need to perform a few steps:
+
+1. Create your React app with Create React App:
+
+  npx create-react-app
++
+TIP: Add `--template typescript` if you want TypeScript support.
+
+2. Install the Schematics CLI globally:
+
+  npm i -g @angular-devkit/schematics-cli
+
+3. Install OktaDev Schematics and run the `add-auth` schematic:
+
+  npm i -D @oktadev/schematics
+  schematics @oktadev/schematics:add-auth
+
+As you can guess, the integration is pretty bare-bones. It configures the SDK and adds a login/logout button. I believe this is inline with the apps each CLI generates. They're pretty bare-bones too!
+
+If you'd like to see how to add user information to an Angular app, please read my https://auth0.com/blog/add-oidc-to-angular-apps-quickly/[Add OpenID Connect to Angular Apps Quickly] tutorial.
+
+If you'd like to see how the templates differ between Okta and Auth0, you can https://github.com/oktadev/schematics/tree/main/src/add-auth[view the templates on GitHub].
+
+== JavaScript Framework Support
+
+There's a wealth of popular frameworks currently supported by OktaDev Schematics:
+
+- https://github.com/oktadev/schematics#angular[Angular]
+- https://github.com/oktadev/schematics#react[React]
+- https://github.com/oktadev/schematics#vue[Vue]
+- https://github.com/oktadev/schematics#ionic[Ionic]
+- https://github.com/oktadev/schematics#react-native[React Native]
+- https://github.com/oktadev/schematics#express[Express]
+
+See the project's https://github.com/oktadev/schematics#links[links section] if you want to learn more about Okta or Auth0's SDKs.
+
+The support for Ionic currently only includes Angular. However, Ionic does support React and Vue too. To make OIDC authentication work, I leveraged https://github.com/wi3land/ionic-appauth[Ionic AppAuth]. One cool thing about this library is it has https://github.com/wi3land/ionic-appauth/tree/master/demos/react[React] and https://github.com/wi3land/ionic-appauth/tree/master/demos/vue[Vue] examples available. I recently updated these to work with Capacitor 4.
+
+// https://twitter.com/mraible/status/1566829762026291200
+++++
+{% twitter 1566829762026291200 %}
+++++
+
+== The Beauty of Continuous Integration
+
+As part of creating this library, I wrote lots of tests, including integration tests that 1) create an app with a CLI, 2) integrate Okta/Auth0 SDKs, and 3) run tests to ensure nothing breaks.
+
+These commands are all encapsulated in a https://github.com/oktadev/schematics/blob/main/test-app.sh[`test-app.sh` script] I wrote. It's kinda ugly, and can probably be improved, but it works pretty well for now.
+
+If nothing else, this script shows you how to automate creating apps with framework CLIs for continuous integration. The project's https://github.com/oktadev/schematics/blob/main/.github/workflows/apps.yml[Apps workflow] shows how all these frameworks are tested in a matrix.
+
+You might notice that all the CLIs are installed without a version number:
+
+[source,yaml]
+----
+run: npm i -g @angular-devkit/schematics-cli @angular/cli @vue/cli @ionic/cli
+----
+
+This is done on purpose so these templates are always tested against the latest release. There's a https://github.com/oktadev/schematics/blob/main/.github/workflows/nightly.yml[Nightly worflow] that ensures nothing breaks every evening. Dependabot is also https://github.com/oktadev/schematics/blob/main/.github/dependabot.yml[configured] to keep the project's dependencies and SDK versions up-to-date.
+
+== Learn more about Authentication in JavaScript
+
+Creating and maintaining OktaDev Schematics has been a huge benefit for me and my knowledge of Okta and Auth0's SDKs. I sometimes find issues with new major releases of frameworks and our SDKs. Since the CLIs always use the latest versions, I often find problems before anyone else. Ahhh, the beauty of testing automation! 😃
+
+If you liked learning about schematics, you might enjoy these other posts I wrote.
+
+* https://auth0.com/blog/add-oidc-to-angular-apps-quickly/[Add OpenID Connect to Angular Apps Quickly]
+* https://developer.okta.com/blog/2019/05/21/vue-schematics[Use Schematics with Vue and Add Authentication in 5 Minutes]
+* https://developer.okta.com/blog/2019/03/05/react-schematics[Use Schematics with React and Add OpenID Connect Authentication in 5 Minutes]
+* https://developer.okta.com/blog/2019/06/20/ionic-4-tutorial-user-authentication-and-registration[Tutorial: User Login and Registration in Ionic 4]
+* https://developer.okta.com/blog/2019/11/14/react-native-login[Create a React Native App with Login in 10 Minutes]
+
+If you're on social media, follow Auth0: { https://twitter.com/auth0[Twitter], https://www.linkedin.com/company/auth0[LinkedIn], https://www.facebook.com/getauth0[Facebook] }. If you like learning via video, subscribe to https://youtube.com/oktadev[the OktaDev YouTube channel]!
