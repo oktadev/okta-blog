@@ -34,57 +34,57 @@ type: conversion
 //   - jwt auth: 2400
 //   - jwt javascript: 720
 
-// Should we emphasis this is a developer story moreso than a product pitch?
+// Should we emphasize this is a developer story moreso than a product pitch?
 
 Hello,
 
-My name is Matt Raible, and I am a developer advocate at Okta. I've worked here for over five years; before that I was an independent consultant for 20 years, doing mostly Java and web development for clients.
+My name is Matt Raible, and I am a developer advocate at Okta. I've worked here for over five years; before that, I was an independent consultant for 20 years, mainly doing Java and web development for clients.
 
 I've learned a lot about OpenID Connect (OIDC) and Okta's SDKs over my Okta years and only recently tried to use Auth0's. Over the last couple of weeks, I integrated many Auth0 SDKs into OktaDev Schematics.
 
 I was pleasantly surprised by the experience because the configuration often boils down to two values: `domain` and `clientId`. And then, it just works! There's no need to worry about issuers, redirect URIs, or callback URLs.
 
-This is a strong departure of how we've done things in Okta's SDKs where we expect people to know about OpenID Connect. And, from a developer advocacy standpoint, we often try to educate developers about OAuth and OIDC. Since these topics are complex, it can be difficult. I like the approach of just needing two values and everything works!
+This is a strong departure from how we've done things in Okta's SDKs, where we expect people to know about OpenID Connect. And from a developer advocacy standpoint, we often try to educate developers about OAuth and OIDC. Since these topics are complex, they can be challenging to understand. I like the approach of just needing two values, and everything just works!
 
 toc::[]
 
 == What is OktaDev Schematics?
 
-https://github.com/oktadev/schematics[OktaDev Schematics] is a tool I developed to help streamline integrating OIDC authentication into JavaScript (or TypeScript) applications. In my first couple of years at Okta, I'd demo how to use our Angular SDK at conferences, and I'd inevitably miss a step, causing the demo to fail.
+https://github.com/oktadev/schematics[OktaDev Schematics] is a tool I developed to help streamline integrating OIDC authentication into JavaScript (or TypeScript) applications. In my first few years at Okta, I'd demo how to use our Angular SDK at conferences, and I'd inevitably miss a step, causing the demo to fail.
 
-Having a failing demo is frustrating, so I created OktaDev Schematics to fix it. My idea was simple:
+A failing demo is frustrating, so I created OktaDev Schematics to fix it. My idea was simple:
 
 1. Create an app using the framework's CLI
 2. Integrate OIDC authentication using templates
 3. Add a unit test to prove nothing breaks
 
-The project is based on https://angular.io/guide/schematics[Angular Schematics] and so it's very easy to use in Angular projects.
+The project builds on https://angular.io/guide/schematics[Angular Schematics], so it's incredibly easy to use in Angular projects.
 
 [source,shell]
 ----
 ng add @oktadev/schematics
 ----
 
-You'll be prompted for an issuer and client ID, then your app will be configured to use them. If you're using the https://github.com/auth0/auth0-cli[Auth0 CLI], you'll need to create a Single-Page Application (SPA) app to get these values.
+This command will prompt you for an issuer and client ID, and then OktaDev Schematics will configure your app to use them. If you're using the https://github.com/auth0/auth0-cli[Auth0 CLI], you'll need to create a Single-Page Application (SPA) app to get these values.
 
 [source,shell]
 ----
 auth0 apps create
 ----
 
-What I've done in the latest release is make it so adding an `--auth0` flag will configure Auth0 instead of Okta.
+In the latest release, I've made it so that adding an `--auth0` flag will configure Auth0 instead of Okta.
 
 // https://twitter.com/mraible/status/1566907778161049600
 ++++
 {% twitter 1566907778161049600 %}
 ++++
 
-That is, if you're using Angular or Ionic with Angular, you can create an app and then add OIDC authentication in just two commands!
+If you're using Angular or Ionic with Angular, you can create an app and then add OIDC authentication in just two commands!
 
 - Angular: `ng new` and `ng add @oktadev/schematics --auth0`
 - Ionic: `ionic start` and `ng add @oktadev/schematics --auth0`
 
-The tool is smart enough to detect the framework you're using as well as if you're using TypeScript or JavaScript.
+The tool is smart enough to detect the framework you're using and if you're using TypeScript or JavaScript.
 
 If you want to create a React app, you'll need to perform a few steps:
 
@@ -103,7 +103,7 @@ TIP: Add `--template typescript` if you want TypeScript support.
   npm i -D @oktadev/schematics
   schematics @oktadev/schematics:add-auth
 
-As you can guess, the integration is pretty bare-bones. It configures the SDK and adds a login/logout button. I believe this is inline with the apps each CLI generates. They're pretty bare-bones too!
+As you can guess, the integration is pretty bare-bones. It configures the SDK and adds a login/logout button. I believe this is in line with the apps each CLI generates. They're pretty bare-bones too!
 
 If you'd like to see how to add user information to an Angular app, please read my https://auth0.com/blog/add-oidc-to-angular-apps-quickly/[Add OpenID Connect to Angular Apps Quickly] tutorial.
 
@@ -131,9 +131,12 @@ The support for Ionic currently only includes Angular. However, Ionic does suppo
 
 == The Beauty of Continuous Integration
 
-As part of creating this library, I wrote lots of tests, including integration tests that 1) create an app with a CLI, 2) integrate Okta/Auth0 SDKs, and 3) run tests to ensure nothing breaks.
+As part of creating this library, I wrote many tests, including integration tests that:
+Create an app with a CLI
+Integrate Okta/Auth0 SDKs
+Run tests to ensure nothing breaks
 
-These commands are all encapsulated in a https://github.com/oktadev/schematics/blob/main/test-app.sh[`test-app.sh` script] I wrote. It's kinda ugly, and can probably be improved, but it works pretty well for now.
+These commands are all encapsulated in a https://github.com/oktadev/schematics/blob/main/test-app.sh[`test-app.sh` script] I wrote. It's kinda ugly and can probably be improved, but it works pretty well for now.
 
 If nothing else, this script shows you how to automate creating apps with framework CLIs for continuous integration. The project's https://github.com/oktadev/schematics/blob/main/.github/workflows/apps.yml[Apps workflow] shows how all these frameworks are tested in a matrix.
 
@@ -144,11 +147,11 @@ You might notice that all the CLIs are installed without a version number:
 run: npm i -g @angular-devkit/schematics-cli @angular/cli @vue/cli @ionic/cli
 ----
 
-This is done on purpose so these templates are always tested against the latest release. There's a https://github.com/oktadev/schematics/blob/main/.github/workflows/nightly.yml[Nightly worflow] that ensures nothing breaks every evening. Dependabot is also https://github.com/oktadev/schematics/blob/main/.github/dependabot.yml[configured] to keep the project's dependencies and SDK versions up-to-date.
+This is done on purpose, so these templates are continuously tested against the latest release. There's a https://github.com/oktadev/schematics/blob/main/.github/workflows/nightly.yml[Nightly worflow] that ensures nothing breaks every evening. Dependabot is also https://github.com/oktadev/schematics/blob/main/.github/dependabot.yml[configured] to keep the project's dependencies and SDK versions up-to-date.
 
 == Learn more about Authentication in JavaScript
 
-Creating and maintaining OktaDev Schematics has been a huge benefit for me and my knowledge of Okta and Auth0's SDKs. I sometimes find issues with new major releases of frameworks and our SDKs. Since the CLIs always use the latest versions, I often find problems before anyone else. Ahhh, the beauty of testing automation! 😃
+Creating and maintaining OktaDev Schematics has greatly benefited me and my knowledge of Okta and Auth0's SDKs. I sometimes find issues with new major releases of frameworks and our SDKs. Since the CLIs always use the latest versions, I often find problems before anyone else. Ahhh, the beauty of testing automation! 😃
 
 If you liked learning about schematics, you might enjoy these other posts I wrote.
 
