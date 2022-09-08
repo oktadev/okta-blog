@@ -76,6 +76,13 @@ public class Application {
 
 }
 ```
+
+Disable the cloud configuration for the first run. Edit `application.properties` and add the following value:
+
+```properties
+spring.cloud.config.enabled=false
+```
+
 {% include setup/cli.md type="web" framework="Okta Spring Boot Starter" %}
 
 Instead of storing Okta credentials in `application.properties`, Spring Boot allows you to bind properties from environment variables. You can see this in action by starting your application with the Maven command below:
@@ -108,15 +115,14 @@ In microservice architectures, managing configuration with a centralized config 
 Using the Spring Initializr API, create a Vault + Config Server application:
 
 ```shell
-curl https://start.spring.io/starter.zip \
-  -d bootVersion=2.2.6.RELEASE \
-  -d dependencies=cloud-config-server \
-  -d groupId=com.okta.developer \
-  -d artifactId=vault-config-server  \
-  -d name="Spring Boot Configuration Server" \
-  -d description="Demo project of a Spring Boot application with Vault protected secrets" \
-  -d packageName=com.okta.developer.vault \
-  -o vault-config-server.zip
+http https://start.spring.io/starter.zip \
+  bootVersion==2.7.3 \
+  dependencies==cloud-config-server \
+  groupId==com.okta.developer \
+  artifactId==vault-config-server  \
+  name=="Spring Boot Configuration Server" \
+  description=="Demo project of a Spring Boot application with Vault protected secrets" \
+  packageName==com.okta.developer.vault > vault-config-server.zip
 ```
 
 Unzip the downloaded file. Rename `src/main/resource/application.properties` to `src/main/resource/application.yml`, edit the file to specify the port, add a `native` profile, and specify config search locations:
@@ -150,7 +156,13 @@ public class SpringBootConfigurationServerApplication {
 }
 ```
 
-Start the server, as you are going to encrypt your Okta secrets using the `/encrypt` endpoint. For this example, you are using a symmetric (shared) encryption key, passed through the environment variable ENCRYPT_KEY. Before running the command below, you should replace `{encryptKey}` with a random string of characters.
+Start the server, as you are going to encrypt your Okta secrets using the `/encrypt` endpoint. For this example, you are using a symmetric (shared) encryption key, passed through the environment variable ENCRYPT_KEY. Before running the command below, you should replace `{encryptKey}` with a random string of characters. You can use JShell to generate a UUID you can use for your encrypt key.
+
+```shell
+jshell
+
+UUID.randomUUID()
+```
 
 ```shell
 ENCRYPT_KEY={encryptKey} ./mvnw spring-boot:run
@@ -159,37 +171,30 @@ ENCRYPT_KEY={encryptKey} ./mvnw spring-boot:run
 Then, in another terminal, encrypt your client ID and secret.
 
 ```shell
-curl localhost:8888/encrypt -d {yourOktaClientId}
-curl localhost:8888/encrypt -d {yourOktaClientSecret}
+http localhost:8888/encrypt --raw {yourOktaClientId}
+http localhost:8888/encrypt --raw {yourOktaClientSecret}
 ```
 
 In the `vault-config-server` project folder, create a `src/main/resources/config/vault-demo-app-dev.yml` file to store the secrets for the `dev` profile, with the following contents:
 
 ```yml
-spring:
-  security:
-    oauth2:
-      client:
-        provider:
-          okta:
-            issuer-uri: {yourIssuerURI}
-        registration:
-          okta:
-            client-id: '{cipher}encryptedClientId'
-            client-secret: '{cipher}encryptedClientSecret'
+okta:
+  oauth2:
+    issuer: {yourIssuerURI}
+    clientId: '{cipher}encryptedClientId'
+    clientSecret: '{cipher}encryptedClientSecret'
 ```
 
 The `client-id` and `client-secret` encrypted values must be prefixed with `{cipher}`. Restart the config server.
 
-To consume the config server properties, the client application must set the server address in the bootstrap properties. In the `vault-demo-app` project folder, create the file `src/main/resources/bootstrap.yml` with the following content:
+To consume the config server properties, the client application must set the server address in the application properties. In the `vault-demo-app` project, rename `application.properties` to `application.yml` and set the following content:
 
 ```yml
 spring:
+  config:
+    import: "configserver:"
   application:
     name: vault-demo-app
-  cloud:
-    config:
-      uri: http://localhost:8888
   profiles:
     active: dev
 ```
