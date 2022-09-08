@@ -489,7 +489,7 @@ image::{% asset_path blog/react-native-jhipster/auth0-logout-prompt.jpg %}[alt=L
 
 Unfortunately, this is part of iOS and not something that can be suppressed. On the upside, your users probably don't want to fully log out. You haven't logged out of Gmail recently, have you?
 
-== Deploying to production
+== Deploy to production
 
 The React Native project is configured to work with Expo Application Services (EAS) Build. To use it, you'll need to install the EAS CLI:
 
