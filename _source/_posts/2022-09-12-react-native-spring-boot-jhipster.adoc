@@ -182,9 +182,9 @@ Hide the metadata (height, width, date taken, and date uploaded) for photos in t
 [source,jsx]
 ----
 const metadata = (
-  <div>
+  <View>
   // move the form fields for height, width, taken, and uploaded here
-  </div>
+  </View>
 )
 const metadataRows = isNewEntity ? '' : metadata;
 
@@ -207,7 +207,7 @@ index 7a74a97..8aba557 100644
    const tagsRef = createRef();
 
 +  const metadata = (
-+    <div>
++    <View>
 +      <FormField
 +        name="height"
 +        ref={heightRef}
@@ -243,7 +243,7 @@ index 7a74a97..8aba557 100644
 +        testID="uploadedInput"
 +        inputType="datetime"
 +      />
-+    </div>
++    </View>
 +  );
 +
 +  const metadataRows = isNewEntity ? '' : metadata;
