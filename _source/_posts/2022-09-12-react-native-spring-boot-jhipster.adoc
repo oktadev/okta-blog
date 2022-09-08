@@ -333,7 +333,7 @@ TIP: You can reload your app in Simulator using kbd:[{commandKey} + R].
 
 To see your React Native app running on Android, press **a** in the window you ran `npm start` from. You will need Android Studio and an AVD (Android Virtual Device) running. I tested on a Pixel 5 with API 31 (Android 12.0).
 
-For the Android emulator to communicate with your API and Keycloak, you'll need to add some port mappings. The command worked if `8080` and `9080` are printed to your terminal.
+For the Android emulator to communicate with your API and Keycloak, you'll need to add some port mappings. You'll know the command worked if `8080` and `9080` are printed to your terminal.
 
 [source,shell]
 ----
