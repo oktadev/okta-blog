@@ -36,7 +36,9 @@ https://necolas.github.io/react-native-web/[React Native for Web] is a recent ad
 
 In this tutorial, I'll show you how to create a React Native application that deploys to the web, iOS, and Android. You'll configure it to use OpenID Connect (OIDC) for authentication and use OAuth 2.0 access tokens to talk securely to a Spring Boot API.
 
-[.red]#todo: add architecture diagram#
+Below is a diagram of the app you'll create in this tutorial and its authentication flow.
+
+image::{% asset_path 'blog/react-native-jhipster/react-native-jhipster-diagram.png' %}[alt=JHipster React Native OAuth 2.0 flow,width=800,align=center]
 
 **Prerequisites:**
 
