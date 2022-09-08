@@ -30,11 +30,11 @@ github: https://github.com/oktadev/auth0-react-native-jhipster-example
 // https://auth0.com/blog/get-started-auth0-authentication-react-native-android/ is #5 for react native authentication
 // https://developer.okta.com/code/react-native/ is #18 for react native authentication
 
-React Native is a mobile app framework from Facebook. It allows you to develop apps using React's API and deploy it to iOS and Android with ease. It allows you to quickly refresh the apps when you make changes and generally offers a pleasant experience for web developers.
+React Native is a mobile app framework from Facebook. It allows you to quickly develop apps using React's API and deploy them to iOS and Android. It allows you to quickly refresh the apps when you make changes and generally offers a pleasant experience for web developers.
 
 https://necolas.github.io/react-native-web/[React Native for Web] is a recent addition to the React Native family. It allows you to run your app in a browser and enjoy the developer tools it offers. It's optimized for mobile and uses the same components as React Native, so it looks good too!
 
-In this tutorial, I'll show you how to create a React Native application that deploys to web, iOS, and Android. You'll configure it to use OpenID Connect (OIDC) for authentication and use OAuth 2.0 access tokens to talk securely to a Spring Boot API.
+In this tutorial, I'll show you how to create a React Native application that deploys to the web, iOS, and Android. You'll configure it to use OpenID Connect (OIDC) for authentication and use OAuth 2.0 access tokens to talk securely to a Spring Boot API.
 
 [.red]#todo: add architecture diagram#
 
@@ -51,15 +51,15 @@ toc::[]
 
 == Quick Apps with JHipster
 
-JHipster is a full-stack application generator that uses Spring Boot on the backend and Angular, React, or Vue on the frontend. It started as an open source project in 2013, before any of these frameworks existed. Back then, it used Spring MVC for the backend and AngularJS for the frontend.
+JHipster is a full-stack application generator that uses Spring Boot on the backend and Angular, React, or Vue on the frontend. It started as an open source project in 2013 before any of these frameworks existed. It then used Spring MVC for the backend and AngularJS for the frontend.
 
-Its popularity grew quickly along with its adoption and rise of the aforementioned frameworks. Today, it averages over 100K downloads per month. It even has a healthy budget thanks sponsors and backers via https://opencollective.com/generator-jhipster[Open Collective].
+Its popularity grew quickly along with its adoption and rise of the frameworks above. Today, it averages over 100K downloads per month. It even has a healthy budget, thanks to its sponsors and backers via https://opencollective.com/generator-jhipster[Open Collective].
 
-Why am I telling you this? Because JHipster is going to help you build your React Native app _and_ it was used to create the backend in a previous tutorial.
+Why am I telling you this? Because JHipster will help you build your React Native app _and_ it was used to create the backend in a previous tutorial.
 
 == JHipster blueprints for more power!
 
-A **blueprints** feature was added to JHipster several years ago. It allows you, as a developer, to create a project that overrides the default behavior of JHipster. This has feature has lead to a https://www.jhipster.tech/modules/official-blueprints/[thriving ecosystem of blueprints], from Kotlin to Micronaut to .NET Core to NestJS to Svelte to Ionic and even React Native.
+JHipster added a **blueprints** feature several years ago. It allows you, as a developer, to create a project that overrides the default behavior of JHipster. This feature has led to a https://www.jhipster.tech/modules/official-blueprints/[thriving ecosystem of blueprints], from Kotlin to Micronaut to .NET Core to NestJS to Svelte to Ionic and even React Native.
 
 Today, I'll show you how to use https://github.com/jhipster/generator-jhipster-react-native[JHipster's React Native blueprint] to build a Flickr clone. The backend will be powered by the Spring Boot app created in https://auth0.com/blog/full-stack-java-with-react-spring-boot-and-jhipster/[Full Stack Java with React, Spring Boot, and JHipster] tutorial. The React Native app's screens will be generated from the same JDL (JHipster Domain Language) file that created the backend entities.
 
@@ -83,7 +83,7 @@ Clone an existing JHipster app into a `backend` directory:
 git clone https://github.com/oktadev/auth0-full-stack-java-example.git backend
 ----
 
-This app is configured to use OIDC for authentication and needs a provider configured to start correctly. To make things easy, there's a pre-configured Keycloak instanced configured with a Docker Compose file. You can start it:
+This app is configured to use OIDC for authentication and needs a provider configured to start correctly. To make things quick, a pre-configured Keycloak instance is configured with a Docker Compose file. You can start it:
 
 [source,shell]
 ----
@@ -95,7 +95,7 @@ docker-compose -f src/main/docker/keycloak.yml up -d
 
 .Apple Silicon and Keycloak
 ****
-If you're using Apple Silicon (aka M1 or M2), Keycloak will fail to start because its Docker image wasn't available for an M1 when the backend project was created. To fix, run the script below.
+If you're using Apple Silicon (aka M1 or M2), Keycloak will fail to start because its Docker image wasn't available for an M1 when the backend project was created. To fix it, run the script below.
 
 [source,shell]
 ----
@@ -109,7 +109,7 @@ docker build -t "quay.io/keycloak/keycloak:${VERSION}" .
 ----
 ****
 
-Then, start the backend using `./mvnw` and open your favorite browser to `\http://localhost:8080`. You should be able login with `admin/admin` and upload photos. They'll be displayed in nice grid, and you can click on each photo to zoom in.
+Then, start the backend using `./mvnw` and open your favorite browser to `\http://localhost:8080`. You should be able to log in with `admin/admin` and upload photos. They'll be displayed in a nice grid, and you can click each photo to zoom in.
 
 image::{% asset_path blog/full-stack-java/photo-gallery.jpg %}[alt=Gallery with Photos,width=800,align=center]
 
@@ -303,7 +303,6 @@ If the backend app isn't running, open a terminal and navigate to the `backend` 
 
 Open a new terminal window and navigate into the `mobile` directory. Run `npm start` and type **w** to open in a web browser. You should be able to log in and view any photos you added to the backend. You can even edit and replace them.
 
-// question: should I retake the last image so they're all the same height?
 [cols="a,a", frame=none, grid=none]
 |===
 | image::{% asset_path blog/react-native-jhipster/react-native-web.jpg %}[alt=React Native web,width=400,align=center,link={% asset_path blog/react-native-jhipster/react-native-web.jpg %}]
@@ -330,9 +329,9 @@ TIP: You can reload your app in Simulator using kbd:[{commandKey} + R].
 
 === Test on Android
 
-To see your React Native app running on Android, press **a** in the window you ran `npm start` from. You will need to have Android Studio installed and an AVD (Android Virtual Device) running. I tested on a Pixel 5 with API 31 (Android 12.0).
+To see your React Native app running on Android, press **a** in the window you ran `npm start` from. You will need Android Studio and an AVD (Android Virtual Device) running. I tested on a Pixel 5 with API 31 (Android 12.0).
 
-For the Android emulator to communicate with your API and Keycloak, you'll need to add some port mappings. If `8080` and `9080` are printed to your terminal, the command worked.
+For the Android emulator to communicate with your API and Keycloak, you'll need to add some port mappings. The command worked if `8080` and `9080` are printed to your terminal.
 
 [source,shell]
 ----
@@ -341,7 +340,7 @@ adb reverse tcp:8080 tcp:8080 && adb reverse tcp:9080 tcp:9080
 
 CAUTION: If you get a `command not found` error, see https://stackoverflow.com/questions/10303639/adb-command-not-found[this Stack Overflow Q & A] to solve it. I used `echo export "PATH=~/Library/Android/sdk/platform-tools:$PATH" >> ~/.zshrc` on my Mac.
 
-To reload your app, hit kbd:[r] twice with focus on the Android emulator.
+To reload your app, hit kbd:[r] twice with a focus on the Android emulator.
 
 [cols="a,a,a", frame=none, grid=none]
 |===
@@ -352,7 +351,7 @@ To reload your app, hit kbd:[r] twice with focus on the Android emulator.
 
 == Use Auth0 for Identity
 
-JHipster ships with Keycloak by default, when you choose OAuth 2.0 / OIDC as the authentication type. However, you can easily change it to another identity provider, like Auth0!
+JHipster ships with Keycloak when you choose OAuth 2.0 / OIDC as the authentication type. However, you can easily change it to another identity provider, like Auth0!
 
 First, you'll need to configure the backend to use Auth0 by registering a regular web application. Log in to your Auth0 account (or https://auth0.com/signup[sign up] if you don't have an account). You should have a unique domain like `dev-xxx.us.auth0.com`.
 
@@ -367,7 +366,7 @@ Scroll to the bottom and click *Save Changes*.
 
 In the https://manage.auth0.com/#/roles[roles] section, create new roles named `ROLE_ADMIN` and `ROLE_USER`.
 
-Create a new user account in the https://manage.auth0.com/#/users[users] section. Click on the *Role* tab to assign the roles you just created to the new account.
+Create a new user account in the https://manage.auth0.com/#/users[users] section. Click the *Role* tab to assign the roles you just created to the new account.
 
 _Make sure your new user's email is verified before attempting to log in!_
 
@@ -385,7 +384,7 @@ exports.onExecutePostLogin = async (event, api) => {
 }
 ----
 
-This code is adding the user's roles to a custom claim (prefixed with `\https://www.jhipster.tech/roles`). This claim is mapped to Spring Security authorities in `SecurityUtils.java`.
+This code adds the user's roles to a custom claim (prefixed with `\https://www.jhipster.tech/roles`). This claim is mapped to Spring Security authorities in `SecurityUtils.java` on the backend.
 
 Select **Deploy** and drag the `Add Roles` action to your Login flow. Create a `backend/.auth0.env` file and populate it with your Auth0 settings.
 
@@ -399,7 +398,7 @@ export JHIPSTER_SECURITY_OAUTH2_AUDIENCE=https://<your-auth0-domain>/api/v2/
 
 NOTE: Want to have all these steps automated for you? Watch https://github.com/auth0/auth0-cli/issues/351[issue #351] in the Auth0 CLI project.
 
-Stop your backend app with kbd:[Ctrl+C] and run the following commands to configure Spring Security use Auth0.
+Stop your backend app with kbd:[Ctrl+C] and run the following commands to configure Spring Security to use Auth0.
 
 [source,shell]
 ----
@@ -452,7 +451,7 @@ It works on Android too. 🥳
 
 === Use Okta for Identity
 
-If you'd like to use Okta as your identity provider, see https://www.jhipster.tech/security/#okta[JHipster's documentation] for how to configure the backend app.
+If you'd like to use Okta as your identity provider, see https://www.jhipster.tech/security/#okta[JHipster's documentation] for configuring the backend app.
 
 TIP: You can configure JHipster quickly with the https://cli.okta.com[Okta CLI]: `okta apps create jhipster`
 
@@ -467,14 +466,14 @@ You probably didn't notice, but if you log in to your app when it's running on i
 useExpoAuthProxy: Platform.select({ web: false, default: true }),
 ----
 
-If you want to completely sign out on native apps, change the value to `false`.
+If you want to sign out on native apps completely, change the value to `false`.
 
 [source,js]
 ----
 useExpoAuthProxy: false,
 ----
 
-This will cause your app's redirect URIs to change. You'll need to update your identity provider to add the following to your login and logout URLs:
+Disabling the auth proxy will cause your app's redirect URIs to change. You'll need to update your identity provider to add the following to your login and logout URLs:
 
 [source,shell]
 ----
@@ -487,7 +486,7 @@ After making these changes, reload your app. On iOS, it'll show a permission dia
 
 image::{% asset_path blog/react-native-jhipster/auth0-logout-prompt.jpg %}[alt=Logout prompt on iOS,width=350,align=center]
 
-Unfortunately, this is part of iOS and not something that can be suppressed. On the upside, your users probably don't want to fully log out. You haven't logged out of Gmail recently, have you?
+Unfortunately, this is part of iOS and not something that can be suppressed. On the upside, your users probably don't want to log out fully. You haven't logged out of Gmail recently, have you?
 
 == Deploy to production
 
@@ -516,7 +515,7 @@ For more information, see https://docs.expo.dev/build/setup/[Creating your first
 
 == Learn more about React Native, Spring Boot, and JHipster
 
-I hope you enjoyed this quick tour of how to securely integrate a Spring Boot backend with a React Native frontend. JHipster generated most of the code, leaving you more time to implement your custom business logic. It's nice that OIDC authentication is supported out-of-the-box. It works so smooth with Keycloak, Auth0, and Okta!
+I hope you enjoyed this quick tour of securely integrating a Spring Boot backend with a React Native frontend. JHipster generated most of the code, leaving you more time to implement your custom business logic. It's nice that OIDC authentication is supported out-of-the-box. It works so smoothly with Keycloak, Auth0, and Okta!
 
 You can find the source code for this example on GitHub, in the https://github.com/oktadev/auth0-react-native-jhipster-example[@oktadev/auth0-react-native-jhipster-example] repository.
 
@@ -529,6 +528,4 @@ If you liked this post, you might find these resources helpful:
 - https://dev.to/ruddell/jhipster-react-native-demo-1c54[JHipster React Native Demo]
 // - link:/blog/2019/11/14/react-native-login[Create a React Native App with Login in 10 Minutes]
 
-Please follow me at https://twitter.com/mraible[@mraible] on Twitter. Follow my team https://twitter.com/oktadev[@oktadev] and subscribe to our https://www.youtube.com/c/oktadev[YouTube channel]. Please comment below if you have any questions or have suggestions for future tutorials.
-
-
+Please follow me at https://twitter.com/mraible[@mraible] on Twitter. Follow my team https://twitter.com/oktadev[@oktadev] and subscribe to our https://www.youtube.com/c/oktadev[YouTube channel]. Please comment below if you have any questions or suggestions for future tutorials.
