@@ -32,7 +32,7 @@ github: https://github.com/oktadev/auth0-react-native-jhipster-example
 
 React Native is a mobile app framework from Facebook. It allows you to quickly develop apps using React's API and deploy them to iOS and Android. It allows you to quickly refresh the apps when you make changes and generally offers a pleasant experience for web developers.
 
-https://necolas.github.io/react-native-web/[React Native for Web] is a recent addition to the React Native family. It allows you to run your app in a browser and enjoy the developer tools it offers. It's optimized for mobile and uses the same components as React Native, so it looks good too!
+https://necolas.github.io/react-native-web/[React Native for Web] is a recent addition to the React Native family. It allows you to run your app in a browser and enjoy the browser's built-in dev tools. It's optimized for mobile and uses the same components as React Native, so it looks good too!
 
 In this tutorial, I'll show you how to create a React Native application that deploys to the web, iOS, and Android. You'll configure it to use OpenID Connect (OIDC) for authentication and use OAuth 2.0 access tokens to talk securely to a Spring Boot API.
 
@@ -49,7 +49,7 @@ I recommend using SDKMAN to manage your OpenJDK installations. Just run `sdk ins
 
 toc::[]
 
-== Quick Apps with JHipster
+== Quick apps with JHipster
 
 JHipster is a full-stack application generator that uses Spring Boot on the backend and Angular, React, or Vue on the frontend. It started as an open source project in 2013 before any of these frameworks existed. It then used Spring MVC for the backend and AngularJS for the frontend.
 
@@ -65,7 +65,7 @@ Today, I'll show you how to use https://github.com/jhipster/generator-jhipster-r
 
 I'm excited to show you how to use JHipster React Native because its https://github.com/jhipster/generator-jhipster-react-native/releases/tag/v4.3.0[4.3.0 release] upgrades it Expo 46, React Native 0.69.5, and React 18. Let's giddyup! 🤠
 
-== Build a Photo Gallery with React and Spring Boot
+== Build a photo gallery with React and Spring Boot
 
 Start by creating a new directory to hold your frontend and backend projects:
 
@@ -115,7 +115,7 @@ image::{% asset_path blog/full-stack-java/photo-gallery.jpg %}[alt=Gallery with 
 
 Now, let's create a React Native app that talks to the same API.
 
-== Generate a React Native App
+== Generate a React Native app
 
 Install React Native JHipster and the Expo CLI:
 
@@ -171,7 +171,7 @@ cors:
 
 https://expo.dev/signup[Sign up for an Expo account] and take note of your username.
 
-Login to http://localhost:9080/auth/admin/[Keycloak] (with `admin/admin` as credentials). Navigate to **Clients** > **web_app** and add `\https://auth.expo.io/@<your-expo-username>/Flickr2` as a Valid Redirect URI. **Save** your changes.
+Log in to http://localhost:9080/auth/admin/[Keycloak] (with `admin/admin` as credentials). Navigate to **Clients** > **web_app** and add `\https://auth.expo.io/@<your-expo-username>/Flickr2` as a Valid Redirect URI. **Save** your changes.
 
 image::{% asset_path blog/react-native-jhipster/keycloak-expo-redirect.png %}[alt=Add Expo redirect to Keycloak,width=666,align=center]
 
@@ -349,7 +349,7 @@ To reload your app, hit kbd:[r] twice with a focus on the Android emulator.
 | image::{% asset_path blog/react-native-jhipster/android-keycloak-signed-in.png %}[alt=Android Keycloak login,width=300,align=center]
 |===
 
-== Use Auth0 for Identity
+== Use Auth0 for identity
 
 JHipster ships with Keycloak when you choose OAuth 2.0 / OIDC as the authentication type. However, you can easily change it to another identity provider, like Auth0!
 
@@ -406,7 +406,7 @@ source .auth0.env
 ./mvnw
 ----
 
-=== Create a Native OIDC App for React Native
+=== Create a native OIDC app for React Native
 
 For the React Native app to use Auth0, you'll need to create a *Native* app and add the following Allowed Callback URLs:
 
@@ -449,7 +449,7 @@ It works on Android too. 🥳
 | image::{% asset_path blog/react-native-jhipster/android-signed-in.png %}[alt=Android Auth0 login,width=300,align=center]
 |===
 
-=== Use Okta for Identity
+=== Use Okta for identity
 
 If you'd like to use Okta as your identity provider, see https://www.jhipster.tech/security/#okta[JHipster's documentation] for configuring the backend app.
 
