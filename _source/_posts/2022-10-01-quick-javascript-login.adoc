@@ -107,7 +107,7 @@ As you can guess, the integration is pretty bare-bones. It configures the SDK an
 
 If you'd like to see how to add user information to an Angular app, please read my https://auth0.com/blog/add-oidc-to-angular-apps-quickly/[Add OpenID Connect to Angular Apps Quickly] tutorial.
 
-If you'd like to see how the templates differ between Okta and Auth0, you can https://github.com/oktadev/schematics/tree/main/src/add-auth[view the templates on GitHub]. If you have a GitHub account, you can also go to https://github.dev/oktadev/schematics[the project], then navigate to `src/add-auth`.
+If you'd like to see how the templates differ between Okta and Auth0, you can https://github.com/oktadev/schematics/tree/main/src/add-auth[view the templates on GitHub]. If you have a GitHub account, you can also https://github.dev/oktadev/schematics[launch github.dev/oktadev/schematics] and navigate to `src/add-auth/{auth0,okta}`.
 
 image::{% asset_path 'blog/oktadev-schematics-auth0/github.dev.jpg' %}[alt=github.dev is pretty slick!,width=800,align=center]
 
