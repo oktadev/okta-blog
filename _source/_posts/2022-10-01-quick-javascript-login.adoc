@@ -156,9 +156,9 @@ Creating and maintaining OktaDev Schematics has greatly benefited me and my know
 If you liked learning about schematics, you might enjoy these other posts I wrote.
 
 * https://auth0.com/blog/add-oidc-to-angular-apps-quickly/[Add OpenID Connect to Angular Apps Quickly]
-* https://developer.okta.com/blog/2019/05/21/vue-schematics[Use Schematics with Vue and Add Authentication in 5 Minutes]
-* https://developer.okta.com/blog/2019/03/05/react-schematics[Use Schematics with React and Add OpenID Connect Authentication in 5 Minutes]
-* https://developer.okta.com/blog/2019/06/20/ionic-4-tutorial-user-authentication-and-registration[Tutorial: User Login and Registration in Ionic 4]
-* https://developer.okta.com/blog/2019/11/14/react-native-login[Create a React Native App with Login in 10 Minutes]
+* link:/blog/2019/05/21/vue-schematics[Use Schematics with Vue and Add Authentication in 5 Minutes]
+* link:/blog/2019/03/05/react-schematics[Use Schematics with React and Add OpenID Connect Authentication in 5 Minutes]
+* link:/blog/2019/06/20/ionic-4-tutorial-user-authentication-and-registration[Tutorial: User Login and Registration in Ionic 4]
+* link:/blog/2019/11/14/react-native-login[Create a React Native App with Login in 10 Minutes]
 
 If you're on social media, follow Auth0: { https://twitter.com/auth0[Twitter], https://www.linkedin.com/company/auth0[LinkedIn], https://www.facebook.com/getauth0[Facebook] }. If you like learning via video, subscribe to https://youtube.com/oktadev[the OktaDev YouTube channel]!
