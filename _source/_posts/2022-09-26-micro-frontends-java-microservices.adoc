@@ -16,7 +16,7 @@ image:
 :toc: macro
 :experimental:
 
-// https://developer.okta.com/blog/2019/05/22/java-microservices-spring-boot-spring-cloud is #16 for java microservices, #5 for spring boot microservices, #8 for spring microservices
+// developer.okta.com/blog/2019/05/22/java-microservices-spring-boot-spring-cloud is #16 for java microservices, #5 for spring boot microservices, #8 for spring microservices
 
 // Other title ideas:
 //   - Micro Frontends for Java Microservices (current, 49)
@@ -52,7 +52,7 @@ toc::[]
 
 == Micro frontends in action with JHipster
 
-// https://developer.okta.com/blog/2021/01/20/reactive-java-microservices
+// developer.okta.com/blog/2021/01/20/reactive-java-microservices
 
 // show difference between reactive-ms.jdl and reactive-mf.jdl
 // jhipster download reactive-mf.jdl
@@ -115,7 +115,7 @@ headers that make things longer and space things out more.
 
 // links to related posts
 //   - https://auth0.com/blog/micro-frontends-with-angular-module-federation-and-auth0/
-//   - https://developer.okta.com/blog/2022/05/17/angular-microfrontend-auth
-//   - https://developer.okta.com/blog/2022/05/19/angular-microfrontend-deploy
+//   - developer.okta.com/blog/2022/05/17/angular-microfrontend-auth
+//   - developer.okta.com/blog/2022/05/19/angular-microfrontend-deploy
 
 // follow us
