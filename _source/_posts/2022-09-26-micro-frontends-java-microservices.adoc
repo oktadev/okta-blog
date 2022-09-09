@@ -1,0 +1,115 @@
+---
+layout: blog_post
+title: Micro Frontends for Java Microservices
+author: matt-raible
+by: advocate
+communities: [java,javascript]
+description: ""
+tweets:
+  - ""
+tags: []
+type: conversion
+github:
+image:
+---
+:page-liquid:
+:toc: macro
+:experimental:
+
+// https://developer.okta.com/blog/2019/05/22/java-microservices-spring-boot-spring-cloud is #16 for java microservices, #5 for spring boot microservices, #8 for spring microservices
+
+// Other title ideas:
+//   - Micro Frontends for Java Microservices (current, 49)
+//   - Build Micro Frontends for Java Microservices (55)
+//   - Micro Frontends for Java Developers (48)
+//   - Ditch your Monolith UI for Micro Frontends with JHipster (57)
+//   - Quickly Create Micro Frontends for Java Microservices (62)
+
+// Keywords:
+//   - java microservices: 14,800 (see first comment above)
+//   - spring boot microservices: 8100
+//   - spring microservices: 2900
+//   - spring boot angular: 2400 (we have one at #16 on Angular 8)
+//   - spring boot react: 1600 (#2)
+//   - spring boot vue: 480 (#2)
+//   - micro frontends angular: 1900 (#4 and #7)
+//   - micro frontends react: 2400
+
+
+**Prerequisites:**
+
+- https://sdkman.io/[Java] 11+
+- https://nodejs.com/[Node.js] 16+
+
+toc::[]
+
+== A quick introduction to micro frontends
+
+// Explain what they are in simple terms - remote loading JS code at runtime
+// Module Federation - https://webpack.js.org/concepts/module-federation/
+
+== Why should Java developers care?
+
+== Micro frontends in action with JHipster
+
+// https://developer.okta.com/blog/2021/01/20/reactive-java-microservices
+
+=== Micro frontend options: Angular, React, and Vue
+
+=== Build Java microservices with Spring Boot and Spring Cloud
+
+// --client-framework angularX,react,vue
+
+=== Run your Spring Boot microservices
+
+// === Rapid dev with micro frontends and JHipster
+// === Rapid development that sparks joy
+=== Zero turnaround development that sparks joy
+
+// emojis about joy
+
+Micro Frontends Demo
+
+1. jhipster jdl reactive-mf --skip-install # mention —workspaces —monorepository --client-framework options
+2. Start gateway, show how entities menu has "error loading component" for microservices
+3. Open all projects in IDE, show code and module federation specifics
+4. Start blog, show how gateway > entities menu has blog entities
+5. Start store, show how gateway > entities > Product now renders
+6. Show how you can use `npm start` in the gateway app, make changes, and see them right away
+7. Run `npm start` in the blog app, show how changes can be viewed immediately
+8. Shut down gateway and show what happens to blog app
+9. Build Docker containers for all apps (note about need to run `npm run java:docker:arm64`)
+10. Run in Docker Compose or with K8s and minikube
+
+Optional:
+
+- Run Cypress e2e tests on one of the apps
+- Mention workspaces and show how you can run e2e tests for all apps, or just show how to convert to a mono repo https://egghead.io/lessons/npm-intro-to-monorepos-with-npm-workspaces-outro
+
+== Build and run with Docker
+
+== Deploy with Kubernetes
+
+////
+These might be better in single succinct paragraph rather than in
+headers that make things longer and space things out more.
+
+=== Use Minikube locally
+=== Google Cloud, AWS, and Digital Ocean
+=== CI/CD with Circle CI and Spinnaker
+////
+
+// https://dev.to/jhipster
+
+== Learn more about micro frontends and microservices
+
+// summary
+
+// github link
+
+// links to related posts
+//   - https://auth0.com/blog/micro-frontends-with-angular-module-federation-and-auth0/
+//   - https://developer.okta.com/blog/2022/05/17/angular-microfrontend-auth
+//   - https://developer.okta.com/blog/2022/05/19/angular-microfrontend-deploy
+
+// follow us
