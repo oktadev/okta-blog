@@ -9,7 +9,7 @@ tweets:
   - ""
 tags: []
 type: conversion
-github:
+github: https://github.com/oktadev/auth0-micro-frontends-jhipster-example
 image:
 ---
 :page-liquid:
@@ -54,6 +54,12 @@ toc::[]
 
 // https://developer.okta.com/blog/2021/01/20/reactive-java-microservices
 
+// show difference between reactive-ms.jdl and reactive-mf.jdl
+// jhipster download reactive-mf.jdl
+// jhipster download reactive-ms.jdl
+// take mfr (show mfa mfv too)
+// git init
+
 === Micro frontend options: Angular, React, and Vue
 
 === Build Java microservices with Spring Boot and Spring Cloud
@@ -70,7 +76,7 @@ toc::[]
 
 Micro Frontends Demo
 
-1. jhipster jdl reactive-mf --skip-install # mention —workspaces —monorepository --client-framework options
+1. jhipster jdl reactive-mf --skip-install # mention —workspaces --client-framework options
 2. Start gateway, show how entities menu has "error loading component" for microservices
 3. Open all projects in IDE, show code and module federation specifics
 4. Start blog, show how gateway > entities menu has blog entities
