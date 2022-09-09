@@ -191,6 +191,9 @@ To consume the config server properties, the client application must set the ser
 
 ```yml
 spring:
+  cloud:
+    config:
+      uri: http://localhost:8888
   config:
     import: "configserver:"
   application:
@@ -223,6 +226,9 @@ Pull the Vault docker image and start a container using the command below. Make 
 
 ```shell
 docker pull vault
+```
+
+```shell
 docker run --cap-add=IPC_LOCK \
 -e 'VAULT_DEV_ROOT_TOKEN_ID=00000000-0000-0000-0000-000000000000' \
 -p 8200:8200 \
@@ -235,23 +241,23 @@ docker run --cap-add=IPC_LOCK \
 IPC_LOCK capability is required for Vault to be able to lock memory and not be swapped to disk, as this behavior is enabled by default. As the instance is run for development, the ID of the initially generated root token is set to the given value. We are mounting `/vault/logs`, as we are going to enable the `file` audit device to inspect the interactions.
 
 Once it starts, you should notice the following logs:
+
 ```
-...
 WARNING! dev mode is enabled! In this mode, Vault runs entirely in-memory
 and starts unsealed with a single unseal key. The root token is already
 authenticated to the CLI, so you can immediately begin using Vault.
 
-...
+You may need to set the following environment variable:
+
+    $ export VAULT_ADDR='http://0.0.0.0:8200'
 
 The unseal key and root token are displayed below in case you want to
 seal/unseal the Vault or re-authenticate.
 
-Unseal Key: wD2mT9W56zGWrG9PYajIA47spzSLEkIMYQX7Ocio1VQ=
+Unseal Key: +xTAEzkjb3kurSBa7TxAQUjoyBpaprlXwn+ZnSpEkuw=
 Root Token: 00000000-0000-0000-0000-000000000000
 
 Development mode should NOT be used in production installations!
-
-==> Vault server started! Log data will stream in below:
 ```
 
 It is clear Vault is running in _dev mode_, meaning it short-circuits a lot of setup to insecure defaults, which helps for the experimentation. Data is stored encrypted in-memory and lost on every restart. Copy the _Unseal Key_, as we are going to use it to test Vault sealing.
@@ -279,9 +285,11 @@ Initialized     true
 Sealed          false
 Total Shares    1
 Threshold       1
-Version         1.3.3
-Cluster Name    vault-cluster-a80e6cd6
-Cluster ID      769bfd8c-7c9e-5ef2-a2bd-667ae19b4180
+Version         1.11.3
+Build Date      2022-08-26T10:27:10Z
+Storage Type    inmem
+Cluster Name    vault-cluster-389dcb61
+Cluster ID      cc063fcf-e1f2-2e75-6059-cd9117559f0d
 HA Enabled      false
 ```
 
@@ -297,9 +305,11 @@ You should see a success message. Now store the Okta secrets for the `vault-demo
 
 ```shell
 vault kv put secret/vault-demo-app,dev \
-spring.security.oauth2.client.registration.okta.client-id="{yourClientId}" \
-spring.security.oauth2.client.registration.okta.client-secret="{yourClientSecret}" \
-spring.security.oauth2.client.provider.okta.issuer-uri="{yourIssuerURI}"
+okta.oauth2.clientId="{yourClientId}" \
+okta.oauth2.clientSecret="{yourClientSecret}" \
+okta.oauth2.issuer="{yourIssuerURI}"
+```
+```shell
 vault kv get secret/vault-demo-app,dev
 ```
 
@@ -309,34 +319,55 @@ Check `vault_audit.log` in your specified `{hostPath}` directory. Operations are
 
 ```json
 {
-   "time":"2020-05-01T02:08:49.528995105Z",
-   "type":"response",
-   "auth":{...},
+   "time":"2022-09-09T22:09:14.886126069Z",
+   "type":"request",
+   "auth":{
+      "client_token":"hmac-sha256:2d8d7aeded539495117218a14ef9ae9f0f525eb2f6078be25dfe8e329ceb3d3f",
+      "accessor":"hmac-sha256:e4c3319a57b735e10df4677193bd7a969ee757a97ebf890bbaebb0694f6a6cd5",
+      "display_name":"token",
+      "policies":[
+         "root"
+      ],
+      "token_policies":[
+         "root"
+      ],
+      "policy_results":{
+         "allowed":true,
+         "granting_policies":[
+            {
+               "name":"root",
+               "namespace_id":"root",
+               "type":"acl"
+            }
+         ]
+      },
+      "token_type":"service",
+      "token_issue_time":"2022-09-09T22:01:47Z"
+   },
    "request":{
-      "id":"1cc73d31-d678-88d4-0b8e-f16b3d961791",
-      "operation":"read",
-      "client_token":"...",
-      "client_token_accessor":"...",
+      "id":"50f70b23-3f2a-4857-5a8b-0c45982be491",
+      "client_id":"0DHqvq2D77kL2/JTPSZkTMJbkFVmUu0TzMi0jiXcFy8=",
+      "operation":"create",
+      "mount_type":"kv",
+      "mount_accessor":"kv_bf4b26f3",
+      "client_token":"hmac-sha256:2d8d7aeded539495117218a14ef9ae9f0f525eb2f6078be25dfe8e329ceb3d3f",
+      "client_token_accessor":"hmac-sha256:e4c3319a57b735e10df4677193bd7a969ee757a97ebf890bbaebb0694f6a6cd5",
       "namespace":{
          "id":"root"
       },
       "path":"secret/data/vault-demo-app,dev",
-      "remote_address":"127.0.0.1"
-   },
-   "response":{
       "data":{
          "data":{
-            "spring.security.oauth2.client.provider.oidc.issuer-uri":"hmac-sha256:d44ecf9418576aba39752cf34a253bdf960a5ac475bd5eece78a776555035e1a",
-            "spring.security.oauth2.client.registration.oidc.client-id":"hmac-sha256:d35fa23d933b5402a8c665ce4d73643506c7d13743e922e397a3cf78acde6c88",
-            "spring.security.oauth2.client.registration.oidc.client-secret":"hmac-sha256:d6c38a298b067ac8ce76c427bd060fdda8558a024ebb1a60beb9cde60d9e5db8"
+            "okta.oauth2.clientId":"hmac-sha256:6709ec7e5682f16893369660844392809842ee1d670697fb034c3db17cfdc3d4",
+            "okta.oauth2.clientSecret":"hmac-sha256:c3db998af7b44aeaabf3da71c396e8bf86119fd6c36e66a41de67e91f71b116f",
+            "okta.oauth2.issuer":"hmac-sha256:70502e5cd54d12004df6836d0ff8d045515e4207607d984da14c0aaca5400c0a"
          },
-         "metadata":{
-            "created_time":"hmac-sha256:b5283ce3fbb0bb7a74c91e2e565e08d44d378d2e37946b1fa871e0c23947a6c1",
-            "deletion_time":"hmac-sha256:81566d1c06213e53b6f7cf141388772d1ab59efcc4cfa9373c32098d90bda09a",
-            "destroyed":false,
-            "version":1
+         "options":{
+
          }
-      }
+      },
+      "remote_address":"127.0.0.1",
+      "remote_port":58914
    }
 }
 ```
@@ -373,12 +404,18 @@ Now, go back to the container command line, and create a token with the `vault-d
 
 ```shell
 vault token create -policy=vault-demo-app-policy
+```
 
+```shell
+WARNING! The following warnings were returned from Vault:
+
+  * Endpoint ignored these unrecognized parameters: [display_name entity_alias
+  explicit_max_ttl num_uses period policies renewable ttl type]
 
 Key                  Value
 ---                  -----
-token                s.4CO6wzq0M1WRUNsYviJB3wzz
-token_accessor       2lYfyQJZtGPO4gyxsLmOnQyE
+token                hvs.CAESIKd9pYyc9xesiqmwvepdGiHlPEB53By6sCrToUQvtHhcGh4KHGh2cy55NE1kQ2hCVWMxVUp0amtFR0VxeWNzZGM
+token_accessor       2pzRXmGhxChobbMtqeM5zZzM
 token_duration       768h
 token_renewable      true
 token_policies       ["default" "vault-demo-app-policy"]
@@ -404,7 +441,7 @@ spring:
           kvVersion: 2
 logging:
   level:
-    root: TRACE         
+    root: TRACE
 ```
 
 Note that the logging level is set to TRACE to see the interaction between the server and Vault. Restart the `vault-config-server`.
@@ -423,22 +460,22 @@ You should see the logs below if the server was configured correctly:
 You will not see the config server trying to connect to Vault in the logs. That will happen when a config client requests the properties. Start the `vault-demo-app`, passing the token just created in the environment variable `SPRING_CLOUD_CONFIG_TOKEN`. For example:
 
 ```shell
-SPRING_CLOUD_CONFIG_TOKEN=s.4CO6wzq0M1WRUNsYviJB3wzz \
+SPRING_CLOUD_CONFIG_TOKEN=hvs.CAESIKd9pYyc9xesiqmwvepdGiHlPEB53By6sCrToUQvtHhcGh4KHGh2cy55NE1kQ2hCVWMxVUp0amtFR0VxeWNzZGM \
 ./mvnw spring-boot:run
 ```
 
 When the `vault-demo-app` starts, it will request the configuration to the config server, which in turn will make a REST to Vault. In the config server logs, with enough logging level, you will be able to see:
 
-```
-2020-05-01 01:21:02.691 DEBUG 21168 --- [nio-8888-exec-1] o.s.web.client.RestTemplate:
- HTTP GET http://127.0.0.1:8200/v1/secret/data/vault-demo-app,dev
-```
+```shell
+2022-09-09 19:21:57.778 DEBUG 12359 --- [nio-8888-exec-1] o.a.coyote.http11.Http11InputBuffer      : Received [GET /vault-demo-app/dev HTTP/1.1
+Accept: application/vnd.spring-cloud.config-server.v2+json
+X-Config-Token: hvs.CAESIKd9pYyc9xesiqmwvepdGiHlPEB53By6sCrToUQvtHhcGh4KHGh2cy55NE1kQ2hCVWMxVUp0amtFR0VxeWNzZGM
+User-Agent: Java/17
+Host: localhost:8888
+Connection: keep-alive
 
-> To increase logging so you see the above message, add the following to `application.properties`
->
-> ```
-> logging.level.org.springframework.web=DEBUG
-> ```
+]
+```
 
 Go to `http://localhost:8080` and verify that authentication with Okta works.
 
@@ -451,7 +488,7 @@ vault operator seal
 Restart `vault-demo-app` and verify the configuration will not be retrieved as Vault is sealed. The `vault-config-server` logs should read:
 
 ```
-503 Service Unavailable: [{"errors":["error performing token check: Vault is sealed"]}
+503 Service Unavailable: "{"errors":["Vault is sealed"]}<EOL>"]
 ```
 
 To unseal Vault, run:
@@ -471,10 +508,10 @@ Hopefully you see the benefits of using a secrets management tool like Vault as 
 
 We have several related posts about encryption and storing secrets on this blog.
 
-* [The Hardest Thing About Data Encryption](/blog/2019/07/25/the-hardest-thing-about-data-encryption)
-* [Why Public Key Cryptography Matters](/blog/2019/09/12/why-public-key-cryptography-matters)
+* [Five Anti-Patterns with Secrets in Java](/blog/2021/12/14/antipatterns-secrets-java)
 * [Security Patterns for Microservice Architectures](/blog/2020/03/23/microservice-security-patterns)
-* [Java Microservices with Spring Cloud Config and JHipster](/blog/2019/05/23/java-microservices-spring-cloud-config)
+* [How to Secure Your Kubernetes Clusters With Best Practices](/blog/2021/12/02/k8s-security-best-practices)
+
 
 You can find the code for this tutorial at [GitHub](https://github.com/oktadeveloper/okta-spring-vault-example).
 
