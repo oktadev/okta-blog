@@ -76,6 +76,8 @@ toc::[]
 
 == A quick introduction to micro frontends
 
+// todo: include a diagram like https://martinfowler.com/articles/micro-frontends/deployment.png
+
 Webpack's https://webpack.js.org/concepts/module-federation/[Module Federation] is one of the best known implementations for micro frontends. Its https://webpack.js.org/plugins/module-federation-plugin[`ModuleFederationPlugin`] allows a build to provide or consume modules with other independent builds at runtime. It even allows you to share libraries between frontends to reduce the size of remote bundles.
 
 https://twitter.com/ScriptedAlchemy[Zack Jackson] is the creator of Module Federation and recently https://twitter.com/ScriptedAlchemy/status/1564411584851505153[collaborated] with https://twitter.com/ManfredSteyer[Manfred Steyer] to create Native Federation. This means you can use micro frontend concepts with any build tool, not just webpack.
@@ -127,6 +129,8 @@ idea diff reactive-ms.jdl reactive-mf.jdl
 image::{% asset_path 'blog/micro-frontends-java/jdl-ms-vs-mf-diff.png' %}[alt=Reactive microservices refactored to micro frontends,width=800,align=center,link={% asset_path 'blog/micro-frontends-java/jdl-ms-vs-mf-diff.png' %}]
 
 image::{% asset_path 'blog/micro-frontends-java/jdl-with-kubernetes.png' %}[alt=Additional K8s deployment,width=800,align=center,link={% asset_path 'blog/micro-frontends-java/jdl-with-kubernetes.png' %}]
+
+TIP: The https://plugins.jetbrains.com/plugin/19697-jhipster-jdl[JHipster JDL Plugin] is a handy tool for working with JDL files.
 
 === Micro frontend options: Angular, React, and Vue
 
