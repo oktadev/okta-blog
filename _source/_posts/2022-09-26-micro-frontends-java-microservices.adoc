@@ -201,7 +201,39 @@ image::{% asset_path 'blog/micro-frontends-java/gateway-entities-available.png' 
 // === Rapid development that sparks joy
 === Zero turnaround development that sparks joy
 
+At this point, I've only shown you how to run the Spring Boot backends with their packaged React apps. What if you want to work on the UI and have zero turnaround that sparks joy? ✨🤗
+
 // emojis about joy
+
+In the gateway app, run `npm start`. This will run the UI on its own web server, open a browser window to `\http://localhost:9000`, and use https://browsersync.io/[Browsersync] to keep your browser in sync with your code.
+
+Modify the code in `gateway/src/main/webapp/app/modules/home/home.tsx` to make a quick change. For example, add the following below the `<h2>`.
+
+[source,jsx]
+----
+<h3 className="text-primary">
+  Hi, I'm a quick edit!
+</h3>
+----
+
+You'll see this change immediately appear within your browser.
+
+image::{% asset_path 'blog/micro-frontends-java/gateway-quick-edit.png' %}[alt=Gateway quick edit,width=800,align=center]
+
+Remove it and it'll disappear right away too.
+
+Now, open another terminal and navigate into the `store` directory. Run `npm start` and you'll have a similar zero-turnaround experience when modifying files in the `store` app. The app will start a webserver on `\http://localhost:9002` and there will only be one menu item for product. Modify files in the `store/src/main/webapp/app/entities/store/product` directory, and you'll see the changes in your browser immediately. For example, change the wrapper `<div>` in `product.tsx` to have a background color:
+
+[source,html]
+----
+<div className="bg-info">
+----
+
+The UI will change before you can kbd:[Cmd+Tab] back to your browser.
+
+image::{% asset_path 'blog/micro-frontends-java/store-edit.png' %}[alt=Store edit,width=800,align=center]
+
+The backend has quick turnaround abilities too thanks to https://docs.spring.io/spring-boot/docs/current/reference/html/using.html#using.devtools[Spring Boot devtools]. If you modify a backend class, recompiling it will cause Spring Boot to reload your component lickety-split. It's pretty slick!
 
 Micro Frontends Demo
 
@@ -221,9 +253,203 @@ Optional:
 - Run Cypress e2e tests on one of the apps
 - Mention workspaces and show how you can run e2e tests for all apps, or just show how to convert to a mono repo https://egghead.io/lessons/npm-intro-to-monorepos-with-npm-workspaces-outro
 
-=== A look under the micro frontends hood
+=== A look under the hood of micro frontends
 
 When you're learning concepts like micro frontends, it's often helpful to look at the code that makes things work.
+
+The gateway's `webpack.microfrontend.js` handles setting up the `@blog` and `@store` remotes, as well as specifying the shared dependencies and components between apps.
+
+.`gateway/webpack/webpack.microfrontend.js`
+[%collapsible]
+====
+[source,js]
+----
+const ModuleFederationPlugin = require('webpack/lib/container/ModuleFederationPlugin');
+
+const packageJson = require('../package.json');
+const appVersion = packageJson.version;
+
+module.exports = ({ serve }) => {
+  return {
+    optimization: {
+      moduleIds: 'named',
+      chunkIds: 'named',
+      runtimeChunk: false,
+    },
+    plugins: [
+      new ModuleFederationPlugin({
+        shareScope: 'default',
+        remotes: {
+          '@blog': `blog@/services/blog/remoteEntry.js`,
+          '@store': `store@/services/store/remoteEntry.js`,
+        },
+        shared: {
+          ...Object.fromEntries(
+            Object.entries(packageJson.dependencies).map(([module, version]) => [
+              module,
+              { requiredVersion: version, singleton: true, shareScope: 'default' },
+            ])
+          ),
+          'app/config/constants': {
+            singleton: true,
+            import: 'app/config/constants',
+            requiredVersion: appVersion,
+          },
+          'app/config/store': {
+            singleton: true,
+            import: 'app/config/store',
+            requiredVersion: appVersion,
+          },
+          'app/shared/error/error-boundary-routes': {
+            singleton: true,
+            import: 'app/shared/error/error-boundary-routes',
+            requiredVersion: appVersion,
+          },
+          'app/shared/layout/menus/menu-components': {
+            singleton: true,
+            import: 'app/shared/layout/menus/menu-components',
+            requiredVersion: appVersion,
+          },
+          'app/shared/layout/menus/menu-item': {
+            singleton: true,
+            import: 'app/shared/layout/menus/menu-item',
+            requiredVersion: appVersion,
+          },
+          'app/shared/reducers': {
+            singleton: true,
+            import: 'app/shared/reducers',
+            requiredVersion: appVersion,
+          },
+          'app/shared/reducers/locale': {
+            singleton: true,
+            import: 'app/shared/reducers/locale',
+            requiredVersion: appVersion,
+          },
+          'app/shared/reducers/reducer.utils': {
+            singleton: true,
+            import: 'app/shared/reducers/reducer.utils',
+            requiredVersion: appVersion,
+          },
+          'app/shared/util/date-utils': {
+            singleton: true,
+            import: 'app/shared/util/date-utils',
+            requiredVersion: appVersion,
+          },
+          'app/shared/util/entity-utils': {
+            singleton: true,
+            import: 'app/shared/util/entity-utils',
+            requiredVersion: appVersion,
+          },
+        },
+      }),
+    ],
+    output: {
+      publicPath: 'auto',
+    },
+  };
+};
+----
+====
+
+The blog's `webpack.microfrontend.js` looks similar, except that it exposes its `remoteEntry.js`, menu items, and routes.
+
+.`blog/webpack/webpack.microfrontend.js`
+[%collapsible]
+====
+[source,js]
+----
+const ModuleFederationPlugin = require('webpack/lib/container/ModuleFederationPlugin');
+const { DefinePlugin } = require('webpack');
+
+const packageJson = require('../package.json');
+const appVersion = packageJson.version;
+
+module.exports = ({ serve }) => {
+  return {
+    optimization: {
+      moduleIds: 'named',
+      chunkIds: 'named',
+      runtimeChunk: false,
+    },
+    plugins: [
+      new ModuleFederationPlugin({
+        name: 'blog',
+        filename: 'remoteEntry.js',
+        shareScope: 'default',
+        exposes: {
+          './entities-menu': './src/main/webapp/app/entities/menu',
+          './entities-routes': './src/main/webapp/app/entities/routes',
+        },
+        shared: {
+          ...Object.fromEntries(
+            Object.entries(packageJson.dependencies).map(([module, version]) => [
+              module,
+              { requiredVersion: version, singleton: true, shareScope: 'default' },
+            ])
+          ),
+          'app/config/constants': {
+            singleton: true,
+            import: 'app/config/constants',
+            requiredVersion: appVersion,
+          },
+          'app/config/store': {
+            singleton: true,
+            import: 'app/config/store',
+            requiredVersion: appVersion,
+          },
+          'app/shared/error/error-boundary-routes': {
+            singleton: true,
+            import: 'app/shared/error/error-boundary-routes',
+            requiredVersion: appVersion,
+          },
+          'app/shared/layout/menus/menu-components': {
+            singleton: true,
+            import: 'app/shared/layout/menus/menu-components',
+            requiredVersion: appVersion,
+          },
+          'app/shared/layout/menus/menu-item': {
+            singleton: true,
+            import: 'app/shared/layout/menus/menu-item',
+            requiredVersion: appVersion,
+          },
+          'app/shared/reducers': {
+            singleton: true,
+            import: 'app/shared/reducers',
+            requiredVersion: appVersion,
+          },
+          'app/shared/reducers/locale': {
+            singleton: true,
+            import: 'app/shared/reducers/locale',
+            requiredVersion: appVersion,
+          },
+          'app/shared/reducers/reducer.utils': {
+            singleton: true,
+            import: 'app/shared/reducers/reducer.utils',
+            requiredVersion: appVersion,
+          },
+          'app/shared/util/date-utils': {
+            singleton: true,
+            import: 'app/shared/util/date-utils',
+            requiredVersion: appVersion,
+          },
+          'app/shared/util/entity-utils': {
+            singleton: true,
+            import: 'app/shared/util/entity-utils',
+            requiredVersion: appVersion,
+          },
+        },
+      }),
+      new DefinePlugin({
+        BLOG_I18N_RESOURCES_PREFIX: JSON.stringify(''),
+      }),
+    ],
+    output: {
+      publicPath: 'auto',
+    },
+  };
+};
+----
+====
 
 == Build and run with Docker
 
