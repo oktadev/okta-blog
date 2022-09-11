@@ -6,6 +6,10 @@ by: contractor
 communities: [java]
 description: "This tutorial shows you how to add asynchronous messaging between Java microservices using Apache Kafka."
 tags: [java, kafka, microservices, jhipster]
+tweets:
+- "Want to see how to use @apachekafka to communicate between microservices? This tutorial shows you how!"
+- "Did you know @jhipster supports #Kafka as a communications mechanism between microservices?"
+- "Microservice architectures ❤️ asynchronous messaging! Learn how to use @apachekafka to implement it. →"
 image: blog/kafka-microservices/kafka-microservices.png
 type: conversion
 ---
@@ -22,9 +26,7 @@ In this tutorial you will learn how to:
 - Enable Kafka integration for communicating microservices
 - Set up Okta as the authentication provider
 
-**Table of Contents**{: .hide }
-* Table of Contents
-{:toc}
+{% include toc.md %}
 
 ## What is Kafka?
 
@@ -59,7 +61,7 @@ Let's build a microservices architecture with JHipster and Kafka support. In thi
 Install JHipster.
 
 ```bash
-npm install -g generator-jhipster@7.9.2
+npm install -g generator-jhipster@7.9.3
 ```
 
 The `--version` command should output something like this:
@@ -67,7 +69,7 @@ The `--version` command should output something like this:
 ```bash
 $ jhipster --version
 INFO! Using bundled JHipster
-7.9.2
+7.9.3
 ```
 
 Create a directory for the project.
@@ -232,6 +234,7 @@ The registry, gateway, store, and alert applications are all configured to read 
 ## Communicate Between Store and Alert Microservices
 
 The JHipster generator adds a `spring-cloud-starter-stream-kafka` dependency to applications that declare `messageBroker kafka` (in JDL), enabling the Spring Cloud Stream [programming model](https://docs.spring.io/spring-cloud-stream/docs/current/reference/html/spring-cloud-stream.html#_main_concepts) with the [Apache Kafka binder](https://docs.spring.io/spring-cloud-stream/docs/current/reference/html/spring-cloud-stream-binder-kafka.html#_usage_examples) for using Kafka as the messaging middleware.
+
 Spring Cloud Stream was recently added back to JHipster. Now, instead of working with Kafka Core APIs, we can use the binder abstraction, declaring input/output arguments in the code, and letting the specific binder implementation handle the mapping to the broker destination.
 
 **IMPORTANT NOTE**: At this moment, JHipster includes Spring Cloud Stream 3.2.4, which has [deprecated](https://docs.spring.io/spring-cloud-stream/docs/current/reference/html/spring-cloud-stream.html#spring-cloud-stream-preface-notable-deprecations) the annotation-based programming model, `@EnableBinding` and `@StreamListener` annotations, in favor of the functional programming model. Stay tuned for future JHipster updates.
@@ -264,10 +267,9 @@ public class WebConfigurer implements ServletContextInitializer {
 ...
 ```
 
-
 Add the binding configuration to `application.yml`:
 
-```yml
+```yaml
 spring:
   cloud:
     stream:
@@ -429,7 +431,7 @@ public class StoreResource {
 
 ### Enable Debug Logging in Production
 
-Since you are going to deploy the `prod` profile, let's enable logging in production. Modify the `store/src/main/java/com/okta/.../config/LoggingAspectConfiguration` class:
+Since you are going to deploy the `prod` profile, let's enable logging in production. Modify the `store/src/main/java/com/okta/.../config/LoggingAspectConfiguration.java` class:
 
 ```java
 @Configuration
@@ -446,7 +448,7 @@ public class LoggingAspectConfiguration {
 
 Edit `store/src/main/resources/config/application-prod.yml` and change the log level to `DEBUG` for the store application:
 
-```yml
+```yaml
 logging:
   level:
     ROOT: INFO
@@ -484,7 +486,7 @@ public class WebConfigurer implements ServletContextInitializer {
 
 Add the inbound binding configuration to `application.yml`:
 
-```yml
+```yaml
 spring:
   cloud:
     stream:
@@ -715,7 +717,6 @@ You should see log entries indicating the consumer group to which the `alert` mi
 2022-09-05 15:20:44.229  INFO 1 --- [container-0-C-1] o.a.k.c.c.internals.ConsumerCoordinator  : [Consumer clientId=consumer-store-alerts-5, groupId=store-alerts] (Re-)joining group
 2022-09-05 15:20:44.238  INFO 1 --- [container-0-C-1] o.a.k.c.c.internals.ConsumerCoordinator  : [Consumer clientId=consumer-store-alerts-5, groupId=store-alerts] Request joining group due to: need to re-join with the given member-id
 2022-09-05 15:20:44.239  INFO 1 --- [container-0-C-1] o.a.k.c.c.internals.ConsumerCoordinator  : [Consumer clientId=consumer-store-alerts-5, groupId=store-alerts] (Re-)joining group
-
 ```
 
 Once everything is up, go to the gateway at `http://localhost:8081` and log in. Create a store entity and then update it. The `alert` microservice should log entries when processing the received message from the `store` service.
@@ -733,7 +734,7 @@ alert-app_1           |
 alert-app_1           | 	at org.springframework.mail.javamail.JavaMailSenderImpl.doSend(JavaMailSenderImpl.java:440)
 ```
 
-To enable the login from the `alert` application, go to [https://myaccount.google.com/](https://myaccount.google.com/) and then choose the **Security** tab. Turn on 2-Step Verification for your account. In the section _Signing in to Google_, choose **App passwords** and create a new [app password](https://support.google.com/accounts/answer/185833). In _Select app_ drop down set **Other (Custom name)** and type the name for this password. Click **Generate** and copy the password. Update docker-compose/.env` and set the app password for gmail authentication.
+To enable the login from the `alert` application, go to [https://myaccount.google.com/](https://myaccount.google.com/) and then choose the **Security** tab. Turn on 2-Step Verification for your account. In the section _Signing in to Google_, choose **App passwords** and create a new [app password](https://support.google.com/accounts/answer/185833). In _Select app_ drop down set **Other (Custom name)** and type the name for this password. Click **Generate** and copy the password. Update `docker-compose/.env` and set the app password for gmail authentication.
 
 ```bash
 MAIL_PASSWORD={yourAppPassword}
@@ -765,6 +766,6 @@ There are also a few tutorials on Kafka, microservices, and JHipster that you mi
 - [Secure Kafka Streams with Quarkus and Java](/blog/2020/04/08/kafka-streams)
 - [A Quick Guide to Spring Cloud Stream](/blog/2020/04/15/spring-cloud-stream)
 
-You can find all the code for this tutorial [on GitHub](https://github.com/indiepopart/jhipster-kafka-cloud-stream).
+You can find all the code for this tutorial [on GitHub](https://github.com/oktadev/okta-kafka-microservices-example).
 
 Please follow us [@oktadev on Twitter](https://twitter.com/oktadev) for more tutorials like this one. We also have a [YouTube channel](https://www.youtube.com/c/oktadev) where we frequently publish videos.
