@@ -35,38 +35,167 @@ image:
 //   - micro frontends angular: 1900 (#4 and #7)
 //   - micro frontends react: 2400
 
+Microservices have been quite popular in the Java ecosystem ever since Spring Boot and Spring Cloud made them easy to build and deploy. Things have gotten even easier in recent years with the proliferation of new Java frameworks built specifically for microservices: MicroProfile, Micronaut, Quarkus, and Helidon. Not only do these framework provide a nice developer experience, they also tend to have built-in Docker support. They even work with GraalVM so you can compile your apps to native code!
+
+_To be fair, MicroProfile isn't a framework, it's a spec with many implementations. In fact, both Quarkus and Helidon have MicroProfile flavors you can use._
+
+JHipster is an application generator that creates a Spring Boot backend. You can configure it to use SQL or NoSQL databases, plain ol' Spring MVC, or reactive with WebFlux. It also generates a UI for your REST API and offers you the choice of Angular, React, or Vue.
+
+Last year, I showed you how to build link:/blog/2021/01/20/reactive-java-microservices[reactive Java microservices with Spring Boot and JHipster]. In this tutorial, you build a gateway with Spring Cloud Gateway. Then, you create a blog microservice and a store microservice, each with their own database.
+
+// todo: architecture diagram
+
+This microservices architecture had one major flaw: the UI for it is a monolith, with all its files on the gateway. This isn't good from a loose-coupling point of view because changes in a microservice might require changes in the UI. Instead of being able to independently deploy the microservice, you have to deploy the gateway too.
+
+Today, I'm proud to show you how to you can solve this problem with micro frontends. JHipster recently added support for micro-frontends. Microfrontends provide a way for you to remotely load and execute code at runtime so your microservice's UI can live in the same artifact, without being coupled to the gateway!
+
+// todo: microfrontends diagram
+
+You might notice I spelled micro frontends three different ways in the previous paragraph. The current literature is all over the place on this one!
+
+// https://twitter.com/mraible/status/1499098253920460802
+{% twitter 1499098253920460802 %}
+
+I'm going to use "micro frontends" for the remainder of this post since that's what https://twitter.com/thecamjackson[Cam Jackson] used in his https://martinfowler.com/articles/micro-frontends.html[Micro Frontends] article on Martin Fowler's blog.
 
 **Prerequisites:**
 
 - https://sdkman.io/[Java] 11+
 - https://nodejs.com/[Node.js] 16+
+- https://www.docker.com/products/docker-desktop/[Docker Desktop]
+- https://www.jhipster.tech/installation/[JHipster] 7.9.3
+
+You can install JHipster with npm:
+
+[source,shell]
+----
+npm i -g generator-jhipster@7.9.3
+----
 
 toc::[]
 
 == A quick introduction to micro frontends
 
-// Explain what they are in simple terms - remote loading JS code at runtime
-// Module Federation - https://webpack.js.org/concepts/module-federation/
+Webpack's https://webpack.js.org/concepts/module-federation/[Module Federation] is one of the best known implementations for micro frontends. It's https://webpack.js.org/plugins/module-federation-plugin[`ModuleFederationPlugin`] allows a build to provide or consume modules with other independent builds at runtime. It even allows you to share libraries between frontends to reduce the size of remote bundles.
+
+https://twitter.com/ScriptedAlchemy[Zack Jackson] is the creator of Module Federation and recently https://twitter.com/ScriptedAlchemy/status/1564411584851505153[collaborated] with https://twitter.com/ManfredSteyer[Manfred Steyer] to create Native Federation.
+
+// https://twitter.com/ManfredSteyer/status/1564312149580582912
+{% twitter 1564312149580582912 %}
 
 == Why should Java developers care?
 
+I think micro frontends an excellent architecture concept. With microservices, you weave everything together on the backend with protocols like HTTP, gRPC, and GraphQL. With micro frontends, it's all HTTP. You can literally see your app get stitched together by watching your browser's network console and seeing remote modules load.
+
+I encountered quite a few monolith UIs in my time as a consultant. The backend was a beautiful microservice architecture, but it was all coupled together on the frontend. There's a good chance a lot of Java developers don't care about the UI because they just work on the beautiful backends. However, if you consider yourself a Java _web_ developer, micro frontends are as revolutionary as HTML5!
+
+And that's the beauty of this tutorial, you don't have to write any micro frontends. JHipster can create them for you!
+
 == Micro frontends in action with JHipster
 
-// developer.okta.com/blog/2021/01/20/reactive-java-microservices
+I used a JDL (JHipster Domain Language) file named `reactive-ms.jdl` to create the reactive Java microservices tutorial I mentioned earlier. You can see this file online in the https://github.com/jhipster/jdl-samples/blob/main/reactive-ms.jdl[JDL samples repository].
 
-// show difference between reactive-ms.jdl and reactive-mf.jdl
-// jhipster download reactive-mf.jdl
-// jhipster download reactive-ms.jdl
-// take mfr (show mfa mfv too)
-// git init
+I copied this file to `reactive-mf.jdl` and changed a few things for this tutorial:
+
+. Enabled micro frontends by adding `microfrontends [blog, store]` to the gateway's definition.
+. Changed the client framework from Vue to React
+. Added `clientFramework react` and Cypress to each microservice.
+. Changed the service discovery to https://www.consul.io/[Consul].^1^
+. Added a deployment section for Kubernetes.
+
+^1^ We'll default to Consul in JHipster v8.
+
+Run the following command to create a new directory for your micro frontends project:
+
+[source,shell]
+----
+take micro-frontends-jhipster
+# mkdir micro-frontends-jhipster && cd micro-frontends-jhipster if you don't have take installed
+----
+
+Download both the `-ms` and `-mf` JDLs and compare them in IntelliJ IDEA. You'll need IDEA's https://www.jetbrains.com/help/idea/working-with-the-ide-features-from-command-line.html[Command-line Launcher] for the `idea` command to work.
+
+[source,shell]
+----
+jhipster download reactive-ms.jdl
+jhipster download reactive-mf.jdl
+idea diff reactive-ms.jdl reactive-mf.jdl
+----
+
+image::{% asset_path 'blog/micro-frontends-java/jdl-ms-vs-mf-diff.png' %}[alt=Reactive microservices refactored to micro frontends,width=800,align=center,link={% asset_path 'blog/micro-frontends-java/jdl-ms-vs-mf-diff.png' %}]
+
+image::{% asset_path 'blog/micro-frontends-java/jdl-with-kubernetes.png' %}[alt=Additional K8s deployment,width=800,align=center,link={% asset_path 'blog/micro-frontends-java/jdl-with-kubernetes.png' %}]
 
 === Micro frontend options: Angular, React, and Vue
 
-=== Build Java microservices with Spring Boot and Spring Cloud
+JHipster has support for the big three JavaScript frameworks: Angular, React, and Vue. All are implemented using TypeScript and a newly generated app should have around 70% code coverage, both on the backend and frontend.
 
-// --client-framework angularX,react,vue
+_There is also a https://github.com/jhipster/generator-jhipster-svelte[Svelte blueprint], but it does not support micro frontends at the time of this writing._
 
-=== Run your Spring Boot microservices
+=== Build Java microservices with Spring Boot and WebFlux
+
+To generate a microservices architecture with micro frontend support, run the following command:
+
+[source,shell]
+----
+jhipster jdl reactive-mf.jdl --monorepository --workspaces
+----
+
+The last two commands are optional, but I expect you to use them for this tutorial. Without the `monorepository` flag, the gateway and microservices would have their own Git repos. The `workspaces` flag enables https://docs.npmjs.com/cli/v8/using-npm/workspaces[npm workspaces], which are kinda like having a parent `pom.xml` that allows you to execute commands across projects.
+
+If you want to use Angular, you can pass in `--client-framework angularX` to override the JDL value. For example:
+
+[source,shell]
+----
+# Micro Frontends with Angular
+jhipster jdl reactive-mf.jdl --client-framework angularX --monorepository --workspaces
+----
+
+IMPORTANT: `angularX` is a legacy JDL value from back when JHipster supported AngularJS and Angular 2. It will be changed to `angular` in v8.
+
+If you'd rather try out Vue, use the following:
+
+[source,shell]
+----
+# Micro Frontends with Vue
+jhipster jdl reactive-mf.jdl --client-framework vue --monorepository --workspaces
+----
+
+=== Run your reactive Spring Boot microservices
+
+When the process is complete, cd into the `gateway` directory and start Keycloak and Consul using Docker Compose.
+
+[source,shell]
+----
+docker compose -f src/main/docker/keycloak.yml up -d
+docker compose -f src/main/docker/consul.yml up -d
+----
+
+Then, run `./gradlew` or `npm run app:start` if you prefer npm commands.
+
+When the startup process completes, open your favorite browser to `\http://localhost:8080`, and login with the credentials displayed on the page.
+
+You'll be redirected back to the gateway, but the **Entities** menu won't have any links because the micro frontends it tries to load are unavailable.
+
+image::{% asset_path 'blog/micro-frontends-java/gateway-entities-unavailable.png' %}[alt=The gateway's entities are unavailable,width=800,align=center]
+
+Start the `blog` by opening a terminal and navigating to its directory. Then, start its database with Docker and the app with Gradle.
+
+[source,shell]
+----
+npm run docker:db:up
+./gradlew
+----
+
+Open a new terminal and do the same for the `store` microservice.
+
+You can verify everything is started using Consul at `\http://localhost:8500`.
+
+image::{% asset_path 'blog/micro-frontends-java/consul-services.png' %}[alt=Consul services,width=800,align=center]
+
+Refresh the gateway app, and you should see menu items to navigate to the microservices now.
+
+image::{% asset_path 'blog/micro-frontends-java/gateway-entities-available.png' %}[alt=Gateway entities available,width=800,align=center]
 
 // === Rapid dev with micro frontends and JHipster
 // === Rapid development that sparks joy
@@ -92,7 +221,13 @@ Optional:
 - Run Cypress e2e tests on one of the apps
 - Mention workspaces and show how you can run e2e tests for all apps, or just show how to convert to a mono repo https://egghead.io/lessons/npm-intro-to-monorepos-with-npm-workspaces-outro
 
+=== A look under the micro frontends hood
+
+When you're learning concepts like micro frontends, it's often helpful to look at the code that makes things work.
+
 == Build and run with Docker
+
+// arm64
 
 == Deploy with Kubernetes
 
