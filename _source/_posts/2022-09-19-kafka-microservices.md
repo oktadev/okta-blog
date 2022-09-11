@@ -11,6 +11,7 @@ tweets:
 - "Did you know @jhipster supports #Kafka as a communications mechanism between microservices?"
 - "Microservice architectures ❤️ asynchronous messaging! Learn how to use @apachekafka to implement it. →"
 image: blog/kafka-microservices/kafka-microservices.png
+github: https://github.com/oktadev/okta-kafka-microservices-example
 type: conversion
 ---
 
