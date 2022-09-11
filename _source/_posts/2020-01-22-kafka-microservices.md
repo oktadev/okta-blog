@@ -15,6 +15,8 @@ tweets:
 - "Microservice architectures ❤️ asynchronous messaging! Learn how to use @apachekafka to implement it. →"
 image: blog/kafka-microservices/kafka-microservices.png
 type: conversion
+redirect_to:
+  - "/blog/2022/09/19/kafka-microservices"
 ---
 
 One of the traditional approaches for communicating between [microservices](https://www.okta.com/blog/2021/02/microservices/) is through their REST APIs. However, as your system evolves and the number of microservices grows, communication becomes more complex, and the architecture might start resembling our old friend the spaghetti anti-pattern, with services depending on each other or tightly coupled, slowing down development teams. This model can exhibit low latency but only works if services are made highly available.
