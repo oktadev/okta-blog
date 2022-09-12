@@ -31,6 +31,7 @@ Nowadays it is widely recommended to never store secret values in code. Therefor
 > - [Okta CLI 0.10.0](https://cli.okta.com)
 > - [Docker 20.10.12](https://docs.docker.com/engine/install/)
 > - [HTTPie 3.2.1](https://httpie.io/docs/cli/installation)
+> - [Vault 1.11.3](https://hub.docker.com/_/vault)
 
 {% include toc.md %}
 
@@ -110,7 +111,7 @@ Using environment variables for passing secrets to containerized applications is
 
 In microservice architectures, managing configuration with a centralized config server is essential. Secret encryption is desirable at rest and when in transit. Spring Cloud Config Server is a popular implementation. Let's configure the server to store encrypted secrets.
 
-**NOTE:** To use encryption and decryption features in Java 8, you must install the Java Cryptography Extension (JCE) in your JVM, which is not included by default. Otherwise, the requests to the `/encrypt` endpoint in the config server will fail with "Illegal key size".
+**NOTE:** To use encryption and decryption features in Java, you need the full-strength JCE installed in your JVM, which is included by default since JDK 9.
 
 Using the Spring Initializr API, create a Vault + Config Server application:
 
@@ -421,6 +422,16 @@ token_renewable      true
 token_policies       ["default" "vault-demo-app-policy"]
 identity_policies    []
 policies             ["default" "vault-demo-app-policy"]
+```
+
+**NOTE**: I could not find documentation about the warning _Endpoint ignored these unrecognized parameters_. It seems `vault CLI` is sending default parameters not required by the target API in this case. The command equivalent API call can be displayed using the `-output-curl-string` flag after the subcommand, for example:
+
+```bash
+vault token create -output-curl-string -policy=vault-demo-app-policy
+```
+
+```bash
+curl -X POST -H "X-Vault-Token: $(vault print token)" -H "X-Vault-Request: true" -d '{"policies":["vault-demo-app-policy"],"ttl":"0s","explicit_max_ttl":"0s","period":"0s","display_name":"","num_uses":0,"renewable":true,"type":"service","entity_alias":""}' http://127.0.0.1:8200/v1/auth/token/create
 ```
 
 You are now ready to update the config server. In the `vault-config-server` project, edit `src/main/resource/application.yml` to add Vault as the config backend:
