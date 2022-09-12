@@ -671,7 +671,7 @@ Make sure Docker Desktop is running, then generate the Docker image for the `sto
 # `npm run java:docker` is a shortcut for the above command
 ```
 
-**NOTE**: If you're using Apple Silicon, you'll need to use `npm run java:docker:arm64`. 
+**NOTE**: If you're using Apple Silicon, you'll need to use `npm run java:docker:arm64`.
 
 Repeat for the `alert` and `gateway` apps.
 
@@ -733,12 +733,7 @@ MAIL_PASSWORD={yourAppPassword}
 
 **IMPORTANT**: Don't forget to delete the app password once the test is done.
 
-Restart the `alert` microservice:
-
-```bash
-docker restart docker-compose-alert-1
-```
-
+Stop all the containers with CTRL+C and restart again with `docker compose up`.
 Update a store again and you should receive an email with the store's status this time.
 
 In this tutorial, authentication (of producers and consumers), authorization (of read/write operations), and encryption (of data) were not covered, as security in Kafka is optional. See [Kafka's documentation on security](https://kafka.apache.org/documentation/#security) to learn how to enable these features.
