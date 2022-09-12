@@ -403,27 +403,14 @@ public class StoreResource {
         @PathVariable(value = "id", required = false) final String id,
         @Valid @RequestBody Store store
     ) throws URISyntaxException {
-        log.debug("REST request to update Store : {}, {}", id, store);
-        if (store.getId() == null) {
-            throw new BadRequestAlertException("Invalid id", ENTITY_NAME, "idnull");
-        }
-        if (!Objects.equals(id, store.getId())) {
-            throw new BadRequestAlertException("Invalid ID", ENTITY_NAME, "idinvalid");
-        }
-
-        if (!storeRepository.existsById(id)) {
-            throw new BadRequestAlertException("Entity not found", ENTITY_NAME, "idnotfound");
-        }
+        ...
 
         Store result = storeRepository.save(store);
 
         log.debug("SEND store alert for Store: {}", store);
         alertService.alertStoreStatus(result);
 
-        return ResponseEntity
-            .ok()
-            .headers(HeaderUtil.createEntityUpdateAlert(applicationName, true, ENTITY_NAME, store.getId()))
-            .body(result);
+        ...
     }
 
    ...
