@@ -681,7 +681,10 @@ Make sure Docker Desktop is running, then generate the Docker image for the `sto
 
 ```bash
 ./mvnw -ntp -Pprod verify jib:dockerBuild
+# `npm run java:docker` is a shortcut for the above command
 ```
+
+**NOTE**: If you're using Apple Silicon, you'll need to use `npm run java:docker:arm64`. 
 
 Repeat for the `alert` and `gateway` apps.
 
@@ -735,7 +738,7 @@ alert-app_1           |
 alert-app_1           | 	at org.springframework.mail.javamail.JavaMailSenderImpl.doSend(JavaMailSenderImpl.java:440)
 ```
 
-To enable the login from the `alert` application, go to [https://myaccount.google.com/](https://myaccount.google.com/) and then choose the **Security** tab. Turn on 2-Step Verification for your account. In the section _Signing in to Google_, choose **App passwords** and create a new [app password](https://support.google.com/accounts/answer/185833). In _Select app_ drop down set **Other (Custom name)** and type the name for this password. Click **Generate** and copy the password. Update `docker-compose/.env` and set the app password for gmail authentication.
+To enable the login from the `alert` application, go to [https://myaccount.google.com](https://myaccount.google.com/) and then choose the **Security** tab. Turn on 2-Step Verification for your account. In the section _Signing in to Google_, choose **App passwords** and create a new [app password](https://support.google.com/accounts/answer/185833). In _Select app_ drop down set **Other (Custom name)** and type the name for this password. Click **Generate** and copy the password. Update `docker-compose/.env` and set the app password for gmail authentication.
 
 ```bash
 MAIL_PASSWORD={yourAppPassword}
@@ -761,12 +764,12 @@ This tutorial showed how a Kafka-centric architecture allows decoupling microser
 - [JHipster: OAuth2 and OpenID Connect](https://www.jhipster.tech/security/#-oauth2-and-openid-connect)
 - [Apache Kafka Introduction](https://kafka.apache.org/intro)
 
+You can find all the code for this tutorial on GitHub in the [@oktadev/okta-kafka-microservices-example](https://github.com/oktadev/okta-kafka-microservices-example) repository.
+
 There are also a few tutorials on Kafka, microservices, and JHipster that you might enjoy on this blog:
 
 - [Reactive Java Microservices with Spring Boot and JHipster](/blog/2021/01/20/reactive-java-microservices)
 - [Secure Kafka Streams with Quarkus and Java](/blog/2020/04/08/kafka-streams)
 - [A Quick Guide to Spring Cloud Stream](/blog/2020/04/15/spring-cloud-stream)
-
-You can find all the code for this tutorial [on GitHub](https://github.com/oktadev/okta-kafka-microservices-example).
 
 Please follow us [@oktadev on Twitter](https://twitter.com/oktadev) for more tutorials like this one. We also have a [YouTube channel](https://www.youtube.com/c/oktadev) where we frequently publish videos.
