@@ -39,6 +39,26 @@ Microservices have been quite popular in the Java ecosystem ever since Spring Bo
 
 _To be fair, MicroProfile isn't a framework, it's a spec with many implementations. In fact, both Quarkus and Helidon have MicroProfile flavors you can use._
 
+Today, I'll show you how to build a Java microservices architecture that leverages micro frontends for the UI. The backend will use Spring Boot and Spring Cloud while the frontend will use React. You can also use Angular or Vue if you'd like.
+
+**Prerequisites:**
+
+- https://sdkman.io/[Java] 11+
+- https://nodejs.com/[Node.js] 16+
+- https://www.docker.com/products/docker-desktop/[Docker Desktop]
+- https://www.jhipster.tech/installation/[JHipster] 7.9.3
+
+You can install JHipster with npm:
+
+[source,shell]
+----
+npm i -g generator-jhipster@7.9.3
+----
+
+toc::[]
+
+== Java microservices with Spring Boot and JHipster
+
 JHipster is an application generator that creates a Spring Boot backend. You can configure it to use SQL or NoSQL databases, plain ol' Spring MVC, or reactive with WebFlux. It also generates a UI for your REST API and offers you the choice of Angular, React, or Vue. Last year, I showed you how to build link:/blog/2021/01/20/reactive-java-microservices[reactive Java microservices with Spring Boot and JHipster]. In this tutorial, you build a gateway with Spring Cloud Gateway. Then, you create a blog microservice and a store microservice, each with their own database.
 
 [.red]#todo: architecture diagram#
@@ -58,23 +78,7 @@ You might notice I spelled micro frontends three different ways in the previous 
 
 I'm going to use "micro frontends" for the remainder of this post since that's what https://twitter.com/thecamjackson[Cam Jackson] used in his https://martinfowler.com/articles/micro-frontends.html[Micro Frontends article] on Martin Fowler's blog.
 
-**Prerequisites:**
-
-- https://sdkman.io/[Java] 11+
-- https://nodejs.com/[Node.js] 16+
-- https://www.docker.com/products/docker-desktop/[Docker Desktop]
-- https://www.jhipster.tech/installation/[JHipster] 7.9.3
-
-You can install JHipster with npm:
-
-[source,shell]
-----
-npm i -g generator-jhipster@7.9.3
-----
-
-toc::[]
-
-== A quick introduction to micro frontends
+== A quick introduction to Module Federation
 
 // todo: include a diagram like https://martinfowler.com/articles/micro-frontends/deployment.png
 
