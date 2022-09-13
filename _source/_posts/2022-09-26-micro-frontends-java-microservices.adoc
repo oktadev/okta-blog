@@ -151,7 +151,7 @@ To generate a microservices architecture with micro frontend support, run the fo
 jhipster jdl reactive-mf.jdl --monorepository --workspaces
 ----
 
-The last two arguments are optional, but I expect you to use them for this tutorial. Without the `monorepository` flag, the gateway and microservices would have their own Git repos. The `workspaces` flag enables https://docs.npmjs.com/cli/v8/using-npm/workspaces[npm workspaces], which are kinda like having a parent `pom.xml` that allows you to execute commands across projects. It also makes it so there's only one `node_modules` in the root directory.
+The last two arguments are optional, but I expect you to use them for this tutorial. Without the `monorepository` flag, the gateway and microservices would have their own Git repos. The `workspaces` flag enables https://docs.npmjs.com/cli/v8/using-npm/workspaces[npm workspaces], which are kinda like having a parent `pom.xml` that allows you to execute commands across projects. It also makes it so there's only one `node_modules` in the root directory. To learn more, I recommend egghead's https://egghead.io/courses/introduction-to-monorepos-with-npm-workspaces-c03f500b[Introduction to Monorepos with NPM Workspaces].
 
 If you want to use Angular, you can pass in `--client-framework angularX` to override the JDL value. For example:
 
@@ -474,6 +474,8 @@ This will start and run all the apps, their databases, Consul, and Keycloak. To 
 ----
 
 This is because you will access your application with a browser on your machine (where the name is localhost, or `127.0.0.1`), but inside Docker it will run in its own container, where the name is `keycloak`.
+
+If you want to prove everything works, make sure everything is started at `\http://localhost:8500`, then run `npm run e2e -ws` from the root project directory. This will run the Cypress tests that JHipster generates in your browser.
 
 == Switch identity providers
 
