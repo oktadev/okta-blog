@@ -206,6 +206,7 @@ spring:
 Start `vault-demo-app` without passing the environment variables:
 
 ```shell
+./mvnw clean
 ./mvnw spring-boot:run
 ```
 
