@@ -594,7 +594,7 @@ The `jhipster jdl` command generates a `kubernetes` directory with this informat
 ./kubectl-apply.sh -f
 ----
 
-It also generates files for Kustomize and Skaffold, if you'd prefer to use those tools.
+It also generates files for Kustomize and Skaffold, if you'd prefer to use those tools. See the https://github.com/oktadev/auth0-micro-frontends-jhipster-example/blob/main/kubernetes/K8S-README.md[`kubernetes/K8S-README.md`] file for more information.
 
 I won't go into the nitty-gritty details of deploying a JHipster microservices stack to cloud providers with K8s, mostly because it's covered in previous blog posts. The first post below shows how to run Minikube locally, encrypt your secrets, and deploy to Google Cloud.
 
