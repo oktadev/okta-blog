@@ -556,7 +556,7 @@ image::{% asset_path 'blog/micro-frontends-java/auth0-login-success.png' %}[alt=
 
 You should be able to add, edit, and delete blogs, posts, tags, and products, proving that all of your microservices and micro frontends can talk to each other.
 
-=== Use Okta for identity
+// === Use Okta for identity
 
 If you'd like to use Okta for your identity provider, see https://www.jhipster.tech/security/#okta[JHipster's documentation].
 
@@ -596,7 +596,7 @@ The `jhipster jdl` command generates a `kubernetes` directory with this informat
 
 It also generates files for Kustomize and Skaffold, if you'd prefer to use those tools.
 
-I won't go into the nitty-gritty details of deploying a JHipster microservices stack to cloud providers with K8s, mostly because it's covered in previous blog posts. The first post below shows how to run Minikube locally, as well as deploy to Google Cloud.
+I won't go into the nitty-gritty details of deploying a JHipster microservices stack to cloud providers with K8s, mostly because it's covered in previous blog posts. The first post below shows how to run Minikube locally, encrypt your secrets, and deploy to Google Cloud.
 
 - link:/blog/2021/06/01/kubernetes-spring-boot-jhipster[Kubernetes to the Cloud with Spring Boot and JHipster]
 - link:/blog/2022/05/05/kubernetes-microservices-azure[Kubernetes Microservices on Azure with Cosmos DB]
@@ -608,13 +608,16 @@ The JHipster team also has a blog you can follow at https://dev.to/jhipster[dev.
 
 == Learn more about micro frontends and microservices
 
-// summary
+I hope you enjoyed this overview of how to use micro frontends within a Java microservices architecture. I like how micro frontends allow each microservice application to be self-contained and deployable, independent of the other microservices. It's also pretty neat how JHipster generates Docker and Kubernetes configuration for you. Cloud native FTW!
 
-// github link
+You can find the source code for this example on GitHub, in the https://github.com/oktadev/auth0-micro-frontends-jhipster-example[@oktadev/auth0-micro-frontends-jhipster-example] repository.
 
-// links to related posts
-//   - https://auth0.com/blog/micro-frontends-with-angular-module-federation-and-auth0/
-//   - developer.okta.com/blog/2022/05/17/angular-microfrontend-auth
-//   - developer.okta.com/blog/2022/05/19/angular-microfrontend-deploy
+If you'd like to learn more about micro frontends and microservices, I recommend these posts:
 
-// follow us
+- https://auth0.com/blog/micro-frontends-with-angular-module-federation-and-auth0/[Micro Frontends with Angular, Module Federation, and Auth0]
+- link:/blog/2022/05/17/angular-microfrontend-auth[How to Build Micro Frontends Using Module Federation in Angular]
+- link:/blog/2022/05/19/angular-microfrontend-deploy[Secure and Deploy Micro Frontends with Angular]
+- https://developer.okta.com/blog/2021/01/20/reactive-java-microservices[Reactive Java Microservices with Spring Boot and JHipster]
+- https://www.okta.com/blog/2021/02/microservices/[What are Microservices?]
+
+Please follow https://twitter.com/auth0[@auth0] and https://twitter.com/oktadev[@oktadev] on Twitter. We also have YouTube channels that you might enjoy at https://www.youtube.com/auth0[youtube.com/auth0] and https://www.youtube.com/oktadev[youtube.com/oktadev]. If you have any questions, please leave a comment below!
