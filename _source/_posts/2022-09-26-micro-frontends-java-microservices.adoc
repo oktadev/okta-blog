@@ -619,7 +619,7 @@ If you'd like to learn more about micro frontends and microservices, I recommend
 - https://auth0.com/blog/micro-frontends-with-angular-module-federation-and-auth0/[Micro Frontends with Angular, Module Federation, and Auth0]
 - link:/blog/2022/05/17/angular-microfrontend-auth[How to Build Micro Frontends Using Module Federation in Angular]
 - link:/blog/2022/05/19/angular-microfrontend-deploy[Secure and Deploy Micro Frontends with Angular]
-- https://developer.okta.com/blog/2021/01/20/reactive-java-microservices[Reactive Java Microservices with Spring Boot and JHipster]
+- link:/blog/2021/01/20/reactive-java-microservices[Reactive Java Microservices with Spring Boot and JHipster]
 - https://www.okta.com/blog/2021/02/microservices/[What are Microservices?]
 
 Please follow https://twitter.com/auth0[@auth0] and https://twitter.com/oktadev[@oktadev] on Twitter. We also have YouTube channels that you might enjoy at https://www.youtube.com/auth0[youtube.com/auth0] and https://www.youtube.com/oktadev[youtube.com/oktadev]. If you have any questions, please leave a comment below!
