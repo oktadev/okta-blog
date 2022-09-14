@@ -84,6 +84,10 @@ Disable the cloud configuration for the first run. Edit `application.properties`
 spring.cloud.config.enabled=false
 ```
 
+### OIDC authentication; Okta credentials
+
+In a command line session, go to the `vault-demo-app` root folder.
+
 {% include setup/cli.md type="web" framework="Okta Spring Boot Starter" %}
 
 Instead of storing Okta credentials in `application.properties`, Spring Boot allows you to bind properties from environment variables. You can see this in action by starting your application with the Maven command below:
@@ -525,6 +529,6 @@ We have several related posts about encryption and storing secrets on this blog.
 * [How to Secure Your Kubernetes Clusters With Best Practices](/blog/2021/12/02/k8s-security-best-practices)
 
 
-You can find the code for this tutorial at [GitHub](https://github.com/oktadeveloper/okta-spring-vault-example).
+You can find the code for this tutorial at [GitHub](https://github.com/indiepopart/spring-vault-2.7.3).
 
 For more tutorials like this one, follow [@oktadev](https://twitter.com/oktadev) on Twitter. We also have a [YouTube channel](https://youtube.com/c/oktadev) you might like. If you have any questions, please leave a comment below!
