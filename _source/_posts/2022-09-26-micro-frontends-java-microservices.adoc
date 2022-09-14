@@ -61,13 +61,13 @@ toc::[]
 
 JHipster is an application generator that creates a Spring Boot backend. You can configure it to use SQL or NoSQL databases, plain ol' Spring MVC, or reactive with WebFlux. It also generates a UI for your REST API and offers you the choice of Angular, React, or Vue. Last year, I showed you how to build link:/blog/2021/01/20/reactive-java-microservices[reactive Java microservices with Spring Boot and JHipster]. In this tutorial, you build a gateway with Spring Cloud Gateway. Then, you create a blog microservice and a store microservice, each with their own database.
 
-[.red]#todo: architecture diagram#
+image::{% asset_path 'blog/micro-frontends-java/jhipster-microservices.png' %}[alt=JHipster microservices architecture,width=800,align=center]
 
 This microservices architecture had one major flaw: the UI for it is a monolith, with all its files on the gateway. This isn't good from a loose-coupling point of view because changes in a microservice might require changes in the UI. Instead of being able to independently deploy the microservice, you have to deploy the gateway too.
 
 Today, I'm proud to show you how to you can solve this problem with micro frontends. JHipster recently added support for micro-frontends. Microfrontends provide a way for you to remotely load and execute code at runtime so your microservice's UI can live in the same artifact, without being coupled to the gateway!
 
-[.red]#todo: microfrontends diagram#
+image::{% asset_path 'blog/micro-frontends-java/jhipster-microfrontends.png' %}[alt=JHipster microfrontends architecture,width=800,align=center]
 
 You might notice I spelled micro frontends three different ways in the previous paragraph. The current literature is all over the place on this one!
 
@@ -79,8 +79,6 @@ You might notice I spelled micro frontends three different ways in the previous 
 I'm going to use "micro frontends" for the remainder of this post since that's what https://twitter.com/thecamjackson[Cam Jackson] used in his https://martinfowler.com/articles/micro-frontends.html[Micro Frontends article] on Martin Fowler's blog.
 
 == A quick introduction to Module Federation
-
-// todo: include a diagram like https://martinfowler.com/articles/micro-frontends/deployment.png
 
 Webpack's https://webpack.js.org/concepts/module-federation/[Module Federation] is one of the best known implementations for micro frontends. Its https://webpack.js.org/plugins/module-federation-plugin[`ModuleFederationPlugin`] allows a build to provide or consume modules with other independent builds at runtime. It even allows you to share libraries between frontends to reduce the size of remote bundles.
 
@@ -112,6 +110,8 @@ I copied this file to `reactive-mf.jdl` and changed a few things for this tutori
 . Added a deployment section for Kubernetes.
 
 ^1^ We'll default to Consul in JHipster v8.
+
+CAUTION: JHipster's JDL allows you to specify different client frameworks, but micro frontends will only work if specify the same one for all your apps.
 
 Run the following command to create a new directory for your micro frontends project:
 
