@@ -111,7 +111,7 @@ I copied this file to `reactive-mf.jdl` and changed a few things for this tutori
 
 ^1^ We'll default to Consul in JHipster v8.
 
-CAUTION: JHipster's JDL allows you to specify different client frameworks, but micro frontends will only work if specify the same one for all your apps.
+CAUTION: JHipster's JDL allows you to specify different client frameworks, but micro frontends will only work if you specify the same one for all your apps.
 
 Run the following command to create a new directory for your micro frontends project:
 
