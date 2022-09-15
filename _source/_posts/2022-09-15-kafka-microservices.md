@@ -210,7 +210,7 @@ Edit `docker-compose/docker-compose.yml` and update the `SPRING_SECURITY_*` sett
 - SPRING_SECURITY_OAUTH2_CLIENT_REGISTRATION_OIDC_CLIENT_SECRET=${OIDC_CLIENT_SECRET}
 ```
 
-### Use Spring Cloud Config to override OpenID Connect settings
+### Use Spring Cloud Config to override OIDC settings
 
 An alternative to setting environment variables for each application in `docker-compose.yml` is to use Spring Cloud Config. JHipster Registry includes Spring Cloud Config, so it's pretty easy to do.
 
@@ -444,7 +444,7 @@ logging:
     com.okta.developer.store: DEBUG
 ```
 
-### Add Email Service to Alert Microservice
+### Add an `EmailService` to the alert microservice
 
 Now let's customize the `alert` microservice. First, add the consumer declaration `KafkaStoreAlertConsumer` to the config:
 
