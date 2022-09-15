@@ -573,7 +573,7 @@ alert:
   distribution-list: {distributionListAddress}
 ```
 
-**NOTE:** You'll need to set a value for the email (e.g., `list@email.com` will work) in `src/test/.../application.yml` for tests to pass. For Docker, you'll override the `{distributionListAddress}` and `{username}` + `{password}` placeholder values with environment variables below.
+**NOTE:** You'll need to set a value for the email (e.g. `list@email.com` will work) in `src/test/.../application.yml` for tests to pass. For Docker, you'll override the `{distributionListAddress}` and `{username}` + `{password}` placeholder values with environment variables below.
 
 Update `spring.mail.*` properties in `application-prod.yml` to set Gmail as the email service:
 
