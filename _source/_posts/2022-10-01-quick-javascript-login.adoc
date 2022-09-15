@@ -118,7 +118,7 @@ There's a wealth of popular frameworks currently supported by OktaDev Schematics
 - https://github.com/oktadev/schematics#angular[Angular]
 - https://github.com/oktadev/schematics#react[React]
 - https://github.com/oktadev/schematics#vue[Vue]
-- https://github.com/oktadev/schematics#ionic[Ionic]
+- https://github.com/oktadev/schematics#ionic[Ionic with Angular]
 - https://github.com/oktadev/schematics#react-native[React Native]
 - https://github.com/oktadev/schematics#express[Express]
 
