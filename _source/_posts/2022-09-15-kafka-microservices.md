@@ -19,7 +19,7 @@ One of the traditional approaches for communicating between [microservices](http
 
 To overcome this design disadvantage, new architectures aim to decouple senders from receivers, with asynchronous messaging. In a Kafka-centric architecture, low latency is preserved, with additional advantages like message balancing among available consumers and centralized management.
 
-When dealing with a brownfield platform (legacy), a recommended way to de-couple a monolith and ready it for a move to microservices is to implement asynchronous messaging.
+When dealing with a brownfield platform (legacy), a recommended way to decouple a monolith and ready it for a move to microservices is to implement asynchronous messaging.
 
 In this tutorial you will learn how to:
 
@@ -39,19 +39,19 @@ In this tutorial you will learn how to:
 
 Traditional messaging models are queue and publish-subscribe. In a queue, each record goes to one consumer. In publish-subscribe, the record is received by all consumers.
 
-The **Consumer Group** in Kafka is an abstraction that combines both models. Record processing can be load balanced among the members of a consumer group and Kafka allows to broadcast messages to multiple consumer groups. It is the same publish-subscribe semantic where the subscriber is a cluster of consumers instead of a single process.
+The **Consumer Group** in Kafka is an abstraction that combines both models. Record processing can be load balanced among the members of a consumer group and Kafka allows you to broadcast messages to multiple consumer groups. It is the same publish-subscribe semantic where the subscriber is a cluster of consumers instead of a single process.
 
 Popular use cases of Kafka include:
-- The traditional messaging, to decouple data producers from processors with better latency and scalability.
-- Site activity tracking with real-time publish-subscribe feeds
-- As a replacement for file-based log aggregation, where event data becomes a stream of messages
-- Data Pipelines where data consumed from topics is transformed and fed to new topics
-- As an external commit log for a distributed system
-- As a backend log storage for event sourcing applications, where each state change is logged in time order.
+- Traditional messaging, to decouple data producers from processors with better latency and scalability.
+- Site activity tracking with real-time publish-subscribe feeds.
+- As a replacement for file-based log aggregation, where event data becomes a stream of messages.
+- Data pipelines where data consumed from topics is transformed and fed to new topics.
+- As an external commit log for a distributed system.
+- As backend log storage for event sourcing applications, where each state change is logged in time order.
 
-## Microservices Communication With Kafka
+## Microservices communication with Kafka
 
-Let's build a microservices architecture with JHipster and Kafka support. In this tutorial, you'll create a `store` and an `alert` microservices. The store microservices will create and update store records. The `alert` microservice will receive update events from `store` and send an email alert.
+Let's build a microservices architecture with JHipster and Kafka support. In this tutorial, you'll create `store` and `alert` microservices. The store microservices will create and update store records. The `alert` microservice will receive update events from `store` and send an email alert.
 
 > **Prerequisites:**
 > - [Java 11+](https://adoptopenjdk.net/)
@@ -155,7 +155,7 @@ Now, in your `jhipster-kafka` folder, import this file with the following comman
 jhipster jdl apps.jdl
 ```
 
-## Configure Microservices Deployment with Docker Compose
+## Configure microservices deployment with Docker Compose
 
 In the project folder, create a sub-folder for Docker Compose and run JHipster's `docker-compose` sub-generator.
 
@@ -188,7 +188,7 @@ To generate the missing Docker image(s), please run:
 
 You will generate the images later, but first, let's add some security and Kafka integration to your microservices.
 
-## Add OpenID Connect (OIDC) Authentication
+## Add OpenID Connect (OIDC) authentication
 
 This microservices architecture is set up to authenticate against Keycloak. Let's update the settings to use Okta as the authentication provider.
 
@@ -210,7 +210,7 @@ Edit `docker-compose/docker-compose.yml` and update the `SPRING_SECURITY_*` sett
 - SPRING_SECURITY_OAUTH2_CLIENT_REGISTRATION_OIDC_CLIENT_SECRET=${OIDC_CLIENT_SECRET}
 ```
 
-### Use Spring Cloud Config to Override OpenID Connect Settings
+### Use Spring Cloud Config to override OpenID Connect settings
 
 An alternative to setting environment variables for each application in `docker-compose.yml` is to use Spring Cloud Config. JHipster Registry includes Spring Cloud Config, so it's pretty easy to do.
 
@@ -232,7 +232,7 @@ spring:
 
 The registry, gateway, store, and alert applications are all configured to read this configuration on startup.
 
-## Communicate Between Store and Alert Microservices
+## Communicate between store and alert microservices
 
 The JHipster generator adds a `spring-cloud-starter-stream-kafka` dependency to applications that declare `messageBroker kafka` (in JDL), enabling the Spring Cloud Stream [programming model](https://docs.spring.io/spring-cloud-stream/docs/current/reference/html/spring-cloud-stream.html#_main_concepts) with the [Apache Kafka binder](https://docs.spring.io/spring-cloud-stream/docs/current/reference/html/spring-cloud-stream-binder-kafka.html#_usage_examples) for using Kafka as the messaging middleware.
 
@@ -417,7 +417,7 @@ public class StoreResource {
 }
 ```
 
-### Enable Debug Logging in Production
+### Enable debug logging in production
 
 Since you are going to deploy the `prod` profile, let's enable logging in production. Modify the `store/src/main/java/com/okta/.../config/LoggingAspectConfiguration.java` class:
 
@@ -591,9 +591,9 @@ spring:
       starttls.enable: true
 ```
 
-### Add a Kafka Consumer to Persist Alert and Send Email
+### Add a Kafka consumer to persist alert and send email
 
-Create an `AlertConsumer` service to persist a `StoreAlert` and send the email notification when receiving an alert message through Kafka. Add `KafkaProperties`, `StoreAlertRepository` and `EmailService` as constructor arguments. Then add a `start()` method to initialize the consumer and enter the processing loop.
+Create an `AlertConsumer` service to persist a `StoreAlert` and send the email notification when receiving an alert message through Kafka. Add `KafkaProperties`, `StoreAlertRepository`, and `EmailService` as constructor arguments. Then add a `start()` method to initialize the consumer and enter the processing loop.
 
 ```java
 package com.okta.developer.alert.service;
@@ -646,7 +646,7 @@ public class AlertConsumer {
 
 As a last customization step, update the logging configuration the same way you did for the `store` microservice.
 
-## Microservices + Kafka Container Deployment
+## Microservices + Kafka container deployment
 
 Modify `docker-compose/docker-compose.yml` and add the following environment variables for the `alert` application:
 
@@ -716,7 +716,7 @@ Once everything is up, go to the gateway at `http://localhost:8081` and log in. 
 2022-09-05 18:08:31.546  INFO 1 --- [container-0-C-1] c.o.d.alert.service.AlertConsumer        : Got message from kafka stream: Candle Shop CLOSED
 ```
 
-If you see a `MailAuthenticationException` in the `alert` microservices log, when attempting to send the notification, it might be your Gmail security configuration.
+If you see a `MailAuthenticationException` in the `alert` microservices log when attempting to send the notification, it might be your Gmail security configuration.
 
 ```text
 alert-app_1           | org.springframework.mail.MailAuthenticationException: Authentication failed; nested exception is javax.mail.AuthenticationFailedException: 535-5.7.8 Username and Password not accepted. Learn more at
@@ -725,7 +725,7 @@ alert-app_1           |
 alert-app_1           | 	at org.springframework.mail.javamail.JavaMailSenderImpl.doSend(JavaMailSenderImpl.java:440)
 ```
 
-To enable the login from the `alert` application, go to [https://myaccount.google.com](https://myaccount.google.com/) and then choose the **Security** tab. Turn on 2-Step Verification for your account. In the section _Signing in to Google_, choose **App passwords** and create a new [app password](https://support.google.com/accounts/answer/185833). In _Select app_ drop down set **Other (Custom name)** and type the name for this password. Click **Generate** and copy the password. Update `docker-compose/.env` and set the app password for gmail authentication.
+To enable the login from the `alert` application, go to [https://myaccount.google.com](https://myaccount.google.com/) and then choose the **Security** tab. Turn on 2-Step Verification for your account. In the section _Signing in to Google_, choose **App passwords** and create a new [app password](https://support.google.com/accounts/answer/185833). In the _Select app_ dropdown set **Other (Custom name)** and type the name for this password. Click **Generate** and copy the password. Update `docker-compose/.env` and set the app password for Gmail authentication.
 
 ```bash
 MAIL_PASSWORD={yourAppPassword}
@@ -738,7 +738,7 @@ Update a store again and you should receive an email with the store's status thi
 
 In this tutorial, authentication (of producers and consumers), authorization (of read/write operations), and encryption (of data) were not covered, as security in Kafka is optional. See [Kafka's documentation on security](https://kafka.apache.org/documentation/#security) to learn how to enable these features.
 
-## Learn More About Kafka and Microservices
+## Learn more about Kafka and microservices
 
 This tutorial showed how a Kafka-centric architecture allows decoupling microservices to simplify the design and development of distributed systems. To continue learning about these topics check out the following links:
 
