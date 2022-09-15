@@ -72,7 +72,7 @@ This command will prompt you for an issuer and client ID, and then OktaDev Schem
 auth0 apps create
 ----
 
-In the latest release, I've made it so that adding an `--auth0` flag will configure Auth0 instead of Okta.
+In the latest release, I've made it so that adding an `--auth0` flag will set up your project to use Auth0 instead of Okta.
 
 // https://twitter.com/mraible/status/1566907778161049600
 ++++
