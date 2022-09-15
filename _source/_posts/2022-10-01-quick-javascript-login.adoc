@@ -44,7 +44,7 @@ I've learned a lot about OpenID Connect (OIDC) and Okta's SDKs over my Okta year
 
 I was pleasantly surprised by the experience because the configuration often boils down to two values: `domain` and `clientId`. And then, it just works! There's no need to worry about issuers, redirect URIs, or callback URLs.
 
-This is a strong departure from how we've done things in Okta's SDKs, where we expect people to know about OpenID Connect. And from a developer advocacy standpoint, we often try to educate developers about OAuth and OIDC. Since these topics are complex, they can be challenging to understand. I like the approach of just needing two values, and everything just works!
+This is a strong departure from how we've done things in Okta's SDKs, where we expect people to know about OpenID Connect. We often try to educate developers about OAuth and OIDC but since these topics are complex, they can be challenging to understand. I like the approach of just needing two values, and everything just works!
 
 toc::[]
 
