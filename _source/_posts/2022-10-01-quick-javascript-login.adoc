@@ -90,7 +90,7 @@ If you want to create a React app, you'll need to perform a few steps:
 
 1. Create your React app with Create React App:
 
-  npx create-react-app
+  npx create-react-app secure-app
 +
 TIP: Add `--template typescript` if you want TypeScript support.
 
@@ -98,7 +98,7 @@ TIP: Add `--template typescript` if you want TypeScript support.
 
   npm i -g @angular-devkit/schematics-cli
 
-3. Install OktaDev Schematics and run the `add-auth` schematic:
+3. In the `secure-app` project, install OktaDev Schematics and run the `add-auth` schematic:
 
   npm i -D @oktadev/schematics
   schematics @oktadev/schematics:add-auth
