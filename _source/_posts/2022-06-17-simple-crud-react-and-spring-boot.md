@@ -806,6 +806,7 @@ Modify your `src/main/resources/application.properties` to include your Auth0 is
 spring.security.oauth2.client.provider.auth0.issuer-uri: https://<your-okta-domain>/
 spring.security.oauth2.client.registration.auth0.client-id: <your-client-id>
 spring.security.oauth2.client.registration.auth0.client-secret: <your-client-secret>
+spring.security.oauth2.client.registration.auth0.scope=openid,profile,email
 ```
 
 Of course, you can also use your [Auth0 dashboard](https://manage.auth0.com) to configure your application. Just make sure to use the same URLs specified above. 
@@ -823,25 +824,26 @@ And update its `logout()` method to work with Auth0:
 ```java
 @PostMapping("/api/logout")
 public ResponseEntity<?> logout(HttpServletRequest request) {
-
+    // send logout URL to client so they can initiate logout
     StringBuilder logoutUrl = new StringBuilder();
     String issuerUri = this.registration.getProviderDetails().getIssuerUri();
     logoutUrl.append(issuerUri.endsWith("/") ? issuerUri + "v2/logout" : issuerUri + "/v2/logout");
+    logoutUrl.append("?client_id=").append(this.registration.getClientId());
 
-    String originUrl = request.getHeader(HttpHeaders.ORIGIN);
-    logoutUrl.append("?client_id=").append(this.registration.getClientId()).append("&returnTo=").append(originUrl);
-
-    request.getSession().invalidate();
-    return ResponseEntity.ok().body(Map.of("logoutUrl", logoutUrl.toString()));
+    Map<String, String> logoutDetails = new HashMap<>();
+    logoutDetails.put("logoutUrl", logoutUrl.toString());
+    request.getSession(false).invalidate();
+    return ResponseEntity.ok().body(logoutDetails);
 }
 ```
 
-**This results in an error after login:**
+You'll also need to update `Home.js` in the React project to use different parameters for the logout redirect:
 
+```js
+window.location.href = `${response.logoutUrl}&returnTo=${window.location.origin}`;
 ```
-java.lang.IllegalArgumentException: Missing attribute 'sub' in attributes
-	at org.springframework.security.oauth2.core.user.DefaultOAuth2User.<init>(DefaultOAuth2User.java:72) ~[spring-security-oauth2-core-5.7.1.jar:5.7.1]
-```
+
+You can see all the differences between Okta and Auth0 by [comparing their branches on GitHub](https://github.com/oktadev/okta-spring-boot-react-crud-example/compare/auth0).
 
 ## Configure Spring Security for React and user identity
 
