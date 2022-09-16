@@ -13,7 +13,7 @@ image: blog/featured/okta-react-bottle-headphones.jpg
 type: conversion
 github: https://github.com/oktadev/okta-spring-boot-react-crud-example
 changelog:
-- 2022-09-16: Updated to Spring Boot 2.7.3, React 18.0.2, and added a section for Auth0. You can find the changes to this article in [okta-blog#1271](https://github.com/oktadev/okta-blog/pull/1271). Example app changes can be viewed in [the `auth0` branch](https://github.com/oktadev/okta-spring-boot-react-crud-example/compare/auth0).
+- 2022-09-16: Updated to Spring Boot 2.7.3, React 18.0.2, and added a section for Auth0. You can find the changes to this article in [okta-blog#1271](https://github.com/oktadev/okta-blog/pull/1271). What's required to switch to Auth0 can be viewed in [the `auth0` branch](https://github.com/oktadev/okta-spring-boot-react-crud-example/compare/auth0).
 ---
 
 React was designed to make it painless to create interactive UIs. Its state management is efficient and only updates components when your data changes. Component logic is written in JavaScript, meaning you can keep state out of the DOM and create encapsulated components.
@@ -22,7 +22,7 @@ Developers like CRUD (create, read, update, and delete) apps because they show a
 
 Today, I'll show you how to create a basic CRUD app with Spring Boot and React. In this tutorial, I'll use the OAuth 2.0 Authorization Code flow and package the React app in the Spring Boot app for production. At the same time, I'll show you how to keep React's productive workflow for developing locally.
 
-You will need [Java 11](http://sdkman.io) and [Node 16](https://nodejs.org/) installed to complete this tutorial.
+You will need [Java 17](http://sdkman.io) and [Node 16](https://nodejs.org/) installed to complete this tutorial.
 
 {% include toc.md %}
 
