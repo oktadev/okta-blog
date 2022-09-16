@@ -12,6 +12,8 @@ tweets:
 image: blog/featured/okta-react-bottle-headphones.jpg
 type: conversion
 github: https://github.com/oktadev/okta-spring-boot-react-crud-example
+changelog:
+- 2022-09-16: Updated to include steps for using Auth0. You can find the changes to this article in [](). Example app changes can be viewed in []().
 ---
 
 React was designed to make it painless to create interactive UIs. Its state management is efficient and only updates components when your data changes. Component logic is written in JavaScript, meaning you can keep state out of the DOM and create encapsulated components.
@@ -784,6 +786,36 @@ This dependency is a thin wrapper around Spring Security's OAuth and encapsulate
 {% include setup/cli.md type="web" framework="Okta Spring Boot Starter" signup="false"
    loginRedirectUri="http://localhost:8080/login/oauth2/code/okta"
    logoutRedirectUri="http://localhost:3000,http://localhost:8080" %}
+
+### Create an OIDC app in Auth0
+
+If you'd rather use Auth0, that's possible too!
+
+First, you'll need to use the Spring Security dependencies as mentioned above. The Okta Spring Boot starter [currently doesn't work with Auth0](https://github.com/okta/okta-spring-boot/issues/358).
+
+Then, install the [Auth0 CLI](https://github.com/auth0/auth0-cli) and run `auth0 login` in a terminal.
+
+Next, run `auth0 apps create`, provide a memorable name, and select **Regular Web Application**. Specify `http://localhost:8080/login/oauth2/code/auth0` for the Callback URLs and `http://localhost:3000,http://localhost:8080` for the Allowed Logout URLs. 
+
+Modify your `src/main/resources/application.properties` to include your Auth0 issuer, client ID and client secret. You will have run `auth0 apps open` and select the app you created to copy your client secret. 
+
+// todo: enter an issue in the Auth0 CLI to display the client secret
+
+```properties
+# make sure to include the trailing slash for the Auth0 issuer
+spring.security.oauth2.client.provider.auth0.issuer-uri: https://<your-okta-domain>/
+spring.security.oauth2.client.registration.auth0.client-id: <your-client-id>
+spring.security.oauth2.client.registration.auth0.client-secret: <your-client-secret>
+```
+
+Of course, you can also use your [Auth0 dashboard](https://manage.auth0.com) to configure your application. Just make sure to use the same URLs specified above. 
+
+**This results in an error:**
+
+```
+java.lang.IllegalArgumentException: Missing attribute 'sub' in attributes
+	at org.springframework.security.oauth2.core.user.DefaultOAuth2User.<init>(DefaultOAuth2User.java:72) ~[spring-security-oauth2-core-5.7.1.jar:5.7.1]
+```
 
 ## Configure Spring Security for React and user identity
 
