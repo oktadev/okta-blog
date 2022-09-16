@@ -810,7 +810,33 @@ spring.security.oauth2.client.registration.auth0.client-secret: <your-client-sec
 
 Of course, you can also use your [Auth0 dashboard](https://manage.auth0.com) to configure your application. Just make sure to use the same URLs specified above. 
 
-**This results in an error:**
+Update `UserController.java` to use `auth0` in its constructor:
+
+```java
+public UserController(ClientRegistrationRepository registrations) {
+    this.registration = registrations.findByRegistrationId("auth0");
+}
+```
+
+And update its `logout()` method to work with Auth0:
+
+```java
+@PostMapping("/api/logout")
+public ResponseEntity<?> logout(HttpServletRequest request) {
+
+    StringBuilder logoutUrl = new StringBuilder();
+    String issuerUri = this.registration.getProviderDetails().getIssuerUri();
+    logoutUrl.append(issuerUri.endsWith("/") ? issuerUri + "v2/logout" : issuerUri + "/v2/logout");
+
+    String originUrl = request.getHeader(HttpHeaders.ORIGIN);
+    logoutUrl.append("?client_id=").append(this.registration.getClientId()).append("&returnTo=").append(originUrl);
+
+    request.getSession().invalidate();
+    return ResponseEntity.ok().body(Map.of("logoutUrl", logoutUrl.toString()));
+}
+```
+
+**This results in an error after login:**
 
 ```
 java.lang.IllegalArgumentException: Missing attribute 'sub' in attributes
