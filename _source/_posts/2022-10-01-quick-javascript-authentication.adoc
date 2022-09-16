@@ -50,15 +50,18 @@ toc::[]
 
 == What is OktaDev Schematics?
 
-https://github.com/oktadev/schematics[OktaDev Schematics] is a tool I developed to help streamline integrating OIDC authentication into JavaScript (or TypeScript) applications. In my first few years at Okta, I'd demo how to use our Angular SDK at conferences, and I'd inevitably miss a step, causing the demo to fail.
+https://github.com/oktadev/schematics[OktaDev Schematics] is a tool I developed to help streamline the integration of OpenID Connect into JavaScript (or TypeScript) applications.
 
-A failing demo is frustrating, so I created OktaDev Schematics to fix it. My idea was simple:
+In my first few years at Okta, I'd demo how to use our Angular SDK at conferences, and I'd inevitably miss a step, causing the demo to fail. A failing demo is frustrating, so I created OktaDev Schematics to fix it.
+
+My idea was simple:
+
 
 1. Create an app using the framework's CLI
 2. Integrate OIDC authentication using templates
 3. Add a unit test to prove nothing breaks
 
-The project builds on https://angular.io/guide/schematics[Angular Schematics], so it's incredibly easy to use in Angular projects.
+The project builds on https://angular.io/guide/schematics[Angular Schematics], so it's incredibly easy to use, particularly in Angular projects, but applies to other frameworks as well.
 
 [source,shell]
 ----
