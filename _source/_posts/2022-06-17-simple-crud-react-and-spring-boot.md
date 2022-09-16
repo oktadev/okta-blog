@@ -13,7 +13,7 @@ image: blog/featured/okta-react-bottle-headphones.jpg
 type: conversion
 github: https://github.com/oktadev/okta-spring-boot-react-crud-example
 changelog:
-- 2022-09-16: Updated to include steps for using Auth0. You can find the changes to this article in [okta-blog#1271](https://github.com/oktadev/okta-blog/pull/1271). Example app changes can be viewed in [the `auth0` branch](https://github.com/oktadev/okta-spring-boot-react-crud-example/compare/auth0).
+- 2022-09-16: Updated to Spring Boot 2.7.3, React 18.0.2, and added a section for Auth0. You can find the changes to this article in [okta-blog#1271](https://github.com/oktadev/okta-blog/pull/1271). Example app changes can be viewed in [the `auth0` branch](https://github.com/oktadev/okta-spring-boot-react-crud-example/compare/auth0).
 ---
 
 React was designed to make it painless to create interactive UIs. Its state management is efficient and only updates components when your data changes. Component logic is written in JavaScript, meaning you can keep state out of the DOM and create encapsulated components.
@@ -208,7 +208,7 @@ class Initializer implements CommandLineRunner {
 
 If you start your app (using `./mvnw spring-boot:run`) ...
 
-... it will fail because Spring Boot 2.7.0 forces H2 v2.0. The H2 2.0 ecosystem doesn't seem like it's quite ready for prime time, so I recommend you downgrade to H2 version `1.4.200` in your `pom.xml`.
+... it will fail because Spring Boot 2.7 forces H2 v2.0. The H2 2.0 ecosystem doesn't seem like it's quite ready for prime time, so I recommend you downgrade to H2 version `1.4.200` in your `pom.xml`.
 
 ```xml
 <dependency>
@@ -787,11 +787,9 @@ This dependency is a thin wrapper around Spring Security's OAuth and encapsulate
    loginRedirectUri="http://localhost:8080/login/oauth2/code/okta"
    logoutRedirectUri="http://localhost:3000,http://localhost:8080" %}
 
-### Create an OIDC app in Auth0
+### Use Auth0 for OIDC
 
-If you'd rather use Auth0, that's possible too!
-
-First, you'll need to use the Spring Security dependencies as mentioned above. The Okta Spring Boot starter [currently doesn't work with Auth0](https://github.com/okta/okta-spring-boot/issues/358).
+If you'd rather use Auth0, that's possible too! First, you'll need to use the Spring Security dependencies as mentioned above. The Okta Spring Boot starter [currently doesn't work with Auth0](https://github.com/okta/okta-spring-boot/issues/358).
 
 Then, install the [Auth0 CLI](https://github.com/auth0/auth0-cli) and run `auth0 login` in a terminal.
 
@@ -1286,8 +1284,8 @@ To build and package your React app with Maven, you can use the [frontend-maven-
 <properties>
     ...
     <frontend-maven-plugin.version>1.12.1</frontend-maven-plugin.version>
-    <node.version>v16.15.1</node.version>
-    <npm.version>v8.6.0</npm.version>
+    <node.version>v16.17.0</node.version>
+    <npm.version>v8.19.1</npm.version>
 </properties>
 
 <profiles>
