@@ -797,8 +797,6 @@ Next, run `auth0 apps create`, provide a memorable name, and select **Regular We
 
 Modify your `src/main/resources/application.properties` to include your Auth0 issuer, client ID, and client secret. You will have run `auth0 apps open` and select the app you created to copy your client secret. 
 
-// todo: enter an issue in the Auth0 CLI to display the client secret
-
 ```properties
 # make sure to include the trailing slash for the Auth0 issuer
 spring.security.oauth2.client.provider.auth0.issuer-uri: https://<your-okta-domain>/
