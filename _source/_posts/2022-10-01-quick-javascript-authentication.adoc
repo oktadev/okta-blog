@@ -84,15 +84,19 @@ If you're using Angular or Ionic with Angular, you can create an app and then ad
 - Angular: `ng new` and `ng add @oktadev/schematics --auth0`
 - Ionic: `ionic start` and `ng add @oktadev/schematics --auth0`
 
+My https://auth0.com/blog/add-oidc-to-angular-apps-quickly/[Add OpenID Connect to Angular Apps Quickly] tutorial explains what this command does and shows screenshots of the changes. You can even https://github.com/oktadev/auth0-angular-example/pull/1/files[view the changes it makes on GitHub].
+
 The tool is smart enough to detect the framework you're using and if you're using TypeScript or JavaScript.
 
-If you want to create a React app, you'll need to perform a few steps:
+If you want to create a React or Vue app, you'll need to perform a few steps:
 
 1. Create your React app with Create React App:
 
   npx create-react-app secure-app
 +
 TIP: Add `--template typescript` if you want TypeScript support.
++
+For Vue, use `npx @vue/cli create secure-app`.
 
 2. Install the Schematics CLI globally:
 
@@ -104,8 +108,6 @@ TIP: Add `--template typescript` if you want TypeScript support.
   schematics @oktadev/schematics:add-auth
 
 As you can guess, the integration is pretty bare-bones. It configures the SDK and adds a login/logout button. I believe this is in line with the apps each CLI generates. They're pretty bare-bones too!
-
-If you'd like to see how to add user information to an Angular app, please read my https://auth0.com/blog/add-oidc-to-angular-apps-quickly/[Add OpenID Connect to Angular Apps Quickly] tutorial.
 
 If you'd like to see how the templates differ between Okta and Auth0, you can https://github.com/oktadev/schematics/tree/main/src/add-auth[view the templates on GitHub]. If you have a GitHub account, you can also https://github.dev/oktadev/schematics[launch github.dev/oktadev/schematics] and navigate to `src/add-auth/{auth0,okta}`.
 
