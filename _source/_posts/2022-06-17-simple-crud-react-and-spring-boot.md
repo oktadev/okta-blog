@@ -793,7 +793,7 @@ If you'd rather use Auth0, that's possible too! First, you'll need to use the Sp
 
 Then, install the [Auth0 CLI](https://github.com/auth0/auth0-cli) and run `auth0 login` in a terminal.
 
-Next, run `auth0 apps create`, provide a memorable name, and select **Regular Web Application**. Specify `http://localhost:8080/login/oauth2/code/auth0` for the Callback URLs and `http://localhost:3000,http://localhost:8080` for the Allowed Logout URLs. 
+Next, run `auth0 apps create`, provide a memorable name, and select **Regular Web Application**. Specify `http://localhost:8080/login/oauth2/code/auth0` for the **Callback URLs** and `http://localhost:3000,http://localhost:8080` for the **Allowed Logout URLs**. 
 
 Modify your `src/main/resources/application.properties` to include your Auth0 issuer, client ID, and client secret. You will have to run `auth0 apps open` and select the app you created to copy your client secret. 
 
