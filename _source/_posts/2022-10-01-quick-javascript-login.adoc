@@ -1,6 +1,6 @@
 ---
 layout: blog_post
-title: "Quick JavaScript Login with Schematics"
+title: "Quick JavaScript Authentication with OktaDev Schematics"
 author: matt-raible
 by: advocate
 communities: [javascript]
@@ -38,11 +38,11 @@ type: conversion
 
 Hello,
 
-My name is Matt Raible, and I am a developer advocate at Okta. I've worked here for over five years; before that, I was an independent consultant for 20 years, mainly doing Java and web development for clients.
+My name is Matt Raible, and I am a developer advocate at Okta. In early 2019, I created OktaDev Schematics to simplify my life when doing Angular demos. But let me step back a bit first. I've worked at Okta for over five years; before that, I was an independent consultant for 20 years, mainly doing Java and web development for clients.
 
-I've learned a lot about OpenID Connect (OIDC) and Okta's SDKs over my Okta years and only recently tried to use Auth0's. Over the last couple of weeks, I integrated many Auth0 SDKs into OktaDev Schematics.
+I've learned a lot about OpenID Connect (OIDC) and Okta's JavaScript SDKs over my years and only recently tried to use Auth0's JavaScript SDKs. Over the last couple of weeks, I learned how to use them and integrated many into OktaDev Schematics.
 
-I was pleasantly surprised by the experience because the configuration often boils down to two values: `domain` and `clientId`. And then, it just works! There's no need to worry about issuers, redirect URIs, or callback URLs.
+I was pleasantly surprised by the experience because the configuration often boils down to two main values: `domain` and `clientId`. You do have to add callback URLs too, but these are often the same as your app's homepage, so you don't need to add routes in your application. And then, it just works! There's no need to worry about issuers or other OIDC concepts.
 
 This is a strong departure from how we've done things in Okta's SDKs, where we expect people to know about OpenID Connect. We often try to educate developers about OAuth and OIDC but since these topics are complex, they can be challenging to understand. I like the approach of just needing two values, and everything just works!
 
