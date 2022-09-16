@@ -56,7 +56,6 @@ In my first few years at Okta, I'd demo how to use our Angular SDK at conference
 
 My idea was simple:
 
-
 1. Create an app using the framework's CLI
 2. Integrate OIDC authentication using templates
 3. Add a unit test to prove nothing breaks
@@ -74,6 +73,8 @@ This command will prompt you for an issuer and client ID, and then OktaDev Schem
 ----
 auth0 apps create
 ----
+
+TIP: You can also create a SPA app using https:///manage.auth0.com[the Auth0 dashboard] if you prefer GUIs over CLIs.
 
 In the latest release, I've made it so that adding an `--auth0` flag will set up your project to use Auth0 instead of Okta.
 
@@ -138,10 +139,11 @@ The support for Ionic currently only includes Angular. However, Ionic does suppo
 
 == The Beauty of Continuous Integration
 
-As part of creating this library, I wrote many tests, including integration tests that:
-Create an app with a CLI
-Integrate Okta/Auth0 SDKs
-Run tests to ensure nothing breaks
+To avoid situations where a framework integration would fail in public, like the story I told before, I made sure the library is well tested, limiting the scope of the tests not only to the library code, but also to cover the workflow and generated code bases, e.g.:
+
+- Create an app with a CLI
+- Integrate Okta/Auth0 SDKs
+- Validate the integration to make sure nothing breaks
 
 These commands are all encapsulated in a https://github.com/oktadev/schematics/blob/main/test-app.sh[`test-app.sh` script] I wrote. It's kinda ugly and can probably be improved, but it works pretty well for now.
 
@@ -158,7 +160,7 @@ This is done on purpose, so these templates are continuously tested against the 
 
 == Learn more about Authentication in JavaScript
 
-Creating and maintaining OktaDev Schematics has greatly benefited me and my knowledge of Okta and Auth0's SDKs. I sometimes find issues with new major releases of frameworks and our SDKs. Since the CLIs always use the latest versions, I often find problems before anyone else. Ahhh, the beauty of testing automation! 😃
+When framework or libraries introduce changes, sometimes things break. But now, thanks to automated tests, I often find problems as soon as new versions are released. Cheers to continuous integration! 😃
 
 If you liked learning about schematics, you might enjoy these other posts I wrote.
 
