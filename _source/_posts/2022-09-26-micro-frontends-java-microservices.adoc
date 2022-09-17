@@ -4,7 +4,7 @@ title: Micro Frontends for Java Microservices
 author: matt-raible
 by: advocate
 communities: [java,javascript]
-description: ""
+description: "This tutorial explains what micro frontends are and how they can be used with Java microservices."
 tweets:
   - ""
 tags: []
