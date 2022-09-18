@@ -18,9 +18,9 @@ type: awareness|conversion
 
 Jetty is a small, highly-scalable Java-based web server and servlet engine. It supports HTTP/2, WebSockets, and many other protocols. It powers websites and frameworks, both large and small, such as Google  AppEngine. Because it is an Eclipse project, its open source project is called Eclipse Jetty. it is standards-compliant and open source, as well as commercially usable. It is the main alternative to Tomcat when hosting Java applications. Like you can with Tomcat, you can use Jetty both embedded and stand-alone.
 
-By default, Spring Boot creates applications with embedded web servers, which means that the server is embedded within the application code itself, so you don’t have to run a separate web server to publish  Java web applications. However, with a little configuration, you can also publish a WAR file to a separate Jetty or Tomcat servlet container  (old-school application server style). Spring also uses Tomcat by default, but you can easily change this, as you’ll see.
+By default, Spring Boot creates applications with embedded web servers, which means that the server is embedded within the application code itself, so you don't have to run a separate web server to publish  Java web applications. However, with a little configuration, you can also publish a WAR file to a separate Jetty or Tomcat servlet container  (old-school application server style). Spring also uses Tomcat by default, but you can easily change this, as you'll see.
 
-In this tutorial, you will build a simple web service with Jetty embedded. After that, you will build the same web service in Spring Boot and Jetty. Finally, you’ll add JWT (JSON Web Token) authentication and authorization to the web service using method-level security with Okta as the OAuth/OIDC provider.
+In this tutorial, you will build a simple web service with Jetty embedded. After that, you will build the same web service in Spring Boot and Jetty. Finally, you'll add JWT (JSON Web Token) authentication and authorization to the web service using method-level security with Okta as the OAuth/OIDC provider.
 
 **Requirements**
 
@@ -30,7 +30,7 @@ Before you start, please make sure you have the following prerequisites installe
 - [Okta CLI](https://cli.okta.com/manual/#installation): the Okta command-line interface
 - [HTTPie](https://httpie.org/doc#installation): a simple tool for making HTTP requests from a Bash shell
 
-You will need a free Okta Developer account if you don’t already have one. But you can wait until later in the tutorial and use the Okta CLI  to log in or register for a new account.
+You will need a free Okta Developer account if you don't already have one. But you can wait until later in the tutorial and use the Okta CLI  to log in or register for a new account.
 
 Clone the tutorial from [the GitHub repository](need.a.link).
 
@@ -312,7 +312,7 @@ Pear Lake
 
 ```
 
-Now try to delete a hike that doesn’t exist, or send an empty value:
+Now try to delete a hike that doesn't exist, or send an empty value:
 
 ```bash
 http DELETE :8080/hikes
@@ -328,7 +328,7 @@ Param 'hike' cannot be null.
 
 That's how you can create a web service using Maven and Jetty. To deploy this, you would typically build the packaged WAR file using `mvn package` and deploy the WAR to your Jetty server. 
 
-> **NOTE:** this is a very naive implementation of a REST service. It uses an in-memory `ArrayList` as a data source, which is not synchronized (and thus would run into threading problems in a real web servlet). For anything beyond the scope of this tutorial, you’d need to implement a database backend of some kind. For help on how to do this, see the example blog posts listed at the end of the tutorial. You would typically also add a PUT endpoint and assign each item an ID to use as an index so data can be updated, but that is beyond the scope of this tutorial.
+> **NOTE:** this is a very naive implementation of a REST service. It uses an in-memory `ArrayList` as a data source, which is not synchronized (and thus would run into threading problems in a real web servlet). For anything beyond the scope of this tutorial, you'd need to implement a database backend of some kind. For help on how to do this, see the example blog posts listed at the end of the tutorial. You would typically also add a PUT endpoint and assign each item an ID to use as an index so data can be updated, but that is beyond the scope of this tutorial.
 
 ## Build a web service with Gradle and Jetty
 
@@ -591,7 +591,7 @@ This web service has the same features as the `@WebServlet` version: GET, POST, 
 
 ## Deploy the Spring Boot Project
 
-You now have a Spring Boot application that runs on an embedded Jetty container. To deploy it to a production server, build an executable jar file using `./mvnw package`, copy this jar file (found in the `target` directory) to the server, and run it using java -jar <your jar file name>.jar. There’s no need for a separate web server since this jar contains an embedded Jetty web server.
+You now have a Spring Boot application that runs on an embedded Jetty container. To deploy it to a production server, build an executable jar file using `./mvnw package`, copy this jar file (found in the `target` directory) to the server, and run it using java -jar <your jar file name>.jar. There's no need for a separate web server since this jar contains an embedded Jetty web server.
 
 For example, for this project. First, build the JAR.
 
@@ -605,7 +605,7 @@ Now run the JAR.
 java -jar target/SpringBootJetty-0.0.1-SNAPSHOT.jar
 ```
 
-> **NOTE:** For a more old-school deployment to an application server with multiple separate applications on the same server, you need to build a war file. [The Spring docs](https://docs.spring.io/spring-boot/docs/current/reference/html/howto-traditional-deployment.html) on how to do this are a great resource. Essentially you need to do two things: 1) add the `war` plugin to the project dependencies, and 2) change the Jetty or Tomcat dependency to `providedRuntime` so it’s not included in the packaged war. Then you build a war file and deploy it to the servlet web app path on the server.
+> **NOTE:** For a more old-school deployment to an application server with multiple separate applications on the same server, you need to build a war file. [The Spring docs](https://docs.spring.io/spring-boot/docs/current/reference/html/howto-traditional-deployment.html) on how to do this are a great resource. Essentially you need to do two things: 1) add the `war` plugin to the project dependencies, and 2) change the Jetty or Tomcat dependency to `providedRuntime` so it's not included in the packaged war. Then you build a war file and deploy it to the servlet web app path on the server.
 
 In the next section, you're going to use Spring Security and Okta to protect the POST and DELETE endpoints.
 
@@ -617,7 +617,7 @@ You need to run the following commands from the `spring-boot-jetty-maven` subdir
 
 {% include setup/cli.md type="web" framework="Okta Spring Boot Starter" loginRedirectUri="https://oidcdebugger.com/debug,http://localhost:8080/login/oauth2/code/okta" %}
 
-The Okta CLI will create an OIDC Web App in your Okta Org. It will add the redirect URIs you specified and grant access to the `Everyone` group. You will see output like the following when it’s finished:
+The Okta CLI will create an OIDC Web App in your Okta Org. It will add the redirect URIs you specified and grant access to the `Everyone` group. You will see output like the following when it's finished:
 
 ```
 Okta application configuration has been written to: 
@@ -814,7 +814,7 @@ TTP/1.1 200 OK
 }
 ```
 
-Copy the access token to your clipboard and store it in a shell variable in the shell window you’re using to make requests.
+Copy the access token to your clipboard and store it in a shell variable in the shell window you're using to make requests.
 
 ```
 TOKEN=eyJraWQiOiJIb05xb01mNE9jREltWnBGRnBINjZGTkFOM0J... 
@@ -864,9 +864,9 @@ You can find the code for this tutorial on GitHub at [oktadeveloper/okta-spring-
 
 Here are some related blog posts:
 
-- [Simple Token Authentication for Java Apps](https://developer.okta.com/blog/2018/10/16/token-auth-for-java)
-- [Build a Web App with Spring Boot and Spring Security in 15 Minutes](https://developer.okta.com/blog/2018/09/26/build-a-spring-boot-webapp)
-- [Create a Secure Spring REST API](https://developer.okta.com/blog/2018/12/18/secure-spring-rest-api)
-- [Build a Simple CRUD App with Spring Boot and Vue.js](https://developer.okta.com/blog/2018/11/20/build-crud-spring-and-vue)
+- [Simple Token Authentication for Java Apps](/blog/2018/10/16/token-auth-for-java)
+- [Build a Web App with Spring Boot and Spring Security in 15 Minutes](/blog/2018/09/26/build-a-spring-boot-webapp)
+- [Create a Secure Spring REST API](/blog/2018/12/18/secure-spring-rest-api)
+- [Build a Simple CRUD App with Spring Boot and Vue.js](/blog/2018/11/20/build-crud-spring-and-vue)
 
 If you have any questions about this post, please add a comment below. For more awesome content, follow [@oktadev](https://twitter.com/oktadev) on Twitter, like us [on Facebook](https://www.facebook.com/oktadevelopers/), or subscribe to [our YouTube channel](https://www.youtube.com/c/oktadev).
