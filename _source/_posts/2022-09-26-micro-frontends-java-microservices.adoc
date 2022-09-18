@@ -10,7 +10,7 @@ tweets:
 tags: []
 type: conversion
 github: https://github.com/oktadev/auth0-micro-frontends-jhipster-example
-image:
+image: blog/micro-frontends-java/micro-frontends.jpg
 ---
 :page-liquid:
 :toc: macro
