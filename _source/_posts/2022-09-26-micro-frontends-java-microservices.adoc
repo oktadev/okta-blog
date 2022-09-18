@@ -91,7 +91,7 @@ https://twitter.com/ScriptedAlchemy[Zack Jackson] is the creator of Module Feder
 
 == Why should Java developers care?
 
-I think micro frontends an excellent architecture concept. With microservices, you weave everything together on the backend with protocols like HTTP, gRPC, and GraphQL. With micro frontends, it's all HTTP. You can literally see your app get stitched together by watching your browser's network console and seeing remote modules load.
+I think micro frontends are a very interesting architectural concept. With microservices, you weave everything together on the backend with protocols like HTTP, gRPC, and GraphQL. With micro frontends, it's all HTTP. You can literally see your app get stitched together by watching your browser's network console and seeing remote modules load.
 
 I've encountered quite a few monolith UIs in my time as a consultant. The backend was a beautiful microservice architecture, but it was all coupled together on the frontend. There's a good chance a lot of Java developers don't care about the UI because they just work on the beautiful backends. However, if you consider yourself a Java _web_ developer, micro frontends are as revolutionary as HTML5!
 
