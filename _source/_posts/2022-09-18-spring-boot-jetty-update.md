@@ -1,17 +1,17 @@
 ---
 layout: blog_post
-title: ""
-author:
-by: advocate|contractor
-communities: [devops,security,mobile,.net,java,javascript,go,php,python,ruby]
-description: ""
-tags: []
+title: "Get Started with Jetty, Java, and OAuth"
+author: andrew-hughes
+by: contractor
+communities: [java]
+description: "Learn how to use Java and embedded Jetty to create a simple servlet-based web service. Then see how to do it with Spring Boot."
+tags: [java, jetty, oauth2]
 tweets:
-- ""
-- ""
-- ""
+- "Jetty is a highly scalable Java web server and servlet engine. This tutorial shows how to use it with servlets and @springboot."
+- "Want to learn how to use Java and embedded @JettyProject to develop REST APIs? This tutorial is for you!"
+- "Build a Java REST API with @JettyProject and learn how to lock it down with OAuth 2.0 in this tutorial."
 image:
-type: awareness|conversion
+type: conversion
 ---
 
 ## Get started with Jetty, Java, and OAuth
