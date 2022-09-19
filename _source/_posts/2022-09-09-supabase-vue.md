@@ -66,7 +66,7 @@ Make each column non-nullable.  By default Supabase, makes all columns nullable.
 
 Click on the table you just created in the table editor and click **Insert Row**. This will bring up an editor where you can add new data. I added 3 entries. Two public and one private entry. Give your entries dates that are in your current month. For example, I'm writing this article in September 2022 so I used three dates in that month.
 
-{% img blog/supabase-vue/supabase-create-row.png alt:"Add data to supabase" width:"600" %}{: .center-image }
+{% img blog/supabase-vue/supabase-add-row.png alt:"Add data to supabase" width:"600" %}{: .center-image }
 
 After each row click save and you should see the data you complete populated in the Table editor.
 
@@ -339,6 +339,7 @@ This component will present a Login or Logout button to the user depending on th
 
 Add a file to the `components` folder called `Calendar.vue` with the following code.
 
+{% raw %}
 ```vue
 <script setup>
 import Day from './Day.vue'
@@ -572,6 +573,7 @@ export default {
 }
 </script>
 ```
+{% endraw %}
 
 This component displays a calendar vue for any entries. It defaults to the current month but the user can move back and forth in time to change the month. The calendar also has the responsibility of populating its data. This means you will import the supabase client you created earlier and use it to fetch the data from your supabase project.
 
@@ -782,8 +784,9 @@ export default {
 
 The `Day` component displays the entries for a given day and allows the user to either add a new entry or view the detail for an entry on that day.
 
-In order to display the detail you'll need an `EntryDetail` component. Add `EntryDetail.bvue` to the `components` folder with the following code.
+In order to display the detail you'll need an `EntryDetail` component. Add `EntryDetail.vue` to the `components` folder with the following code.
 
+{% raw %}
 ```vue
 <template>
   <div class="bg-white shadow overflow-hidden sm:rounded-lg">
@@ -826,6 +829,7 @@ export default {
 };
 </script>
 ```
+{% endraw %}
 
 This component just shows the detail of the entry in a clear way. The calendar above will display it in a modal when it's clicked.
 
@@ -918,7 +922,7 @@ Start your application by running the command `npm run dev` and navigating to `l
 
 Click on the **Login** button and use your Okta account to log in.  After you land on the `Overview` page you should be able to see the private entries along with the ability to add new entries.  Click on the **+** on any day and add a new entry.  Click save and the entry should be added to your calendar.
 
-{% img blog/supabase-vue/add-entry.png alt:"add and entry to your database using the web interface" width:"600" %}{: .center-image }
+{% img blog/supabase-vue/add-new-entry.png alt:"add and entry to your database using the web interface" width:"600" %}{: .center-image }
 
 ## Conclusions
 
