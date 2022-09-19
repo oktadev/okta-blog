@@ -1,7 +1,4 @@
 ---
-disqus_thread_id: 7830802573
-discourse_topic_id: 17206
-discourse_comment_url: https://devforum.okta.com/t/17206
 layout: blog_post
 title: "Communicate Between Microservices with Apache Kafka"
 author: jimena-garbarino
@@ -14,16 +11,15 @@ tweets:
 - "Did you know @jhipster supports #Kafka as a communications mechanism between microservices?"
 - "Microservice architectures ❤️ asynchronous messaging! Learn how to use @apachekafka to implement it. →"
 image: blog/kafka-microservices/kafka-microservices.png
+github: https://github.com/oktadev/okta-kafka-microservices-example
 type: conversion
-redirect_to:
-  - "/blog/2022/09/15/kafka-microservices"
 ---
 
 One of the traditional approaches for communicating between [microservices](https://www.okta.com/blog/2021/02/microservices/) is through their REST APIs. However, as your system evolves and the number of microservices grows, communication becomes more complex, and the architecture might start resembling our old friend the spaghetti anti-pattern, with services depending on each other or tightly coupled, slowing down development teams. This model can exhibit low latency but only works if services are made highly available.
 
 To overcome this design disadvantage, new architectures aim to decouple senders from receivers, with asynchronous messaging. In a Kafka-centric architecture, low latency is preserved, with additional advantages like message balancing among available consumers and centralized management.
 
-When dealing with a brownfield platform (legacy), a recommended way to de-couple a monolith and ready it for a move to microservices is to implement asynchronous messaging.
+When dealing with a brownfield platform (legacy), a recommended way to decouple a monolith and ready it for a move to microservices is to implement asynchronous messaging.
 
 In this tutorial you will learn how to:
 
@@ -31,52 +27,50 @@ In this tutorial you will learn how to:
 - Enable Kafka integration for communicating microservices
 - Set up Okta as the authentication provider
 
-**Table of Contents**{: .hide }
-* Table of Contents
-{:toc}
+{% include toc.md %}
 
 ## What is Kafka?
 
 **Apache Kafka** is a distributed streaming platform. It was initially conceived as a message queue and open-sourced by LinkedIn in 2011. Its community evolved Kafka to provide key capabilities:
 
 - **Publish and Subscribe** to streams of records, like a message queue.
-- **Storage system** so messages can be consumed asynchronously. Kafka writes data to a scalable disk structure and replicates for fault-tolerance. Producers can wait for write acknowledgments.
+- **Storage system** so messages can be consumed asynchronously. Kafka writes data to a scalable disk structure and replicates it for fault-tolerance. Producers can wait for write acknowledgments.
 - **Stream processing** with Kafka Streams API, enables complex aggregations or joins of input streams onto an output stream of processed data.
 
 Traditional messaging models are queue and publish-subscribe. In a queue, each record goes to one consumer. In publish-subscribe, the record is received by all consumers.
 
-The **Consumer Group** in Kafka is an abstraction that combines both models. Record processing can be load balanced among the members of a consumer group and Kafka allows to broadcast messages to multiple consumer groups. It is the same publish-subscribe semantic where the subscriber is a cluster of consumers instead of a single process.
+The **Consumer Group** in Kafka is an abstraction that combines both models. Record processing can be load balanced among the members of a consumer group and Kafka allows you to broadcast messages to multiple consumer groups. It is the same publish-subscribe semantic where the subscriber is a cluster of consumers instead of a single process.
 
 Popular use cases of Kafka include:
-- The traditional messaging, to decouple data producers from processors with better latency and scalability.
-- Site activity tracking with real-time publish-subscribe feeds
-- As a replacement for file-based log aggregation, where event data becomes a stream of messages
-- Data Pipelines where data consumed from topics is transformed and fed to new topics
-- As an external commit log for a distributed system
-- As a backend log storage for event sourcing applications, where each state change is logged in time order.
+- Traditional messaging, to decouple data producers from processors with better latency and scalability.
+- Site activity tracking with real-time publish-subscribe feeds.
+- As a replacement for file-based log aggregation, where event data becomes a stream of messages.
+- Data pipelines where data consumed from topics is transformed and fed to new topics.
+- As an external commit log for a distributed system.
+- As backend log storage for event sourcing applications, where each state change is logged in time order.
 
-## Microservices Communication With Kafka
+## Microservices communication with Kafka
 
-Let's build a microservices architecture with JHipster and Kafka support. In this tutorial, you'll create a `store` and an `alert` microservices. The store microservices will create and update store records. The `alert` microservice will receive update events from `store` and send an email alert.
+Let's build a microservices architecture with JHipster and Kafka support. In this tutorial, you'll create `store` and `alert` microservices. The store microservices will create and update store records. The `alert` microservice will receive update events from `store` and send an email alert.
 
-> **Prerequisites:** 
-> - [Java 8+](https://adoptopenjdk.net/)
-> - [Docker](https://docs.docker.com/install)
-> - [Docker Compose](https://docs.docker.com/compose/install)
-> - [Node.js](https://nodejs.org/en/)
+> **Prerequisites:**
+> - [Java 11+](https://adoptopenjdk.net/)
+> - [Docker 20.10.17](https://docs.docker.com/install)
+> - [Node.js 16.17.0](https://nodejs.org/en/)
+> - [Okta CLI 0.10.0](https://cli.okta.com/)
 
 Install JHipster.
 
 ```bash
-npm install -g generator-jhipster@6.6.0
+npm install -g generator-jhipster@7.9.3
 ```
 
 The `--version` command should output something like this:
 
 ```bash
 $ jhipster --version
-INFO! Using JHipster version installed globally
-6.6.0
+INFO! Using bundled JHipster
+7.9.3
 ```
 
 Create a directory for the project.
@@ -86,7 +80,7 @@ mkdir jhipster-kafka
 cd jhipster-kafka
 ```
 
-Create an `apps.jh` file that defines the store, alert, and gateway applications in JHipster Domain Language (JDL). Kafka integration is enabled by adding `messageBroker kafka` to the store and alert app definitions.
+Create an `apps.jdl` file that defines the store, alert, and gateway applications in JHipster Domain Language (JDL). Kafka integration is enabled by adding `messageBroker kafka` to the store and alert app definitions.
 
 ```text
 application {
@@ -97,7 +91,7 @@ application {
     authenticationType oauth2,
     prodDatabaseType postgresql,
     serviceDiscoveryType eureka,
-    testFrameworks [protractor]
+    testFrameworks [cypress]
   }
   entities Store, StoreAlert
 }
@@ -155,13 +149,13 @@ microservice Store with store
 microservice StoreAlert with alert
 ```
 
-Now, in your `jhipster-kafka` folder, import this file using `import-jdl`.
+Now, in your `jhipster-kafka` folder, import this file with the following command:
 
 ```bash
-jhipster import-jdl apps.jh
+jhipster jdl apps.jdl
 ```
 
-## Configure Microservices Deployment with Docker Compose
+## Configure microservices deployment with Docker Compose
 
 In the project folder, create a sub-folder for Docker Compose and run JHipster's `docker-compose` sub-generator.
 
@@ -174,10 +168,10 @@ jhipster docker-compose
 The generator will ask you to define the following things:
 
 1. Type of application: **Microservice application**
-2. Type of gateway: **JHipster gateway based on Netflix Zuul**
+2. Type of gateway: **JHipster gateway based on Spring Cloud Gateway**
 3. Leave the root directory for services as default: **../**
 4. Which applications to include: **gateway**, **store**, **alert**
-4. If the database is clustered: **No**
+4. Which applications do you want to use with clustered databases: **(none)**
 5. If monitoring should be enabled: **No**
 6. Password for JHipster Registry: `<default>`
 
@@ -194,30 +188,29 @@ To generate the missing Docker image(s), please run:
 
 You will generate the images later, but first, let's add some security and Kafka integration to your microservices.
 
-## Add OpenID Connect (OIDC) Authentication
+## Add OpenID Connect (OIDC) authentication
 
 This microservices architecture is set up to authenticate against Keycloak. Let's update the settings to use Okta as the authentication provider.
 
-{% include setup/cli.md type="jhipster" %}
+{% include setup/cli.md type="jhipster" loginRedirectUri="http://localhost:8081/login/oauth2/code/oidc,http://localhost:8761/login/oauth2/code/oidc" logoutRedirectUri="http://localhost:8081,http://localhost:8761" %}
 
 In the project, create a `docker-compose/.env` file and add the following variables. For the values, use the settings from the Okta web application you created:
 
 ```bash
+OIDC_ISSUER_URI={yourIssuer}
 OIDC_CLIENT_ID={yourClientId}
 OIDC_CLIENT_SECRET={yourClientSecret}
-OIDC_ISSUER_URI={yourIssuer}
 ```
 
-Edit `docker-compose/docker-compose.yml` and update the `SPRING_SECURITY_*` settings for the services `store-app`, `alert-app` and `gateway-app`:
+Edit `docker-compose/docker-compose.yml` and update the `SPRING_SECURITY_*` settings for the services `store-app`, `alert-app`, `gateway-app`, and `jhipster-registry`:
 
 ```yaml
+- SPRING_SECURITY_OAUTH2_CLIENT_PROVIDER_OIDC_ISSUER_URI=${OIDC_ISSUER_URI}
 - SPRING_SECURITY_OAUTH2_CLIENT_REGISTRATION_OIDC_CLIENT_ID=${OIDC_CLIENT_ID}
 - SPRING_SECURITY_OAUTH2_CLIENT_REGISTRATION_OIDC_CLIENT_SECRET=${OIDC_CLIENT_SECRET}
-- SPRING_SECURITY_OAUTH2_CLIENT_PROVIDER_OIDC_ISSUER_URI=${OIDC_ISSUER_URI}
 ```
-The same authentication must be set up for the JHipster Registry. Edit `docker-compose/jhipster-registry.yml` and set the same values.
 
-### Use Spring Cloud Config to Override OpenID Connect Settings
+### Use Spring Cloud Config to override OIDC settings
 
 An alternative to setting environment variables for each application in `docker-compose.yml` is to use Spring Cloud Config. JHipster Registry includes Spring Cloud Config, so it's pretty easy to do.
 
@@ -239,72 +232,101 @@ spring:
 
 The registry, gateway, store, and alert applications are all configured to read this configuration on startup.
 
-## Communicate Between Store and Alert Microservices
+## Communicate between store and alert microservices
 
-The JHipster generator adds a `kafka-clients` dependency to applications that declare `messageBroker kafka` (in JDL), enabling the [Kafka Consumer and Producer Core APIs](https://kafka.apache.org/documentation/#api).
+The JHipster generator adds a `spring-cloud-starter-stream-kafka` dependency to applications that declare `messageBroker kafka` (in JDL), enabling the Spring Cloud Stream [programming model](https://docs.spring.io/spring-cloud-stream/docs/current/reference/html/spring-cloud-stream.html#_main_concepts) with the [Apache Kafka binder](https://docs.spring.io/spring-cloud-stream/docs/current/reference/html/spring-cloud-stream-binder-kafka.html#_usage_examples) for using Kafka as the messaging middleware.
+
+Spring Cloud Stream was recently added back to JHipster. Now, instead of working with Kafka Core APIs, we can use the binder abstraction, declaring input/output arguments in the code, and letting the specific binder implementation handle the mapping to the broker destination.
+
+**IMPORTANT NOTE**: At this moment, JHipster includes Spring Cloud Stream 3.2.4, which has [deprecated](https://docs.spring.io/spring-cloud-stream/docs/current/reference/html/spring-cloud-stream.html#spring-cloud-stream-preface-notable-deprecations) the annotation-based programming model, `@EnableBinding` and `@StreamListener` annotations, in favor of the functional programming model. Stay tuned for future JHipster updates.
 
 For the sake of this example, update the `store` microservice to send a message to the `alert` microservice through Kafka, whenever a store entity is updated.
 
-In the `store` project, create an `AlertService` for sending the event details. This service will build the payload and serialize it into a JSON `String`, and use the default Kafka `StringSerializer` and `StringDeserializer` already defined in `application.yml`.
+First, create an outbound binding for a new topic `store-alerts`. Add the interface `KafkaStoreAlertProducer`:
+
+```java
+package com.okta.developer.store.config;
+
+import org.springframework.cloud.stream.annotation.Output;
+import org.springframework.messaging.MessageChannel;
+
+public interface KafkaStoreAlertProducer {
+    String CHANNELNAME = "binding-out-store-alert";
+
+    @Output(CHANNELNAME)
+    MessageChannel output();
+}
+```
+Include the outbound binding in the `WebConfigurer`:
+
+```java
+package com.okta.developer.store.config;
+
+@EnableBinding({ KafkaSseConsumer.class, KafkaSseProducer.class, KafkaStoreAlertProducer.class })
+@Configuration
+public class WebConfigurer implements ServletContextInitializer {
+...
+```
+
+Add the binding configuration to `application.yml`:
+
+```yaml
+spring:
+  cloud:
+    stream:
+      ...
+      bindings:
+        ...
+        binding-out-store-alert:
+          destination: store-alerts-topic
+          content-type: application/json
+          group: store-alerts
+```
+
+In the `store` project, create an `AlertService` for sending the event details.
 
 ```java
 package com.okta.developer.store.service;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.okta.developer.store.config.KafkaProperties;
+import com.okta.developer.store.config.KafkaStoreAlertProducer;
 import com.okta.developer.store.domain.Store;
 import com.okta.developer.store.service.dto.StoreAlertDTO;
-import org.apache.kafka.clients.producer.KafkaProducer;
-import org.apache.kafka.clients.producer.ProducerRecord;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.messaging.MessageChannel;
+import org.springframework.messaging.MessageHeaders;
+import org.springframework.messaging.support.GenericMessage;
 import org.springframework.stereotype.Service;
+import org.springframework.util.MimeTypeUtils;
 
-import javax.annotation.PostConstruct;
-import javax.annotation.PreDestroy;
+import java.util.HashMap;
+import java.util.Map;
 
 @Service
 public class AlertService {
 
     private final Logger log = LoggerFactory.getLogger(AlertService.class);
 
-    private static final String TOPIC = "topic_alert";
+    private final MessageChannel output;
 
-    private final KafkaProperties kafkaProperties;
-
-    private final static Logger logger = LoggerFactory.getLogger(AlertService.class);
-    private KafkaProducer<String, String> producer;
-    private final ObjectMapper objectMapper = new ObjectMapper();
-
-    public AlertService(KafkaProperties kafkaProperties) {
-        this.kafkaProperties = kafkaProperties;
-    }
-
-    @PostConstruct
-    public void initialize(){
-        log.info("Kafka producer initializing...");
-        this.producer = new KafkaProducer<>(kafkaProperties.getProducerProps());
-        Runtime.getRuntime().addShutdownHook(new Thread(this::shutdown));
-        log.info("Kafka producer initialized");
+    public AlertService(@Qualifier(KafkaStoreAlertProducer.CHANNELNAME) MessageChannel output) {
+        this.output = output;
     }
 
     public void alertStoreStatus(Store store) {
         try {
             StoreAlertDTO storeAlertDTO = new StoreAlertDTO(store);
-            String message = objectMapper.writeValueAsString(storeAlertDTO);
-            ProducerRecord<String, String> record = new ProducerRecord<>(TOPIC, message);
-            producer.send(record);
-        } catch (JsonProcessingException e) {
-            logger.error("Could not send store alert", e);
+            log.debug("Request the message : {} to send to store-alert topic ", storeAlertDTO);
+
+            Map<String, Object> map = new HashMap<>();
+            map.put(MessageHeaders.CONTENT_TYPE, MimeTypeUtils.APPLICATION_JSON);
+            MessageHeaders headers = new MessageHeaders(map);
+            output.send(new GenericMessage<>(storeAlertDTO, headers));
+        } catch (Exception e){
+            log.error("Could not send store alert", e);
             throw new AlertServiceException(e);
         }
-    }
-
-    @PreDestroy
-    public void shutdown() {
-        log.info("Shutdown Kafka producer");
-        producer.close();
     }
 }
 ```
@@ -376,56 +398,28 @@ public class StoreResource {
 
     ...
 
-    @PutMapping("/stores")
-    public ResponseEntity<Store> updateStore(@Valid @RequestBody Store store) throws URISyntaxException {
-        log.debug("REST request to update Store : {}", store);
-        if (store.getId() == null) {
-            throw new BadRequestAlertException("Invalid id", ENTITY_NAME, "idnull");
-        }
+    @PutMapping("/stores/{id}")
+    public ResponseEntity<Store> updateStore(
+        @PathVariable(value = "id", required = false) final String id,
+        @Valid @RequestBody Store store
+    ) throws URISyntaxException {
+        ...
+
         Store result = storeRepository.save(store);
 
         log.debug("SEND store alert for Store: {}", store);
         alertService.alertStoreStatus(result);
 
-        return ResponseEntity.ok()
-            .headers(HeaderUtil.createEntityUpdateAlert(applicationName, true, ENTITY_NAME, store.getId().toString()))
-            .body(result);
+        ...
     }
 
    ...
 }
 ```
 
-### Fix Integration Tests  
+### Enable debug logging in production
 
-Update the `StoreResourceIT` integration test to initialize the `StoreResource` correctly:
-
-```java
-@SpringBootTest(classes = {StoreApp.class, TestSecurityConfiguration.class})
-public class StoreResourceIT {
-
-    ...
-    @Autowired
-    private StoreRepository storeRepository;
-
-    @Autowired
-    private AlertService alertService;
-
-    ...
-
-    @BeforeEach
-    public void setup() {
-        MockitoAnnotations.initMocks(this);
-        final StoreResource storeResource = new StoreResource(storeRepository, alertService);
-        ...
-    }
-    ...
-}
-```  
-
-### Enable Debug Logging in Production
-
-Since you are going to deploy the `prod` profile, let's enable logging in production. Modify the `store/src/main/java/com/okta/.../config/LoggingAspectConfiguration` class:
+Since you are going to deploy the `prod` profile, let's enable logging in production. Modify the `store/src/main/java/com/okta/.../config/LoggingAspectConfiguration.java` class:
 
 ```java
 @Configuration
@@ -442,17 +436,57 @@ public class LoggingAspectConfiguration {
 
 Edit `store/src/main/resources/config/application-prod.yml` and change the log level to `DEBUG` for the store application:
 
-```yml
+```yaml
 logging:
   level:
     ROOT: INFO
-    io.github.jhipster: INFO
+    tech.jhipster: INFO
     com.okta.developer.store: DEBUG
 ```
 
-### Add Email Service to Alert Microservice
+### Add an `EmailService` to the alert microservice
 
-Now let's customize the `alert` microservice. First, create an `EmailService` to send the store update notification, using the Spring Framework's `JavaMailSender`.
+Now let's customize the `alert` microservice. First, add the consumer declaration `KafkaStoreAlertConsumer` to the config:
+
+```java
+package com.okta.developer.alert.config;
+
+import org.springframework.cloud.stream.annotation.Input;
+import org.springframework.messaging.MessageChannel;
+
+public interface KafkaStoreAlertConsumer {
+    String CHANNELNAME = "binding-in-store-alert";
+
+    @Input(CHANNELNAME)
+    MessageChannel input();
+}
+```
+Include the binding in the `WebConfigurer`:
+
+```java
+package com.okta.developer.alert.config;
+
+@EnableBinding({ KafkaSseConsumer.class, KafkaSseProducer.class, KafkaStoreAlertConsumer.class })
+@Configuration
+public class WebConfigurer implements ServletContextInitializer {
+...
+```
+
+Add the inbound binding configuration to `application.yml`:
+
+```yaml
+spring:
+  cloud:
+    stream:
+      bindings:
+        ...
+        binding-in-store-alert:
+          destination: store-alerts-topic
+          content-type: application/json
+          group: store-alerts
+```
+
+Create an `EmailService` to send the store update notification, using the Spring Framework's `JavaMailSender`.
 
 ```java
 package com.okta.developer.alert.service;
@@ -539,7 +573,7 @@ alert:
   distribution-list: {distributionListAddress}
 ```
 
-**NOTE:** You'll need to set a value for the email (e.g., `list@email.com` will work) in `src/test/.../application.yml` for tests to pass. For Docker, you'll override the `{distributionListAddress}` and `{username}` + `{password}` placeholder values with environment variables below.
+**NOTE:** You'll need to set a value for the email (e.g. `list@email.com` will work) in `src/test/.../application.yml` for tests to pass. For Docker, you'll override the `{distributionListAddress}` and `{username}` + `{password}` placeholder values with environment variables below.
 
 Update `spring.mail.*` properties in `application-prod.yml` to set Gmail as the email service:
 
@@ -550,117 +584,60 @@ spring:
     host: smtp.gmail.com
     port: 587
     username: {username}
-    password: {password}
     protocol: smtp
     tls: true
     properties.mail.smtp:
       auth: true
       starttls.enable: true
-      ssl.trust: smtp.gmail.com
 ```
 
-### Add a Kafka Consumer to Persist Alert and Send Email
+### Add a Kafka consumer to persist alert and send email
 
-Create an `AlertConsumer` service to persist a `StoreAlert` and send the email notification when receiving an alert message through Kafka. Add `KafkaProperties`, `StoreAlertRepository` and `EmailService` as constructor arguments. Then add a `start()` method to initialize the consumer and enter the processing loop.
+Create an `AlertConsumer` service to persist a `StoreAlert` and send the email notification when receiving an alert message through Kafka. Add `KafkaProperties`, `StoreAlertRepository`, and `EmailService` as constructor arguments. Then add a `start()` method to initialize the consumer and enter the processing loop.
 
 ```java
 package com.okta.developer.alert.service;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.okta.developer.alert.config.KafkaProperties;
+import com.okta.developer.alert.config.KafkaStoreAlertConsumer;
 import com.okta.developer.alert.domain.StoreAlert;
 import com.okta.developer.alert.repository.StoreAlertRepository;
 import com.okta.developer.alert.service.dto.StoreAlertDTO;
-import org.apache.kafka.clients.consumer.ConsumerRecord;
-import org.apache.kafka.clients.consumer.ConsumerRecords;
-import org.apache.kafka.clients.consumer.KafkaConsumer;
-import org.apache.kafka.common.errors.WakeupException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.cloud.stream.annotation.StreamListener;
+import org.springframework.messaging.Message;
 import org.springframework.stereotype.Service;
 
-import javax.annotation.PostConstruct;
-import javax.annotation.PreDestroy;
-import java.time.Duration;
 import java.time.Instant;
-import java.util.Collections;
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
-import java.util.concurrent.atomic.AtomicBoolean;
-
 @Service
 public class AlertConsumer {
 
     private final Logger log = LoggerFactory.getLogger(AlertConsumer.class);
 
-    private final AtomicBoolean closed = new AtomicBoolean(false);
-
-    public static final String TOPIC = "topic_alert";
-
-    private final KafkaProperties kafkaProperties;
-
-    private KafkaConsumer<String, String> kafkaConsumer;
-
     private StoreAlertRepository storeAlertRepository;
 
     private EmailService emailService;
 
-    private ExecutorService executorService = Executors.newCachedThreadPool();
-
-    public AlertConsumer(KafkaProperties kafkaProperties, StoreAlertRepository storeAlertRepository, EmailService emailService) {
-        this.kafkaProperties = kafkaProperties;
+    public AlertConsumer(StoreAlertRepository storeAlertRepository, EmailService emailService) {
         this.storeAlertRepository = storeAlertRepository;
         this.emailService = emailService;
     }
 
-    @PostConstruct
-    public void start() {
+    @StreamListener(value = KafkaStoreAlertConsumer.CHANNELNAME, copyHeaders = "false")
+    public void consume(Message<StoreAlertDTO> message) {
+        StoreAlertDTO dto = message.getPayload();
+        log.info("Got message from kafka stream: {} {}", dto.getStoreName(), dto.getStoreStatus());
+        try {
+            StoreAlert storeAlert = new StoreAlert();
+            storeAlert.setStoreName(dto.getStoreName());
+            storeAlert.setStoreStatus(dto.getStoreStatus());
+            storeAlert.setTimestamp(Instant.now());
 
-        log.info("Kafka consumer starting...");
-        this.kafkaConsumer = new KafkaConsumer<>(kafkaProperties.getConsumerProps());
-        Runtime.getRuntime().addShutdownHook(new Thread(this::shutdown));
-        kafkaConsumer.subscribe(Collections.singletonList(TOPIC));
-        log.info("Kafka consumer started");
-
-        executorService.execute(() -> {
-            try {
-                while (!closed.get()) {
-                    ConsumerRecords<String, String> records = kafkaConsumer.poll(Duration.ofSeconds(3));
-                    for (ConsumerRecord<String, String> record : records) {
-                        log.info("Consumed message in {} : {}", TOPIC, record.value());
-
-                        ObjectMapper objectMapper = new ObjectMapper();
-                        StoreAlertDTO storeAlertDTO = objectMapper.readValue(record.value(), StoreAlertDTO.class);
-                        StoreAlert storeAlert = new StoreAlert();
-                        storeAlert.setStoreName(storeAlertDTO.getStoreName());
-                        storeAlert.setStoreStatus(storeAlertDTO.getStoreStatus());
-                        storeAlert.setTimestamp(Instant.now());
-                        storeAlertRepository.save(storeAlert);
-
-                        emailService.sendSimpleMessage(storeAlertDTO);
-                    }
-                }
-                kafkaConsumer.commitSync();
-            } catch (WakeupException e) {
-                // Ignore exception if closing
-                if (!closed.get()) throw e;
-            } catch (Exception e) {
-                log.error(e.getMessage(), e);
-            } finally {
-                log.info("Kafka consumer close");
-                kafkaConsumer.close();
-            }
-        });
-    }
-
-    public KafkaConsumer<String, String> getKafkaConsumer() {
-        return kafkaConsumer;
-    }
-
-    public void shutdown() {
-        log.info("Shutdown Kafka consumer");
-        closed.set(true);
-        kafkaConsumer.wakeup();
+            storeAlertRepository.save(storeAlert);
+            emailService.sendSimpleMessage(dto);
+        } catch (Exception e) {
+            log.error(e.getMessage(), e);
+        }
     }
 }
 ```
@@ -669,9 +646,9 @@ public class AlertConsumer {
 
 As a last customization step, update the logging configuration the same way you did for the `store` microservice.
 
-## Microservices + Kafka Container Deployment
+## Microservices + Kafka container deployment
 
-Modify `docker-compose/docker-compose.yml` and add the following environment variables for the `alert-app` application:
+Modify `docker-compose/docker-compose.yml` and add the following environment variables for the `alert` application:
 
 ```yaml
 - SPRING_MAIL_USERNAME=${MAIL_USERNAME}
@@ -691,48 +668,55 @@ Make sure Docker Desktop is running, then generate the Docker image for the `sto
 
 ```bash
 ./mvnw -ntp -Pprod verify jib:dockerBuild
+# `npm run java:docker` is a shortcut for the above command
 ```
+
+**NOTE**: If you're using Apple Silicon, you'll need to use `npm run java:docker:arm64`.
 
 Repeat for the `alert` and `gateway` apps.
 
-> Before you run your microservices architecture, make sure you have enough RAM allocated. Docker Desktop's default is 2GB, I recommend 8GB. This setting is under Docker > Resources > Advanced. 
+> Before you run your microservices architecture, make sure you have enough RAM allocated. Docker Desktop's default is 2GB, I recommend 8GB. This setting is under Docker > Resources > Advanced.
 
 Then, run everything using Docker Compose:
 
 ```bash
 cd docker-compose
-docker-compose up
+docker compose up
 ```
 
 You will see a huge amount of logging while each service starts. Wait a minute or two, then open `http://localhost:8761` and log in with your Okta account. This is the JHipster Registry which you can use to monitor your apps' statuses. Wait for all the services to be up.
 
-{% img blog/kafka-microservices/jhipster-registry.png alt:"JHipster Registry" width:"800" %}{: .center-image }
-
-
+{% img blog/kafka-microservices-update/jhipster-registry.png alt:"JHipster Registry" width:"800" %}{: .center-image }
 
 Open a new terminal window and tail the `alert` microservice logs to verify it's processing `StoreAlert` records:
 
 ```bash
-docker exec -it docker-compose_alert-app_1 /bin/bash
-tail -f /tmp/spring.log
+docker logs -f docker-compose-alert-1 | grep Consumer
 ```
 
 You should see log entries indicating the consumer group to which the `alert` microservice joined on startup:
 
 ```bash
-2020-01-22 03:12:08.186  INFO 1 --- [Thread-7] o.a.k.c.c.internals.AbstractCoordinator  : [Consumer clientId=consumer-1, groupId=alert] (Re-)joining group
-2020-01-22 03:12:08.215  INFO 1 --- [Thread-7] o.a.k.c.c.internals.AbstractCoordinator  : [Consumer clientId=consumer-1, groupId=alert] (Re-)joining group
-2020-01-22 03:12:11.237  INFO 1 --- [Thread-7] o.a.k.c.c.internals.AbstractCoordinator  : [Consumer clientId=consumer-1, groupId=alert] Successfully joined group with generation 1
+2022-09-05 15:20:44.146  INFO 1 --- [           main] org.apache.kafka.clients.Metadata        : [Consumer clientId=consumer-store-alerts-4, groupId=store-alerts] Cluster ID: pyoOBVa3T3Gr1VP3rJBOlQ
+2022-09-05 15:20:44.151  INFO 1 --- [           main] o.a.k.c.c.internals.ConsumerCoordinator  : [Consumer clientId=consumer-store-alerts-4, groupId=store-alerts] Resetting generation due to: consumer pro-actively leaving the group
+2022-09-05 15:20:44.151  INFO 1 --- [           main] o.a.k.c.c.internals.ConsumerCoordinator  : [Consumer clientId=consumer-store-alerts-4, groupId=store-alerts] Request joining group due to: consumer pro-actively leaving the group
+2022-09-05 15:20:44.162  INFO 1 --- [           main] o.a.k.clients.consumer.ConsumerConfig    : ConsumerConfig values:
+2022-09-05 15:20:44.190  INFO 1 --- [           main] o.a.k.clients.consumer.KafkaConsumer     : [Consumer clientId=consumer-store-alerts-5, groupId=store-alerts] Subscribed to topic(s): store-alerts-topic
+2022-09-05 15:20:44.225  INFO 1 --- [container-0-C-1] org.apache.kafka.clients.Metadata        : [Consumer clientId=consumer-store-alerts-5, groupId=store-alerts] Resetting the last seen epoch of partition store-alerts-topic-0 to 0 since the associated topicId changed from null to 0G-IFWw-S9C3fEGLXDCOrw
+2022-09-05 15:20:44.226  INFO 1 --- [container-0-C-1] org.apache.kafka.clients.Metadata        : [Consumer clientId=consumer-store-alerts-5, groupId=store-alerts] Cluster ID: pyoOBVa3T3Gr1VP3rJBOlQ
+2022-09-05 15:20:44.227  INFO 1 --- [container-0-C-1] o.a.k.c.c.internals.ConsumerCoordinator  : [Consumer clientId=consumer-store-alerts-5, groupId=store-alerts] Discovered group coordinator kafka:9092 (id: 2147483645 rack: null)
+2022-09-05 15:20:44.229  INFO 1 --- [container-0-C-1] o.a.k.c.c.internals.ConsumerCoordinator  : [Consumer clientId=consumer-store-alerts-5, groupId=store-alerts] (Re-)joining group
+2022-09-05 15:20:44.238  INFO 1 --- [container-0-C-1] o.a.k.c.c.internals.ConsumerCoordinator  : [Consumer clientId=consumer-store-alerts-5, groupId=store-alerts] Request joining group due to: need to re-join with the given member-id
+2022-09-05 15:20:44.239  INFO 1 --- [container-0-C-1] o.a.k.c.c.internals.ConsumerCoordinator  : [Consumer clientId=consumer-store-alerts-5, groupId=store-alerts] (Re-)joining group
 ```
 
-Once everything is up, go to the gateway at `http://localhost:8080` and log in. Create a store entity and then update it. The `alert` microservice should log entries when processing the received message from the `store` service.
+Once everything is up, go to the gateway at `http://localhost:8081` and log in. Create a store entity and then update it. The `alert` microservice should log entries when processing the received message from the `store` service.
 
 ```bash
-2020-01-22 03:18:26.528  INFO 1 --- [Thread-7] c.o.d.alert.service.AlertConsumer   : Consumed message in topic_alert : {"storeName":"Zara","storeStatus":"CLOSED"}
-2020-01-22 03:18:26.664 DEBUG 1 --- [Thread-7] c.o.d.alert.aop.logging.LoggingAspect    : Enter: com.okta.developer.alert.service.EmailService.sendSimpleMessage() with argument[s] = [com.okta.developer.alert.service.dto.StoreAlertDTO@13038372]
+2022-09-05 18:08:31.546  INFO 1 --- [container-0-C-1] c.o.d.alert.service.AlertConsumer        : Got message from kafka stream: Candle Shop CLOSED
 ```
 
-If you see a `MailAuthenticationException` in the `alert` microservices log, when attempting to send the notification, it might be your Gmail security configuration.
+If you see a `MailAuthenticationException` in the `alert` microservices log when attempting to send the notification, it might be your Gmail security configuration.
 
 ```text
 alert-app_1           | org.springframework.mail.MailAuthenticationException: Authentication failed; nested exception is javax.mail.AuthenticationFailedException: 535-5.7.8 Username and Password not accepted. Learn more at
@@ -741,21 +725,20 @@ alert-app_1           |
 alert-app_1           | 	at org.springframework.mail.javamail.JavaMailSenderImpl.doSend(JavaMailSenderImpl.java:440)
 ```
 
-To enable the login from the `alert` application, go to <https://myaccount.google.com/lesssecureapps> and allow less secure applications. This is required because the `alert` application is unknown to Google and sign-on is [blocked for third-party applications](https://support.google.com/accounts/answer/6010255?p=less-secure-apps&hl=en&visit_id=637123668729530601-366764189&rd=1) that don't meet Google security standards.
-
- **IMPORTANT**: Don't forget to turn off _Less secure app access_ once you finish the test.
-
-Restart the `alert` microservice:
+To enable the login from the `alert` application, go to [https://myaccount.google.com](https://myaccount.google.com/) and then choose the **Security** tab. Turn on 2-Step Verification for your account. In the section _Signing in to Google_, choose **App passwords** and create a new [app password](https://support.google.com/accounts/answer/185833). In the _Select app_ dropdown set **Other (Custom name)** and type the name for this password. Click **Generate** and copy the password. Update `docker-compose/.env` and set the app password for Gmail authentication.
 
 ```bash
-docker restart docker-compose_alert-app_1
+MAIL_PASSWORD={yourAppPassword}
 ```
 
+**IMPORTANT**: Don't forget to delete the app password once the test is done.
+
+Stop all the containers with CTRL+C and restart again with `docker compose up`.
 Update a store again and you should receive an email with the store's status this time.
 
 In this tutorial, authentication (of producers and consumers), authorization (of read/write operations), and encryption (of data) were not covered, as security in Kafka is optional. See [Kafka's documentation on security](https://kafka.apache.org/documentation/#security) to learn how to enable these features.
 
-## Learn More About Kafka and Microservices
+## Learn more about Kafka and microservices
 
 This tutorial showed how a Kafka-centric architecture allows decoupling microservices to simplify the design and development of distributed systems. To continue learning about these topics check out the following links:
 
@@ -763,13 +746,12 @@ This tutorial showed how a Kafka-centric architecture allows decoupling microser
 - [JHipster: OAuth2 and OpenID Connect](https://www.jhipster.tech/security/#-oauth2-and-openid-connect)
 - [Apache Kafka Introduction](https://kafka.apache.org/intro)
 
-There are also a few tutorials Kafka, microservices, and JHipster that you might enjoy on this blog:
+You can find all the code for this tutorial on GitHub in the [@oktadev/okta-kafka-microservices-example](https://github.com/oktadev/okta-kafka-microservices-example) repository.
 
-- [Kafka with Java: Build a Secure, Scalable Messaging App](/blog/2019/11/19/java-kafka)
-- [Java Microservices with Spring Cloud Config and JHipster](/blog/2019/05/23/java-microservices-spring-cloud-config)
-- [Secure Reactive Microservices with Spring Cloud Gateway](/blog/2019/08/28/reactive-microservices-spring-cloud-gateway)
+There are also a few tutorials on Kafka, microservices, and JHipster that you might enjoy on this blog:
+
 - [Reactive Java Microservices with Spring Boot and JHipster](/blog/2021/01/20/reactive-java-microservices)
-
-You can find all the code for this tutorial [on GitHub](https://github.com/oktadeveloper/okta-kafka-microservices-example).
+- [Secure Kafka Streams with Quarkus and Java](/blog/2020/04/08/kafka-streams)
+- [A Quick Guide to Spring Cloud Stream](/blog/2020/04/15/spring-cloud-stream)
 
 Please follow us [@oktadev on Twitter](https://twitter.com/oktadev) for more tutorials like this one. We also have a [YouTube channel](https://www.youtube.com/c/oktadev) where we frequently publish videos.
