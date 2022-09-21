@@ -115,7 +115,7 @@ Then, start the backend using `./mvnw` and open your favorite browser to `\http:
 
 image::{% asset_path blog/full-stack-java/photo-gallery.jpg %}[alt=Gallery with Photos,width=800,align=center]
 
-Now, let's create a React Native app that talks to the same API.
+Now let's create a React Native app that talks to the same API.
 
 == Generate a React Native app
 
