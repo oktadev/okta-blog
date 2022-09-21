@@ -12,6 +12,8 @@ tweets:
 image: blog/featured/okta-react-bottle-headphones.jpg
 type: conversion
 github: https://github.com/oktadev/okta-spring-boot-react-crud-example
+changelog:
+- 2022-09-16: Updated to Spring Boot 2.7.3, React 18.0.2, and added a section for Auth0. You can find the changes to this article in [okta-blog#1271](https://github.com/oktadev/okta-blog/pull/1271). What's required to switch to Auth0 can be viewed in [the `auth0` branch](https://github.com/oktadev/okta-spring-boot-react-crud-example/compare/auth0).
 ---
 
 React was designed to make it painless to create interactive UIs. Its state management is efficient and only updates components when your data changes. Component logic is written in JavaScript, meaning you can keep state out of the DOM and create encapsulated components.
@@ -20,7 +22,7 @@ Developers like CRUD (create, read, update, and delete) apps because they show a
 
 Today, I'll show you how to create a basic CRUD app with Spring Boot and React. In this tutorial, I'll use the OAuth 2.0 Authorization Code flow and package the React app in the Spring Boot app for production. At the same time, I'll show you how to keep React's productive workflow for developing locally.
 
-You will need [Java 11](http://sdkman.io) and [Node 16](https://nodejs.org/) installed to complete this tutorial.
+You will need [Java 17](http://sdkman.io) and [Node 16](https://nodejs.org/) installed to complete this tutorial.
 
 {% include toc.md %}
 
@@ -206,7 +208,7 @@ class Initializer implements CommandLineRunner {
 
 If you start your app (using `./mvnw spring-boot:run`) ...
 
-... it will fail because Spring Boot 2.7.0 forces H2 v2.0. The H2 2.0 ecosystem doesn't seem like it's quite ready for prime time, so I recommend you downgrade to H2 version `1.4.200` in your `pom.xml`.
+... it will fail because Spring Boot 2.7 forces H2 v2.0. The H2 2.0 ecosystem doesn't seem like it's quite ready for prime time, so I recommend you downgrade to H2 version `1.4.200` in your `pom.xml`.
 
 ```xml
 <dependency>
@@ -785,6 +787,60 @@ This dependency is a thin wrapper around Spring Security's OAuth and encapsulate
    loginRedirectUri="http://localhost:8080/login/oauth2/code/okta"
    logoutRedirectUri="http://localhost:3000,http://localhost:8080" %}
 
+### Use Auth0 for OIDC
+
+If you'd rather use Auth0, that's possible too! First, you'll need to use the Spring Security dependencies as mentioned above. The Okta Spring Boot starter [currently doesn't work with Auth0](https://github.com/okta/okta-spring-boot/issues/358).
+
+Then, install the [Auth0 CLI](https://github.com/auth0/auth0-cli) and run `auth0 login` in a terminal.
+
+Next, run `auth0 apps create`, provide a memorable name, and select **Regular Web Application**. Specify `http://localhost:8080/login/oauth2/code/auth0` for the **Callback URLs** and `http://localhost:3000,http://localhost:8080` for the **Allowed Logout URLs**. 
+
+Modify your `src/main/resources/application.properties` to include your Auth0 issuer, client ID, and client secret. You will have to run `auth0 apps open` and select the app you created to copy your client secret. 
+
+```properties
+# make sure to include the trailing slash for the Auth0 issuer
+spring.security.oauth2.client.provider.auth0.issuer-uri: https://<your-auth0-domain>/
+spring.security.oauth2.client.registration.auth0.client-id: <your-client-id>
+spring.security.oauth2.client.registration.auth0.client-secret: <your-client-secret>
+spring.security.oauth2.client.registration.auth0.scope=openid,profile,email
+```
+
+Of course, you can also use your [Auth0 dashboard](https://manage.auth0.com) to configure your application. Just make sure to use the same URLs specified above. 
+
+Update `UserController.java` to use `auth0` in its constructor:
+
+```java
+public UserController(ClientRegistrationRepository registrations) {
+    this.registration = registrations.findByRegistrationId("auth0");
+}
+```
+
+And update its `logout()` method to work with Auth0:
+
+```java
+@PostMapping("/api/logout")
+public ResponseEntity<?> logout(HttpServletRequest request) {
+    // send logout URL to client so they can initiate logout
+    StringBuilder logoutUrl = new StringBuilder();
+    String issuerUri = this.registration.getProviderDetails().getIssuerUri();
+    logoutUrl.append(issuerUri.endsWith("/") ? issuerUri + "v2/logout" : issuerUri + "/v2/logout");
+    logoutUrl.append("?client_id=").append(this.registration.getClientId());
+
+    Map<String, String> logoutDetails = new HashMap<>();
+    logoutDetails.put("logoutUrl", logoutUrl.toString());
+    request.getSession(false).invalidate();
+    return ResponseEntity.ok().body(logoutDetails);
+}
+```
+
+You'll also need to update `Home.js` in the React project to use different parameters for the logout redirect:
+
+```js
+window.location.href = `${response.logoutUrl}&returnTo=${window.location.origin}`;
+```
+
+You can see all the differences between Okta and Auth0 by [comparing their branches on GitHub](https://github.com/oktadev/okta-spring-boot-react-crud-example/compare/auth0).
+
 ## Configure Spring Security for React and user identity
 
 To make Spring Security React-friendly, create a `SecurityConfiguration.java` file in `src/main/java/.../jugtours/config`. Create the `config` directory and put this class in it.
@@ -1226,8 +1282,8 @@ To build and package your React app with Maven, you can use the [frontend-maven-
 <properties>
     ...
     <frontend-maven-plugin.version>1.12.1</frontend-maven-plugin.version>
-    <node.version>v16.15.1</node.version>
-    <npm.version>v8.6.0</npm.version>
+    <node.version>v16.17.0</node.version>
+    <npm.version>v8.19.1</npm.version>
 </properties>
 
 <profiles>
