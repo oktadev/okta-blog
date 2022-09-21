@@ -524,7 +524,7 @@ jhipster:
   security:
     ...
     oauth2:
-      audience: https://dev-06bzs1cu.us.auth0.com/api/v2/
+      audience: https://<your-auth0-domain>/api/v2/
 
 spring:
   security:
