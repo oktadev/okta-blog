@@ -12,6 +12,7 @@ tweets:
 - "Build a Java REST API with @JettyProject and learn how to lock it down with OAuth 2.0 in this tutorial."
 image:
 type: conversion
+
 ---
 
 ## Get started with Jetty, Java, and OAuth
@@ -38,11 +39,13 @@ The repository has three projects.
 
 - `maven-jetty` - web service using Maven
 - `gradle-jetty` - web service using Gradle
-- `spring-boot-jetty-maven` - web service using Spring Boot and Maven
+- `spring-boot-jetty-maven-no-auth` - web service using Spring Boot and Maven
+- `spring-boot-jetty-maven-okta` - web service using Spring Boot and Maven secured with Okta
+- `spring-boot-jetty-maven-auth0` - web service using Spring Boot and Maven secured with Auth0
 
 ## Create a web service with Maven, Java, and Jetty ##
 
-In the first part of this tutorial, you're going to create a simple web service using Maven and then Gradle. In the second half, you'll see how to upgrade this to a Spring Boot-based web service to which you'll add JWT-based authentication and authorization using Okta as the OAuth 2.0 and OIDC provider.
+In the first part of this tutorial, you're going to create a simple web service using Maven and then Gradle. In the second half, you'll see how to upgrade this to a Spring Boot-based web service to which you'll add JWT-based authentication and authorization using Okta and Auth0 as the OAuth 2.0 and OIDC provider.
 
 Download the files from the GitHub repository. Open the folder `maven-jetty`.
 
@@ -412,7 +415,7 @@ By default, Spring Boot is configured to use an embedded Tomcat server. However,
 1. disable the default embedded Tomcat server
 2. enable an embedded Jetty server
 
-This is done in the `pom.xml` file by these two dependency configuration blocks. The first removes the Tomcat dependency from `spring-boot-starter-web` and the second adds the `spring-boot-starter-jetty` dependency.
+This is done in the `pom.xml` file by these two dependency configuration blocks. The first removes the Tomcat dependency from `spring-boot-starter-web-no-auth` and the second adds the `spring-boot-starter-jetty` dependency.
 
 ```xml
 <dependency>
@@ -613,7 +616,7 @@ In the next section, you're going to use Spring Security and Okta to protect the
 
 The first step to securing the app is to configure an OpenID Connect (OIDC) on Okta. OpenID Connect is an identity authentication protocol built on top of OAuth 2.0, which is an authorization protocol. In short, OIDC is how the app verifies who the user is and OAuth 2.0 is how the app verifies what they user is allowed to do. Spring Security provides the client-side implementation and, in this example, you'll be using Okta as the cloud provider.
 
-You need to run the following commands from the `spring-boot-jetty-maven` subdirectory.
+You need to run the following commands from the `spring-boot-jetty-maven-okta` subdirectory.
 
 {% include setup/cli.md type="web" framework="Okta Spring Boot Starter" loginRedirectUri="https://oidcdebugger.com/debug,http://localhost:8080/login/oauth2/code/okta" %}
 
@@ -856,9 +859,176 @@ Kesugi Ridge
 Pear Lake
 ```
 
+## Secure the Spring Boot app with Auth0
+
+You can also use Auth0 to secure the Spring Boot application. Look at the project in the `spring-boot-jetty-maven-auth0` subdirectory. 
+
+Auth0 requires removing the `okta-spring-boot-starter` dependency and the addition of the `spring-boot-starter-oauth2-resource-server` (which was being added by the Okta Spring Boot Starter). Currently, the Okta Spring Boot Starter does not work with Auth0. There is an [issue to fix this.](https://github.com/okta/okta-spring-boot/issues/358).
+
+If you take a look at the `pom.xml`, you'll see the added dependency.
+
+```xml
+<dependency>
+    <groupId>org.springframework.boot</groupId>
+    <artifactId>spring-boot-starter-oauth2-resource-server</artifactId>
+</dependency>
+```
+
+Auth0 requires a little more configuration to get it working (this is what the Okta starter was handling for you behind the scenes).
+
+There is a new `AudienceValidator` class.
+
+`src/main/java/com/demo/AudienceValidator.java`
+
+```java
+package com.demo;
+
+import org.springframework.security.oauth2.core.OAuth2Error;
+import org.springframework.security.oauth2.core.OAuth2TokenValidator;
+import org.springframework.security.oauth2.core.OAuth2TokenValidatorResult;
+import org.springframework.security.oauth2.jwt.Jwt;
+
+class AudienceValidator implements OAuth2TokenValidator<Jwt> {
+    private final String audience;
+
+    AudienceValidator(String audience) {
+        this.audience = audience;
+    }
+
+    public OAuth2TokenValidatorResult validate(Jwt jwt) {
+        OAuth2Error error = new OAuth2Error("invalid_token", "The required audience is missing", null);
+
+        if (jwt.getAudience().contains(audience)) {
+            return OAuth2TokenValidatorResult.success();
+        }
+        return OAuth2TokenValidatorResult.failure(error);
+    }
+}
+```
+
+This is used in the `JwtDecoder` bean defined in the `SpringBootJettyApplication` class.
+
+`src/main/java/com/demo/SpringBootJettyApplication.java`
+
+```java
+@Value("${auth0.audience}")
+private String audience;
+
+@Value("${spring.security.oauth2.resourceserver.jwt.issuer-uri}")
+private String issuer;
+
+@Bean
+JwtDecoder jwtDecoder() {
+    NimbusJwtDecoder jwtDecoder = (NimbusJwtDecoder)
+        JwtDecoders.fromOidcIssuerLocation(issuer);
+
+    OAuth2TokenValidator<Jwt> audienceValidator = new AudienceValidator(audience);
+    OAuth2TokenValidator<Jwt> withIssuer = JwtValidators.createDefaultWithIssuer(issuer);
+    OAuth2TokenValidator<Jwt> withAudience = new DelegatingOAuth2TokenValidator<>(withIssuer, audienceValidator);
+
+    jwtDecoder.setJwtValidator(withAudience);
+
+    return jwtDecoder;
+}
+```
+
+This code is needed to validate the JWT based on the issuer and the audience. 
+
+If you look in the `src/main/resources/application.properties` file, you'll see that there are two properties: the issuer URI and the audience.
+
+```properties
+spring.security.oauth2.resourceserver.jwt.issuer-uri: https://<your-auth0-domain>/
+auth0.audience=http://my-api
+```
+
+## Configure Auth0 OIDC
+
+Install the [Auth0 CLI](https://github.com/auth0/auth0-cli) and run `auth0 login` in a terminal.
+
+You need to find your Auth0 domain. One way to do this is to use the following command.
+
+```bash
+auth0 tenants list
+```
+
+```bash
+=== dev-0rb77jrp.us.auth0.com 
+
+  AVAILABLE TENANTS          
+  dev-0rb77jrp.us.auth0.com  
+```
+
+Take the domain listed above and replace the placeholder in the `issuer-uri` property in the `applications.property` file. **Don't remove the trailing slash!**
+
+```properties
+spring.security.oauth2.resourceserver.jwt.issuer-uri: https://dev-0rb77jrp.us.auth0.com/
+auth0.audience=http://my-api
+```
+
+The app is configured and you can go ahead and run it.
+
+```bash
+./mvnw spring-boot:run
+```
+
+To test the app, you need to open an new Bash shell in the same project subdirectory.
+
+Just like with Okta, you will be able to list the hikes without a JWT.
+
+```bash
+http :8080/hikes
+...
+Wonderland Trail
+South Maroon Peak
+Tour du Mont Blanc
+Teton Crest Trail
+Everest Base Camp via Cho La Pass
+Kesugi Ridge
+```
+
+However, if you try and add or delete a hike, you'll need a token.
+
+To generate a token, first  create a new API for your resource server.
+
+```bash
+auth0 apis create -n myapi --identifier http://my-api
+```
+
+Use the CLI to create a valid JWT for testing.
+
+```bash
+auth0 test token -a http://my-api
+```
+
+Save the token in a shell variable. 
+
+```bas
+TOKEN=eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCIsImtpZ...
+```
+
+Add a new hike using the token.
+
+```bash
+http -f POST :8080/hikes hike="Pear Lake" "Authorization: Bearer $TOKEN"
+```
+
+```bash
+HTTP/1.1 200 OK
+...
+Wonderland Trail
+South Maroon Peak
+Tour du Mont Blanc
+Teton Crest Trail
+Everest Base Camp via Cho La Pass
+Kesugi Ridge
+Pear Lake
+```
+
+That's it. Auth0 security is working.
+
 ## Learn more about Java, Spring Boot, and Spring Security
 
- In this tutorial, you saw how to make a simple Java servlet service and run it with Jetty. You also saw how to recreate the same service in  Spring Boot, configure it to use Jetty, and simplify your Java code.  Finally, you saw how to use a free developer account from Okta to add  OAuth/OIDC security to your Spring Boot app.
+ In this tutorial, you saw how to make a simple Java servlet service and run it with Jetty. You also saw how to recreate the same service in  Spring Boot, configure it to use Jetty, and simplify your Java code.  Finally, you saw how to use a free developer account from Okta to add  OAuth/OIDC security to your Spring Boot app. And you also saw how to secure the app with Auth0.
 
 You can find the code for this tutorial on GitHub at [oktadeveloper/okta-spring-boot-jetty-example](https://github.com/oktadeveloper/okta-spring-boot-jetty-example).
 
