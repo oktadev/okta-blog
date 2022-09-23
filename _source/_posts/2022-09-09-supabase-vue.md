@@ -58,7 +58,7 @@ Note that the `id` and `created_at` columns are prepopulated for you so you can 
 > date: timestamptz
 > title: text
 
-Make each column non-nullable.  By default Supabase, makes all columns nullable. Then click **Save**. After a moment you will see your table in the _Table editor_ section.
+Make each column non-nullable.  By default, Supabase makes all columns nullable. Then click **Save**. After a moment you will see your table in the _Table editor_ section.
 
 {% img blog/supabase-vue/supabase-create-table.png alt:"Create a table in supabase" width:"600" %}{: .center-image }
 
