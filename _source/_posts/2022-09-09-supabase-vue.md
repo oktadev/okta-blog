@@ -205,7 +205,7 @@ Next, open the `package.json` file and replace the `dev` command with the follow
 "dev": "vite --port 3000",
 ```
 
-This will force your application to run on port 3000 which is the same port you set up your Login Callbacks for Okta.
+This will force your application to run on port 3000 which is the same port you set up for your Login Callbacks for Okta.
 
 #### Update main.js to set up Okta
 
