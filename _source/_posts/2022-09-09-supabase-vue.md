@@ -64,7 +64,7 @@ Make each column non-nullable.  By default Supabase, makes all columns nullable.
 
 ### Populate some sample data
 
-Click on the table you just created in the table editor and click **Insert Row**. This will bring up an editor where you can add new data. I added 3 entries. Two public and one private entry. Give your entries dates that are in your current month. For example, I'm writing this article in September 2022 so I used three dates in that month.
+Click on the table you just created in the table editor and click **Insert Row**. This will bring up an editor where you can add new data. I added 3 entries: two public and one private entry. Give your entries dates that are in your current month. For example, I'm writing this article in September 2022 so I used three dates in that month.
 
 {% img blog/supabase-vue/supabase-add-row.png alt:"Add data to supabase" width:"600" %}{: .center-image }
 
