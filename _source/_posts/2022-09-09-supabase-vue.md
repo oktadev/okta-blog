@@ -169,7 +169,7 @@ Next, open `src/assets/main.css` and replace the code there with the following.
 
 This will complete the setup of tailwinds.
 
-### Create the supabase client
+### Create the Supabase client
 
 To access your supabase project you will need to call `createClient` from the supabase client library that you installed earlier. Here you will build a small helper to create the client based on the configuration from your `.env` file.
 
