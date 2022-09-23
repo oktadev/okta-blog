@@ -693,7 +693,7 @@ export default {
 </script>
 ```
 
-This component takes the date from the calendar component that was selected and prepopulates a datepicker with that date. Then it allows the user to set the properties of the entry here. The user then can click save and then you can use the supabase client you created earlier to save the entry.
+This component takes the date from the calendar component that was selected and prepopulates a datepicker with that date. Then it allows the user to set the properties of the entry here. The user can click save, and you can use the Supabase client you created earlier to save the entry.
 
 Finally, you'll need to implement the `Day` component. Add a file called `Day.vue` to the components folder and add the following code.
 
