@@ -4,7 +4,7 @@ title: "Build an Online Journal with Vue and Supabase"
 author:
 by: advocate|contractor
 communities: [devops,security,mobile,.net,java,javascript,go,php,python,ruby]
-description: ""
+description: "Learn how to build a wellness tracker app with Supabase and Vue, to allow authenticated users to create new entries for specified days."
 tags: []
 tweets:
 - ""
