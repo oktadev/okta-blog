@@ -10,8 +10,8 @@ tweets:
 - "Jetty is a highly scalable Java web server and servlet engine. This tutorial shows how to use it with servlets and @springboot."
 - "Want to learn how to use Java and embedded @JettyProject to develop REST APIs? This tutorial is for you!"
 - "Build a Java REST API with @JettyProject and learn how to lock it down with OAuth 2.0 in this tutorial."
-  image: blog/featured/okta-java-short-bottle-headphones.jpg
-  type: conversion
+image: blog/featured/okta-java-short-bottle-headphones.jpg
+type: conversion
 ---
 
 Jetty is a small, highly-scalable Java-based web server and servlet engine. It supports HTTP/2, WebSockets, and many other protocols. It powers websites and frameworks, both large and small, such as Google AppEngine. Because it is an Eclipse project, its open source project is called Eclipse Jetty. It is standards-compliant and open source, as well as commercially usable. It is the main alternative to Tomcat when hosting Java applications. Like Tomcat, you can use Jetty both embedded and stand-alone.
