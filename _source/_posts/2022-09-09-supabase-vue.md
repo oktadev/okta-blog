@@ -581,7 +581,7 @@ The component will check if the user is authenticated before querying the data. 
 
 The `calander` will also contain the component for displaying detail about an entry for a given day.
 
-This component also has the responsibility of displaying a modal for the `AddEntry` component. You can create this component now by adding a new file to the `components` folder called `AddEntry.vue`.
+This component is also responsible for displaying a modal for the `AddEntry` component. You can create this component now by adding a new file to the `components` folder called `AddEntry.vue`.
 
 ```vue
 <template>
