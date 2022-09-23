@@ -926,7 +926,7 @@ Click on the **Login** button and use your Okta account to log in.  After you la
 
 ##  What we've learned about Supabase
 
-Supabase is a great way to quickly build applications at scale. In this article you learned how to create a Postgres database with Supabase's free plan and populate some sample data with it. You then learned how to query that data using the Supabase javascript client. Finally, you learned how to secure the application with Okta using Okta's Vue client.
+Supabase is a great way to quickly build applications at scale. In this article you learned how to create a Postgres database with Supabase's free plan and populate some sample data with it. You then learned how to query that data using the Supabase JavaScript client. Finally, you learned how to secure the application with Okta using Okta's Vue client.
 
 Supabase offers other solutions such as blob storage and edge functions, which we did not cover in this article but I encourage you to check those out as well. Supabase also provides client libraries for Python and Dart. The platform is very easy to use and very robust.
 
