@@ -20,7 +20,7 @@ Supabase is an open-source Firebase alternative. It provides several critical fu
 
 In this article, you will learn how to build a wellness tracker app that will allow authenticated users to create new entries for specified days. These entries will be marked as public or private. Public entries will be visible to all visitors, however private entries are only available to authenticated users.
 
-The application will be built with Vue.js using tailwinds to style the site. You will use Supabase to store the data used for the site. Finally, you will use Okta to secure the application.
+The application will be built with Vue.js using Tailwind to style the site. You will use Supabase to store the data used for the site. Finally, you will add Okta to secure the application.
 
 ## Prerequisites
 
