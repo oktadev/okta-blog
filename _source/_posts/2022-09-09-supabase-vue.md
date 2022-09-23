@@ -579,7 +579,7 @@ This component displays a calendar vue for any entries. It defaults to the curre
 
 The component will check if the user is authenticated before querying the data. If the user is authenticated the component will request all entries.  However, if they are not authenticated, it will only request public entries.
 
-The `calander` will also contain the component for displaying detail about an entry for a given day.
+The `calendar` will also contain the component for displaying detail about an entry for a given day.
 
 This component is also responsible for displaying a modal for the `AddEntry` component. You can create this component now by adding a new file to the `components` folder called `AddEntry.vue`.
 
