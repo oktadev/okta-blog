@@ -32,7 +32,7 @@ The application will be built with Vue.js using Tailwind to style the site. You 
 
 You can view the [code on github](https://github.com/nickolasfisher/OktaSupabase.git).
 
-## Create your Okta Application
+## Create your Okta application
 
 {% include setup/cli.md type="spa" framework="Vue"
    loginRedirectUri="http://localhost:3000/callback" signup="false" %}
