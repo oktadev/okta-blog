@@ -5,28 +5,28 @@ author: jimena-garbarino
 by: contractor
 community: [java]
 description: "Storing secrets in your code is a bad idea. Learn how to use Spring Cloud Config and HashiCorp Vault to make your app more secure."
-tags: [spring-vault, oidc, java, spring, spring-boot, vault, hashicorp, spring-cloud-vault]
+tags: [spring-vault, java, spring-boot, vault, hashicorp, spring-cloud-vault]
 tweets:
 - "Learn how to secure your secrets with @springcloud vault and @HashiCorp Vault!"
 - "Securing your secrets is a must if you want to be secure by design. This tutorial shows you how!"
 - "Please secure your secrets. Fight for your users!"
-image: blog/spring-vault/spring-vault.png
-github: https://github.com/oktadev/okta-spring-vault-example
-type: conversion
+  image: blog/spring-vault/spring-vault.png
+  github: https://github.com/oktadev/okta-spring-vault-example
+  type: conversion
 ---
 
-In 2013, GitHub released a search feature that allows users to scan code all public repositories. A day after the release, however, they had to partially shut it down. It was speculated that the shutdown was because the feature allowed any user to search for all kinds of secrets stored in GitHub repositories. Later, in 2014, data on 50,000 Uber drivers was stolen. It seems someone got access to the company's database using login credentials found in a GitHub public repository. Hashicorp Vault, a tool for managing secrets and encrypting data in transit, was first announced in 2015 and Spring Vault, the integration of Spring with Vault was first released in 2017.
+In 2013, GitHub released a search feature allowing users to scan all public repositories. However, a day after the release, they partially shut it down. It was speculated that the shutdown was because the feature allowed any user to search for all kinds of secrets stored in GitHub repositories. Later, in 2014, data on 50,000 Uber drivers was stolen. It seems someone accessed the company's database using login credentials found in a GitHub public repository. Hashicorp Vault, a tool for managing secrets and encrypting data in transit, was first announced in 2015, and Spring Vault, the integration of Spring with Vault, was first released in 2017.
 
-It seems like a long time ago, right? Secrets leakage seems to remain pervasive and constant, happening to all kinds of developers—as explained by [this study from NC State University](https://www.ndss-symposium.org/ndss-paper/how-bad-can-it-git-characterizing-secret-leakage-in-public-github-repositories/). Exposed secrets leads to cyber-attacks, data loss or corruption, sensitive data breaches, and crypto-jacking (cryptocurrency mining using a victim's cloud computer power). With tools like Hashicorp's Vault and Spring Cloud Vault, the risk can be reduced.
+It seems like a long time ago, right? Secrets leakage seems to remain pervasive and constant, happening to all kinds of developers—as explained by [this study from NC State University](https://www.ndss-symposium.org/ndss-paper/how-bad-can-it-git-characterizing-secret-leakage-in-public-github-repositories/). Exposed secrets leads to cyber-attacks, data loss or corruption, sensitive data breaches, and crypto-jacking (cryptocurrency mining using a victim's cloud computer power). The risk can be reduced with tools like Hashicorp's Vault and Spring Cloud Vault.
 
-Nowadays it is widely recommended to never store secret values in code. Therefore, this tutorial will demonstrate the following alternatives:
+Nowadays, it is widely recommended never to store secret values in code. Therefore, this tutorial will demonstrate the following alternatives:
 
 - Using environment variables for Spring Boot secrets
 - Secrets encryption with Spring Cloud Config
 - Secrets management with HashiCorp's Vault
 - Using Spring Cloud Vault
 
-> **This tutorial was created with the following frameworks and tools**:
+> **I created with the following frameworks and tools**:
 > - [JHipster 7.9.3](https://www.jhipster.tech/installation/)
 > - [Java OpenJDK 17](https://jdk.java.net/java-se-ri/17)
 > - [Okta CLI 0.10.0](https://cli.okta.com)
@@ -38,7 +38,7 @@ Nowadays it is widely recommended to never store secret values in code. Therefor
 
 ## Use Environment Variables for Secrets; a Precursor to Spring Vault
 
-Spring Boot applications can bind property values from environment variables. To demonstrate, create a `vault-demo-app` with OpenID Connect (OIDC) authentication, using the Spring Initializr. Then add `web`, `okta`, and `cloud-config-client` dependencies, some of which will be required later in the tutorial:
+Spring Boot applications can bind property values from environment variables. To demonstrate, create a `vault-demo-app` with OpenID Connect (OIDC) authentication using the Spring Initializr. Then add `web`, `okta`, and `cloud-config-client` dependencies, some of which will be required later in the tutorial:
 
 ```shell
 https start.spring.io/starter.zip \
@@ -87,7 +87,7 @@ spring.cloud.config.enabled=false
 
 ### OpenID Connect authentication with Okta
 
-In a command line session, go to the `vault-demo-app` root folder.
+Go to the `vault-demo-app` root folder in a command line session.
 
 {% include setup/cli.md type="web" framework="Okta Spring Boot Starter" %}
 
@@ -110,11 +110,11 @@ In the application logs, you'll see the security filter chain initializes an OAu
 2022-09-07 08:50:09.460  INFO 20676 --- [           main] o.s.s.web.DefaultSecurityFilterChain     : Will secure any request with [org.springframework.security.web.session.DisableEncodeUrlFilter@6b4a4e40, org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@46a8c2b4, org.springframework.security.web.context.SecurityContextPersistenceFilter@640d604, org.springframework.security.web.header.HeaderWriterFilter@7b96de8d, org.springframework.security.web.csrf.CsrfFilter@2a0b901c, org.springframework.security.web.authentication.logout.LogoutFilter@38ac8968, org.springframework.security.oauth2.client.web.OAuth2AuthorizationRequestRedirectFilter@7739aac4, org.springframework.security.oauth2.client.web.OAuth2AuthorizationRequestRedirectFilter@36c07c75, org.springframework.security.oauth2.client.web.OAuth2LoginAuthenticationFilter@353c6da1, org.springframework.security.web.authentication.ui.DefaultLoginPageGeneratingFilter@7e61e25c, org.springframework.security.web.authentication.ui.DefaultLogoutPageGeneratingFilter@4f664bee, org.springframework.security.oauth2.server.resource.web.BearerTokenAuthenticationFilter@21b51e59, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@5438fa43, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@512abf25, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@76563ae7, org.springframework.security.oauth2.client.web.OAuth2AuthorizationCodeGrantFilter@3e14d390, org.springframework.security.web.session.SessionManagementFilter@4dc52559, org.springframework.security.web.access.ExceptionTranslationFilter@51ac12ac, org.springframework.security.web.access.intercept.FilterSecurityInterceptor@2407a36c]
 ```
 
-Using environment variables for passing secrets to containerized applications is now considered bad practice because the environment can be inspected or logged in a number of cases. So, let's move on to using Spring Cloud Config server for secrets storage.
+Using environment variables for passing secrets to containerized applications is now considered bad practice because the environment can be inspected or logged in a number of cases. So, let's use Spring Cloud Config server for secret storage.
 
 ### Use Auth0 for OpenID Connect
 
-For using Auth0 as OIDC provider, you need to add the `spring-boot-starter-oauth2-client` dependency, as the Okta Spring Boot Starter [does not support Auth0](https://github.com/okta/okta-spring-boot/issues/358) yet.
+To use Auth0 as an OIDC provider, you need to add the `spring-boot-starter-oauth2-client` dependency, as the Okta Spring Boot Starter [does not support Auth0](https://github.com/okta/okta-spring-boot/issues/358) yet.
 
 You can create a demo application with Spring Initializr too:
 
@@ -129,7 +129,7 @@ http https://start.spring.io/starter.zip \
   packageName==com.okta.developer.vault > vault-demo-app-auth0.zip
 ```
 
-Modify the `Application` class the same way as described in the previous section. Also set `spring.cloud.config.enabled=false` in `application.properties`.
+Modify the `Application` class as described in the previous section. Also set `spring.cloud.config.enabled=false` in `application.properties`.
 
 Sign up at [Auth0](https://auth0.com/signup) and install the [Auth0 CLI](https://github.com/auth0/auth0-cli). Then run:
 
@@ -267,7 +267,7 @@ public class SpringBootConfigurationServerApplication {
 }
 ```
 
-Start the server, as you are going to encrypt your Okta secrets using the `/encrypt` endpoint. For this example, you are using a symmetric (shared) encryption key, passed through the environment variable ENCRYPT_KEY. Before running the command below, you should replace `{encryptKey}` with a random string of characters. You can use JShell to generate a UUID you can use for your encrypt key.
+Start the server, as you are going to encrypt your Okta secrets using the `/encrypt` endpoint. For this example, you are using a symmetric (shared) encryption key passed through the environment variable ENCRYPT_KEY. Before running the command below, you should replace `{encryptKey}` with a random string of characters. You can use JShell to generate a UUID you can use for your encrypt key.
 
 ```shell
 jshell
@@ -288,7 +288,7 @@ http :8888/encrypt --raw {yourOktaClientSecret}
 
 In the `vault-config-server` project folder, create a `src/main/resources/config/vault-demo-app-dev.yml` file to store the secrets for the `dev` profile, with the following contents:
 
-```yml
+```yaml
 okta:
   oauth2:
     issuer: {yourIssuerURI}
@@ -320,9 +320,9 @@ Start `vault-demo-app` without passing the environment variables:
 ./mvnw spring-boot:run
 ```
 
-When requesting `http://localhost:8080` it should again redirect to the Okta login.
+When requesting `http://localhost:8080`, it should again redirect to the Okta login.
 
-In a real environment, the config server should be secured. Spring Cloud Config Server supports asymmetric key encryption as well, with the server encrypting with the public key, and the clients decrypting with the private key. However, the documentation warns about spreading the key management process around clients.
+In a real environment, the config server should be secured. Spring Cloud Config Server also supports asymmetric key encryption, with the server encrypting with the public key and the clients decrypting with the private key. However, the documentation warns about spreading the key management process around clients.
 
 ## Vault as a Configuration Backend with Spring Cloud Vault
 
@@ -330,7 +330,7 @@ In a real environment, the config server should be secured. Spring Cloud Config 
 
 In the cloud, secrets management has become much more difficult. Vault is a secrets management and data protection tool from HashiCorp that provides secure storage, dynamic secret generation, data encryption, and secret revocation.
 
-Vault encrypts the secrets prior to writing them to persistent storage. The encryption key is also stored in Vault, but encrypted with a _master key_ not stored anywhere. The master key is split into shards using _Shamir's Secret Sharing algorithm_, and distributed among a number of operators. The Vault unseal process allows you to reconstruct the master key by adding shards one at a time in any order until enough shards are present, then Vault becomes operative. Operations on secrets can be audited by enabling audit devices, which will send audit logs to a file, syslog or socket.
+Vault encrypts the secrets before writing them to persistent storage. The encryption key is stored in Vault but encrypted with a _master key_ not stored anywhere. The master key is split into shards using _Shamir's Secret Sharing algorithm_, and distributed among a number of operators. The Vault unseal process allows you to reconstruct the master key by adding shards one at a time in any order until enough shards are present, then Vault becomes operative. Operations on secrets can be audited by enabling audit devices, which will send audit logs to a file, syslog, or socket.
 
 As Spring Cloud Config Server supports Vault as a configuration backend, the next step is to better protect the application secrets by storing them in Vault.
 
@@ -348,9 +348,9 @@ docker run --cap-add=IPC_LOCK \
 --name my-vault vault
 ```
 
-**NOTE**:  The `docker run` command above will start a vault instance with the name `my-vault`. You can stop the container with `docker stop my-vault` and restart it with `docker start my-vault`. Note that all the secrets and data will be lost between restarts, as explained in the next paragraphs.
+**NOTE**:  The `docker run` command above will start a vault instance with the name `my-vault`. You can stop the container with `docker stop my-vault` and restart it with `docker start my-vault`. As the following paragraphs explain, all the secrets and data will be lost between restarts.
 
-IPC_LOCK capability is required for Vault to be able to lock memory and not be swapped to disk, as this behavior is enabled by default. As the instance is run for development, the ID of the initially generated root token is set to the given value. We are mounting `/vault/logs`, as we are going to enable the `file` audit device to inspect the interactions.
+IPC_LOCK capability is required for Vault to be able to lock memory and not be swapped to disk, as this behavior is enabled by default. As the instance is run for development, the ID of the initially generated root token is set to the given value. We are mounting `/vault/logs`, as we will enable the `file` audit device to inspect the interactions.
 
 Once it starts, you should notice the following logs:
 
@@ -372,8 +372,7 @@ Root Token: 00000000-0000-0000-0000-000000000000
 Development mode should NOT be used in production installations!
 ```
 
-It is clear Vault is running in _dev mode_, meaning it short-circuits a lot of setup to insecure defaults, which helps for the experimentation. Data is stored encrypted in-memory and lost on every restart. Copy the _Unseal Key_, as we are going to use it to test Vault sealing.
-Connect to the container and explore some vault commands:
+It is clear Vault is running in _dev mode_, meaning it short-circuits a lot of setup to insecure defaults, which helps for the experimentation. Data is stored encrypted in-memory and lost on every restart. Copy the _Unseal Key_, as you will use it to test Vault sealing. Connect to the container and explore some vault commands:
 
 ```shell
 docker exec -it my-vault /bin/sh
@@ -508,7 +507,7 @@ path "secret/data/application,dev" {
 }
 ```
 
-All the paths above will be requested by the config server to provide configuration for the `vault-demo-app` when it starts with the `dev` profile active.
+The config server will request all the paths above to provide configuration for the `vault-demo-app` when it starts with the `dev` profile active.
 
 {% img blog/spring-vault/vault-policy.png alt:"Vault policy section" width:"800" %}{: .center-image }
 
@@ -535,7 +534,7 @@ identity_policies    []
 policies             ["default" "vault-demo-app-policy"]
 ```
 
-**NOTE**: I could not find documentation about the warning _Endpoint ignored these unrecognized parameters_. It seems `vault CLI` is sending default parameters not required by the target API in this case. The command equivalent API call can be displayed using the `-output-curl-string` flag after the subcommand, for example:
+**NOTE**: I could not find documentation about the warning _Endpoint ignored these unrecognized parameters_. In this case, it seems `vault CLI` is sending default parameters not required by the target API. The command equivalent API call can be displayed using the `-output-curl-string` flag after the subcommand, for example:
 
 ```bash
 vault token create -output-curl-string -policy=vault-demo-app-policy
@@ -586,7 +585,7 @@ SPRING_CLOUD_CONFIG_TOKEN=hvs.CAESIKd9pYyc9xesiqmwvep... \
 ./mvnw spring-boot:run
 ```
 
-When the `vault-demo-app` starts, it will request the configuration to the config server, which in turn will make a REST to Vault. In the config server logs, with enough logging level, you will be able to see:
+When the `vault-demo-app` starts, it will request the configuration to the config server, which in turn will make a REST to Vault. In the config server logs, with enough logging levels, you will be able to see:
 
 ```shell
 2022-09-09 19:21:57.778 DEBUG 12359 --- [nio-8888-exec-1] ...: Received [GET /vault-demo-app/dev HTTP/1.1
@@ -607,7 +606,7 @@ Finally, let's seal Vault. Sealing allows you to lock Vault data to minimize dam
 vault operator seal
 ```
 
-Restart `vault-demo-app` and verify the configuration will not be retrieved as Vault is sealed. The `vault-config-server` logs should read:
+Restart `vault-demo-app` and verify the configuration will not be retrieved as the Vault is sealed. The `vault-config-server` logs should read:
 
 ```
 503 Service Unavailable: "{"errors":["Vault is sealed"]}<EOL>"]
@@ -621,7 +620,7 @@ vault operator unseal {unsealKey}
 
 ## Learn More About Encryption and Storing Secrets
 
-Hopefully you see the benefits of using a secrets management tool like Vault as a configuration backend, as opposed to storing secrets in a file, on a file system, or in a code repository. To learn more about Vault and Spring Cloud, check out the following links:
+Hopefully, you see the benefits of using a secrets management tool like Vault as a configuration backend instead of storing secrets in a file, on a file system, or in a code repository. To learn more about Vault and Spring Cloud, check out the following links:
 
 * [How Bad Can It Git?](https://www.ndss-symposium.org/ndss-paper/how-bad-can-it-git-characterizing-secret-leakage-in-public-github-repositories/)
 * [Spring Cloud Config - Vault Backend](https://cloud.spring.io/spring-cloud-config/reference/html/#vault-backend)
