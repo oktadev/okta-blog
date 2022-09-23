@@ -39,7 +39,7 @@ You can view the [code on github](https://github.com/nickolasfisher/OktaSupabase
 
 Copy the output from the CLI and keep it for later.
 
-## Setup your Supabase project
+## Set up your Supabase project
 
 Go to your [Supabase account](https://app.supabase.com/) and click on **New Project**. Select your default organization (or create a new one). Name your project `OktaSupabase` and give it a strong password. Select the region closest to you and select the pricing plan that suits your needs best. Most likely this will be the `Free` plan but if you find a need to update to pro you can do that as well. Once you're done click **Create Project**.
 
