@@ -41,7 +41,7 @@ Copy the output from the CLI and keep it for later.
 
 ## Set up your Supabase project
 
-Go to your [Supabase account](https://app.supabase.com/) and click on **New Project**. Select your default organization (or create a new one). Name your project `OktaSupabase` and give it a strong password. Select the region closest to you and select the pricing plan that suits your needs best. Most likely this will be the `Free` plan but if you find a need to update to pro you can do that as well. Once you're done click **Create Project**.
+Go to your [Supabase account](https://app.supabase.com/) and click on **New Project**. Select your default organization (or create a new one). Name your project `OktaSupabase` and give it a strong password. Select the region closest to you and select the pricing plan that suits your needs best. Most likely this will be the `Free` plan but if you find a need to update to pro you can do that as well. Once you're done, click **Create Project**.
 
 {% img blog/supabase-vue/supabase-create-project.png alt:"Create a project in Supabase" width:"600" %}{: .center-image }
 
