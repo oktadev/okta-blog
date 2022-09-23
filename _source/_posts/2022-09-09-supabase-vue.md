@@ -333,7 +333,7 @@ First, add a new file to the `components` folder called `Header.vue`. Add the fo
 </template>
 ```
 
-This component will present a Login or Logout button to the user depending on the current authentication state. You can determine this by using the Okta vue library to check the `authState`.
+This component will present a Login or Logout button to the user depending on the current authentication state. You can determine this by using the Okta Vue library to check the `authState`.
 
 #### Create the calendar component and supporting components
 
