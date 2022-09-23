@@ -835,7 +835,7 @@ This component just shows the detail of the entry in a clear way. The calendar a
 
 ### Create your pages
 
-Now that your components are written you can bring them together into pages. These pages will correspond to the routes you defined earlier in the `routes` folder.
+Now that your components are written, you can bring them together into pages. These pages will correspond to the routes you defined earlier in the `routes` folder.
 
 #### Home Screen page
 
