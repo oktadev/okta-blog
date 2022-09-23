@@ -924,7 +924,7 @@ Click on the **Login** button and use your Okta account to log in.  After you la
 
 {% img blog/supabase-vue/add-new-entry.png alt:"add and entry to your database using the web interface" width:"600" %}{: .center-image }
 
-## Conclusions
+##  What we've learned about Supabase
 
 Supabase is a great way to quickly build applications at scale. In this article you learned how to create a Postgres database with Supabase's free plan and populate some sample data with it. You then learned how to query that data using the Supabase javascript client. Finally, you learned how to secure the application with Okta using Okta's Vue client.
 
