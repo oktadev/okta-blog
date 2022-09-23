@@ -1,6 +1,6 @@
 ---
 layout: blog_post
-title: ""
+title: "Build an Online Journal with Vue and Supabase"
 author:
 by: advocate|contractor
 communities: [devops,security,mobile,.net,java,javascript,go,php,python,ruby]
