@@ -155,7 +155,7 @@ module.exports = {
 };
 ```
 
-This code will tell tailwinds to look in the file extensions provided to build its final CSS folder. Here you are also telling tailwinds to use `daisyui` as a plugin.
+This code will tell Tailwind to look in the file extensions provided to build its final CSS folder. Here you are also telling Tailwind to use `daisyui` as a plugin.
 
 Next, open `src/assets/main.css` and replace the code there with the following.
 
