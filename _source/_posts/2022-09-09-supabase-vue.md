@@ -577,7 +577,7 @@ export default {
 
 This component displays a calendar vue for any entries. It defaults to the current month but the user can move back and forth in time to change the month. The calendar also has the responsibility of populating its data. This means you will import the supabase client you created earlier and use it to fetch the data from your supabase project.
 
-The component will check if the user is authenticated before querying the data. If the user is authenticated the component will request all entries, however, if they are not then it will only request public entries.
+The component will check if the user is authenticated before querying the data. If the user is authenticated the component will request all entries.  However, if they are not authenticated, it will only request public entries.
 
 The `calander` will also contain the component for displaying detail about an entry for a given day.
 
