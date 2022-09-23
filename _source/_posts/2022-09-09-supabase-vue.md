@@ -135,7 +135,7 @@ These values are populated from the Okta CLI and the Supabase web interface.
 
 ### Set up Tailwind CSS
 
-Next, you will need to install and initialize tailwinds as well as connect DaisyUI to it. Start by installing tailwinds and initializing it.
+Next, you will need to install and initialize Tailwind CSS as well as connect daisyUI to it. Start by installing Tailwind and initializing it.
 
 ```sh
 npm install -D tailwindcss postcss autoprefixer
