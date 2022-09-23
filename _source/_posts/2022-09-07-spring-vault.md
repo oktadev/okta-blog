@@ -111,6 +111,111 @@ In the application logs, you'll see the security filter chain initializes an OAu
 
 Using environment variables for passing secrets to containerized applications is now considered bad practice because the environment can be inspected or logged in a number of cases. So, let's move on to using Spring Cloud Config server for secrets storage.
 
+### OIDC authentication; Auth0 credentials
+
+For using Auth0 as OIDC provider, you need to add the `spring-boot-starter-oauth2-client` dependency, as the Okta Spring Boot Starter [does not support Auth0](https://github.com/okta/okta-spring-boot/issues/358) yet.
+
+You can create a demo application with Spring Initializr too:
+
+```shell
+http https://start.spring.io/starter.zip \
+  bootVersion==2.7.3 \
+  dependencies==web,oauth2-client,cloud-config-client \
+  groupId==com.okta.developer \
+  artifactId==vault-demo-app-auth0  \
+  name=="Spring Boot Application" \
+  description=="Demo project of a Spring Boot application with Vault protected secrets" \
+  packageName==com.okta.developer.vault > vault-demo-app-auth0.zip
+```
+
+Modify the `Application` class the same way as described in the previous section. Also set `spring.cloud.config.enabled=false` in `application.properties`.
+
+Sign up at [Auth0](https://auth0.com/signup) and then install the [Auth0 CLI](https://github.com/auth0/auth0-cli). Then run:
+
+```shell
+auth0 login
+```
+
+The terminal will display a device confirmation code and open a browser session to activate the device.
+
+**NOTE**: My browser was not displaying anything, so I had to manually activate the device by opening the URL https://auth0.auth0.com/activate?user_code={deviceCode}
+
+On successful login, you will see the tenant, which we will use as issuer later:
+
+```shell
+✪ Welcome to the Auth0 CLI 🎊
+
+If you don't have an account, please create one here: https://auth0.com/signup.
+
+Your device confirmation code is: KGFL-LNVB
+
+ ▸    Press Enter to open the browser to log in or ^C to quit...
+
+Waiting for the login to complete in the browser... ⣻Opening in existing browser session.
+Waiting for the login to complete in the browser... done
+
+ ▸    Successfully logged in.
+ ▸    Tenant: dev-avup2laz.us.auth0.com
+
+```
+
+The next step is to create a client app:
+
+```shell
+auth0 apps create
+```
+When prompted, choose the following options:
+
+- Name: `vault-demo-app-auth0`
+- Description: <a description>
+- Type: Regular Web Application
+- Callback URLs: http://localhost:8080/login/oauth2/code/auth0
+- Logout URLs: http://localhost:8080
+
+Once the app was created, you will see the client credentials:
+
+```shell
+Name: vault-demo-app-auth0
+Description: Demo project of a Spring Boot application with Vault protected secrets
+Type: Regular Web Application
+Callback URLs: http://localhost:8080/login/oauth2/code/auth0
+Allowed Logout URLs: http://localhost:8080
+
+=== dev-avup2laz.us.auth0.com application created
+
+ CLIENT ID            ****
+ NAME                 vault-demo-app-auth0
+ DESCRIPTION          Demo project of a Spring Boot application with Vault protected secrets
+ TYPE                 Regular Web Application
+ CALLBACKS            http://localhost:8080/login/oauth2/code/auth0
+ ALLOWED LOGOUT URLS  http://localhost:8080
+ ALLOWED ORIGINS
+ ALLOWED WEB ORIGINS
+ TOKEN ENDPOINT AUTH
+ GRANTS               implicit, authorization_code, refresh_token, client_credentials
+
+▸    Quickstarts: https://auth0.com/docs/quickstart/webapp
+▸    Hint: Test this app's login box with 'auth0 test login ****'
+▸    Hint: You might wanna try 'auth0 quickstarts download ****
+```
+**NOTE**: The client secret is [not displayed](https://github.com/auth0/auth0-cli/issues/488) in the CLI output for regular applications. You can run `auth0 apps open` to open a browser in the application configuration. Then copy the secret from the **Settings** tab.
+
+You can now run the demo app passing the oidc configuration through environment variables:
+
+```shell
+SPRING_SECURITY_OAUTH2_CLIENT_PROVIDER_AUTH0_ISSUER_URI=https://{tenant}/ \
+SPRING_SECURITY_OAUTH2_CLIENT_REGISTRATION_AUTH0_CLIENT_ID={clientId} \
+SPRING_SECURITY_OAUTH2_CLIENT_REGISTRATION_AUTH0_CLIENT_SECRET={clientSecret} \
+./mvnw spring-boot:run
+```
+
+**IMPORTANT NOTE**: You must leave the trailing slash `/` in the issuer URL.
+
+Navigate to **http://localhost:8080** and you should be redirected to Auth0 login:
+
+{% img blog/spring-vault-update/auth0-login.png alt:"Auth0 login form" width:"450" %}{: .center-image }
+
+
 ## Spring Cloud Config with Secrets Encryption
 
 In microservice architectures, managing configuration with a centralized config server is essential. Secret encryption is desirable at rest and when in transit. Spring Cloud Config Server is a popular implementation. Let's configure the server to store encrypted secrets.
