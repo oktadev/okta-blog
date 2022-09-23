@@ -282,7 +282,7 @@ router.beforeEach(navigationGuard);
 export default router;
 ```
 
-This file defines the three routes needed for this application. First, using the `HomeView` page, you bind that to the root path. Next, you need to define a route for the `LoginCallback`. This is the route Okta will return the authentication response to. The `okta-vue` library will handle the callback for you. Finally, you have the `Overview` page. This page gets tagged as `requiresAuth` which means the `navigationGuard` from the `okta-vue` library will ensure the user is authenticated before allowing them to navigate to that page. if the user is unauthenticated the user will be presented with the Okta login screen.
+This file defines the three routes needed for this application. First, using the `HomeView` page, you bind that to the root path. Next, you need to define a route for the `LoginCallback`. This is the route Okta will return the authentication response to. The `okta-vue` library will handle the callback for you. Finally, you have the `Overview` page. This page gets tagged as `requiresAuth`,  which means the `navigationGuard` from the `okta-vue` library will ensure the user is authenticated before allowing them to navigate to the `Overview` page. if the user is unauthenticated, they will be presented with the Okta login screen.
 
 ### Create your components
 
