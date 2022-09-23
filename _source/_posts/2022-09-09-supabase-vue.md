@@ -575,7 +575,7 @@ export default {
 ```
 {% endraw %}
 
-This component displays a calendar vue for any entries. It defaults to the current month but the user can move back and forth in time to change the month. The calendar also has the responsibility of populating its data. This means you will import the supabase client you created earlier and use it to fetch the data from your supabase project.
+This component displays a calendar view for any entry. It defaults to the current month but the user can move back and forth in time to change the month. The calendar also has the responsibility of populating its data. This means you will import the Supabase client you created earlier and use it to fetch the data from your Supabase project.
 
 The component will check if the user is authenticated before querying the data. If the user is authenticated the component will request all entries.  However, if they are not authenticated, it will only request public entries.
 
