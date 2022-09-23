@@ -112,7 +112,7 @@ npm i daisyui@2.24.0
 
 [DaisyUI](https://daisyui.com/) is a tailwind component library that will help make your design work a little easier.
 
-#### daisyui
+#### daisyUI
 
 ```sh
 npm i vue3-datepicker@0.3.4
