@@ -167,7 +167,7 @@ Next, open `src/assets/main.css` and replace the code there with the following.
 @tailwind utilities;
 ```
 
-This will complete the setup of tailwinds.
+This will complete the setup of Tailwind CSS.
 
 ### Create the Supabase client
 
