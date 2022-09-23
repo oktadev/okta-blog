@@ -286,7 +286,7 @@ This file defines the three routes needed for this application. First, using the
 
 ### Create your components
 
-You are ready to begin developing your components and pages. You'll start with the components as the pages will depend on them.
+You are ready to begin developing your components and pages. You'll start with components, as the pages will depend on them.
 
 #### Create a header component
 
