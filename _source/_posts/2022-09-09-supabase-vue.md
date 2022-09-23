@@ -28,7 +28,7 @@ The application will be built with Vue.js using Tailwind to style the site. You 
 - [A Supabase Account](https://app.supabase.com/)
 - [Node.js version 15.0 or higher](https://nodejs.org/en/)
 - [Okta CLI](https://cli.okta.com)
-> [Okta](https://developer.okta.com/) has Authentication and User Management APIs that reduce development time with instant-on, scalable user infrastructure. Okta's intuitive API and expert support make it easy for developers to authenticate, manage and secure users and roles in any application.
+> [Okta](https://developer.okta.com/) has Authentication and User Management APIs that reduce development time with instant-on, scalable user infrastructure. Okta's intuitive API and expert support make it easy for developers to authenticate, manage, and secure users and roles in any application.
 
 You can view the [code on github](https://github.com/nickolasfisher/OktaSupabase.git).
 
