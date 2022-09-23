@@ -10,20 +10,19 @@ tweets:
 - "Jetty is a highly scalable Java web server and servlet engine. This tutorial shows how to use it with servlets and @springboot."
 - "Want to learn how to use Java and embedded @JettyProject to develop REST APIs? This tutorial is for you!"
 - "Build a Java REST API with @JettyProject and learn how to lock it down with OAuth 2.0 in this tutorial."
-image:
+image: blog/featured/okta-java-short-bottle-headphones.jpg
 type: conversion
-
 ---
 
-## Get started with Jetty, Java, and OAuth
+Jetty is a small, highly-scalable Java-based web server and servlet engine. It supports HTTP/2, WebSockets, and many other protocols. It powers websites and frameworks, both large and small, such as Google AppEngine. Because it is an Eclipse project, its open source project is called Eclipse Jetty. It is standards-compliant and open source, as well as commercially usable. It is the main alternative to Tomcat when hosting Java applications. Like you can with Tomcat, you can use Jetty both embedded and stand-alone.
 
-Jetty is a small, highly-scalable Java-based web server and servlet engine. It supports HTTP/2, WebSockets, and many other protocols. It powers websites and frameworks, both large and small, such as Google  AppEngine. Because it is an Eclipse project, its open source project is called Eclipse Jetty. it is standards-compliant and open source, as well as commercially usable. It is the main alternative to Tomcat when hosting Java applications. Like you can with Tomcat, you can use Jetty both embedded and stand-alone.
-
-By default, Spring Boot creates applications with embedded web servers, which means that the server is embedded within the application code itself, so you don't have to run a separate web server to publish  Java web applications. However, with a little configuration, you can also publish a WAR file to a separate Jetty or Tomcat servlet container  (old-school application server style). Spring also uses Tomcat by default, but you can easily change this, as you'll see.
+By default, Spring Boot creates applications with embedded web servers, which means that the server is embedded within the application code itself, so you don't have to run a separate web server to publish Java web applications. However, with a little configuration, you can also publish a WAR file to a separate Jetty or Tomcat servlet container (old-school application server style). Spring also uses Tomcat by default, but you can easily change this, as you'll see.
 
 In this tutorial, you will build a simple web service with Jetty embedded. After that, you will build the same web service in Spring Boot and Jetty. Finally, you'll add JWT (JSON Web Token) authentication and authorization to the web service using method-level security with Okta as the OAuth/OIDC provider.
 
-**Requirements**
+{% include toc.md %}
+
+## Install the Project Dependencies
 
 Before you start, please make sure you have the following prerequisites installed (or install them now).
 
@@ -33,21 +32,25 @@ Before you start, please make sure you have the following prerequisites installe
 
 You will need a free Okta Developer account if you don't already have one. But you can wait until later in the tutorial and use the Okta CLI  to log in or register for a new account.
 
-Clone the tutorial from [the GitHub repository](need.a.link).
+Clone the tutorial from [the GitHub repository](https://github.com/oktadev/okta-spring-boot-jetty-example).
 
-The repository has three projects.
+```shell
+git clone https://github.com/oktadev/okta-spring-boot-jetty-example.git
+```
 
-- `maven-jetty` - web service using Maven
-- `gradle-jetty` - web service using Gradle
-- `spring-boot-jetty-maven-no-auth` - web service using Spring Boot and Maven
-- `spring-boot-jetty-maven-okta` - web service using Spring Boot and Maven secured with Okta
-- `spring-boot-jetty-maven-auth0` - web service using Spring Boot and Maven secured with Auth0
+The repository has several projects:
 
-## Create a web service with Maven, Java, and Jetty ##
+- `maven-jetty`: web service using Maven
+- `gradle-jetty`: web service using Gradle
+- `spring-boot-jetty-maven-no-auth`: web service using Spring Boot and Maven
+- `spring-boot-jetty-maven-okta`: web service using Spring Boot and Maven secured with Okta
+- `spring-boot-jetty-maven-auth0`: web service using Spring Boot and Maven secured with Auth0
+
+## Build a simple web service with Java and Jetty
 
 In the first part of this tutorial, you're going to create a simple web service using Maven and then Gradle. In the second half, you'll see how to upgrade this to a Spring Boot-based web service to which you'll add JWT-based authentication and authorization using Okta and Auth0 as the OAuth 2.0 and OIDC provider.
 
-Download the files from the GitHub repository. Open the folder `maven-jetty`.
+You should have the files from the GitHub repository. Open the folder `maven-jetty` in your favorite IDE.
 
 First, take a look at the `pom.xml` file (which is shown below). Notice the Jetty version is being set in the properties block. The only project dependency is `jakarta.servlet-api`. This is scoped as `provided` because in deployment this package will be provided by the server container.
 
@@ -192,7 +195,6 @@ A little side note. The Maven Jetty plugin provides two tasks for running the ap
 Now take a look at a more fully-featured web service.
 
 `src/main/java/com/demo/HikesTodoServlet.java`
-
 ```java
 package com.demo;
 
@@ -259,9 +261,6 @@ If your local Jetty server is still running, you can go ahead and test it. Other
 ```bash
 http :8080/hikes
 ```
-
-``bas
-
 ```
 HTTP/1.1 200 OK
 ...
@@ -274,13 +273,13 @@ Everest Base Camp via Cho La Pass
 Kesugi Ridge
 ```
 
-POST a new hike.
+POST a new hike:
 
 ```bash
 http -f POST :8080/hikes hike="Pear Lake"
 ```
 
-```bash
+```
 HTTP/1.1 200 OK
 ...
 
@@ -294,13 +293,13 @@ Pear Lake
 
 ```
 
-DELETE a hike.
+DELETE a hike:
 
 ```bash
 http DELETE :8080/hikes hike=="South Maroon Peak"
 ```
 
-```bash
+```
 HTTP/1.1 200 OK
 Content-Length: 110
 Date: Mon, 05 Sep 2022 21:01:34 GMT
@@ -312,7 +311,6 @@ Teton Crest Trail
 Everest Base Camp via Cho La Pass
 Kesugi Ridge
 Pear Lake
-
 ```
 
 Now try to delete a hike that doesn't exist, or send an empty value:
@@ -321,12 +319,11 @@ Now try to delete a hike that doesn't exist, or send an empty value:
 http DELETE :8080/hikes
 ```
 
-```bash
+```
 HTTP/1.1 400 Bad Request
 ...
 
 Param 'hike' cannot be null.
-
 ```
 
 That's how you can create a web service using Maven and Jetty. To deploy this, you would typically build the packaged WAR file using `mvn package` and deploy the WAR to your Jetty server. 
@@ -335,7 +332,7 @@ That's how you can create a web service using Maven and Jetty. To deploy this, y
 
 ## Build a web service with Gradle and Jetty
 
-Nex,t you're going to look at how you can accomplish the same thing you did above but this time with Gradle instead of Maven. Why? Because some people are allergic to XML and love DSL's instead. 
+Next, you're going to look at how you can accomplish the same thing you did above but this time with Gradle instead of Maven. Why? Because some people are allergic to XML and love DSL's instead. 
 
 The Gradle-based app is located in the `gradle-jetty` subdirectory.
 
@@ -436,6 +433,7 @@ This is done in the `pom.xml` file by these two dependency configuration blocks.
 </dependency>
 ```
 
+<!-- todo: update to 2.7.4 -->
 Here is the full `pom.xml`. Notice the Spring Boot version is set to 2.7.3. 
 
 ```xml
@@ -494,7 +492,6 @@ Here is the full `pom.xml`. Notice the Spring Boot version is set to 2.7.3.
 In this case, you're no longer using the `@WebServlet` annotation. Instead, you're using the Spring Boot web API. The web controller is contained in a class named `WebController`.
 
 `src/main/java/com/demo/WebController.java`
-
 ```java
 package com.demo;
 
@@ -544,8 +541,7 @@ public class WebController {
         if (hike == null) {
             response.setStatus(400);
             return "Param 'hike' cannot be null.";
-        }
-        else {
+        } else {
             this.hikes.remove(hike);
             return String.join("\n", this.hikes);
         }
@@ -578,7 +574,7 @@ Test it with HTTPie.
 http :8080/hikes
 ```
 
-```bash
+```
 HTTP/1.1 200 OK
 ...
 
@@ -656,7 +652,7 @@ The project uses [the Okta Spring Boot Starter](https://github.com/okta/okta-spr
 Confirm that your issuer URI, client ID, and client secret were added to the `src/main/resources/application.properties` file.
 
 ```properties
-okta.oauth2.issuer=https://{yourOktaUrl}/oauth2/default
+okta.oauth2.issuer=https://{yourOktaDomain}/oauth2/default
 okta.oauth2.clientId={clientId}
 okta.oauth2.clientSecret={clientSecret}
 ```
@@ -787,9 +783,9 @@ HTTP/1.1 403 Forbidden
 
 ## Generate a JWT using the OIDC debugger
 
-o access the protected endpoints, you need to generate an access token  JWT. An easy way to get an access token is to generate one using [OpenID Connect Debugger](https://oidcdebugger.com/). Open the site in a new window or tab. Fill in your client ID, and use `https://{yourOktaDomain}/oauth2/default/v1/authorize` for the Authorize URI. Select **code** for the response type (uncheck **token**, if it's checked).
+To access the protected endpoints, you need to generate an access token JWT. {% include setup/oidcdebugger.md %}
 
-<< image: oidc-debugger >>
+{% img blog/java-jetty/oidc-debugger.png alt:"OIDC Debugger Configuration" width:"650" %}{: .center-image }
 
 Scroll down and click **Send Request**.
 
@@ -797,23 +793,23 @@ This will respond with an authorization code, which you need to send back to the
 
 ```bash
 http -f POST https://dev-447850.okta.com/oauth2/default/v1/token \
-grant_type=authorization_code \
-code=i3sP86Ru7spu8gOQUBZUtNC7yBnCQ8PggxJAIBMySpE \
-client_id=0oa918jqqmcbBZxMG4x7 \
-client_secret=VJ8K9k0dZ-pDl9d1BaY2ibaexpFv3vc99OtuHndq \
-redirect_uri=https://oidcdebugger.com/debug
+  grant_type=authorization_code \
+  code=i3sP86Ru7spu8gOQUBZUtNC7yBnCQ8PggxJAIBMySpE \
+  client_id=0oa918jqqmcbBZxMG4x7 \
+  client_secret=VJ8K9k0dZ-pDl9d1BaY2ibaexpFv3vc99OtuHndq \
+  redirect_uri=https://oidcdebugger.com/debug
 ```
 
 ```bash
-TTP/1.1 200 OK
+HTTP/1.1 200 OK
 ...
 
 {
-    "access_token": "eyJraWQiOiJqY3dpbGpUcGVZSG1Jajl6ODR3LVVLQm...",
-    "expires_in": 3600,
-    "id_token": "eyJraWQiOiJqY3dpbGpUcGVZSG1Jajl6ODR3LVVLQmthYm...",
-    "scope": "openid",
-    "token_type": "Bearer"
+  "access_token": "eyJraWQiOiJqY3dpbGpUcGVZSG1Jajl6ODR3LVVLQm...",
+  "expires_in": 3600,
+  "id_token": "eyJraWQiOiJqY3dpbGpUcGVZSG1Jajl6ODR3LVVLQmthYm...",
+  "scope": "openid",
+  "token_type": "Bearer"
 }
 ```
 
@@ -840,14 +836,13 @@ Teton Crest Trail
 Everest Base Camp via Cho La Pass
 Kesugi Ridge
 Pear Lake
-
 ```
 
 ```bash
 http DELETE :8080 hike=="South Maroon Peak" "Authorization: Bearer $TOKEN"
 ```
 
-```bash
+```
 HTTP/1.1 200 OK
 ...
 
@@ -958,20 +953,20 @@ auth0 tenants list
   dev-0rb77jrp.us.auth0.com  
 ```
 
-Take the domain listed above and replace the placeholder in the `issuer-uri` property in the `applications.property` file. **Don't remove the trailing slash!**
+Take the domain listed above and replace the placeholder in the `issuer-uri` property in the `application.properties` file. **Don't remove the trailing slash!**
 
 ```properties
 spring.security.oauth2.resourceserver.jwt.issuer-uri: https://dev-0rb77jrp.us.auth0.com/
 auth0.audience=http://my-api
 ```
 
-The app is configured and you can go ahead and run it.
+The app is configured, and you can go ahead and run it.
 
 ```bash
 ./mvnw spring-boot:run
 ```
 
-To test the app, you need to open an new Bash shell in the same project subdirectory.
+To test the app, you need to open a new Bash shell in the same project subdirectory.
 
 Just like with Okta, you will be able to list the hikes without a JWT.
 
@@ -1024,11 +1019,11 @@ Kesugi Ridge
 Pear Lake
 ```
 
-That's it. Auth0 security is working.
+That's it. Auth0 security is working!
 
 ## Learn more about Java, Spring Boot, and Spring Security
 
- In this tutorial, you saw how to make a simple Java servlet service and run it with Jetty. You also saw how to recreate the same service in  Spring Boot, configure it to use Jetty, and simplify your Java code.  Finally, you saw how to use a free developer account from Okta to add  OAuth/OIDC security to your Spring Boot app. And you also saw how to secure the app with Auth0.
+ In this tutorial, you saw how to make a simple Java servlet service and run it with Jetty. You also saw how to recreate the same service in Spring Boot, configure it to use Jetty, and simplify your Java code. Finally, you saw how to use a free developer account from Okta to add OAuth/OIDC security to your Spring Boot app. And you also saw how to secure the app with Auth0.
 
 You can find the code for this tutorial on GitHub at [oktadeveloper/okta-spring-boot-jetty-example](https://github.com/oktadeveloper/okta-spring-boot-jetty-example).
 
