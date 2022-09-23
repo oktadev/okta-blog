@@ -171,7 +171,7 @@ This will complete the setup of Tailwind CSS.
 
 ### Create the Supabase client
 
-To access your supabase project you will need to call `createClient` from the supabase client library that you installed earlier. Here you will build a small helper to create the client based on the configuration from your `.env` file.
+To access your Supabase project you will need to call `createClient` from the Supabase client library that you installed earlier. Here you will build a small helper to create the client based on the configuration from your `.env` file.
 
 Create a file in the `src` directory called `supabase.js` and add the following code.
 
