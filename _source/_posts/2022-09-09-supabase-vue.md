@@ -912,7 +912,7 @@ export default {
 </script>
 ```
 
-This page is similar to the Home page but it includes information welcoming the user by name after they've logged in with Okta.
+This page is similar to the Home page but includes information welcoming the user by name after they've logged in with Okta.
 
 ## Test your application
 
