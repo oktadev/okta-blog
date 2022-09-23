@@ -930,7 +930,7 @@ Supabase is a great way to quickly build applications at scale. In this article 
 
 Supabase offers other solutions such as blob storage and edge functions which we did not cover in this article but I encourage you to check those out as well. Supabase also offers client libraries for Python and Dart. The platform is very easy to use and very robust.
 
-Supabase also offers IDP for many leading providers however I would like to see support for Okta or at very least generic OAuth clients.
+In addition, Supabase offers identity provider services (IdP) for many leading providers however I would like to see support for Okta or at very least generic OAuth clients.
 
 ## Learn more about Vue
 
