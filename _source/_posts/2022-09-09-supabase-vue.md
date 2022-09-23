@@ -45,7 +45,7 @@ Go to your [Supabase account](https://app.supabase.com/) and click on **New Proj
 
 {% img blog/supabase-vue/supabase-create-project.png alt:"Create a project in Supabase" width:"600" %}{: .center-image }
 
-Make note of your `Project API Keys` and `Project Configuration` in the `Connecting to your new project` section of the project page. Specifically, you will need the `anon` `public` API key and the `URL`.
+Take note of your `Project API Keys` and `Project Configuration` in the `Connecting to your new project` section of the project page. Specifically, you will need the `anon` `public` API key and the `URL`.
 
 ### Create your table in Supabase
 
