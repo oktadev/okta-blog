@@ -78,7 +78,7 @@ It's now time to create your Vue application. Start by running the following com
 npm init vue@3.3.2 OktaSupabase
 ```
 
-This will create a new Vue application called `OktaSupabase` in a subfolder on your working directory with the same name. There will be several options in this command such as the project name, typescript support, JSX support, and others. See the image below for the options I've chosen. If you want to use some of these options feel free to turn them on.
+This will create a new Vue application called `OktaSupabase` in a subfolder on your working directory with the same name. There will be several options in this command such as the project name, TypeScript support, JSX support, and others. See the image below for the options I've chosen. If you want to use some of these options feel free to turn them on.
 
 {% img blog/supabase-vue/vue-init-options.png alt:"Create your vue application" width:"600" %}{: .center-image }
 
