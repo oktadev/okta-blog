@@ -837,7 +837,7 @@ This component just shows the detail of the entry in a clear way. The calendar a
 
 Now that your components are written, you can bring them together into pages. These pages will correspond to the routes you defined earlier in the `routes` folder.
 
-#### Home Screen page
+#### Home page
 
 Add a file to the `views` folder called `HomeView.vue`. Add the following code to it.
 
