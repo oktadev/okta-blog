@@ -68,7 +68,7 @@ Click on the table you just created in the table editor and click **Insert Row**
 
 {% img blog/supabase-vue/supabase-add-row.png alt:"Add data to supabase" width:"600" %}{: .center-image }
 
-After each row click save and you should see the data you complete populated in the Table editor.
+After each row, click save and you should see the data you complete populated in the Table editor.
 
 ## Create your Vue Application
 
