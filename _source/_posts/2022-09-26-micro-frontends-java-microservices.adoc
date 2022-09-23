@@ -153,12 +153,11 @@ jhipster jdl reactive-mf.jdl --monorepository --workspaces
 
 The last two arguments are optional, but I expect you to use them for this tutorial. Without the `monorepository` flag, the gateway and microservices would have their own Git repos. The `workspaces` flag enables https://docs.npmjs.com/cli/v8/using-npm/workspaces[npm workspaces], which are kinda like having an aggregator `pom.xml` that allows you to execute commands across projects. It also makes it so there's only one `node_modules` in the root directory. To learn more, I recommend egghead's https://egghead.io/courses/introduction-to-monorepos-with-npm-workspaces-c03f500b[Introduction to Monorepos with NPM Workspaces].
 
-If you want to use Angular, you can pass in `--client-framework angularX` to override the JDL value. For example:
+If you want to use Angular, append `--client-framework angularX` to the command above to override the JDL value:
 
 [source,shell]
 ----
-# Micro Frontends with Angular
-jhipster jdl reactive-mf.jdl --client-framework angularX --monorepository --workspaces
+--client-framework angularX
 ----
 
 IMPORTANT: `angularX` is a legacy JDL value from back when JHipster supported AngularJS and Angular 2. We will change it to `angular` in v8.
@@ -167,8 +166,7 @@ If you'd rather try out Vue, use the following:
 
 [source,shell]
 ----
-# Micro Frontends with Vue
-jhipster jdl reactive-mf.jdl --client-framework vue --monorepository --workspaces
+--client-framework vue
 ----
 
 === Run your reactive Spring Boot microservices
@@ -177,6 +175,7 @@ When the process is complete, cd into the `gateway` directory and start Keycloak
 
 [source,shell]
 ----
+cd gateway
 docker compose -f src/main/docker/keycloak.yml up -d
 docker compose -f src/main/docker/consul.yml up -d
 ----
@@ -217,7 +216,7 @@ In the gateway app, run `npm start`. This command will run the UI on a web serve
 
 Modify the code in `gateway/src/main/webapp/app/modules/home/home.tsx` to make a quick change. For example, add the following HTML below the `<h2>`.
 
-[source,jsx]
+[source,html]
 ----
 <h3 className="text-primary">
   Hi, I'm a quick edit!
@@ -459,11 +458,12 @@ npm run java:docker:arm64
 
 TIP: You can see all npm scripts with `npm run`.
 
-Then, navigate to the `docker-compose` directory and start all the containers.
+Then, navigate to the `docker-compose` directory, stop the existing containers, and start all the containers.
 
 [source,shell]
 ----
 cd docker-compose
+docker stop $(docker ps -a -q);
 docker compose up
 ----
 
