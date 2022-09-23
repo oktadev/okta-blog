@@ -187,7 +187,7 @@ const supabaseAnonKey =
 export const supabase = createClient(supabaseUrl, supabaseAnonKey);
 ```
 
-This will make it a bit easier to obtain a supabase client from your views.
+This will make it a bit easier to obtain a Supabase client from your views.
 
 ### Update boilerplate Vue code
 
