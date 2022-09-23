@@ -32,7 +32,7 @@ Before you start, please make sure you have the following prerequisites installe
 
 You will need a free Okta Developer account if you don't already have one. But you can wait until later in the tutorial and use the Okta CLI  to log in or register for a new account.
 
-Clone the tutorial from [the GitHub repository](https://github.com/oktadev/okta-spring-boot-jetty-example).
+Start by cloning [this tutorial's GitHub repo](https://github.com/oktadev/okta-spring-boot-jetty-example):
 
 ```shell
 git clone https://github.com/oktadev/okta-spring-boot-jetty-example.git
@@ -433,8 +433,7 @@ This is done in the `pom.xml` file by these two dependency configuration blocks.
 </dependency>
 ```
 
-<!-- todo: update to 2.7.4 -->
-Here is the full `pom.xml`. Notice the Spring Boot version is 2.7.3.
+Here is the full `pom.xml`. Notice the Spring Boot version is 2.7.4.
 
 ```xml
 <?xml version="1.0" encoding="UTF-8"?>
@@ -444,7 +443,7 @@ Here is the full `pom.xml`. Notice the Spring Boot version is 2.7.3.
   <parent>
     <groupId>org.springframework.boot</groupId>
     <artifactId>spring-boot-starter-parent</artifactId>
-    <version>2.7.3</version>
+    <version>2.7.4</version>
     <relativePath/>
   </parent>
   <groupId>com.demo</groupId>
@@ -550,7 +549,7 @@ public class WebController {
 }
 ```
 
-Some of you might notice that Spring Boot is still using the JavaX servlet API and not the newer Jakarta API. It looks like this migration is scheduled for Spring Boot 3.0.0 (see [this issue](https://github.com/spring-projects/spring-boot/issues/31720)).
+Some of you might notice that Spring Boot is still using the Java EE Servlet API package and not the newer Jakarta API. It looks like this migration is scheduled for Spring Boot 3.0.0 (see [this issue](https://github.com/spring-projects/spring-boot/issues/31720)).
 
 To run the Spring Boot app, open a Bash shell and navigate to the `spring-boot-jetty-maven` subdirectory.
 
@@ -615,25 +614,6 @@ The first step to securing the app is configuring an OpenID Connect (OIDC) app o
 You need to run the following commands from the `spring-boot-jetty-maven-okta` subdirectory.
 
 {% include setup/cli.md type="web" framework="Okta Spring Boot Starter" loginRedirectUri="https://oidcdebugger.com/debug,http://localhost:8080/login/oauth2/code/okta" %}
-
-The Okta CLI will create an OIDC Web App in your Okta Org. It will add the redirect URIs you specified and grant access to the `Everyone` group. You will see output like the following when it's finished:
-
-```
-Okta application configuration has been written to: 
-  /path/to/app/src/main/resources/application.properties
-```
-
-Open `src/main/resources/application.properties` to see the issuer and credentials for your app.
-
-```
-okta.oauth2.issuer=https://dev-123456.okta.com/oauth2/default
-okta.oauth2.client-id=0oab8eb55Kb9jdMIr5d6
-okta.oauth2.client-secret=NEVER-SHOW-SECRETS
-```
-
-**The client secret is a password and must be protected.**
-
-You can also use the Okta Admin Console to create your app. See [Create a Spring Boot App](https://developer.okta.com/docs/guides/sign-into-web-app/springboot/create-okta-application/) for more information.
 
 > **NOTE:** You will use the oidcdebugger.com redirect URI to create an access token you can use from the command line with HTTPie. The second URI is the default redirect URI that Spring Security uses for Okta when using its OAuth login feature.
 
@@ -1025,7 +1005,7 @@ That's it. Auth0 security is working!
 
 In this tutorial, you saw how to make a simple Java servlet service and run it with Jetty. You also saw how to recreate the same service in Spring Boot, configure it to use Jetty, and simplify your Java code. Finally, you saw how to use a free developer account from Okta to add OAuth/OIDC security to your Spring Boot app. And you also saw how to secure the app with Auth0.
 
-You can find the code for this tutorial on GitHub at [oktadeveloper/okta-spring-boot-jetty-example](https://github.com/oktadeveloper/okta-spring-boot-jetty-example).
+You can find the code for this tutorial on GitHub at [oktadev/okta-spring-boot-jetty-example](https://github.com/oktadev/okta-spring-boot-jetty-example).
 
 Here are some related blog posts:
 
