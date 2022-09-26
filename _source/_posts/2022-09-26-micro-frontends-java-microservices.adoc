@@ -6,8 +6,10 @@ by: advocate
 communities: [java,javascript]
 description: "This tutorial explains what micro frontends are and how you can use them with Java microservices."
 tweets:
-  - ""
-tags: []
+- "Want to ditch your monolith UI for micro frontends? My latest tutorial shows you how!"
+- "Learn how to build a @java microservices architecture that leverages micro frontends for the UI."
+- "Spring Boot and Spring Cloud simplify development of Java microservices, but what about the frontend? Try micro frontends!"
+tags: [java, microservices, microfrontends, jhipster]
 type: conversion
 github: https://github.com/oktadev/auth0-micro-frontends-jhipster-example
 image: blog/micro-frontends-java/micro-frontends.jpg
