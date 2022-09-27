@@ -218,6 +218,11 @@ Navigate to `http://localhost:8080`, and you should be redirected to Auth0 to lo
 
 {% img blog/spring-vault-update/auth0-login.png alt:"Auth0 login form" width:"450" %}{: .center-image }
 
+If you choose **Continue with Google** you will see the consent screen:
+
+{% img blog/spring-vault-update/auth0-consent.png alt:"Auth0 authorize form" width:"450" %}{: .center-image }
+
+
 ## Spring Cloud Config with Secrets Encryption
 
 In microservice architectures, managing configuration with a centralized config server is essential. Secret encryption is desirable at rest and when in transit. Spring Cloud Config Server is a popular implementation. Let's configure the server to store encrypted secrets.
@@ -317,8 +322,7 @@ spring:
 Start `vault-demo-app` without passing the environment variables:
 
 ```shell
-./mvnw clean
-./mvnw spring-boot:run
+./mvnw clean spring-boot:run
 ```
 
 When requesting `http://localhost:8080` it should again redirect to the Okta login.
@@ -331,7 +335,7 @@ In a real environment, the config server should be secured. Spring Cloud Config 
 
 In the cloud, secrets management has become much more difficult. Vault is a secrets management and data protection tool from HashiCorp that provides secure storage, dynamic secret generation, data encryption, and secret revocation.
 
-Vault encrypts the secrets prior to writing them to persistent storage. The encryption key is also stored in Vault, but encrypted with a _master key_ not stored anywhere. The master key is split into shards using _Shamir's Secret Sharing algorithm_, and distributed among a number of operators. The Vault unseal process allows you to reconstruct the master key by adding shards one at a time in any order until enough shards are present, then Vault becomes operative. Operations on secrets can be audited by enabling audit devices, which will send audit logs to a file, syslog or socket.
+Vault encrypts the secrets prior to writing them to persistent storage. The encryption key is also stored in Vault, but encrypted with a _master key_ not stored anywhere. The master key is split into shards using [Shamir's Secret Sharing algorithm](https://www.vaultproject.io/docs/concepts/seal#shamir-seals), and distributed among a number of operators. The Vault unseal process allows you to reconstruct the master key by adding shards one at a time in any order until enough shards are present, then Vault becomes operative. Operations on secrets can be audited by enabling audit devices, which will send audit logs to a file, syslog or socket.
 
 As Spring Cloud Config Server supports Vault as a configuration backend, the next step is to better protect the application secrets by storing them in Vault.
 
@@ -538,11 +542,12 @@ policies             ["default" "vault-demo-app-policy"]
 
 **NOTE**: I could not find documentation about the warning _Endpoint ignored these unrecognized parameters_. It seems `vault CLI` is sending default parameters not required by the target API in this case. The command equivalent API call can be displayed using the `-output-curl-string` flag after the subcommand, for example:
 
-```bash
+```shell
 vault token create -output-curl-string -policy=vault-demo-app-policy
 ```
+The output string will look like below:
 
-```bash
+```shell
 curl -X POST -H "X-Vault-Token: $(vault print token)" -H "X-Vault-Request: true" -d '{"policies":["vault-demo-app-policy"],"ttl":"0s","explicit_max_ttl":"0s","period":"0s","display_name":"","num_uses":0,"renewable":true,"type":"service","entity_alias":""}' http://127.0.0.1:8200/v1/auth/token/create
 ```
 
