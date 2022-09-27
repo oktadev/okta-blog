@@ -119,7 +119,7 @@ For using Auth0 as OIDC provider, you need to add the `spring-boot-starter-oauth
 You can create a demo application with Spring Initializr too:
 
 ```shell
-http https://start.spring.io/starter.zip \
+https start.spring.io/starter.zip \
   bootVersion==2.7.4 \
   dependencies==web,oauth2-client,cloud-config-client \
   groupId==com.okta.developer \
@@ -208,6 +208,7 @@ You can now run the demo app passing the oidc configuration through environment 
 SPRING_SECURITY_OAUTH2_CLIENT_PROVIDER_AUTH0_ISSUER_URI=https://{tenant}/ \
 SPRING_SECURITY_OAUTH2_CLIENT_REGISTRATION_AUTH0_CLIENT_ID={clientId} \
 SPRING_SECURITY_OAUTH2_CLIENT_REGISTRATION_AUTH0_CLIENT_SECRET={clientSecret} \
+SPRING_SECURITY_OAUTH2_CLIENT_REGISTRATION_AUTH0_SCOPE=openid,profile,email \
 ./mvnw spring-boot:run
 ```
 
@@ -226,7 +227,7 @@ In microservice architectures, managing configuration with a centralized config 
 Using the Spring Initializr API, create a Vault + Config Server application:
 
 ```shell
-http https://start.spring.io/starter.zip \
+https start.spring.io/starter.zip \
   bootVersion==2.7.4 \
   dependencies==cloud-config-server \
   groupId==com.okta.developer \
@@ -236,9 +237,9 @@ http https://start.spring.io/starter.zip \
   packageName==com.okta.developer.vault > vault-config-server.zip
 ```
 
-Unzip the downloaded file. Rename `src/main/resource/application.properties` to `src/main/resource/application.yml`, edit the file to specify the port, add a `native` profile, and specify config search locations:
+Unzip the downloaded file. Rename `src/main/resource/application.properties` to `application.yml`, edit the file to specify the port, add a `native` profile, and specify config search locations:
 
-```yml
+```yaml
 server:
   port: 8888
 
@@ -247,7 +248,7 @@ spring:
     active: native
 ```
 
-Edit `src/main/java/com/okta/developer/vault/SpringBootConfigurationServerApplication.java` and add a `@EnableConfigServer` annotation:
+Edit `src/main/java/.../SpringBootConfigurationServerApplication.java` and add a `@EnableConfigServer` annotation:
 
 ```java
 package com.okta.developer.vault;
@@ -298,7 +299,7 @@ okta:
 
 The `client-id` and `client-secret` encrypted values must be prefixed with `{cipher}`. Restart the config server.
 
-To consume the config server properties, the client application must set the server address in the application configuration. In the `vault-demo-app` project, rename `application.properties` to `application.yml` and configure it as follows:
+To consume the config server properties, the client application must set the server address in the application configuration. In the `vault-demo-app` project, rename `application.properties` to `application.yml` and replace its contents with the following configuration:
 
 ```yaml
 spring:
@@ -334,7 +335,7 @@ Vault encrypts the secrets prior to writing them to persistent storage. The encr
 
 As Spring Cloud Config Server supports Vault as a configuration backend, the next step is to better protect the application secrets by storing them in Vault.
 
-Pull the Vault docker image and start a container using the command below. Make sure to replace `{hostPath}` with a local directory path, such as `/tmp/vault`.
+Pull the Vault Docker image and start a container using the command below. Make sure to replace `{hostPath}` with a local directory path, such as `/tmp/vault`.
 
 ```shell
 docker pull vault
@@ -373,7 +374,7 @@ Development mode should NOT be used in production installations!
 ```
 
 It is clear Vault is running in _dev mode_, meaning it short-circuits a lot of setup to insecure defaults, which helps for the experimentation. Data is stored encrypted in-memory and lost on every restart. Copy the _Unseal Key_, as we are going to use it to test Vault sealing.
-Connect to the container and explore some vault commands:
+Connect to the container and explore some `vault` commands:
 
 ```shell
 docker exec -it my-vault /bin/sh
@@ -575,7 +576,7 @@ Note that the logging level is set to TRACE to see the interaction between the s
 You should see the logs below if the server was configured correctly:
 
 ```
-2020-05-01 01:19:10.105  INFO 14072 --- [main] SpringBootConfigurationServerApplication:
+2022-09-23 01:19:10.105  INFO 14072 --- [main] SpringBootConfigurationServerApplication:
  Started SpringBootConfigurationServerApplication in 4.525 seconds (JVM running for 4.859)
 ```
 
