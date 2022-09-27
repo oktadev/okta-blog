@@ -91,7 +91,7 @@ In a command line session, go to the `vault-demo-app` root folder.
 
 {% include setup/cli.md type="web" framework="Okta Spring Boot Starter" %}
 
-Instead of storing Okta credentials in `application.properties`, Spring Boot allows you to bind properties from environment variables. You can see this in action by starting your application with the Maven command below:
+Instead of storing Okta credentials in `application.properties` as part of the project code, Spring Boot allows you to bind properties from environment variables. You can see this in action by starting your application with the Maven command below:
 
 ```shell
 OKTA_OAUTH2_ISSUER={yourIssuerURI} \
@@ -102,11 +102,11 @@ OKTA_OAUTH2_CLIENT_SECRET={yourClientSecret} \
 
 In an incognito window, go to `http://localhost:8080`. Here, you should see the Okta login page:
 
-{% img blog/spring-vault/okta-login.png alt:"Okta login form" width:"500" %}{: .center-image }
+{% img blog/spring-vault-update/okta-login.png alt:"Okta login form" width:"400" %}{: .center-image }
 
 In the application logs, you'll see the security filter chain initializes an OAuth 2.0 authentication flow:
 
-```
+```shell
 2022-09-07 08:50:09.460  INFO 20676 --- [           main] o.s.s.web.DefaultSecurityFilterChain     : Will secure any request with [org.springframework.security.web.session.DisableEncodeUrlFilter@6b4a4e40, org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@46a8c2b4, org.springframework.security.web.context.SecurityContextPersistenceFilter@640d604, org.springframework.security.web.header.HeaderWriterFilter@7b96de8d, org.springframework.security.web.csrf.CsrfFilter@2a0b901c, org.springframework.security.web.authentication.logout.LogoutFilter@38ac8968, org.springframework.security.oauth2.client.web.OAuth2AuthorizationRequestRedirectFilter@7739aac4, org.springframework.security.oauth2.client.web.OAuth2AuthorizationRequestRedirectFilter@36c07c75, org.springframework.security.oauth2.client.web.OAuth2LoginAuthenticationFilter@353c6da1, org.springframework.security.web.authentication.ui.DefaultLoginPageGeneratingFilter@7e61e25c, org.springframework.security.web.authentication.ui.DefaultLogoutPageGeneratingFilter@4f664bee, org.springframework.security.oauth2.server.resource.web.BearerTokenAuthenticationFilter@21b51e59, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@5438fa43, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@512abf25, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@76563ae7, org.springframework.security.oauth2.client.web.OAuth2AuthorizationCodeGrantFilter@3e14d390, org.springframework.security.web.session.SessionManagementFilter@4dc52559, org.springframework.security.web.access.ExceptionTranslationFilter@51ac12ac, org.springframework.security.web.access.intercept.FilterSecurityInterceptor@2407a36c]
 ```
 
