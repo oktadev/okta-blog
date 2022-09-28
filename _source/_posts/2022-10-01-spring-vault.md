@@ -339,7 +339,7 @@ In the cloud, secrets management has become much more difficult. Vault is a secr
 
 Vault encrypts the secrets prior to writing them to persistent storage. The encryption key is also stored in Vault, but encrypted with a _master key_ not stored anywhere. The master key is split into shards using [Shamir's Secret Sharing algorithm](https://www.vaultproject.io/docs/concepts/seal#shamir-seals), and distributed among a number of operators. The Vault unseal process allows you to reconstruct the master key by adding shards one at a time in any order until enough shards are present, then Vault becomes operative. Operations on secrets can be audited by enabling audit devices, which will send audit logs to a file, syslog or socket.
 
-As Spring Cloud Config Server supports Vault as a configuration backend, the next step is to better protect the application secrets by storing them in Vault.
+As Spring Cloud Config Server supports Vault as a configuration backend, the next step is to better protect the application secrets by storing them in Vault. This configuration will be demonstrated with Okta as the OIDC provider. A similar approach can be used for Auth0 secrets.
 
 Pull the Vault Docker image and start a container using the command below. Make sure to replace `{hostPath}` with a local directory path, such as `/tmp/vault`.
 
