@@ -94,11 +94,13 @@ In a command line session, go to the `vault-demo-app` root folder.
 Instead of storing Okta credentials in `application.properties` as part of the project code, Spring Boot allows you to bind properties from environment variables. You can see this in action by starting your application with the Maven command below:
 
 ```shell
-OKTA_OAUTH2_ISSUER={yourIssuerURI} \
-OKTA_OAUTH2_CLIENT_ID={yourClientId} \
-OKTA_OAUTH2_CLIENT_SECRET={yourClientSecret} \
+OKTA_OAUTH2_ISSUER={yourOktaIssuerURI} \
+OKTA_OAUTH2_CLIENT_ID={yourOktaClientId} \
+OKTA_OAUTH2_CLIENT_SECRET={yourOktaClientSecret} \
 ./mvnw spring-boot:run
 ```
+
+**NOTE**: Copy the values of `yourOktaIssuerURI`, `yourOktaClientId` and `yourOktaClientSecret` as you will need them for configuration in the next sections.
 
 In an incognito window, go to `http://localhost:8080`. Here, you should see the Okta login page:
 
@@ -106,9 +108,9 @@ In an incognito window, go to `http://localhost:8080`. Here, you should see the 
 
 In the application logs, you'll see the security filter chain initializes an OAuth 2.0 authentication flow:
 
-```shell
-2022-09-07 08:50:09.460  INFO 20676 --- [           main] o.s.s.web.DefaultSecurityFilterChain     : Will secure any request with [org.springframework.security.web.session.DisableEncodeUrlFilter@6b4a4e40, org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@46a8c2b4, org.springframework.security.web.context.SecurityContextPersistenceFilter@640d604, org.springframework.security.web.header.HeaderWriterFilter@7b96de8d, org.springframework.security.web.csrf.CsrfFilter@2a0b901c, org.springframework.security.web.authentication.logout.LogoutFilter@38ac8968, org.springframework.security.oauth2.client.web.OAuth2AuthorizationRequestRedirectFilter@7739aac4, org.springframework.security.oauth2.client.web.OAuth2AuthorizationRequestRedirectFilter@36c07c75, org.springframework.security.oauth2.client.web.OAuth2LoginAuthenticationFilter@353c6da1, org.springframework.security.web.authentication.ui.DefaultLoginPageGeneratingFilter@7e61e25c, org.springframework.security.web.authentication.ui.DefaultLogoutPageGeneratingFilter@4f664bee, org.springframework.security.oauth2.server.resource.web.BearerTokenAuthenticationFilter@21b51e59, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@5438fa43, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@512abf25, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@76563ae7, org.springframework.security.oauth2.client.web.OAuth2AuthorizationCodeGrantFilter@3e14d390, org.springframework.security.web.session.SessionManagementFilter@4dc52559, org.springframework.security.web.access.ExceptionTranslationFilter@51ac12ac, org.springframework.security.web.access.intercept.FilterSecurityInterceptor@2407a36c]
-```
+<pre><code>
+2022-09-07 08:50:09.460  INFO 20676 --- [           main] o.s.s.web.DefaultSecurityFilterChain     : Will secure any request with<br> [org.springframework.security.web.session.DisableEncodeUrlFilter@6b4a4e40,<br> org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@46a8c2b4,<br> org.springframework.security.web.context.SecurityContextPersistenceFilter@640d604,<br> org.springframework.security.web.header.HeaderWriterFilter@7b96de8d,<br> org.springframework.security.web.csrf.CsrfFilter@2a0b901c,<br> org.springframework.security.web.authentication.logout.LogoutFilter@38ac8968,<br> org.springframework.security.oauth2.client.web.OAuth2AuthorizationRequestRedirectFilter@7739aac4,<br> org.springframework.security.oauth2.client.web.OAuth2AuthorizationRequestRedirectFilter@36c07c75,<br> org.springframework.security.oauth2.client.web.OAuth2LoginAuthenticationFilter@353c6da1,<br> org.springframework.security.web.authentication.ui.DefaultLoginPageGeneratingFilter@7e61e25c,<br> org.springframework.security.web.authentication.ui.DefaultLogoutPageGeneratingFilter@4f664bee,<br> org.springframework.security.oauth2.server.resource.web.BearerTokenAuthenticationFilter@21b51e59,<br> org.springframework.security.web.savedrequest.RequestCacheAwareFilter@5438fa43,<br> org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@512abf25,<br> org.springframework.security.web.authentication.AnonymousAuthenticationFilter@76563ae7,<br> org.springframework.security.oauth2.client.web.OAuth2AuthorizationCodeGrantFilter@3e14d390,<br> org.springframework.security.web.session.SessionManagementFilter@4dc52559,<br> org.springframework.security.web.access.ExceptionTranslationFilter@51ac12ac,<br> org.springframework.security.web.access.intercept.FilterSecurityInterceptor@2407a36c]
+</code></pre>
 
 Using environment variables for passing secrets to containerized applications is now considered bad practice because the environment can be inspected or logged in a number of cases. So, let's move on to using Spring Cloud Config server for secrets storage.
 
@@ -200,14 +202,14 @@ Allowed Logout URLs: http://localhost:8080
 ▸    Hint: You might wanna try 'auth0 quickstarts download ****
 ```
 
-**NOTE**: The client secret is [not displayed](https://github.com/auth0/auth0-cli/issues/488) in the CLI output for regular applications. You can run `auth0 apps open` to open a browser in the application configuration. Then copy the secret from the **Settings** tab.
+**NOTE**: The client secret is [not displayed](https://github.com/auth0/auth0-cli/issues/488) in the CLI output for regular applications. You can run `auth0 apps open` to open a browser in the application configuration. Then copy the secret from the **Settings** tab. In the example above, the tenant is `dev-avup2laz.us.auth0.com`.
 
 You can now run the demo app passing the oidc configuration through environment variables:
 
 ```shell
-SPRING_SECURITY_OAUTH2_CLIENT_PROVIDER_AUTH0_ISSUER_URI=https://{tenant}/ \
-SPRING_SECURITY_OAUTH2_CLIENT_REGISTRATION_AUTH0_CLIENT_ID={clientId} \
-SPRING_SECURITY_OAUTH2_CLIENT_REGISTRATION_AUTH0_CLIENT_SECRET={clientSecret} \
+SPRING_SECURITY_OAUTH2_CLIENT_PROVIDER_AUTH0_ISSUER_URI=https://{auth0Tenant}/ \
+SPRING_SECURITY_OAUTH2_CLIENT_REGISTRATION_AUTH0_CLIENT_ID={auth0clientId} \
+SPRING_SECURITY_OAUTH2_CLIENT_REGISTRATION_AUTH0_CLIENT_SECRET={auth0clientSecret} \
 SPRING_SECURITY_OAUTH2_CLIENT_REGISTRATION_AUTH0_SCOPE=openid,profile,email \
 ./mvnw spring-boot:run
 ```
@@ -422,9 +424,9 @@ You should see a success message. Now store the Okta secrets for the `vault-demo
 
 ```shell
 vault kv put secret/vault-demo-app,dev \
-okta.oauth2.clientId="{yourClientId}" \
-okta.oauth2.clientSecret="{yourClientSecret}" \
-okta.oauth2.issuer="{yourIssuerURI}"
+okta.oauth2.clientId="{yourOktaClientId}" \
+okta.oauth2.clientSecret="{yourOktaClientSecret}" \
+okta.oauth2.issuer="{yourOktaIssuerURI}"
 ```
 ```shell
 vault kv get secret/vault-demo-app,dev
@@ -491,7 +493,7 @@ Check `vault_audit.log` in your specified `{hostPath}` directory. Operations are
 
 Let's assume you don't want to configure the root token in the `vault-demo-app`. You can instead create a policy granting read permissions on the path where the secrets were stored. Go to the Vault Web UI at `http://localhost:8200` and log in with the root token (`00000000-0000-0000-0000-000000000000`).
 
-{% img blog/spring-vault/vault-web-ui.png alt:"Vault web UI" width:"800" %}{: .center-image }
+{% img blog/spring-vault-update/vault-web-ui.png alt:"Vault web UI" width:"650" %}{: .center-image }
 
 Next, go to **Policies** and **Create ACL policy**. Create a `vault-demo-app-policy` with the following capabilities:
 
@@ -515,7 +517,7 @@ path "secret/data/application,dev" {
 
 All the paths above will be requested by the config server to provide configuration for the `vault-demo-app` when it starts with the `dev` profile active.
 
-{% img blog/spring-vault/vault-policy.png alt:"Vault policy section" width:"800" %}{: .center-image }
+{% img blog/spring-vault-update/vault-policy.png alt:"Vault policy section" width:"800" %}{: .center-image }
 
 Now, go back to the container command line, and create a token with the `vault-demo-app-policy`.
 
@@ -569,10 +571,10 @@ spring:
           kvVersion: 2
 logging:
   level:
-    root: TRACE
+    org.springframework.web.client: TRACE
 ```
 
-Note that the logging level is set to TRACE to see the interaction between the server and Vault. Restart the `vault-config-server`.
+Note that the logging level is set to TRACE for the web client, to see the interaction between the server and Vault. Restart the `vault-config-server`.
 
 ```shell
 ./mvnw spring-boot:run
@@ -592,17 +594,12 @@ SPRING_CLOUD_CONFIG_TOKEN=hvs.CAESIKd9pYyc9xesiqmwvep... \
 ./mvnw spring-boot:run
 ```
 
-When the `vault-demo-app` starts, it will request the configuration to the config server, which in turn will make a REST to Vault. In the config server logs, with enough logging level, you will be able to see:
+When the `vault-demo-app` starts, it will request the configuration to the config server, which in turn will make REST requests to Vault. In the config server logs, with enough logging level, you will be able to see those requests:
 
 ```shell
-2022-09-09 19:21:57.778 DEBUG 12359 --- [nio-8888-exec-1] ...: Received [GET /vault-demo-app/dev HTTP/1.1
-Accept: application/vnd.spring-cloud.config-server.v2+json
-X-Config-Token: hvs.CAESIKd9pYyc9xesiqmwvep...
-User-Agent: Java/17
-Host: localhost:8888
-Connection: keep-alive
-
-]
+2022-09-28 17:21:25.096 DEBUG 6685 --- [nio-8888-exec-1] o.s.web.client.RestTemplate              : HTTP GET http://127.0.0.1:8200/v1/secret/data/vault-demo-app,dev
+2022-09-28 17:21:25.142 DEBUG 6685 --- [nio-8888-exec-1] o.s.web.client.RestTemplate              : Accept=[application/json, application/*+json]
+2022-09-28 17:21:25.183 DEBUG 6685 --- [nio-8888-exec-1] o.s.web.client.RestTemplate              : Response 200 OK
 ```
 
 Go to `http://localhost:8080` and verify that authentication with Okta works.
