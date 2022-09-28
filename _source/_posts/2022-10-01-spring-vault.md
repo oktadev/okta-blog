@@ -100,7 +100,7 @@ OKTA_OAUTH2_CLIENT_SECRET={yourOktaClientSecret} \
 ./mvnw spring-boot:run
 ```
 
-**NOTE**: Copy the values of `yourOktaIssuerURI`, `yourOktaClientId` and `yourOktaClientSecret` as you will need them for configuration in the next sections.
+**NOTE**: Copy the values of `yourOktaIssuerURI`, `yourOktaClientId` and `yourOktaClientSecret` as you will need them for configuration in the next sections. You can also just keep at hand `yourOktaClientId` and retrieve the configuration with `okta apps config --app {yourOktaClientId}`.
 
 In an incognito window, go to `http://localhost:8080`. Here, you should see the Okta login page:
 
