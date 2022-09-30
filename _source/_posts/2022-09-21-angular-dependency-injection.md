@@ -18,7 +18,7 @@ Angular has an extensive system to add and configure dependencies to the applica
 
 ## Quick overview of Dependency Injection
 
-Dependency Injection decouples the creation of a dependency from using the dependency. Doing so promotes loose coupling within our code, a foundation for creating well-architected software. When we use DI, we follow a design principle called Dependency Inversion. Dependency Inversion is a core tenant of software design principles. It's so integral that if you've heard of the acronym **SOLID** to describe good coding practices, Dependency Inversion represents the letter **D** in the acronym. Following the [SOLID design practices](https://en.wikipedia.org/wiki/SOLID) yields flexible, maintainable software that allows our applications to grow with new features more quickly. And by using DI, we can change the dependent code without changing the consuming code, which is pretty cool! This is nearly impossible with tightly coupled code, where you might have to touch everything to make a small change!
+Dependency Injection decouples the creation of a dependency from using that dependency. This promotes loose coupling within our code, a foundation for creating well-architected software. When we use DI, we follow a design principle called Dependency Inversion. Dependency Inversion is a core tenet of software design principles. It's so integral that it's part of the acronym **SOLID**, used to describe design patterns for good coding practices. Dependency Inversion represents the letter **D** in the acronym. Following [SOLID design practices](https://en.wikipedia.org/wiki/SOLID) yields flexible, maintainable software that allows our applications to grow with new features more quickly. And by using DI, we can change the dependent code without changing the consuming code, which is pretty cool! This is nearly impossible with tightly coupled code, where you might have to touch everything to make a small change.
 
 The cool thing is Angular has DI built-in and helps set us up for success. How handy!
 
@@ -47,7 +47,7 @@ export class MyComponent {
 
 In Angular v14, you now have a new option to use the `inject()` function.
 
-Another way to register dependencies is manually providing them through the `providers` array. Different Angular building blocks accept `providers` in the metadata. So you can register a provider like this:
+Another way to register dependencies is to provide them manually through the `providers` array. Different Angular building blocks accept `providers` in the metadata. So you can register a provider like this:
 
 ```ts
 @NgModule({
@@ -65,7 +65,7 @@ There's something else to note, though. Angular's DI system allows you to provid
 
 Now that we have a quick overview of how to provide dependencies, let's review an integral piece of Angular's DI system, Injection Tokens.
 
-## Injection Tokens in Angular
+## Injection tokens in Angular
 
 Injection tokens allow us to have values and objects as dependencies. This means we can depend on a string, such as "Hello world!", and objects, which include configuration objects and global variables such as Web APIs. But injection tokens are even more remarkable because we can also create dependencies to constructs that don't have a runtime definition, such as interfaces! Let's take a look at an example using an injection token.
 
@@ -89,13 +89,13 @@ export class MyBreadComponent {
 }
 ```
 
-Now we can access the 🍞emoji from within the component! This might not seem like a big deal, but having injection tokens as a means to represent values and interfaces as dependencies is enormous! And it sets us up to leverage the power of Angular's DI system.
+Now we can access the 🍞 emoji from within the component! This might not seem like a big deal, but having injection tokens as a means to represent values and interfaces as dependencies is enormous! And it sets us up to leverage the power of Angular's DI system.
 
-Leveraging Angular's DI system leads us into fine-grain control of providers by using injection tokens along with configuring providers.
+Leveraging Angular's DI system gives us fine-grained control of providers by using injection tokens along with configuring providers.
 
 ## Configuring providers in Angular's Dependency Injection system
 
-You can configure the `providers` array to add fine-grained control to your providers. When combined with injection tokens, we can unleash a lot of power. Before trying to wield that much power, it's essential to know when it makes sense to unleash that kind of power. Always prefer the most straightforward, default way of registering a dependency and then use the fine-grain control as needed.
+You can configure the `providers` array to add fine-grained control to your providers. When combined with injection tokens, we can unleash a lot of power. But first, it's essential to know when it makes sense to use that kind of power. Always prefer the most straightforward, default way of registering a dependency and then use fine-grained control as needed.
 
 To configure the `providers` array, you add an object containing the instructions like this:
 
@@ -111,7 +111,7 @@ export class AppModule {
 }
 ```
 
-The "how to provide" gives Angular-specific instructions on this dependency configuration. Then you can provide the new other dependency. Angular supports the following options for "how to provide":
+The "how to provide" gives Angular-specific instructions on this dependency configuration. Then you can provide the other new dependency. Angular supports the following options for "how to provide":
 
 1. `useClass` - Replace the current dependency with a new instance of something else
 2. `useExisting` - Replace the current dependency with an existing dependency
@@ -122,7 +122,7 @@ Next, let's walk through examples of each configuration option to understand how
 
 ### Configure providers with `useClass`
 
-The useClass option replaces the current dependency with a new instance of another class. This is a great option to use if you're refactoring code and want to substitute a different dependency in your application quickly. Let's say you have a language learning app and an Angular service that wraps authentication. We'll call this service `AuthService`, and the code looks like this:
+The `useClass` option replaces the current dependency with a new instance of another class. This is a great option to use if you're refactoring code and want to substitute a different dependency in your application quickly. Let's say you have a language learning app and an Angular service that wraps authentication. We'll call this service `AuthService`, and the code looks like this:
 
 ```ts
 @Injectable({
@@ -162,7 +162,7 @@ The cool thing about having the same public members is that there's no need to c
 
 ### Configure providers with `useExisting`
 
-The `useExisting` option replaces the provider with a different provider already existing within the application.  This option is a great use case for API narrowing, that is, decreasing the surface area of an API. Let's say your language learning application has an API that got out of hand. We'll call this API `LanguageTranslationService`, and it looks like this:
+The `useExisting` option replaces the provider with a different provider already existing within the application.  This option is a great use case for API narrowing, that is, decreasing the surface area of an API. Let's say your language learning application has an API that's gotten out of hand. We'll call this API `LanguageTranslationService`, and it looks like this:
 
 ```ts
 @Injectable({
@@ -193,23 +193,23 @@ export class ElvishTranslationComponent implements OnInit {
 }
 ```
 
-Oops... The `LanguageTranslationService` looks a bit unwieldy. Let's narrow the API surface by creating a new class called `FictiousLanguageTranslationService` and move the translation methods for the fictitious languages there. We'll use an abstract class for this:
+Oops... The `LanguageTranslationService` looks a bit unwieldy. Let's narrow the API surface by creating a new class called `FictitiousLanguageTranslationService` and move the translation methods for the fictitious languages there. We'll use an abstract class for this:
 
 ```ts
-export abstract class FictiousLanguageTranslationService {
+export abstract class FictitiousLanguageTranslationService {
   abstract elvish: (text: string) => string;
   abstract klingon: (text: string) => string;
 }
 ```
 
-Now we can add `FictiousLanguageTranslationService` as a real dependency in the application by adding it to the `providers` array, but use the existing `LanguageTranslationService` implementation of the code:
+Now we can add `FictitiousLanguageTranslationService` as a real dependency in the application by adding it to the `providers` array, but use the existing `LanguageTranslationService` implementation of the code:
 
 ```ts
 @NgModule({
   imports: // imports here
   declarations: // declarations here
   providers: [
-    { provide: FictiousLanguageTranslationService, useExisting: LanguageTranslationService }
+    { provide: FictitiousLanguageTranslationService, useExisting: LanguageTranslationService }
   ]
 })
 export class AppModule { }
@@ -223,7 +223,7 @@ Now we'll update the consumer to use the new dependency:
 })
 export class ElvishTranslationComponent implements OnInit {
   private elvish!: string;
-  constructor(private fltService: FictiousLanguageTranslationService) { }
+  constructor(private fltService: FictitiousLanguageTranslationService) { }
   
   public ngOnInit(): void {
     this.elvish = this.translationService.elvish(someText);
@@ -231,11 +231,11 @@ export class ElvishTranslationComponent implements OnInit {
 }
 ```
 
-Only the methods defined in the `FictiousLanguageTranslationService` are available now. Pretty sweet!
+Only the methods defined in the `FictitiousLanguageTranslationService` are available now. Pretty sweet!
 
 ### Configure with `useValue`
 
-The `useValue` option replaces the provider with a value. This option is a great use case for values such as configurations and mocking services in automated tests where you need to control the inputs and outputs. Let's go back to the `BREAD_TOKEN` in this example and override it to show a 🥐(croissant) instead. 
+The `useValue` option replaces the provider with a value. This option is a great use case for values such as configurations and mocking services in automated tests where you need to control the inputs and outputs. Let's go back to the `BREAD_TOKEN` in this example and override it to show a 🥐 (croissant) instead. 
 
 We can override the token:
 
@@ -263,7 +263,7 @@ export class MyBreadComponent {
 
 ### Configure with `useFactory`
 
-The `useFactory` option allows us to use a factory method to create a dependency. This option is a great use case if you have dynamic values to consider when creating the dependency. It's also how we can use a [Factory Pattern](https://en.wikipedia.org/wiki/Factory_method_pattern) for creating our dependencies.
+The `useFactory` option allows us to use a factory method to create a dependency. This option is a great use case if you have dynamic values to consider when creating the dependency. It's also how we can use a [factory pattern](https://en.wikipedia.org/wiki/Factory_method_pattern) for creating our dependencies.
 
 In this example, let's say in your Language Learning application, if the user is learning French, we want to show a croissant in the `BreadComponent` instead of a loaf of bread. The user's language selection is in the user's config, so the example code looks like this:
 
