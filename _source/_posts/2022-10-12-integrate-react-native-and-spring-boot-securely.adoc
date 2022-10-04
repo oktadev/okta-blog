@@ -4,13 +4,14 @@ title: "Integrate React Native and Spring Boot Securely"
 author: matt-raible
 by: advocate
 communities: [mobile,java,javascript]
-description: ""
+description: "Use JHipster to build a photo-sharing app for web and mobile that has a React frontend with OIDC authentication and a Spring Boot backend."
 tags: [react-native, spring-boot, jhipster]
 tweets:
-- ""
+- "Want to integrate a React Native app with a Spring Boot backend using OAuth 2.0 and OIDC? React Native JHipster makes it pretty darn easy. Learn how to use it in my latest tutorial."
 image: blog/react-native-jhipster/react-native-jhipster.jpg
 type: conversion
 github: https://github.com/oktadev/auth0-react-native-jhipster-example
+canonical: https://auth0.com/blog/integrate-react-native-and-spring-boot-securely/
 ---
 :page-liquid:
 :toc: macro
