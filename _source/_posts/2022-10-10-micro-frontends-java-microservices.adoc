@@ -19,25 +19,6 @@ canonical: https://auth0.com/blog/micro-frontends-for-java-microservices/
 :toc: macro
 :experimental:
 
-// developer.okta.com/blog/2019/05/22/java-microservices-spring-boot-spring-cloud is #16 for java microservices, #5 for spring boot microservices, #8 for spring microservices
-
-// Other title ideas:
-//   - Micro Frontends for Java Microservices (current, 49)
-//   - Build Micro Frontends for Java Microservices (55)
-//   - Micro Frontends for Java Developers (48)
-//   - Ditch your Monolith UI for Micro Frontends with JHipster (57)
-//   - Quickly Create Micro Frontends for Java Microservices (62)
-
-// Keywords:
-//   - java microservices: 14,800 (see first comment above)
-//   - spring boot microservices: 8100
-//   - spring microservices: 2900
-//   - spring boot angular: 2400 (we have one at #16 on Angular 8)
-//   - spring boot react: 1600 (#2)
-//   - spring boot vue: 480 (#2)
-//   - micro frontends angular: 1900 (#4 and #7)
-//   - micro frontends react: 2400
-
 Microservices have been quite popular in the Java ecosystem ever since Spring Boot and Spring Cloud made them easy to build and deploy. Things have gotten even easier in recent years with the proliferation of new Java frameworks built specifically for microservices: MicroProfile, Micronaut, Quarkus, and Helidon. Not only do these frameworks provide an excellent developer experience, but they also tend to have built-in Docker support. They even work with GraalVM, so you can compile your apps to native code!
 
 _To be fair, MicroProfile isn't a framework; it's a spec with many implementations. In fact, both Quarkus and Helidon have MicroProfile flavors you can use._
