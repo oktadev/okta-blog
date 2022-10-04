@@ -4,37 +4,17 @@ title: "Quick JavaScript Authentication with OktaDev Schematics"
 author: matt-raible
 by: advocate
 communities: [javascript]
-description: ""
-tags: []
+description: "Learn how to use OktaDev Schematics to add authentication to your JavaScript projects."
+tags: [javascript, authentication, oktadev-schematics]
 tweets:
-- ""
-- ""
-- ""
+- "Need to add authentication to your JavaScript or TypeScript apps? You can do it quickly with @oktadev schematics!"
 image: blog/oktadev-schematics-auth0/quick-javascript-login.jpg
 type: conversion
+canonical: https://auth0.com/blog/quick-javascript-authentication/
 ---
 :page-liquid:
 :toc: macro
 :experimental:
-
-// Other title ideas:
-//   - Quick JavaScript Login with Schematics (current, 58)
-//   - Schematics for Quick JavaScript Authentication (59)
-//   - Quick Templates for JavaScript Authentication (59)
-//   - CLI to App to Auth in Minutes with OktaDev Schematics! (60)
-
-// Keywords:
-//   - javascript authentication: 480 (there's an Okta post on the first page)
-//   - javascript auth: 210
-//   - javascript login: 880
-//   - javascript security: 720
-//   - javascript frameworks: 27,100
-//   - react oidc: 720
-//   - oidc authentication: 2900
-//   - jwt auth: 2400
-//   - jwt javascript: 720
-
-// Should we emphasize this is a developer story moreso than a product pitch?
 
 Hello,
 
