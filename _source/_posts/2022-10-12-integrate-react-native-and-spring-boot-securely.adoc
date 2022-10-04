@@ -18,19 +18,6 @@ canonical: https://auth0.com/blog/integrate-react-native-and-spring-boot-securel
 :experimental:
 :commandkey: &#8984;
 
-// If this post is not targeting keywords, "Get started with React Native for JHipster" is probably a better title.
-//   - 55: Integrate React Native and Spring Boot Securely
-//   - 57: React Native Authentication with OAuth and Spring Boot
-//   - 60: Secure React Native and Spring Boot with OpenID Connect
-//   - 61: Build React Native Apps Quickly with JHipster
-//   - 65: Build Secure React Native Apps Quickly with JHipster
-// Keywords:
-//   - react native security: 320, react native spring boot: 140, react native oauth: 260
-//   - react native authentication: 1300, react native tutorial: 18,100
-//
-// https://auth0.com/blog/get-started-auth0-authentication-react-native-android/ is #5 for react native authentication
-// https://developer.okta.com/code/react-native/ is #18 for react native authentication
-
 React Native is a mobile app framework from Facebook. It allows you to quickly develop apps using React's API and deploy them to iOS and Android. It allows you to quickly refresh the apps when you make changes and generally offers a pleasant experience for web developers.
 
 https://necolas.github.io/react-native-web/[React Native for Web] is a recent addition to the React Native family. It allows you to run your app in a browser and enjoy the browser's built-in dev tools. It's optimized for mobile and uses the same components as React Native, so it looks good too!
