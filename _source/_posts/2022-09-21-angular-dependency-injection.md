@@ -24,7 +24,9 @@ The cool thing is Angular has DI built-in and helps set us up for success. How h
 
 ## Angular's Dependency Injection system
 
-When you use the Angular CLI to generate a service, it automatically adds the code to register the service within Angular's DI system. That's what the `@Injectable()` TypeScript decorator does:
+When you use the Angular CLI to generate a service, it automatically adds the code to register the service within Angular's DI system for us. Automation sure is sweet! Services contain business logic code that we want to keep separate from view logic.
+
+When Angular CLI generates a service, it adds an `@Injectable()` TypeScript decorator, which is the bit of code that registers a service within Angular DI system:
 
 ```ts
 @Injectable({
@@ -45,7 +47,7 @@ export class MyComponent {
 }
 ```
 
-In Angular v14, you now have a new option to use the `inject()` function.
+> In Angular v14, you have a new option to use the `inject()` function instead of injecting the service into the consumer as a constructor parameter.
 
 Another way to register dependencies is to provide them manually through the `providers` array. Different Angular building blocks accept `providers` in the metadata. So you can register a provider like this:
 
@@ -61,9 +63,21 @@ export class AppModule {
 }
 ```
 
-There's something else to note, though. Angular's DI system allows you to provide a dependency to different places within the application. While this sounds unnecessarily complicated, it allows you to fine-tune which dependency to use in your consuming code. You can configure the `providers` array in other modules and Angular building blocks, such as components and directives. You'll get the provider you configured closest to the consuming code when you do so.
+There's something else to note, though. Angular's DI system allows you to provide a dependency to different places within the application. We saw an example of this in the first code snippet of the `@Injectable()` TypeScript decorator. Angular CLI automatically generates
 
-Now that we have a quick overview of how to provide dependencies, let's review an integral piece of Angular's DI system, Injection Tokens.
+```ts
+@Injectable({
+  providedIn: 'root'
+})
+export class MyService {
+}
+```
+
+The configuration option `providedIn: 'root'` specifies where within the application to provide the service. In this case, we're saying provide to "root", which means the root of the app so this service is available across the entirety of the application.
+
+ While having this level of configurability sounds unnecessarily complicated, it allows you to fine-tune which dependency to use in your consuming code. You can configure the `providers` array in other modules and Angular building blocks, such as components and directives. You'll get the provider you configured closest to the consuming code when you do so.
+
+Now that we have a quick overview of how to provide dependencies, let's review an integral piece of Angular's DI system, injection tokens.
 
 ## Injection tokens in Angular
 
@@ -78,7 +92,7 @@ const export BREAD_TOKEN = new InjectionToken<string>('bread', {
 });
 ```
 
-When you want to use the `BREAD_TOKEN`, you'd use the `Inject` decorator:
+When you want to use the `BREAD_TOKEN`, you'd use the `@Inject` decorator:
 
 ```ts
 @Component({
@@ -91,11 +105,11 @@ export class MyBreadComponent {
 
 Now we can access the 🍞 emoji from within the component! This might not seem like a big deal, but having injection tokens as a means to represent values and interfaces as dependencies is enormous! And it sets us up to leverage the power of Angular's DI system.
 
-Leveraging Angular's DI system gives us fine-grained control of providers by using injection tokens along with configuring providers.
+We can use injection tokens along with configuring providers within Angular's DI system for more power and fine-grained control.
 
 ## Configuring providers in Angular's Dependency Injection system
 
-You can configure the `providers` array to add fine-grained control to your providers. When combined with injection tokens, we can unleash a lot of power. But first, it's essential to know when it makes sense to use that kind of power. Always prefer the most straightforward, default way of registering a dependency and then use fine-grained control as needed.
+You can configure the `providers` array to add fine-grained control to your providers. When combined with injection tokens, we can unleash a lot of power. But first, it's essential to know when it makes sense to do so. Always prefer the most straightforward, default way of registering a dependency and then use fine-grained control as needed.
 
 To configure the `providers` array, you add an object containing the instructions like this:
 
@@ -104,7 +118,7 @@ To configure the `providers` array, you add an object containing the instruction
   imports: // stuff here
   declarations: // stuff here
   providers: [
-    { provide: MyService, howToProvide?: OtherDependency }
+    { provide: MyService, howToProvide: OtherDependency }
   ]
 })
 export class AppModule {
@@ -122,7 +136,7 @@ Next, let's walk through examples of each configuration option to understand how
 
 ### Configure providers with `useClass`
 
-The `useClass` option replaces the current dependency with a new instance of another class. This is a great option to use if you're refactoring code and want to substitute a different dependency in your application quickly. Let's say you have a language learning app and an Angular service that wraps authentication. We'll call this service `AuthService`, and the code looks like this:
+The `useClass` option replaces the current dependency with a new instance of another class. This is a great option to use if you're refactoring code and want to substitute a different dependency in your application quickly. Let's say you have a language learning app and an Angular service that wraps the authentication calls you delegate to an auth library and an auth provider. We'll call this service `AuthService`, and to keep things straightforward, the code looks like this:
 
 ```ts
 @Injectable({
@@ -134,7 +148,7 @@ export class AuthService {
 }
 ```
 
-In a stroke of luck, a large tech company decides to buy your language learning app, but they require you to authenticate using their social login only. You can create a new authentication service; we'll call it `NewAuthService` (note, you should not name your services with these terrible names). 
+In a stroke of luck, a large tech company decides to buy your language learning app, but they require you to authenticate using their social login only. You can create a new authentication service; we'll call it `NewAuthService` (note, you should not name your services with these terrible names), and keep the same member names that wraps the calls to their auth provider. 
 
 ```ts
 @Injectable({
@@ -158,11 +172,13 @@ Because both classes have the same public members, you can substitute the origin
 export class AppModule { }
 ```
 
-The cool thing about having the same public members is that there's no need to change the consuming code. Angular instantiates a new instance of `NewAuthService` and provides that dependency to consuming code, even if they still refer to `AuthService`!
+The cool thing about having the same public members is that there's no need to change the consuming code. Angular instantiates a new instance of `NewAuthService` and provides that dependency to consuming code, even if they still refer to `AuthService`! 
+
+It might not make sense to keep the original `AuthService` around, so eventually you might want to consider transferring all the code references to use the `NewAuthService` only. However, the `useClass` configuration option is a fast way for us to quickly substitute one instance of a class for another, which means proof-of-concepts and quick checks can be as fast as a drop of a hat!
 
 ### Configure providers with `useExisting`
 
-The `useExisting` option replaces the provider with a different provider already existing within the application.  This option is a great use case for API narrowing, that is, decreasing the surface area of an API. Let's say your language learning application has an API that's gotten out of hand. We'll call this API `LanguageTranslationService`, and it looks like this:
+The `useExisting` option replaces the provider with a different provider already existing within the application. This option is a great use case for API narrowing, that is, decreasing the surface area of an API. Let's say your language learning application has an API that's gotten out of hand. We'll call this API `LanguageTranslationService`, and it looks like this:
 
 ```ts
 @Injectable({
@@ -173,7 +189,7 @@ export const LanguageTranslationService {
   public japanese(text: string): string { /* translates to Japanese */ }
   public elvish(text: string): string { /* translates to Elvish */ }
   public klingon(text: string): string { /* translates to Klingon */ }
-  // so on and so forth
+  // so on and so forth, but you see the problem here
 }
 ```
 
@@ -284,7 +300,25 @@ export class AppModule { }
 
 Notice we were able to pass in a dependency to the configuration option. The `useClass` and `useFactory` options support passing in dependencies.
 
+Now when we use this in the `MyBreadComponent` we'll get a croissant instead of a loaf of bread only if the the user's configuration has French as their language!
+
+```ts
+@Component({
+  // standard component metadata here
+})
+export class MyBreadComponent {
+  constructor(@Inject(BREAD_TOKEN) private bread: string) { 
+    // bread is either 🍞 or 🥐 based on the language setting
+  }
+}
+```
+
+## Dependency Injection when configuring external dependencies
+
+Now that we have a better understanding injection tokens and when to use the different configuration options, you may want to check out the post, [Three Ways to Configure Modules in Your Angular App](/blog/2022/02/24/angular-async-config). This post covers configuring modules and Okta configuration demonstrating the different concepts covered within in this post in real-life use cases.
+
 ## Learn more about Angular Dependency Injection
+
 This post is a high-level overview of Angular's DI system. As you can already see, this powerful system has many different configuration options and a lot of complexity. As a result, even though Angular has these configuration options, using the most straightforward approach will make troubleshooting and maintenance easier. 
 
 Let us know in the comments below if you want to see more information about Angular's DI system. Since this was a quick overview, I didn't cover providing to different injectors, injector resolutions, resolution modifiers, and new capabilities in Angular v14. I am happy to dive into more detail on these topics!
@@ -292,5 +326,7 @@ Let us know in the comments below if you want to see more information about Angu
 If you liked this post, you might be interested in these links.
 * [Three Ways to Configure Modules in Your Angular App](/blog/2022/02/24/angular-async-config)
 * [How to Build Micro Frontends Using Module Federation in Angular](/blog/2022/05/17/angular-microfrontend-auth)
+* [Protect Your Angular App from Cross-Site Scripting](/blog/2022/07/21/angular-security-xss)
+* [Add OpenID Connect to Angular Apps Quickly](/blog/2022/02/11/angular-auth0-quickly)
 
 Don't forget to follow us on [Twitter](https://twitter.com/oktadev) and subscribe to our [YouTube channel](https://www.youtube.com/c/OktaDev/) for more great tutorials. We'd also love to hear from you! Please comment below if you have any questions or want to share what tutorial you'd like to see next.
