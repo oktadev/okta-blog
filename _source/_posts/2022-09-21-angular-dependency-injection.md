@@ -12,7 +12,7 @@ image: blog/angular-dependency-injection/social.jpg
 type: awareness
 ---
 
-Angular has an extensive system to add and configure dependencies to the application called providers. When doing this, you use the built-in Dependency Injection (DI) system. This post will cover Angular's powerful DI system at a high level and demonstrate a few practical usages of configuring your dependencies. Let's get practical!
+Angular has an extensive system that uses *providers" to add and configure dependencies to the application you're building. To create providers, you use the built-in Dependency Injection (DI) system. This post will cover Angular's powerful DI system at a high level and demonstrate a few practical use cases and strategies for configuring your dependencies. Let's get practical!
 
 {% include toc.md %}
 
