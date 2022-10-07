@@ -1,6 +1,6 @@
 ---
 layout: blog_post
-title: "Practical Usages of Dependency Injection in Angular"
+title: "Practical Uses of Dependency Injection in Angular"
 author: alisa-duncan
 by: advocate
 communities: [javascript]
