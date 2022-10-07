@@ -63,7 +63,7 @@ export class AppModule {
 }
 ```
 
-There's something else to note, though. Angular's DI system allows you to provide a dependency to different places within the application. We saw an example of this in the first code snippet of the `@Injectable()` TypeScript decorator. Angular CLI automatically generates
+There's something else to note, though. Angular's DI system allows you to provide a dependency to different places within the application. We saw an example of this in the first code snippet of the `@Injectable()` TypeScript decorator. Angular CLI automatically generates: 
 
 ```ts
 @Injectable({
@@ -73,7 +73,7 @@ export class MyService {
 }
 ```
 
-The configuration option `providedIn: 'root'` specifies where within the application to provide the service. In this case, we're saying provide to "root", which means the root of the app so this service is available across the entirety of the application.
+The configuration option `providedIn: 'root'` specifies where within the application to provide the service. In this case, we're saying provide to "root", which means the root of the app, so this service is available across the entirety of the application.
 
  While having this level of configurability sounds unnecessarily complicated, it allows you to fine-tune which dependency to use in your consuming code. You can configure the `providers` array in other modules and Angular building blocks, such as components and directives. You'll get the provider you configured closest to the consuming code when you do so.
 
@@ -81,7 +81,7 @@ Now that we have a quick overview of how to provide dependencies, let's review a
 
 ## Injection tokens in Angular
 
-Injection tokens allow us to have values and objects as dependencies. This means we can depend on a string, such as "Hello world!", and objects, which include configuration objects and global variables such as Web APIs. But injection tokens are even more remarkable because we can also create dependencies to constructs that don't have a runtime definition, such as interfaces! Let's take a look at an example using an injection token.
+Injection tokens allow us to have values and objects as dependencies. This means we can depend on strings, such as "Hello world!", and objects, which include configuration objects and global variables such as Web APIs. But injection tokens are even more remarkable because we can also create dependencies to constructs that don't have a runtime definition, such as interfaces! Let's take a look at an example using an injection token.
 
 Let's say we want to have a dependency on the bread emoji. You can create the bread emoji, register the token to Angular's DI system, and set up a default value like this:
 
@@ -148,7 +148,7 @@ export class AuthService {
 }
 ```
 
-In a stroke of luck, a large tech company decides to buy your language learning app, but they require you to authenticate using their social login only. You can create a new authentication service; we'll call it `NewAuthService` (note, you should not name your services with these terrible names), and keep the same member names that wraps the calls to their auth provider. 
+In a stroke of luck, a large tech company decides to buy your language learning app, but they require you to authenticate using their social login only. You can create a new authentication service that wraps the calls to their auth provider and keeps the same member names; we'll call it `NewAuthService`. (Note, you should not name your services with these terrible generic names. Be a bit more descriptive. )
 
 ```ts
 @Injectable({
@@ -174,7 +174,7 @@ export class AppModule { }
 
 The cool thing about having the same public members is that there's no need to change the consuming code. Angular instantiates a new instance of `NewAuthService` and provides that dependency to consuming code, even if they still refer to `AuthService`! 
 
-It might not make sense to keep the original `AuthService` around, so eventually you might want to consider transferring all the code references to use the `NewAuthService` only. However, the `useClass` configuration option is a fast way for us to quickly substitute one instance of a class for another, which means proof-of-concepts and quick checks can be as fast as a drop of a hat!
+It might not make sense to keep the original `AuthService` around, so eventually you might want to consider transferring all the code references to use the `NewAuthService` only. However, the `useClass` configuration option is a fast way for us to quickly substitute one instance of a class for another, which means proof-of-concepts and quick checks can be super-fast!
 
 ### Configure providers with `useExisting`
 
@@ -231,7 +231,7 @@ Now we can add `FictitiousLanguageTranslationService` as a real dependency in th
 export class AppModule { }
 ```
 
-Now we'll update the consumer to use the new dependency:
+Next we'll update the consumer to use the new dependency:
 
 ```ts
 @Component({
@@ -315,11 +315,11 @@ export class MyBreadComponent {
 
 ## Dependency Injection when configuring external dependencies
 
-Now that we have a better understanding injection tokens and when to use the different configuration options, you may want to check out the post, [Three Ways to Configure Modules in Your Angular App](/blog/2022/02/24/angular-async-config). This post covers configuring modules and Okta configuration demonstrating the different concepts covered within in this post in real-life use cases.
+With a better understanding of injection tokens and when to use the different configuration options, next you may want to check out the post, [Three Ways to Configure Modules in Your Angular App](/blog/2022/02/24/angular-async-config). This covers configuring modules and Okta configuration demonstrating the different concepts covered within in this post in real-life use cases.
 
 ## Learn more about Angular Dependency Injection
 
-This post is a high-level overview of Angular's DI system. As you can already see, this powerful system has many different configuration options and a lot of complexity. As a result, even though Angular has these configuration options, using the most straightforward approach will make troubleshooting and maintenance easier. 
+This article offers a high-level overview of Angular's DI system. As you can already see, it's a powerful system with many different configuration options and a lot of complexity. As a result, even though Angular has these configuration options, using the most straightforward approach will make troubleshooting and maintenance easier. 
 
 Let us know in the comments below if you want to see more information about Angular's DI system. Since this was a quick overview, I didn't cover providing to different injectors, injector resolutions, resolution modifiers, and new capabilities in Angular v14. I am happy to dive into more detail on these topics!
 
