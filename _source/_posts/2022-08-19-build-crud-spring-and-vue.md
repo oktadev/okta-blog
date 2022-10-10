@@ -15,7 +15,7 @@ type: conversion
 github: https://github.com/oktadev/okta-spring-boot-vue-crud-example
 ---
 
-You will use Vue and Spring Boot to build a todo list web application. The application will include CRUD abilities, meaning that you can **c**reate, **r**ead, **u**pdate, and **d**elete the todo items on the Spring Boot API via the client. The Vue frontend client will use the Quasar framework for the presentation. OAuth 2.0 and OpenID Connect (OIDC) will secure the Spring Boot API and the Vue client using Okta as the security provider.
+You will use Vue and Spring Boot to build a todo list web application. The application will include CRUD abilities, meaning that you can **c**reate, **r**ead, **u**pdate, and **d**elete the todo items on the Spring Boot API via the client. The Vue frontend client will use the Quasar framework for the presentation. OAuth 2.0 and OpenID Connect (OIDC) will secure the Spring Boot API and the Vue client using, initially, Okta as the security provider. You will also see how to use Auth0 as the security provider at the end of the tutorial.
 
 {% img blog/spring-boot-vue3/spring-and-vue.png alt:"Spring Boot, Vue, and Okta logos" width:"500" %}{: .center-image }
 
@@ -494,6 +494,7 @@ Replace `App.vue` with the following.
 `src/App.vue`
 
 {% raw %}
+
 ```vue
 <template>
   <q-layout view="hHh lpR fFf">
@@ -552,6 +553,7 @@ export default {
 }
 </script>
 ```
+
 {% endraw %}
 
 This top-level component defines the header bar and includes the router component. The header bar has a login or logout button and will show the authenticated user's email address when logged in.
@@ -658,6 +660,7 @@ Create the `Home` component.
 `src/components/Home.vue`
 
 {% raw %}
+
 ```vue
 <template>
   <div class="column justify-center items-center" id="row-container">
@@ -707,6 +710,7 @@ export default {
 }
 </script>
 ```
+
 {% endraw %}
 
 Create the `TodoItem` component.
@@ -714,6 +718,7 @@ Create the `TodoItem` component.
 `src/components/TodoItem.vue`
 
 {% raw %}
+
 ```vue
 <template>
   <q-item-section avatar class="check-icon" v-if="this.item.completed">
@@ -821,6 +826,7 @@ input.list-item-input {
 }
 </style>
 ```
+
 {% endraw %}
 
 This component encapsulates a single todo item. It has logic for editing the title, setting the completed status, and deleting items. If you look closely at the code, you'll notice that it sends changes to the server and updates the local copy stored in the `todos` array in the parent component.
@@ -830,6 +836,7 @@ Create the `Todos` component.
 `src/components/Todos.vue`
 
 {% raw %}
+
 ```vue
 <template>
   <div class="column justify-center items-center" id="row-container">
@@ -1039,6 +1046,7 @@ export default {
 }
 </style>
 ```
+
 {% endraw %}
 
 This component encapsulates the card that holds all of the todos and the todo-associated interface elements. It also handles the rest of the functions related to updating todos on the server and in the local cache.
@@ -1072,6 +1080,414 @@ That will redirect you to the Todo app's main screen.
 {% img blog/spring-boot-vue3/app-main-screen.png alt:"Todo app main screen" width:"1000" %}{: .center-image }
 
 You should be able to delete items, add new items, rename, and filter items. All data is stored on the Spring Boot resource server and is presented by the Vue + Quasar frontend.
+
+## Use Auth0 to secure the API
+
+You can also use Auth0 to secure the application! Let's start with the API.
+
+The first step is to open the `build.gradle` file for the Spring Boot project and update the dependencies. You have to remove the Okta Spring Boot Starter (as it does not work with Auth0 yet) and add in some Spring Security dependencies that were being included by the Okta starter.
+
+Update the `implementation` dependencies in `build.gradle`.
+
+```gradle
+dependencies {
+	implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
+	implementation 'org.springframework.boot:spring-boot-starter-data-rest'
+	implementation 'org.springframework.boot:spring-boot-starter-web'
+	implementation 'org.springframework.security:spring-security-oauth2-resource-server'
+	implementation 'org.springframework.boot:spring-boot-starter-security'
+	implementation 'org.springframework.security:spring-security-config'
+	implementation 'org.springframework.security:spring-security-oauth2-jose'
+
+	compileOnly 'org.projectlombok:lombok'
+	runtimeOnly 'com.h2database:h2'
+	annotationProcessor 'org.projectlombok:lombok'
+	testImplementation 'org.springframework.boot:spring-boot-starter-test'
+}
+```
+
+Add a JWT validator bean to the security configuration class.
+
+`src/main/java/com/example/demo/SecurityConfiguration.java`
+
+```Java
+public class SecurityConfiguration {
+
+    ...
+        
+    @Value("${auth0.audience}")
+    private String audience;
+
+    @Value("${spring.security.oauth2.resourceserver.jwt.issuer-uri}")
+    private String issuer;
+
+    @Bean
+    JwtDecoder jwtDecoder() {
+        NimbusJwtDecoder jwtDecoder = (NimbusJwtDecoder)
+                JwtDecoders.fromOidcIssuerLocation(issuer);
+
+        OAuth2TokenValidator<Jwt> audienceValidator = new AudienceValidator(audience);
+        OAuth2TokenValidator<Jwt> withIssuer = JwtValidators.createDefaultWithIssuer(issuer);
+        OAuth2TokenValidator<Jwt> withAudience = new DelegatingOAuth2TokenValidator<>(withIssuer, audienceValidator);
+
+        jwtDecoder.setJwtValidator(withAudience);
+
+        return jwtDecoder;
+    }
+
+}
+```
+
+Install the [Auth0 CLI](https://github.com/auth0/auth0-cli) and run `auth0 login` in a terminal.
+
+```bash
+Waiting for the login to complete in the browser... done
+
+ ▸    Successfully logged in.
+ ▸    Tenant: dev-0xb84jzp.us.auth0.com
+```
+
+Take note of the domain listed as the tenet. This is your Auth0 domain. If you need to find it again later, you can use `auth0 tenants list`.
+
+Update`src/main/resources/application.properties`. Fill in your actual Auth0 domain.
+
+```properties
+server.port=9000
+auth0.audience=http://my-api
+spring.security.oauth2.resourceserver.jwt.issuer-uri=https://<your-auth0-domain>/
+```
+
+Start the API.
+
+```bash
+./gradlew bootRun
+```
+
+Make sure it starts successfully.
+
+```bash
+2022-10-06 10:09:59.535  INFO 89160 --- [           main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port(s): 9000 (http) with context path ''
+2022-10-06 10:09:59.541  INFO 89160 --- [           main] com.example.demo.DemoApplication         : Started DemoApplication in 3.014 seconds (JVM running for 3.252)
+Todo(id=1, title=Buy milk, completed=false)
+Todo(id=2, title=Eat pizza, completed=false)
+Todo(id=3, title=Update tutorial, completed=true)
+Todo(id=4, title=Study Vue, completed=false)
+Todo(id=5, title=Go kayaking, completed=true)
+<==========---> 80% EXECUTING [2m 58s]
+> :bootRun
+```
+
+Open a second Bash shell in the same directory. Create a test Auth0 API. The Auth0 API is what exposes identity functionality for all authentication and authorization protocols, such as OpenID Connect and OAuth.
+
+```bash
+auth0 apis create -n myapi --identifier http://my-api
+```
+
+Use Auth0 CLI to create a token.  **Don't forget to set the audience!**
+
+```bash
+auth0 test token -a http://my-api
+```
+
+If you don't use the `-a` flag to set the audience to your Auth0 API, the test token you create will be an opaque token that cannot be verified and will not work. If you decide to use a different Auth0 API for some reason, you need to make sure the audience identifiers match in the `application.properties` file and the command to create a test token.
+
+Save the token in a shell variable.
+
+```bash
+TOKEN=eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCIsImtpZCI6Im5yMWZw...
+```
+
+You can verify that the endpoint is protected.
+
+```bash
+http :9000/todos
+```
+
+And test the protected endpoint using the token.
+
+```bash
+http :9000/todos "Authorization: Bearer $TOKEN"
+```
+
+## Update Vue client to use Auth0
+
+Auth0 has [helpful docs](https://auth0.com/docs/quickstart/spa/vuejs/01-login) for integrating with Vue. The first step is to create an OpenID Connect (OIDC) application on the Auth0 servers using their CLI. Open a Bash shell from the `client` project directory.
+
+```bash
+auth0 apps create
+```
+
+- **Name**: `vue-spring-boot`
+- **Type**: Single Page Web Application
+- **All the URLs**: ` http://localhost:8080`
+
+```bash
+ Name: vue-spring-boot
+ Description: 
+ Type: Single Page Web Application
+ Callback URLs: http://localhost:8080
+ Allowed Logout URLs: http://localhost:8080
+ Allowed Origin URLs: http://localhost:8080
+ Allowed Web Origin URLs: http://localhost:8080
+
+=== dev-0rb77iup.us.auth0.com application created
+```
+
+Update the `.env` file. Fill in the OIDC Client ID and Auth0 domain.
+
+```env
+VUE_APP_CLIENT_ID=<your-client-id>
+VUE_APP_AUTH0_DOMAIN=<your-auth0-domain>
+VUE_APP_AUTH0_AUDIENCE=http://my-api
+VUE_APP_SERVER_URI=http://localhost:9000
+```
+
+Notice that the audience is the same as the audience used to create the test token, which is the Auth0 API.
+
+Install the [Auth0 Vue SDK](https://github.com/auth0/auth0-vue).
+
+```bash
+npm install @auth0/auth0-vue
+```
+
+If you want, you can remove the Okta Vue SDK.
+
+```bash
+npm remove @okta/okta-vue
+```
+
+Update `src/main.js` to the following. This configures and installs the Auth0 plugin for Vue.
+
+```vue
+import { createApp } from 'vue'
+import App from './App.vue'
+import {Quasar} from 'quasar'
+import quasarUserOptions from './quasar-user-options'
+import VueLogger from 'vuejs3-logger'
+import router from './router'
+import createApi from './Api'
+
+import { createAuth0 } from '@auth0/auth0-vue';
+
+const options = {
+  isEnabled: true,
+  logLevel: 'debug',
+  stringifyArguments: false,
+  showLogLevel: true,
+  showMethodName: false,
+  separator: '|',
+  showConsoleColors: true
+};
+
+const app = createApp(App)
+  .use(Quasar, quasarUserOptions)
+  .use(VueLogger, options)
+  .use(router)
+  .use(createAuth0({
+    domain: process.env.VUE_APP_AUTH0_DOMAIN,
+    client_id: process.env.VUE_APP_CLIENT_ID,
+    redirect_uri: window.location.origin,
+    audience: process.env.VUE_APP_AUTH0_AUDIENCE
+  })
+);
+
+// passing auth0 to the api (to get JWT), which is set as a global property
+app.config.globalProperties.$api = createApi(app.config.globalProperties.$auth0)
+
+app.mount('#app')
+```
+
+Update one line in `src/Api.js`. You need to change the following line.
+
+```js
+let accessToken = auth.getAccessToken()
+```
+
+To this.
+
+```js
+const accessToken = await auth.getAccessTokenSilently();
+```
+
+As is seen below.
+
+```bash
+import axios from 'axios'
+
+...
+
+const createApi = (auth) => {
+
+  instance.interceptors.request.use(async function (config) {
+  	
+    const accessToken = await auth.getAccessTokenSilently(); // UPDATE ME 
+    
+    config.headers = {
+      Authorization: `Bearer ${accessToken}`
+    }
+    return config;
+  }, function (error) {
+    return Promise.reject(error);
+  });
+	
+  ...
+ 
+}
+
+export default createApi
+```
+
+Update `src/App.vue`.
+
+{% raw %}
+
+```vue
+<template>
+  <q-layout view="hHh lpR fFf">
+
+    <q-header elevated class="bg-primary text-white">
+      <q-toolbar>
+        <q-toolbar-title>
+          <q-avatar>
+            <q-icon name="kayaking" size="30px"></q-icon>
+          </q-avatar>
+          Todo App
+        </q-toolbar-title>
+        {{ isAuthenticated ? user.email : "" }}
+        <q-btn flat round dense icon="logout" v-if='isAuthenticated' @click="logout"/>
+        <q-btn flat round dense icon="account_circle" v-else @click="login"/>
+      </q-toolbar>
+    </q-header>
+
+    <q-page-container>
+      <router-view></router-view>
+    </q-page-container>
+
+  </q-layout>
+</template>
+
+<script>
+
+import { useAuth0 } from '@auth0/auth0-vue';
+
+export default {
+  setup() {
+
+    const { loginWithRedirect, user, isAuthenticated, logout } = useAuth0();
+
+    return {
+      login: () => {
+        loginWithRedirect();
+      },
+      logout: () => {
+        logout({ returnTo: window.location.origin });
+      },
+      user,
+      isAuthenticated
+    };
+  }
+}
+</script>
+```
+
+{% endraw %}
+
+Update `src/components/Home.vue`.
+
+{% raw %}
+
+```vue
+<template>
+  <div class="column justify-center items-center" id="row-container">
+    <q-card class="my-card">
+      <q-card-section style="text-align: center">
+        <div v-if='isAuthenticated'>
+          <h6>You are logged in as {{user.email}}</h6>
+          <q-btn flat color="primary" @click="todo">Go to Todo app</q-btn>
+          <q-btn flat @click="logout">Log out</q-btn>
+        </div>
+        <div v-else>
+          <h6>Please <a href="#" @click.prevent="login">log in</a> to access Todo app</h6>
+        </div>
+      </q-card-section>
+    </q-card>
+  </div>
+</template>
+
+<script>
+
+import { useAuth0 } from '@auth0/auth0-vue';
+import { useRouter } from 'vue-router'
+
+export default {
+  name:"HomeComponent",
+  setup() {
+
+    const { loginWithRedirect, user, isAuthenticated, logout } = useAuth0();
+    const router = useRouter()
+
+    return {
+      login: () => {
+        loginWithRedirect();
+      },
+      logout: () => {
+        logout({ returnTo: window.location.origin });
+      },
+      todo() {
+        router.push("/todos")
+      },
+      user,
+      isAuthenticated
+    };
+  }
+}
+</script>
+```
+
+{% endraw %}
+
+Finally, update `src/router/index.js`.
+
+```js
+import { createRouter, createWebHistory } from 'vue-router'
+import Todos from "@/components/Todos";
+import Home from "@/components/Home";
+
+const routes = [
+  {
+    path: '/',
+    component: Home
+  },
+  {
+    path: '/todos',
+    component: Todos,
+    meta: {
+      requiresAuth: true
+    }
+  },
+]
+
+const router = createRouter({
+  history: createWebHistory(process.env.BASE_URL),
+  routes,
+})
+
+export default router
+```
+
+The usage of the Auth0 SDK is pretty similar to the Okta Vue SDK. If you have any questions, [take a look at their GitHub repository](https://github.com/auth0/auth0-vue).
+
+Make sure your Spring Boot API is still running. Run the client.
+
+```bash
+npm run serve
+```
+
+This time when you log in you will be directed to Auth0.
+
+{% img blog/spring-boot-vue3/auth0-login.png alt:"Auth0 Login" width:"600" %}{: .center-image }
+
+After that, you will be redirected back to the todo app.
 
 ## Do more with Spring Boot, Vue, and Okta
 
