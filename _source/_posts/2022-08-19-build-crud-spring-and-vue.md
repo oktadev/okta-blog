@@ -1083,7 +1083,7 @@ You should be able to delete items, add new items, rename, and filter items. All
 
 ## Use Auth0 to secure the API
 
-You can also use Auth0 to secure the application! Let's start with the API.
+You can also use Auth0 to secure the application! Let's start with the API (in the `resource-server` directory of the GitHub repo or your main project).
 
 The first step is to open the `build.gradle` file for the Spring Boot project and update the dependencies. You have to remove the Okta Spring Boot Starter (as it does not work with Auth0 yet) and add in some Spring Security dependencies that were being included by the Okta starter.
 
@@ -1106,15 +1106,63 @@ dependencies {
 }
 ```
 
-Add a JWT validator bean to the security configuration class.
+Create an AudienceValidator class. This will validate JWTs very simply by checking to make sure the audience matches what is loaded from the application properties and passed into the constructor.
+`src/main/java/com/example/demo/AudienceValidator.java`
+```java
+package com.example.demo;
+
+import org.springframework.security.oauth2.core.OAuth2Error;
+import org.springframework.security.oauth2.core.OAuth2TokenValidator;
+import org.springframework.security.oauth2.core.OAuth2TokenValidatorResult;
+import org.springframework.security.oauth2.jwt.Jwt;
+
+class AudienceValidator implements OAuth2TokenValidator<Jwt> {
+    private final String audience;
+
+    AudienceValidator(String audience) {
+        this.audience = audience;
+    }
+
+    public OAuth2TokenValidatorResult validate(Jwt jwt) {
+        OAuth2Error error = new OAuth2Error("invalid_token", "The required audience is missing", null);
+
+        if (jwt.getAudience().contains(audience)) {
+            return OAuth2TokenValidatorResult.success();
+        }
+        return OAuth2TokenValidatorResult.failure(error);
+    }
+}
+```
+
+You need to add a JWT validator bean to the security configuration class. This uses the AudienceValidator class you added above to validate JWTs. Update the SecurityConfiguration class to the following.
 
 `src/main/java/com/example/demo/SecurityConfiguration.java`
 
 ```Java
+package com.example.demo;
+
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
+import org.springframework.security.config.annotation.web.builders.HttpSecurity;
+import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
+import org.springframework.security.oauth2.core.DelegatingOAuth2TokenValidator;
+import org.springframework.security.oauth2.core.OAuth2TokenValidator;
+import org.springframework.security.oauth2.jwt.*;
+import org.springframework.security.web.SecurityFilterChain;
+
+@EnableWebSecurity
+@Configuration
 public class SecurityConfiguration {
 
-    ...
-        
+    @Bean
+    public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
+        http.authorizeRequests()
+                .anyRequest().authenticated()
+                .and()
+                .oauth2ResourceServer().jwt();
+        return http.build();
+    }
     @Value("${auth0.audience}")
     private String audience;
 
@@ -1183,6 +1231,22 @@ Open a second Bash shell in the same directory. Create a test Auth0 API. The Aut
 auth0 apis create -n myapi --identifier http://my-api
 ```
 
+Just press enter three times to accept the default values for scopes, token lifetime, and allow offline access. The scopes here refers to custom scopes, not the standard scopes (email, profile, and openid) that you will need for OIDC and OAuth.
+
+```bash
+ Scopes: 
+ Token Lifetime: 86400
+ Allow Offline Access: No
+
+=== dev-0xb84jzp.us.auth0.com API created
+
+  ID                    6323478u98u98919206c2f73e6d  
+  NAME                  myapi                     
+  IDENTIFIER            http://my-api             
+  SCOPES                                          
+  TOKEN LIFETIME        86400                     
+  ALLOW OFFLINE ACCESS  ✗      
+```
 Use Auth0 CLI to create a token.  **Don't forget to set the audience!**
 
 ```bash
@@ -1219,7 +1283,7 @@ auth0 apps create
 
 - **Name**: `vue-spring-boot`
 - **Type**: Single Page Web Application
-- **All the URLs**: ` http://localhost:8080`
+- **All the URLs**: `http://localhost:8080`
 
 ```bash
  Name: vue-spring-boot
