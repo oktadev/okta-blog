@@ -9,9 +9,7 @@ tags: [announcement, conference]
 tweets: 
 - "In person or live online, Oktane 22 happens November 8-10 in San Francisco, and you're invited. 
 🧿 Come for the content 🧿 Stay for the conversation 🧿 Leave with useful learnings! #Oktane22 "
-- ""
-- ""
-image: 
+image: blog/oktane22/oktane-online.jpg
 type: awareness
 ---
 
@@ -27,9 +25,11 @@ Developers make it possible for anyone to use Okta's identity cloud to connect s
 
 Our speakers are developers from Okta and Auth0, as well as engineers from around the world who work with our platform. They'll cover best practices for protecting your front-end and back-end with OAuth. You'll learn how Okta APIs and SDKs can help take care of authentication, authorization, and user management for your application. We're bringing our latest hands-on workshops and challenges (road-tested and refined at Developer Days), as well as 1:1 consultations with solutions architects to the Oktane Developer Hub. 
 
+{% img blog/oktane22/oktane-schedule.jpg alt:"Developers admiring Oktane schedule" width:"800" %}{: .center-image }
+
 ## Program overview 
 
-Here's an overview of [the program we've curated for developers](https://www.okta.com/oktane22/agenda/?filters=developer). Note: All times are PDT, and talks are 30 minutes. Recordings will be posted to the (https://www.youtube.com/oktadev)[OktaDev YouTube channel] in the weeks ahead. Stay tuned.  
+Here's an overview of [the program we've curated for developers](https://www.okta.com/oktane22/agenda/?filters=developer). Note: All times are PDT, and talks are 30 minutes. Recordings will be posted to the [OktaDev YouTube channel](https://www.youtube.com/oktadev) in the weeks ahead. Stay tuned.  
 
 *Wednesday, November 9:*
 
