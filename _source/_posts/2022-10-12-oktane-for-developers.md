@@ -1,8 +1,9 @@
-﻿layout: blog_post
+﻿---
+layout: blog_post
 title: "Hello Developers, Time to Get Your Oktane On"
 author: havi-hoffman
 by: advocate
-communities: [] 
+communities: [security] 
 description: "Oktane 2022 happens in San Francisco from November 8-10 and we'd love to meet you there at the Developer Hub. We've designed presentations and workshops with developers in mind." 
 tags: [announcement, conference] 
 tweets: 
@@ -11,15 +12,11 @@ tweets:
 - ""
 image: 
 type: awareness
-—
-
+---
 
 There are plenty of great reasons for developers to join us in San Francisco next month for Oktane 22, November 8-10, 2022. We're back together live and in person—celebrating our 10th annual identity event—and we've built a developer experience at the conference with folks like you in mind. 
 
-
 {% include toc.md %}
- 
-
 
 ## Why come to Oktane 
 
@@ -58,7 +55,6 @@ Hans Reichenbach, Software Architect, Okta
 
 This session will focus on how to integrate the new Push SDK into your mobile application. Starting with a simple integration, we'll look at how to integrate your existing authentication flows to get access tokens for the SDK to use in enrolling and maintaining itself. Our wrap-up will feature the upcoming Transactional MFA functionality being built to support securing high risk actions in your product.
 
-
 *Thursday, November 10*
 
 **10:15am Terraform-Driven Auth0 Customization Using Modern CI/CD**
@@ -67,14 +63,13 @@ Brandon Michelsen, Senior Software Engineer, Google
 
 This project-driven presentation will demonstrate how you can customize Auth0 using Terraform and GitHub Actions, with considerations made for production-grade deployment paradigms. The speakers show you how they managed deployment of a SPA with an accompanying back-end, from developer testing through to promoting their project into production.
 
-
 **12:00pm Building an Identity Platform Using Okta for Healthcare Applications**
 Ashwini Mutalik Desai, Software Development Manager, [Medly](https://medly.com/en-us)
 
 Medly is a digital pharmacy with B2B and B2C applications for daily use. As part of the platform, we built tooling and abstractions for product teams to standardize the IAM workflow. This talk walks through our experiences in building this engineer-friendly, secure, and compliant platform using Okta. We'll look at creating abstractions on top of Okta's API, SDKs for backend services, and using React hooks in frontend apps for a good developer experience. 
 
-
 ## See you in San Francisco! 
+
 You'll find talks and sessions for developers across all tracks, covering a broad spectrum of topics from API security to zero trust. Get a glimpse at the [future of identity](https://www.okta.com/oktane22/agenda/?filters=future-of-identity). You can design your own agenda, but be sure to leave time for community, conversation, and play.  Stop by the Developer Hub for great swag and serendipitous surprises. Need a little help convincing your boss to send you? [We've got you covered](https://www.okta.com/sites/default/files/2022-09/Convince%20your%20boss_0.rtf). 
 
 Want to learn more about all aspects of Oktane? The [Oktane 22 website](https://www.okta.com/oktane22/) has all the details. 
