@@ -46,7 +46,9 @@ Amin Abbaspour, Lead Solutions Architect, Auth0 by Okta
 
 
 **3:30pm - Customer Identity Cloud for Devs: Building a Passwordless World** (*Keynote*)<br/>
-Shiven Ramji, Chief Product Officer, CIC, Okta; Bhawna Singh, SVP, Engineering, Okta; Vittorio Bertocci, Principal Architect, Okta
+Shiven Ramji, Chief Product Officer, CIC, Okta<br/>
+Bhawna Singh, SVP, Engineering, Okta<br/>
+Vittorio Bertocci, Principal Architect, Okta<br/>
 
 >It's time to move beyond centrally-stored passwords and to free everyone to safely use any technology. In this hour, we'll explore the latest capabilities of the Customer Identity Cloud and how we can build a better identity experience together. And we will discuss how Okta and our partners are making it easier for every developer to secure their customers' identities. 
 
@@ -59,8 +61,8 @@ Hans Reichenbach, Software Architect, Okta
 *Thursday, November 10*
 
 **10:15am Terraform-Driven Auth0 Customization Using Modern CI/CD**<br/>
-Daphnne Chacon, Associate Solutions Architect, Auth0
-Brandon Michelsen, Senior Software Engineer, Google
+Brandon Michelsen, Senior Software Engineer, Google<br/>
+Daphnne Chacon, Associate Solutions Architect, Auth0<br/>
 
 >This project-driven presentation will demonstrate how you can customize Auth0 using Terraform and GitHub Actions, with considerations made for production-grade deployment paradigms. The speakers show you how they managed deployment of a SPA with an accompanying back-end, from developer testing through to promoting their project into production.
 
