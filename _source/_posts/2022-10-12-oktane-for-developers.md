@@ -1,18 +1,16 @@
-﻿layout: blog_post
+﻿---
+layout: blog_post
 title: "Hello Developers, Time to Get Your Oktane On"
 author: havi-hoffman
 by: advocate
-communities: [] 
-description: "Oktane 2022 happens in San Francisco from November 8-10 and we'd love to meet you there at the Developer Hub. We've designed presentations and workshops with developers in mind." 
-tags: [announcement, conference] 
+communities: []
+description: "Oktane 2022 happens in San Francisco from November 8-10 and we'd love to meet you there at the Developer Hub. We've designed presentations and workshops with developers in mind."
+tags: [announcement, conference]
 tweets: 
 - ""
-- ""
-- ""
-image: 
+image: blog/oktane-for-developers/social.jpg
 type: awareness
-—
-
+---
 
 There are plenty of great reasons for developers to join us in San Francisco next month for Oktane 22, November 8-10, 2022. We're back together live and in person—celebrating our 10th annual identity event—and we've built a developer experience at the conference with folks like you in mind. 
 
