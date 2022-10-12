@@ -7,7 +7,8 @@ communities: [security]
 description: "Oktane 2022 happens in San Francisco from November 8-10 and we'd love to meet you there at the Developer Hub. We've designed presentations and workshops with developers in mind." 
 tags: [announcement, conference] 
 tweets: 
-- ""
+- "In person or live online, Oktane 22 happens November 8-10 in San Francisco, and you're invited. 
+🧿 Come for the content 🧿 Stay for the conversation 🧿 Leave with useful learnings! #Oktane22 "
 - ""
 - ""
 image: 
@@ -28,7 +29,7 @@ Our speakers are developers from Okta and Auth0, as well as engineers from aroun
 
 ## Program overview 
 
-Here's an overview of [the program we've curated for developers](https://www.okta.com/oktane22/agenda/?filters=developer). Note: All times are PDT, and talks are 30 minutes. Video will be posted to the (https://www.youtube.com/oktadev) [OktaDev YouTube channel] in the weeks ahead. Stay tuned.  
+Here's an overview of [the program we've curated for developers](https://www.okta.com/oktane22/agenda/?filters=developer). Note: All times are PDT, and talks are 30 minutes. Recordings will be posted to the (https://www.youtube.com/oktadev)[OktaDev YouTube channel] in the weeks ahead. Stay tuned.  
 
 *Wednesday, November 9:*
 
@@ -72,6 +73,6 @@ Medly is a digital pharmacy with B2B and B2C applications for daily use. As part
 
 You'll find talks and sessions for developers across all tracks, covering a broad spectrum of topics from API security to zero trust. Get a glimpse at the [future of identity](https://www.okta.com/oktane22/agenda/?filters=future-of-identity). You can design your own agenda, but be sure to leave time for community, conversation, and play.  Stop by the Developer Hub for great swag and serendipitous surprises. Need a little help convincing your boss to send you? [We've got you covered](https://www.okta.com/sites/default/files/2022-09/Convince%20your%20boss_0.rtf). 
 
-Want to learn more about all aspects of Oktane? The [Oktane 22 website](https://www.okta.com/oktane22/) has all the details. 
+Want to learn more about all aspects of Oktane? The [Oktane 22 website](https://www.okta.com/oktane22/) has all the details, including information about how to attend [Oktane Online](https://www.okta.com/oktane22/online-register/). 
 
 [Ready to register?](https://www.okta.com/oktane22/attendance-options/)  Hope to see you there!
