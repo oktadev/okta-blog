@@ -19,17 +19,17 @@ There are plenty of great reasons for developers to join us in San Francisco nex
 
 ## Why come to Oktane 
 
-Developers make it possible for anyone to use Okta's identity cloud to connect securely to any online technology, anywhere. Whether you support Okta in the workplace, or build on our Auth0 by Okta offering for authorizaton and authentication, whether you're a newcomer or a veteran of the IAM (Identity and Access Management) space, we'd love to meet you at Oktane. Engineers and developer advocates will share roadmaps and knowledge through talks, workshops, and 1:1 conversations. Come for the learning and stay for the good times. As always, we want to hear from you about your pain points, feature requests, and ideas for the future. 
+Developers make it possible for anyone to use Okta's identity cloud to connect securely to any online technology, anywhere. Whether you support Okta in the workplace, or build on our *Auth0 by Okta* offering for authorizaton and authentication, whether you're a newcomer or a veteran of the IAM (Identity and Access Management) space, we'd love to meet you at Oktane. Engineers and developer advocates will share roadmaps and knowledge through talks, workshops, and 1:1 conversations. Come for the learning and stay for the good times. As always, we want to hear from you about your pain points, feature requests, and ideas for the future. 
 
 ## Developer workshops and presentations
 
-Our speakers are developers from Okta and *Auth0 by Okta*, as well as engineers from around the world who work with our platform. They'll cover best practices for protecting your front-end and back-end with OAuth. You'll learn how Okta APIs and SDKs can help take care of authentication, authorization, and user management for your application. We're bringing our latest hands-on workshops and challenges (road-tested and refined at Developer Days), as well as 1:1 consultations with solutions architects to the Oktane Developer Hub. 
+Our speakers are developers from Okta and Auth0 by Okta, as well as engineers from around the world who work with our platform. They'll cover best practices for protecting your front-end and back-end with OAuth. You'll learn how Okta APIs and SDKs can help take care of authentication, authorization, and user management for your application. We're bringing our latest hands-on workshops and challenges (road-tested and refined at Developer Days), as well as 1:1 consultations with solutions architects to the Oktane Developer Hub. 
 
 {% img blog/oktane22/oktane-schedule.jpg alt:"Developers admiring Oktane schedule" width:"800" %}{: .center-image }
 
-## Program overview 
+## Agenda overview 
 
-Here's an overview of [the program we've curated for developers](https://www.okta.com/oktane22/agenda/?filters=developer). Note: All times are PDT, and talks are 30 minutes. Recordings will be posted to the [OktaDev YouTube channel](https://www.youtube.com/oktadev) in the weeks ahead. Stay tuned.  
+Here's an overview of [the lineup we've curated for developers](https://www.okta.com/oktane22/agenda/?filters=developer). Note: All times are PDT, and talks are 30 minutes; the keynote at 3:30pm on Wednesday runs 45 minutes and includes demos of our bright passwordless future. This keynote will be featured on the Oktane live stream. Recordings will be posted to the [OktaDev YouTube channel](https://www.youtube.com/oktadev) in the weeks ahead. Stay tuned.  
 
 *Wednesday, November 9:*
 
