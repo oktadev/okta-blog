@@ -34,7 +34,7 @@ Here's an overview of [the program we've curated for developers](https://www.okt
 *Wednesday, November 9:*
 
 **11:00 am - Using React to Customize Your Auth0 User Experience**<br/>
-Brandon Weber, CTO, Basis Theory [Basis Theory](https://basistheory.com/)
+Brandon Weber, CTO, [Basis Theory](https://basistheory.com/)
 
 >React with Auth0 offers a powerful way to bring CI/CD, automation, and customization to your identity workflows. With a simple app in React, we used a modern tool chain to build our identity UI, and leverage the Auth0 Deploy CLI Tool to automatically push those changes live. In this session, we'll show how we use React to style our sign-up and sign-in user flows in concert with Auth0.
 
