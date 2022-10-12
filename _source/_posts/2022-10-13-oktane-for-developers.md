@@ -9,7 +9,7 @@ tags: [announcement, conference]
 tweets: 
 - "In person or live online, Oktane 22 happens November 8-10 in San Francisco, and you're invited. 
 🧿 Come for the content 🧿 Stay for the conversation 🧿 Leave with useful learnings! #Oktane22 "
-image: blog/oktane22/oktane-online.jpg
+image: blog/oktane22/oktane-social.jpg
 type: awareness
 ---
 
@@ -75,6 +75,8 @@ Ashwini Mutalik Desai, Software Development Manager, [Medly](https://medly.com/e
 
 You'll find talks and sessions for developers across all tracks, covering a broad spectrum of topics from API security to zero trust. Get a glimpse at the [future of identity](https://www.okta.com/oktane22/agenda/?filters=future-of-identity). You can design your own agenda, but be sure to leave time for community, conversation, and play.  Stop by the Developer Hub for great swag and serendipitous surprises. Need a little help convincing your boss to send you? [We've got you covered](https://www.okta.com/sites/default/files/2022-09/Convince%20your%20boss_0.rtf). 
 
-Want to learn more about all aspects of Oktane? The [Oktane 22 website](https://www.okta.com/oktane22/) has all the details, including information about how to attend [Oktane Online](https://www.okta.com/oktane22/online-register/). 
+Want to learn more about all aspects of Oktane? The [Oktane 22 website](https://www.okta.com/oktane22/) has all the details, including information about how to attend [Oktane Online](https://www.okta.com/oktane22/online-register/).
+
+{% img blog/oktane22/oktane-online.jpg alt:"Developers admiring Oktane schedule" width:"600" %}{: .center-image }
 
 [Ready to register?](https://www.okta.com/oktane22/attendance-options/)  Hope to see you there!
