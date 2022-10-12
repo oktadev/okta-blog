@@ -8,7 +8,7 @@ description: "Oktane 2022 happens in San Francisco from November 8-10 and we'd l
 tags: [announcement, conference]
 tweets: 
 - ""
-image: blog/oktane-for-developers/social.jpg
+image:
 type: awareness
 ---
 
