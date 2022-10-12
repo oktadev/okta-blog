@@ -23,7 +23,7 @@ Developers make it possible for anyone to use Okta's identity cloud to connect s
 
 ## Developer workshops and presentations
 
-Our speakers are developers from Okta and Auth0, as well as engineers from around the world who work with our platform. They'll cover best practices for protecting your front-end and back-end with OAuth. You'll learn how Okta APIs and SDKs can help take care of authentication, authorization, and user management for your application. We're bringing our latest hands-on workshops and challenges (road-tested and refined at Developer Days), as well as 1:1 consultations with solutions architects to the Oktane Developer Hub. 
+Our speakers are developers from Okta and *Auth0 by Okta*, as well as engineers from around the world who work with our platform. They'll cover best practices for protecting your front-end and back-end with OAuth. You'll learn how Okta APIs and SDKs can help take care of authentication, authorization, and user management for your application. We're bringing our latest hands-on workshops and challenges (road-tested and refined at Developer Days), as well as 1:1 consultations with solutions architects to the Oktane Developer Hub. 
 
 {% img blog/oktane22/oktane-schedule.jpg alt:"Developers admiring Oktane schedule" width:"800" %}{: .center-image }
 
@@ -36,11 +36,11 @@ Here's an overview of [the program we've curated for developers](https://www.okt
 **11:00 am - Using React to Customize Your Auth0 User Experience**<br/>
 Brandon Weber, CTO, [Basis Theory](https://basistheory.com/)
 
->React with Auth0 offers a powerful way to bring CI/CD, automation, and customization to your identity workflows. With a simple app in React, we used a modern tool chain to build our identity UI, and leverage the Auth0 Deploy CLI Tool to automatically push those changes live. In this session, we'll show how we use React to style our sign-up and sign-in user flows in concert with Auth0.
+>React with Auth0 by Okta offers a powerful way to bring CI/CD, automation, and customization to your identity workflows. With a simple app in React, we used a modern tool chain to build our identity UI, and leverage the Auth0 Deploy CLI Tool to automatically push those changes live. In this session, we'll show how we use React to style our sign-up and sign-in user flows in concert with Auth0 by Okta.
 
 
 **1:45 pm - HTTP Security Headers Refresher**<br/>
-Amin Abbaspour, Lead Solutions Architect, Auth0 by Okta
+Amin Abbaspour, Lead Solutions Architect, Okta
 
 >Here's a developer-friendly refresher on how to harden website and browser security leveraging extended HTTP headers. We'll cover CORS, HSTS, CSP and more.
 
@@ -62,9 +62,9 @@ Hans Reichenbach, Software Architect, Okta
 
 **10:15am Terraform-Driven Auth0 Customization Using Modern CI/CD**<br/>
 Brandon Michelsen, Senior Software Engineer, Google<br/>
-Daphnne Chacon, Associate Solutions Architect, Auth0<br/>
+Daphnne Chacon, Associate Solutions Architect, Okta<br/>
 
->This project-driven presentation will demonstrate how you can customize Auth0 using Terraform and GitHub Actions, with considerations made for production-grade deployment paradigms. The speakers show you how they managed deployment of a SPA with an accompanying back-end, from developer testing through to promoting their project into production.
+>This project-driven presentation will demonstrate how you can customize Auth0 by Okta using Terraform and GitHub Actions, with considerations made for production-grade deployment paradigms. The speakers show you how they managed deployment of a SPA with an accompanying back-end, from developer testing through to promoting their project into production.
 
 **12:00pm Building an Identity Platform Using Okta for Healthcare Applications**<br/>
 Ashwini Mutalik Desai, Software Development Manager, [Medly](https://medly.com/en-us)
