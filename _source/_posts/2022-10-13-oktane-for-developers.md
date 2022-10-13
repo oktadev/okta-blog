@@ -13,7 +13,7 @@ image: blog/oktane22/oktane-schedule.jpg
 type: awareness
 ---
 
-There are plenty of great reasons for developers to join us in San Francisco for Oktane 22, November 8-10, 2022. We're back together live and in person—and we've built a developer experience with folks like you in mind. Can’t make it to San Francisco this year? Register now for [Oktane Online](https://www.okta.com/oktane22/online-register/)! We’ll be live-streaming the keynotes as well as hosting industry, international, and meet-the-expert sessions.
+There are plenty of great reasons for developers to join us in San Francisco for Oktane 22, November 8-10, 2022. We're back together live and in person—and we've built a developer experience with folks like you in mind. Can't make it to San Francisco this year? Register now for [Oktane Online](https://www.okta.com/oktane22/online-register/)! We'll be live-streaming the keynotes as well as hosting industry, international, and meet-the-expert sessions.
 
 {% include toc.md %}
 
