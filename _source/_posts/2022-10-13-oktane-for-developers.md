@@ -13,7 +13,7 @@ image: blog/oktane22/oktane-schedule.jpg
 type: awareness
 ---
 
-There are plenty of great reasons for developers to join us in San Francisco next month for Oktane 22, November 8-10, 2022. We're back together live and in person—celebrating our 10th annual identity event—and we've built a developer experience at the conference with folks like you in mind. 
+There are plenty of great reasons for developers to join us in San Francisco for Oktane 22, November 8-10, 2022. We're back together live and in person—and we've built a developer experience with folks like you in mind. Can’t make it to San Francisco this year? Register now for [Oktane Online](https://www.okta.com/oktane22/online-register/)! We’ll be live-streaming the keynotes as well as hosting industry, international, and meet-the-expert sessions.
 
 {% include toc.md %}
 
@@ -27,7 +27,7 @@ Our speakers are developers from Okta and Auth0 by Okta, as well as engineers fr
 
 ## Agenda overview 
 
-Here's an overview of [the lineup we've curated for developers](https://www.okta.com/oktane22/agenda/?filters=developer). Note: All times are PDT, and talks are 30 minutes; the keynote at 3:30pm on Wednesday runs 45 minutes and includes demos of our bright passwordless future. This keynote will be featured on the Oktane live stream. Recordings will be posted to the [OktaDev YouTube channel](https://www.youtube.com/oktadev) in the weeks ahead. Stay tuned.  
+We've curated [a great lineup for developers](https://www.okta.com/oktane22/agenda/?filters=developer) to make sure you get the most out of your Oktane experience this year. Note: All times are PDT, and talks are 30 minutes; the Developer keynote at 3:30pm on Wednesday runs 45 minutes and includes demos of our bright passwordless future. This keynote will be featured on the live stream. Recordings will be posted to the [OktaDev YouTube channel](https://www.youtube.com/oktadev) in the weeks ahead. Stay tuned.  
 
 *Wednesday, November 9:*
 
@@ -73,7 +73,7 @@ Ashwini Mutalik Desai, Software Development Manager, [Medly](https://medly.com/e
 
 You'll find talks and sessions for developers across all tracks, covering a broad spectrum of topics from API security to zero trust. Get a glimpse at the [future of identity](https://www.okta.com/oktane22/agenda/?filters=future-of-identity). You can design your own agenda, but be sure to leave time for community, conversation, and play.  Stop by the Developer Hub for great swag and serendipitous surprises. Need a little help convincing your boss to send you? [We've got you covered](https://www.okta.com/sites/default/files/2022-09/Convince%20your%20boss_0.rtf). 
 
-Want to learn more about all aspects of Oktane? The [Oktane 22 website](https://www.okta.com/oktane22/) has all the details, including information about how to attend [Oktane Online](https://www.okta.com/oktane22/online-register/).
+Want to learn more about all aspects of Oktane? The [Oktane 22 website](https://www.okta.com/oktane22/) has all the details for attending in person, along with information about how to attend [Oktane Online](https://www.okta.com/oktane22/online-register/).
 
 {% img blog/oktane22/oktane-online.jpg alt:"Developers admiring Oktane schedule" width:"600" %}{: .center-image }
 
