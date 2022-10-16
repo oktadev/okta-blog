@@ -144,7 +144,7 @@ The terminal will display a device confirmation code and open a browser session 
 
 On successful login, you will see the tenant, which you will use as issuer later:
 
-```shell
+```
 ✪ Welcome to the Auth0 CLI 🎊
 
 If you don't have an account, please create one here: https://auth0.com/signup.
@@ -534,17 +534,6 @@ token_renewable      true
 token_policies       ["default" "vault-demo-app-policy"]
 identity_policies    []
 policies             ["default" "vault-demo-app-policy"]
-```
-
-**NOTE**: I could not find documentation about the warning _Endpoint ignored these unrecognized parameters_. It seems `vault CLI` is sending default parameters not required by the target API in this case. The command equivalent API call can be displayed using the `-output-curl-string` flag after the subcommand, for example:
-
-```shell
-vault token create -output-curl-string -policy=vault-demo-app-policy
-```
-The output string will look like below:
-
-```shell
-curl -X POST -H "X-Vault-Token: $(vault print token)" -H "X-Vault-Request: true" -d '{"policies":["vault-demo-app-policy"],"ttl":"0s","explicit_max_ttl":"0s","period":"0s","display_name":"","num_uses":0,"renewable":true,"type":"service","entity_alias":""}' http://127.0.0.1:8200/v1/auth/token/create
 ```
 
 You are now ready to update the config server. In the `vault-config-server` project, edit `src/main/resource/application.yml` to add Vault as the config backend:
