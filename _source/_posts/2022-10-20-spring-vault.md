@@ -27,7 +27,6 @@ Nowadays it is widely recommended to never store secret values in code. Therefor
 - Using Spring Cloud Vault
 
 > **This tutorial was created with the following frameworks and tools**:
-> - [JHipster 7.9.3](https://www.jhipster.tech/installation/)
 > - [Java OpenJDK 17](https://jdk.java.net/java-se-ri/17)
 > - [Okta CLI 0.10.0](https://cli.okta.com)
 > - [Docker 20.10.12](https://docs.docker.com/engine/install/)
@@ -36,7 +35,7 @@ Nowadays it is widely recommended to never store secret values in code. Therefor
 
 {% include toc.md %}
 
-## Use Environment Variables for Secrets; a Precursor to Spring Vault
+## Use environment variables for secrets; a precursor to Spring Vault
 
 Spring Boot applications can bind property values from environment variables. To demonstrate, create a `vault-demo-app` with OpenID Connect (OIDC) authentication, using the Spring Initializr. Then add `web`, `okta`, and `cloud-config-client` dependencies, some of which will be required later in the tutorial:
 
@@ -106,7 +105,7 @@ In an incognito window, go to `http://localhost:8080`. Here, you should see the 
 
 {% img blog/spring-vault-update/okta-login.png alt:"Okta login form" width:"400" %}{: .center-image }
 
-In the application logs, you'll see the security filter chain initializes an OAuth 2.0 authentication flow:
+In the application logs, you'll see the security filter chain initializes an OAuth 2.0 authentication flow on startup:
 
 <pre><code>
 2022-09-07 08:50:09.460  INFO 20676 --- [           main] o.s.s.web.DefaultSecurityFilterChain     : Will secure any request with<br> [org.springframework.security.web.session.DisableEncodeUrlFilter@6b4a4e40,<br> org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@46a8c2b4,<br> org.springframework.security.web.context.SecurityContextPersistenceFilter@640d604,<br> org.springframework.security.web.header.HeaderWriterFilter@7b96de8d,<br> org.springframework.security.web.csrf.CsrfFilter@2a0b901c,<br> org.springframework.security.web.authentication.logout.LogoutFilter@38ac8968,<br> org.springframework.security.oauth2.client.web.OAuth2AuthorizationRequestRedirectFilter@7739aac4,<br> org.springframework.security.oauth2.client.web.OAuth2AuthorizationRequestRedirectFilter@36c07c75,<br> org.springframework.security.oauth2.client.web.OAuth2LoginAuthenticationFilter@353c6da1,<br> org.springframework.security.web.authentication.ui.DefaultLoginPageGeneratingFilter@7e61e25c,<br> org.springframework.security.web.authentication.ui.DefaultLogoutPageGeneratingFilter@4f664bee,<br> org.springframework.security.oauth2.server.resource.web.BearerTokenAuthenticationFilter@21b51e59,<br> org.springframework.security.web.savedrequest.RequestCacheAwareFilter@5438fa43,<br> org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@512abf25,<br> org.springframework.security.web.authentication.AnonymousAuthenticationFilter@76563ae7,<br> org.springframework.security.oauth2.client.web.OAuth2AuthorizationCodeGrantFilter@3e14d390,<br> org.springframework.security.web.session.SessionManagementFilter@4dc52559,<br> org.springframework.security.web.access.ExceptionTranslationFilter@51ac12ac,<br> org.springframework.security.web.access.intercept.FilterSecurityInterceptor@2407a36c]
@@ -116,7 +115,7 @@ Using environment variables for passing secrets to containerized applications is
 
 ### Use Auth0 for OpenID Connect
 
-For using Auth0 as OIDC provider, you need to add the `spring-boot-starter-oauth2-client` dependency, as the Okta Spring Boot Starter [does not support Auth0](https://github.com/okta/okta-spring-boot/issues/358) yet.
+To use Auth0 as an OIDC provider, you need to add the `spring-boot-starter-oauth2-client` dependency, as the Okta Spring Boot Starter [does not support Auth0](https://github.com/okta/okta-spring-boot/issues/358) yet.
 
 You can create a demo application with Spring Initializr too:
 
@@ -141,7 +140,7 @@ auth0 login
 
 The terminal will display a device confirmation code and open a browser session to activate the device.
 
-**NOTE**: My browser was not displaying anything, so I had to manually activate the device by opening the URL https://auth0.auth0.com/activate?user_code={deviceCode}
+**NOTE**: My browser was not displaying anything, so I had to manually activate the device by opening the URL `https://auth0.auth0.com/activate?user_code={deviceCode}`.
 
 On successful login, you will see the tenant, which you will use as issuer later:
 
@@ -275,7 +274,7 @@ public class SpringBootConfigurationServerApplication {
 }
 ```
 
-Start the server, as you are going to encrypt your Okta secrets using the `/encrypt` endpoint. For this example, you are using a symmetric (shared) encryption key, passed through the environment variable ENCRYPT_KEY. Before running the command below, you should replace `{encryptKey}` with a random string of characters. You can use JShell to generate a UUID you can use for your encrypt key.
+Start the server, as you are going to encrypt your Okta secrets using the `/encrypt` endpoint. For this example, you are using a symmetric (shared) encryption key, passed through the environment variable ENCRYPT_KEY. Before running the command below, you should replace `{encryptKey}` with a random string of characters. You can use JShell to generate a UUID to use for your encrypt key.
 
 ```shell
 jshell
@@ -331,7 +330,7 @@ When requesting `http://localhost:8080` it should again redirect to the Okta log
 
 In a real environment, the config server should be secured. Spring Cloud Config Server supports asymmetric key encryption as well, with the server encrypting with the public key, and the clients decrypting with the private key. However, the documentation warns about spreading the key management process around clients.
 
-## Vault as a Configuration Backend with Spring Cloud Vault
+## Vault as a configuration backend with Spring Cloud Vault
 
 {% img blog/spring-vault/vault-logo.png alt:"Vault logo" width:"300" %}{: .pull-right }
 
@@ -357,7 +356,7 @@ docker run --cap-add=IPC_LOCK \
 
 **NOTE**:  The `docker run` command above will start a vault instance with the name `my-vault`. You can stop the container with `docker stop my-vault` and restart it with `docker start my-vault`. Note that all the secrets and data will be lost between restarts, as explained in the next paragraphs.
 
-IPC_LOCK capability is required for Vault to be able to lock memory and not be swapped to disk, as this behavior is enabled by default. As the instance is run for development, the ID of the initially generated root token is set to the given value. We are mounting `/vault/logs`, as we are going to enable the `file` audit device to inspect the interactions.
+The `IPC_LOCK` capability is required for Vault to be able to lock memory and not be swapped to disk, as this behavior is enabled by default. As the instance is run for development, the ID of the initially generated root token is set to the given value. You are mounting `/vault/logs`, as you are going to enable the `file` audit device to inspect the interactions.
 
 Once it starts, you should notice the following logs:
 
@@ -379,7 +378,7 @@ Root Token: 00000000-0000-0000-0000-000000000000
 Development mode should NOT be used in production installations!
 ```
 
-It is clear Vault is running in _dev mode_, meaning it short-circuits a lot of setup to insecure defaults, which helps for the experimentation. Data is stored encrypted in-memory and lost on every restart. Copy the _Unseal Key_, as we are going to use it to test Vault sealing.
+It is clear Vault is running in _dev mode_, meaning it short-circuits a lot of setup to insecure defaults, which helps for the experimentation. Data is stored encrypted in-memory and lost on every restart. **Copy the _Unseal Key_, as you are going to use it to test Vault sealing.**
 Connect to the container and explore some `vault` commands:
 
 ```shell
@@ -404,8 +403,8 @@ Initialized     true
 Sealed          false
 Total Shares    1
 Threshold       1
-Version         1.11.3
-Build Date      2022-08-26T10:27:10Z
+Version         1.12.0
+Build Date      2022-10-10T18:14:33Z
 Storage Type    inmem
 Cluster Name    vault-cluster-389dcb61
 Cluster ID      cc063fcf-e1f2-2e75-6059-cd9117559f0d
@@ -438,7 +437,7 @@ Check `vault_audit.log` in your specified `{hostPath}` directory. Operations are
 
 ```json
 {
-   "time":"2022-09-09T22:09:14.886126069Z",
+   "time":"2022-10-13T03:00:25.145796389Z",
    "type":"request",
    "auth":{
       "client_token":"hmac-sha256:2d8d7aeded539495117218a14ef9ae9f0f525eb2f6078be25dfe8e329ceb3d3f",
@@ -461,7 +460,7 @@ Check `vault_audit.log` in your specified `{hostPath}` directory. Operations are
          ]
       },
       "token_type":"service",
-      "token_issue_time":"2022-09-09T22:01:47Z"
+      "token_issue_time":"2022-10-13T02:55:13Z"
    },
    "request":{
       "id":"50f70b23-3f2a-4857-5a8b-0c45982be491",
@@ -526,11 +525,6 @@ vault token create -policy=vault-demo-app-policy
 ```
 
 ```shell
-WARNING! The following warnings were returned from Vault:
-
-  * Endpoint ignored these unrecognized parameters: [display_name entity_alias
-  explicit_max_ttl num_uses period policies renewable ttl type]
-
 Key                  Value
 ---                  -----
 token                hvs.CAESIKd9pYyc9xesiqmwvepdGiHlPEB53By...
@@ -594,17 +588,17 @@ SPRING_CLOUD_CONFIG_TOKEN=hvs.CAESIKd9pYyc9xesiqmwvep... \
 ./mvnw spring-boot:run
 ```
 
-When the `vault-demo-app` starts, it will request the configuration to the config server, which in turn will make REST requests to Vault. In the config server logs, with enough logging level, you will be able to see those requests:
+When the `vault-demo-app` starts, it will request the configuration to the config server, which in turn will make REST requests to Vault. In the config server logs, with an increased logging level, you will be able to see those requests:
 
 ```shell
-2022-09-28 17:21:25.096 DEBUG 6685 --- [nio-8888-exec-1] o.s.web.client.RestTemplate              : HTTP GET http://127.0.0.1:8200/v1/secret/data/vault-demo-app,dev
-2022-09-28 17:21:25.142 DEBUG 6685 --- [nio-8888-exec-1] o.s.web.client.RestTemplate              : Accept=[application/json, application/*+json]
-2022-09-28 17:21:25.183 DEBUG 6685 --- [nio-8888-exec-1] o.s.web.client.RestTemplate              : Response 200 OK
+2022-10-12 21:21:25.096 ...  : HTTP GET http://127.0.0.1:8200/v1/secret/data/vault-demo-app,dev
+2022-10-12 21:21:25.142 ...  : Accept=[application/json, application/*+json]
+2022-10-12 21:21:25.183 ...  : Response 200 OK
 ```
 
 Go to `http://localhost:8080` and verify that authentication with Okta works.
 
-Finally, let's seal Vault. Sealing allows you to lock Vault data to minimize damages when an intrusion is detected.  In the container command line, enter:
+Finally, let's seal Vault. Sealing allows you to lock Vault data to minimize damage when an intrusion is detected.  In the container command line, enter:
 
 ```shell
 vault operator seal
@@ -622,7 +616,7 @@ To unseal Vault, run:
 vault operator unseal {unsealKey}
 ```
 
-## Learn More About Encryption and Storing Secrets
+## Learn more about encryption and storing secrets
 
 Hopefully you see the benefits of using a secrets management tool like Vault as a configuration backend, as opposed to storing secrets in a file, on a file system, or in a code repository. To learn more about Vault and Spring Cloud, check out the following links:
 
