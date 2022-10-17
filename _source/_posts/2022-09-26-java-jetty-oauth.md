@@ -550,7 +550,7 @@ public class WebController {
 
 Some of you might notice that Spring Boot is still using the Java EE Servlet API package and not the newer Jakarta API. It looks like this migration is scheduled for Spring Boot 3.0.0 (see [this issue](https://github.com/spring-projects/spring-boot/issues/31720)).
 
-To run the Spring Boot app, open a Bash shell and navigate to the `spring-boot-jetty-maven` subdirectory.
+To run the Spring Boot app, open a Bash shell and navigate to the `spring-boot-jetty-maven-no-auth` subdirectory.
 
 Run the following.
 
