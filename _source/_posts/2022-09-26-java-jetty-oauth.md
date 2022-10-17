@@ -562,8 +562,8 @@ Wait for it to finish initializing.
 
 ```bash
 ...
-2022-09-05 16:44:06.968  INFO 1352613 --- [           main] o.s.b.web.embedded.jetty.JettyWebServer  : Jetty started on port(s) 8080 (http/1.1) with context path '/'
-2022-09-05 16:44:06.974  INFO 1352613 --- [           main] com.demo.SpringBootJettyApplication      : Started SpringBootJettyApplication in 0.832 seconds (JVM running for 1.052)
+2022-09-23 12:03:47.012  INFO 1352613 --- [           main] o.s.b.web.embedded.jetty.JettyWebServer  : Jetty started on port(s) 8080 (http/1.1) with context path '/'
+2022-09-23 12:03:47.016  INFO 1352613 --- [           main] com.demo.SpringBootJettyApplication      : Started SpringBootJettyApplication in 0.832 seconds (JVM running for 1.052)
 ```
 
 Test it with HTTPie.
