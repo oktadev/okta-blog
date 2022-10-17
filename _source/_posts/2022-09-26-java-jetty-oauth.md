@@ -180,7 +180,7 @@ http :8080/ahoy
 HTTP/1.1 200 OK
 Content-Length: 5
 Date: Fri, 23 Sep 2022 16:41:39 GMT
-Server: Jetty(11.0.11)
+Server: Jetty(11.0.12)
 
 Ahoy!
 ```
