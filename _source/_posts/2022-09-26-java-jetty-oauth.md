@@ -75,7 +75,7 @@ Lastly, the Jetty Maven plugin has also been included. You can peruse [the docs 
 
   <properties>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-    <maven.compiler.source>1.7</maven.compiler.source>
+    <maven.compiler.source>11</maven.compiler.source>
     <maven.compiler.target>1.7</maven.compiler.target>
     <jettyVersion>11.0.11</jettyVersion>
   </properties>
@@ -111,7 +111,7 @@ Lastly, the Jetty Maven plugin has also been included. You can peruse [the docs 
         <artifactId>maven-war-plugin</artifactId>
         <version>3.3.2</version>
         <configuration>
-            <failOnMissingWebXml>false</failOnMissingWebXml>
+          <failOnMissingWebXml>false</failOnMissingWebXml>
         </configuration>
       </plugin>
     </plugins>
@@ -416,20 +416,20 @@ This is done in the `pom.xml` file by these two dependency configuration blocks.
 
 ```xml
 <dependency>
-    <groupId>org.springframework.boot</groupId>
-    <artifactId>spring-boot-starter-web</artifactId>
-    <exclusions>
-        <!-- Exclude the Tomcat dependency -->
-        <exclusion>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-tomcat</artifactId>
-        </exclusion>
-    </exclusions>
+  <groupId>org.springframework.boot</groupId>
+  <artifactId>spring-boot-starter-web</artifactId>
+  <exclusions>
+    <!-- Exclude the Tomcat dependency -->
+    <exclusion>
+      <groupId>org.springframework.boot</groupId>
+      <artifactId>spring-boot-starter-tomcat</artifactId>
+    </exclusion>
+  </exclusions>
 </dependency>
 <!-- Use Jetty instead -->
 <dependency>
-    <groupId>org.springframework.boot</groupId>
-    <artifactId>spring-boot-starter-jetty</artifactId>
+  <groupId>org.springframework.boot</groupId>
+  <artifactId>spring-boot-starter-jetty</artifactId>
 </dependency>
 ```
 
@@ -511,13 +511,13 @@ public class WebController {
             "Teton Crest Trail", "Everest Base Camp via Cho La Pass", "Kesugi Ridge"
     ));
 
-    @GetMapping("")
+    @GetMapping()
     @ResponseBody
     public String indexGet() {
         return String.join("\n", this.hikes);
     }
 
-    @PostMapping("")
+    @PostMapping()
     @ResponseBody
     public String indexPost(@RequestParam String hike, HttpServletResponse response) {
         if (hike == null) {
@@ -534,7 +534,7 @@ public class WebController {
         }
     }
 
-    @DeleteMapping("")
+    @DeleteMapping()
     @ResponseBody
     public String indexDelete(@RequestParam String hike, HttpServletResponse response) {
         if (hike == null) {
@@ -549,7 +549,7 @@ public class WebController {
 }
 ```
 
-Some of you might notice that Spring Boot is still using the Java EE Servlet API package and not the newer Jakarta API. It looks like this migration is scheduled for Spring Boot 3.0.0 (see [this issue](https://github.com/spring-projects/spring-boot/issues/31720)).
+Some of you might notice that Spring Boot is still using the Java EE Servlet API package and not the newer Jakarta API. The migration is scheduled for Spring Boot 3.0.0 (see [this issue](https://github.com/spring-projects/spring-boot/issues/31720)).
 
 To run the Spring Boot app, open a Bash shell and navigate to the `spring-boot-jetty-maven` subdirectory.
 
