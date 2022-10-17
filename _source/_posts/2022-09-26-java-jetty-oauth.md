@@ -395,7 +395,7 @@ Teton Crest Trail
 Everest Base Camp via Cho La Pass
 Kesugi Ridge
 
-$: http :8080/ahoy
+$ http :8080/ahoy
 HTTP/1.1 200 OK
 ...
 
