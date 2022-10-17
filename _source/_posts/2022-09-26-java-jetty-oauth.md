@@ -584,7 +584,7 @@ Everest Base Camp via Cho La Pass
 Kesugi Ridge
 ```
 
-This web service has the same features as the `@WebServlet` version: GET, POST, and DELETE but no PUT.
+This web service has the same features as the `@WebServlet` version: GET, POST, and DELETE, but no PUT.
 
 ## Deploy the Spring Boot Project
 
