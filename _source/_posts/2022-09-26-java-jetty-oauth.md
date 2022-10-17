@@ -487,7 +487,7 @@ Here is the full `pom.xml`. Notice the Spring Boot version is 2.7.4.
 </project>
 ```
 
-In this case, you're no longer using the `@WebServlet` annotation. Instead, you're using the Spring Boot web API. The web controller is contained in a class named `WebController`.
+In this case, you're no longer using the `@WebServlet` annotation. Instead, you're using the Spring MVC API. The web controller is contained in a class named `WebController`.
 
 `src/main/java/com/demo/WebController.java`
 ```java
