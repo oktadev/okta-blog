@@ -742,7 +742,7 @@ public class WebController {
 }
 ```
 
-Try to POST a new hike.
+Try to POST a new hike:
 
 ```bash
 http -f POST :8080 hike="Pear Lake"
