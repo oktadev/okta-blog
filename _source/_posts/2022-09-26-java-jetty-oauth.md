@@ -12,6 +12,7 @@ tweets:
 - "Build a Java REST API with @JettyProject and learn how to lock it down with OAuth 2.0 in this tutorial."
 image: blog/featured/okta-java-short-bottle-headphones.jpg
 type: conversion
+github: https://github.com/oktadev/okta-spring-boot-jetty-example
 ---
 
 Jetty is a small, highly-scalable Java-based web server and servlet engine. It supports HTTP/2, WebSockets, and many other protocols. It powers websites and frameworks, both large and small, such as Google AppEngine. Because it is an Eclipse project, its open source project is called Eclipse Jetty. It is standards-compliant and open source, as well as commercially usable. It is the main alternative to Tomcat when hosting Java applications. Like Tomcat, you can use Jetty both embedded and stand-alone.
@@ -28,7 +29,7 @@ Before you start, please make sure you have the following prerequisites installe
 
 - [Java 11](https://adoptium.net/): or use [SDKMAN!](https://sdkman.io/) to manage and install multiple versions
 - [Okta CLI](https://cli.okta.com/manual/#installation): the Okta command-line interface
-- [HTTPie](https://httpie.org/doc#installation): a simple tool for making HTTP requests from a Bash shell
+- [HTTPie](https://httpie.org/doc#installation): a simple tool for making HTTP requests from the command line
 
 You will need a free Okta Developer account if you don't already have one. But you can wait until later in the tutorial and use the Okta CLI  to log in or register for a new account.
 
@@ -62,7 +63,6 @@ Lastly, the Jetty Maven plugin has also been included. You can peruse [the docs 
 
 ```xml
 <?xml version="1.0" encoding="UTF-8"?>
-
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
   xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
   <modelVersion>4.0.0</modelVersion>
@@ -127,7 +127,6 @@ The next file to look at is the `AhoyServlet` class.
 ```java
 package com.demo;
 
-import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
@@ -138,7 +137,7 @@ import java.io.IOException;
 public class AhoyServlet extends HttpServlet {
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
-        throws ServletException, IOException {
+        throws IOException {
         response.getWriter().print("Ahoy!");
     }
 
@@ -164,11 +163,11 @@ You should see some output that looks like the following.
 [INFO] Webapp directory = /home/andrewcarterhughes/Development/okta/2022/jetty-update/maven-jetty/src/main/webapp
 [INFO] Web defaults = org/eclipse/jetty/webapp/webdefault.xml
 [INFO] Web overrides =  none
-[INFO] jetty-11.0.11; built: 2022-06-21T21:42:55.454Z; git: 58487315cb75e0f5c81cc6fa50096cbeb3b9554e; jvm 11.0.14+9
+[INFO] jetty-11.0.12; built: 2022-09-14T02:38:00.723Z; git: d5b8c29485f5f56a14be5f20c2ccce81b93c5555; jvm 11.0.14+9
 [INFO] Session workerName=node0
 [INFO] Started o.e.j.m.p.MavenWebAppContext@69364b2d{/,[file:///home/andrewcarterhughes/Development/okta/2022/jetty-update/maven-jetty/src/main/webapp/],AVAILABLE}{file:///home/andrewcarterhughes/Development/okta/2022/jetty-update/maven-jetty/src/main/webapp/}
 [INFO] Started ServerConnector@4d7cac24{HTTP/1.1, (http/1.1)}{0.0.0.0:8080}
-[INFO] Started Server@42e4e589{STARTING}[11.0.11,sto=0] @2490ms
+[INFO] Started Server@42e4e589{STARTING}[11.0.12,sto=0] @2490ms
 ```
 
 Using HTTPie, test the simple service.
@@ -180,8 +179,8 @@ http :8080/ahoy
 ```bash
 HTTP/1.1 200 OK
 Content-Length: 5
-Date: Mon, 05 Sep 2022 20:48:28 GMT
-Server: Jetty(11.0.11)
+Date: Fri, 23 Sep 2022 16:41:39 GMT
+Server: Jetty(11.0.12)
 
 Ahoy!
 ```
@@ -302,8 +301,8 @@ http DELETE :8080/hikes hike=="South Maroon Peak"
 ```
 HTTP/1.1 200 OK
 Content-Length: 110
-Date: Mon, 05 Sep 2022 21:01:34 GMT
-Server: Jetty(11.0.11)
+Date: Fri, 23 Sep 2022 16:45:59 GMT
+Server: Jetty(11.0.12)
 
 Wonderland Trail
 Tour du Mont Blanc
@@ -344,7 +343,7 @@ From the Gretty docs:
 
 > Gretty is a feature-rich Gradle plugin for running web apps on embedded servlet containers. It supports Jetty versions 7, 8, and 9, Tomcat versions 7 and 8, multiple web apps, and many more. It wraps servlet  container functions as convenient Gradle tasks and configuration DSL
 
-This project uses Gretty plugin version 4.0.3, which uses Jetty version 11.0.11. Since version 4, Gretty requires Jakarta over Javax. You can use Gretty 3 if you want to support non-Jakarta apps (this is explained on the Gretty GitHub page above).
+This project uses Gretty plugin version 4.0.3, which uses Jetty version 11.0.11. Since version 4, Gretty requires `jakarta` imports over `javax`. You can use Gretty 3 if you want to support non-Jakarta apps (this is explained on the Gretty GitHub page above).
 
 The two Java servlet classes are the same in both projects. I did find that Gretty and Gradle crashed unless I added an empty `src/main/webapp` directory (this wasn't necessary with Maven).
 
@@ -396,7 +395,7 @@ Teton Crest Trail
 Everest Base Camp via Cho La Pass
 Kesugi Ridge
 
-$: http :8080/ahoy
+$ http :8080/ahoy
 HTTP/1.1 200 OK
 ...
 
@@ -488,7 +487,7 @@ Here is the full `pom.xml`. Notice the Spring Boot version is 2.7.4.
 </project>
 ```
 
-In this case, you're no longer using the `@WebServlet` annotation. Instead, you're using the Spring Boot web API. The web controller is contained in a class named `WebController`.
+In this case, you're no longer using the `@WebServlet` annotation. Instead, you're using the Spring MVC API. The web controller is contained in a class named `WebController`.
 
 `src/main/java/com/demo/WebController.java`
 ```java
@@ -551,7 +550,7 @@ public class WebController {
 
 Some of you might notice that Spring Boot is still using the Java EE Servlet API package and not the newer Jakarta API. The migration is scheduled for Spring Boot 3.0.0 (see [this issue](https://github.com/spring-projects/spring-boot/issues/31720)).
 
-To run the Spring Boot app, open a Bash shell and navigate to the `spring-boot-jetty-maven` subdirectory.
+To run the Spring Boot app, open a Bash shell and navigate to the `spring-boot-jetty-maven-no-auth` subdirectory.
 
 Run the following.
 
@@ -563,8 +562,8 @@ Wait for it to finish initializing.
 
 ```bash
 ...
-2022-09-05 16:44:06.968  INFO 1352613 --- [           main] o.s.b.web.embedded.jetty.JettyWebServer  : Jetty started on port(s) 8080 (http/1.1) with context path '/'
-2022-09-05 16:44:06.974  INFO 1352613 --- [           main] com.demo.SpringBootJettyApplication      : Started SpringBootJettyApplication in 0.832 seconds (JVM running for 1.052)
+2022-09-23 12:03:47.012  INFO 1352613 --- [           main] o.s.b.web.embedded.jetty.JettyWebServer  : Jetty started on port(s) 8080 (http/1.1) with context path '/'
+2022-09-23 12:03:47.016  INFO 1352613 --- [           main] com.demo.SpringBootJettyApplication      : Started SpringBootJettyApplication in 0.832 seconds (JVM running for 1.052)
 ```
 
 Test it with HTTPie.
@@ -585,7 +584,7 @@ Everest Base Camp via Cho La Pass
 Kesugi Ridge
 ```
 
-This web service has the same features as the `@WebServlet` version: GET, POST, and DELETE but no PUT.
+This web service has the same features as the `@WebServlet` version: GET, POST, and DELETE, but no PUT.
 
 ## Deploy the Spring Boot Project
 
@@ -613,7 +612,7 @@ The first step to securing the app is configuring an OpenID Connect (OIDC) app o
 
 You need to run the following commands from the `spring-boot-jetty-maven-okta` subdirectory.
 
-{% include setup/cli.md type="web" framework="Okta Spring Boot Starter" loginRedirectUri="https://oidcdebugger.com/debug,http://localhost:8080/login/oauth2/code/okta" %}
+{% include setup/cli.md type="web" framework="Okta Spring Boot Starter" loginRedirectUri="https://oidcdebugger.com/debug,http://localhost:8080/login/oauth2/code/okta" logoutRedirectUri="https://oidcdebugger.com/,http://localhost:8080/" %}
 
 > **NOTE:** You will use the oidcdebugger.com redirect URI to create an access token you can use from the command line with HTTPie. The second URI is the default redirect URI that Spring Security uses for Okta when using its OAuth login feature.
 
@@ -673,7 +672,7 @@ The above class enables JWT-based OAuth and OIDC security. However, it explicitl
 
 ## Protect the DELETE and POST endpoints
 
-Add the `@PreAuthorize("isAuthenticated")` annotation to the `indexPost()` and `indexDelete()` methods of the `WebController` class. This will require that each request to those endpoints be authenticated -- that is, a valid user will need to be logged in. Because you are using Okta as your OIDC provider, they will be able to have authenticated with Okta's servers, typically through a single sign-on.
+Add the `@PreAuthorize("isAuthenticated")` annotation to the `indexPost()` and `indexDelete()` methods in the `WebController` class. This will require that each request to those endpoints be authenticated -- that is, a valid user will need to be logged in. Because you are using Okta as your OIDC provider, they will be able to have authenticated with Okta's servers, typically through a single sign-on.
 
 Update the `WebController` to the following.
 
@@ -743,7 +742,7 @@ public class WebController {
 }
 ```
 
-Try to POST a new hike.
+Try to POST a new hike:
 
 ```bash
 http -f POST :8080 hike="Pear Lake"
@@ -757,7 +756,7 @@ HTTP/1.1 403 Forbidden
     "error": "Forbidden",
     "path": "/",
     "status": 403,
-    "timestamp": "2022-09-06T14:09:02.533+00:00"
+    "timestamp": "2022-09-23T18:15:31.530+00:00"
 }
 ```
 
@@ -894,8 +893,7 @@ private String issuer;
 
 @Bean
 JwtDecoder jwtDecoder() {
-    NimbusJwtDecoder jwtDecoder = (NimbusJwtDecoder)
-        JwtDecoders.fromOidcIssuerLocation(issuer);
+    NimbusJwtDecoder jwtDecoder = JwtDecoders.fromOidcIssuerLocation(issuer);
 
     OAuth2TokenValidator<Jwt> audienceValidator = new AudienceValidator(audience);
     OAuth2TokenValidator<Jwt> withIssuer = JwtValidators.createDefaultWithIssuer(issuer);
