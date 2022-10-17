@@ -163,7 +163,7 @@ You should see some output that looks like the following.
 [INFO] Webapp directory = /home/andrewcarterhughes/Development/okta/2022/jetty-update/maven-jetty/src/main/webapp
 [INFO] Web defaults = org/eclipse/jetty/webapp/webdefault.xml
 [INFO] Web overrides =  none
-[INFO] jetty-11.0.11; built: 2022-06-21T21:42:55.454Z; git: 58487315cb75e0f5c81cc6fa50096cbeb3b9554e; jvm 11.0.14+9
+[INFO] jetty-11.0.12; built: 2022-09-14T02:38:00.723Z; git: d5b8c29485f5f56a14be5f20c2ccce81b93c5555; jvm 11.0.14+9
 [INFO] Session workerName=node0
 [INFO] Started o.e.j.m.p.MavenWebAppContext@69364b2d{/,[file:///home/andrewcarterhughes/Development/okta/2022/jetty-update/maven-jetty/src/main/webapp/],AVAILABLE}{file:///home/andrewcarterhughes/Development/okta/2022/jetty-update/maven-jetty/src/main/webapp/}
 [INFO] Started ServerConnector@4d7cac24{HTTP/1.1, (http/1.1)}{0.0.0.0:8080}
