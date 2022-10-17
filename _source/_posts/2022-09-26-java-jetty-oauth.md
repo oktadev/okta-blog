@@ -167,7 +167,7 @@ You should see some output that looks like the following.
 [INFO] Session workerName=node0
 [INFO] Started o.e.j.m.p.MavenWebAppContext@69364b2d{/,[file:///home/andrewcarterhughes/Development/okta/2022/jetty-update/maven-jetty/src/main/webapp/],AVAILABLE}{file:///home/andrewcarterhughes/Development/okta/2022/jetty-update/maven-jetty/src/main/webapp/}
 [INFO] Started ServerConnector@4d7cac24{HTTP/1.1, (http/1.1)}{0.0.0.0:8080}
-[INFO] Started Server@42e4e589{STARTING}[11.0.11,sto=0] @2490ms
+[INFO] Started Server@42e4e589{STARTING}[11.0.12,sto=0] @2490ms
 ```
 
 Using HTTPie, test the simple service.
