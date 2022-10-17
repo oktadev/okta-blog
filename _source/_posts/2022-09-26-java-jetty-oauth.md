@@ -672,7 +672,7 @@ The above class enables JWT-based OAuth and OIDC security. However, it explicitl
 
 ## Protect the DELETE and POST endpoints
 
-Add the `@PreAuthorize("isAuthenticated")` annotation to the `indexPost()` and `indexDelete()` methods of the `WebController` class. This will require that each request to those endpoints be authenticated -- that is, a valid user will need to be logged in. Because you are using Okta as your OIDC provider, they will be able to have authenticated with Okta's servers, typically through a single sign-on.
+Add the `@PreAuthorize("isAuthenticated")` annotation to the `indexPost()` and `indexDelete()` methods in the `WebController` class. This will require that each request to those endpoints be authenticated -- that is, a valid user will need to be logged in. Because you are using Okta as your OIDC provider, they will be able to have authenticated with Okta's servers, typically through a single sign-on.
 
 Update the `WebController` to the following.
 
