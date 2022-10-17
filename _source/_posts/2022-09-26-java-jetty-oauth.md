@@ -342,7 +342,7 @@ From the Gretty docs:
 
 > Gretty is a feature-rich Gradle plugin for running web apps on embedded servlet containers. It supports Jetty versions 7, 8, and 9, Tomcat versions 7 and 8, multiple web apps, and many more. It wraps servlet  container functions as convenient Gradle tasks and configuration DSL
 
-This project uses Gretty plugin version 4.0.3, which uses Jetty version 11.0.11. Since version 4, Gretty requires Jakarta over Javax. You can use Gretty 3 if you want to support non-Jakarta apps (this is explained on the Gretty GitHub page above).
+This project uses Gretty plugin version 4.0.3, which uses Jetty version 11.0.11. Since version 4, Gretty requires `jakarta` imports over `javax`. You can use Gretty 3 if you want to support non-Jakarta apps (this is explained on the Gretty GitHub page above).
 
 The two Java servlet classes are the same in both projects. I did find that Gretty and Gradle crashed unless I added an empty `src/main/webapp` directory (this wasn't necessary with Maven).
 
