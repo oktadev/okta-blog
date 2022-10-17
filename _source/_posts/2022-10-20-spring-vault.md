@@ -31,7 +31,7 @@ Nowadays it is widely recommended to never store secret values in code. Therefor
 > - [Okta CLI 0.10.0](https://cli.okta.com)
 > - [Docker 20.10.12](https://docs.docker.com/engine/install/)
 > - [HTTPie 3.2.1](https://httpie.io/docs/cli/installation)
-> - [Vault 1.11.3](https://hub.docker.com/_/vault)
+> - [Vault 1.12.0](https://hub.docker.com/_/vault)
 
 {% include toc.md %}
 
@@ -176,7 +176,7 @@ When prompted, choose the following options:
 
 Once the app is created, you will see the OIDC app's configuration:
 
-```shell
+```
 Name: vault-demo-app-auth0
 Description: Demo project of a Spring Boot application with Vault protected secrets
 Type: Regular Web Application
@@ -579,7 +579,7 @@ SPRING_CLOUD_CONFIG_TOKEN=hvs.CAESIKd9pYyc9xesiqmwvep... \
 
 When the `vault-demo-app` starts, it will request the configuration to the config server, which in turn will make REST requests to Vault. In the config server logs, with an increased logging level, you will be able to see those requests:
 
-```shell
+```
 2022-10-12 21:21:25.096 ...  : HTTP GET http://127.0.0.1:8200/v1/secret/data/vault-demo-app,dev
 2022-10-12 21:21:25.142 ...  : Accept=[application/json, application/*+json]
 2022-10-12 21:21:25.183 ...  : Response 200 OK
