@@ -506,7 +506,7 @@ import java.util.List;
 @RequestMapping(path = "/hikes")
 public class WebController {
 
-   private List<String> hikes = new ArrayList<>(Arrays.asList(
+    private List<String> hikes = new ArrayList<>(Arrays.asList(
             "Wonderland Trail", "South Maroon Peak", "Tour du Mont Blanc",
             "Teton Crest Trail", "Everest Base Camp via Cho La Pass", "Kesugi Ridge"
     ));
@@ -695,7 +695,7 @@ import java.util.List;
 @RequestMapping(path = "/hikes")
 public class WebController {
 
-   private List<String> hikes = new ArrayList<>(Arrays.asList(
+    private List<String> hikes = new ArrayList<>(Arrays.asList(
             "Wonderland Trail", "South Maroon Peak", "Tour du Mont Blanc",
             "Teton Crest Trail", "Everest Base Camp via Cho La Pass", "Kesugi Ridge"
     ));
