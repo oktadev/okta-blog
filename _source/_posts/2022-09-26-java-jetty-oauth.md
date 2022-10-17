@@ -300,8 +300,8 @@ http DELETE :8080/hikes hike=="South Maroon Peak"
 ```
 HTTP/1.1 200 OK
 Content-Length: 110
-Date: Mon, 05 Sep 2022 21:01:34 GMT
-Server: Jetty(11.0.11)
+Date: Fri, 23 Sep 2022 16:45:59 GMT
+Server: Jetty(11.0.12)
 
 Wonderland Trail
 Tour du Mont Blanc
