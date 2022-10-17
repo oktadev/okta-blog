@@ -612,7 +612,7 @@ The first step to securing the app is configuring an OpenID Connect (OIDC) app o
 
 You need to run the following commands from the `spring-boot-jetty-maven-okta` subdirectory.
 
-{% include setup/cli.md type="web" framework="Okta Spring Boot Starter" loginRedirectUri="https://oidcdebugger.com/debug,http://localhost:8080/login/oauth2/code/okta" %}
+{% include setup/cli.md type="web" framework="Okta Spring Boot Starter" loginRedirectUri="https://oidcdebugger.com/debug,http://localhost:8080/login/oauth2/code/okta" logoutRedirectUri="https://oidcdebugger.com/,http://localhost:8080/" %}
 
 > **NOTE:** You will use the oidcdebugger.com redirect URI to create an access token you can use from the command line with HTTPie. The second URI is the default redirect URI that Spring Security uses for Okta when using its OAuth login feature.
 
