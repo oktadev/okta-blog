@@ -29,7 +29,7 @@ Before you start, please make sure you have the following prerequisites installe
 
 - [Java 11](https://adoptium.net/): or use [SDKMAN!](https://sdkman.io/) to manage and install multiple versions
 - [Okta CLI](https://cli.okta.com/manual/#installation): the Okta command-line interface
-- [HTTPie](https://httpie.org/doc#installation): a simple tool for making HTTP requests from a Bash shell
+- [HTTPie](https://httpie.org/doc#installation): a simple tool for making HTTP requests from the command line
 
 You will need a free Okta Developer account if you don't already have one. But you can wait until later in the tutorial and use the Okta CLI  to log in or register for a new account.
 
