@@ -587,7 +587,7 @@ This web service has the same features as the `@WebServlet` version: GET, POST, 
 
 ## Deploy the Spring Boot Project
 
-You now have a Spring Boot application that runs on an embedded Jetty container. To deploy it to a production server, build an executable jar file using `./mvnw package`, copy this jar file (found in the `target` directory) to the server, and run it using java -jar <your jar file name>.jar. There's no need for a separate web server since this jar contains an embedded Jetty web server.
+You now have a Spring Boot application that runs on an embedded Jetty container. To deploy it to a production server, build an executable jar file using `./mvnw package`, copy this jar file (found in the `target` directory) to the server, and run it using `java -jar <your jar file name>.jar`. There's no need for a separate web server since this jar contains an embedded Jetty web server.
 
 For example, for this project. First, build the JAR.
 
