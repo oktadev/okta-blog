@@ -289,7 +289,6 @@ Teton Crest Trail
 Everest Base Camp via Cho La Pass
 Kesugi Ridge
 Pear Lake
-
 ```
 
 DELETE a hike:
@@ -636,17 +635,12 @@ okta.oauth2.clientId={clientId}
 okta.oauth2.clientSecret={clientSecret}
 ```
 
-You also need to update the `SpringBootJettyApplication` class to match the following:
+The `SpringBootJettyApplication` class is where the security is configured. It looks like the following. It enables JWT-based OAuth and OIDC security. However, it explicitly allows any request. You are doing this because you are going to use method-level security.
 
 ```java
 package com.demo;
 
-import org.springframework.boot.SpringApplication;
-import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.security.web.SecurityFilterChain;
-import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
-import org.springframework.security.config.annotation.web.builders.HttpSecurity;
-import org.springframework.context.annotation.Bean;
+...
 
 @SpringBootApplication
 @EnableWebSecurity
@@ -668,11 +662,9 @@ public class SpringBootJettyApplication {
 }
 ```
 
-The above class enables JWT-based OAuth and OIDC security. However, it explicitly allows any request. You are doing this because you are going to use method-level security.
-
 ## Protect the DELETE and POST endpoints
 
-Add the `@PreAuthorize("isAuthenticated")` annotation to the `indexPost()` and `indexDelete()` methods in the `WebController` class. This will require that each request to those endpoints be authenticated -- that is, a valid user will need to be logged in. Because you are using Okta as your OIDC provider, they will be able to have authenticated with Okta's servers, typically through a single sign-on.
+The `@PreAuthorize("isAuthenticated")` annotation has been added to the `indexPost()` and `indexDelete()` methods in the `WebController` class. This requires that each request to those endpoints be authenticated -- that is, a valid user will need to be logged in. Because you are using Okta as your OIDC provider, they will be able to have authenticated with Okta's servers, typically through a single sign-on.
 
 Update the `WebController` to the following.
 
@@ -699,13 +691,13 @@ public class WebController {
             "Teton Crest Trail", "Everest Base Camp via Cho La Pass", "Kesugi Ridge"
     ));
 
-    @GetMapping("")
+    @GetMapping()
     @ResponseBody
     public String indexGet() {
         return String.join("\n", this.hikes);
     }
 
-    @PostMapping("")
+    @PostMapping()
     @ResponseBody
     @PreAuthorize("isAuthenticated")  // <- ***ADDED***
     public String indexPost(@RequestParam String hike, HttpServletResponse response) {
@@ -723,7 +715,7 @@ public class WebController {
         }
     }
 
-    @DeleteMapping("")
+    @DeleteMapping()
     @ResponseBody
     @PreAuthorize("isAuthenticated")  // <- ***ADDED***
     public String indexDelete(@RequestParam String hike, HttpServletResponse response) {
@@ -742,7 +734,12 @@ public class WebController {
 }
 ```
 
-Try to POST a new hike:
+From the `spring-boot-jetty-maven-okta` subdirectory, open a shell and start the app.
+```bash
+./mvnw spring-boot:run
+```
+
+From a different shell, try to POST a new hike:
 
 ```bash
 http -f POST :8080 hike="Pear Lake"
@@ -764,33 +761,9 @@ HTTP/1.1 403 Forbidden
 
 To access the protected endpoints, you need to generate an access token JWT. {% include setup/oidcdebugger.md %}
 
-{% img blog/java-jetty/oidc-debugger.png alt:"OIDC Debugger Configuration" width:"650" %}{: .center-image }
-
 Scroll down and click **Send Request**.
 
-This will respond with an authorization code, which you need to send back to the authorization URI to retrieve the code.
-
-```bash
-http -f POST https://dev-447850.okta.com/oauth2/default/v1/token \
-  grant_type=authorization_code \
-  code=i3sP86Ru7spu8gOQUBZUtNC7yBnCQ8PggxJAIBMySpE \
-  client_id=0oa918jqqmcbBZxMG4x7 \
-  client_secret=VJ8K9k0dZ-pDl9d1BaY2ibaexpFv3vc99OtuHndq \
-  redirect_uri=https://oidcdebugger.com/debug
-```
-
-```bash
-HTTP/1.1 200 OK
-...
-
-{
-  "access_token": "eyJraWQiOiJqY3dpbGpUcGVZSG1Jajl6ODR3LVVLQm...",
-  "expires_in": 3600,
-  "id_token": "eyJraWQiOiJqY3dpbGpUcGVZSG1Jajl6ODR3LVVLQmthYm...",
-  "scope": "openid",
-  "token_type": "Bearer"
-}
-```
+{% img blog/java-jetty/oidc-debugger-success.png alt:"OIDC Debugger Success" width:"800" %}{: .center-image }
 
 Copy the access token to your clipboard and store it in a shell variable in the shell window you use to make requests.
 
@@ -961,7 +934,7 @@ Kesugi Ridge
 
 However, if you try and add or delete a hike, you'll need a token.
 
-To generate a token, create a new API for your resource server.
+To generate a token, create a new API for your resource server. Just press **enter** to accept the default values for scopes, token lifetime, and offline access.
 
 ```bash
 auth0 apis create -n myapi --identifier http://my-api
