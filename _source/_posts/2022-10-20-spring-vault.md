@@ -224,7 +224,7 @@ If you choose **Continue with Google** you will see the consent screen:
 {% img blog/spring-vault-update/auth0-consent.png alt:"Auth0 authorize form" width:"450" %}{: .center-image }
 
 
-## Spring Cloud Config with Secrets Encryption
+## Spring Cloud Config with secrets encryption
 
 In microservice architectures, managing configuration with a centralized config server is essential. Secret encryption is desirable at rest and when in transit. Spring Cloud Config Server is a popular implementation. Let's configure the server to store encrypted secrets.
 
