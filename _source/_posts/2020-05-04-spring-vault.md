@@ -16,7 +16,7 @@ tweets:
 image: blog/spring-vault/spring-vault.png
 type: conversion
 redirect_to:
-  - "/blog/2022/10/01/spring-vault"
+  - "/blog/2022/10/20/spring-vault"
 ---
 
 In 2013, GitHub released a search feature that allows users to scan code in all public repositories. A day after the release, however, they had to partially shut it down. It was speculated that the shutdown was because the feature allowed any user to search for all kinds of secrets stored in GitHub repositories. Later, in 2014, data on 50,000 Uber drivers was stolen. It seems someone got access to the company's database using login credentials found in a GitHub public repository. Hashicorp Vault, a tool for managing secrets and encrypting data in transit, was first announced in 2015 and Spring Vault, the integration of Spring with Vault, was first released in 2017.
