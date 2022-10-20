@@ -43,7 +43,7 @@ Amin Abbaspour, Lead Solutions Architect, Okta
 >Here's a developer-friendly refresher on how to harden website and browser security leveraging extended HTTP headers. We'll cover CORS, HSTS, CSP and more.
 
 
-**3:30pm - Customer Identity Cloud for Devs: Building a Passwordless World** (*Keynote*)<br/>
+**3:45pm - Customer Identity Cloud for Devs: Building a Passwordless World** (*Keynote*)<br/>
 Shiven Ramji, Chief Product Officer, CIC, Okta<br/>
 Bhawna Singh, SVP, Engineering, Okta<br/>
 Vittorio Bertocci, Principal Architect, Okta<br/>
@@ -51,7 +51,7 @@ Vittorio Bertocci, Principal Architect, Okta<br/>
 >It's time to move beyond centrally-stored passwords and to free everyone to safely use any technology. In this hour, we'll explore the latest capabilities of the Customer Identity Cloud and how we can build a better identity experience together. And we will discuss how Okta and our partners are making it easier for every developer to secure their customers' identities. 
 
 
-**4:30 pm - Integrating Okta's New Push SDK**<br/>
+**4:45 pm - Integrating Okta's New Push SDK**<br/>
 Hans Reichenbach, Software Architect, Okta
 
 >This session will focus on how to integrate the new Push SDK into your mobile application. Starting with a simple integration, we'll look at how to integrate your existing authentication flows to get access tokens for the SDK to use in enrolling and maintaining itself. Our wrap-up will feature the upcoming Transactional MFA functionality being built to support securing high risk actions in your product.
@@ -59,7 +59,7 @@ Hans Reichenbach, Software Architect, Okta
 *Thursday, November 10*
 
 **10:15am Terraform-Driven Auth0 Customization Using Modern CI/CD**<br/>
-Brandon Michelsen, Senior Software Engineer, Google<br/>
+Brandon Amiosci, Senior Software Engineer, Google<br/>
 Daphnne Chacon, Associate Solutions Architect, Okta<br/>
 
 >This project-driven presentation will demonstrate how you can customize Auth0 by Okta using Terraform and GitHub Actions, with considerations made for production-grade deployment paradigms. The speakers show you how they managed deployment of a SPA with an accompanying back-end, from developer testing through to promoting their project into production.
@@ -73,7 +73,7 @@ Ashwini Mutalik Desai, Software Development Manager, [Medly](https://medly.com/e
 
 You'll find talks and sessions for developers across all tracks, covering a broad spectrum of topics from API security to zero trust. Get a glimpse at the [future of identity](https://www.okta.com/oktane22/agenda/?filters=future-of-identity). You can design your own agenda, but be sure to leave time for community, conversation, and play.  Stop by the Developer Hub for great swag and serendipitous surprises. Need a little help convincing your boss to send you? [We've got you covered](https://www.okta.com/sites/default/files/2022-09/Convince%20your%20boss_0.rtf). 
 
-Want to learn more about all aspects of Oktane? The [Oktane 22 website](https://www.okta.com/oktane22/) has all the details for attending in person, along with information about how to attend [Oktane Online](https://www.okta.com/oktane22/online-register/).
+Serena Williams has joined the speaker lineup and the [Oktane 22 website](https://www.okta.com/oktane22/) has all the details for attending in person, along with how to attend [Oktane Online](https://www.okta.com/oktane22/online-register/).
 
 {% img blog/oktane22/oktane-online.jpg alt:"Developers admiring Oktane schedule" width:"600" %}{: .center-image }
 
