@@ -59,7 +59,7 @@ Hans Reichenbach, Software Architect, Okta
 *Thursday, November 10*
 
 **10:15am Terraform-Driven Auth0 Customization Using Modern CI/CD**<br/>
-Brandon Michelsen, Senior Software Engineer, Google<br/>
+Brandon Amiosci, Senior Software Engineer, Google<br/>
 Daphnne Chacon, Associate Solutions Architect, Okta<br/>
 
 >This project-driven presentation will demonstrate how you can customize Auth0 by Okta using Terraform and GitHub Actions, with considerations made for production-grade deployment paradigms. The speakers show you how they managed deployment of a SPA with an accompanying back-end, from developer testing through to promoting their project into production.
