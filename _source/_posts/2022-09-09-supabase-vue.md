@@ -934,8 +934,8 @@ In addition, Supabase offers identity provider services (IdP) for many leading p
 
 ## Learn more about Vue
 
-[Build a Simple CRUD App with Spring Boot and Vue.js](https://developer.okta.com/blog/2022/08/19/build-crud-spring-and-vue)
+[Build a Simple CRUD App with Spring Boot and Vue.js](/blog/2022/08/19/build-crud-spring-and-vue)
 
-[Vue Login and Access Control the Easy Way](https://developer.okta.com/blog/2020/05/15/vue-login)
+[Vue Login and Access Control the Easy Way](/blog/2020/05/15/vue-login)
 
-[Simplify Building Vue Applications with NuxtJS](https://developer.okta.com/blog/2022/01/24/vue-applications-nuxt)
+[Simplify Building Vue Applications with NuxtJS](/blog/2022/01/24/vue-applications-nuxt)
