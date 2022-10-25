@@ -220,8 +220,6 @@ import "./assets/main.css";
 
 const { VITE_OKTA_DOMAIN, VITE_OKTA_CLIENTID } = import.meta.env;
 
-console.log(VITE_OKTA_DOMAIN);
-
 const oktaAuth = new OktaAuth({
   issuer: `${VITE_OKTA_DOMAIN}/oauth2/default`,
   clientId: VITE_OKTA_CLIENTID,
