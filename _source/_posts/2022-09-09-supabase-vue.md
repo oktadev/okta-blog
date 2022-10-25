@@ -24,7 +24,7 @@ The application will be built with Vue.js using Tailwind to style the site. You 
 
 ## Prerequisites
 
-- [Visual Studio 2022 v17.1 or later](https://code.visualstudio.com/)
+- [Visual Studio Code](https://code.visualstudio.com/)
 - [A Supabase Account](https://app.supabase.com/)
 - [Node.js version 15.0 or higher](https://nodejs.org/en/)
 - [Okta CLI](https://cli.okta.com)
