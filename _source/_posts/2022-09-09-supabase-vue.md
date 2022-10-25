@@ -88,37 +88,14 @@ Now you can install the dependencies you need for this project.
 
 > > Tanay : trying something a little different here. If its no good let me know.
 
-#### @okta/okta-vue
-
 ```sh
-npm i @okta/okta-vue@5.3.0
+npm i @okta/okta-vue@5.3.0 @supabase/supabase-js@1.35.6 daisyui@2.24.0 vue3-datepicker@0.3.4
 ```
 
-The [Okta Vue SDK](https://github.com/okta/okta-vue) makes authenticating and securing your application with Okta quick and easy.
-
-#### @supabase/supabase-js
-
-```sh
-npm i @supabase/supabase-js@1.35.6
-```
-
-The [Supabase JavaScript client](https://github.com/supabase/supabase-js) provides all the functionality you will need to connect to your Supabase instance and interact with your database.
-
-#### daisyui
-
-```sh
-npm i daisyui@2.24.0
-```
-
-[DaisyUI](https://daisyui.com/) is a tailwind component library that will help make your design work a little easier.
-
-#### daisyUI
-
-```sh
-npm i vue3-datepicker@0.3.4
-```
-
-[vue3-datepicker](https://github.com/icehaunter/vue3-datepicker) is a datepicker for Vue3.
+* The [Okta Vue SDK](https://github.com/okta/okta-vue) makes authenticating and securing your application with Okta quick and easy.
+* The [Supabase JavaScript client](https://github.com/supabase/supabase-js) provides all the functionality you will need to connect to your Supabase instance and interact with your database.
+* [DaisyUI](https://daisyui.com/) is a tailwind component library that will help make your design work a little easier.
+* [vue3-datepicker](https://github.com/icehaunter/vue3-datepicker) is a datepicker for Vue3.
 
 ### Add .env
 
