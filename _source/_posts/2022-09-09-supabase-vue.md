@@ -176,15 +176,12 @@ To access your Supabase project you will need to call `createClient` from the Su
 Create a file in the `src` directory called `supabase.js` and add the following code.
 
 ```javascript
-import { createClient } from "@supabase/supabase-js";
+import { createClient } from '@supabase/supabase-js'
 
-const supabaseUrl = "https://tfcejjhqlyrlocdrnfsj.supabase.co";
-const supabaseAnonKey =
-  "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InRmY2VqamhxbHlybG9jZHJuZnNqIiwicm9sZSI6ImFub24iLCJpYXQiOjE2NjE0MzgwMTYsImV4cCI6MTk3NzAxNDAxNn0.X8FVYSOKlZoSVhm4-Q-d7FUEsMvQeHlvf2TzObvf2Ho";
-//import.meta.env.VITE_SUPABASE_URL
-//import.meta.env.VITE_SUPABASE_ANON_KEY
+const supabaseUrl = import.meta.env.VITE_SUPABASE_URL;
+const supabaseAnonKey = import.meta.env.VITE_SUPABASE_ANON_KEY;
 
-export const supabase = createClient(supabaseUrl, supabaseAnonKey);
+export const supabase = createClient(supabaseUrl, supabaseAnonKey)
 ```
 
 This will make it a bit easier to obtain a Supabase client from your views.
