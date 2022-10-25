@@ -86,8 +86,6 @@ This will create a new Vue application called `OktaSupabase` in a subfolder on y
 
 Now you can install the dependencies you need for this project.
 
-> > Tanay : trying something a little different here. If its no good let me know.
-
 ```sh
 npm i @okta/okta-vue@5.3.0 @supabase/supabase-js@1.35.6 daisyui@2.24.0 vue3-datepicker@0.3.4
 ```
