@@ -11,7 +11,7 @@ tweets:
 - ""
 - ""
 image:
-github: 
+github: https://github.com/oktadev/okta-vue-supabase-example
 type:  conversion
 ---
 
@@ -33,7 +33,7 @@ This tutorial uses the following technologies but doesn’t require any prior ex
 - [Okta CLI](https://cli.okta.com)
 > [Okta](https://developer.okta.com/) has Authentication and User Management APIs that reduce development time with instant-on, scalable user infrastructure. Okta's intuitive API and expert support make it easy for developers to authenticate, manage, and secure users and roles in any application.
 
-If you’d like to skip the tutorial and check out the fully built project, you can go [view it on GitHub]().
+If you’d like to skip the tutorial and check out the fully built project, you can go [view it on GitHub](https://github.com/oktadev/okta-vue-supabase-example).
 
 ## Create your OAuth2 authorization server
 
@@ -78,7 +78,7 @@ After entering the data for each row, click Save and you should see the data pop
 It's now time to create your Vue application. Start by running the following command.
 
 ```sh
-npm init vue@3.3.2 OktaSupabase
+npm init vue@3.3.2 okta-vue-supabase-example
 ```
 
 This will create a new Vue application called `OktaSupabase` in a subfolder on your working directory with the same name. There will be several options in this command such as the project name, TypeScript support, JSX support, and others. See the image below for the options I've chosen. If you want to use some of these options feel free to turn them on.
