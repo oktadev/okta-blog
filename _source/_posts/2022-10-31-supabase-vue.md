@@ -25,7 +25,7 @@ The application will be built with Vue.js using Tailwind to style the site. You 
 
 **Prerequisites**
 
-This tutorial uses the following technologies but doesn’t require any prior experience:
+This tutorial uses the following technologies but doesn't require any prior experience:
 
 - [Visual Studio Code](https://code.visualstudio.com/)
 - [A Supabase Account](https://app.supabase.com/)
@@ -33,7 +33,7 @@ This tutorial uses the following technologies but doesn’t require any prior ex
 - [Okta CLI](https://cli.okta.com)
 > [Okta](https://developer.okta.com/) has Authentication and User Management APIs that reduce development time with instant-on, scalable user infrastructure. Okta's intuitive API and expert support make it easy for developers to authenticate, manage, and secure users and roles in any application.
 
-If you’d like to skip the tutorial and check out the fully built project, you can go [view it on GitHub](https://github.com/oktadev/okta-vue-supabase-example).
+If you'd like to skip the tutorial and check out the fully built project, you can go [view it on GitHub](https://github.com/oktadev/okta-vue-supabase-example).
 
 ## Create your OAuth2 authorization server
 
