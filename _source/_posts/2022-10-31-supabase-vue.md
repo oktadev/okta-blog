@@ -5,24 +5,27 @@ author: nickolas-fisher
 by: contractor
 communities: [javascript]
 description: "Learn how to build a wellness tracker app with Supabase and Vue, to allow authenticated users to create new entries for specified days."
-tags: []
+tags: [javascript, authentication, vue, supabase]
 tweets:
 - ""
 - ""
 - ""
 image:
+github: 
 type:  conversion
 ---
 
-## Introduction
-
 Supabase is an open-source Firebase alternative. It provides several critical functions for modern web applications, such as Postgres databases, authentication, real-time subscriptions, and blob storage. The interface is straightforward to use but is very feature-rich. Supabase also provides support for JavaScript via a client that is available via yarn or npm. Like the web platform, the client is easy to use and integrate into any modern web application. Best of all, it is free to get started with Supabase, and you can scale into a premium plan on demand.
 
-In this article, you will learn how to build a wellness tracker app that will allow authenticated users to create new entries for specified days. These entries will be marked as public or private. Public entries will be visible to all visitors, however private entries are only available to authenticated users.
+In this article, you will learn how to build a wellness tracker app that will allow authenticated users to create new entries for specified days. These entries can be marked as public or private. Public entries will be visible to all visitors. However, private entries are only available to authenticated users.
 
 The application will be built with Vue.js using Tailwind to style the site. You will use Supabase to store the data used for the site. Finally, you will add Okta to secure the application.
 
-## Prerequisites
+{% include toc.md %}
+
+**Prerequisites**
+
+This tutorial uses the following technologies but doesn’t require any prior experience:
 
 - [Visual Studio Code](https://code.visualstudio.com/)
 - [A Supabase Account](https://app.supabase.com/)
@@ -30,26 +33,26 @@ The application will be built with Vue.js using Tailwind to style the site. You 
 - [Okta CLI](https://cli.okta.com)
 > [Okta](https://developer.okta.com/) has Authentication and User Management APIs that reduce development time with instant-on, scalable user infrastructure. Okta's intuitive API and expert support make it easy for developers to authenticate, manage, and secure users and roles in any application.
 
-You can view the [code on github](https://github.com/nickolasfisher/OktaSupabase.git).
+If you’d like to skip the tutorial and check out the fully built project, you can go [view it on GitHub]().
 
-## Create your Okta application
+## Create your OAuth2 authorization server
 
 {% include setup/cli.md type="spa" framework="Vue"
    loginRedirectUri="http://localhost:3000/callback" signup="false" %}
 
-Copy the output from the CLI and keep it for later.
+Copy the output from the CLI and save it for later.
 
 ## Set up your Supabase project
 
-Go to your [Supabase account](https://app.supabase.com/) and click on **New Project**. Select your default organization (or create a new one). Name your project `OktaSupabase` and give it a strong password. Select the region closest to you and select the pricing plan that suits your needs best. Most likely this will be the `Free` plan but if you find a need to update to pro you can do that as well. Once you're done, click **Create Project**.
+Go to your [Supabase account](https://app.supabase.com/) and click on **New project**. Select your default organization (or create a new one). Name your project `OktaSupabase` and give it a strong password. Select the region closest to you and select the pricing plan that suits your needs best. Most likely this will be the `Free` plan but if you find a need to update to pro you can do that as well. Once you're done, click **Create new project**.
 
 {% img blog/supabase-vue/supabase-create-project.png alt:"Create a project in Supabase" width:"600" %}{: .center-image }
 
-Take note of your `Project API Keys` and `Project Configuration` in the `Connecting to your new project` section of the project page. Specifically, you will need the `anon` `public` API key and the `URL`.
+Take note of your `Project API keys` and `Project Configuration` in the `Connecting to your new project` section of the project page. Specifically, you will need the `anon` `public` API key and the `Project URL`.
 
 ### Create your table in Supabase
 
-Now add a new table to your database. In Supabase there are two ways to do this. You can use the SQL editor or you can use the GUI Table editor. I opted to use the Table editor to see how powerful the UI was and how easy it was to use. Once you open the table editor you can click **Create a new table**. Give the table the name `Entries` and a description if you want.
+Now add a new table to your database. In Supabase there are two ways to do this. You can use the SQL editor or you can use the GUI Table editor. I opted to use the GUI Table editor to see how powerful the UI was and how easy it was to use. Once you open the table editor you can click **Create a new table**. Give the table the name `Entries` and a description if you want.
 
 Note that the `id` and `created_at` columns are prepopulated for you so you can skip these. Add the following columns to the table.
 
@@ -58,17 +61,17 @@ Note that the `id` and `created_at` columns are prepopulated for you so you can 
 > date: timestamptz
 > title: text
 
-Make each column non-nullable.  By default, Supabase makes all columns nullable. Then click **Save**. After a moment you will see your table in the _Table editor_ section.
+Make each column non-nullable, by clicking on the gear icon next to the columns.  By default, Supabase makes all columns nullable. Then click **Save**. After a moment you will see your table in the _Table editor_ section.
 
 {% img blog/supabase-vue/supabase-create-table.png alt:"Create a table in supabase" width:"600" %}{: .center-image }
 
-### Populate some sample data
+### Populate sample data in Supabase
 
-Click on the table you just created in the table editor and click **Insert Row**. This will bring up an editor where you can add new data. I added 3 entries: two public and one private entry. Give your entries dates that are in your current month. For example, I'm writing this article in September 2022 so I used three dates in that month.
+Click on the table you just created in the table editor and click **Insert Row**. This will bring up an editor where you can add new data. I added 3 entries: two public and one private entry. Give your entries dates that are in your current month. For example, I'm writing this article in October 2022 so I used three dates in that month.
 
 {% img blog/supabase-vue/supabase-add-row.png alt:"Add data to supabase" width:"600" %}{: .center-image }
 
-After each row, click save and you should see the data you complete populated in the Table editor.
+After entering the data for each row, click Save and you should see the data populated in the Table editor.
 
 ## Create your Vue Application
 
@@ -85,8 +88,6 @@ This will create a new Vue application called `OktaSupabase` in a subfolder on y
 ### Install your dependencies
 
 Now you can install the dependencies you need for this project.
-
-> > Tanay : trying something a little different here. If its no good let me know.
 
 ```sh
 npm i @okta/okta-vue@5.3.0 @supabase/supabase-js@1.35.6 daisyui@2.24.0 vue3-datepicker@0.3.4
@@ -108,7 +109,7 @@ VITE_OKTA_DOMAIN={yourOktaDomain}
 VITE_OKTA_CLIENTID={yourClientID}
 ```
 
-These values are populated from the Okta CLI and the Supabase web interface.
+These values are populated from the Okta CLI and the Supabase web interface. Make sure to replace the placeholder text with the real values.
 
 ### Set up Tailwind CSS
 
@@ -119,7 +120,7 @@ npm install -D tailwindcss postcss autoprefixer
 npx tailwindcss init -p
 ```
 
-Next, go to the file `src/tailwind.config.js` and replace the code there with the following.
+Next, go to the file `tailwind.config.js` and replace the code there with the following.
 
 ```javascript
 /** @type {import('tailwindcss').Config} */
@@ -165,7 +166,7 @@ This will make it a bit easier to obtain a Supabase client from your views.
 
 ### Update boilerplate Vue code
 
-Finally, you need to update the code Vue provided before moving forward.
+Finally, you need to update the boilerplate code that Vue provided before moving forward.
 
 #### Remove unneeded boilerplate
 
@@ -254,7 +255,7 @@ router.beforeEach(navigationGuard);
 export default router;
 ```
 
-This file defines the three routes needed for this application. First, using the `HomeView` page, you bind that to the root path. Next, you need to define a route for the `LoginCallback`. This is the route Okta will return the authentication response to. The `okta-vue` library will handle the callback for you. Finally, you have the `Overview` page. This page gets tagged as `requiresAuth`,  which means the `navigationGuard` from the `okta-vue` library will ensure the user is authenticated before allowing them to navigate to the `Overview` page. if the user is unauthenticated, they will be presented with the Okta login screen.
+This file defines the three routes needed for this application. First, using the `HomeView` page, you bind that to the root path. Next, you need to define a route for the `LoginCallback`. This is the route Okta will return the authentication response to. The `okta-vue` library will handle the callback for you. Finally, you have the `Overview` page. This page gets tagged as `requiresAuth`,  which means the `navigationGuard` from the `okta-vue` library will ensure the user is authenticated before allowing them to navigate to the `Overview` page. If the user is unauthenticated, they will be presented with the Okta login screen.
 
 ### Create your components
 
@@ -898,7 +899,7 @@ Click on the **Login** button and use your Okta account to log in.  After you la
 
 ##  What we've learned about Supabase
 
-Supabase is a great way to quickly build applications at scale. In this article you learned how to create a Postgres database with Supabase's free plan and populate some sample data with it. You then learned how to query that data using the Supabase JavaScript client. Finally, you learned how to secure the application with Okta using Okta's Vue client.
+Supabase is a great way to quickly build applications at scale. In this article, you learned how to create a Postgres database with Supabase's free plan and populate some sample data with it. You then learned how to query that data using the Supabase JavaScript client. Finally, you learned how to secure the application with Okta using Okta's Vue client.
 
 Supabase offers other solutions such as blob storage and edge functions, which we did not cover in this article but I encourage you to check those out as well. Supabase also provides client libraries for Python and Dart. The platform is very easy to use and very robust.
 
@@ -906,8 +907,10 @@ In addition, Supabase offers identity provider services (IdP) for many leading p
 
 ## Learn more about Vue
 
-[Build a Simple CRUD App with Spring Boot and Vue.js](/blog/2022/08/19/build-crud-spring-and-vue)
+If you want to learn more about Vue or secure authentication, check out the following links:
 
-[Vue Login and Access Control the Easy Way](/blog/2020/05/15/vue-login)
+- [Build a Simple CRUD App with Spring Boot and Vue.js](/blog/2022/08/19/build-crud-spring-and-vue)
+- [Vue Login and Access Control the Easy Way](/blog/2020/05/15/vue-login)
+- [Simplify Building Vue Applications with NuxtJS](/blog/2022/01/24/vue-applications-nuxt)
 
-[Simplify Building Vue Applications with NuxtJS](/blog/2022/01/24/vue-applications-nuxt)
+To be notified when we publish future blog posts, [follow @oktadev on Twitter](https://twitter.com/oktadev). If you prefer videos, subscribe to [our YouTube channel](https://www.youtube.com/c/oktadev).
