@@ -16,7 +16,7 @@ type:  conversion
 
 ## Introduction
 
-Supabase is an open-source Firebase alternative. It provides several critical functions for modern web applications such as Postgres databases, authentication, real-time subscriptions, and blob storage. The interface is very easy to use but is very feature-rich. Supabase also provides support for JavaScript via a client that is available via yarn or npm. Like the web platform, the client is very easy to use and integrate into any modern web application. Best of all, it is free to get started with Supabase and you can scale into a premium plan on demand.
+Supabase is an open-source Firebase alternative. It provides several critical functions for modern web applications, such as Postgres databases, authentication, real-time subscriptions, and blob storage. The interface is straightforward to use but is very feature-rich. Supabase also provides support for JavaScript via a client that is available via yarn or npm. Like the web platform, the client is easy to use and integrate into any modern web application. Best of all, it is free to get started with Supabase, and you can scale into a premium plan on demand.
 
 In this article, you will learn how to build a wellness tracker app that will allow authenticated users to create new entries for specified days. These entries will be marked as public or private. Public entries will be visible to all visitors, however private entries are only available to authenticated users.
 
