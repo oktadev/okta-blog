@@ -248,7 +248,7 @@ This file will perform a number of setup actions for you.  First, it will initia
 
 #### Update the router code
 
-Finally, open the `router/index.js` file and replace the code there with the following.
+Finally, open the `router/index.js` file and replace the code there with the following.  If you do not have a `router` directory you can add it to your `src` directory and add the `index.js` file.  
 
 ```javascript
 import { createRouter, createWebHistory } from "vue-router";
