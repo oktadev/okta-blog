@@ -117,7 +117,7 @@ npm install -D tailwindcss postcss autoprefixer
 npx tailwindcss init -p
 ```
 
-Next, go to the file `src/tailwind.config.js` and replace the code there with the following.
+Next, go to the file `tailwind.config.js` and replace the code there with the following.
 
 ```javascript
 /** @type {import('tailwindcss').Config} */
@@ -167,7 +167,7 @@ Finally, you need to update the code Vue provided before moving forward.
 
 #### Remove unneeded boilerplate
 
-Delete all the files in the `components` directory. You can also delete the files found in the `views` directory.
+Delete all the files in the `components` directory. You can also delete the files found in the `views` directory.  If your project doesn't have a `views` directory you can add it to the `src` directory.
 
 #### Update package.json to specify your port
 
@@ -179,7 +179,23 @@ Next, open the `package.json` file and replace the `dev` command with the follow
 
 This will force your application to run on port 3000 which is the same port you set up for your Login Callbacks for Okta.
 
-#### Update main.js to set up Okta
+#### Update App.vue
+
+Yuu will update the `App.vue` to remove the boilerplate and custom CSS found in the generated version.  Open `App.vue` and replace thec ode with the following.
+
+```javascript
+<template>
+  <div class="max-w-7xl mx-auto px-4 sm:px-6">
+    <Header />
+
+    <RouterView />
+  </div>
+</template>
+```
+
+Your template for this file is considerably simpler than the boilerplate version.  You will create a `Header` component that will encapuslate the `Login` or `Logout` buttons as well as any links or titles and then display the requested view using the `RouterView` object.  
+
+#### Update main.js to set up your application
 
 You'll need to set up the `okta-vue` client to secure your routes and access auth states. Open `src/main.js` and replace the code there with the following.
 
@@ -193,6 +209,16 @@ import OktaVue from "@okta/okta-vue";
 
 import "./assets/main.css";
 
+import { RouterView } from 'vue-router'
+
+import Calendar from './components/Calendar.vue'
+import Header from './components/Header.vue'
+import Day from './components/Day.vue'
+import AddEntry from './components/AddEntry.vue'
+import EntryDetail from './components/EntryDetail.vue'
+
+import Datepicker from 'vue3-datepicker'
+
 const { VITE_OKTA_DOMAIN, VITE_OKTA_CLIENTID } = import.meta.env;
 
 const oktaAuth = new OktaAuth({
@@ -204,12 +230,21 @@ const oktaAuth = new OktaAuth({
 
 const app = createApp(App);
 
+app.component('RouterView', RouterView);
+
+app.component('Calendar', Calendar);
+app.component('Header', Header);
+app.component('Day', Day);
+app.component('AddEntry', AddEntry);
+app.component('EntryDetail', EntryDetail);
+app.component('Datepicker', Datepicker);
+
 app.use(router).use(OktaVue, { oktaAuth });
 
 app.mount("#app");
 ```
 
-This will initialize the `okta-vue` client for you.
+This file will perform a number of setup actions for you.  First, it will initialize the `okta-vue` client for you.  Next it will register the router and tell it to use the `oktaAuth` object you created.  Finally it will *globally register* the components you will create in your application.  This will remove the need to register the components in each page or component where they are used.  
 
 #### Update the router code
 
@@ -312,9 +347,6 @@ Add a file to the `components` folder called `Calendar.vue` with the following c
 {% raw %}
 ```vue
 <script setup>
-import Day from './Day.vue'
-import AddEntry from './AddEntry.vue'
-import EntryDetail from './EntryDetail.vue'
 import { supabase } from '../supabase'
 </script>
 
@@ -624,10 +656,6 @@ This component is also responsible for displaying a modal for the `AddEntry` com
   </div>
 </template>
 
-<script setup>
-import Datepicker from 'vue3-datepicker'
-</script>
-
 <script>
 export default {
   data() {
@@ -666,7 +694,7 @@ This component takes the date from the calendar component that was selected and 
 Finally, you'll need to implement the `Day` component. Add a file called `Day.vue` to the components folder and add the following code.
 
 ```vue
-<template>
+ <template>
   <div class="relative flex flex-col bg-white group">
     <span class="mx-2 my-1 text-xs font-bold"> {{ date.getDate() }} </span>
     <div class="flex flex-col px-1 py-1 overflow-auto">
@@ -682,6 +710,7 @@ Finally, you'll need to implement the `Day` component. Add a file called `Day.vu
           text-xs
           hover:bg-gray-200
         "
+        @click="entryClick(entry.id)"
       >
         <span
           class="flex-shrink-0 w-2 h-2 border border-gray-500 rounded-full"
@@ -735,18 +764,19 @@ export default {
   data() {},
   methods: {
     entryClick(entryId) {
-      this.onEntryClick(entryId);
+      this.onEntryClick(entryId)
     },
     add() {
-      this.onNewEntryClick(this.date);
+      this.onNewEntryClick(this.date)
     },
   },
   props: {
     date: Date,
     entries: Array,
     onNewEntryClick: Function,
+    onEntryClick: Function,
   },
-};
+}
 </script>
 ```
 
@@ -761,10 +791,10 @@ In order to display the detail you'll need an `EntryDetail` component. Add `Entr
     <div class="px-4 py-5 sm:px-6">
       <h3 class="text-lg leading-6 font-medium text-gray-900">
         {{
-          new Date(Date.parse(entry.date)).toLocaleString("default", {
-            month: "long",
-            day: "numeric",
-            year: "numeric",
+          new Date(Date.parse(entry.date)).toLocaleString('default', {
+            month: 'long',
+            day: 'numeric',
+            year: 'numeric',
           })
         }}
       </h3>
@@ -778,7 +808,10 @@ In order to display the detail you'll need an `EntryDetail` component. Add `Entr
           class="bg-gray-50 px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6"
         >
           <dt class="text-sm font-medium text-gray-500">
-            {{ entry.IsPublic ? "Public" : "Private" }}
+            {{
+                entry.isPublic ? "Public" : "Private"
+            }}
+
           </dt>
           <dd class="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">
             {{ entry.description }}
@@ -794,7 +827,7 @@ export default {
   props: {
     entry: Object,
   },
-};
+}
 </script>
 ```
 {% endraw %}
@@ -810,10 +843,6 @@ Now that your components are written, you can bring them together into pages. Th
 Add a file to the `views` folder called `HomeView.vue`. Add the following code to it.
 
 ```vue
-<script setup>
-import Calendar from "../components/Calendar.vue";
-</script>
-
 <template>
   <main>
     <div class="hero bg-base-200">
@@ -821,13 +850,12 @@ import Calendar from "../components/Calendar.vue";
         <div class="max-w-xl">
           <h1 class="text-5xl font-bold">Supabase and Okta</h1>
           <p class="pt-6">
-            A small wellness application using <a href="#"> Supabase</a> for
-            data. Secured by <a href="#">Okta.</a>
+           A small wellness application using <a href="https://supabase.com/"> Supabase</a> for data.  Secured by <a href="https://www.okta.com/">Okta.</a>
           </p>
           <p class="pb-6">
             To view private entries or create a new one please Login below.
           </p>
-          <button class="btn btn-primary">Login</button>
+           <a href="/overview" class="btn btn-primary">Login</a>
         </div>
       </div>
     </div>
@@ -847,11 +875,6 @@ This page will display the `calendar` component along with some information abou
 Next, you can add a new page for `Overview.vue`.
 
 ```vue
-<script setup>
-import Calendar from '../components/Calendar.vue'
-</script>
-
-
 <template>
   <main>
     Hello {{ name }}:
