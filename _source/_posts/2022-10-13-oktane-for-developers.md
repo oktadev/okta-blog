@@ -27,7 +27,7 @@ Our speakers are developers from Okta and Auth0 by Okta, as well as engineers fr
 
 ## Agenda overview 
 
-We've curated [a great lineup for developers](https://www.okta.com/oktane22/agenda/?filters=developer) to make sure you get the most out of your Oktane experience this year. Note: All times are PDT, and talks are 30 minutes; the Developer keynote at 3:30pm on Wednesday runs 45 minutes and includes demos of our bright passwordless future. This keynote will be featured on the live stream. Recordings will be posted to the [OktaDev YouTube channel](https://www.youtube.com/oktadev) in the weeks ahead. Stay tuned.  
+We've curated [a great lineup for developers](https://www.okta.com/oktane22/agenda/?filters=developer) to make sure you get the most out of your Oktane experience this year. Note: All times are PDT, and talks are 30 minutes; the Developer keynote at 3:45 pm on Wednesday runs 45 minutes and includes demos of our bright passwordless future. This keynote will be featured on the live stream. Other talks will be available for a limited time only via Oktane online. If you can't come to San Francisco, be sure to sign up now for [Oktane Online](https://www.okta.com/oktane22/online-register/).  
 
 *Wednesday, November 9:*
 
@@ -64,16 +64,16 @@ Daphnne Chacon, Associate Solutions Architect, Okta<br/>
 
 >This project-driven presentation will demonstrate how you can customize Auth0 by Okta using Terraform and GitHub Actions, with considerations made for production-grade deployment paradigms. The speakers show you how they managed deployment of a SPA with an accompanying back-end, from developer testing through to promoting their project into production.
 
-**12:00pm Building an Identity Platform Using Okta for Healthcare Applications**<br/>
-Ashwini Mutalik Desai, Software Development Manager, [Medly](https://medly.com/en-us)
+**12:00pm  Life Beyond Passwords**<br/>
+Sam Bellen, Principal Developer Advocate, Okta
 
->Medly is a digital pharmacy with B2B and B2C applications for daily use. As part of the platform, we built tooling and abstractions for product teams to standardize the IAM workflow. This talk walks through our experiences in building this engineer-friendly, secure, and compliant platform using Okta. We'll look at creating abstractions on top of Okta's API, SDKs for backend services, and using React hooks in frontend apps for a good developer experience. 
+>In his overview of current passwordless approaches and look at the future of authentication, [Sam Bellen](https://twitter.com/sambego) will cover one-time passwords, passwordless biometric authentication using the web authentication API, the recently announced passkeys, and everything in between. 
 
 ## See you in San Francisco! 
 
 You'll find talks and sessions for developers across all tracks, covering a broad spectrum of topics from API security to zero trust. Get a glimpse at the [future of identity](https://www.okta.com/oktane22/agenda/?filters=future-of-identity). You can design your own agenda, but be sure to leave time for community, conversation, and play.  Stop by the Developer Hub for great swag and serendipitous surprises. Need a little help convincing your boss to send you? [We've got you covered](https://www.okta.com/sites/default/files/2022-09/Convince%20your%20boss_0.rtf). 
 
-Serena Williams has joined the speaker lineup and the [Oktane 22 website](https://www.okta.com/oktane22/) has all the details for attending in person, along with how to attend [Oktane Online](https://www.okta.com/oktane22/online-register/).
+Serena Williams and Magic Johnson have joined the speaker lineup and the [Oktane 22 website](https://www.okta.com/oktane22/) has all the details for attending in person, along with how to attend [Oktane Online](https://www.okta.com/oktane22/online-register/).
 
 {% img blog/oktane22/oktane-online.jpg alt:"Developers admiring Oktane schedule" width:"600" %}{: .center-image }
 
