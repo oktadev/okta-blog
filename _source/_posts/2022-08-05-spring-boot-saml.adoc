@@ -12,6 +12,8 @@ tags: [spring-boot, saml, spring-security]
 type: conversion
 github: https://github.com/oktadev/okta-spring-boot-saml-example
 image: blog/spring-boot-saml2/spring-boot-saml.jpg
+changelog:
+- 2022-11-03: Updated to remove `permitAll()` for favicon. You can see the changes in this post in [okta-blog#900](https://github.com/oktadev/okta-blog/pull/900) and the example app changes in [okta-spring-boot-saml-example#23](https://github.com/oktadev/okta-spring-boot-saml-example/pull/23).
 ---
 :page-liquid:
 :toc: macro
@@ -318,7 +320,6 @@ public class SecurityConfiguration {
         // @formatter:off
         http
             .authorizeHttpRequests(authorize -> authorize
-                .mvcMatchers("/favicon.ico").permitAll()
                 .anyRequest().authenticated()
             )
             .saml2Login(saml2 -> saml2
@@ -350,8 +351,6 @@ public class SecurityConfiguration {
     }
 }
 ----
-
-NOTE: You might be able to remove `permitAll()` on the favicon because that was https://github.com/spring-projects/spring-security/issues/11657[recently fixed in Spring Security].
 
 Finally, modify your `build.gradle` file to force the latest version of Open SAML that works with Spring Security 6.
 
