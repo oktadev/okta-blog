@@ -13,7 +13,7 @@ image: blog/featured/okta-react-bottle-headphones.jpg
 type: conversion
 github: https://github.com/oktadev/okta-spring-boot-react-crud-example
 changelog:
-- 2022-11-04: Updated to use H2 version 2 and Spring Boot 2.7.5. You can find the changes to this post in [okta-blog#3001](https://github.com/oktadev/okta-blog/pull/3001) and the example app's changes in [okta-spring-boot-react-crud-example#50](https://github.com/oktadev/okta-spring-boot-react-crud-example/pull/50).
+- 2022-11-04: Updated to use H2 version 2 and Spring Boot 2.7.5. You can find the changes to this post in [okta-blog#1301](https://github.com/oktadev/okta-blog/pull/1301) and the example app's changes in [okta-spring-boot-react-crud-example#50](https://github.com/oktadev/okta-spring-boot-react-crud-example/pull/50).
 - 2022-09-16: Updated to Spring Boot 2.7.3, React 18.0.2, and added a section for Auth0. You can find the changes to this article in [okta-blog#1271](https://github.com/oktadev/okta-blog/pull/1271). What's required to switch to Auth0 can be viewed in [the `auth0` branch](https://github.com/oktadev/okta-spring-boot-react-crud-example/compare/auth0).
 ---
 
