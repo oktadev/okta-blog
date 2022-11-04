@@ -14,11 +14,19 @@ image:
 type: conversion
 ---
 
-INTRO
+In this tutorial, we'll set up a monorepo with Okta authentication using React for the frontend and Fastify for the backend. [Fastify](https://www.fastify.io/) is a highly performant web framework with low overhead that we'll connect to a Postgresql database. We'll also use [Lerna](https://lerna.js.org/) to manage the frontend and backend apps in a monorepo.
 
 **Prerequisites**
 
+*Create React App* currently requires Node >= 14.0.0 and npm >= 5.6. The latest required versions can be found at [https://reactjs.org/docs/create-a-new-react-app.html](https://reactjs.org/docs/create-a-new-react-app.html).
+
 {% include toc.md %}
+
+## Add authentication using OAuth2 and OpenID Connect (OIDC)
+
+For this demo app, we'll be using [Okta's SPA redirect model](https://developer.okta.com/docs/guides/sign-into-spa-redirect/react/main/) to authenticate and fetch user info.
+
+{% include setup/cli.md type="spa" framework="React" loginRedirectUri="http://localhost:3001/login/callback" %}
 
 ## Setup the Postgresql Docker instance
 
@@ -822,7 +830,7 @@ You can start the demo app by running `npx lerna run start`.
 
 {% img blog/react-fastify-postgres/login-screen.jpg alt:"Screenshot of login window" width:"600" %}{: .center-image }
 
-If we're not authenticated, our app will land us at the login page, where we can then click login to go through the Okta login process. Once authenticated, we're redirected to `/facilities`. If we land on the root URL and are already authenticated, our app will automatically navigate us to `/facilities`. Once our table loads, we'll see the following:
+If we're not authenticated, our app will land us at the login page. Here, we click login to go through the Okta login process. Once authenticated, we're redirected to `/facilities`. If we land on the root URL and are already authenticated, our app will automatically navigate us to `/facilities`. Once our table loads, we'll see the following:
 
 {% img blog/react-fastify-postgres/nasa-facilities-table.jpg alt:"Screenshot of table with nasa facilities data" width:"600" %}{: .center-image }
 
@@ -852,7 +860,7 @@ In `packages/frontend/facilities.tsx`:
 
 The backend has verified the ID token using the `jwtVerifier` utility we created.
 
-Since the backend connects to our Postgresql instance, it has used the query we specified to fetch the needed data at the `/facilities` route.
+The backend connects to our Postgresql instance and has used the query we specified to fetch the needed data at the `/facilities` route.
 
 In `packages/api/routes/facilities.ts`:
 ```bash
@@ -879,6 +887,9 @@ fastify.get(
 ```
 
 The same process repeats when a user clicks on the `Visited` checkbox or `Delete` button for the appropriate API endpoints and Postgresql queries.
-## OUTRO
 
-## CONTINUED LEARNING
+## Further learning
+
+**[Handling CORS Errors in Fastify](https://github.com/fastify/fastify-cors)**
+
+**[Secure Your Postgresql Instance](https://www.postgresql.org/docs/7.0/security.htm)**
