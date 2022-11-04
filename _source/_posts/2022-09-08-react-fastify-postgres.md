@@ -14,7 +14,9 @@ image:
 type: conversion
 ---
 
-In this tutorial, we'll set up a monorepo with Okta authentication using React for the frontend and Fastify for the backend. [Fastify](https://www.fastify.io/) is a highly performant web framework with low overhead that we'll connect to a Postgresql database. We'll also use [Lerna](https://lerna.js.org/) to manage the frontend and backend apps in a monorepo.
+In this tutorial, we'll set up an app to help us keep track of what NASA facilities we've visited and which ones we still want to visit.
+
+Our app will be a monorepo with Okta authentication using React for the frontend and Fastify for the backend. [Fastify](https://www.fastify.io/) is a highly performant web framework with low overhead that we'll connect to a Postgresql database. We'll also use [Lerna](https://lerna.js.org/) to manage the frontend and backend apps in a monorepo.
 
 **Prerequisites**
 
@@ -183,7 +185,7 @@ start();
 
 ```
 
-6. Next, let's create our Fastify API routes in `packages/api/routes/facilities.ts`:
+6. Next, let's create our Fastify API routes along with their appropriate CRUD operations in `packages/api/routes/facilities.ts`:
 
 ```bash
 import { FastifyInstance } from "fastify";
