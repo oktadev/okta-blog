@@ -24,7 +24,7 @@ Our app will be a monorepo with Okta authentication using React for the frontend
 
 {% include toc.md %}
 
-## Add authentication using OAuth2 and OpenID Connect (OIDC)
+### Set up OAuth2 and OpenID Connect (OIDC)
 
 For this demo app, we'll be using [Okta's SPA redirect model](https://developer.okta.com/docs/guides/sign-into-spa-redirect/react/main/) to authenticate and fetch user info.
 
@@ -87,39 +87,38 @@ mkdir frontend api
 
 ## Add needed Fastify backend and React frontend dependencies with Typescript
 
-1. Add the required backend packages:
+1. In `packages/api`, run:
+```bash
+npm init fastify
+```
+
+2. Add the required backend packages:
 ```bash
 npx lerna add @fastify/postgres dotenv @okta/jwt-verifier pg packages/api
 ```
 
-2. Add Typescript and needed types to the backend repository:
+3. Add Typescript and needed types to the backend repository:
 ```bash
 npx lerna add @types/pg typescript packages/api --dev
 ```
 
-3. Next, let's create a basic React application using [Create React App](https://github.com/facebook/create-react-app). We'll use the Typescript template with it as well. In the created `packages/frontend` directory, run:
+4. Next, let's create a basic React application using [Create React App](https://github.com/facebook/create-react-app). We'll use the Typescript template with it as well. In the created `packages/frontend` directory, run:
 ```bash
 npx create-react-app okta-fastify-postgres --template typescript
 ```
 
 **NOTE:** Our demo repository uses React `^18.2.0` and React Scripts `5.0.1`.
 
-4. We'll add our needed frontend project dependencies with the following command:
+5. We'll add our needed frontend project dependencies with the following command:
 ```bash
 npx lerna @okta/okta-auth-js @okta/okta-react packages/frontend
 ```
 
-5. You can now run `npx lerna bootstrap` to install your package dependencies.
+6. You can now run `npx lerna bootstrap` to install your package dependencies.
 
 ## Create the API backend app using Fastify
 
-1. In `packages/api`, run:
-```bash
-npm init -y
-npm init fastify
-```
-
-2. Update `packages/api/package.json` to allow the backend application to compile using Typescript:
+1. Update `packages/api/package.json` to allow the backend application to compile using Typescript:
 ```bash
 {
   "scripts": {
@@ -129,12 +128,12 @@ npm init fastify
 }
 ```
 
-3. Initialize a Typescript config file by running:
+4. Initialize a Typescript config file by running:
 ```bash
 npx tsc --init
 ```
 
-4. Create a `.env` file in `packages/api` with the following:
+5. Create a `.env` file in `packages/api` with the following:
 ```text
 CONNECTION_STRING=postgresql://postgres:postgres@localhost:5432/nasa-facilities
 OKTA_ISSUER=https://{yourOktaDomain}/oauth2/default
@@ -142,7 +141,7 @@ OKTA_CLIENT_ID={yourOktaClientId}
 OKTA_AUDIENCE="api://default"
 ```
 
-5. Create an `index.ts` file in `packages/api` and add the backend application Fastify server code:
+6. Create an `index.ts` file in `packages/api` and add the backend application Fastify server code:
 
 ```bash
 import fastifyPostgres from "@fastify/postgres";
@@ -185,7 +184,7 @@ start();
 
 ```
 
-6. Next, let's create our Fastify API routes along with their appropriate CRUD operations in `packages/api/routes/facilities.ts`:
+7. Next, let's create our Fastify API routes along with their appropriate CRUD operations in `packages/api/routes/facilities.ts`:
 
 ```bash
 import { FastifyInstance } from "fastify";
@@ -274,12 +273,12 @@ export default facilitiesRoutes;
 
 ```
 
-7. To register these routes with our Fastify instance, add the following to `packages/api/index.ts`:
+8. To register these routes with our Fastify instance, add the following to `packages/api/index.ts`:
 ```bash
 fastify.register(facilitiesRoutes);
 ```
 
-8. Then we'll create a `packages/api/utils/jwt-verifier.ts` file with an utility that will verify the Okta ID tokens passed with API calls from the frontend:
+9. Then we'll create a `packages/api/utils/jwt-verifier.ts` file with an utility that will verify the Okta ID tokens passed with API calls from the frontend:
 
 ```bash
 import OktaJwtVerifier from "@okta/jwt-verifier";
@@ -329,7 +328,7 @@ export const jwtVerifier = async (
 
 ```
 
-9. We'll then add a [Fastify Prehandler Hook](https://www.fastify.io/docs/latest/Reference/Hooks/#prehandler to `packages/api/index.ts` that will run the `jwtVerifier` logic with each Fastify route:
+10. We'll then add a [Fastify Prehandler Hook](https://www.fastify.io/docs/latest/Reference/Hooks/#prehandler to `packages/api/index.ts` that will run the `jwtVerifier` logic with each Fastify route:
 
 ```bash
 fastify.decorate("jwtVerify", (request: FastifyRequest) => {
