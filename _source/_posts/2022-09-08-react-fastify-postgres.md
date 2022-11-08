@@ -16,7 +16,7 @@ type: conversion
 
 In this tutorial, we'll set up an app to help us keep track of what NASA facilities we've visited and which ones we still want to visit.
 
-Our app will be a monorepo with Okta authentication using React for the frontend and Fastify for the backend. [Fastify](https://www.fastify.io/) is a highly performant web framework with low overhead that we'll connect to a Postgresql database. We'll also use [Lerna](https://lerna.js.org/) to manage the frontend and backend apps in a monorepo.
+Our app will be a monorepo with Okta authentication using React for the frontend and Fastify for the backend. [Fastify](https://www.fastify.io/) is a highly performant web framework with low overhead that we'll connect to a PostgreSQL database. We'll also use [Lerna](https://lerna.js.org/) to manage the frontend and backend apps in a monorepo.
 
 **Prerequisites**
 
@@ -28,7 +28,7 @@ A [Docker installation](https://docs.docker.com/engine/install/) is required as 
 
 ### Set up OAuth2 and OpenID Connect (OIDC)
 
-For this demo app, we'll be using [Okta's SPA redirect model](https://developer.okta.com/docs/guides/sign-into-spa-redirect/react/main/) to authenticate and fetch user info.
+We'll be using [Okta's SPA redirect model](https://developer.okta.com/docs/guides/sign-into-spa-redirect/react/main/) to authenticate.
 
 {% include setup/cli.md type="spa" framework="React" loginRedirectUri="http://localhost:3001/login/callback" %}
 
@@ -62,7 +62,10 @@ npm init fastify
 
 2. Add the required backend packages:
 ```bash
-npx lerna add @fastify/postgres dotenv @okta/jwt-verifier pg packages/api
+npx lerna add @fastify/postgres packages/api
+npx lerna add dotenv packages/api
+npx lerna add @okta/jwt-verifier packages/api
+npx lerna add pg packages/api
 ```
 
 3. Add Typescript and needed types to the backend repository:
@@ -70,23 +73,19 @@ npx lerna add @fastify/postgres dotenv @okta/jwt-verifier pg packages/api
 npx lerna add @types/pg typescript packages/api --dev
 ```
 
-4. Next, let's create a basic React application using [Create React App](https://github.com/facebook/create-react-app). We'll use the Typescript template with it as well. In the created `packages/frontend` directory, run:
+4. Next, let's create a basic React application using [Create React App](https://github.com/facebook/create-react-app). We'll use the template for Typescript with it as well. In the created `packages/frontend` directory, run:
 ```bash
-npx create-react-app okta-fastify-postgres --template typescript
+npx create-react-app . --template typescript
 ```
+
+5. You can now run `npx lerna bootstrap` to install your package dependencies.
 
 **NOTE:** Our demo repository uses React `^18.2.0` and React Scripts `5.0.1`.
 
-5. We'll add our needed frontend project dependencies with the following command:
-```bash
-npx lerna @okta/okta-auth-js @okta/okta-react packages/frontend
-```
+## Setup the PostgreSQL Docker instance
 
-6. You can now run `npx lerna bootstrap` to install your package dependencies.
-
-## Setup the Postgresql Docker instance
-
-1. In your root directory, create a file `docker-compose.yml`:
+1. In your project's root directory, create a file `docker-compose.yml`:
+{% raw %}
 ```yml
 services:
   postgres:
@@ -99,9 +98,11 @@ services:
       POSTGRES_PASSWORD: "${POSTGRES_PASSWORD}"
       POSTGRES_DB: "${POSTGRES_DB}"
 ```
+{% endraw %}
 
-2. Create a `.env` file with the following:
-```text
+{:start="2"}
+2. Create a `.env` file in the same project root directory and add the following:
+```yml
 POSTGRES_USERNAME=postgres
 POSTGRES_PASSWORD=postgres
 POSTGRES_DB=nasa-facilities
@@ -109,19 +110,21 @@ POSTGRES_DB=nasa-facilities
 
 3. To use the Docker configuration we created, run `docker compose up`.
 
-4. There is a provided Postgreql data dump `./nasa-facilities_20200910.sql` in the example repo. You can import it by running the following:
+4. There is a provided Postgreql data dump `./nasa-facilities_20200910.sql` in the example repo. You can import it by running the following from the project root directory:
 ```bash
 docker exec -i nasa-facilities psql -U postgres nasa-facilities < ./nasa-facilities_20200910.sql
 ```
 
-Your Docker instance is now created and running a Postgresql database with the restored data.
+Your Docker instance is now created and running a PostgreSQL database with the restored data.
 
-**NOTE:** The Postgresql dump included in the demo repo uses data from [https://www.kaggle.com/datasets/nasa/nasa-facilities](https://www.kaggle.com/datasets/nasa/nasa-facilities).
+**NOTE:** The PostgreSQL dump included in the demo repo uses data from [https://www.kaggle.com/datasets/nasa/nasa-facilities](https://www.kaggle.com/datasets/nasa/nasa-facilities).
 
 ## Create the API backend app using Fastify
 
-1. Update `packages/api/package.json` to allow the backend application to compile using Typescript:
-```bash
+1. Go to your backend repository root directory at `packages/api`.
+
+2. Update `package.json` by adding the following scripts to allow the backend application to compile using Typescript:
+```json
 {
   "scripts": {
     "build": "tsc -p tsconfig.json",
@@ -130,22 +133,22 @@ Your Docker instance is now created and running a Postgresql database with the r
 }
 ```
 
-4. Initialize a Typescript config file by running:
+3. Initialize a Typescript config file by running:
 ```bash
 npx tsc --init
 ```
 
-5. Create a `.env` file in `packages/api` with the following:
-```text
-CONNECTION_STRING=postgresql://postgres:postgres@localhost:5432/nasa-facilities
+4. Create a `.env` file with the following:
+```yml
+CONNECTION_STRING=PostgreSQL://postgres:postgres@localhost:5432/nasa-facilities
 OKTA_ISSUER=https://{yourOktaDomain}/oauth2/default
 OKTA_CLIENT_ID={yourOktaClientId}
 OKTA_AUDIENCE="api://default"
 ```
 
-6. Create an `index.ts` file in `packages/api` and add the backend application Fastify server code:
+5. Create an `index.ts` file and add the backend application Fastify server code:
 
-```bash
+```ts
 import fastifyPostgres from "@fastify/postgres";
 import Fastify, { FastifyInstance, FastifyRequest } from "fastify";
 import * as dotenv from "dotenv";
@@ -186,9 +189,9 @@ start();
 
 ```
 
-7. Next, let's create our Fastify API routes along with their appropriate CRUD operations in `packages/api/routes/facilities.ts`:
+6. Next, let's create our Fastify API routes along with their appropriate CRUD operations in a new file `routes/facilities.ts`:
 
-```bash
+```ts
 import { FastifyInstance } from "fastify";
 import { FastifyReply, FastifyRequest } from "fastify";
 
@@ -275,14 +278,16 @@ export default facilitiesRoutes;
 
 ```
 
-8. To register these routes with our Fastify instance, add the following to `packages/api/index.ts`:
-```bash
+7. To register these routes with our Fastify instance, add the following to `index.ts`:
+```ts
 fastify.register(facilitiesRoutes);
 ```
 
-9. Then we'll create a `packages/api/utils/jwt-verifier.ts` file with an utility that will verify the Okta ID tokens passed with API calls from the frontend:
+**NOTE:** Don't forget to also import the `facilitiesRoutes` after adding the above line.
 
-```bash
+8. Then we'll create a `utils/jwt-verifier.ts` file that will include logic to verify the Okta ID tokens included in API calls from the frontend:
+
+```ts
 import OktaJwtVerifier from "@okta/jwt-verifier";
 import dotenv from "dotenv";
 import { FastifyReply, FastifyRequest } from "fastify";
@@ -330,9 +335,9 @@ export const jwtVerifier = async (
 
 ```
 
-10. We'll then add a [Fastify Prehandler Hook](https://www.fastify.io/docs/latest/Reference/Hooks/#prehandler to `packages/api/index.ts` that will run the `jwtVerifier` logic with each Fastify route:
+9. We'll then add a [Fastify Prehandler Hook](https://www.fastify.io/docs/latest/Reference/Hooks/#prehandler) to `index.ts` that will run the `jwtVerifier` logic with each Fastify route:
 
-```bash
+```ts
 fastify.decorate("jwtVerify", (request: FastifyRequest) => {
   fastify.log.info(`The incoming request is: ${JSON.stringify(request)}`);
 });
@@ -342,8 +347,9 @@ fastify.addHook("preHandler", async (request, reply, done) => {
 });
 ```
 
-Your final `packages/api/index.ts` file should look like this:
+**NOTE:** An import will also need to be added for ```jwtVerifier`.
 
+Your final `packages/api/index.ts` file should look like this:
 ```bash
 import fastifyPostgres from "@fastify/postgres";
 import Fastify, { FastifyInstance, FastifyRequest } from "fastify";
@@ -402,7 +408,7 @@ start();
 1. Add `"proxy": "http://localhost:3000"` to `packages/frontend/package.json` so that React knows what base URL our API calls will make.
 
 2. In a `.env` file in the `packages/frontend` directory, add the needed environment variables:
-```text
+```yml
 PORT=3001
 REACT_APP_OKTA_ISSUER=https://{yourOktaDomain}/oauth2/default
 REACT_APP_OKTA_CLIENT_ID={yourOktaClientId}
@@ -416,6 +422,7 @@ REACT_APP_OKTA_BASE_REDIRECT_URI=http://localhost:3001
 Let's create our React components for render on the frontend.
 
 1. In a newly created `src/components` directory, add the following files:
+
 #### login.tsx
 
 ```tsx
@@ -645,7 +652,7 @@ export const RequiredAuth: React.FC = () => {
 
 **NOTE:** The `okta/okta-react` package includes a `SecureRoute` component, but it does not support React Router v6 to stay router version agnostic. For more information, please see the issue comment at [https://github.com/okta/okta-react/issues/178#issuecomment-1150407182](https://github.com/okta/okta-react/issues/178#issuecomment-1150407182).
 
-We'll also need to add the `SecureRoute` component and the following to `App.tsx`.
+2. We'll also need to add the `SecureRoute` component and the following to `App.tsx`.
 
 ```tsx
 import { useCallback } from "react";
@@ -837,7 +844,7 @@ If we're not authenticated, our app will land us at the login page. Here, we cli
 
 {% img blog/react-fastify-postgres/nasa-facilities-table.jpg alt:"Screenshot of table with nasa facilities data" width:"600" %}{: .center-image }
 
-To render the facilities table, our app has made a call which includes the ID token authorization to our API to fetch the data from the backend `/facilities` API endpoint.
+To render the facilities table, our app has made a call to our API which includes the ID token authorization to fetch the data from the backend `/facilities` API endpoint.
 
 In `packages/frontend/facilities.tsx`:
 ```bash
@@ -863,7 +870,7 @@ In `packages/frontend/facilities.tsx`:
 
 The backend has verified the ID token using the `jwtVerifier` utility we created.
 
-The backend connects to our Postgresql instance and has used the query we specified to fetch the needed data at the `/facilities` route.
+The backend connects to our PostgreSQL instance and has used the query we specified to fetch the needed data at the `/facilities` route.
 
 In `packages/api/routes/facilities.ts`:
 ```bash
@@ -889,10 +896,10 @@ fastify.get(
   );
 ```
 
-The same process repeats when a user clicks on the `Visited` checkbox or `Delete` button for the appropriate API endpoints and Postgresql queries.
+The same process repeats when a user clicks on the `Visited` checkbox or `Delete` button for the appropriate API endpoints and PostgreSQL queries.
 
 ## Further learning
 
 **[Handling CORS Errors in Fastify](https://github.com/fastify/fastify-cors)**
 
-**[Secure Your Postgresql Instance](https://www.postgresql.org/docs/7.0/security.htm)**
+**[Secure Your PostgreSQL Instance](https://www.PostgreSQL.org/docs/7.0/security.htm)**
