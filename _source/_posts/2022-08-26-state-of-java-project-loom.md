@@ -114,7 +114,7 @@ while (true) {
 }
 ```
 
-On my machine, the process hung after **14_625_956** virtual threads but didn't crash, and as memory became available, it kept going slowly.
+On my machine, the process hung after **14_625_956** virtual threads but didn't crash, and as memory became available, it kept going slowly. You may be wondering why this behavior exists! It's due to the parked virtual threads being garbage collected, and the JVM is able to create more virtual threads and assign them to the underlying platform thread.
 
 #### Task throughput
 
