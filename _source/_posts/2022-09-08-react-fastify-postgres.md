@@ -32,54 +32,20 @@ For this demo app, we'll be using [Okta's SPA redirect model](https://developer.
 
 {% include setup/cli.md type="spa" framework="React" loginRedirectUri="http://localhost:3001/login/callback" %}
 
-## Setup the Postgresql Docker instance
-
-We'll begin by setting up a Docker instance for our Postgresql database.
-
-1. In your root directory, create a file `docker-compose.yml`:
-```yml
-services:
-  postgres:
-    container_name: "nasa-facilities"
-    image: "postgres:latest"
-    ports:
-      - "5432:5432"
-    environment:
-      POSTGRES_USERNAME: "${POSTGRES_USERNAME}"
-      POSTGRES_PASSWORD: "${POSTGRES_PASSWORD}"
-      POSTGRES_DB: "${POSTGRES_DB}"
-```
-
-2. Create a `.env` file with the following:
-```text
-POSTGRES_USERNAME=postgres
-POSTGRES_PASSWORD=postgres
-POSTGRES_DB=nasa-facilities
-```
-
-3. To use the Docker configuration we created, run `docker compose up`.
-
-4. There is a provided Postgreql data dump `./nasa-facilities_20200910.sql` in the example repo. You can import it by running the following:
-```bash
-docker exec -i nasa-facilities psql -U postgres nasa-facilities < ./nasa-facilities_20200910.sql
-```
-
-Your Docker instance is now created and running a Postgresql database with the restored data.
-
-**NOTE:** The Postgresql dump included in the demo repo uses data from [https://www.kaggle.com/datasets/nasa/nasa-facilities](https://www.kaggle.com/datasets/nasa/nasa-facilities). 
-
 ## Setup Lerna for monorepo management 
 
 [Lerna](****LINK***) is a tool used to manage multi-package repositories. In this project, it'll allow us to have a single repository where both our frontend and API packages live.
 
 1. If you don't already have `npx` installed, you can run `npm i npx` to do so.
 
-2. Add Lerna to your project by running the following in your project root directory:
+2. Create a project root directory named `okta-react-fastify`.
+
+3. Add Lerna to your project by running the following in your project root directory:
 ```bash
 npx lerna@latest init
 ```
 
-3. Create the `frontend` and `api` packages:
+4. Create the `frontend` and `api` packages:
 ```bash
 cd packages
 mkdir frontend api
@@ -117,6 +83,40 @@ npx lerna @okta/okta-auth-js @okta/okta-react packages/frontend
 ```
 
 6. You can now run `npx lerna bootstrap` to install your package dependencies.
+
+## Setup the Postgresql Docker instance
+
+1. In your root directory, create a file `docker-compose.yml`:
+```yml
+services:
+  postgres:
+    container_name: "nasa-facilities"
+    image: "postgres:latest"
+    ports:
+      - "5432:5432"
+    environment:
+      POSTGRES_USERNAME: "${POSTGRES_USERNAME}"
+      POSTGRES_PASSWORD: "${POSTGRES_PASSWORD}"
+      POSTGRES_DB: "${POSTGRES_DB}"
+```
+
+2. Create a `.env` file with the following:
+```text
+POSTGRES_USERNAME=postgres
+POSTGRES_PASSWORD=postgres
+POSTGRES_DB=nasa-facilities
+```
+
+3. To use the Docker configuration we created, run `docker compose up`.
+
+4. There is a provided Postgreql data dump `./nasa-facilities_20200910.sql` in the example repo. You can import it by running the following:
+```bash
+docker exec -i nasa-facilities psql -U postgres nasa-facilities < ./nasa-facilities_20200910.sql
+```
+
+Your Docker instance is now created and running a Postgresql database with the restored data.
+
+**NOTE:** The Postgresql dump included in the demo repo uses data from [https://www.kaggle.com/datasets/nasa/nasa-facilities](https://www.kaggle.com/datasets/nasa/nasa-facilities).
 
 ## Create the API backend app using Fastify
 
