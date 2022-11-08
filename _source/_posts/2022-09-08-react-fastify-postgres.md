@@ -22,6 +22,8 @@ Our app will be a monorepo with Okta authentication using React for the frontend
 
 *Create React App* currently requires Node >= 14.0.0 and npm >= 5.6. The latest required versions can be found at [https://reactjs.org/docs/create-a-new-react-app.html](https://reactjs.org/docs/create-a-new-react-app.html).
 
+A [Docker installation](https://docs.docker.com/engine/install/) is required as well.
+
 {% include toc.md %}
 
 ### Set up OAuth2 and OpenID Connect (OIDC)
@@ -32,10 +34,10 @@ For this demo app, we'll be using [Okta's SPA redirect model](https://developer.
 
 ## Setup the Postgresql Docker instance
 
-We'll begin by setting up a Docker instance for our Postgresql database. If you haven't already, make sure to [install Docker](https://docs.docker.com/engine/install/).
+We'll begin by setting up a Docker instance for our Postgresql database.
 
 1. In your root directory, create a file `docker-compose.yml`:
-```text
+```yml
 services:
   postgres:
     container_name: "nasa-facilities"
