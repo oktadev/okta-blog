@@ -70,7 +70,8 @@ npx lerna add pg packages/api
 
 3. Add Typescript and needed types to the backend repository:
 ```bash
-npx lerna add @types/pg typescript packages/api --dev
+npx lerna add @types/pg packages/api --dev
+npx lerna add typescript packages/api --dev
 ```
 
 4. Next, let's create a basic React application using [Create React App](https://github.com/facebook/create-react-app). We'll use the template for Typescript with it as well. In the created `packages/frontend` directory, run:
@@ -78,7 +79,14 @@ npx lerna add @types/pg typescript packages/api --dev
 npx create-react-app . --template typescript
 ```
 
-5. You can now run `npx lerna bootstrap` to install your package dependencies.
+5. Add the frontend Okta dependencies:
+```bash
+npx lerna add @okta/okta-auth-js packages/frontend
+npx lerna add @okta/okta-react packages/frontend
+npx lerna add react-router-dom packages/frontend
+```
+
+6. You can now run `npx lerna bootstrap` to install your package dependencies.
 
 **NOTE:** Our demo repository uses React `^18.2.0` and React Scripts `5.0.1`.
 
@@ -123,12 +131,12 @@ Your Docker instance is now created and running a PostgreSQL database with the r
 
 1. Go to your backend repository root directory at `packages/api`.
 
-2. Update `package.json` by adding the following scripts to allow the backend application to compile using Typescript:
+2. Update `package.json` by adding the following to allow the backend application to compile using Typescript:
 ```json
 {
+  "main": "build/index.js",
   "scripts": {
-    "build": "tsc -p tsconfig.json",
-    "start": "node index.js"
+    "start": "tsc && node build/index.js"
   }
 }
 ```
@@ -189,6 +197,7 @@ start();
 
 ```
 
+{:start="6"}
 6. Next, let's create our Fastify API routes along with their appropriate CRUD operations in a new file `routes/facilities.ts`:
 
 ```ts
@@ -278,6 +287,7 @@ export default facilitiesRoutes;
 
 ```
 
+{:start="7"}
 7. To register these routes with our Fastify instance, add the following to `index.ts`:
 ```ts
 fastify.register(facilitiesRoutes);
@@ -285,6 +295,7 @@ fastify.register(facilitiesRoutes);
 
 **NOTE:** Don't forget to also import the `facilitiesRoutes` after adding the above line.
 
+{:start="8"}
 8. Then we'll create a `utils/jwt-verifier.ts` file that will include logic to verify the Okta ID tokens included in API calls from the frontend:
 
 ```ts
@@ -335,6 +346,7 @@ export const jwtVerifier = async (
 
 ```
 
+{:start="9"}
 9. We'll then add a [Fastify Prehandler Hook](https://www.fastify.io/docs/latest/Reference/Hooks/#prehandler) to `index.ts` that will run the `jwtVerifier` logic with each Fastify route:
 
 ```ts
@@ -405,7 +417,7 @@ start();
 
 ## Configure the React app
 
-1. Add `"proxy": "http://localhost:3000"` to `packages/frontend/package.json` so that React knows what base URL our API calls will make.
+1. Add `"proxy": "http://localhost:3000"` to `packages/frontend/package.json` so that React knows what base URL our API calls will need to make.
 
 2. In a `.env` file in the `packages/frontend` directory, add the needed environment variables:
 ```yml
