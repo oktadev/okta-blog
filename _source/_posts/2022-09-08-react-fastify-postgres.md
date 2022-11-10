@@ -312,7 +312,7 @@ dotenv.config();
 
 const oktaJwtVerifier = new OktaJwtVerifier({
   issuer: process.env.OKTA_ISSUER || "",
-  clientId: process.env.OKTA_CLIENT_ID,
+  clientId: process.env.OKTA_CLIENT_ID
 });
 
 const audience = process.env.OKTA_AUDIENCE;
@@ -325,16 +325,20 @@ export const jwtVerifier = async (
 
   request.log.info({ authorization });
 
-  const [token] = authorization?.trim().split(" ") || "";
-  request.log.info({ token });
+  const match = authorization?.match(/Bearer (.+)/);
 
-  if (!authorization || !token) {
+  if (!match) {
+    return reply.status(401).send();
+  }
+
+  if (!authorization || !match) {
     reply.code(401).send();
   }
 
   try {
+    const accessToken = match[1];
     const { claims } = await oktaJwtVerifier.verifyAccessToken(
-      token,
+      accessToken,
       audience || ""
     );
 
@@ -507,7 +511,7 @@ function Facilities() {
         try {
           const response = await fetch("/facilities", {
             headers: {
-              Authorization: authState.accessToken.accessToken,
+              Authorization: `Bearer ${authState.accessToken.accessToken}`,
             },
           });
           const data = await response.json();
@@ -532,7 +536,7 @@ function Facilities() {
           await fetch(url, {
             method: "PATCH",
             headers: {
-              Authorization: authState.accessToken?.accessToken,
+              Authorization: `Bearer ${authState.accessToken.accessToken}`,
               "Content-Type": "application/json",
             },
             body: JSON.stringify({ visited: e.target.checked }),
@@ -554,7 +558,7 @@ function Facilities() {
           await fetch(url, {
             method: "DELETE",
             headers: {
-              Authorization: authState.accessToken?.accessToken,
+              Authorization: `Bearer ${authState.accessToken.accessToken}`,
             },
           });
 
@@ -567,7 +571,7 @@ function Facilities() {
     apiCall();
   };
 
-  if (data && !errors) {
+  if (data && !errors && authState?.isAuthenticated) {
     return (
       <div className="facilities-wrapper">
         <button onClick={logout} className="logout-button">
