@@ -5,7 +5,7 @@ author: gabi-dombrowski
 by: contractor
 communities: [javascript]
 description: ""
-tags: []
+tags: [react, typescript, fastify, authentication, javascript]
 tweets:
 - ""
 - ""
@@ -861,7 +861,7 @@ If we're not authenticated, our app will land us at the login page. Here, we cli
 
 {% img blog/react-fastify-postgres/nasa-facilities-table.jpg alt:"Screenshot of table with nasa facilities data" width:"600" %}{: .center-image }
 
-To render the facilities table, our app has made a call to our API which includes the ID token authorization to fetch the data from the backend `/facilities` API endpoint.
+To render the facilities table, our app has made a call to our API which includes the Access token to fetch the data from the backend `/facilities` API endpoint.
 
 In `packages/frontend/facilities.tsx`:
 ```tsx
