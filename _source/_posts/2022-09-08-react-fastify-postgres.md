@@ -492,6 +492,11 @@ interface IFacility {
   id: bigint;
 }
 
+function getErrorMessage(error: unknown) {
+  if (error instanceof Error) return error.message;
+  return String(error);
+}
+
 function Facilities() {
   const [data, setData] = useState<IFacility[]>();
   const [errors, setErrors] = useState<string>();
