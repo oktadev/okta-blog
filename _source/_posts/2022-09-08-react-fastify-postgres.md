@@ -30,7 +30,9 @@ A [Docker installation](https://docs.docker.com/engine/install/) is required as 
 
 We'll be using [Okta's SPA redirect model](https://developer.okta.com/docs/guides/sign-into-spa-redirect/react/main/) to authenticate.
 
-{% include setup/cli.md type="spa" framework="React" loginRedirectUri="http://localhost:3001/login/callback" %}
+{% include setup/cli.md type="spa" framework="React" loginRedirectUri="http://localhost:3001/callback" %}
+
+**NOTE:** Take note of your client ID and issuer as this will be used in a subsequent step.
 
 ## Setup Lerna for monorepo management 
 
@@ -695,7 +697,7 @@ function App() {
     issuer: process.env.REACT_APP_OKTA_ISSUER,
     clientId: process.env.REACT_APP_OKTA_CLIENT_ID,
     redirectUri:
-      process.env.REACT_APP_OKTA_BASE_REDIRECT_URI + "/login/callback",
+      process.env.REACT_APP_OKTA_BASE_REDIRECT_URI + "/callback",
   });
 
   const restoreOriginalUri = useCallback(
@@ -711,7 +713,7 @@ function App() {
     <Router>
       <Security oktaAuth={oktaAuth} restoreOriginalUri={restoreOriginalUri}>
         <Routes>
-          <Route path="login/callback" element={<LoginCallback />} />
+          <Route path="/callback" element={<LoginCallback />} />
           <Route path="/" element={<Login />} />
           <Route path="/facilities" element={<RequiredAuth />}>
             <Route path="" element={<Facilities />} />
