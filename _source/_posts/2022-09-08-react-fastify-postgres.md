@@ -10,7 +10,7 @@ tweets:
 - ""
 - ""
 - ""
-image:
+image: blog/react-fastify-postgres/social.jpg
 type: conversion
 ---
 
