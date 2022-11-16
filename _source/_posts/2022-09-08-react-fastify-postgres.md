@@ -64,16 +64,16 @@ npm init fastify
 
 2. Add the required backend packages:
 ```bash
-npx lerna add @fastify/postgres packages/api
-npx lerna add dotenv packages/api
-npx lerna add @okta/jwt-verifier packages/api
-npx lerna add pg packages/api
+npx lerna add @fastify/postgres@5.1.0 packages/api
+npx lerna add dotenv@16.0.2 packages/api
+npx lerna add @okta/jwt-verifier@2.6.0 packages/api
+npx lerna add pg@8.8.0 packages/api
 ```
 
 3. Add Typescript and needed types to the backend repository:
 ```bash
-npx lerna add @types/pg packages/api --dev
-npx lerna add typescript packages/api --dev
+npx lerna add @types/pg@8.6.5 packages/api --dev
+npx lerna add typescript@4.8.3 packages/api --dev
 ```
 
 4. Next, let's create a basic React application using [Create React App](https://github.com/facebook/create-react-app). We'll use the template for Typescript with it as well. In the created `packages/frontend` directory, run:
@@ -83,9 +83,8 @@ npx create-react-app . --template typescript
 
 5. Add the frontend Okta dependencies:
 ```bash
-npx lerna add @okta/okta-auth-js packages/frontend
-npx lerna add @okta/okta-react packages/frontend
-npx lerna add react-router-dom packages/frontend
+npx lerna add @okta/okta-auth-js@7.0.1 packages/frontend
+npx lerna add @okta/okta-react@6.7.0 packages/frontend
 ```
 
 6. You can now run `npx lerna bootstrap` to install your package dependencies.
