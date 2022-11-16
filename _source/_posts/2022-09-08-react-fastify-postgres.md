@@ -1,13 +1,13 @@
 ---
 layout: blog_post
-title: ""
+title: "How to Build a Secure React and Fastify API App"
 author: gabi-dombrowski
 by: contractor
 communities: [javascript]
-description: ""
+description: "This tutorial demonstrates how to create a complete web application project with security built in from the ground up. You'll create a React frontend and Fastify API backend using TypeScript, use Docker to run PostgreSQL, add authentication to secure the frontend and API, and manage the project in a Lerna monorepo. "
 tags: [react, typescript, fastify, authentication, javascript]
 tweets:
-- ""
+- "Create a complete web application project with security built in from the ground up in this tutorial using React, Fastify, and PostgreSQL! "
 - ""
 - ""
 image: blog/react-fastify-postgres/social.jpg
