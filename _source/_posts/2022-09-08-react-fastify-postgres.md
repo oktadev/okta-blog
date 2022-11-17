@@ -8,8 +8,6 @@ description: "This tutorial demonstrates how to create a complete web applicatio
 tags: [react, typescript, fastify, authentication, javascript]
 tweets:
 - "Create a complete web application project with security built in from the ground up in this tutorial using React, Fastify, and PostgreSQL! "
-- ""
-- ""
 image: blog/react-fastify-postgres/social.jpg
 type: conversion
 ---
@@ -20,7 +18,7 @@ Our app will be a monorepo with Okta authentication using React for the frontend
 
 **Prerequisites**
 
-*Create React App* currently requires Node >= 14.0.0 and npm >= 5.6. The latest required versions can be found at [https://reactjs.org/docs/create-a-new-react-app.html](https://reactjs.org/docs/create-a-new-react-app.html).
+*Create React App* currently requires Node >= 14.0.0 and npm >= 5.6. The latest required versions can be found at [https://reactjs.org/docs/create-a-new-react-app.html](https://reactjs.org/docs/create-a-new-react-app.html). This tutorial was created using Node v18.8.1 and npm v8.11.0.
 
 A [Docker installation](https://docs.docker.com/engine/install/) is required as well.
 
@@ -436,6 +434,8 @@ REACT_APP_OKTA_ISSUER=https://{yourOktaDomain}/oauth2/default
 REACT_APP_OKTA_CLIENT_ID={yourOktaClientId}
 REACT_APP_OKTA_BASE_REDIRECT_URI=http://localhost:3001
 ```
+
+**NOTE:** Make sure to replace `{yourOktaDomain}` and `{yourOktaClientId}` with your own Okta domain and client ID.
 
 **NOTE:** We are switching the default port React will run on because the backend API app will use port `3000` by default as well.
 
