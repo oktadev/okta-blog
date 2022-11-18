@@ -1,0 +1,569 @@
+---
+layout: blog_post
+title: "Migrate Database Users with an Okta Password Import Inline Hook and Spring Boot"
+author: brian-demers
+by: advocate
+communities: [java]
+description: "Tutorial: Learn how to import users existing passwords from a database to Okta with a password import hook."
+tags: [java, spring-boot, spring-security, database, hooks, migration]
+tweets:
+  - "Learn how to migrate users from a database into Okta➡️"
+  - "Thinking about user migration, here are some options‼"
+image:
+type: conversion
+---
+:page-liquid:
+:toc: macro
+:experimental:
+
+Migrating users from one system to another is often painful. When users are stored in a custom home-grown database this is doubly so.
+These custom solutions require custom migration scripts to extract users from the original system and import them into another system, like Okta.
+Moving users is only half the problem, you still need to worry about migrating their passwords. One way to migrate user passwords is to simply reset them, the downside is this has the potential to increase help desk call volume, and in general is a poor user experience.
+To cause minimal user disruption, it's ideal to migrate a user's password too, this brings its own set of challenges! Your system likely only has the hash of a password, not the actual password, in some cases you may not be able to access the password hashes at all.
+
+Okta has solutions for both of these situations. Okta's User API support's importing users with https://developer.okta.com/docs/reference/api/users/#create-user-with-imported-hashed-password[existing password hashes] and supports a one time custom password verification a https://developer.okta.com/docs/reference/api/users/#create-user-with-password-import-inline-hook[password import inline hook] used to verify a password the first time a user signs-in.
+
+In this post I'll walk through creating two Spring Boot applications, one to migrate database users from a database to Okta, and another one
+with a REST endpoint to handle calls from Okta to verify a user's password.
+
+**Prerequisites**:
+
+- https://cli.okta.com/[Okta CLI]
+- https://sdkman.io/[Java 17+]
+- https://ngrok.com/[Ngrok]
+- https://docs.docker.com/get-docker/[Docker]
+
+toc::[]
+
+== What are Okta Hooks
+
+Okta Hook are basically webhooks; HTTP REST requests made by Okta to your application. These extension points come in two flavors:
+
+[glossary]
+https://developer.okta.com/docs/concepts/inline-hooks/[Inline Hooks]::
+Okta will make a synchronous HTTP request and take action on the response, these hooks allow you to customize the process flow. For example, attributes could be added to an OAuth access token, or in the case of this post, check to see if a user password is valid.
+
+https://developer.okta.com/docs/concepts/event-hooks/[Event Hooks]::
+Okta will make an asynchronous HTTP request, meant to notify you when https://developer.okta.com/docs/reference/api/event-types/[specific events occur]. For example, when a user account is unlocked, or when certificates have changed.
+
+== Import existing user password hashes
+
+Hopefully, the user store you are using today only has hashed copies of passwords. Hashes are NOT reversible, meaning you cannot
+convert a password hash back to the original password text.
+
+Okta supports importing password hashes in the format of BCRYPT, SHA-512, SHA-256, SHA-1 and MD5. When a user that has an imported hash sign-in for the first time their password is hashed against the old format, if that matches the imported hash, that password is then hashed again in the format that Okta uses (and the old hash is deleted).
+
+This re-hashing of the password is transparent to the user!
+
+This works great if you have access to the user password hashes, and it's a hash type that Okta supports, for those cases you need to create an Okta password import inline hook.
+
+IMPORTANT: If your database stores passwords in plain-text they need to be reset for your user's safety.
+
+== What is the Okta password import inline hook
+
+As mentioned above inline hooks are outbound REST calls made from Okta to an internet accessible endpoint (e.g. your web application). Okta's https://developer.okta.com/docs/reference/password-hook/[password import inline hook] is called the first time a new user signs-in. Okta `POST`s a request containing a username and password and expects a response that indicates if the password is valid or not.  If the password is valid, Okta will hash and store the user's password; future sign-in attempts from that user will NOT trigger the password import inline hook again.
+
+////
+Mermaid-js
+
+flowchart LR
+
+subgraph R[Your Code]
+E{Is password valid?}
+end
+
+A[User] -->|Sign-in| B{Is first sign-in?}
+B -->|Yes| C[Call Inline <br> Password Hook]
+B -->|No| D{Is password valid?}
+C --> E
+E -->|Yes| G[Okta hashes and stores password]
+E -->|No| F(fa:fa-bell Sign-in Failure)
+G --> H(fa:fa-check User is signed in)
+D -->|No| F
+D -->|Yes| H
+////
+
+image::{% asset_path 'blog/spring-boot-okta-pw-import-hook/pw-import-hook-flow-chart.svg' %}[alt=password import inline hook flow chart,width=100%,align=center]
+
+IMPORTANT: In order to trigger a password import inline hook, the user must be imported with https://developer.okta.com/docs/reference/api/users/#create-user-with-password-import-inline-hook[specific properties], more on this below.
+
+Enough with explanations, let's get to the example!
+
+== Create a database with users
+
+In order to migrate users, we need to have users! To keep things minimal, I'll define a schema and add users to a Postgres database running in Docker container.
+
+Create a `sql` directory with the files `01-create.sql` and `02-data.sql`, when the Postgres Docker container starts these scripts will be executed in order.
+
+The first script contains the database schema.
+
+[source,sql,title='01-create.sql']
+----
+create table users(
+    username varchar(50) not null primary key,
+    password varchar(255) not null,
+    first_name varchar(255) not null,
+    last_name varchar(255) not null,
+    enabled boolean not null
+);
+
+create table groups (
+    id bigint generated by default as identity(start with 1) primary key,
+    group_name varchar(50) not null
+);
+
+create table group_authorities (
+    group_id bigint not null,
+    authority varchar(50) not null,
+    constraint fk_group_authorities_group foreign key(group_id) references groups(id)
+);
+
+create table group_members (
+    id bigint generated by default as identity(start with 1) primary key,
+    username varchar(50) not null,
+    group_id bigint not null,
+    constraint fk_group_members_group foreign key(group_id) references groups(id)
+);
+----
+
+The next script populates the tables with some basic data, two groups named "USER" and "ADMIN", a few users, and assignment of groups to users.
+
+[source,sql,title='02-data.sql']
+----
+-- In this simple example there is a 1-to-1 mapping of group to authorities (e.g. permissions)
+insert into groups (id, group_name) values (1, 'USER');
+insert into groups (id, group_name) values (2, 'ADMIN');
+
+insert into group_authorities (group_id, authority) values (1, 'USER');
+insert into group_authorities (group_id, authority) values (2, 'ADMIN');
+
+-- populate users
+insert into users (username, password, enabled, first_name, last_name)
+values ('joe.coder@example.com',
+        '{bcrypt}$2a$10$GRLdNijSQMUvl/au9ofL.eDwmoohzzS7.rmNSJZ.0FxO/BTk76klW', -- password
+        true,
+        'Joe',
+        'Coder');
+insert into users (username, password, enabled, first_name, last_name)
+values ('jill.coder@example.com',
+        '{bcrypt}$2a$10$GRLdNijSQMUvl/au9ofL.eDwmoohzzS7.rmNSJZ.0FxO/BTk76klW', -- password
+        true,
+        'Jill',
+        'Coder');
+
+insert into users (username, password, enabled, first_name, last_name)
+values ('admin.user@example.com',
+        '{scrypt}$e0801$lFhoTwfU4hAjfIt0W+jNop6H2IJTGfUg4d/Z2yi0eUeQxwZ6r9R/Hr86wOuuXhqi7CRp0ErqxGfGqhetL44O6A==$NcwvQOopkOZFp723IbMdcr9zfaodHNNBjI07DwxaXjA=', -- password
+        true,
+        'Admin',
+        'Istrator');
+
+-- assign groups to users
+insert into group_members (username, group_id) values ('joe.coder@example.com', 1);
+insert into group_members (username, group_id) values ('jill.coder@example.com', 1);
+insert into group_members (username, group_id) values ('admin.user@example.com', 2);
+insert into group_members (username, group_id) values ('admin.user@example.com', 1);
+----
+
+NOTE: The passwords for the above users are all, `password`, hopefully your users https://xkcd.com/936/[have better passwords].
+
+Start Postgres with the following command:
+
+====
+[source,bash]
+----
+docker run -p 5432:5432 \ # <.>
+  -e POSTGRES_DB=example_db \ # <.>
+  -e POSTGRES_USER=db_user \ # <.>
+  -e POSTGRES_PASSWORD=your-db-password \ # <.>
+  -v $(pwd)/sql:/docker-entrypoint-initdb.d \ # <.>
+  postgres:15.1-alpine
+----
+<.> Use the default Postgres port of `5432`.
+<.> Set the database name.
+<.> Set the database username, if left unset `postgres` will be used.
+<.> Set the database password, choose a strong one!
+<.> Mount the local `sql` directory in the container.
+====
+
+== Setup your Okta account
+
+Before you continue, you'll need a free Okta developer account. Install the https://cli.okta.com/[Okta CLI] and run `okta register` to sign up for a new account. If you already have an account, run `okta login`. These commands will configure your system so Okta Management SDK is authorized to connect to Okta.
+
+== Migrate users to Okta using a Spring Boot application
+
+This section will create a new Spring Boot application that queries the `user` database table and creates a new Okta user for each row using the Okta Management SDK.  If you prefer you could do this step with a https://TODO/link/to/ra[BASH script].
+
+Create a new Spring Boot application, you can do this from your IDE, or using https://start.spring.io/#!type=maven-project&language=java&packaging=jar&jvmVersion=17&name=%20OktaUserImport&packageName=com.okta.example.importusers&dependencies=postgresql,data-jpa[start.spring.io], be sure to add the dependencies `postgres` and `data-jpa`.
+
+After creating the project add the Okta Management SDK dependency to your `pom.xml`
+
+[source,xml]
+----
+<dependency>
+    <groupId>com.okta.spring</groupId>
+    <artifactId>okta-spring-sdk</artifactId>
+    <version>2.1.6</version>
+</dependency>
+----
+
+Update the project's application class to define a `CommandLineRunner` bean. This bean will run when the program starts and will import
+all the database users into Okta's Universal Directory.
+
+====
+[source,java]
+----
+package com.okta.example.importusers;
+
+import com.okta.sdk.client.Client;
+import com.okta.sdk.resource.user.UserBuilder;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.boot.CommandLineRunner;
+import org.springframework.boot.SpringApplication;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.context.annotation.Bean;
+import org.springframework.jdbc.core.JdbcTemplate;
+
+import javax.sql.DataSource;
+
+@SpringBootApplication
+public class OktaUserImportApplication {
+
+    private final Logger log = LoggerFactory.getLogger(OktaUserImportApplication.class);
+
+    public static void main(String[] args) {
+        SpringApplication.run(OktaUserImportApplication.class, args);
+    }
+
+    @Bean
+    CommandLineRunner importUsers(DataSource dataSource, Client client) { // <.>
+        return args -> {
+            new JdbcTemplate(dataSource).query(
+                "select username, first_name, last_name from users where enabled is true", // <.>
+                (rs, rowNum) -> UserBuilder.instance() // <.>
+                        .setEmail(rs.getString("username"))
+                        .setFirstName(rs.getString("first_name"))
+                        .setLastName(rs.getString("last_name"))
+                        .usePasswordHookForImport() // <.>
+                        .buildAndCreate(client)) // <.>
+            .forEach(user -> log.info("Created user: {}", user.getProfile().getEmail()));
+        };
+    }
+}
+----
+<.> The database `DataSource` and Okta SDK `Client` can both be injected.
+<.> Select all enabled users in the database.
+<.> Create a new Okta `UserBuilder` and set the user info.
+<.> Instruct Okta to use a password import hook on first login for this user.
+<.> Create the user.
+====
+
+Next, add the database connection information to the `src/main/resources/application.properties` file:
+
+[source,properties]
+----
+spring.datasource.username=db_user
+spring.datasource.password=your-db-password
+spring.datasource.url=jdbc\:postgresql\://localhost\:5432/example_db
+----
+
+NOTE: Make sure the database password matches the value used when starting the Postgres Docker container.
+
+Start the application in your IDE or from the command line by running: `mvn spring-boot:run`.
+
+Done! All the users have been imported in about 10 lines of code!💥
+
+== Create a Spring Boot REST application
+
+The users are imported, however they still cannot sign-in, they do not have a password or other factors set. Each imported user was configured with the `usePasswordHookForImport()` method, this will instruct Okta to call the password import inline hook. This section will create a new Spring Boot application to respond to the hook.
+
+Similar to the previous section, create a new Spring Boot application from your IDE or https://start.spring.io/#!type=maven-project&language=java&packaging=jar&jvmVersion=17&&name=PasswordImportHook&packageName=com.okta.example.pwhooks&dependencies=postgresql,data-jpa,web,security[start.spring.io], and select the `postgresql`, `data-jpa`, `web`, and `security` dependencies.
+
+=== Enable Security First
+
+The first thing you should think about when starting any new project is security! The hook application will be protected by https://www.youtube.com/watch?v=rhi1eIjSbvk[HTTP BASIC authentication]. Define the username and password that Okta will use to communicate with your application in your `src/main/resources/application.properties`.
+
+NOTE: Adding passwords to an `application.properties` file works fine for a demo, but when doing so, you run the risk of checking them into source control.  We recommend using https://docs.spring.io/spring-boot/docs/current/reference/html/features.html#features.external-config[externalized configuration] or the https://github.com/paulschwarz/spring-dotenv[spring-dotenv] project.
+
+====
+[source,properties]
+----
+spring.security.user.name=user
+spring.security.user.password=use-a-strong-password # <.>
+
+# Database connection information # <.>
+spring.datasource.username=db_user
+spring.datasource.password=your-db-password
+spring.datasource.url=jdbc\:postgresql\://localhost\:5432/example_db
+----
+<.> Set the username and password that Okta will use to communicate with the application.
+<.> Add the same database connection information used in the previous application.
+====
+
+Create a new `SecurityConfiguration` class which requires HTTP BASIC authentication for all endpoints:
+
+====
+[source,java]
+----
+package com.okta.example.pwhooks;
+
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
+import org.springframework.security.config.annotation.web.builders.HttpSecurity;
+import org.springframework.security.web.SecurityFilterChain;
+
+import static org.springframework.security.config.http.SessionCreationPolicy.STATELESS;
+
+@Configuration
+public class SecurityConfiguration {
+
+    @Bean
+    public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
+        return http
+                .authorizeRequests()
+                .anyRequest().authenticated().and() // <.>
+                .csrf().disable() // <.>
+                .sessionManagement().sessionCreationPolicy(STATELESS).and() // <.>
+                .httpBasic().and() // <.>
+                .build();
+    }
+}
+----
+<.> All requests require authentication
+<.> Disable CSRF protection, this application will only be called from NON-browser clients
+<.> Disable session creation.
+<.> Enable BASIC authentication.
+====
+
+=== Create a password validator
+
+Okta's password import inline hook will send the application user credentials. Create a new `PasswordValidator` class that return a `boolean` if the credentials are valid.
+
+[source,java]
+----
+package com.okta.example.pwhooks;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.AuthenticationException;
+import org.springframework.security.provisioning.JdbcUserDetailsManager;
+import org.springframework.stereotype.Service;
+
+import javax.sql.DataSource;
+
+@Service
+public class PasswordValidator {
+
+    private final Logger logger = LoggerFactory.getLogger(PasswordValidator.class);
+    private final DaoAuthenticationProvider authenticationProvider;
+
+    public PasswordValidator(DataSource dataSource) {
+        // Creates an AuthenticationProvider internal to this classes use
+        this.authenticationProvider = new DaoAuthenticationProvider();
+        JdbcUserDetailsManager userManager = new JdbcUserDetailsManager(dataSource);
+        userManager.setEnableGroups(true);
+        userManager.setEnableAuthorities(false);
+        authenticationProvider.setUserDetailsService(userManager);
+    }
+
+    boolean isPasswordValid(String username, String password) {
+        try {
+            // check if the password is valid, any invalid passwords or inactive users will throw an exception
+            Authentication authentication = authenticationProvider
+                .authenticate(new UsernamePasswordAuthenticationToken(username, password));
+            return authentication.isAuthenticated();
+        } catch (AuthenticationException e) {
+            logger.debug("Invalid username or password", e);
+            return false;
+        }
+    }
+}
+----
+
+=== Create a REST controller
+
+The last step is to put it all together with a `RestController` than handles `POST` requests to a `/pwhook` endpoint:
+
+====
+[source,java]
+----
+package com.okta.example.pwhooks;
+
+import com.fasterxml.jackson.databind.JsonNode;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RestController;
+
+import java.util.List;
+import java.util.Map;
+
+@RestController
+public class OktaHooksController {
+
+    private final PasswordValidator passwordValidator;
+
+    public OktaHooksController(PasswordValidator passwordValidator) { // <.>
+        this.passwordValidator = passwordValidator;
+    }
+
+    @PostMapping("/pwhook")
+    HookResponse passwordImportHook(@RequestBody JsonNode node) {
+
+        // traverse the payload body and read `data.context.credential`
+        JsonNode credentials =  node.get("data").get("context").get("credential");
+        String username = credentials.get("username").asText(); // <.>
+        String password = credentials.get("password").asText(); // <.>
+
+        // validate the password
+        boolean result = passwordValidator.isPasswordValid(username, password);
+        String status = result ? "VERIFIED" : "UNVERIFIED"; // <.>
+
+        return new HookResponse(List.of(
+                new Command("com.okta.action.update",
+                        Map.of("credential", status))));
+    }
+
+    // Define response object as records <.>
+    public record HookResponse(List<Command> commands) {}
+    public record Command(String type, Map<String, Object> value) {}
+}
+----
+<.> Inject the `PasswordValidator` that was defined above.
+<.> The JSON path to the username attribute is: `data.context.credential.username`.
+<.> The JSON path to the password attribute is: `data.context.credential.password`.
+<.> If the password validator returns `true` return the `VERIFIED`.
+<.> Java Records make it easy to define response objects!
+====
+
+NOTE: This implementation assumes payload contains the `data.context.credential` json element. There should probably be some `null` checks in there, but I'll leave exercise up to you. 😉
+
+=== Start up the hooks application
+
+Start the application from your IDE or on the command line with: `./mvnw spring-boot:run`
+
+Test it out on the command line with https://httpie.io/cli[HTTPie].
+
+[source,bash]
+----
+http --auth "user:use-a-strong-password" :8080/pwhook \
+  'data[context][credential][username]=jill.coder@example.com' \
+  'data[context][credential][password]=password'
+----
+
+TIP: I highly recommend HTTPie, it makes testing JSON based endpoints a snap!
+
+If you don't have HTTPie, you should go install it! Or if you insist, you could use `curl`:
+
+[source,bash]
+----
+curl -X POST localhost:8080/pwhook \
+  --user user:use-a-strong-password \
+  -H 'Content-Type: application/json' \
+  -d '{"data": {"context": {"credential": {"username": "jill.coder@example.com", "password": "password"}}}}'
+----
+
+Either way, the response from the hooks web application will look something like:
+
+[source,http]
+----
+HTTP/1.1 200
+Content-Type: application/json
+----
+[source,json]
+----
+{
+  "commands": [
+    {
+      "name": "com.okta.action.update",
+      "value": {
+        "credential": "VERIFIED"
+      }
+    }
+  ]
+}
+----
+
+If you send the hook an invalid password the response body would show:
+
+[source,json]
+----
+{
+  "commands": [
+    {
+      "name": "com.okta.action.update",
+      "value": {
+        "credential": "UNVERIFIED"
+      }
+    }
+  ]
+}
+----
+
+The password hooks application is working, but we still need to _hook_ it up to Okta. (See what I did there... 😩)
+
+== Register the inline hook with Okta
+
+The application needs to be accessible via the internet in order for Okta to access it.  One way to make a local web application accessible over the internet is to use https://ngrok.com/[ngrok].  Ngrok is a reverse proxy that can expose a local service over the internet with little effort.
+
+Start ngrok and proxy port `8080`:
+
+[source,bash]
+----
+ngrok http 8080
+----
+
+The output will tell you what the public URL is:
+
+[source,txt]
+----
+Forwarding    https://<unique-domain>.ngrok.io -> http://localhost:8080
+----
+
+In this example the public URL to the hook would be: `\https://<unique-domain>.ngrok.io/pwhook`. You can retry the above HTTPie/curl commands with this URL.
+
+NOTE: The `/pwhook` from the REST controller is appended to the URL.
+
+Now that the hooks application is accessible from the internet, it can be registered with Okta so it can be called when the imported users sign-in for the first time.
+
+Sign in to the Okta Admin Console, and navigate to **Workflow** -> **Inline Hooks** -> **Add Inline Hook** -> **Password Import**.
+Create a new inline hook with the following information:
+
+* Name: DB Password Import Hook
+* URL: `\https://<unique-domain>.ngrok.io/pwhook`
+* Authentication field: `Authorization`
+* Authentication secret: `Basic <base64(username:password)>` The base64 encoding of the username and password you defined in the `application.properties` file.
+
+TIP: You can base64 encode the username and password value on the command line by running: `echo "<username>:<password>" | base64`.
+
+After filling out the form press the **Save** button.
+
+== Sign in and test the Okta password import inline hook
+
+A quick recap before we continue: users have been imported into Okta, a password import hook application has been registered, all that's left is to sign-in!
+
+To test the imported user's sign-in, open up a new private/incognito browser window and open the Okta Console, use your https://developer.okta.com/docs/guides/find-your-domain/main/[Okta Org URL], e.g. `\https://dev-133337.okta.com`. Then sign in with the user `jill.coder@example.com` and password `password`.
+
+image::{% asset_path 'blog/spring-boot-okta-pw-import-hook/okta-user-dashboard.jpg' %}[alt=Okta user dashboard screenshot,width=600,align=center]
+
+This page may look empty because the user doesn't have any applications assigned. If you have other apps in your Okta org, you can https://help.okta.com/en-us/Content/Topics/Apps/apps-assign-applications.htm?cshid=ext_Apps_Apps_Page-assign[assign them to your new users]. If you can create a new custom application using the Okta CLI by running `okta start`.
+
+TIP: Ngrok has a great debugging interface at `\http://127.0.0.1:4040`, it will list all the inbound HTTP requests, if you run into any trouble it's an easy way to make sure the requests are getting to application.
+
+== Learn more about Okta and hooks
+
+This post has covered migrating users from a database into Okta's Universal Directory and making use of Okta's Password Import Hook to ensure that users did not need to reset their passwords.
+
+You can keep the hook application running until all the user have signed in once. At that point Okta will not make further calls to that application. It's also common to give your users a specific period of time to sign-in, any user's that have not signed in could be disabled or have their password reset, at that point you can decommission the users database and hook application.
+
+If you want to learn more about ways to customize Okta, check out these blog posts:
+
+* link:/todo/1[RA link]
+* link:/blog/2020/07/20/easy-user-sync-hooks[Build Easy User Sync Webhooks with Okta]
+* link:/blog/2020/09/18/password-hook-migration[Migrate User Passwords with Okta's Password Hook with JavaScript]
+
+Please comment below with any questions. For more interesting content, follow https://twitter.com/oktadev[@oktadev] on Twitter, find us https://www.linkedin.com/company/oktadev/[on LinkedIn], or subscribe to https://www.youtube.com/oktadev[our YouTube channel].
+
