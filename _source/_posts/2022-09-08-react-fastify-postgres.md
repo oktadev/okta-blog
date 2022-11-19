@@ -10,6 +10,7 @@ tweets:
 - "Create a complete web application project with security built in from the ground up in this tutorial using React, Fastify, and PostgreSQL! "
 image: blog/react-fastify-postgres/social.jpg
 type: conversion
+github: https://github.com/oktadev/okta-react-fastify-postgresql-example
 ---
 
 In this tutorial, we'll set up an app to help us keep track of what NASA facilities we've visited and which ones we still want to visit.
