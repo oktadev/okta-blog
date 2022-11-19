@@ -118,7 +118,7 @@ POSTGRES_DB=nasa-facilities
 
 3. To use the Docker configuration we created, run `docker compose up`.
 
-4. There is a provided PostgrSQL data dump `./nasa-facilities_20200910.sql` in the example repo. You can import it by running the following from the project root directory:
+4. There is a provided PostgrSQL data dump `./nasa-facilities_20200910.sql` [in the example repo](https://github.com/oktadev/okta-react-fastify-postgresql-example/blob/main/nasa-facilities_20200910.sql). You can import it by running the following from the project root directory:
 ```bash
 docker exec -i nasa-facilities psql -U postgres nasa-facilities < ./nasa-facilities_20200910.sql
 ```
@@ -934,6 +934,6 @@ The same process repeats when a user clicks on the `Visited` checkbox or `Delete
 
 **[Use Redux to Manage Authenticated State in a React App](/blog/2022/08/29/react-typescript-redux)**
 
-** [A Developer's Guide to Session Management in React](/blog/2021/06/16/session-mgmt-react)**
+**[A Developer's Guide to Session Management in React](/blog/2021/06/16/session-mgmt-react)**
 
 Be sure you follow us on [Twitter](https://twitter.com/oktadev) and subscribe to our [YouTube](https://www.youtube.com/c/oktadev) channel. Please comment below if you have any questions or want to share what tutorial you’d like to see next.
