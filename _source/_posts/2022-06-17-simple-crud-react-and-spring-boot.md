@@ -35,6 +35,7 @@ Why am I telling you this? Because I thought it'd be fun to create a "JUG Tours"
 
 To begin, navigate to [start.spring.io](https://start.spring.io) and make the following selections:
 
+* **Project:** `Maven Project`
 * **Group:** `com.okta.developer`
 * **Artifact:** `jugtours`
 * **Dependencies**: `JPA`, `H2`, `Web`, `Lombok`
