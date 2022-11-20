@@ -936,4 +936,4 @@ The same process repeats when a user clicks on the `Visited` checkbox or `Delete
 
 **[A Developer's Guide to Session Management in React](/blog/2021/06/16/session-mgmt-react)**
 
-Be sure you follow us on [Twitter](https://twitter.com/oktadev) and subscribe to our [YouTube](https://www.youtube.com/c/oktadev) channel. Please comment below if you have any questions or want to share what tutorial you’d like to see next.
+Be sure you follow us on [Twitter](https://twitter.com/oktadev) and subscribe to our [YouTube](https://www.youtube.com/c/oktadev) channel. Please comment below if you have any questions or want to share what tutorial you'd like to see next.
