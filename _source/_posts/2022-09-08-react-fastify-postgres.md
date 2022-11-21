@@ -301,7 +301,7 @@ fastify.register(facilitiesRoutes);
 **NOTE:** Don't forget to also import the `facilitiesRoutes` after adding the above line.
 
 {:start="9"}
-9. Then we'll create a `utils/jwt-verifier.ts` file that will include logic to verify the Okta ID tokens included in API calls from the frontend:
+9. Then we'll create a `utils/jwt-verifier.ts` file that will include logic to verify the Access token included in API calls from the frontend:
 
 ```ts
 import OktaJwtVerifier from "@okta/jwt-verifier";
@@ -368,7 +368,7 @@ fastify.addHook("preHandler", async (request, reply, done) => {
 });
 ```
 
-**NOTE:** An import will also need to be added for ```jwtVerifier`.
+**NOTE:** An import will also need to be added for `jwtVerifier`.
 
 Your final `packages/api/index.ts` file should look like this:
 ```ts
@@ -482,7 +482,6 @@ export function Login() {
 ```tsx
 import { useOktaAuth } from "@okta/okta-react";
 import { useEffect, useState } from "react";
-import { getErrorMessage } from "../utils/get-error-message";
 
 interface IFacility {
   Center: string;
@@ -896,7 +895,7 @@ In `packages/frontend/facilities.tsx`:
   }, [authState]);
 ```
 
-The backend has verified the ID token using the `jwtVerifier` utility we created.
+The backend verified the Access token using the `jwtVerifier` utility we created.
 
 The backend connects to our PostgreSQL instance and has used the query we specified to fetch the needed data at the `/facilities` route.
 
