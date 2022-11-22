@@ -1163,6 +1163,7 @@ public class SecurityConfiguration {
                 .oauth2ResourceServer().jwt();
         return http.build();
     }
+    
     @Value("${auth0.audience}")
     private String audience;
 
