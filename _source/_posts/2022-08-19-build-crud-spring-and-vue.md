@@ -1134,7 +1134,7 @@ class AudienceValidator implements OAuth2TokenValidator<Jwt> {
 }
 ```
 
-You need to add a JWT validator bean to the security configuration class. This uses the AudienceValidator class you added above to validate JWTs. Update the SecurityConfiguration class to the following.
+You need to add a JWT validator bean to the security configuration class. This uses the `AudienceValidator` class you added above to validate JWTs. Update the `SecurityConfiguration` class to the following.
 
 `src/main/java/com/example/demo/SecurityConfiguration.java`
 
