@@ -455,7 +455,7 @@ In the `nginx-default.conf.template`, add a couple of new `location` sections to
 <.> Only allow POST requests to the sign-out endpoint.
 ====
 
-NOTE: The sign-out endpoint does not use a CSRF token. TODO: link to Alisa's post on this topic.
+NOTE: This sign-out endpoint does not use a CSRF token. You can read more about why CSRF is important in this post: link:/blog/2022/07/19/angular-security-csrf[Protect Your Angular App From Cross-Site Request Forgery].
 
 One last change, update the `location /` section to redirect to the sign-in page for all non-API clients:
 
