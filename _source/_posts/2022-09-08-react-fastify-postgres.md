@@ -4,7 +4,7 @@ title: "How to Build a Secure React and Fastify API App"
 author: gabi-dombrowski
 by: contractor
 communities: [javascript]
-description: "This tutorial demonstrates how to create a complete web application project with security built in from the ground up. You'll create a React frontend and Fastify API backend using TypeScript, use Docker to run PostgreSQL, add authentication to secure the frontend and API, and manage the project in a Lerna monorepo. "
+description: "In this tutorial, you'll create a complete web application with security built in from the ground up. The project features a React frontend and a Fastify API backend, managed in a Lerna monorepo. "
 tags: [react, typescript, fastify, authentication, javascript]
 tweets:
 - "Create a complete web application project with security built in from the ground up in this tutorial using React, Fastify, and PostgreSQL! "
@@ -13,9 +13,9 @@ type: conversion
 github: https://github.com/oktadev/okta-react-fastify-postgresql-example
 ---
 
-In this tutorial, we'll set up an app to help us keep track of what NASA facilities we've visited and which ones we still want to visit.
+The National Aeronautics and Space Administration (NASA) is an independent agency of the US federal government, responsible for space exploration and research, with field facilities across the United States. In this tutorial, we'll set up an app to keep track of what NASA facilities we've visited and which ones we still want to check out. 
 
-Our app will be a monorepo with Okta authentication using React for the frontend and Fastify for the backend. [Fastify](https://www.fastify.io/) is a highly performant web framework with low overhead that we'll connect to a PostgreSQL database. We'll also use [Lerna](https://lerna.js.org/) to manage the frontend and backend apps in a monorepo.
+Our app will be a [monorepo](https://en.wikipedia.org/wiki/Monorepo) with Okta authentication, using React for the frontend and Fastify for the backend. [Fastify](https://www.fastify.io/) is a highly performant web framework with low overhead that we'll connect to a PostgreSQL database. We'll also use [Lerna](https://lerna.js.org/) to manage the frontend and backend apps in a monorepo.
 
 **Prerequisites**
 
@@ -54,7 +54,7 @@ mkdir frontend api
 
 **NOTE:** The team behind [Nx](https://nx.dev/) now manages Lerna, so if you'd like to integrate Nx's additional robust, scalable, and faster tooling for managing monorepos, check out their documentation on [integrating Nx and Lerna](https://nx.dev/recipes/adopting-nx/lerna-and-nx).
 
-## Add needed Fastify backend and React frontend dependencies with Typescript
+## Add needed Fastify backend and React frontend dependencies with TypeScript
 
 1. In `packages/api`, run:
 ```bash
@@ -69,13 +69,13 @@ npx lerna add @okta/jwt-verifier@2.6.0 packages/api
 npx lerna add pg@8.8.0 packages/api
 ```
 
-3. Add Typescript and needed types to the backend repository:
+3. Add TypeScript and needed types to the backend repository:
 ```bash
 npx lerna add @types/pg@8.6.5 packages/api --dev
 npx lerna add typescript@4.8.3 packages/api --dev
 ```
 
-4. Next, let's create a basic React application using [Create React App](https://github.com/facebook/create-react-app). We'll use the template for Typescript with it as well. In the created `packages/frontend` directory, run:
+4. Next, let's create a basic React application using [Create React App](https://github.com/facebook/create-react-app). We'll use the template for TypeScript with it as well. In the created `packages/frontend` directory, run:
 ```bash
 npx create-react-app . --template typescript
 ```
@@ -90,7 +90,7 @@ npx lerna add @okta/okta-react@6.7.0 packages/frontend
 
 **NOTE:** Our demo repository uses React `^18.2.0` and React Scripts `5.0.1`.
 
-## Setup the PostgreSQL Docker instance
+## Set up the PostgreSQL Docker instance
 
 1. In your project's root directory, create a file `docker-compose.yml`:
 {% raw %}
@@ -123,7 +123,7 @@ POSTGRES_DB=nasa-facilities
 docker exec -i nasa-facilities psql -U postgres nasa-facilities < ./nasa-facilities_20200910.sql
 ```
 
-Your Docker instance is now created and running a PostgreSQL database with the restored data.
+Your newly created Docker instance is now running a PostgreSQL database with the restored data.
 
 **NOTE:** The PostgreSQL dump included in the demo repo uses data from [https://www.kaggle.com/datasets/nasa/nasa-facilities](https://www.kaggle.com/datasets/nasa/nasa-facilities).
 
@@ -131,7 +131,7 @@ Your Docker instance is now created and running a PostgreSQL database with the r
 
 1. In the command line, go to your backend repository root directory at `packages/api`.
 
-2. Update `package.json` by adding the following to allow the backend application to compile using Typescript:
+2. Update `package.json` by adding the following to allow the backend application to compile using TypeScript:
 ```json
 {
   "main": "build/index.js",
@@ -301,7 +301,7 @@ fastify.register(facilitiesRoutes);
 **NOTE:** Don't forget to also import the `facilitiesRoutes` after adding the above line.
 
 {:start="9"}
-9. Then we'll create a `utils/jwt-verifier.ts` file that will include logic to verify the Access token included in API calls from the frontend:
+9. Then we'll create a `utils/jwt-verifier.ts` file that will include logic to verify the access token included in API calls from the frontend:
 
 ```ts
 import OktaJwtVerifier from "@okta/jwt-verifier";
@@ -867,11 +867,11 @@ You can start the demo app by running `npx lerna run start`.
 
 {% img blog/react-fastify-postgres/login-screen.jpg alt:"Screenshot of login window" width:"600" %}{: .center-image }
 
-If we're not authenticated, our app will land us at the login page. Here, we click login to go through the Okta login process. Once authenticated, we're redirected to `/facilities`. If we land on the root URL and are already authenticated, our app will automatically navigate us to `/facilities`. Once our table loads, we'll see the following:
+If we're not authenticated, our app will land us at the login page. Here, we click login to go through the Okta login process. Once authenticated, we're redirected to `/facilities`. If we're already authenticated when we land on the root URL, our app will automatically navigate us to `/facilities`. Once our table loads, we'll see the following:
 
 {% img blog/react-fastify-postgres/nasa-facilities-table.jpg alt:"Screenshot of table with nasa facilities data" width:"600" %}{: .center-image }
 
-To render the facilities table, our app has made a call to our API which includes the Access token to fetch the data from the backend `/facilities` API endpoint.
+To render the facilities table, our app has made a call to our API which includes the access token to fetch the data from the backend `/facilities` API endpoint.
 
 In `packages/frontend/facilities.tsx`:
 ```tsx
@@ -895,7 +895,7 @@ In `packages/frontend/facilities.tsx`:
   }, [authState]);
 ```
 
-The backend verified the Access token using the `jwtVerifier` utility we created.
+The backend verified the access token using the `jwtVerifier` utility we created.
 
 The backend connects to our PostgreSQL instance and has used the query we specified to fetch the needed data at the `/facilities` route.
 
