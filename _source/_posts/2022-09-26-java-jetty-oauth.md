@@ -810,7 +810,7 @@ Pear Lake
 
 You can also use Auth0 to secure the Spring Boot application. Look at the project in the `spring-boot-jetty-maven-auth0` subdirectory.
 
-Auth0 requires removing the `okta-spring-boot-starter` dependency and the addition of the `spring-boot-starter-oauth2-resource-server` (which was added by the Okta Spring Boot Starter). Currently, the Okta Spring Boot Starter does not work with Auth0. There is an [issue to fix this.](https://github.com/okta/okta-spring-boot/issues/358).
+Auth0 requires removing the `okta-spring-boot-starter` dependency and the addition of the `spring-boot-starter-oauth2-resource-server` (which was added by the Okta Spring Boot Starter). Currently, the Okta Spring Boot Starter does not work with Auth0. There is a [request to fix this](https://github.com/okta/okta-spring-boot/issues/358).
 
 If you look at the `pom.xml`, you'll see the added dependency.
 
