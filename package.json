@@ -45,7 +45,7 @@
     "fs-extra": "^10.1.0",
     "pre-push": "0.1.4",
     "shelljs": "^0.8.5",
-    "recursive-readdir": "2.2.2",
+    "recursive-readdir": "2.2.3",
     "simple-git": "^3.15.1",
     "yargs": "^17.5.1",
     "sharp": "^0.31.1"
