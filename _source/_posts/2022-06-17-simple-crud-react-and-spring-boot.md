@@ -13,6 +13,7 @@ image: blog/featured/okta-react-bottle-headphones.jpg
 type: conversion
 github: https://github.com/oktadev/okta-spring-boot-react-crud-example
 changelog:
+- 2022-11-04: Updated to use H2 version 2 and Spring Boot 2.7.5. You can find the changes to this post in [okta-blog#1301](https://github.com/oktadev/okta-blog/pull/1301) and the example app's changes in [okta-spring-boot-react-crud-example#50](https://github.com/oktadev/okta-spring-boot-react-crud-example/pull/50).
 - 2022-09-16: Updated to Spring Boot 2.7.3, React 18.0.2, and added a section for Auth0. You can find the changes to this article in [okta-blog#1271](https://github.com/oktadev/okta-blog/pull/1271). What's required to switch to Auth0 can be viewed in [the `auth0` branch](https://github.com/oktadev/okta-spring-boot-react-crud-example/compare/auth0).
 ---
 
@@ -34,6 +35,7 @@ Why am I telling you this? Because I thought it'd be fun to create a "JUG Tours"
 
 To begin, navigate to [start.spring.io](https://start.spring.io) and make the following selections:
 
+* **Project:** `Maven Project`
 * **Group:** `com.okta.developer`
 * **Artifact:** `jugtours`
 * **Dependencies**: `JPA`, `H2`, `Web`, `Lombok`
@@ -132,11 +134,13 @@ import lombok.NoArgsConstructor;
 
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.Table;
 
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
+@Table(name = "users")
 public class User {
 
     @Id
@@ -206,20 +210,7 @@ class Initializer implements CommandLineRunner {
 
 **TIP:** If your IDE has issues with `Event.builder()`, you need to turn on annotation processing and/or install the Lombok plugin. I had to uninstall/reinstall the Lombok plugin in IntelliJ IDEA to get things to work.
 
-If you start your app (using `./mvnw spring-boot:run`) ...
-
-... it will fail because Spring Boot 2.7 forces H2 v2.0. The H2 2.0 ecosystem doesn't seem like it's quite ready for prime time, so I recommend you downgrade to H2 version `1.4.200` in your `pom.xml`.
-
-```xml
-<dependency>
-  <groupId>com.h2database</groupId>
-  <artifactId>h2</artifactId>
-  <scope>runtime</scope>
-  <version>1.4.200</version>
-</dependency>
-```
-
-Then, `mvn spring-boot:run` should result in something like:
+If you start your app (using `./mvnw spring-boot:run`) it should result in something like:
 
 ```
 Group(id=1, name=Seattle JUG, address=null, city=null, stateOrProvince=null, country=null, postalCode=null, user=null, 
@@ -756,7 +747,7 @@ Are you sold? [Register for a forever-free developer account](https://developer.
 <dependency>
     <groupId>com.okta.spring</groupId>
     <artifactId>okta-spring-boot-starter</artifactId>
-    <version>2.1.5</version>
+    <version>2.1.6</version>
 </dependency>
 ```
 
@@ -799,9 +790,9 @@ Modify your `src/main/resources/application.properties` to include your Auth0 is
 
 ```properties
 # make sure to include the trailing slash for the Auth0 issuer
-spring.security.oauth2.client.provider.auth0.issuer-uri: https://<your-auth0-domain>/
-spring.security.oauth2.client.registration.auth0.client-id: <your-client-id>
-spring.security.oauth2.client.registration.auth0.client-secret: <your-client-secret>
+spring.security.oauth2.client.provider.auth0.issuer-uri=https://<your-auth0-domain>/
+spring.security.oauth2.client.registration.auth0.client-id=<your-client-id>
+spring.security.oauth2.client.registration.auth0.client-secret=<your-client-secret>
 spring.security.oauth2.client.registration.auth0.scope=openid,profile,email
 ```
 

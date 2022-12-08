@@ -29,7 +29,7 @@ To show you how easy it is, I https://youtu.be/aMmTcLnoZzc[created a screencast 
 <iframe width="700" height="394" style="max-width: 100%" src="https://www.youtube.com/embed/aMmTcLnoZzc" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 </div>
 ++++
-IMPORTANT: To create the same app as the one shown in this video, you'll need to run `okta apps angular --branch widget`.
+IMPORTANT: To create the same app as the one shown in this video, you'll need to run `okta start angular --branch widget`.
 
 For those that would rather read than watch—this is for you.
 
