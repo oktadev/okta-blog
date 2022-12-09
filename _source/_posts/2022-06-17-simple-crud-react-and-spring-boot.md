@@ -630,7 +630,7 @@ const GroupEdit = () => {
   const handleSubmit = async (event) => {
     event.preventDefault();
 
-    await fetch('/api/group' + (group.id ? '/' + group.id : ''), {
+    await fetch(`/api/group${group.id ? `/${group.id}` : ''}`, {
       method: (group.id) ? 'PUT' : 'POST',
       headers: {
         'Accept': 'application/json',
@@ -1116,7 +1116,7 @@ const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
     <CookiesProvider>
-      <App />
+      <App/>
     </CookiesProvider>
   </React.StrictMode>
 );
