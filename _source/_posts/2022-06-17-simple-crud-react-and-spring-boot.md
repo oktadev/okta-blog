@@ -13,7 +13,7 @@ image: blog/featured/okta-react-bottle-headphones.jpg
 type: conversion
 github: https://github.com/oktadev/okta-spring-boot-react-crud-example
 changelog:
-- 2022-12-09: Updated to use Spring Boot 3 and Spring Security 6. You can find the changes to this post in [okta-blog#1303](https://github.com/oktadev/okta-blog/pull/1303) and the example app's changes in [okta-spring-boot-react-crud-example#54](https://github.com/oktadev/okta-spring-boot-react-crud-example/pull/54).
+- 2022-12-09: Updated to use Spring Boot 3 and Spring Security 6. You can find the changes to this post in [okta-blog#1319](https://github.com/oktadev/okta-blog/pull/1319) and the example app's changes in [okta-spring-boot-react-crud-example#54](https://github.com/oktadev/okta-spring-boot-react-crud-example/pull/54).
 - 2022-11-04: Updated to use H2 version 2 and Spring Boot 2.7.5. You can find the changes to this post in [okta-blog#1301](https://github.com/oktadev/okta-blog/pull/1301) and the example app's changes in [okta-spring-boot-react-crud-example#50](https://github.com/oktadev/okta-spring-boot-react-crud-example/pull/50).
 - 2022-09-16: Updated to Spring Boot 2.7.3, React 18.0.2, and added a section for Auth0. You can find the changes to this article in [okta-blog#1271](https://github.com/oktadev/okta-blog/pull/1271). What's required to switch to Auth0 can be viewed in [the `auth0` branch](https://github.com/oktadev/okta-spring-boot-react-crud-example/compare/auth0).
 ---
@@ -858,7 +858,6 @@ public class SecurityConfiguration {
             )
             .csrf((csrf) -> csrf
                 .csrfTokenRepository(CookieCsrfTokenRepository.withHttpOnlyFalse())
-                // https://stackoverflow.com/a/74521360/65681
                 .csrfTokenRequestHandler(new CsrfTokenRequestAttributeHandler())
             )
             .addFilterAfter(new CookieCsrfFilter(), BasicAuthenticationFilter.class)
@@ -884,15 +883,15 @@ public class SecurityConfiguration {
 }
 ```
 
-This class has a lot going on, so let me explain a few things. In previous versions of Spring Security, there was an `authorizeRequests()` lambda you could use to secure paths. It still exists, but it's deprecated in Spring Security 6. It's permissive by default, with means any paths you don't specify will be allowed. The recommended way, shown here with `authorizeHttpRequests()` denies by default, so you have to specify the resources you want to allow Spring Security to serve up, as well as the ones that the React app has. 
+This class has a lot going on, so let me explain a few things. In previous versions of Spring Security, there was an `authorizeRequests()` lambda you could use to secure paths. It still exists, but it's deprecated in Spring Security 6. It's permissive by default, with means any paths you don't specify will be allowed. The recommended way, shown here with `authorizeHttpRequests()` denies by default. This means you have to specify the resources you want to allow Spring Security to serve up, as well as the ones that the React app has. 
 
-The `requestMatchers` line defines what URLs are allowed for anonymous users. You will soon configure things so your React app is served up by your Spring Boot app, hence the reason for allowing web files, "/" and "/index.html". You might also notice an exposed `/api/user` path.
+The `requestMatchers` lines defines what URLs are allowed for anonymous users. You will soon configure things so your React app is served up by your Spring Boot app, hence the reason for allowing "/", "/index.html", and web files. You might also notice an exposed `/api/user` path.
 
 The `RequestCache` bean overrides the default request cache. It saves the referrer header (misspelled `referer` in real life), so Spring Security can redirect back to it after authentication. The referrer-based request cache comes in handy when you're developing React on `http://localhost:3000` and want to be redirected back there after logging in.
 
 Configuring CSRF (cross-site request forgery) protection with `CookieCsrfTokenRepository.withHttpOnlyFalse()` means that the `XSRF-TOKEN` cookie won't be marked HTTP-only, so React can read it and send it back when it tries to manipulate data. The `CsrfTokenRequestAttributeHandler` is no longer the default, so you have to configure it as the request handler. You can read [this Stack Overflow answer](https://stackoverflow.com/a/74521360/65681) to learn more. Basically, since we're not sending the CSRF token to an HTML page, so we don't have to worry about BREACH attacks. This means we can revert to the previous default from Spring Security 5.
 
-You'll need to create `CookieCsrfFilter.java` because Spring Security 6 no longer sets the cookie for you. Create it in the `web` package.
+You'll need to create the `CookieCsrfFilter` class that's added because Spring Security 6 no longer sets the cookie for you. Create it in the `web` package.
 
 ```java
 package com.okta.developer.jugtours.web;
