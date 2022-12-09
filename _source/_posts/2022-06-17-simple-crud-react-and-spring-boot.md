@@ -883,7 +883,7 @@ public class SecurityConfiguration {
 }
 ```
 
-This class has a lot going on, so let me explain a few things. In previous versions of Spring Security, there was an `authorizeRequests()` lambda you could use to secure paths. It still exists, but it's deprecated in Spring Security 6. It's permissive by default, with means any paths you don't specify will be allowed. The recommended way, shown here with `authorizeHttpRequests()` denies by default. This means you have to specify the resources you want to allow Spring Security to serve up, as well as the ones that the React app has. 
+This class has a lot going on, so let me explain a few things. In previous versions of Spring Security, there was an `authorizeRequests()` lambda you could use to secure paths. It still exists, but it's deprecated in Spring Security 6. It's permissive by default, which means any paths you don't specify will be allowed. The recommended way, shown here with `authorizeHttpRequests()` denies by default. This means you have to specify the resources you want to allow Spring Security to serve up, as well as the ones that the React app has. 
 
 The `requestMatchers` lines defines what URLs are allowed for anonymous users. You will soon configure things so your React app is served up by your Spring Boot app, hence the reason for allowing "/", "/index.html", and web files. You might also notice an exposed `/api/user` path.
 
