@@ -25,6 +25,8 @@ At the end of March, I journeyed to Devoxx France, and [had a great time speakin
 
 I had so many things I wanted to do and blog about that I wrote down a **Six-Week Plan**. I've done a six-week plan ever since, and it's significantly contributed to my productivity at Okta. I've learned quite a few things along the way, so I thought I'd share them with you today.
 
+{% include toc.md %}
+
 ## Create a Six-Week Productivity Plan
 
 I create a six-week plan in the Notes app on my Mac because it's easy to edit on my laptop or my phone. Google Docs will likely work just as well. I write down Monday's date, followed by a list of 2-5 items I'd like to accomplish that week. Here are the first two weeks of my initial plan:
