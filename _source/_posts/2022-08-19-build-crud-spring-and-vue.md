@@ -1275,7 +1275,7 @@ And test the protected endpoint using the token.
 http :9000/todos "Authorization: Bearer $TOKEN"
 ```
 
-## Update Vue client to use Auth0
+## Update the Vue client to use Auth0
 
 Auth0 has [helpful docs](https://auth0.com/docs/quickstart/spa/vuejs/01-login) for integrating with Vue. The first step is to create an OpenID Connect (OIDC) application on the Auth0 servers using their CLI. Open a Bash shell from the `client` project directory.
 
