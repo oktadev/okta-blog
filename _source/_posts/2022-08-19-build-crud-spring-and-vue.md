@@ -1357,7 +1357,7 @@ const app = createApp(App)
   })
 );
 
-// passing auth0 to the api (to get JWT), which is set as a global property
+// pass auth0 to the api (to get a JWT), which is set as a global property
 app.config.globalProperties.$api = createApi(app.config.globalProperties.$auth0)
 
 app.mount('#app')
