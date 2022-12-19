@@ -1226,7 +1226,7 @@ Todo(id=5, title=Go kayaking, completed=true)
 > :bootRun
 ```
 
-Open a second Bash shell in the same directory. Create a test Auth0 API. The Auth0 API is what exposes identity functionality for all authentication and authorization protocols, such as OpenID Connect and OAuth.
+Open a second terminal window in the same directory. Create a test Auth0 API. The Auth0 API is what exposes identity functionality for all authentication and authorization protocols, such as OpenID Connect and OAuth.
 
 ```bash
 auth0 apis create -n myapi --identifier http://my-api
