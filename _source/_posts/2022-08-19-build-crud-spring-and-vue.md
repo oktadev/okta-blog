@@ -1540,7 +1540,7 @@ const router = createRouter({
 export default router
 ```
 
-The usage of the Auth0 SDK is pretty similar to the Okta Vue SDK. If you have any questions, [take a look at their GitHub repository](https://github.com/auth0/auth0-vue).
+The usage of the Auth0 SDK is pretty similar to the Okta Vue SDK. If you have any questions, [take a look at the auth0-vue GitHub repository](https://github.com/auth0/auth0-vue).
 
 Make sure your Spring Boot API is still running. Run the client.
 
