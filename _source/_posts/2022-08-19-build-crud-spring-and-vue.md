@@ -1108,6 +1108,7 @@ dependencies {
 
 Create an `AudienceValidator` class. This will validate JWTs very simply by checking to make sure the audience matches what is loaded from the application properties and passed into the constructor.
 `src/main/java/com/example/demo/AudienceValidator.java`
+
 ```java
 package com.example.demo;
 
