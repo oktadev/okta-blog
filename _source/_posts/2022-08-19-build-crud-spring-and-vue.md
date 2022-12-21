@@ -60,7 +60,7 @@ Plus, when you're ready, you have all the power of Spring under the hood, just w
 
 Before you start, please make sure you have the following prerequisites installed (or install them now).
 
-- [Java 11](https://adoptium.net/): or use [SDKMAN!](https://sdkman.io/) to manage and install multiple versions
+- [Java 17](https://adoptium.net/): or use [SDKMAN!](https://sdkman.io/) to manage and install multiple versions
 - [Okta CLI](https://cli.okta.com/manual/#installation): the Okta command-line interface
 - [HTTPie](https://httpie.org/doc#installation): a simple tool for making HTTP requests from a Bash shell
 - [Node 16+](https://nodejs.org)
@@ -91,8 +91,8 @@ The following command will download the starter project and un-tar it to a new d
 
 ```bash
 curl https://start.spring.io/starter.tgz \
-  -d bootVersion=2.7.3 \
-  -d javaVersion=11 \
+  -d bootVersion=3.0.0 \
+  -d javaVersion=17 \
   -d dependencies=web,data-rest,lombok,data-jpa,h2,okta \
   -d type=gradle-project \
   -d baseDir=resource-server \
@@ -246,9 +246,9 @@ package com.example.demo;
 
 import lombok.*;
 
-import javax.persistence.Id;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Entity;
+import jakarta.persistence.Id;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.Entity;
 
 @Entity
 @Data
@@ -390,16 +390,19 @@ The resource server is finished. The next step is to create the Vue client.
 
 ## Create a Vue JavaScript client
 
-Use the Vue CLI to create a new application from the project's root directory and navigate into the newly created `client` directory. Install the Vue CLI if you don't have it installed with `npm i -g @vue/cli`.
+Use the Vue CLI to create a new application **from the project's root directory** and navigate into the newly created `client` directory. Install the Vue CLI if you don't have it installed with `npm i -g @vue/cli`.
 
 ```bash
 vue create client
+```
+
+Pick **Default ([Vue 3] babel, eslint)** when prompted. Wait for it to finish. 
+
+```bash
 cd client
 ```
 
-Pick **Default ([Vue 3] babel, eslint)** when prompted.
-
-Wait for it to finish. Add the Quasar framework.
+Add the Quasar framework.
 
 ```bash
 vue add quasar
@@ -1251,6 +1254,7 @@ Just press enter three times to accept the default values for scopes, token life
   TOKEN LIFETIME        86400                     
   ALLOW OFFLINE ACCESS  ✗      
 ```
+
 Use Auth0 CLI to create a token.  **Don't forget to set the audience!**
 
 ```bash
@@ -1312,7 +1316,7 @@ VUE_APP_SERVER_URI=http://localhost:9000
 
 Notice that the audience is the same as the audience used to create the test token, which is the Auth0 API.
 
-Install the [Auth0 Vue SDK](https://github.com/auth0/auth0-vue).
+Install the [Auth0 Vue SDK](https://github.com/auth0/auth0-vue). Make sure you're in the `client` directory.
 
 ```bash
 npm install @auth0/auth0-vue
