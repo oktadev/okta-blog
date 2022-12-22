@@ -1202,7 +1202,7 @@ Waiting for the login to complete in the browser... done
  ▸    Tenant: dev-0xb84jzp.us.auth0.com
 ```
 
-Take note of the domain listed as the tenet. This is your Auth0 domain. If you need to find it again later, you can use `auth0 tenants list`.
+Take note of the domain listed as the tenant. This is your Auth0 domain. If you need to find it again later, you can use `auth0 tenants list`.
 
 Update`src/main/resources/application.properties`. Fill in your actual Auth0 domain.
 
