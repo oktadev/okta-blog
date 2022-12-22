@@ -17,7 +17,7 @@ changelog:
 - 2022-08-19: Updated post to use Auth0. Rewrote post to use Quasar for the view. Updated Spring Boot to 3.0.0.
 ---
 
-You will use Vue and Spring Boot to build a todo list web application. The application will include CRUD abilities, meaning that you can **c**reate, **r**ead, **u**pdate, and **d**elete the todo items on the Spring Boot API via the client. The Vue frontend client will use the Quasar framework for the presentation. OAuth 2.0 and OpenID Connect (OIDC) will secure the Spring Boot API and the Vue client using, initially, Okta as the security provider. You will also see how to use Auth0 as the security provider at the end of the tutorial.
+You will use Vue and Spring Boot to build a todo list web application. The application will include CRUD abilities, meaning that you can **c**reate, **r**ead, **u**pdate, and **d**elete the todo items on the Spring Boot API via the client. The Vue frontend client will use the Quasar framework for the presentation. OAuth 2.0 and OpenID Connect (OIDC) will secure the Spring Boot API and the Vue client, initially by using Okta as the security provider. Then, at the end of the tutorial, you will also see how to use Auth0 as the security provider.
 
 {% img blog/spring-boot-vue3/spring-and-vue.png alt:"Spring Boot, Vue, and Okta logos" width:"500" %}{: .center-image }
 
