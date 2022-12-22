@@ -1238,7 +1238,7 @@ Open a second terminal window in the same directory. Create a test Auth0 API. Th
 auth0 apis create -n myapi --identifier http://my-api
 ```
 
-Just press enter three times to accept the default values for scopes, token lifetime, and allow offline access. The scopes here refers to custom scopes, not the standard scopes (email, profile, and openid) that you will need for OIDC and OAuth.
+Just press enter three times to accept the default values for scopes, token lifetime, and allow offline access. The scopes here refer to custom scopes, not the standard scopes (email, profile, and openid) that you will need for OIDC and OAuth.
 
 ```bash
  Scopes: 
@@ -1563,7 +1563,7 @@ After that, you will be redirected back to the todo app.
 
 ## Do more with Spring Boot, Vue, and Okta
 
-You built a Spring Boot resource server backend and a Vue frontend in this tutorial. The Vue client used the latest Vue 3 version with the Quasar framework. The app included full CRUD (create, read, update, and delete) capabilities. It was all secured using Okta.
+You built a Spring Boot resource server backend and a Vue frontend in this tutorial. The Vue client used the latest Vue 3 version with the Quasar framework. The app included full CRUD (create, read, update, and delete) capabilities. It was all secured first using Okta, and then, a second time, via Auth0.
 
 You can find the source code for this example on GitHub in the [@oktadev/okta-spring-boot-vue-crud-example](https://github.com/oktadev/okta-spring-boot-vue-crud-example) repository.
 
