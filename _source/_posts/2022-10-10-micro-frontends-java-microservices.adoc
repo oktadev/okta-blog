@@ -25,6 +25,12 @@ _To be fair, MicroProfile isn't a framework; it's a spec with many implementatio
 
 Today, I'll show you how to build a Java microservices architecture that leverages micro frontends for the UI. The backend will use Spring Boot and Spring Cloud, while the frontend will use React. You can also use Angular or Vue if you'd like.
 
+This tutorial is also available https://youtu.be/haTQ1xJKQQ8[as a screencast].
+
+++++
+{% youtube haTQ1xJKQQ8 %}
+++++
+
 **Prerequisites:**
 
 - https://sdkman.io/[Java] 11+
