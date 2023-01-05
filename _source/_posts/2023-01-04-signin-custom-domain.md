@@ -16,9 +16,9 @@ Creating secure applications requires authentication. Delegating all the tedious
 
 But the default sign-in page can look too different from the personality you have in your application. And the login URL redirects to a domain outside your application, which is also different from what we want. Fortunately, you can add some flair to your Okta-hosted sign-in page, allowing your application's character to carry through in the user authentication process while maintaining the highest level of security. In other words, winning with the best of both worlds.
 
-![Giphy of Awkafina holding a trophy with confetti falling around her](https://media.giphy.com/media/26u4cqiYI30juCOGY/giphy.gif)
+![Giphy of Awkafina holding a trophy with confetti falling around her](https://media.giphy.com/media/26u4cqiYI30juCOGY/giphy.gif){: .center-image }
 
-This post walks you through how to customize your sign-in page using a custom domain and by selecting fun styles using Okta-hosted redirect model. We'll use a pre-existing e-commerce cupcake site built using an Angular Micro frontend application and customize the sign-in page to be full of mouth-watering cupcakes.
+This post walks you through how to customize your sign-in page using a custom domain and by selecting fun styles using Okta-hosted redirect model. We'll use a pre-existing e-commerce cupcake site built using an Angular Micro frontend application and customize the sign-in page to be full of mouth-watering cupcakes. 😋
 
 > **Note**
 The process outlined in this post is not Angular-dependent, so feel free to substitute the web app with your favorite SPA application.
