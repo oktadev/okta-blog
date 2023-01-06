@@ -111,6 +111,8 @@ This command opens three tabs in your browser. Find the one running at port 4200
 
 {% img blog/signin-custom-domain/themed-sign-in.gif alt:"Animated gif of sign-in from a cupcake site" width:"800" %}{: .center-image }
 
+If you want to read about creating an Angular Micro frontend and sharing Okta authentication state across your micro frontend applications, check out the two post series starting with [How to Build Micro Frontends Using Module Federation in Angular](/blog/2022/05/17/angular-microfrontend-auth).
+
 ## Learn more about styling the sign-in page and creating web apps quickly
 
 If you liked this post, you might be interested in these links.
