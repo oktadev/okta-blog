@@ -1087,18 +1087,18 @@ Update the `implementation` dependencies in `build.gradle`.
 
 ```gradle
 dependencies {
-	implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
-	implementation 'org.springframework.boot:spring-boot-starter-data-rest'
-	implementation 'org.springframework.boot:spring-boot-starter-web'
-	implementation 'org.springframework.security:spring-security-oauth2-resource-server'
-	implementation 'org.springframework.boot:spring-boot-starter-security'
-	implementation 'org.springframework.security:spring-security-config'
-	implementation 'org.springframework.security:spring-security-oauth2-jose'
+    implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
+    implementation 'org.springframework.boot:spring-boot-starter-data-rest'
+    implementation 'org.springframework.boot:spring-boot-starter-web'
+    implementation 'org.springframework.security:spring-security-oauth2-resource-server'
+    implementation 'org.springframework.boot:spring-boot-starter-security'
+    implementation 'org.springframework.security:spring-security-config'
+    implementation 'org.springframework.security:spring-security-oauth2-jose'
 
-	compileOnly 'org.projectlombok:lombok'
-	runtimeOnly 'com.h2database:h2'
-	annotationProcessor 'org.projectlombok:lombok'
-	testImplementation 'org.springframework.boot:spring-boot-starter-test'
+    compileOnly 'org.projectlombok:lombok'
+    runtimeOnly 'com.h2database:h2'
+    annotationProcessor 'org.projectlombok:lombok'
+    testImplementation 'org.springframework.boot:spring-boot-starter-test'
 }
 ```
 
@@ -1135,7 +1135,7 @@ You need to add a JWT validator bean to the security configuration class. This u
 
 `src/main/java/com/example/demo/SecurityConfiguration.java`
 
-```Java
+```java
 package com.example.demo;
 
 import org.springframework.beans.factory.annotation.Value;
@@ -1382,7 +1382,7 @@ import axios from 'axios'
 const createApi = (auth) => {
 
   instance.interceptors.request.use(async function (config) {
-  	
+  
     const accessToken = await auth.getAccessTokenSilently(); // UPDATE ME 
     
     config.headers = {
@@ -1392,7 +1392,7 @@ const createApi = (auth) => {
   }, function (error) {
     return Promise.reject(error);
   });
-	
+
   ...
  
 }
