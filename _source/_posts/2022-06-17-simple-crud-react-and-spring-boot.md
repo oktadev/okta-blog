@@ -24,6 +24,12 @@ Developers like CRUD (create, read, update, and delete) apps because they show a
 
 Today, I'll show you how to create a basic CRUD app with Spring Boot and React. In this tutorial, I'll use the OAuth 2.0 Authorization Code flow and package the React app in the Spring Boot app for production. At the same time, I'll show you how to keep React's productive workflow for developing locally.
 
+This tutorial is also available [as a screencast](https://youtu.be/B5tcZoNyqGI).
+
+{% youtube B5tcZoNyqGI %}
+
+**Prerequisites:**
+
 You will need [Java 17](http://sdkman.io) and [Node 16](https://nodejs.org/) installed to complete this tutorial.
 
 {% include toc.md %}
