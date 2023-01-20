@@ -81,7 +81,9 @@ cd spring-boot-vue-crud
 
 {% include setup/cli.md type="spa" framework="Vue" loginRedirectUri="http://localhost:8080/callback" %}
 
-Copy the client ID and issuer URI somewhere safe. You'll need them for both the client and resource server applications.
+Copy the client ID and issuer URI somewhere safe. You'll need them for both the client and resource server applications. 
+
+**TIP**: You can also use Auth0 to [secure Spring Boot](#use-auth0-to-secure-the-api) and the [Vue client](#update-the-vue-client-to-use-auth0).
 
 ## Bootstrap a Spring Boot app using Spring Initializr
 
@@ -1321,7 +1323,7 @@ npm remove @okta/okta-vue
 
 Update `src/main.js` to the following. This configures and installs the Auth0 plugin for Vue.
 
-```vue
+```js
 import { createApp } from 'vue'
 import App from './App.vue'
 import {Quasar} from 'quasar'
