@@ -14,7 +14,7 @@ image: blog/spring-boot-vue3/spring-boot-vue.jpg
 type: conversion
 github: https://github.com/oktadev/okta-spring-boot-vue-crud-example
 changelog:
-- 2023-01-23: Updated post to use Auth0 and Spring Boot 3.0. You can find the changes to this post in [okta-blog#1284](https://github.com/oktadev/okta-blog/pull/1284). Example app changes can be found in [okta-spring-boot-vue-crud-example#6](https://github.com/oktadev/okta-spring-boot-vue-crud-example/pull/6) 
+- 2023-01-23: Updated post to add Auth0 and use Spring Boot 3.0. You can find the changes to this post in [okta-blog#1284](https://github.com/oktadev/okta-blog/pull/1284). Example app changes can be found in [okta-spring-boot-vue-crud-example#6](https://github.com/oktadev/okta-spring-boot-vue-crud-example/pull/6).
 ---
 
 You will use Vue and Spring Boot to build a todo list web application. The application will include CRUD abilities, meaning that you can **c**reate, **r**ead, **u**pdate, and **d**elete the todo items on the Spring Boot API via the client. The Vue frontend client will use the Quasar framework for the presentation. OAuth 2.0 and OpenID Connect (OIDC) will secure the Spring Boot API and the Vue client, initially by using Okta as the security provider. Then, at the end of the tutorial, you will also see how to use Auth0 as the security provider.
@@ -580,7 +580,7 @@ const instance = axios.create({
 const createApi = (auth) => {
 
   instance.interceptors.request.use(async function (config) {
-    let accessToken = auth.getAccessToken()
+    const accessToken = auth.getAccessToken()
     config.headers = {
       Authorization: `Bearer ${accessToken}`
     }
@@ -1140,25 +1140,23 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
-import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.oauth2.core.DelegatingOAuth2TokenValidator;
 import org.springframework.security.oauth2.core.OAuth2TokenValidator;
 import org.springframework.security.oauth2.jwt.*;
 import org.springframework.security.web.SecurityFilterChain;
 
-@EnableWebSecurity
 @Configuration
 public class SecurityConfiguration {
 
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         http.authorizeHttpRequests()
-                .anyRequest().authenticated()
-                .and()
-                .oauth2ResourceServer().jwt();
+            .anyRequest().authenticated()
+            .and()
+            .oauth2ResourceServer().jwt();
         return http.build();
     }
-    
+
     @Value("${auth0.audience}")
     private String audience;
 
@@ -1168,7 +1166,7 @@ public class SecurityConfiguration {
     @Bean
     JwtDecoder jwtDecoder() {
         NimbusJwtDecoder jwtDecoder = (NimbusJwtDecoder)
-                JwtDecoders.fromOidcIssuerLocation(issuer);
+            JwtDecoders.fromOidcIssuerLocation(issuer);
 
         OAuth2TokenValidator<Jwt> audienceValidator = new AudienceValidator(audience);
         OAuth2TokenValidator<Jwt> withIssuer = JwtValidators.createDefaultWithIssuer(issuer);
@@ -1178,7 +1176,6 @@ public class SecurityConfiguration {
 
         return jwtDecoder;
     }
-
 }
 ```
 
@@ -1193,7 +1190,7 @@ Waiting for the login to complete in the browser... done
 
 Take note of the domain listed as the tenant. This is your Auth0 domain. If you need to find it again later, you can use `auth0 tenants list`.
 
-Update`src/main/resources/application.properties`. Fill in your actual Auth0 domain.
+Update `src/main/resources/application.properties`. Fill in your actual Auth0 domain.
 
 ```properties
 server.port=9000
@@ -1322,7 +1319,7 @@ Update `src/main.js` to the following. This configures and installs the Auth0 pl
 ```js
 import { createApp } from 'vue'
 import App from './App.vue'
-import {Quasar} from 'quasar'
+import { Quasar } from 'quasar'
 import quasarUserOptions from './quasar-user-options'
 import VueLogger from 'vuejs3-logger'
 import router from './router'
@@ -1345,12 +1342,14 @@ const app = createApp(App)
   .use(VueLogger, options)
   .use(router)
   .use(createAuth0({
-    domain: process.env.VUE_APP_AUTH0_DOMAIN,
-    client_id: process.env.VUE_APP_CLIENT_ID,
-    redirect_uri: window.location.origin,
-    audience: process.env.VUE_APP_AUTH0_AUDIENCE
-  })
-);
+      domain: process.env.VUE_APP_AUTH0_DOMAIN,
+      clientId: process.env.VUE_APP_CLIENT_ID,
+      authorizationParams: {
+        redirect_uri: window.location.origin,
+        audience: process.env.VUE_APP_AUTH0_AUDIENCE
+      }
+    })
+  );
 
 // pass auth0 to the api (to get a JWT), which is set as a global property
 app.config.globalProperties.$api = createApi(app.config.globalProperties.$auth0)
@@ -1361,7 +1360,7 @@ app.mount('#app')
 Update one line in `src/Api.js`. You need to change the following line.
 
 ```js
-let accessToken = auth.getAccessToken()
+const accessToken = auth.getAccessToken()
 ```
 
 To this.
@@ -1372,7 +1371,7 @@ const accessToken = await auth.getAccessTokenSilently();
 
 As is seen below.
 
-```bash
+```js
 import axios from 'axios'
 
 ...
@@ -1380,9 +1379,7 @@ import axios from 'axios'
 const createApi = (auth) => {
 
   instance.interceptors.request.use(async function (config) {
-  
-    const accessToken = await auth.getAccessTokenSilently(); // UPDATE ME 
-    
+    const accessToken = await auth.getAccessTokenSilently(); // UPDATE ME
     config.headers = {
       Authorization: `Bearer ${accessToken}`
     }
@@ -1478,7 +1475,7 @@ import { useAuth0 } from '@auth0/auth0-vue';
 import { useRouter } from 'vue-router'
 
 export default {
-  name:"HomeComponent",
+  name: 'HomeComponent',
   setup() {
 
     const { loginWithRedirect, user, isAuthenticated, logout } = useAuth0();
@@ -1492,7 +1489,7 @@ export default {
         logout({ returnTo: window.location.origin });
       },
       todo() {
-        router.push("/todos")
+        router.push('/todos')
       },
       user,
       isAuthenticated
@@ -1507,8 +1504,8 @@ Finally, update `src/router/index.js`.
 
 ```js
 import { createRouter, createWebHistory } from 'vue-router'
-import Todos from "@/components/Todos";
-import Home from "@/components/Home";
+import Todos from '@/components/Todos';
+import Home from '@/components/Home';
 
 const routes = [
   {
@@ -1542,7 +1539,7 @@ npm run serve
 
 This time when you log in you will be directed to Auth0.
 
-{% img blog/spring-boot-vue3/auth0-login.png alt:"Auth0 Login" width:"600" %}{: .center-image }
+{% img blog/spring-boot-vue3/auth0-login.png alt:"Auth0 Login" width:"500" %}{: .center-image }
 
 After that, you will be redirected back to the todo app.
 
