@@ -908,7 +908,6 @@ import { ref } from 'vue'
 
 export default {
   name: 'LayoutDefault',
-
   components: {
     TodoItem
   },
@@ -952,7 +951,6 @@ export default {
   },
 
   methods: {
-
     handleSetFilter(value) {
       this.filter = value
     },
@@ -1022,9 +1020,7 @@ export default {
     handleErrorClick() {
       this.error = null;
     },
-
   },
-
 }
 </script>
 
@@ -1067,15 +1063,15 @@ npm run serve
 
 Open a browser and navigate to `http://localhost:8080`. You'll see the "please log in" page.
 
-{% img blog/spring-boot-vue3/please-log-in.png alt:"Please log in" width:"1000" %}{: .center-image }
+{% img blog/spring-boot-vue3/please-log-in.png alt:"Please log in" width:"800" %}{: .center-image }
 
 Log into the app using Okta's sign-in interface.
 
-{% img blog/spring-boot-vue3/okta-login.png alt:"Okta SSO login" width:"600" %}{: .center-image }
+{% img blog/spring-boot-vue3/okta-login.png alt:"Okta SSO login" width:"500" %}{: .center-image }
 
 That will redirect you to the Todo app's main screen.
 
-{% img blog/spring-boot-vue3/app-main-screen.png alt:"Todo app main screen" width:"1000" %}{: .center-image }
+{% img blog/spring-boot-vue3/app-main-screen.png alt:"Todo app main screen" width:"800" %}{: .center-image }
 
 You should be able to delete items, add new items, rename, and filter items. All data is stored on the Spring Boot resource server and is presented by the Vue + Quasar frontend.
 
@@ -1312,7 +1308,7 @@ Notice that the audience is the same as the audience used to create the test tok
 Install the [Auth0 Vue SDK](https://github.com/auth0/auth0-vue). Make sure you're in the `client` directory.
 
 ```bash
-npm install @auth0/auth0-vue
+npm install @auth0/auth0-vue@2
 ```
 
 If you want, you can remove the Okta Vue SDK.
