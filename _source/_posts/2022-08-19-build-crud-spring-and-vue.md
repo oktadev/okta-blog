@@ -149,7 +149,7 @@ public class SecurityConfiguration {
 
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
-        http.authorizeRequests()
+        http.authorizeHttpRequests()
             .anyRequest().permitAll();
         return http.build();
     }
@@ -356,7 +356,7 @@ Edit the `SecurityConfiguration.java` file and change the filter chain's bean de
 ```java
 @Bean
 public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
-    http.authorizeRequests()
+    http.authorizeHttpRequests()
         .anyRequest().authenticated()
         .and()
         .oauth2ResourceServer().jwt();
@@ -1156,7 +1156,7 @@ public class SecurityConfiguration {
 
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
-        http.authorizeRequests()
+        http.authorizeHttpRequests()
                 .anyRequest().authenticated()
                 .and()
                 .oauth2ResourceServer().jwt();
