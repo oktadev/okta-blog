@@ -220,7 +220,7 @@ public class DemoApplication {
 
     // Expose IDs of Todo items
     @Component
-    class RestRespositoryConfigurator implements RepositoryRestConfigurer {
+    class RestRepositoryConfigurator implements RepositoryRestConfigurer {
         public void configureRepositoryRestConfiguration(RepositoryRestConfiguration config, CorsRegistry cors) {
             config.exposeIdsFor(Todo.class);
         }
