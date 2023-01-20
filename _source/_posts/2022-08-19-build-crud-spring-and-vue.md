@@ -91,7 +91,7 @@ The following command will download the starter project and un-tar it to a new d
 
 ```bash
 curl https://start.spring.io/starter.tgz \
-  -d bootVersion=3.0.0 \
+  -d bootVersion=3.0.2 \
   -d javaVersion=17 \
   -d dependencies=web,data-rest,lombok,data-jpa,h2,okta \
   -d type=gradle-project \
