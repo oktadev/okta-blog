@@ -392,7 +392,7 @@ The resource server is finished. The next step is to create the Vue client.
 
 ## Create a Vue JavaScript client
 
-Use the Vue CLI to create a new application **from the project's root directory** and navigate into the newly created `client` directory. Install the Vue CLI if you don't have it installed with `npm i -g @vue/cli`.
+Use the Vue CLI to create a new application **from the project's root directory** and navigate into the newly created `client` directory. Install the Vue CLI if you don't have it installed with `npm i -g @vue/cli@5`.
 
 ```bash
 vue create client
@@ -422,7 +422,7 @@ You can just accept the defaults. For me, they were the following.
 Add additional dependencies for HTTP requests, logging, routing, and authentication.
 
 ```bash
-npm i axios@0.27.2 vuejs3-logger@1.0.0 vue-router@4.1.3 @okta/okta-vue@5.3.0
+npm i axios@1.2.3 vuejs3-logger@1.0.0 vue-router@4.1.6 @okta/okta-vue@5.5.0
 ```
 
 - `axios`: an HTTP client request library
@@ -439,17 +439,17 @@ Replace `main.js` with the following. Look at the `OktaAuth` configuration objec
 ```js
 import { createApp } from 'vue'
 import App from './App.vue'
-import {Quasar} from 'quasar'
+import { Quasar } from 'quasar'
 import quasarUserOptions from './quasar-user-options'
 import VueLogger from 'vuejs3-logger'
 import router from './router'
 import createApi from './Api'
 
-import {OktaAuth} from '@okta/okta-auth-js'
+import { OktaAuth } from '@okta/okta-auth-js'
 import OktaVue from '@okta/okta-vue'
 
 if (process.env.VUE_APP_ISSUER_URI == null || process.env.VUE_APP_CLIENT_ID == null || process.env.VUE_APP_SERVER_URI == null) {
-  throw "Please define VUE_APP_ISSUER_URI, VUE_APP_CLIENT_ID, and VUE_APP_SERVER_URI in .env file"
+  throw 'Please define VUE_APP_ISSUER_URI, VUE_APP_CLIENT_ID, and VUE_APP_SERVER_URI in .env file'
 }
 
 const oktaAuth = new OktaAuth({
@@ -536,7 +536,7 @@ export default {
   },
   watch: {
     'authState.isAuthenticated'() {
-      this.$log.debug(("watch triggered!"))
+      this.$log.debug(('watch triggered!'))
       this.updateClaims()
     }
   },
@@ -629,8 +629,8 @@ Create the router file.
 ```js
 import { createRouter, createWebHistory } from 'vue-router'
 import { navigationGuard } from '@okta/okta-vue'
-import Todos from "@/components/Todos";
-import Home from "@/components/Home";
+import Todos from '@/components/Todos';
+import Home from '@/components/Home';
 import { LoginCallback } from '@okta/okta-vue'
 
 const routes = [
@@ -686,7 +686,7 @@ Create the `Home` component.
 
 <script>
 export default {
-  name: "home-component",
+  name: 'home-component',
   data: function () {
     return {
       claims: ''
@@ -702,7 +702,7 @@ export default {
       }
     },
     todo() {
-      this.$router.push("/todos")
+      this.$router.push('/todos')
     },
     async login() {
       await this.$auth.signInWithRedirect({ originalUri: '/todos' })
@@ -753,7 +753,7 @@ Create the `TodoItem` component.
 import { nextTick } from 'vue'
 
 export default {
-  name: "TodoItem",
+  name: 'TodoItem',
   props: {
     item: Object,
     deleteMe: Function,
@@ -782,18 +782,18 @@ export default {
       this.editing = false
       this.$api.updateForId(this.item.id, this.editingTitle, this.item.completed).then((response) => {
         this.setTitle(this.item.id, this.editingTitle)
-        this.$log.info("Item updated:", response.data);
+        this.$log.info('Item updated:', response.data);
       }).catch((error) => {
-        this.showError("Failed to update todo title")
+        this.showError('Failed to update todo title')
         this.$log.debug(error)
       });
     },
     handleClickSetCompleted(value) {
       this.$api.updateForId(this.item.id, this.item.title, value).then((response) => {
         this.setCompleted(this.item.id, value)
-        this.$log.info("Item updated:", response.data);
+        this.$log.info('Item updated:', response.data);
       }).catch((error) => {
-        this.showError("Failed to update todo completed status")
+        this.showError('Failed to update todo completed status')
         this.$log.debug(error)
       });
     },
@@ -903,7 +903,7 @@ Create the `Todos` component.
 
 <script>
 
-import TodoItem from "@/components/TodoItem";
+import TodoItem from '@/components/TodoItem';
 import { ref } from 'vue'
 
 export default {
@@ -919,8 +919,8 @@ export default {
       newTodoTitle: '',
       visibility: 'all',
       loading: true,
-      error: "",
-      filter: "all"
+      error: '',
+      filter: 'all'
     }
   },
 
@@ -932,12 +932,12 @@ export default {
   mounted() {
     this.$api.getAll()
         .then(response => {
-          this.$log.debug("Data loaded: ", response.data)
+          this.$log.debug('Data loaded: ', response.data)
           this.todos = response.data
         })
         .catch(error => {
           this.$log.debug(error)
-          this.error = "Failed to load todos"
+          this.error = 'Failed to load todos'
         })
         .finally(() => this.loading = false)
   },
@@ -960,11 +960,11 @@ export default {
     handleClickDelete(id) {
       const todoToRemove = this.todos.find(todo => todo.id === id)
       this.$api.removeForId(id).then(() => {
-        this.$log.debug("Item removed:", todoToRemove);
+        this.$log.debug('Item removed:', todoToRemove);
         this.todos.splice(this.todos.indexOf(todoToRemove), 1)
       }).catch((error) => {
         this.$log.debug(error);
-        this.error = "Failed to remove todo"
+        this.error = 'Failed to remove todo'
       });
     },
 
@@ -972,11 +972,11 @@ export default {
       const completed = this.todos.filter(todo => todo.completed)
       Promise.all(completed.map(todoToRemove => {
         return this.$api.removeForId(todoToRemove.id).then(() => {
-          this.$log.debug("Item removed:", todoToRemove);
+          this.$log.debug('Item removed:', todoToRemove);
           this.todos.splice(this.todos.indexOf(todoToRemove), 1)
         }).catch((error) => {
           this.$log.debug(error);
-          this.error = "Failed to remove todo"
+          this.error = 'Failed to remove todo'
           return error
         })
       }))
@@ -988,8 +988,8 @@ export default {
         return
       }
       this.$api.createNew(value, false).then((response) => {
-        this.$log.debug("New item created:", response)
-        this.newTodoTitle = ""
+        this.$log.debug('New item created:', response)
+        this.newTodoTitle = ''
         this.todos.push({
           id: response.data.id,
           title: value,
@@ -998,11 +998,11 @@ export default {
         this.$refs.newTodoInput.blur()
       }).catch((error) => {
         this.$log.debug(error);
-        this.error = "Failed to add todo"
+        this.error = 'Failed to add todo'
       });
     },
     handleCancelEditingNewTodo() {
-      this.newTodoTitle = ""
+      this.newTodoTitle = ''
     },
 
     handleSetCompleted(id, value) {
