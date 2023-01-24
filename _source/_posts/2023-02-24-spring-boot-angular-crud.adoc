@@ -1,0 +1,343 @@
+---
+layout: blog_post
+title: ""
+author: matt-raible
+by: advocate
+communities: [java,javascript]
+description: ""
+tags: []
+tweets:
+- ""
+- ""
+- ""
+image:
+type: conversion
+---
+:page-liquid:
+:toc: macro
+:experimental:
+
+**Prerequisites**:
+
+- http://sdkman.io[Java 17]
+- https://nodejs.org/[Node 18]
+- https://github.com/auth0/auth0-cli[Auth0 CLI]
+
+== Create a Java REST API with Spring Boot
+
+Navigate to https://start.spring.io[start.spring.io] and make the following selections:
+
+// todo: I used to use `com.okta.developer`. Should we keep using that or switch to auth0?
+
+* **Project:** `Gradle Project`
+* **Group:** `com.auth0.demo`
+* **Artifact:** `jugtours`
+* **Dependencies**: `JPA`, `H2`, `Web`, `OAuth Resource Server`
+
+. Click **Generate Project**, expand `jugtours.zip` after downloading, and open the project in your favorite IDE.
+
+=== Add a JPA domain model
+
+https://vladmihalcea.com/java-records-jpa-hibernate/
+
+. Create a `src/main/java/com/okta/developer/jugtours/model` directory and a `Group.java` class in it. [`sbr-group`]
++
+.`Group.java`
+[%collapsible]
+====
+[source,java]
+----
+package com.okta.developer.jugtours.model;
+
+import lombok.Data;
+import lombok.NoArgsConstructor;
+import lombok.NonNull;
+import lombok.RequiredArgsConstructor;
+
+import jakarta.persistence.*;
+import java.util.Set;
+
+@Data
+@NoArgsConstructor
+@RequiredArgsConstructor
+@Entity
+@Table(name = "user_group")
+public class Group {
+
+    @Id
+    @GeneratedValue
+    private Long id;
+    @NonNull
+    private String name;
+    private String address;
+    private String city;
+    private String stateOrProvince;
+    private String country;
+    private String postalCode;
+    @ManyToOne(cascade=CascadeType.PERSIST)
+    private User user;
+
+    @OneToMany(fetch = FetchType.EAGER, cascade=CascadeType.ALL)
+    private Set<Event> events;
+}
+----
+====
+
+. Create an `Event.java` class in the same package. [`sbr-event`]
++
+.`Event.java`
+[%collapsible]
+====
+[source,java]
+----
+package com.okta.developer.jugtours.model;
+
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.Id;
+import jakarta.persistence.ManyToMany;
+import java.time.Instant;
+import java.util.Set;
+
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
+@Builder
+@Entity
+public class Event {
+
+    @Id
+    @GeneratedValue
+    private Long id;
+    private Instant date;
+    private String title;
+    private String description;
+    @ManyToMany
+    private Set<User> attendees;
+}
+----
+====
+
+. And a `User.java` class. [`sbr-user`]
++
+.`User.java`
+[%collapsible]
+====
+[source,java]
+----
+package com.okta.developer.jugtours.model;
+
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
+import jakarta.persistence.Entity;
+import jakarta.persistence.Id;
+import jakarta.persistence.Table;
+
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
+@Entity
+@Table(name = "users")
+public class User {
+
+    @Id
+    private String id;
+    private String name;
+    private String email;
+}
+----
+====
+
+. Create a `GroupRepository.java` to manage the group entity. [`sbr-group-repo`]
++
+.`GroupRepository.java`
+[%collapsible]
+====
+[source,java]
+----
+package com.okta.developer.jugtours.model;
+
+import org.springframework.data.jpa.repository.JpaRepository;
+
+import java.util.List;
+
+public interface GroupRepository extends JpaRepository<Group, Long> {
+    Group findByName(String name);
+}
+----
+====
+
+. To load some default data, create an `Initializer.java` class in the `com.okta.developer.jugtours` package. [`sbr-init`]
++
+.`Initializer.java`
+[%collapsible]
+====
+[source,java]
+----
+package com.okta.developer.jugtours;
+
+import com.okta.developer.jugtours.model.Event;
+import com.okta.developer.jugtours.model.Group;
+import com.okta.developer.jugtours.model.GroupRepository;
+import org.springframework.boot.CommandLineRunner;
+import org.springframework.stereotype.Component;
+
+import java.time.Instant;
+import java.util.Collections;
+import java.util.stream.Stream;
+
+@Component
+class Initializer implements CommandLineRunner {
+
+    private final GroupRepository repository;
+
+    public Initializer(GroupRepository repository) {
+        this.repository = repository;
+    }
+
+    @Override
+    public void run(String... strings) {
+        Stream.of("Seattle JUG", "Denver JUG", "Dublin JUG",
+                "London JUG").forEach(name ->
+                repository.save(new Group(name))
+        );
+
+        Group djug = repository.findByName("Seattle JUG");
+        Event e = Event.builder().title("Micro Frontends for Java Developers")
+                .description("JHipster now has microfrontend support!")
+                .date(Instant.parse("2022-09-13T17:00:00.000Z"))
+                .build();
+        djug.setEvents(Collections.singleton(e));
+        repository.save(djug);
+
+        repository.findAll().forEach(System.out::println);
+    }
+}
+----
+====
++
+TIP: If your IDE has issues with `Event.builder()`, you need to turn on annotation processing and/or install the Lombok plugin. I had to uninstall/reinstall the Lombok plugin in IntelliJ IDEA to get things to work.
++
+. Start your app with `mvn spring-boot:run` and you should see groups and events being created.
+
+. Add a `GroupController.java` class (in `src/main/java/.../jugtours/web`) that allows you to CRUD groups. [`sbr-group-controller`]
++
+.`GroupController.java`
+[%collapsible]
+====
+[source,java]
+----
+package com.okta.developer.jugtours.web;
+
+import com.okta.developer.jugtours.model.Group;
+import com.okta.developer.jugtours.model.GroupRepository;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
+
+import jakarta.validation.Valid;
+import java.net.URI;
+import java.net.URISyntaxException;
+import java.util.Collection;
+import java.util.Optional;
+
+@RestController
+@RequestMapping("/api")
+class GroupController {
+
+    private final Logger log = LoggerFactory.getLogger(GroupController.class);
+    private GroupRepository groupRepository;
+
+    public GroupController(GroupRepository groupRepository) {
+        this.groupRepository = groupRepository;
+    }
+
+    @GetMapping("/groups")
+    Collection<Group> groups() {
+        return groupRepository.findAll();
+    }
+
+    @GetMapping("/group/{id}")
+    ResponseEntity<?> getGroup(@PathVariable Long id) {
+        Optional<Group> group = groupRepository.findById(id);
+        return group.map(response -> ResponseEntity.ok().body(response))
+                .orElse(new ResponseEntity<>(HttpStatus.NOT_FOUND));
+    }
+
+    @PostMapping("/group")
+    ResponseEntity<Group> createGroup(@Valid @RequestBody Group group) throws URISyntaxException {
+        log.info("Request to create group: {}", group);
+        Group result = groupRepository.save(group);
+        return ResponseEntity.created(new URI("/api/group/" + result.getId()))
+                .body(result);
+    }
+
+    @PutMapping("/group/{id}")
+    ResponseEntity<Group> updateGroup(@Valid @RequestBody Group group) {
+        log.info("Request to update group: {}", group);
+        Group result = groupRepository.save(group);
+        return ResponseEntity.ok().body(result);
+    }
+
+    @DeleteMapping("/group/{id}")
+    public ResponseEntity<?> deleteGroup(@PathVariable Long id) {
+        log.info("Request to delete group: {}", id);
+        groupRepository.deleteById(id);
+        return ResponseEntity.ok().build();
+    }
+}
+----
+====
+
+. Add the following dependency to your `pom.xml` to fix compilation errors:
++
+[source,xml]
+----
+<dependency>
+    <groupId>org.springframework.boot</groupId>
+    <artifactId>spring-boot-starter-validation</artifactId>
+</dependency>
+----
+
+. Restart the app and hit `http://localhost:8080/api/groups` with https://httpie.org[HTTPie] and you should see the list of groups.
+
+    http :8080/api/groups
+
+. You can create, read, update, and delete groups with the following commands.
++
+[source,shell]
+----
+http POST :8080/api/group name='Utah JUG' city='Salt Lake City' country=USA
+http :8080/api/group/5
+http PUT :8080/api/group/5 id=6 name='Utah JUG' address='On the slopes'
+http DELETE :8080/api/group/5
+----
+
+== Create an Angular UI with Angular CLI
+
+== Call your Spring Boot API and display the results
+
+== Build an Angular list component
+
+== Build an Angular detail component
+
+== Secure with OpenID Connect
+
+== Configure Spring Security for maximum protection
+
+== Update Angular to handle CSRF and be identity-aware
+
+== Configure Maven to build and package Angular with Spring Boot
+
+== Enjoy the ride with Angular and Spring Boot!
+
+https://stackoverflow.com/questions/70601508/can-i-use-java-16-record-with-jpa-entity
