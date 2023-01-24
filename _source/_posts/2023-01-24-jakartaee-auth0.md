@@ -215,7 +215,7 @@ auth0 apps open
 
 Select the OIDC app (or client) you just created from the list. This will open the OIDC application on the Auth0 dashboard.
 
-<< image >>
+{% img blog/jakartaee-auth0/oidc-application-auth0.png alt:"Auth0 OIDC App" width:"800" %}{: .center-image }
 
 Fill in the three values in `src/main/resources/openid.properties`. Replace the bracketed values with the values from the OIDC application page on the Auth0 dashboard.
 
@@ -231,7 +231,11 @@ Open your [Auth0 developer dashboard](https://manage.auth0.com). You need to cre
 
 Under **User Management** click on **Roles**. Click the **Create Role** button. 
 
+{% img blog/jakartaee-auth0/auth0-create-role.png alt:"Auth0 Create Role" width:"1000" %}{: .center-image }
+
 **Name** the role `Everyone`. Give it a **Description**, whatever you like. Click **Create**.
+
+{% img blog/jakartaee-auth0/auth0-create-role2.png alt:"Auth0 Create Role, part 2" width:"700" %}{: .center-image }
 
 The Everyone role panel should be shown. Select the **Users** tab. Click **Add Users**. Assign yourself to the role.
 
@@ -242,6 +246,8 @@ Select **Actions** from the left menu in the developer dashboard. Click on **Flo
 Add a new action by clicking on the **+** symbol to the right of **Add Action**. Select **Build Custom**.
 
 Give the action a **Name**, such as `Add Roles`. Leave the other two values the same. Click **Create**.
+
+{% img blog/jakartaee-auth0/auth0-create-action.png alt:"Auth0 Create Action" width:"600" %}{: .center-image }
 
 Change the code for the action to the following.
 
@@ -261,6 +267,9 @@ Click on **Deploy**.
 Click on the **Add to flow** link in the popup window that slides in (if you miss this, you can find the new action under the custom action tab back in the flow panel).
 
 Drag the **Add Roles** action over under the **Rules (legacy)** action. 
+
+{% img blog/jakartaee-auth0/auth0-action-flow.png alt:"Auth0 Action Flow" width:"600" %}{: .center-image }
+
 
 Click **Apply** (top right of the panel).
 
@@ -490,7 +499,7 @@ You'll get:
 HTTP/1.1 401 Unauthorized
 ```
 
-Now, use your OIDC endpoint to retrieve a token. Using a browser, open http://localhost:8080/protected
+Now, use your OIDC endpoint to retrieve a token. Using a browser, open [http://localhost:8080/protected](http://localhost:8080/protected)
 
 Authenticate with Auth0. When you are redirected back to the protected servlet page, copy the token value and save it in a Bash shell variable in a new Bash shell.
 
