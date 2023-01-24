@@ -11,7 +11,7 @@ tweets:
 - ""
 - ""
 image:
-type: awareness|conversion
+type: conversion
 ---
 
 ## Open ID authentication with Jakarta EE 10 and Security 3.0
