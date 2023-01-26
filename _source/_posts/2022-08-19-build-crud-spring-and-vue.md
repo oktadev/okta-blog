@@ -1437,7 +1437,7 @@ export default {
         loginWithRedirect();
       },
       logout: () => {
-        logout({ returnTo: window.location.origin });
+        logout({ logoutParams: { returnTo: window.location.origin } });
       },
       user,
       isAuthenticated
