@@ -215,7 +215,7 @@ auth0 apps open
 
 Select the OIDC app (or client) you just created from the list. This will open the OIDC application on the Auth0 dashboard.
 
-{% img blog/jakartaee-auth0/oidc-application-auth0.png alt:"Auth0 OIDC App" width:"800" %}{: .center-image }
+{% img blog/jakartaee-auth0/oidc-application-auth0.png alt:"Auth0 OIDC App" width:"600" %}{: .center-image }
 
 Fill in the three values in `src/main/resources/openid.properties`. Replace the bracketed values with the values from the OIDC application page on the Auth0 dashboard.
 
