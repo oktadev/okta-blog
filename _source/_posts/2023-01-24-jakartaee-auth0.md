@@ -222,7 +222,7 @@ Fill in the three values in `src/main/resources/openid.properties`. Replace the 
 ```properties
 issuerUri=<your-auth0-domain>
 clientId=<your-client-id>
-clientSecret=<your-client-secret>ca
+clientSecret=<your-client-secret>
 ```
 
 ## Configure Roles on Auth0
