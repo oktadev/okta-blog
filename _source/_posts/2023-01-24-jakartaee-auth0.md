@@ -89,7 +89,7 @@ The WildFly plugin is included and configured in the block below.
 </plugin>
 ```
 
-The docs for [the WildFly maven plugin are here](https://docs.wildfly.org/wildfly-maven-plugin/). Except for the cryptic `<command></command>` block, the plugin is pretty simple and easy to use. 
+The docs for [the WildFly Maven plugin are here](https://docs.wildfly.org/wildfly-maven-plugin/). Except for the cryptic `<command></command>` block, the plugin is pretty simple and easy to use. 
 
 It took a little digging to figure out, but the obscure command block *is* required, at least according to the experts I asked. It disables integrated JASPI in the server and instead delegates validation of credentials to a non-integrated ServerAuthModule. This allows for identities to be dynamically created instead of statically stored in an integrated security domain. Take a look at the [Elytron and Java EE Security section of the docs](https://docs.wildfly.org/26/WildFly_Elytron_Security.html#Elytron_and_Java_EE_Security) for more on this.
 
