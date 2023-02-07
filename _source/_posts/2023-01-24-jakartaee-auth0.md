@@ -499,7 +499,7 @@ You'll get:
 HTTP/1.1 401 Unauthorized
 ```
 
-Now, use your OIDC endpoint to retrieve a token. Using a browser, open [http://localhost:8080/protected](http://localhost:8080/protected)
+Now, use your OIDC endpoint to retrieve a token. Using a browser, open `http://localhost:8080/protected`.
 
 Authenticate with Auth0. When you are redirected back to the protected servlet page, copy the token value and save it as a variable in a new shell.
 
