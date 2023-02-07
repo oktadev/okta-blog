@@ -24,7 +24,7 @@ This stack includes a lot of technologies. I'm going to introduce them briefly b
 
 **Jakarta vs Java, EE vs SE**
 
-Jakarta EE is Jakarta Enterprise Edition. This was formerly Java EE. The name and framework packages were migrated when Oracle gave Java EE to the Eclipse Foundation because Oracle still has the rights to the Java brand and did not open-source absolutely everything that was in the `javax.*` namespace. Thus, Jakarta EE is the Eclipse-owned and now totally open-source Java EE (You may have recently had to change some packages from `javax` to `jakarta`. This is why.)
+Jakarta EE is Jakarta Enterprise Edition, formerly known as Java EE. The name and framework packages were migrated when Oracle gave Java EE to the Eclipse Foundation because Oracle still has the rights to the Java brand and did not open-source absolutely everything that was in the `javax.*` namespace. Thus, Jakarta EE is the Eclipse-owned and now totally open-source Java EE (You may have recently had to change some packages from `javax` to `jakarta`. This is why.)
 
 Enterprise Edition is built on top of Jakarta (that is, Java) SE, or Standard Edition. Jakarta SE is the more lightweight Java version that provides a basic cross-platform runtime. Enterprise Edition is assumed to be running on an application server and adds libraries intended for larger-scale, multi-user applications. 
 
@@ -91,9 +91,9 @@ The WildFly plugin is included and configured in the block below.
 </plugin>
 ```
 
-The docs for [the WildFly maven plugin are here](https://docs.wildfly.org/wildfly-maven-plugin/). Except for the cryptic `<command></command>` block, the plugin is pretty simple and easy to use. 
+The docs for [the WildFly Maven plugin are here](https://docs.wildfly.org/wildfly-maven-plugin/). Except for the cryptic `<command></command>` block, the plugin is pretty simple and easy to use. 
 
-It took a little digging to figure out, but the obscure command block *is* required, at least according to the experts I asked. It disables integrated JASPI in the server and instead delegates validation of credentials to a non-integrated ServerAuthModule. This allows for identities to be dynamically created instead of statically stored in an integrated security domain. Take a look at the [Elytron and Java EE Security section of the docs](https://docs.wildfly.org/26/WildFly_Elytron_Security.html#Elytron_and_Java_EE_Security) for more on this.
+It took a little digging to figure out, but the obscure command block *is* required, at least according to the experts I asked. It disables integrated JASPI in the server and instead delegates validation of credentials to a non-integrated `ServerAuthModule`. This allows for identities to be dynamically created instead of statically stored in an integrated security domain. Take a look at the [Elytron and Java EE Security section of the docs](https://docs.wildfly.org/26/WildFly_Elytron_Security.html#Elytron_and_Java_EE_Security) for more on this.
 
 ## Project structure and configuration
 
@@ -134,7 +134,7 @@ Neither of the files in the `META-INF` directory seem to be required for the app
 
 ## Create an Auth0 OIDC application
 
-If you have not already, install the [Auth0 CLI](https://github.com/auth0/auth0-cli) and run `auth0 login` in a terminal.
+If you have not already, install the [Auth0 CLI](https://github.com/auth0/auth0-cli) and run `auth0 login` in a terminal. As I write this, the Auth0 CLI 1.0 version is in beta. It adds some new features that I'll mention. You can take a look at [the release here](https://github.com/auth0/auth0-cli/releases/tag/v1.0.0-beta.1).
 
 ```bash
 Waiting for the login to complete in the browser... done
@@ -168,17 +168,19 @@ auth0 apps open
 
 Select the OIDC app (or client) you just created from the list. This will open the OIDC application on the Auth0 dashboard.
 
-{% img blog/jakartaee-auth0/oidc-application-auth0.png alt:"Auth0 OIDC App" width:"800" %}{: .center-image }
+{% img blog/jakartaee-auth0/oidc-application-auth0.png alt:"Auth0 OIDC App" width:"600" %}{: .center-image }
 
 Fill in the three values in `src/main/resources/openid.properties`. Replace the bracketed values with the values from the OIDC application page on the Auth0 dashboard.
 
 ```properties
 issuerUri=<your-auth0-domain>
 clientId=<your-client-id>
-clientSecret=<your-client-secret>ca
+clientSecret=<your-client-secret>
 ```
 
 ## Configure Roles on Auth0
+
+Managing roles is a feature that is being added in [the upcoming Auth0 CLI 1.0 version](https://github.com/auth0/auth0-cli/releases/tag/v1.0.0-beta.1) that's currently in beta. What I'll show you below is how to do it in the dashboard.
 
 Open your [Auth0 developer dashboard](https://manage.auth0.com). You need to create a role, assign your user to that role, and create an action that will inject the roles into a custom claim in the JWT.
 
@@ -221,7 +223,7 @@ Click on the **Add to flow** link in the popup window that slides in (if you mis
 
 Drag the **Add Roles** action over under the **Rules (legacy)** action. 
 
-{% img blog/jakartaee-auth0/auth0-action-flow.png alt:"Auth0 Action Flow" width:"600" %}{: .center-image }
+{% img blog/jakartaee-auth0/auth0-action-flow.png alt:"Auth0 Action Flow" width:"400" %}{: .center-image }
 
 
 Click **Apply** (top right of the panel).
@@ -245,8 +247,8 @@ package com.demo;
         // default 500ms caused timeouts for me
         jwksConnectTimeout = 5000,
         jwksReadTimeout = 5000,
-        // Auth0 requires the audience to be set to the custom API
-        extraParameters = {"audience=http://my-api"},
+        // Auth0 requires the audience to be set to the default API
+        extraParameters = {"audience=https://${openIdConfig.issuerUri}/api/v2/"},
         // read the roles from Auth0 custom claim
         claimsDefinition = @ClaimsDefinition(callerGroupsClaim = "http://www.jakartaee.demo/roles")
 )
@@ -452,9 +454,9 @@ You'll get:
 HTTP/1.1 401 Unauthorized
 ```
 
-Now, use your OIDC endpoint to retrieve a token. Using a browser, open [http://localhost:8080/protected](http://localhost:8080/protected)
+Now, use your OIDC endpoint to retrieve a token. Using a browser, open `http://localhost:8080/protected`.
 
-Authenticate with Auth0. When you are redirected back to the protected servlet page, copy the token value and save it in a Bash shell variable in a new Bash shell.
+Authenticate with Auth0. When you are redirected back to the protected servlet page, copy the token value and save it as a variable in a new shell.
 
 ```bash
 TOKEN=eyJraWQiOiJqY3dpbGpUcGVZSG1Jajl6ODR3LV...
@@ -482,9 +484,13 @@ Welcome, andrew.hughes@mail.com
 
 ## Keep Learning with Jakarta EE and Auth0
 
+<<<<<<< HEAD
 You just built a Jakarta Enterprise Edition application that used the new OpenID connect annotation and implementation built into Jakarta EE 10. You used Auth0 as the OIDC and OAuth 2 provider, and you saw how to implement both SSO and JWT authentication.
+=======
+You just built a Jakarta Enterprise Edition application that used the new Open ID connect annotation and implementation built into Jakarta EE 10. You used Auth0 as the OIDC and OAuth 2.0 provider, and you saw how to implement both SSO and JWT authentication.
+>>>>>>> cf15c776fb952e876a1044d949b35dc261266471
 
-ou can find the source code for this example on GitHub in the [@oktadev/okta-spring-boot-vue-crud-example](https://github.com/oktadev/okta-spring-boot-vue-crud-example) repository.
+You can find the source code for this example on GitHub in the [@oktadev/okta-jakartaee-oidc-example](https://github.com/oktadev/okta-jakartaee-oidc-example) repository.
 
 If you liked this post, there's a good chance you'll like similar ones:
 
