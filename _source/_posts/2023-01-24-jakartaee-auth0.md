@@ -268,7 +268,7 @@ Click on the **Add to flow** link in the popup window that slides in (if you mis
 
 Drag the **Add Roles** action over under the **Rules (legacy)** action. 
 
-{% img blog/jakartaee-auth0/auth0-action-flow.png alt:"Auth0 Action Flow" width:"600" %}{: .center-image }
+{% img blog/jakartaee-auth0/auth0-action-flow.png alt:"Auth0 Action Flow" width:"400" %}{: .center-image }
 
 
 Click **Apply** (top right of the panel).
