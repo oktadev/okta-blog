@@ -24,7 +24,7 @@ This stack includes a lot of technologies. I'm going to introduce them briefly b
 
 **Jakarta vs Java, EE vs SE**
 
-Jakarta EE is Jakarta Enterprise Edition. This was formerly Java EE. The name and framework packages were migrated when Oracle gave Java EE to the Eclipse Foundation because Oracle still has the rights to the Java brand and did not open-source absolutely everything that was in the `javax.*` namespace. Thus, Jakarta EE is the Eclipse-owned and now totally open-source Java EE (You may have recently had to change some packages from `javax` to `jakarta`. This is why.)
+Jakarta EE is Jakarta Enterprise Edition, formerly known as Java EE. The name and framework packages were migrated when Oracle gave Java EE to the Eclipse Foundation because Oracle still has the rights to the Java brand and did not open-source absolutely everything that was in the `javax.*` namespace. Thus, Jakarta EE is the Eclipse-owned and now totally open-source Java EE (You may have recently had to change some packages from `javax` to `jakarta`. This is why.)
 
 Enterprise Edition is built on top of Jakarta (that is, Java) SE, or Standard Edition. Jakarta SE is the more lightweight Java version that provides a basic cross-platform runtime. Enterprise Edition is assumed to be running on an application server and adds libraries intended for larger-scale, multi-user applications. 
 
