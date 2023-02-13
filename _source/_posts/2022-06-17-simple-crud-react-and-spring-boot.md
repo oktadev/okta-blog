@@ -1301,7 +1301,7 @@ To build and package your React app with Maven, you can use the [frontend-maven-
     ...
     <frontend-maven-plugin.version>1.12.1</frontend-maven-plugin.version>
     <node.version>v16.18.1</node.version>
-    <npm.version>v8.19.2</npm.version>
+    <npm.version>8.19.2</npm.version>
 </properties>
 
 <profiles>
