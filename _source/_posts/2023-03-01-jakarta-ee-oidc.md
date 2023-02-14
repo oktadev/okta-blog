@@ -134,7 +134,7 @@ Neither of the files in the `META-INF` directory seem to be required for the app
 
 ## Create an Auth0 OIDC application
 
-If you have not already, install the [Auth0 CLI](https://github.com/auth0/auth0-cli) and run `auth0 login` in a terminal. As I write this, the Auth0 CLI 1.0 version is in beta. It adds some new features that I'll mention. You can take a look at [the release here](https://github.com/auth0/auth0-cli/releases/tag/v1.0.0-beta.1).
+If you have not already, [install the Auth0 CLI](https://github.com/auth0/auth0-cli#installation) and run `auth0 login` in a terminal. As I write this, the Auth0 CLI 1.0 version is in beta. It adds some new features that I'll mention. You can take a look at [the release here](https://github.com/auth0/auth0-cli/releases/tag/v1.0.0-beta.1).
 
 ```bash
 Waiting for the login to complete in the browser... done
@@ -307,7 +307,7 @@ public class CallbackServlet extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
+        throws ServletException, IOException {
         String referer = (String) request.getSession().getAttribute("Referer");
         String redirectTo = referer != null ? referer : request.getContextPath() + "/protected";
         LOGGER.info("OIDC callback success. Redirecting to: " + redirectTo);
