@@ -238,14 +238,14 @@ package com.demo;
 ...
 
 @OpenIdAuthenticationMechanismDefinition(
-    providerURI = "${openIdConfig.issuerUri}",
-    clientId = "${openIdConfig.clientId}",
-    clientSecret = "${openIdConfig.clientSecret}",
+    providerURI = "${oidcConfig.issuerUri}",
+    clientId = "${oidcConfig.clientId}",
+    clientSecret = "${oidcConfig.clientSecret}",
     redirectURI = "${baseURL}/callback",
     // default 500ms caused timeouts for me
     jwksConnectTimeout = 5000,
     jwksReadTimeout = 5000,
-    extraParameters = {"audience=https://${openIdConfig.issuerUri}/api/v2/"},
+    extraParameters = {"audience=https://${oidcConfig.issuerUri}/api/v2/"},
     claimsDefinition = @ClaimsDefinition(callerGroupsClaim = "http://www.jakartaee.demo/roles")
 )
 @WebServlet("/protected")
@@ -368,9 +368,10 @@ public class JwtFilter implements Filter {
 
     @Inject
     OidcConfig oidcConfig;
+
     @Override
     public void init(FilterConfig filterConfig) {
-        LOGGER.info("Auth0 jwtVerifier initialized for issuer:" + openIdConfig.getIssuerUri());
+        LOGGER.info("Auth0 jwtVerifier initialized for issuer:" + oidcConfig.getIssuerUri());
     }
 
     @Override
