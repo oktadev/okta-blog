@@ -368,9 +368,6 @@ public class JwtFilter implements Filter {
 
     @Inject
     OidcConfig oidcConfig;
-
-    private JWTVerifier jwtVerifier;
-
     @Override
     public void init(FilterConfig filterConfig) {
         LOGGER.info("Auth0 jwtVerifier initialized for issuer:" + openIdConfig.getIssuerUri());
