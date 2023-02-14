@@ -18,17 +18,19 @@ This stack includes a lot of technologies. I'm going to introduce them briefly b
 
 {% include toc.md %}
 
-## Jakarta vs Java, EE vs SE
+## Jakarta EE vs Java EE
 
 Jakarta EE is Jakarta Enterprise Edition, formerly known as Java EE. The name and framework packages were migrated when Oracle gave Java EE to the Eclipse Foundation because Oracle still has the rights to the Java brand and did not open-source absolutely everything that was in the `javax.*` namespace. Thus, Jakarta EE is the Eclipse-owned and now totally open-source Java EE (You may have recently had to change some packages from `javax` to `jakarta`. This is why.)
 
 Enterprise Edition is built on top of Jakarta (that is, Java) SE, or Standard Edition. Jakarta SE is the more lightweight Java version that provides a basic cross-platform runtime. Enterprise Edition is assumed to be running on an application server and adds libraries intended for larger-scale, multi-user applications. 
 
-To run an SE application, all you need is the JRE (Java runtime environment) for a compatible version of Java. Enterprise Edition, however, requires a more complete runtime environment and has a lot more possible modules and configuration options. To see a list of Jakarta EE compatible products, you can look at [the Jakarta website](https://jakarta.ee/compatibility/). A few examples are Open Liberty, Payara, WildFly, GlassFish, and TomEE.
+### What about Java SE? 
+
+To run a Java SE application, all you need is the JRE (Java runtime environment) for a compatible version of Java. Enterprise Edition, however, requires a more complete runtime environment and has a lot more possible modules and configuration options. To see a list of Jakarta EE compatible products, you can look at [the Jakarta website](https://jakarta.ee/compatibility/). A few examples are Open Liberty, Payara, WildFly, GlassFish, and TomEE.
 
 As of the time I wrote this tutorial, Jakarta EE 10 was a very new release, and only three frameworks supported version 10: Eclipse GlassFish, Payara Server Community, and WildFly. 
 
-### WildFly
+### WildFly for Jakarta EE 10
 
 I chose to use [WildFly](https://www.wildfly.org/) as my Jakarta EE runtime. Hantsy Bai created a great example project that was a big help. Check out [the GitHub project repository page](https://github.com/hantsy/jakartaee10-sandbox). Thanks, Hantsy Bai! Super helpful.
 
@@ -36,7 +38,7 @@ WildFly is an open-source community project sponsored by Red Hat. It bills itsel
 
 ### Jakarta Security 3.0
 
-The exciting thing about Jakarta 10 (from a security perspective) is that it includes a new OIDC implementation in the Security 3.0 specification. OpenID Connect is an authentication protocol. This protocol is implemented by many third-party vendors, such as Auth0 and Okta, making it relatively easy to add secure login to an application. Jakarta EE 10 Security 3.0 provides an annotation-based configuration to add OIDC authentication to servlets.
+The exciting thing about Jakarta EE 10 (from a security perspective) is that it includes a new OIDC implementation in the Security 3.0 specification. OpenID Connect is an authentication protocol. This protocol is implemented by many third-party vendors, such as Auth0 and Okta, making it relatively easy to add secure login to an application. Jakarta EE 10 Security 3.0 provides an annotation-based configuration to add OIDC authentication to servlets.
 
 You can check out [the docs for Jakarta EE 10 Security 3.0 OIDC here](https://jakarta.ee/specifications/security/3.0/jakarta-security-spec-3.0.html#openid-connect-annotation).
 
@@ -91,7 +93,7 @@ The WildFly plugin is included and configured in the block below.
 
 The docs for [the WildFly Maven plugin are here](https://docs.wildfly.org/wildfly-maven-plugin/). Except for the cryptic `<command></command>` block, the plugin is pretty simple and easy to use. 
 
-It took a little digging to figure out, but the obscure command block *is* required, at least according to the experts I asked. It disables integrated JASPI in the server and instead delegates validation of credentials to a non-integrated `ServerAuthModule`. This allows for identities to be dynamically created instead of statically stored in an integrated security domain. Take a look at the [Elytron and Java EE Security section of the docs](https://docs.wildfly.org/26/WildFly_Elytron_Security.html#Elytron_and_Java_EE_Security) for more on this.
+It took a little digging to figure out, but the obscure command block *is* required, at least according to the experts I asked. It disables integrated JASPI (Java Authentication SPI for Containers) in the server and instead delegates validation of credentials to a non-integrated `ServerAuthModule`. This allows for identities to be dynamically created instead of statically stored in an integrated security domain. Take a look at the [Elytron and Java EE Security section of the docs](https://docs.wildfly.org/26/WildFly_Elytron_Security.html#Elytron_and_Java_EE_Security) for more on this.
 
 ## Project structure and configuration
 
@@ -107,24 +109,24 @@ src
     ├── java
     │   └── com
     │       └── demo
-    │           ├── CallbackServlet.java  // OIDC callback handler
-    │           ├── ProtectedServlet.java  // OIDC-handling servlet endpoint
-    │           ├── PublicServlet.java  // Public endpoint
-    │           ├── JwtFilter.java  // Verifies JWT and secures ApiServlet
     │           ├── ApiServlet.java // API protected by filter
-    │           └── OpenIdConfig.java  // Loads openid.properties
+    │           ├── CallbackServlet.java  // OIDC callback handler
+    │           ├── JwtFilter.java  // Verifies JWT and secures ApiServlet
+    │           ├── OidcConfig.java  // Loads oidc.properties
+    │           ├── ProtectedServlet.java  // OIDC-handling servlet endpoint
+    │           └── PublicServlet.java  // Public endpoint
     ├── resources
-    │   ├── logging.properties  // Simple console logging configuration
     │   ├── META-INF
     │   │   ├── beans.xml  // Declare some provided dependencies for deployment
     │   │   └── MANIFEST.MF  // Configure CDI (Contexts and Dependency Injection)
-    │   └── openid.properties  // OpenID config properties
+    │   ├── logging.properties  // Simple console logging configuration
+    │   └── oidc.properties  // OpenID Connect config properties
     └── webapp
         └── WEB-INF
             └── jboss-web.xml  // Configures context root to '/'
 ```
 
-When the application loads, the OpenID properties are loaded from `openid.properties` by the `OpenIDConfig` class. These values are used by the `JwtFilter` to create the class that verifies JSON Web Tokens. These properties are also used by the `ProtectedServlet` in the `@OpenIdAuthenticationMechanismDefinition` annotation to configure OIDC.
+When the application loads, the OpenID Connect properties are loaded from `oidc.properties` by the `OidcConfig` class. These values are used by the `JwtFilter` to create the class that verifies JSON Web Tokens. These properties are also used by the `ProtectedServlet` in the `@OpenIdAuthenticationMechanismDefinition` annotation to configure OIDC.
 
 The `jboss-web.xml` file is simply used to change the context root to `/`.
 
@@ -151,14 +153,13 @@ auth0 apps create
 
 Use the following values:
 
-- **Name**: `javartaee-demo`
-
+- **Name**: `jakartaee-demo`
 - **Description**: whatever you like, or leave blank
 - **Type**: `Regular Web Application`
 - **Callback URLs**: `http://localhost:8080/callback`
 - **Allowed Logout URLs**: `http://localhost:8080`
 
-The console output shows you the Auth0 domain and the OIDC client ID. However, you also need the client secret. On the 1.0 version of the Auth0 CLI you can show the client sercret with the `--reveal-secrets` command. However, for previous versions, you have to get the client secret by logging into Auth0. Type the following:
+The console output shows you the Auth0 domain and the OIDC client ID. However, you also need the client secret. On the 1.0 version of the Auth0 CLI you can show the client secret by adding `--reveal-secrets` to the `apps create` command. However, for previous versions, you have to get the client secret by logging into Auth0. Type the following:
 
 ```bash
 auth0 apps open
@@ -168,10 +169,10 @@ Select the OIDC app (or client) you just created from the list. This will open t
 
 {% img blog/jakartaee-auth0/oidc-application-auth0.png alt:"Auth0 OIDC App" width:"600" %}{: .center-image }
 
-Fill in the three values in `src/main/resources/openid.properties`. Replace the bracketed values with the values from the OIDC application page on the Auth0 dashboard.
+Fill in the three values in `src/main/resources/oidc.properties`. Replace the bracketed values with the values from the OIDC application page on the Auth0 dashboard.
 
 ```properties
-issuerUri=<your-auth0-domain>
+issuerUri=https://<your-auth0-domain>
 clientId=<your-client-id>
 clientSecret=<your-client-secret>
 ```
@@ -237,21 +238,19 @@ package com.demo;
 ...
 
 @OpenIdAuthenticationMechanismDefinition(
-        providerURI = "${openIdConfig.issuerUri}",
-        clientId = "${openIdConfig.clientId}",
-        clientSecret = "${openIdConfig.clientSecret}",
-        redirectURI = "${baseURL}/callback",
-        // default 500ms caused timeouts for me
-        jwksConnectTimeout = 5000,
-        jwksReadTimeout = 5000,
-        // Auth0 requires the audience to be set to the default API
-        extraParameters = {"audience=https://${openIdConfig.issuerUri}/api/v2/"},
-        // read the roles from Auth0 custom claim
-        claimsDefinition = @ClaimsDefinition(callerGroupsClaim = "http://www.jakartaee.demo/roles")
+    providerURI = "${openIdConfig.issuerUri}",
+    clientId = "${openIdConfig.clientId}",
+    clientSecret = "${openIdConfig.clientSecret}",
+    redirectURI = "${baseURL}/callback",
+    // default 500ms caused timeouts for me
+    jwksConnectTimeout = 5000,
+    jwksReadTimeout = 5000,
+    extraParameters = {"audience=https://${openIdConfig.issuerUri}/api/v2/"},
+    claimsDefinition = @ClaimsDefinition(callerGroupsClaim = "http://www.jakartaee.demo/roles")
 )
 @WebServlet("/protected")
 @ServletSecurity(
-        @HttpConstraint(rolesAllowed = "Everyone")
+    @HttpConstraint(rolesAllowed = "Everyone")
 )
 public class ProtectedServlet extends HttpServlet {
 
@@ -314,9 +313,7 @@ public class CallbackServlet extends HttpServlet {
         LOGGER.info("OIDC callback success. Redirecting to: " + redirectTo);
         response.sendRedirect(redirectTo);
     }
-
 }
-
 ```
 
 To summarize (and simplify) the request flow to the `/protected` endpoint.
@@ -348,14 +345,12 @@ public class ApiServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
 
-        DecodedJWT jwt = (DecodedJWT)request.getAttribute("jwt");
-        response.setContentType("text");
+        DecodedJWT jwt = (DecodedJWT) request.getAttribute("jwt");
+        response.setContentType("text/plain");
         response.getWriter().println("Welcome, " + jwt.getClaims().get("sub"));
         response.getWriter().println(jwt.getClaims());
     }
 }
-
-```
 
 This servlet by itself is not at all secure and would be public without the `JwtFilter` class, which is shown below. The filter intercepts any requests matching the `/api/*` URL pattern and denies them if they do not have a valid JWT.
 
@@ -372,7 +367,7 @@ public class JwtFilter implements Filter {
     private static final Logger LOGGER = Logger.getLogger(JwtFilter.class.getName());
 
     @Inject
-    OpenIdConfig openIdConfig;
+    OidcConfig oidcConfig;
 
     private JWTVerifier jwtVerifier;
 
@@ -399,7 +394,7 @@ public class JwtFilter implements Filter {
         } else {
             String accessToken = authHeader.substring(authHeader.indexOf("Bearer ") + 7);
             LOGGER.info("accesstoken: " + request.getRequestURI());
-            JwkProvider provider = new UrlJwkProvider(openIdConfig.getIssuerUri());
+            JwkProvider provider = new UrlJwkProvider(oidcConfig.getIssuerUri());
             try {
                 DecodedJWT jwt = JWT.decode(accessToken);
                 // Get the kid from received JWT token
@@ -408,8 +403,8 @@ public class JwtFilter implements Filter {
                 Algorithm algorithm = Algorithm.RSA256((RSAPublicKey) jwk.getPublicKey(), null);
 
                 JWTVerifier verifier = JWT.require(algorithm)
-                        .withIssuer(openIdConfig.getIssuerUri())
-                        .build();
+                    .withIssuer(oidcConfig.getIssuerUri())
+                    .build();
 
                 jwt = verifier.verify(accessToken);
                 LOGGER.info("JWT decoded. sub=" + jwt.getClaims().get("sub"));
@@ -447,7 +442,7 @@ http :8080/api/protected
 
 You'll get:
 
-```Bash
+```bash
 HTTP/1.1 401 Unauthorized
 ```
 
