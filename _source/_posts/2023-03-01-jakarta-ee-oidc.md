@@ -1,50 +1,46 @@
 ---
 layout: blog_post
-title: "OpenID authentication with Jakarta EE 10 and Security 3.0"
+title: "Use Jakarta EE 10 with OpenID Connect Authentication"
 author: andrew-hughes
 by: contractor
 communities: [java,security]
-description: "Use Jakarta EE 10 to build a secure Java web application using OpenID connect and Auth0."
+description: "Use Jakarta EE 10 to build a secure Java web application using OpenID Connect and Auth0."
 tags: [java, jakartaee]
-tweets:
-- ""
-- ""
-- ""
 image:
 type: conversion
 ---
 
-## OpenID authentication with Jakarta EE 10 and Security 3.0
-
 Jakarta EE 10 includes a new authentication mechanism: OpenID Connect! This can be added to a Jakarta EE servlet using the new `@OpenIdAuthenticationMechanismDefinition` annotation. 
 
-In this tutorial, you are going to see how to implement a web application with OpenID Connect (OIDC) authentication and use Auth0 as the OIDC provider. You are also going to see one way to secure an API and authenticate using JSON Web Tokens (JWTs). This will all be accomplished using Wildfly as the Jakarta EE runtime.
+In this tutorial, you are going to see how to implement a web application with OpenID Connect (OIDC) authentication and use Auth0 as the OIDC provider. You are also going to see one way to secure an API and authenticate using JSON Web Tokens (JWTs). This will all be accomplished using WildFly as the Jakarta EE runtime.
 
-This stack includes a lot of technologies. I'm going to introduce them briefly below. If you're comfortable with all those terms and just want to get to the code, **feel free to skip ahead to the requirements section**. 
+This stack includes a lot of technologies. I'm going to introduce them briefly below. If you're comfortable with all those terms and just want to get to the code, **feel free to skip ahead to the prerequisites section**.
 
-**Jakarta vs Java, EE vs SE**
+{% include toc.md %}
+
+## Jakarta vs Java, EE vs SE
 
 Jakarta EE is Jakarta Enterprise Edition, formerly known as Java EE. The name and framework packages were migrated when Oracle gave Java EE to the Eclipse Foundation because Oracle still has the rights to the Java brand and did not open-source absolutely everything that was in the `javax.*` namespace. Thus, Jakarta EE is the Eclipse-owned and now totally open-source Java EE (You may have recently had to change some packages from `javax` to `jakarta`. This is why.)
 
 Enterprise Edition is built on top of Jakarta (that is, Java) SE, or Standard Edition. Jakarta SE is the more lightweight Java version that provides a basic cross-platform runtime. Enterprise Edition is assumed to be running on an application server and adds libraries intended for larger-scale, multi-user applications. 
 
-To run an SE application, all you need is the JRE (Java runtime environment) for a compatible version of Java. Enterprise Edition, however, requires a more complete runtime environment and has a lot more possible modules and configuration options. To see a list of Jakarta EE compatible products, you can look at [the Jakarta website](https://jakarta.ee/compatibility/). A few examples are Open Liberty, Payara, Wildfly, Glassfish, and TomEE.
+To run an SE application, all you need is the JRE (Java runtime environment) for a compatible version of Java. Enterprise Edition, however, requires a more complete runtime environment and has a lot more possible modules and configuration options. To see a list of Jakarta EE compatible products, you can look at [the Jakarta website](https://jakarta.ee/compatibility/). A few examples are Open Liberty, Payara, WildFly, GlassFish, and TomEE.
 
-As of the time I wrote this tutorial, Jakarta EE 10 was a very new release, and only three frameworks supported version 10: Eclipse GlashFish, Payara Server Community, and WildFly. 
+As of the time I wrote this tutorial, Jakarta EE 10 was a very new release, and only three frameworks supported version 10: Eclipse GlassFish, Payara Server Community, and WildFly. 
 
-**Wildfly**
+### WildFly
 
 I chose to use [WildFly](https://www.wildfly.org/) as my Jakarta EE runtime. Hantsy Bai created a great example project that was a big help. Check out [the GitHub project repository page](https://github.com/hantsy/jakartaee10-sandbox). Thanks, Hantsy Bai! Super helpful.
 
 WildFly is an open-source community project sponsored by Red Hat. It bills itself as a "flexible, lightweight, managed application runtime" that is "based on Jakarta EE and provides rich enterprise capabilities in easy to consume frameworks that eliminate boilerplate and reduce technical burden." It is a modular, standards-based runtime for Jakarta EE applications.
 
-**Jakarta EE 10 Security 3.0**
+### Jakarta Security 3.0
 
 The exciting thing about Jakarta 10 (from a security perspective) is that it includes a new OIDC implementation in the Security 3.0 specification. OpenID Connect is an authentication protocol. This protocol is implemented by many third-party vendors, such as Auth0 and Okta, making it relatively easy to add secure login to an application. Jakarta EE 10 Security 3.0 provides an annotation-based configuration to add OIDC authentication to servlets.
 
 You can check out [the docs for Jakarta EE 10 Security 3.0 OIDC here](https://jakarta.ee/specifications/security/3.0/jakarta-security-spec-3.0.html#openid-connect-annotation).
 
-**Requirements**
+## Prerequisites
 
 Before you start, please make sure you have the following prerequisites installed (or install them now).
 
@@ -54,11 +50,13 @@ Before you start, please make sure you have the following prerequisites installe
 
 **You will need a free Auth0 developer account** if you don't already have one. Go ahead and sign up for an Auth0 account using [their sign-up page](https://auth0.com/signup).
 
-Clone the tutorial from [the GitHub repository](need.a.link).
+Clone this tutorial's example from [its GitHub repository](https://github.com/oktadev/auth0-jakarta-ee-oidc-example).
 
-{% include toc.md %}
+```shell
+git clone https://github.com/oktadev/auth0-jakarta-ee-oidc-example.git
+```
 
-## Take a look at the build configuration and project dependencies
+## Jakarta EE example project overview
 
 I won't reproduce the entire `pom.xml` file here, but I want to point out a few things.
 
@@ -178,7 +176,7 @@ clientId=<your-client-id>
 clientSecret=<your-client-secret>
 ```
 
-## Configure Roles on Auth0
+## Configure roles on Auth0
 
 Managing roles is a feature that is being added in [the upcoming Auth0 CLI 1.0 version](https://github.com/auth0/auth0-cli/releases/tag/v1.0.0-beta.1) that's currently in beta. What I'll show you below is how to do it in the dashboard.
 
@@ -202,7 +200,7 @@ Add a new action by clicking on the **+** symbol to the right of **Add Action**.
 
 Give the action a **Name**, such as `Add Roles`. Leave the other two values the same. Click **Create**.
 
-{% img blog/jakartaee-auth0/auth0-create-action.png alt:"Auth0 Create Action" width:"600" %}{: .center-image }
+{% img blog/jakartaee-auth0/auth0-create-action.png alt:"Auth0 Create Action" width:"500" %}{: .center-image }
 
 Change the code for the action to the following.
 
@@ -225,10 +223,9 @@ Drag the **Add Roles** action over under the **Rules (legacy)** action.
 
 {% img blog/jakartaee-auth0/auth0-action-flow.png alt:"Auth0 Action Flow" width:"400" %}{: .center-image }
 
-
 Click **Apply** (top right of the panel).
 
-## Explore the ProtectedServlet and OIDC flow
+## Explore the `ProtectedServlet` and OIDC flow
 
 Let's look at the `ProtectedServlet` first. This is the class that defines the OIDC annotation and will redirect to Auth0 to handle OIDC authentication.
 
@@ -334,7 +331,7 @@ To summarize (and simplify) the request flow to the `/protected` endpoint.
 
 All of that happened above when you logged into Auth0 and loaded the protected servlet. Since this servlet handily prints out the JWT, I thought it would be nice to see how to secure a web API using a JWT, which is what you'll see in the next section.
 
-## Use the JWT to access the protected API
+## Use a JWT to access the protected API
 
 The `ApiServlet` file defines an API servlet.
 
@@ -475,20 +472,16 @@ HTTP/1.1 200 OK
 Connection: keep-alive
 Content-Length: 401
 Content-Type: text;charset=ISO-8859-1
-Date: Tue, 27 Sep 2022 15:02:59 GMT
+Date: Tue, 27 Jan 2023 15:02:59 GMT
 
 Welcome, andrew.hughes@mail.com
 ...
 
 ```
 
-## Keep Learning with Jakarta EE and Auth0
+## Keep learning with Jakarta EE and Auth0
 
-<<<<<<< HEAD
-You just built a Jakarta Enterprise Edition application that used the new OpenID connect annotation and implementation built into Jakarta EE 10. You used Auth0 as the OIDC and OAuth 2 provider, and you saw how to implement both SSO and JWT authentication.
-=======
-You just built a Jakarta Enterprise Edition application that used the new Open ID connect annotation and implementation built into Jakarta EE 10. You used Auth0 as the OIDC and OAuth 2.0 provider, and you saw how to implement both SSO and JWT authentication.
->>>>>>> cf15c776fb952e876a1044d949b35dc261266471
+You just built a Jakarta Enterprise Edition application that used the new OpenID Connect annotation and implementation built into Jakarta EE 10. You used Auth0 as the OIDC and OAuth 2.0 provider, and you saw how to implement both SSO and JWT authentication.
 
 You can find the source code for this example on GitHub in the [@oktadev/okta-jakartaee-oidc-example](https://github.com/oktadev/okta-jakartaee-oidc-example) repository.
 
