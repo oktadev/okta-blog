@@ -189,17 +189,41 @@ Events:
 ```
 Once the cluster is healthy, you can test the deployment navigating to **http://gateway.rey.<public-ip>.nip.io** :
 
-- Gateway homepage picture
+{% img blog/keycloak-kubernetes-prod/gateway-home.png alt:"Gateway homepage" width:"800" %}{: .center-image }
 
 If you click on **Sign in** you will be redirected to Keycloak sign-in page. As the certificate for TLS was issued by Let's Encrypt staging environment, the browser won't trust it by default. Accept the certificate and you will be able to sign in. If you inspect the certificate, you will find the certificate hierarchy.
 
 
-- Certificate picture
+
+{% img blog/keycloak-kubernetes-prod/firefox-warning.png alt:"Firefox browser warning" width:"800" %}{: .center-image }
+
+{% img blog/keycloak-kubernetes-prod/firefox-advanced.png alt:"Firefox advanced information on warning" width:"800" %}{: .center-image }
+
+{% img blog/keycloak-kubernetes-prod/certificate-info.png alt:"Certificate information" width:"800" %}{: .center-image }
 
 ### Using cert-manager with Let's Encrypt Certificates
 
-cert-manager is a X.509 certificate controller for Kubernetes and OpenShift.
-It automates the issuance of certificates from popular public and private Certificate Authorities, to secure Ingress with TLS. It ensures the certificates are valid and up-to-date, and attempts to renew certificates before expiration.
+cert-manager is a X.509 certificate controller for Kubernetes and OpenShift. It automates the issuance of certificates from popular public and private Certificate Authorities, to secure Ingress with TLS. It ensures the certificates are valid and up-to-date, and attempts to renew certificates before expiration.
+
+With cert-manager, a certificate issuer is a resource type in the Kubernetes cluster, and Let's Encrypt is one of the supported sources of certificates than can be configured as issuer. The [ACME](https://www.rfc-editor.org/rfc/rfc8555) (Automated Certificate Management Environment) protocol is a framework for automating the issuance and domain validation procedure, which allows servers to obtain certificates without user interaction. Let's Encrypt is a Certificate Authority that supports ACME protocol, and through cert-manager the cluster can request and install Let's Manager certificates.
+
+
+The process for obtaining a certificate with ACME protocol has 2 steps:
+
+1. Domain Validation: The agent proves it controls the domain
+2. Certificate Issuance: The agent requests a certificate (or renews or revoke)
+
+Domain validation
+
+1. The agent registers to the CA with a key pair
+2. The agent submits an order for a certificate to be issued
+3. The CA issues a DNS01 or HTTP01 challenge
+4. The CA provides a nonce the agent must sign with its private key
+5. The CA verifies the challenge has been satisfied
+
+For the HTTP01 challenge, Let's Encrypt gives a token to the agent, and the agent must place a file at http://<YOUR_DOMAIN>/.well-known/acme-challenge/<TOKEN> that contains the token and a thumbprint (computation) of the agent
+
+
 
 - ACME and Let's Encrypt
 - Certificaterequest/Order/Challenges/Certificate
