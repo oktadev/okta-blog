@@ -8,7 +8,6 @@ description: "Use Jakarta EE 10 to build a secure Java web application using Ope
 tags: [java, jakartaee, auth0]
 image:
 type: conversion
-
 ---
 
 Jakarta EE 10 includes a new authentication mechanism: OpenID Connect! This can be added to a Jakarta EE servlet using the new `@OpenIdAuthenticationMechanismDefinition` annotation.
@@ -96,7 +95,7 @@ The docs for [the WildFly Maven plugin are here](https://docs.wildfly.org/wildfl
 
 It took a little digging to figure out, but the obscure command block *is* required, at least according to the experts I asked. It disables integrated JASPI (Java Authentication SPI for Containers) in the server and delegates validation of credentials to a non-integrated `ServerAuthModule`. This allows identities to be dynamically created instead of statically stored in an integrated security domain. Look at the [Elytron and Java EE Security section of the docs](https://docs.wildfly.org/26/WildFly_Elytron_Security.html#Elytron_and_Java_EE_Security) for more on this.
 
-There's also a Maven `unpack` plugin that is used to download the specified WildFly version and unpack it locally. Alternatively, you could run a separate instance of WildFly and load the application using the WildFly maven plugin.
+There's also a Maven `unpack` plugin that is used to download the specified WildFly version and unpack it locally. Alternatively, you could run a separate instance of WildFly and load the application using the WildFly Maven plugin.
 
 ## Project structure and configuration
 
@@ -186,14 +185,14 @@ You also need to fill in your domain in the `ProtectedServlet.java` file. In the
 
 ```java
 @OpenIdAuthenticationMechanismDefinition(
-        clientId = "${oidcConfig.clientId}",
-        clientSecret = "${oidcConfig.clientSecret}",
-        redirectURI = "${baseURL}/callback",
-        providerURI = "${oidcConfig.issuerUri}",
-        jwksConnectTimeout = 5000,
-        jwksReadTimeout = 5000,
-        extraParameters = {"audience=https://<your-auth0-domain>/api/v2/"}, // <-- YOUR DOMAIN HERE
-        claimsDefinition = @ClaimsDefinition(callerGroupsClaim = "http://www.jakartaee.demo/roles")
+    clientId = "${oidcConfig.clientId}",
+    clientSecret = "${oidcConfig.clientSecret}",
+    redirectURI = "${baseURL}/callback",
+    providerURI = "${oidcConfig.issuerUri}",
+    jwksConnectTimeout = 5000,
+    jwksReadTimeout = 5000,
+    extraParameters = {"audience=https://<your-auth0-domain>/api/v2/"}, // <-- YOUR DOMAIN HERE
+    claimsDefinition = @ClaimsDefinition(callerGroupsClaim = "http://www.jakartaee.demo/roles")
 )
 ```
 
@@ -205,7 +204,7 @@ Managing roles is a feature that is being added in [the upcoming Auth0 CLI 1.0 v
 
 Open your [Auth0 developer dashboard](https://manage.auth0.com). You need to create a role, assign your user to that role, and create an action that will inject the roles into a custom claim in the JWT.
 
-Under **User Management** click on **Roles**. Click the **Create Role** button. 
+Under **User Management**, click on **Roles**. Click the **Create Role** button.
 
 {% img blog/jakartaee-auth0/auth0-create-role.png alt:"Auth0 Create Role" width:"1000" %}{: .center-image }
 
@@ -261,14 +260,14 @@ package com.demo;
 
 // This globally defines the OIDC configuration (but does not itself secure the method)
 @OpenIdAuthenticationMechanismDefinition(
-        clientId = "${openIdConfig.clientId}",
-        clientSecret = "${openIdConfig.clientSecret}",
-        redirectURI = "${baseURL}/callback",
-        providerURI = "${openIdConfig.issuerUri}",
-        jwksConnectTimeout = 5000,
-        jwksReadTimeout = 5000,
-        extraParameters = {"audience=https://<your-auth0-domain>/api/v2/"}, // <-- YOUR AUTH0 DOMAIN HERE
-        claimsDefinition = @ClaimsDefinition(callerGroupsClaim = "http://www.jakartaee.demo/roles")
+    clientId = "${openIdConfig.clientId}",
+    clientSecret = "${openIdConfig.clientSecret}",
+    redirectURI = "${baseURL}/callback",
+    providerURI = "${openIdConfig.issuerUri}",
+    jwksConnectTimeout = 5000,
+    jwksReadTimeout = 5000,
+    extraParameters = {"audience=https://<your-auth0-domain>/api/v2/"}, // <-- YOUR AUTH0 DOMAIN HERE
+    claimsDefinition = @ClaimsDefinition(callerGroupsClaim = "http://www.jakartaee.demo/roles")
 )
 // This actually secures the methods in the servlet
 @WebServlet("/protected")
@@ -313,7 +312,6 @@ public class ProtectedServlet extends HttpServlet {
         response.getWriter().print(html.toString());
     }
 }
-
 ```
 
 The `@OpenIdAuthenticationMechanismDefinition` is the new feature added by Jakarta EE 10 and Security 3.0. The docs for this annotation [are here](https://jakarta.ee/specifications/security/3.0/jakarta-security-spec-3.0.html#openid-connect-annotation).
@@ -342,7 +340,7 @@ Give it a try. Start the app.
 
 Wait a few seconds for it to finish loading.
 
-Open a browser to the protected page at http://localhost:8080/protected
+Open a browser to the protected page at `http://localhost:8080/protected`.
 
 You'll have to authorize the app with Auth0. You may also have to log in if you are not already logged in. After that you should be redirected back to the protected page, which will print out some information from the token.  
 
@@ -375,13 +373,15 @@ Next you'll see how to secure the an API method on the app and use the token you
 For people new to OAuth and OIDC, this is a summary of what just happened when you accessed the `protected` endpoint.
 
 - Client requests `/protected`.
-- Jakarta EE Security 3.0 intercepts this request based on OIDC configuration and authentication requirement for endpoint and redirects to Auth0 for authentication.
-- Upon successful authentication, Auth0 redirects back to `/callback` endpoint, sending authorization code.
+- Jakarta EE Security 3.0 intercepts this request based on OIDC configuration and authentication requirement for the endpoint and redirects to Auth0 for authentication.
+- Upon successful authentication, Auth0 redirects back to `/callback` endpoint, sending the authorization code.
 - Jakarta EE Security 3.0 intercepts the request to the `/callback` endpoint and sends the authorization code back to Auth0.
 - Auth0 accepts the authorization code, verifies it, and returns an access token (and possibly an identity token) to the Jakarta EE Security 3.0 framework.
 - The client receives the access token, unpacks it, and verifies. Once the token is verified, the user is authenticated. The `callback` method is run, which programmattically redirects back to the `/protected` endpoint.
 - Before the `/protected` endpoint is run, the `@ServletSecurity` annotation requirement is checked. If the user is a member of the `Everyone` group, the `ProtectedServlet.doGet()` method is called.
-- Finally, the the `ProtectedServlet.doGet()` method is called.
+- Finally, the `ProtectedServlet.doGet()` method is called.
+
+All of that happened above when you logged into Auth0 and loaded the protected servlet. Since this servlet handily prints out the JWT, I thought it would be nice to see how to secure a web API using a JWT, which is what you'll see in the next section.
 
 ## Use the JWT to access the protected API
 
@@ -400,13 +400,12 @@ public class ApiServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
 
-        DecodedJWT jwt = (DecodedJWT)request.getAttribute("jwt");
-        response.setContentType("text");
+        DecodedJWT jwt = (DecodedJWT) request.getAttribute("jwt");
+        response.setContentType("text/plain");
         response.getWriter().println("Welcome, " + jwt.getClaims().get("sub"));
         response.getWriter().println(jwt.getClaims());
     }
 }
-
 ```
 
 **By itself, this servlet is not secured.** It would be public without the `JwtFilter` class, which is shown below. The filter intercepts any requests matching the `/api/*` URL pattern and denies them if they do not have a valid JWT. Notice that this is a totally different authentication and authorization method from the client login OIDC example above.
@@ -424,13 +423,11 @@ public class JwtFilter implements Filter {
     private static final Logger LOGGER = Logger.getLogger(JwtFilter.class.getName());
 
     @Inject
-    OpenIdConfig openIdConfig;
-
-    private JWTVerifier jwtVerifier;
+    OidcConfig oidcConfig;
 
     @Override
     public void init(FilterConfig filterConfig) {
-        LOGGER.info("Auth0 jwtVerifier initialized for issuer:" + openIdConfig.getIssuerUri());
+        LOGGER.info("Auth0 jwtVerifier initialized for issuer:" + oidcConfig.getIssuerUri());
     }
 
     @Override
@@ -451,7 +448,7 @@ public class JwtFilter implements Filter {
         } else {
             String accessToken = authHeader.substring(authHeader.indexOf("Bearer ") + 7);
             LOGGER.info("accesstoken: " + request.getRequestURI());
-            JwkProvider provider = new UrlJwkProvider(openIdConfig.getIssuerUri());
+            JwkProvider provider = new UrlJwkProvider(oidcConfig.getIssuerUri());
             try {
                 DecodedJWT jwt = JWT.decode(accessToken);
                 // Get the kid from received JWT token
@@ -460,8 +457,8 @@ public class JwtFilter implements Filter {
                 Algorithm algorithm = Algorithm.RSA256((RSAPublicKey) jwk.getPublicKey(), null);
 
                 JWTVerifier verifier = JWT.require(algorithm)
-                        .withIssuer(openIdConfig.getIssuerUri())
-                        .build();
+                    .withIssuer(oidcConfig.getIssuerUri())
+                    .build();
 
                 jwt = verifier.verify(accessToken);
                 LOGGER.info("JWT decoded. sub=" + jwt.getClaims().get("sub"));
@@ -483,7 +480,7 @@ public class JwtFilter implements Filter {
 }
 ```
 
-This code uses Auth0's JWT verifier for Java. Auth0 [has good docs on JWT verification](https://auth0.com/docs/secure/tokens/json-web-tokens/validate-json-web-tokens). If a valid JWT is found and decoded, it is saved in a request attribute and the request is allowed to continue.
+This code uses Auth0's JWT verifier for Java. Auth0 [has good docs on JWT verification](https://auth0.com/docs/secure/tokens/json-web-tokens/validate-json-web-tokens). If a valid JWT is found and decoded, it is saved in a request attribute, and the request is allowed to continue.
 
 Give it a try. Start the project.
 
@@ -499,7 +496,7 @@ http :8080/api/protected
 
 You'll get:
 
-```Bash
+```bash
 HTTP/1.1 401 Unauthorized
 ```
 
@@ -524,16 +521,16 @@ HTTP/1.1 200 OK
 Connection: keep-alive
 Content-Length: 401
 Content-Type: text;charset=ISO-8859-1
-Date: Tue, 27 Sep 2022 15:02:59 GMT
+Date: Tue, 27 Jan 2023 15:02:59 GMT
 
 Welcome, andrew.hughes@mail.com
 ...
 
 ```
 
-## Keep Learning with Jakarta EE and Auth0
+## Keep learning with Jakarta EE and Auth0
 
-You just built a Jakarta Enterprise Edition application that used the new OpenID connect annotation and implementation built into Jakarta EE 10. You used Auth0 as the OIDC and OAuth 2 provider, and you saw how to implement both SSO and JWT authentication.
+You just built a Jakarta Enterprise Edition application that used the new OpenID Connect annotation and implementation built into Jakarta EE 10. You used Auth0 as the OIDC and OAuth 2.0 provider and saw how to implement both SSO and JWT authentication.
 
 You can find the source code for this example on GitHub in the [@oktadev/okta-jakartaee-oidc-example](https://github.com/oktadev/okta-jakartaee-oidc-example) repository.
 
