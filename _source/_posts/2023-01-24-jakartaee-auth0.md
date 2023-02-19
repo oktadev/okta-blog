@@ -12,6 +12,7 @@ tweets:
 - ""
 image:
 type: conversion
+
 ---
 
 ## OpenID authentication with Jakarta EE 10 and Security 3.0
@@ -95,6 +96,8 @@ The docs for [the WildFly Maven plugin are here](https://docs.wildfly.org/wildfl
 
 It took a little digging to figure out, but the obscure command block *is* required, at least according to the experts I asked. It disables integrated JASPI in the server and instead delegates validation of credentials to a non-integrated `ServerAuthModule`. This allows for identities to be dynamically created instead of statically stored in an integrated security domain. Take a look at the [Elytron and Java EE Security section of the docs](https://docs.wildfly.org/26/WildFly_Elytron_Security.html#Elytron_and_Java_EE_Security) for more on this.
 
+There's also a Maven `unpack` plugin that is used to download the specified WildFly version and unpack it locally. Alternatively, you could run a separate instance of WildFly and load the application using the WildFly maven plugin.
+
 ## Project structure and configuration
 
 The files in the `src` directory are listed below. There are three different services: 
@@ -153,7 +156,7 @@ auth0 apps create
 
 Use the following values:
 
-- **Name**: `javartaee-demo`
+- **Name**: `jakartaee-demo`
 
 - **Description**: whatever you like, or leave blank
 - **Type**: `Regular Web Application`
@@ -173,10 +176,29 @@ Select the OIDC app (or client) you just created from the list. This will open t
 Fill in the three values in `src/main/resources/openid.properties`. Replace the bracketed values with the values from the OIDC application page on the Auth0 dashboard.
 
 ```properties
-issuerUri=<your-auth0-domain>
+domain=<your-auth0-domain>
 clientId=<your-client-id>
 clientSecret=<your-client-secret>
 ```
+
+You also need to fill in your domain in the `ProtectedServlet.java` file. In the `OpenIdAuthenticationMechanismDefinition` annotation, look at the `extraParameters` parameter. You need to replace `<your-auth0-domain>` with your actual Auth0 domain. 
+
+`src/main/java/com/demo/ProtectedServlet.java`
+
+```java
+@OpenIdAuthenticationMechanismDefinition(
+        clientId = "${oidcConfig.clientId}",
+        clientSecret = "${oidcConfig.clientSecret}",
+        redirectURI = "${baseURL}/callback",
+        providerURI = "${oidcConfig.issuerUri}",
+        jwksConnectTimeout = 5000,
+        jwksReadTimeout = 5000,
+        extraParameters = {"audience=https://<your-auth0-domain>/api/v2/"}, // <-- YOUR DOMAIN HERE
+        claimsDefinition = @ClaimsDefinition(callerGroupsClaim = "http://www.jakartaee.demo/roles")
+)
+```
+
+There must be a way to use the `extraParametersExpression` annotation parameter to load this from the config file, but I was unable to get it to work (if somebody figures it out, let me know and I'll update this tutorial).
 
 ## Configure Roles on Auth0
 
@@ -192,7 +214,7 @@ Under **User Management** click on **Roles**. Click the **Create Role** button.
 
 {% img blog/jakartaee-auth0/auth0-create-role2.png alt:"Auth0 Create Role, part 2" width:"700" %}{: .center-image }
 
-The Everyone role panel should be shown. Select the **Users** tab. Click **Add Users**. Assign yourself to the role.
+The `Everyone` role panel should be shown. Select the **Users** tab. Click **Add Users**. Assign yourself to the role.
 
 You've now created a role and assigned yourself to it. But this information will not be passed along in the JWT without a little customization. The current best practice is to do this using actions.
 
@@ -230,7 +252,7 @@ Click **Apply** (top right of the panel).
 
 ## Explore the ProtectedServlet and OIDC flow
 
-Let's look at the `ProtectedServlet` first. This is the class that defines the OIDC annotation and will redirect to Auth0 to handle OIDC authentication.
+Let's look at the `ProtectedServlet` first. This is the class that defines the OIDC annotation and will redirect to Auth0 to handle OIDC authentication. **You should have already substituted your Auth0 domain for the bracketed placeholder in the OpenID annotation in this file.** The actual method does very litte, just extract some information from the JWT and print it. All of the action is in the annotations.
 
 `src/main/java/com/demo/ProtectedServlet.java`
 
@@ -239,22 +261,21 @@ package com.demo;
 
 ...
 
+// This globally defines the OIDC configuration (but does not itself secure the method)
 @OpenIdAuthenticationMechanismDefinition(
-        providerURI = "${openIdConfig.issuerUri}",
         clientId = "${openIdConfig.clientId}",
         clientSecret = "${openIdConfig.clientSecret}",
         redirectURI = "${baseURL}/callback",
-        // default 500ms caused timeouts for me
+        providerURI = "${openIdConfig.issuerUri}",
         jwksConnectTimeout = 5000,
         jwksReadTimeout = 5000,
-        // Auth0 requires the audience to be set to the default API
-        extraParameters = {"audience=https://${openIdConfig.issuerUri}/api/v2/"},
-        // read the roles from Auth0 custom claim
+        extraParameters = {"audience=https://<your-auth0-domain>/api/v2/"}, // <-- YOUR AUTH0 DOMAIN HERE
         claimsDefinition = @ClaimsDefinition(callerGroupsClaim = "http://www.jakartaee.demo/roles")
 )
+// This actually secures the methods in the servlet
 @WebServlet("/protected")
 @ServletSecurity(
-        @HttpConstraint(rolesAllowed = "Everyone")
+    @HttpConstraint(rolesAllowed = "Everyone")
 )
 public class ProtectedServlet extends HttpServlet {
 
@@ -270,17 +291,31 @@ public class ProtectedServlet extends HttpServlet {
         var principal = securityContext.getCallerPrincipal();
         var name = principal.getName();
 
+        String html = """
+                <div style="margin: 0 10%%; width: 80%%; overflow-wrap: anywhere;">
+                    <h1>Protected Servlet</h1>
+                    <p>principal name: %s </p>
+                    <p>access token (type = %s):</p>
+                    <p>%s</p>
+                    <p>preferred_username: %s</p>
+                    <p>roles: %s</p>
+                    <p>claims:</p>
+                    <p>%s</p>
+                </div>
+                """.formatted(
+                        name,
+                        context.getTokenType(),
+                        context.getAccessToken(),
+                        context.getClaimsJson().get("preferred_username").toString(),
+                        context.getClaimsJson().get("http://www.jakartaee.demo/roles").toString(),
+                        context.getClaimsJson()
+                );
+
         response.setContentType("text/html");
-        response.getWriter().println("<h1>Protected Servlet</h1>");
-        response.getWriter().println("<p>Principal name:" + name + "</p>");
-        response.getWriter().println("<p>access token:" + context.getAccessToken() + "</p>");
-        response.getWriter().println("<p>token type:" + context.getTokenType() + "</p>");
-        response.getWriter().println("<p>subject:" + context.getSubject() + "</p>");
-        response.getWriter().println("<p>expires in:" + context.getExpiresIn() + "</p>");
-        response.getWriter().println("<p>refresh token:" + context.getRefreshToken() + "</p>");
-        response.getWriter().println("<p>claims json:" + context.getClaimsJson() + "</p>");
+        response.getWriter().print(html.toString());
     }
 }
+
 ```
 
 The `@OpenIdAuthenticationMechanismDefinition` is the new feature added by Jakarta EE 10 and Security 3.0. The docs for this annotation [are here](https://jakarta.ee/specifications/security/3.0/jakarta-security-spec-3.0.html#openid-connect-annotation). 
@@ -299,44 +334,60 @@ When a user that is not authenticated attempts to load this resource, they are r
 
 At this point, the user is successfully authenticated. If you look at the callback servlet (shown below), you'll see that it simply redirects the user back to the `/protected` servlet. 
 
-```java
-package com.demo;
+## Log In to the App Using Auth0 SSO and OpenID Connect
 
-...
+Give it a try. Start the app.
 
-@WebServlet("/callback")
-public class CallbackServlet extends HttpServlet {
-
-    private static final Logger LOGGER = Logger.getLogger(CallbackServlet.class.getName());
-
-    @Override
-    protected void doGet(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
-        String referer = (String) request.getSession().getAttribute("Referer");
-        String redirectTo = referer != null ? referer : request.getContextPath() + "/protected";
-        LOGGER.info("OIDC callback success. Redirecting to: " + redirectTo);
-        response.sendRedirect(redirectTo);
-    }
-
-}
-
+```bash
+./mvnw wildfly:run
 ```
 
-To summarize (and simplify) the request flow to the `/protected` endpoint.
+Wait a few seconds for it to finish loading.
+
+Open a browser to the protected page at http://localhost:8080/protected
+
+You'll have to authorize the app with Auth0. You may also have to log in if you are not already logged in. After that you should be redirected back to the protected page, which will print out some information from the token.  
+
+Success! You've got a working Jakarate EE application secured with OIDC and OAuth 2.0. 
+
+```
+Protected Servlet
+
+principal name: andrewcarterhughes+test@gmail.com
+
+access token (type = Bearer):
+
+eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCIsImtpZCI6Im5yMWZwWVlkb3JkalEybzRlREp6MiJ9.eyJodHRwOi8vd3d3Lmpha2FydGFlZS5kZW1vL3JvbGVzIjpbIkV2ZXJ5b25lIl0sImlzcyI6Imh0dHBzOi8vZGV2LTByYTk5anJwLnVzLmF1dGgwLmNvbS8iLCJz...
+
+preferred_username: "andrewcarterhughes+test@gmail.com"
+
+roles: ["Everyone"]
+
+claims:
+
+{"sub":"auth0|638e36302e342504ae92b911","nickname":"andrewcarterhughes+test","preferred_username":"andrewcarterhughes+test@gmail.com","name":"andrewcarterhughes+test@gmail.com","picture":"https://s.gravatar.com/avatar/146a9ec7b0773b3edc6a299d7ad5dbb0?s=480&r=pg&d=https%3A%2F%2Fcdn.auth0.com%2Favatars%2Fan.png","updated_at":"2023-02-18T04:37:30.403Z","email":"andrewcarterhughes+test@gmail.com","email_verified":true,"http://www.jakartaee.demo/roles":["Everyone"]}
+```
+
+Make sure you see `roles: ["Everyone"]`. This is coming from the claim `http://www.jakartaee.demo/roles":["Everyone"]`, which is what is being injected by the action you created on Auth0. If that's not there, something is misconfigured.
+
+Next you'll see how to secure the an API method on the app and use the token you just retrieved to access the secured API method. Directly below, however, is a summary of the OIDC login flow for people not already familiar with it.
+
+## Authentication Flow Summary
+
+For people new to OAuth and OIDC, this is a summary of what just happened when you accessed the `protected` endpoint.
 
 - Client requests `/protected`.
-- Jakarta EE Security 3.0 intercepts this request based on OIDC configuration and authentication requirement for the endpoint and redirects to Auth0 for authentication.
+- Jakarta EE Security 3.0 intercepts this request based on OIDC configuration and authentication requirement for endpoint and redirects to Auth0 for authentication.
 - Upon successful authentication, Auth0 redirects back to `/callback` endpoint, sending authorization code.
-- Jakarta EE Security 3.0 intercepts the request to the `/callback`endpoint and sends the authorization code back to Auth0.
+- Jakarta EE Security 3.0 intercepts the request to the `/callback` endpoint and sends the authorization code back to Auth0.
 - Auth0 accepts the authorization code, verifies it, and returns an access token (and possibly an identity token) to the Jakarta EE Security 3.0 framework.
-- Once a verified JWT is received and unpacked, the user is authenticated and the `@ServletSecurity` annotation requirement is checked. If the user is a member of the `Everyone` group, the `ProtectedServlet.doGet()` method is called.
-- The  `ProtectedServlet.doGet()` method programmatically redirects back to `/protected`.
-
-All of that happened above when you logged into Auth0 and loaded the protected servlet. Since this servlet handily prints out the JWT, I thought it would be nice to see how to secure a web API using a JWT, which is what you'll see in the next section.
+- The client receives the access token, unpacks it, and verifies. Once the token is verified, the user is authenticated. The `callback` method is run, which programmattically redirects back to the `/protected` endpoint.
+- Before the `/protected` endpoint is run, the `@ServletSecurity` annotation requirement is checked. If the user is a member of the `Everyone` group, the `ProtectedServlet.doGet()` method is called.
+- Finally, the the `ProtectedServlet.doGet()` method is called.
 
 ## Use the JWT to access the protected API
 
-The `ApiServlet` file defines an API servlet.
+Your secured API method will not perform all of the redirecting of the OIDC flow. Instead, it will simply decode and validate the JWT. Take a look at the `ApiServlet.java` file. This is what defines the API servlet. This is what you'll access using the JWT and a simple HTTP request using HTTPie.
 
 `src/main/java/com/demo/ApiServlet.java`
 
@@ -360,7 +411,7 @@ public class ApiServlet extends HttpServlet {
 
 ```
 
-This servlet by itself is not at all secure and would be public without the `JwtFilter` class, which is shown below. The filter intercepts any requests matching the `/api/*` URL pattern and denies them if they do not have a valid JWT.
+**By itself, this servlet is not secured.** It would be public without the `JwtFilter` class, which is shown below. The filter intercepts any requests matching the `/api/*` URL pattern and denies them if they do not have a valid JWT. Notice that this is a totally different authentication and authorization method from the client login OIDC example above.
 
 `src/main/java/com/demo/JwtFilter.java`
 
@@ -484,11 +535,7 @@ Welcome, andrew.hughes@mail.com
 
 ## Keep Learning with Jakarta EE and Auth0
 
-<<<<<<< HEAD
 You just built a Jakarta Enterprise Edition application that used the new OpenID connect annotation and implementation built into Jakarta EE 10. You used Auth0 as the OIDC and OAuth 2 provider, and you saw how to implement both SSO and JWT authentication.
-=======
-You just built a Jakarta Enterprise Edition application that used the new Open ID connect annotation and implementation built into Jakarta EE 10. You used Auth0 as the OIDC and OAuth 2.0 provider, and you saw how to implement both SSO and JWT authentication.
->>>>>>> cf15c776fb952e876a1044d949b35dc261266471
 
 You can find the source code for this example on GitHub in the [@oktadev/okta-jakartaee-oidc-example](https://github.com/oktadev/okta-jakartaee-oidc-example) repository.
 
