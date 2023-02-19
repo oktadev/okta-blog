@@ -532,7 +532,7 @@ Welcome, andrew.hughes@mail.com
 
 You just built a Jakarta Enterprise Edition application that used the new OpenID Connect annotation and implementation built into Jakarta EE 10. You used Auth0 as the OIDC and OAuth 2.0 provider and saw how to implement both SSO and JWT authentication.
 
-You can find the source code for this example on GitHub in the [@oktadev/okta-jakartaee-oidc-example](https://github.com/oktadev/okta-jakartaee-oidc-example) repository.
+You can find the source code for this example on GitHub in the [@oktadev/auth0-jakarta-ee-oidc-example](https://github.com/oktadev/auth0-jakarta-ee-oidc-example) repository.
 
 If you liked this post, there's a good chance you'll like similar ones:
 
