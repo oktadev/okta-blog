@@ -14,6 +14,7 @@ image: blog/spring-boot-vue3/spring-boot-vue.jpg
 type: conversion
 github: https://github.com/oktadev/okta-spring-boot-vue-crud-example
 changelog:
+- 2023-01-20: Updated post to add Auth0 and use Spring Boot 3.0. You can find the changes to this post in [okta-blog#1284](https://github.com/oktadev/okta-blog/pull/1284). Example app changes can be found in [okta-spring-boot-vue-crud-example#6](https://github.com/oktadev/okta-spring-boot-vue-crud-example/pull/6).
 ---
 
 You will use Vue and Spring Boot to build a todo list web application. The application will include CRUD abilities, meaning that you can **c**reate, **r**ead, **u**pdate, and **d**elete the todo items on the Spring Boot API via the client. The Vue frontend client will use the Quasar framework for the presentation. OAuth 2.0 and OpenID Connect (OIDC) will secure the Spring Boot API and the Vue client, initially by using Okta as the security provider. Then, at the end of the tutorial, you will also see how to use Auth0 as the security provider.
@@ -30,6 +31,10 @@ The Spring Boot app will include an H2 in-memory database and will use Spring Da
 The client will use [Vue 3](https://vuejs.org/) and the Quasar framework. [The Quasar framework](https://quasar.dev/) provides components and layout tools to help build Vue applications quickly with a consistent, high-quality user interface.
 
 Before you dig into the tutorial, I want to quickly introduce the technologies for those that might be unfamiliar. Feel free to skip down to the [prerequisites](#prerequisites) section if you're already familiar with Vue and Spring Boot.
+
+If you're more of a visual learner, this tutorial is also available [as a screencast](https://youtu.be/8v2m2eoKVnM).
+
+{% youtube 8v2m2eoKVnM %}
 
 {% include toc.md %}
 
@@ -1436,7 +1441,7 @@ export default {
         loginWithRedirect();
       },
       logout: () => {
-        logout({ returnTo: window.location.origin });
+        logout({ logoutParams: { returnTo: window.location.origin } });
       },
       user,
       isAuthenticated
