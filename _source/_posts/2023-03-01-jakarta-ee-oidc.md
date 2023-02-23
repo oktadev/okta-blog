@@ -171,7 +171,7 @@ Select the OIDC app (or client) you just created from the list. This will open t
 
 {% img blog/jakartaee-auth0/oidc-application-auth0.png alt:"Auth0 OIDC App" width:"600" %}{: .center-image }
 
-Fill in the three values in `src/main/resources/openid.properties`. Replace the bracketed values with the values from the OIDC application page on the Auth0 dashboard.
+Fill in the three values in `src/main/resources/oidc.properties`. Replace the bracketed values with the values from the OIDC application page on the Auth0 dashboard.
 
 ```properties
 domain=<your-auth0-domain>
@@ -521,7 +521,7 @@ HTTP/1.1 200 OK
 Connection: keep-alive
 Content-Length: 401
 Content-Type: text;charset=ISO-8859-1
-Date: Tue, 27 Jan 2023 15:02:59 GMT
+Date: Tue, 23 Feb 2023 07:48:59 GMT
 
 Welcome, andrew.hughes@mail.com
 ...
