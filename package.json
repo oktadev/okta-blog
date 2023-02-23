@@ -39,7 +39,7 @@
   },
   "homepage": "https://github.com/oktadev/okta-blog#readme",
   "devDependencies": {
-    "chalk": "4.1.2",
+    "chalk": "5.2.0",
     "cross-env": "7.0.3",
     "front-matter": "^4.0.2",
     "fs-extra": "^11.1.0",
