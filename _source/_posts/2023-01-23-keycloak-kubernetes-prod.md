@@ -16,6 +16,7 @@ type: awareness
 
 - introduction
 - announce support
+- about keycloak
 
 {% include toc.md %}
 
@@ -201,34 +202,57 @@ If you click on **Sign in** you will be redirected to Keycloak sign-in page. As 
 
 {% img blog/keycloak-kubernetes-prod/certificate-info.png alt:"Certificate information" width:"800" %}{: .center-image }
 
-### Using cert-manager with Let's Encrypt Certificates
+## Using cert-manager with Let's Encrypt Certificates
 
 cert-manager is a X.509 certificate controller for Kubernetes and OpenShift. It automates the issuance of certificates from popular public and private Certificate Authorities, to secure Ingress with TLS. It ensures the certificates are valid and up-to-date, and attempts to renew certificates before expiration.
 
 With cert-manager, a certificate issuer is a resource type in the Kubernetes cluster, and Let's Encrypt is one of the supported sources of certificates than can be configured as issuer. The [ACME](https://www.rfc-editor.org/rfc/rfc8555) (Automated Certificate Management Environment) protocol is a framework for automating the issuance and domain validation procedure, which allows servers to obtain certificates without user interaction. Let's Encrypt is a Certificate Authority that supports ACME protocol, and through cert-manager the cluster can request and install Let's Manager certificates.
 
+### Certificate issuance flow
 
-The process for obtaining a certificate with ACME protocol has 2 steps:
+The process for obtaining a certificate with ACME protocol has two major tasks, __Domain Validation__, where the agent proves it controls the domain, and __Certificate Issuance__, where the agent requests a certificate (or renews or revoke).
 
-1. Domain Validation: The agent proves it controls the domain
-2. Certificate Issuance: The agent requests a certificate (or renews or revoke)
-
-Domain validation
+At a high level, the following steps are required for obtaining a certificate from an ACME server:
 
 1. The agent registers to the CA with a key pair
 2. The agent submits an order for a certificate to be issued
 3. The CA issues a DNS01 or HTTP01 challenge
 4. The CA provides a nonce the agent must sign with its private key
-5. The CA verifies the challenge has been satisfied
+5. The agent completes the challenge
+6. The agent signs the nonce with its private key
+7. The agent notifies the CA it is ready for validation
+8. The CA verifies the signature on the nonce satisfied
+9. The CA verifies the challenge has been satisfied
+10. The authorized agent sends a certificate signing request
+11. The CA issues the certificate
 
-For the HTTP01 challenge, Let's Encrypt gives a token to the agent, and the agent must place a file at http://<YOUR_DOMAIN>/.well-known/acme-challenge/<TOKEN> that contains the token and a thumbprint (computation) of the agent
+### About ACME orders and challenges
 
+When a `Certificate` resource is created, cert-manager automatically creates a `CertificateRequest`. An `Order` resource represents a single certificate request, also created automatically, and is used by the ACME issuer to manage the lifecycle of the ACME order for a signed TLS certificate. The `Order` resource manages challenges for the order with the `Challenge` resource.
 
+The `Challenge` resource is queued for scheduled processing. The challenge controller will perform a self check, and once it is passing, the ACME authorization is accepted for the ACME server to perform the validation.
 
-- ACME and Let's Encrypt
-- Certificaterequest/Order/Challenges/Certificate
-- Annotations
-- Gke and ingress class
+### The HTTP01 Ingress solver
+
+The HTTP-01 challenge is the most common challenge type. Let's Encrypt gives a token to the agent, and the agent must place a file at http://<YOUR_DOMAIN>/.well-known/acme-challenge/<TOKEN> that contains the token and a thumbprint (computation) of the agent. Once the agent tells Let's Encrypt the file is ready, Let's Encrypt validates the file and issues the certificate.
+
+The challenge type is configured in the issuer, along with the ingress class for the solver. cert-manager will create a new Ingress resource to route Let's Encrypt challenge requests to the solver pods, which are also created automatically.
+
+The following annotations are required in the ingress resource, for the challenge solver to work and the TLS certificate to be automatically created by cert-manager:
+
+- `kubernetes.io/ingress.allow-http: "true"`: Required to allow HTTP connections from challenge requests
+- `cert-manager.io/issuer: letsencrypt-staging`: The name of the issuer to acquire the certificate, which must be in the same namespace
+- `acme.cert-manager.io/http01-edit-in-place: "true"`: The ingress is modified in place, instead of create a new ingress resource for the HTTP01 challenge
+- `cert-manager.io/issue-temporary-certificate: "true"`: A temporary certificate will be set on the secret until the final certificate has been returned. used for keeping compatibility with the `ingress-gce` component.
 
 
 ## Learn More about Keycloak in production
+
+I hope you enjoyed this post and learned about some best practices for deploying Keycloak to production when doing JHipster development. Keep learning about Keycloak and JHipster! Check out the following links:
+
+- [Integrate React Native and Spring Boot Securely](/blog/2022/10/12/integrate-react-native-and-spring-boot-securely)
+- [Use GitHub Actions to Build GraalVM Native Images](/blog/2022/04/22/github-actions-graalvm)
+- [Full Stack Java with React, Spring Boot, and JHipster](https://auth0.com/blog/full-stack-java-with-react-spring-boot-and-jhipster/)
+- [Introducing Spring Native for JHipster: Serverless Full-Stack Made Easy](/blog/2022/03/03/spring-native-jhipster)
+
+For more tutorials like this one, follow [@oktadev](https://twitter.com/oktadev) on Twitter. We also have a [YouTube channel](https://youtube.com/c/oktadev) you might like. If you have any questions, please leave a comment below!
