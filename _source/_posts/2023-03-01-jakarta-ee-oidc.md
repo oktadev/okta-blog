@@ -400,10 +400,12 @@ public class ApiServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
 
-        DecodedJWT jwt = (DecodedJWT) request.getAttribute("jwt");
+        DecodedJWT jwt = (DecodedJWT) request.getAttribute("accessToken");
+        IdToken idToken = (IdToken) request.getAttribute("idToken");
         response.setContentType("text/plain");
-        response.getWriter().println("Welcome, " + jwt.getClaims().get("sub"));
-        response.getWriter().println(jwt.getClaims());
+        response.getWriter().println("Welcome, " + idToken.email);
+        response.getWriter().println("accessToken claims:" + jwt.getClaims());
+        response.getWriter().println("idToken claims:" + idToken.toString());
     }
 }
 ```
@@ -446,27 +448,56 @@ public class JwtFilter implements Filter {
             response.getOutputStream().print("Unauthorized");
             return;
         } else {
+            // Get the access token from the header
             String accessToken = authHeader.substring(authHeader.indexOf("Bearer ") + 7);
-            LOGGER.info("accesstoken: " + request.getRequestURI());
+            LOGGER.info("accesstoken: " + accessToken);
             JwkProvider provider = new UrlJwkProvider(oidcConfig.getIssuerUri());
             try {
+                // Decode the access token
                 DecodedJWT jwt = JWT.decode(accessToken);
                 // Get the kid from received JWT token
                 Jwk jwk = provider.get(jwt.getKeyId());
 
                 Algorithm algorithm = Algorithm.RSA256((RSAPublicKey) jwk.getPublicKey(), null);
 
+                // Verify the access token
                 JWTVerifier verifier = JWT.require(algorithm)
                     .withIssuer(oidcConfig.getIssuerUri())
                     .build();
 
                 jwt = verifier.verify(accessToken);
                 LOGGER.info("JWT decoded. sub=" + jwt.getClaims().get("sub"));
-                request.setAttribute("jwt", jwt);
 
-            } 
-            
-            ...
+                // Save the access token in a request attribute
+                request.setAttribute("accessToken", jwt);
+
+                // Get the ID Token
+                String issuerUri = oidcConfig.getIssuerUri();
+                String userinfoUri = issuerUri + "userinfo";
+                LOGGER.info("userinfoUri: " + userinfoUri);
+
+                HttpClient client = HttpClient.newHttpClient();
+                HttpRequest requestIdToken = HttpRequest.newBuilder(
+                                URI.create(userinfoUri))
+                        .header("Authorization", "Bearer " + accessToken)
+                        .build();
+                HttpResponse<String> responseIdToken = client.send(requestIdToken, HttpResponse.BodyHandlers.ofString());
+                String idTokenString = responseIdToken.body();
+                LOGGER.info("idTokenString: " + idTokenString);
+
+                // Deserialize the ID token
+                IdToken idToken = new Gson().fromJson(idTokenString, IdToken.class);
+
+                LOGGER.info("idToken: " + idToken.toString());
+
+                // Save the id token in a request attribute
+                request.setAttribute("idToken", idToken);
+
+            } catch (JWTVerificationException | JwkException e) {
+              ...
+            } catch (InterruptedException e) {
+              ...
+            }
 
         }
 
@@ -480,7 +511,8 @@ public class JwtFilter implements Filter {
 }
 ```
 
-This code uses Auth0's JWT verifier for Java. Auth0 [has good docs on JWT verification](https://auth0.com/docs/secure/tokens/json-web-tokens/validate-json-web-tokens). If a valid JWT is found and decoded, it is saved in a request attribute, and the request is allowed to continue.
+This code uses Auth0's JWT verifier for Java. Auth0 [has good docs on JWT verification](https://auth0.com/docs/secure/tokens/json-web-tokens/validate-json-web-tokens). If a valid JWT is found and decoded, it is saved in a request attribute. The access token, however, has very limited user information in it (just the user ID as the `sub` claim). The filter code uses the access token to request the ID token from the `userinfo` endpoint. This returns more complete user information, such as the email address and preferred name. This is deserialized into the `IdToken` Java object and stored in another request attribute. These are read in the `ApiServlet`.
+
 
 Give it a try. Start the project.
 
@@ -524,6 +556,8 @@ Content-Type: text;charset=ISO-8859-1
 Date: Tue, 23 Feb 2023 07:48:59 GMT
 
 Welcome, andrew.hughes@mail.com
+accessToken claims:{ ... }
+idToken claims: { ... }
 ...
 
 ```
