@@ -368,7 +368,7 @@ Make sure you see `roles: ["Everyone"]`. This is coming from the claim `http://w
 
 Next you'll see how to secure the an API method on the app and use the token you just retrieved to access the secured API method. Directly below, however, is a summary of the OIDC login flow for people not already familiar with it.
 
-## Authentication Flow Summary
+## OpenID Connect Authentication Flow Summary
 
 For people new to OAuth and OIDC, this is a summary of what just happened when you accessed the `protected` endpoint.
 
@@ -478,9 +478,9 @@ public class JwtFilter implements Filter {
 
                 HttpClient client = HttpClient.newHttpClient();
                 HttpRequest requestIdToken = HttpRequest.newBuilder(
-                                URI.create(userinfoUri))
-                        .header("Authorization", "Bearer " + accessToken)
-                        .build();
+                        URI.create(userinfoUri))
+                    .header("Authorization", "Bearer " + accessToken)
+                    .build();
                 HttpResponse<String> responseIdToken = client.send(requestIdToken, HttpResponse.BodyHandlers.ofString());
                 String idTokenString = responseIdToken.body();
                 LOGGER.info("idTokenString: " + idTokenString);
@@ -512,7 +512,6 @@ public class JwtFilter implements Filter {
 ```
 
 This code uses Auth0's JWT verifier for Java. Auth0 [has good docs on JWT validation](https://auth0.com/docs/secure/tokens/json-web-tokens/validate-json-web-tokens). If a valid JWT is found and decoded, it is saved in a request attribute. The access token, however, has minimal user information in it (just the user ID as the `sub` claim). The filter code uses the access token to request the ID token from the `userinfo` endpoint. This returns more complete user information, such as the email address and preferred name. This is deserialized into the `IdToken` Java object and stored in another request attribute. These are read in the `ApiServlet`.
-
 
 Give it a try. Start the project.
 
@@ -556,10 +555,9 @@ Content-Type: text;charset=ISO-8859-1
 Date: Tue, 23 Feb 2023 07:48:59 GMT
 
 Welcome, andrew.hughes@mail.com
-accessToken claims:{ ... }
+accessToken claims: { ... }
 idToken claims: { ... }
 ...
-
 ```
 
 ## Keep learning with Jakarta EE and Auth0
