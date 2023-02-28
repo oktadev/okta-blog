@@ -511,7 +511,7 @@ public class JwtFilter implements Filter {
 }
 ```
 
-This code uses Auth0's JWT verifier for Java. Auth0 [has good docs on JWT verification](https://auth0.com/docs/secure/tokens/json-web-tokens/validate-json-web-tokens). If a valid JWT is found and decoded, it is saved in a request attribute. The access token, however, has very limited user information in it (just the user ID as the `sub` claim). The filter code uses the access token to request the ID token from the `userinfo` endpoint. This returns more complete user information, such as the email address and preferred name. This is deserialized into the `IdToken` Java object and stored in another request attribute. These are read in the `ApiServlet`.
+This code uses Auth0's JWT verifier for Java. Auth0 [has good docs on JWT validation](https://auth0.com/docs/secure/tokens/json-web-tokens/validate-json-web-tokens). If a valid JWT is found and decoded, it is saved in a request attribute. The access token, however, has minimal user information in it (just the user ID as the `sub` claim). The filter code uses the access token to request the ID token from the `userinfo` endpoint. This returns more complete user information, such as the email address and preferred name. This is deserialized into the `IdToken` Java object and stored in another request attribute. These are read in the `ApiServlet`.
 
 
 Give it a try. Start the project.
