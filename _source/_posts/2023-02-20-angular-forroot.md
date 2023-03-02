@@ -115,7 +115,7 @@ The Okta Angular SDK team plans to improve this in the future. They recognize th
 
 ## Learn more about Angular, Dependency Injection, and OpenID Connect
 
-If you liked this post, you might want to check out the following.
+If you liked this post, you might want to check out the following:
 * [Practical Uses of Dependency Injection in Angular](/blog/2022/10/11/angular-dependency-injection)
 * [Three Ways to Configure Modules in Your Angular App](/blog/2022/02/24/angular-async-config)
 * [Add OpenID Connect to Angular Apps Quickly](/blog/2022/02/11/angular-auth0-quickly)
