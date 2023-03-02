@@ -6,3 +6,7 @@ This blog post has the following features:
 - [ ] A URL that's approved by Dev Advocacy
 - [ ] The content has been run through Grammarly (https://www.grammarly.com/)
 - [ ] Rendered locally and confirmed that no Markdown typos exist
+- [ ] Images are compressed appropriately
+- [ ] Social image previews well in tweets
+- [ ] Review request for fact checking (developer advocate or domain expert)
+- [ ] Review request for editorial/grammar/clarity (developer advocate or Colton)
