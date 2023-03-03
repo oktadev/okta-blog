@@ -568,8 +568,8 @@ You can find the source code for this example on GitHub in the [@oktadev/auth0-j
 
 If you liked this post, there's a good chance you'll like similar ones:
 
-- [Secure Secrets With Spring Cloud Config and Vault](https://developer.okta.com/blog/2022/10/20/spring-vault)
+- [Secure Secrets With Spring Cloud Config and Vault](/blog/2022/10/20/spring-vault)
 - [Micro Frontends for Java Microservices](https://auth0.com/blog/micro-frontends-for-java-microservices/)
-- [Build a Simple CRUD App with Spring Boot and Vue.js](https://developer.okta.com/blog/2022/08/19/build-crud-spring-and-vue)
+- [Build a Simple CRUD App with Spring Boot and Vue.js](/blog/2022/08/19/build-crud-spring-and-vue)
 
 If you have questions, please ask them in the comments below! If you're into social media, follow us: [@oktadev on Twitter](https://twitter.com/oktadev), [Okta for Developers on LinkedIn](https://www.linkedin.com/company/oktadev), and [OktaDev](https://www.facebook.com/oktadevelopers) on Facebook. If you like learning via video, subscribe to [our YouTube channel](https://youtube.com/oktadev).
