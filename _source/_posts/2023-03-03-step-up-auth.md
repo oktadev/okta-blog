@@ -1,7 +1,7 @@
 ---
 layout: blog_post
 title: "Step-up Authentication in Modern Applications"
-author: indranil_jha
+author: indranil-jha
 by: advocate
 communities: [security]
 description: "Understand and apply the principles of step-up authentication"
