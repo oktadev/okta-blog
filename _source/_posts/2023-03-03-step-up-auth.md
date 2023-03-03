@@ -16,9 +16,9 @@ type: awareness
 
  Step-up authentication in an application is a pattern of allowing access to non-critical resources using basic level of authentication, and requiring additional authentications for critical resources.
 
-In this article, we will explore the *why's* and *how's *of step-up authentication in modern applications that include Single Page Applications (SPA) and native mobile applications.
+In this article, we will explore the whys and hows of step-up authentication in modern applications that include Single Page Applications (SPA) and native mobile applications.
 
-Federation protocols such as **OpenID Connect (OIDC)** are getting increasingly popular for modern applications to enhance security by trusting an appropriate identity provider. Here we will focus primarily onthe **OIDC** standard and how it can be leveraged to provide the step up functions in an idiomatic way.
+Federation protocols such as **OpenID Connect (OIDC)** are getting increasingly popular for modern applications to enhance security by trusting an appropriate identity provider. Here we will focus primarily on the **OIDC** standard and how it can be leveraged to provide the step up functions in an idiomatic way.
 
 ### Why an application needs to step up authentication
 
@@ -72,7 +72,7 @@ Legacy access management solutions (*Siteminder*, *Oracle Access Manager*) most
 
 ### Federation and step-up
 
-Additionally, step-up authentication becomes tricky when [federation protocols](https://www.okta.com/identity-101/what-is-federated-identity/) such as **OIDC** and [**SAML**](https://www.okta.com/blog/2020/09/what-is-saml/)are used, since the standard federation protocols, unlike legacy reverse proxy solutions, do not track every user interaction with an application.
+Additionally, step-up authentication becomes tricky when [federation protocols](https://www.okta.com/identity-101/what-is-federated-identity/) such as **OIDC** and [**SAML**](https://www.okta.com/blog/2020/09/what-is-saml/) are used, since the standard federation protocols, unlike legacy reverse proxy solutions, do not track every user interaction with an application.
 
 The applications then need to initiate the step-up scenarios by themselves. Fortunately, **OIDC** has specifications to help applications build such scenarios and co-ordinate with identity provider for seamless step-up service in a declarative policy driven fashion.
 
@@ -82,7 +82,15 @@ Sometimes, a user is authenticated to a sufficient level when they first logged 
 
 In this case, the application will initiate a new authorization request with the identity provider. The request will have the value for the prompt parameter **login**. Then the authentication server will force re-authentication, even if there is an existing active session.
 
-`GET /authorize? response_type=code &scope=openid%20profile%20email &client_id=****** &state=af0ifjsldkj &redirect_uri=https%3A%2F%2Fclient.example.org%2Fcb &prompt=login HTTP/1.1 Host: server.example.com`
+```
+GET /authorize? 
+	response_type=code 
+	&scope=openid%20profile%20email 
+	&client_id=****** &state=af0ifjsldkj 
+	&redirect_uri=https%3A%2F%2Fclient.example.org%2Fcb 
+	&prompt=login HTTP/1.1 
+Host: server.example.com
+```
 
 ### Elevate the session authentication level
 
@@ -96,11 +104,11 @@ The idea is to maintain a basic assurance level for a user session after user in
 
 -   Next time she accesses the sensitive area within the stipulated period, since her session is already at the elevated level, no more authentication challenge is presented, ensuring a relatively frictionless user experience.
 
-With **OIDC**, this behavior is achievable leveraging acr_values and max_age parameters of the authentication request.
+With **OIDC**, this behavior is achievable using the `acr_values` and `max_age` parameters of the authentication request.
 
 The following diagram steps through the sequence of access-
 
-image::{% asset_path 'blog/step-up-auth/request-timing.png' %}[alt=step-up authentication challenges can be triggered by time since last authentication,width=800,align=center]
+{% img blog/step-up-auth/request-timing.png  alt:"timing of authentication and re-authentication" width:"800" %}
 
 
 -   The acr_values parameter will have the assurance level requested for a session. 
@@ -111,18 +119,26 @@ image::{% asset_path 'blog/step-up-auth/request-timing.png' %}[alt=step-up authe
 
 -   The max_age parameter will keep the session elevated only for the stipulated duration. This is useful in scenario such as allowing access to sensitive resources, for say next 30 minutes, before it goes back to the previous assurance level.
 
-`GET /authorize? response_type=code &prompt=login &scope=openid%20profile%20email &client_id=****** &state=af0ifjsldkj &redirect_uri=https%3A%2F%2Fclient.example.org%2Fcb &acr_values=phr &max_age=30 HTTP/1.1 Host: server.example.com\
-`
+```
+GET /authorize? 
+	response_type=code 
+	&prompt=login 
+	&scope=openid%20profile%20email 
+	&client_id=****** 
+	&state=af0ifjsldkj 
+	&redirect_uri=https%3A%2F%2Fclient.example.org%2Fcb 
+	&acr_values=phr 
+	&max_age=30 HTTP/1.1 
+Host: server.example.com\
+```
 
 #### How Okta can help
 
 ##### Okta Customer Identity Cloud (CIC)
 
--   Okta CIC comes with a flexible and extensible authentication engine, which can easily inspect acr_values in the authentication request and initiate step-up authentication. 
+-   Okta CIC comes with a flexible and extensible authentication engine, which can easily inspect `acr_values` in the authentication request and initiate step-up authentication. 
 
--   CIC recommends using the acr_values as defined in [this](https://openid.net/specs/openid-provider-authentication-policy-extension-1_0.html) OIDC spec. For example- 
-
-`http://schemas.openid.net/pape/policies/2007/06/multi-factor`
+-   CIC recommends using the `acr_values` as defined in [this](https://openid.net/specs/openid-provider-authentication-policy-extension-1_0.html) OIDC spec. See [this example](http://schemas.openid.net/pape/policies/2007/06/multi-factor) for more detail.
 
 -   CIC can be configured to provide [step-up authentication](https://auth0.com/docs/secure/multi-factor-authentication/step-up-authentication) for both [web applications](https://auth0.com/docs/secure/multi-factor-authentication/step-up-authentication/configure-step-up-authentication-for-web-apps) and [API](https://auth0.com/docs/secure/multi-factor-authentication/step-up-authentication/configure-step-up-authentication-for-apis)
 
@@ -134,9 +150,9 @@ image::{% asset_path 'blog/step-up-auth/request-timing.png' %}[alt=step-up authe
 
 -   The non-okta-specific defined values such as phr and phrh are taken from [this](https://openid.net/specs/openid-connect-eap-acr-values-1_0.html#OpenID.PAPE) OIDC spec. 
 
--   The following guide explains the capability in more details - [Guide](https://developer.okta.com/docs/guides/step-up-authentication/main/)
+-   [This guide](https://developer.okta.com/docs/guides/step-up-authentication/main/) explains the capability in more detail.
 
-### How about transactional MFA
+### How about transactional MFA?
 
 Transactional MFA is a close cousin of step-up authentication. In some step-up cases, transactional MFA can be used instead.
 
