@@ -7,7 +7,7 @@ communities: [javascript]
 description: ""
 tags: [angular]
 tweets:
-- "Follow best patterns to add your Okta configuration to Angular apps quickly!"
+- "Follow best patterns to quickly add your Okta configuration to #Angular apps by using the forRoot pattern!"
 image: blog/angular-forroot/social.jpg
 type: awareness
 ---
