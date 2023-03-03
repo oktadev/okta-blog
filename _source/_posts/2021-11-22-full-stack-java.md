@@ -5,7 +5,7 @@ author: matt-raible
 by: advocate
 communities: [java,javascript]
 description: "This tutorial shows you how to create a slick-looking, full-stack, secure application using React, Spring Boot, and JHipster."
-tags: [java, full-stack, react, spring-boot, jhipster]
+tags: [java, full-stack, react, spring-boot, jhipster, auth0]
 tweets:
 - "Full Stack Java is made easy with @jhipster! See how to configure your app with @Auth0 in this tutorial."
 - "React + Spring Boot + OpenID Connect!? Oh My! 👀"
