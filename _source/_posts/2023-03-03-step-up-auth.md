@@ -18,9 +18,9 @@ type: awareness
 
 In this article, we will explore the whys and hows of step-up authentication in modern applications that include Single Page Applications (SPA) and native mobile applications.
 
-Federation protocols such as **OpenID Connect (OIDC)** are getting increasingly popular for modern applications to enhance security by trusting an appropriate identity provider. Here we will focus primarily on the **OIDC** standard and how it can be leveraged to provide the step up functions in an idiomatic way.
+Federation protocols such as **OpenID Connect (OIDC)** are getting increasingly popular for modern applications to enhance security by trusting an appropriate identity provider. Here we will focus primarily on the **OIDC** standard and how it can be leveraged to provide the step-up functions in an idiomatic way.
 
-### Why an application needs to step up authentication
+### Why an application needs step-up authentication
 
 > "Freedom, security, convenience -- choose two." - Dan Geer
 
@@ -158,13 +158,13 @@ Transactional MFA is a close cousin of step-up authentication. In some step-up c
 
 Consider the scenario- 
 
--   User authenticates to the application. 
+-   User authenticates to the application
 
--   At some point the user tries to access a sensitive resource.
+-   At some point the user tries to access a sensitive resource
 
--   User receives a push notification or email link in her mobile to approve the transaction. 
+-   User receives a push notification or email link in her mobile to approve the transaction
 
--   Once approved, the access is granted to the resource.
+-   Once approved, the access is granted to the resource
 
 Recent standards like [OIDC CIBA](https://openid.net/specs/openid-client-initiated-backchannel-authentication-core-1_0.html) allows this kind of out-of-band transactional MFA and might in some cases meet the need to step-up authentication. 
 
