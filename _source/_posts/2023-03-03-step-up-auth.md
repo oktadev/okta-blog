@@ -138,7 +138,7 @@ Host: server.example.com\
 
 -   Okta CIC comes with a flexible and extensible authentication engine, which can easily inspect `acr_values` in the authentication request and initiate step-up authentication. 
 
--   CIC recommends using the `acr_values` as defined in [this](https://openid.net/specs/openid-provider-authentication-policy-extension-1_0.html) OIDC spec. See [this example](http://schemas.openid.net/pape/policies/2007/06/multi-factor) for more detail.
+-   CIC recommends using the `acr_values` as defined in [this](https://openid.net/specs/openid-provider-authentication-policy-extension-1_0.html) OIDC spec. For example, `http://schemas.openid.net/pape/policies/2007/06/multi-factor`. 
 
 -   CIC can be configured to provide [step-up authentication](https://auth0.com/docs/secure/multi-factor-authentication/step-up-authentication) for both [web applications](https://auth0.com/docs/secure/multi-factor-authentication/step-up-authentication/configure-step-up-authentication-for-web-apps) and [API](https://auth0.com/docs/secure/multi-factor-authentication/step-up-authentication/configure-step-up-authentication-for-apis)
 
