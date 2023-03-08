@@ -166,7 +166,7 @@ Consider the scenario- 
 
 -   Once approved, the access is granted to the resource
 
-Recent standards like [OIDC CIBA](https://openid.net/specs/openid-client-initiated-backchannel-authentication-core-1_0.html) allows this kind of out-of-band transactional MFA and might in some cases meet the need to step-up authentication. 
+Recent standards like [OIDC CIBA](https://openid.net/specs/openid-client-initiated-backchannel-authentication-core-1_0.html) allow this kind of out-of-band transactional MFA and might in some cases meet the need to step-up authentication. 
 
 One important difference is, while **CIBA** can be used to provide MFA during sensitive transaction, it typically does not affect any provider specific session. Also, **CIBA** is inherently out-of-band, and has its own niche uses. 
 
