@@ -5,7 +5,7 @@ author: matt-raible
 by: advocate
 communities: [java,devops]
 description: "Sometimes it takes a journey of many hours and many builds to produce a released artifact. GraalVM + GitHub Actions = ❤️."
-tags: [java,graalvm,jhipster,spring-native,github-actions]
+tags: [java,graalvm,jhipster,spring-native,github-actions,auth0]
 tweets:
 - "Learn how to configure @GitHub Actions to build @GraalVM images in this quick tutorial."
 - "Check it! @JHipster Native allows you to automate the wait of building your @GraalVM images. Learn more. 👇"
