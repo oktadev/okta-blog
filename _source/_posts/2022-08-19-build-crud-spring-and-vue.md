@@ -5,7 +5,7 @@ author: andrew-hughes
 by: contractor
 communities: [java,javascript]
 description: "Create a CRUD (create, read, update, and delete) application using Spring Boot and Vue.js."
-tags: [java, spring-boot, vue, javascript]
+tags: [java, spring-boot, vue, javascript, auth0]
 tweets:
 - "Build a secure Spring Boot + Vue.js app with this in-depth tutorial!"
 - "💚 Vue and Spring Boot? This full-stack tutorial is for you!"
@@ -31,6 +31,10 @@ The Spring Boot app will include an H2 in-memory database and will use Spring Da
 The client will use [Vue 3](https://vuejs.org/) and the Quasar framework. [The Quasar framework](https://quasar.dev/) provides components and layout tools to help build Vue applications quickly with a consistent, high-quality user interface.
 
 Before you dig into the tutorial, I want to quickly introduce the technologies for those that might be unfamiliar. Feel free to skip down to the [prerequisites](#prerequisites) section if you're already familiar with Vue and Spring Boot.
+
+If you're more of a visual learner, this tutorial is also available [as a screencast](https://youtu.be/8v2m2eoKVnM).
+
+{% youtube 8v2m2eoKVnM %}
 
 {% include toc.md %}
 
@@ -1437,7 +1441,7 @@ export default {
         loginWithRedirect();
       },
       logout: () => {
-        logout({ returnTo: window.location.origin });
+        logout({ logoutParams: { returnTo: window.location.origin } });
       },
       user,
       isAuthenticated

@@ -5,7 +5,7 @@ author: jimena-garbarino
 by: contractor
 community: [java]
 description: "Storing secrets in your code is a bad idea. Learn how to use Spring Cloud Config and HashiCorp Vault to make your app more secure."
-tags: [spring-vault, oidc, java, spring, spring-boot, vault, hashicorp, spring-cloud-vault]
+tags: [spring-vault, oidc, java, spring-boot, vault, hashicorp, spring-cloud-vault, auth0]
 tweets:
 - "Learn how to secure your secrets with @springcloud vault and @HashiCorp Vault!"
 - "Securing your secrets is a must if you want to be secure by design. This tutorial shows you how!"

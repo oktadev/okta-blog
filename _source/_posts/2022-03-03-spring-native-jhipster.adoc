@@ -5,7 +5,7 @@ author: matt-raible
 by: advocate
 communities: [java]
 description: "Do you want to build a full-stack Java webapp that starts in milliseconds? Spring has your back! 👊"
-tags: [java, spring-boot, spring-native, jhipster, graalvm]
+tags: [java, spring-boot, spring-native, jhipster, graalvm, auth0]
 tweets:
 - "Start your @JHipster + Spring Boot app in under a second with Spring Native and @GraalVM!"
 - "Introducing JHipster Native: 'Wow! That was quick!'"

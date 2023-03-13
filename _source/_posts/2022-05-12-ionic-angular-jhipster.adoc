@@ -5,7 +5,7 @@ author: matt-raible
 by: advocate
 communities: [mobile,java,javascript]
 description: "Build an Ionic + Angular frontend for your Spring Boot backend, all using the power of JHipster! Secured by OpenID Connect."
-tags: [ionic, spring-boot, spring-security, jhipster]
+tags: [ionic, spring-boot, spring-security, jhipster, auth0]
 tweets:
 - "Create an Ionic app with a Spring Boot backend in minutes with the new Ionic blueprint for @jhipster!"
 - "Introducing JHipster Ionic: 'Wow! Did you really just build that?!'"
