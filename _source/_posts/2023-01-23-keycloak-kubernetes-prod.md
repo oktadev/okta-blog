@@ -1,6 +1,6 @@
 ---
 layout: blog_post
-title: "Keycloak in Production with Kubernetes"
+title: "JHipster with Keycloak deployment on GKE"
 author:
 by: contractor
 communities: [devops,security,java]
@@ -13,10 +13,13 @@ tweets:
 image:
 type: awareness
 ---
+Keycloak is an open-source identity and access management solution that allows you to secure your applications and services with ease. JHipster, on the other hand, is a powerful development platform that provides developers with the tools they need to create modern, scalable, and robust web applications.
 
-- introduction
-- announce support
-- about keycloak
+Keycloak is the default OpenID Connect server configured with JHipster. Using Keycloak with JHipster is an excellent way to ensure that your web applications are secure and well-protected from unauthorized access. By integrating Keycloak with JHipster, you can easily implement authentication and authorization in your application, manage user identities, and provide secure access to resources.
+
+The JHipster Kubernetes generator creates all the necessary Kubernetes resources, such as deployments, services, and ingresses, based on the configuration of the JHipster application. This includes setting up the database, configuring security, and setting up any necessary environment variables. Since JHipster 8, the kubernetes sub-generator supports Keycloak for Ingress GKE configurations. In this post I'll walk you through the generation of a demo JHipster microservices application with Keycloak integration, and its deployment to Google Kubernetes Engine (GKE).
+
+{% img blog/keycloak-kubernetes-prod/keycloak-gke.png alt:"Keycloak, JHipster, GKE logos" width:"600" %}{: .center-image }
 
 {% include toc.md %}
 
@@ -151,7 +154,7 @@ Apply the deployment descriptors, from the `kubernetes` folder:
 ./kubectl-apply.sh -f
 ```
 
-**Important note**: keycloak client applications (registry, microservices) will fail the startup until Let's Encrypt has issued the certificate and it has been synchronized inside the cluster. In the following section the issuance process is explained in more detail.
+**Important note**: Keycloak client applications (registry, microservices) will fail the startup until Let's Encrypt has issued the certificate and it has been synchronized inside the cluster. In the following section the issuance process is explained in more detail.
 
 The certificate might take some minutes to be ready, you can check the status by inspecting the object events:
 
