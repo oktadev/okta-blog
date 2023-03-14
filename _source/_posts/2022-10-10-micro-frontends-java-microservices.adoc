@@ -9,7 +9,7 @@ tweets:
 - "Want to ditch your monolith UI for micro frontends? My latest tutorial shows you how!"
 - "Learn how to build a @java microservices architecture that leverages micro frontends for the UI."
 - "Spring Boot and Spring Cloud simplify development of Java microservices, but what about the frontend? Try micro frontends!"
-tags: [java, microservices, microfrontends, jhipster]
+tags: [java, microservices, microfrontends, jhipster, auth0]
 type: conversion
 github: https://github.com/oktadev/auth0-micro-frontends-jhipster-example
 image: blog/micro-frontends-java/micro-frontends.jpg
