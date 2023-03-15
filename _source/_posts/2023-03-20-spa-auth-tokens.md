@@ -81,7 +81,7 @@ Now that you have these three tokens let's better understand what each one is fo
 These three tokens provide crucial information about your identity, access to resources, and the ability to stay authenticated securely.
 
 ### ID token
-The ID token is about the user, so information about Sunny in this case. This token is returned from the OpenID Connect layer and is used for authentication. It contains standardized identity information such as email, name, and issuing party, called claims. There might be extra claims added too for information critical to Sunny's' identity, such as their dinosaur family, which of course, is a Smileasaur.
+The ID token is about the user, so information about Sunny in this case. This token is returned from the OpenID Connect layer and is used for authentication. It contains standardized identity information such as email, name, and issuing party, called claims. There might be extra claims added too for information critical to Sunny's identity, such as their dinosaur family, which of course, is a Smileasaur.
 
 ### Access token
 The Access token is a key that grants access to data or to perform an action. The token is returned from the OAuth layer and is used for authorization. The token has metadata about the token itself, such as the issuing party, information about requested scopes made in the original request, and the expiration time. Access tokens are intentionally short-lived for public clients and are a safety mechanism since it guards access to resources, and it's quite dangerous if it falls into wrong hands!
