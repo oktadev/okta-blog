@@ -4,7 +4,7 @@ title: "OAuth2 microservices with Keycloak on Google Kubernetes Engine"
 author:
 by: contractor
 communities: [devops,security,java]
-description: ""
+description: "A walk-through of building a microservices architecture with JHipster, Keycloak for OAuth2, and Google Kubernetes Engine (GKE) deployment"
 tags: [keycloak, kubernetes, java, jhipster, security, oauth2]
 tweets:
 - ""
@@ -17,7 +17,7 @@ Keycloak is an open-source identity and access management solution that allows y
 
 Keycloak is the default OpenID Connect server configured with JHipster. Using Keycloak with JHipster is an excellent way to ensure that your web applications are secure and well-protected from unauthorized access. By integrating Keycloak with JHipster, you can easily implement authentication and authorization in your application, manage user identities, and provide secure access to resources.
 
-The JHipster Kubernetes generator creates all the necessary Kubernetes resources, such as deployments, services, and ingresses, based on the configuration of the JHipster application. This includes setting up the database, configuring security, and setting up any necessary environment variables. Since JHipster 8, the kubernetes sub-generator supports Keycloak for Ingress GKE deployment. In this post I'll walk you through the generation of a demo JHipster microservices application with Keycloak integration, and its deployment to Google Kubernetes Engine (GKE).
+The JHipster Kubernetes generator creates all the necessary Kubernetes resources, such as deployments, services, and ingresses, based on the configuration of the JHipster application. This includes setting up the database, configuring security, and setting up any necessary environment variables. Since JHipster 8, the Kubernetes sub-generator supports Keycloak for Ingress GKE deployment. In this post, I'll walk you through the generation of a demo JHipster microservices application with Keycloak integration, and its deployment to Google Kubernetes Engine (GKE).
 
 {% img blog/keycloak-kubernetes-prod/keycloak-gke.png alt:"Keycloak, JHipster, GKE logos" width:"500" %}{: .center-image }
 
@@ -25,19 +25,19 @@ The JHipster Kubernetes generator creates all the necessary Kubernetes resources
 
 ## Best practices for Keycloak in production
 
-Keycloak can be started in development mode with the `start-dev` command or production mode with the `start` command. Production mode follows a _secure by default_ principle, and expects _hostname_ and _HTTPS/TLS_ configuration to be set, otherwise Keycloak won't start and will display an error. Also, in production mode HTTP is disabled by default.
+Keycloak can be started in development mode with the `start-dev` command or production mode with the `start` command. Production mode follows a _secure by default_ principle and expects _hostname_ and _HTTPS/TLS_ configuration to be set, otherwise, Keycloak won't start and will display an error. Also, in production mode HTTP is disabled by default.
 
 Keycloak documentation provides some key guidelines for production deployment that apply to all environments.
 
 - **HTTPS/TLS**: The exchange of credentials and other sensitive data with Keycloak requires all communication to and from Keycloak to be secured, so HTTP over TLS must be enabled.
-- **Keycloak hostname**: Keycloak usually runs in a private network but certain public facing endpoints must be exposed to applications. The base URLs determine how tokens are issued and validated, how action links are created and how the OpenID Connect Discovery Document `realms/{realm-name}/.well-known/openid-configuration` is created.
-- **Reverse proxy**: A reverse proxy / load balancer component is recommended for a production environment, unifying the access to the network. Keycloak supports multiple proxy modes. The `edge` mode allows HTTP communication between the proxy and Keycloak, and the proxy keeps the secure connection with clients.
-- **Production grade database**: The database plays a crucial role in performance and Keycloak supports several production grade databases, including PostgreSQL.
+- **Keycloak hostname**: Keycloak usually runs in a private network but certain public-facing endpoints must be exposed to applications. The base URLs determine how tokens are issued and validated, how action links are created, and how the OpenID Connect Discovery Document `realms/{realm-name}/.well-known/openid-configuration` is created.
+- **Reverse proxy**: A reverse proxy/load balancer component is recommended for a production environment, unifying access to the network. Keycloak supports multiple proxy modes. The `edge` mode allows HTTP communication between the proxy and Keycloak, and the proxy keeps a secure connection with clients.
+- **Production grade database**: The database plays a crucial role in the performance and Keycloak supports several production-grade databases, including PostgreSQL.
 - **High Availability**: Choose multi-mode clustered deployment. In production mode, distributed caching of realm and session data is enabled and all nodes in the network are discovered.
 
 ## Deploy microservices and Keycloak to Google
 
-In this walk-through, you will build a microservices architecture example from JHipster, consisting of a `gateway` application based on Spring Gateway  and two reactive microservices `blog` and `store`. The `gateway` will act as the entrance to your microservices, providing HTTP routing and load balancing, quality of service, security and API documentation for all microservices. With the help of the JHipster Kubernetes sub-generator you can deploy the application and its required services (Consul for service discovery, and Keycloak for OpoenID Connect) to Google Kubernetes Engine (GKE).
+In this walkthrough, you will build a microservices architecture example from JHipster, consisting of a `gateway` application based on Spring Gateway and two reactive microservices `blog` and `store`. The `gateway` will act as the entrance to your microservices, providing HTTP routing and load balancing, quality of service, security and API documentation for all microservices. With the help of the JHipster Kubernetes sub-generator, you can deploy the application and its required services (Consul for service discovery, and Keycloak for OpenID Connect) to Google Kubernetes Engine (GKE).
 
 ### Build a microservices architecture
 
@@ -48,7 +48,7 @@ npm install -g generator-jhipster@7.9.2
 ```
 If you'd rather use Yarn or Docker, follow the instructions at [jhipster.tech](https://www.jhipster.tech/installation/#local-installation-with-npm-recommended-for-normal-users).
 
-Generate the microservices architecture using the [reactive microservices example](https://github.com/jhipster/jdl-samples/blob/main/reactive-ms.jdl) from JHipster. Create folder for the project and run:
+Generate the microservices architecture using the [reactive microservices example](https://github.com/jhipster/jdl-samples/blob/main/reactive-ms.jdl) from JHipster. Create a folder for the project and run:
 
 ```shell
 jhipster jdl reactive-ms
@@ -69,16 +69,16 @@ Create a [Docker Hub](https://hub.docker.com/) personal account, if you don't ha
 
 ### Run Kubernetes generator
 
-Now let's generate the Kubernetes Yaml descriptors using JHipster. During the process, the generator will prompt for a FQDN (Fully qualified domain name) for the Ingress services, so let's first create a public IP on Google Cloud. With the help of [nip.io](nip.io), if you set <public-ip>.nip.io as your FQDN, you can test the deployment without having to purchase a real domain.
+Now let's generate the Kubernetes Yaml descriptors using JHipster. During the process, the generator will prompt for an FQDN (Fully qualified domain name) for the Ingress services, so let's first create a public IP on Google Cloud. With the help of [nip.io](nip.io), if you set <public-ip>.nip.io as your FQDN, you can test the deployment without having to purchase a real domain.
 
 Google Cloud provides a [free tier](https://cloud.google.com/free) of their services that grants you $300 in free credits if you are a new user.
 
-After you sign up, install [`gcloud` CLI](https://cloud.google.com/sdk/docs/install). When you reach the end of the process, the last step is to run `gcloud init` and set up authorization for the tool. Also install the [Kubectl authentication plugin](https://cloud.google.com/blog/products/containers-kubernetes/kubectl-auth-changes-in-gke).
+After you sign up, install [`gcloud` CLI](https://cloud.google.com/sdk/docs/install). When you reach the end of the process, the last step is to run `gcloud init` and set up authorization for the tool. Also, install the [Kubectl authentication plugin](https://cloud.google.com/blog/products/containers-kubernetes/kubectl-auth-changes-in-gke).
 
 ```shell
 gcloud compute addresses create gateway-ip --global
 ```
-**Note**: The name for public IP must the gateway or monolith application base name, you can find it in the JDL.
+**Note**: The name for public IP must be the gateway or monolith application base name, you can find it in the JDL.
 
 ```
 application {
@@ -154,7 +154,7 @@ Apply the deployment descriptors, from the `kubernetes` folder:
 ./kubectl-apply.sh -f
 ```
 
-**Important note**: Keycloak client applications (registry, microservices) will fail the startup until Let's Encrypt has issued the certificate and it has been synchronized inside the cluster. In the following section the issuance process is explained in more detail.
+**Important note**: Keycloak client applications (registry, microservices) will fail the startup until Let's Encrypt has issued the certificate and it has been synchronized inside the cluster. In the following section, the issuance process is explained in more detail.
 
 The certificate might take some minutes to be ready, you can check the status by inspecting the object events:
 
@@ -174,7 +174,7 @@ Events:
   Normal  Issuing    10m   cert-manager-certificates-issuing          Issued temporary certificate
   Normal  Issuing    4m    cert-manager-certificates-issuing          The certificate has been successfully issued
 ```
-Also the ingress service will be updated once the certificate is available. You can check the ingress events with the following command:
+Also, the ingress service will be updated once the certificate is available. You can check the ingress events with the following command:
 
 ```shell
 kubectl get ingress gateway -n demo
@@ -191,11 +191,11 @@ Events:
   Normal   Sync               5m10s (x2 over 8m4s)  loadbalancer-controller    UrlMap "k8s2-um-syujj5e4-rey-gateway-f99qha5q" updated
   Normal   Sync               4m58s                 loadbalancer-controller    TargetProxy "k8s2-ts-syujj5e4-rey-gateway-f99qha5q" certs updated
 ```
-Once the cluster is healthy, you can test the deployment navigating to **http://gateway.\<namespace\>.\<public-ip\>.nip.io** :
+Once the cluster is healthy, you can test the deployment by navigating to **http://gateway.\<namespace\>.\<public-ip\>.nip.io** :
 
 {% img blog/keycloak-kubernetes-prod/gateway-home.png alt:"Gateway homepage" width:"800" %}{: .center-image }
 
-If you click on **Sign in** you will be redirected to Keycloak sign-in page. As the certificate for TLS was issued by Let's Encrypt staging environment, the browser won't trust it by default. Accept the certificate and you will be able to sign in. If you inspect the certificate, you will find the certificate hierarchy.
+If you click on **Sign in** you will be redirected to the Keycloak sign-in page. As the certificate for TLS was issued by the Let's Encrypt staging environment, the browser won't trust it by default. Accept the certificate and you will be able to sign in. If you inspect the certificate, you will find the certificate hierarchy.
 
 {% img blog/keycloak-kubernetes-prod/firefox-warning.png alt:"Firefox browser warning" width:"800" %}{: .center-image }
 
@@ -205,13 +205,13 @@ If you click on **Sign in** you will be redirected to Keycloak sign-in page. As 
 
 ## Using cert-manager with Let's Encrypt Certificates
 
-cert-manager is a X.509 certificate controller for Kubernetes and OpenShift. It automates the issuance of certificates from popular public and private Certificate Authorities, to secure Ingress with TLS. It ensures the certificates are valid and up-to-date, and attempts to renew certificates before expiration.
+cert-manager is an X.509 certificate controller for Kubernetes and OpenShift. It automates the issuance of certificates from popular public and private Certificate Authorities, to secure Ingress with TLS. It ensures the certificates are valid and up-to-date, and attempts to renew certificates before expiration.
 
-With cert-manager, a certificate issuer is a resource type in the Kubernetes cluster, and Let's Encrypt is one of the supported sources of certificates than can be configured as issuer. The [ACME](https://www.rfc-editor.org/rfc/rfc8555) (Automated Certificate Management Environment) protocol is a framework for automating the issuance and domain validation procedure, which allows servers to obtain certificates without user interaction. Let's Encrypt is a Certificate Authority that supports ACME protocol, and through cert-manager the cluster can request and install Let's Manager certificates.
+With cert-manager, a certificate issuer is a resource type in the Kubernetes cluster, and Let's Encrypt is one of the supported sources of certificates than can be configured as the issuer. The [ACME](https://www.rfc-editor.org/rfc/rfc8555) (Automated Certificate Management Environment) protocol is a framework for automating the issuance and domain validation procedure, which allows servers to obtain certificates without user interaction. Let's Encrypt is a Certificate Authority that supports ACME protocol, and through cert-manager, the cluster can request and install Let's Manager certificates.
 
 ### Certificate issuance flow
 
-The process for obtaining a certificate with ACME protocol has two major tasks, __Domain Validation__, where the agent proves it controls the domain, and __Certificate Issuance__, where the agent requests a certificate (or renews or revoke).
+The process for obtaining a certificate with ACME protocol has two major tasks, __Domain Validation__, where the agent proves it controls the domain, and __Certificate Issuance__, where the agent requests a certificate (or renews or revokes).
 
 At a high level, the following steps are required for obtaining a certificate from an ACME server:
 
@@ -231,11 +231,11 @@ At a high level, the following steps are required for obtaining a certificate fr
 
 When a `Certificate` resource is created, cert-manager automatically creates a `CertificateRequest`. An `Order` resource represents a single certificate request, also created automatically, and is used by the ACME issuer to manage the lifecycle of the ACME order for a signed TLS certificate. The `Order` resource manages challenges for the order with the `Challenge` resource.
 
-The `Challenge` resource is queued for scheduled processing. The challenge controller will perform a self check, and once it is passing, the ACME authorization is accepted for the ACME server to perform the validation.
+The `Challenge` resource is queued for scheduled processing. The challenge controller will perform a self-check, and once it is passed, the ACME authorization is accepted for the ACME server to perform the validation.
 
 ### The HTTP01 Ingress solver
 
-The HTTP-01 challenge is the most common challenge type. Let's Encrypt gives a token to the agent, and the agent must place a file at http://<YOUR_DOMAIN>/.well-known/acme-challenge/<TOKEN> that contains the token and a thumbprint (computation) of the agent. Once the agent tells Let's Encrypt the file is ready, Let's Encrypt validates the file and issues the certificate.
+The HTTP-01 challenge is the most common challenge type. Let's Encrypt gives a token to the agent, and the agent must place a file at http://<YOUR_DOMAIN>/.well-known/acme-challenge/<TOKEN> that contains the token and a thumbprint (computation) of the agent. Once the agent tells Let's Encrypt that the file is ready, Let's Encrypt validates the file and issues the certificate.
 
 The challenge type is configured in the issuer, along with the ingress class for the solver. cert-manager will create a new Ingress resource to route Let's Encrypt challenge requests to the solver pods, which are also created automatically.
 
@@ -243,7 +243,7 @@ The following annotations are added by the k8s sub-generator in the ingress reso
 
 - `kubernetes.io/ingress.allow-http: "true"`: Required to allow HTTP connections from challenge requests
 - `cert-manager.io/issuer: letsencrypt-staging`: The name of the issuer to acquire the certificate, which must be in the same namespace
-- `acme.cert-manager.io/http01-edit-in-place: "true"`: The ingress is modified in place, instead of create a new ingress resource for the HTTP01 challenge
+- `acme.cert-manager.io/http01-edit-in-place: "true"`: The ingress is modified in place, instead of creating a new ingress resource for the HTTP01 challenge
 - `cert-manager.io/issue-temporary-certificate: "true"`: A temporary certificate will be set on the secret until the final certificate has been returned. used for keeping compatibility with the `ingress-gce` component.
 
 ## Learn More about Keycloak in production
