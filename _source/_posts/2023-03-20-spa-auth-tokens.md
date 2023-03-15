@@ -137,7 +137,7 @@ Open debugging tools in your browser to watch for redirection and network reques
 
 At the bottom of the page, you'll see how the Authorization Code request is formed. Press **Send Request** to start the flow.
 
-If you aren't authenticated in Okta, you're redirected to an Okta-hosted sign-in page. Redirecting to the Identity Provider's hosted sign-in page is the best practice for security, so it's also a common practice. Signing in redirects you back to the OIDC debugger with a success message. You'll see the Authorization code provided by the authorization server automatically exchanged the code for tokens.
+If you aren't authenticated in Okta, you're redirected to an Okta-hosted sign-in page. Redirecting to the Identity Provider's hosted sign-in page is the best practice for security, so it's also a common practice you'll see across Identity Providers. Signing in redirects you back to the OIDC debugger with a success message. You'll see the Authorization code provided by the authorization server automatically exchanged the code for tokens.
 
 {% img blog/spa-auth-tokens/oidc-debugger-success.jpg alt:"Authorization code and tokens returned in the OIDC Debugger upon successful sign-in" width:"800" %}{: .center-image }
 
