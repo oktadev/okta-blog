@@ -1,6 +1,6 @@
 ---
 layout: blog_post
-title: "JHipster with Keycloak deployment on GKE"
+title: "OAuth2 microservices with Keycloak on Google Kubernetes Engine"
 author:
 by: contractor
 communities: [devops,security,java]
@@ -17,9 +17,9 @@ Keycloak is an open-source identity and access management solution that allows y
 
 Keycloak is the default OpenID Connect server configured with JHipster. Using Keycloak with JHipster is an excellent way to ensure that your web applications are secure and well-protected from unauthorized access. By integrating Keycloak with JHipster, you can easily implement authentication and authorization in your application, manage user identities, and provide secure access to resources.
 
-The JHipster Kubernetes generator creates all the necessary Kubernetes resources, such as deployments, services, and ingresses, based on the configuration of the JHipster application. This includes setting up the database, configuring security, and setting up any necessary environment variables. Since JHipster 8, the kubernetes sub-generator supports Keycloak for Ingress GKE configurations. In this post I'll walk you through the generation of a demo JHipster microservices application with Keycloak integration, and its deployment to Google Kubernetes Engine (GKE).
+The JHipster Kubernetes generator creates all the necessary Kubernetes resources, such as deployments, services, and ingresses, based on the configuration of the JHipster application. This includes setting up the database, configuring security, and setting up any necessary environment variables. Since JHipster 8, the kubernetes sub-generator supports Keycloak for Ingress GKE deployment. In this post I'll walk you through the generation of a demo JHipster microservices application with Keycloak integration, and its deployment to Google Kubernetes Engine (GKE).
 
-{% img blog/keycloak-kubernetes-prod/keycloak-gke.png alt:"Keycloak, JHipster, GKE logos" width:"600" %}{: .center-image }
+{% img blog/keycloak-kubernetes-prod/keycloak-gke.png alt:"Keycloak, JHipster, GKE logos" width:"500" %}{: .center-image }
 
 {% include toc.md %}
 
@@ -37,7 +37,7 @@ Keycloak documentation provides some key guidelines for production deployment th
 
 ## Deploy microservices and Keycloak to Google
 
-- Describe the architecture and edge services
+In this walk-through, you will build a microservices architecture example from JHipster, consisting of a `gateway` application based on Spring Gateway  and two reactive microservices `blog` and `store`. The `gateway` will act as the entrance to your microservices, providing HTTP routing and load balancing, quality of service, security and API documentation for all microservices. With the help of the JHipster Kubernetes sub-generator you can deploy the application and its required services (Consul for service discovery, and Keycloak for OpoenID Connect) to Google Kubernetes Engine (GKE).
 
 ### Build a microservices architecture
 
@@ -113,7 +113,7 @@ Choose the following options when prompted:
 - Enable Istio? **No**
 - Kubernetes service type? **Ingress**
 - Kubernetes ingress type? **GKE**
-- Root FQDN for ingress services: **<public-ip>.nip.io**
+- Root FQDN for ingress services: **\<public-ip\>.nip.io**
 - Use dynamic storage provisioning? **Yes**
 - Use a specific storage class? (leave empty)
 
@@ -191,13 +191,11 @@ Events:
   Normal   Sync               5m10s (x2 over 8m4s)  loadbalancer-controller    UrlMap "k8s2-um-syujj5e4-rey-gateway-f99qha5q" updated
   Normal   Sync               4m58s                 loadbalancer-controller    TargetProxy "k8s2-ts-syujj5e4-rey-gateway-f99qha5q" certs updated
 ```
-Once the cluster is healthy, you can test the deployment navigating to **http://gateway.rey.<public-ip>.nip.io** :
+Once the cluster is healthy, you can test the deployment navigating to **http://gateway.\<namespace\>.\<public-ip\>.nip.io** :
 
 {% img blog/keycloak-kubernetes-prod/gateway-home.png alt:"Gateway homepage" width:"800" %}{: .center-image }
 
 If you click on **Sign in** you will be redirected to Keycloak sign-in page. As the certificate for TLS was issued by Let's Encrypt staging environment, the browser won't trust it by default. Accept the certificate and you will be able to sign in. If you inspect the certificate, you will find the certificate hierarchy.
-
-
 
 {% img blog/keycloak-kubernetes-prod/firefox-warning.png alt:"Firefox browser warning" width:"800" %}{: .center-image }
 
@@ -241,13 +239,12 @@ The HTTP-01 challenge is the most common challenge type. Let's Encrypt gives a t
 
 The challenge type is configured in the issuer, along with the ingress class for the solver. cert-manager will create a new Ingress resource to route Let's Encrypt challenge requests to the solver pods, which are also created automatically.
 
-The following annotations are required in the ingress resource, for the challenge solver to work and the TLS certificate to be automatically created by cert-manager:
+The following annotations are added by the k8s sub-generator in the ingress resource, for the challenge solver to work and the TLS certificate to be automatically created by cert-manager:
 
 - `kubernetes.io/ingress.allow-http: "true"`: Required to allow HTTP connections from challenge requests
 - `cert-manager.io/issuer: letsencrypt-staging`: The name of the issuer to acquire the certificate, which must be in the same namespace
 - `acme.cert-manager.io/http01-edit-in-place: "true"`: The ingress is modified in place, instead of create a new ingress resource for the HTTP01 challenge
 - `cert-manager.io/issue-temporary-certificate: "true"`: A temporary certificate will be set on the secret until the final certificate has been returned. used for keeping compatibility with the `ingress-gce` component.
-
 
 ## Learn More about Keycloak in production
 
