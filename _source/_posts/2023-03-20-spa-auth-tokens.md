@@ -1,6 +1,6 @@
 ---
 layout: blog_post
-title: "How Authentication and Authorization Works for SPAs"
+title: "How Authentication and Authorization Work for SPAs"
 author: alisa-duncan
 by: advocate
 communities: [security,javascript]
