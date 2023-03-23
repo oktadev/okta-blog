@@ -11,7 +11,7 @@ tags: [okta]
 type: awareness
 ---
 
-> :warning: This blog post was written in 2017. It is out of date.  Okta no longer provides a developer-centric admin console.  Instead, all administrators use the same admin console for configuring Okta. 
+> WARNING: This blog post was written in 2017. It is out of date.  Okta no longer provides a developer-centric admin console.  Instead, all administrators use the same admin console for configuring Okta. 
 
 
 
