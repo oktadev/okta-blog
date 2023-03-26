@@ -59,7 +59,7 @@ Now that there's an Authorization Code, the client application makes a request t
 
 {% img blog/spa-auth-tokens/flow-6-token-request.jpg alt:"The client making a token request and sending the information listed above in the payload" width:"800" %}{: .center-image }
 
-To process the token endpoint request, the authorization server ensures the Authorization Code is still valid and that the code verifier matches. This step is part of the PKCE extension.
+To process the token endpoint request, the authorization server ensures the Authorization Code is still valid and that the code verifier matches the code challenge sent in the authorization request. This step is part of the PKCE extension.
 
 {% img blog/spa-auth-tokens/flow-7-token-pkce.jpg alt:"The authorization server verifying the Authorization Code and the code verifier" width:"800" %}{: .center-image }
 
@@ -204,7 +204,7 @@ You'll send the Access token as a Bearer token in the HTTP call's Authorization 
 
 ```http
 GET /lessons
-Authorization: Bearer base64encoded_access_token
+Authorization: Bearer access_token_value
 ```
 
 You'll want to ensure you're not adding the Access token to calls outside your system by maintaining an allowlist of origins that should include the token.
