@@ -36,7 +36,7 @@ The client application kicks off the process and generates a random, long string
 
 {% img blog/spa-auth-tokens/flow-2-client-pkce.jpg alt:"The client application processing the sign-in to create a code verifier and code challenge" width:"800" %}{: .center-image }
 
-The client application holds on to the code verifier. It then makes an Authorization Code request to your authorization server, in this case, represented by Okta. The Authorization Code request includes the code challenge along with some critical pieces of information, such as
+The client application holds on to the code verifier. It then makes an authorization code request to your authorization server, in this case, represented by Okta. The authorization code request includes the code challenge along with some critical pieces of information, such as
 * Client ID
 * Scopes, including at least the following:
   *  `openid` required for specifying the app uses OIDC in verifying the user's identity
@@ -51,17 +51,17 @@ The authorization server redirects the user, Sunny, to a web page it hosts to si
 
 {% img blog/spa-auth-tokens/flow-4-authorization-code-redirect.jpg alt:"The client application redirects to Okta hosted sign in screen, and Sunny authenticates and grant consent" width:"800" %}{: .center-image }
 
-Yay! Sign-in success! The authorization server returns an Authorization Code to the client application. 
+Yay! Sign-in success! The authorization server returns an authorization code to the client application. 
 
 {% img blog/spa-auth-tokens/flow-5-authorization-code-response.jpg alt:"The authorization server redirects back to client application and returns an authorization code" width:"800" %}{: .center-image }
 
-Now that there's an Authorization Code, the client application makes a request to the token endpoint of the authorization server and sends the Authorization Code and the code verifier. 
+Now that there's an authorization code, the client application makes a request to the token endpoint of the authorization server and sends the authorization code and the code verifier. 
 
 {% img blog/spa-auth-tokens/flow-6-token-request.jpg alt:"The client making a token request and sending the information listed above in the payload" width:"800" %}{: .center-image }
 
-To process the token endpoint request, the authorization server ensures the Authorization Code is still valid and that the code verifier matches the code challenge sent in the authorization request. This step is part of the PKCE extension.
+To process the token endpoint request, the authorization server ensures the authorization code is still valid and that the code verifier matches the code challenge sent in the authorization request. This step is part of the PKCE extension.
 
-{% img blog/spa-auth-tokens/flow-7-token-pkce.jpg alt:"The authorization server verifying the Authorization Code and the code verifier" width:"800" %}{: .center-image }
+{% img blog/spa-auth-tokens/flow-7-token-pkce.jpg alt:"The authorization server verifying the authorization code and the code verifier" width:"800" %}{: .center-image }
 
 Yay! Success! The authorization server returns three tokens:
 1. Access token
@@ -84,10 +84,10 @@ These three tokens provide crucial information about your identity, access to re
 The ID token is about the user, so information about Sunny in this case. This token is returned from the OpenID Connect layer and is used for authentication. It contains standardized identity information such as email, name, and issuing party, called claims. There might be extra claims added too for information critical to Sunny's identity, such as their dinosaur family, which of course, is a Smileasaur.
 
 ### Access token
-The Access token is a key that grants access to data or to perform an action. The token is returned from the OAuth layer and is used for authorization. The token has metadata about the token itself, such as the issuing party, information about requested scopes made in the original request, and the expiration time. Access tokens are intentionally short-lived for public clients and are a safety mechanism since it guards access to resources, and it's quite dangerous if it falls into wrong hands!
+The access token is a key that grants access to data or to perform an action. The token is returned from the OAuth layer and is used for authorization. The token has metadata about the token itself, such as the issuing party, information about requested scopes made in the original request, and the expiration time. Access tokens are intentionally short-lived for public clients and are a safety mechanism since it guards access to resources, and it's quite dangerous if it falls into wrong hands!
 
 ### Refresh token
-The Refresh token allows us to exchange it for new, shiny tokens. This optional `offline_access` scope we added in the original Authorization Code request allows the Access token to be short-lived but does not require Sunny to authenticate to get a new token repeatedly. Refresh tokens can be longer-lived than Access tokens, but for public clients, the lifetime of Refresh tokens should also be short. We want to make sure bad actors can't get a hold of a Refresh token to gain access to an Access token! For public clients like SPA, it's a best practice also to use **Refresh Token rotation**, which improves security by rotating refresh tokens after each use.
+The Refresh token allows us to exchange it for new, shiny tokens. This optional `offline_access` scope we added in the original authorization code request allows the access token to be short-lived but does not require Sunny to authenticate to get a new token repeatedly. Refresh tokens can be longer-lived than access tokens, but for public clients, the lifetime of Refresh tokens should also be short. We want to make sure bad actors can't get a hold of a Refresh token to gain access to an access token! For public clients like SPA, it's a best practice also to use **Refresh Token rotation**, which improves security by rotating refresh tokens after each use.
 
 While each step of this OAuth flow to get the tokens is critical to ensure a secure authentication and authorization process, let's inspect the two requests in more detail. 
 
@@ -135,15 +135,15 @@ Some fields are pre-populated, which is helpful. Add the other key information n
 
 Open debugging tools in your browser to watch for redirection and network requests. You'll want to make sure you're preserving logs between page refreshes. 
 
-At the bottom of the page, you'll see how the Authorization Code request is formed. Press **Send Request** to start the flow.
+At the bottom of the page, you'll see how the authorization code request is formed. Press **Send Request** to start the flow.
 
 If you aren't authenticated in Okta, you're redirected to an Okta-hosted sign-in page. Redirecting to the Identity Provider's hosted sign-in page is the best practice for security, so it's also a common practice you'll see across Identity Providers. Signing in redirects you back to the OIDC debugger with a success message. You'll see the Authorization code provided by the authorization server automatically exchanged the code for tokens.
 
 {% img blog/spa-auth-tokens/oidc-debugger-success.jpg alt:"Authorization code and tokens returned in the OIDC Debugger upon successful sign-in" width:"800" %}{: .center-image }
 
-The token format for ID tokens is JSON Web Token (JWT). The Access token from Okta is also a JWT. JWT is an open standard (RFC 7519) that allows systems to exchange information in JSON format securely. They are compact and secure from modifications, but our tokens contain public information. Don't worry! They are secure, just not confidential. 
+The token format for ID tokens is JSON Web Token (JWT). The access token from Okta is also a JWT. JWT is an open standard (RFC 7519) that allows systems to exchange information in JSON format securely. They are compact and secure from modifications, but our tokens contain public information. Don't worry! They are secure, just not confidential. 
 
-You can copy the Access token or ID token value from the response and read the contents using a [JWT debugger](https://jwt.io/). 
+You can copy the access token or ID token value from the response and read the contents using a [JWT debugger](https://jwt.io/). 
 
 {% img blog/spa-auth-tokens/jwt-inspection.jpg alt:"JWT inspection in the JWT debugger" width:"800" %}{: .center-image }
 
@@ -193,28 +193,28 @@ Now that we have these tokens in our SPA, what do we do with them? We should let
 
 {% img blog/spa-auth-tokens/refresh-token.jpg alt:"Refresh token call to authorization server and returning new tokens" width:"800" %}{: .center-image }
 
-We're primarily interested in the contents of the ID token and using the Access token.
+We're primarily interested in the contents of the ID token and using the access token.
 
-### How to use the Access Token
-The Access token gives us access to resources. That means we use Access tokens in outgoing API requests that our application needs, like for Sunny to get their next rawring lesson.
+### How to use the access token
+The access token gives us access to resources. That means we use access tokens in outgoing API requests that our application needs, like for Sunny to get their next rawring lesson.
 
-{% img blog/spa-auth-tokens/access-token.jpg alt:"Sunny starting up a new lesson makes a call to the Rawr site's /lesson endpoint passing in the Access token" width:"800" %}{: .center-image }
+{% img blog/spa-auth-tokens/access-token.jpg alt:"Sunny starting up a new lesson makes a call to the Rawr site's /lesson endpoint passing in the access token" width:"800" %}{: .center-image }
 
-You'll send the Access token as a Bearer token in the HTTP call's Authorization header. So in the case of Sunny, the outgoing HTTP call looks like this.
+You'll send the access token as a Bearer token in the HTTP call's Authorization header. So in the case of Sunny, the outgoing HTTP call looks like this.
 
 ```http
 GET /lessons
 Authorization: Bearer access_token_value
 ```
 
-You'll want to ensure you're not adding the Access token to calls outside your system by maintaining an allowlist of origins that should include the token.
+You'll want to ensure you're not adding the access token to calls outside your system by maintaining an allowlist of origins that should include the token.
 
-### How to use the ID Token
+### How to use the ID token
 Since the ID Token contains user identity information, you can use this token to start populating your user store, and for supporting identifiers you need immediately, such as their name.
 
 {% img blog/spa-auth-tokens/id-token.jpg alt:"Sunny looking at his profile in the Rawr app where they see their name, dinosaur family, and their avatar" width:"800" %}{: .center-image }
 
-Once you have the Access token, you can make a request to the OIDC Discovery document's User Info endpoint, which may contain more information about the user than what is available in your ID token. You probably will also need to add user information and user settings from API calls within your system since the SPAs we write have complex user information.
+Once you have the access token, you can make a request to the OIDC Discovery document's User Info endpoint, which may contain more information about the user than what is available in your ID token. You probably will also need to add user information and user settings from API calls within your system since the SPAs we write have complex user information.
 
 ## Learn more about OAuth, OIDC, tokens, and authentication best practices
 Hopefully this gives some insight into how authentication and authorization with OAuth 2.0 + OpenID Connect works for public clients like SPAs, and how each token fits into the landscape.
