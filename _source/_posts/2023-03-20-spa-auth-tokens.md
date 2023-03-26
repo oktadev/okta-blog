@@ -21,9 +21,9 @@ As part of authentication, your client application makes multiple calls to an Au
 ## Authentication and Authorization using OAuth 2.0 + OpenID Connect (OIDC)
 OAuth 2.0 with OIDC is the best practice for adding authentication and authorization to your software applications. Authentication verifies the identity of who you claim to be, and authorization verifies you have access to data you want to see or actions you want to perform. It is lightweight with less effort to set up and use than Security Assertion Markup Language (SAML), an alternate authentication and authorization mechanism that pre-existing systems may use. For newer systems, you'll want to use OAuth 2.0 + OIDC.
 
-{% img blog/spa-auth-tokens/oauth-oidc-logos.jpg alt:"OAuth and OpenID Connect logos" width:"800" %}{: .center-image }
+{% img blog/spa-auth-tokens/oauth-oidc-logos.jpg alt:"OAuth and OpenID Connect logos" width:"600" %}{: .center-image }
 
-OAuth 2.0 handles authorization to resources, such as when your front-end application gets data from a backend API by making an HTTP request. OAuth 2.0 standards have the flexibility to support authorization across your entire application system through different flows and grant types. For example, different OAuth 2.0 flows support JavaScript-based front-end applications, for your APIs and back-end services to communicate and even for IOT devices in your home automation system. OpenID Connect (OIDC) is an identity layer on OAuth 2.0 that provides standardized identity information.
+OAuth 2.0 handles authorization to resources, such as when your front-esnd application gets data from a backend API by making an HTTP request. OAuth 2.0 standards have the flexibility to support authorization across your entire application system through different flows and grant types. For example, different OAuth 2.0 flows support JavaScript-based front-end applications, for your APIs and back-end services to communicate and even for IOT devices in your home automation system. OpenID Connect (OIDC) is an identity layer on OAuth 2.0 that provides standardized identity information.
 
 ## OAuth 2.0 + OIDC for JavaScript clients and SPA
 SPAs and other JavaScript front-ends are public clients, meaning they can't maintain secret information for authorization, such as a Client Secret, a super secret value that traditional server-rendered web applications use for authorization. In both application types, we should use a flow called Authorization Code and an extension to the flow called Proof Key for Code Exchange (PKCE).
@@ -91,35 +91,23 @@ The Refresh token allows us to exchange it for new, shiny tokens. This optional 
 
 While each step of this OAuth flow to get the tokens is critical to ensure a secure authentication and authorization process, let's inspect the two requests in more detail. 
 
-## Create an Authorization server and view the well-known endpoints 
+## Create an OAuth 2.0 + OIDC Compliant Authorization server
 
-We'll start by setting up an Authorization server in Okta and use the [OpenID Connect Debugger](https://oidcdebugger.com/) tool to inspect the Network requests.
+We'll start by setting up an authorization server in Okta and use the [OpenID Connect Debugger](https://oidcdebugger.com/) tool to inspect the Network requests. This authorization server is OAuth 2.0 and OIDC compliant, so we can use it as a 
 
 {% include setup/cli.md type="spa" loginRedirectUri="https://oidcdebugger.com/debug" %}
 
 Make note of the `Issuer` and `Client ID`. In the upcoming steps, you'll need those values to configure Okta in your SPA client.
 
-Authorization servers have standard, public endpoints for discovery by clients. In our case, because we are using OAuth 2.0 + OIDC, we have two discovery endpoints.
+## View the well-known endpoint for OIDC Discovery
 
-### OAuth Authorization Server Discovery
+Authorization servers have standard, public endpoints for discovery by clients. Let's take a peek at the OIDC discovery document.
 
-The OAuth specification requires there is a standardized mechanism for clients to discover metadata about the Authorization Server at the `{Issuer}/.well-known/oauth-authorization-server`. Replace the `{Issuer}` with the value from Okta CLI and navigate to the path in your browser.
+The OpenID Connect specification requires a standardized mechanism for client discovery. You can find it at `{Issuer}/.well-known/openid-configuration`. Open up a browser tab to the OIDC discovery endpoint. It is also JSON formatted data that looks something like this:
 
-You should see JSON formatted data with information that provides the necessary information to interact with the Authorization server:
+{% img blog/spa-auth-tokens/well-known-oidc.jpg alt:"Example OIDC well-known discovery document" width:"800" %}{: .center-image }
 
-{% img blog/spa-auth-tokens/well-known-oauth.jpg alt:"Example OAuth well-known discovery document" width:"800" %}{: .center-image }
-
-The OAuth discovery document doesn't have any user information. It only has information about the resources the user has access to.
-
-We have the endpoints for the authorization and token requests, which we'll inspect momentarily.
-
-### OIDC Discovery
-
-The OpenID Connect specification also requires a standardized mechanism for client discovery. You can find it at `{Issuer}/.well-known/openid-configuration`. Open up a browser tab to the OIDC discovery endpoint. It is also JSON formatted data that looks something like this:
-
-{% img blog/spa-auth-tokens/well-known-oauth.jpg alt:"Example OIDC well-known discovery document" width:"800" %}{: .center-image }
-
-Like the OAuth discovery response, we have the endpoints for the authorization and token requests. We also have a user info endpoint to query for user information. If you find the property for `claims_supported`, you'll see the claims cover various identifying information about the user. 
+In the discovery response, we have the endpoints for the authorization and token requests which we'll use in following steps. We also have a user info endpoint to query for user information and endpoints to validate the ID token. If you find the property for `claims_supported`, you'll see the claims cover various identifying information about the user. 
 
 ## Debug the Authorization Code and Token requests 
 
@@ -128,10 +116,10 @@ We can see this OAuth flow using the [OpenID Connect Debugger](https://oidcdebug
 {% img blog/spa-auth-tokens/oidc-debugger.jpg alt:"OIDC Debugger site showing form fields" width:"800" %}{: .center-image }
 
 Some fields are pre-populated, which is helpful. Add the other key information needed:
-* **Authorize URI (required)** - the authorize endpoint from your OAuth discovery doc
+* **Authorize URI (required)** - the authorize endpoint from the discovery doc
 * **Client ID (required)** - the Client ID value from Okta CLI
 * **Scope (required)** - `openid` is already added for us. Add `profile` and `offline_access` with spaces in between. The form field should look like `openid profile offline_access`.
-* **Response type (required)** - select "Use PKCE?" which unlocks a few new fields, but everything is populated for us. The debugger grabs the token endpoint from the OAuth discovery document
+* **Response type (required)** - select "Use PKCE?" which unlocks a few new fields, but everything is populated for us. The debugger discovers the token endpoint automatically for us. 😎
 
 Open debugging tools in your browser to watch for redirection and network requests. You'll want to make sure you're preserving logs between page refreshes. 
 
