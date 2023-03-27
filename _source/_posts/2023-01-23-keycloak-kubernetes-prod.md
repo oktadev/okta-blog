@@ -35,7 +35,7 @@ Keycloak documentation provides some key guidelines for production deployment th
 - **Production grade database**: The database plays a crucial role in the performance and Keycloak supports several production-grade databases, including PostgreSQL.
 - **High Availability**: Choose multi-mode clustered deployment. In production mode, distributed caching of realm and session data is enabled and all nodes in the network are discovered.
 
-## Deploy microservices and Keycloak to Google
+## Deploy microservices and Keycloak to Google Cloud
 
 In this walkthrough, you will build a microservices architecture example from JHipster, consisting of a `gateway` application based on Spring Gateway and two reactive microservices `blog` and `store`. The `gateway` will act as the entrance to your microservices, providing HTTP routing and load balancing, quality of service, security and API documentation for all microservices. With the help of the JHipster Kubernetes sub-generator, you can deploy the application and its required services (Consul for service discovery, and Keycloak for OpenID Connect) to Google Kubernetes Engine (GKE).
 
@@ -44,14 +44,112 @@ In this walkthrough, you will build a microservices architecture example from JH
 Install JHipster, you can do the classical local installation with npm.
 
 ```bash
-npm install -g generator-jhipster@7.9.2
+npm install -g generator-jhipster@7.9.3
 ```
 If you'd rather use Yarn or Docker, follow the instructions at [jhipster.tech](https://www.jhipster.tech/installation/#local-installation-with-npm-recommended-for-normal-users).
 
-Generate the microservices architecture using the [reactive microservices example](https://github.com/jhipster/jdl-samples/blob/main/reactive-ms.jdl) from JHipster. Create a folder for the project and run:
+Generate the microservices architecture from a JDL (JHipster-specific domain langugage) descriptor file. Create a folder for the project and add the file `reactive-ms.jdl` with the following content:
+
+```text
+application {
+  config {
+    baseName gateway
+    reactive true
+    packageName com.okta.developer.gateway
+    applicationType gateway
+    authenticationType oauth2
+    buildTool gradle
+    clientFramework vue
+    prodDatabaseType postgresql
+    serviceDiscoveryType consul
+    testFrameworks [cypress]
+  }
+  entities Blog, Post, Tag, Product
+}
+
+application {
+  config {
+    baseName blog
+    reactive true
+    packageName com.okta.developer.blog
+    applicationType microservice
+    authenticationType oauth2
+    buildTool gradle
+    databaseType neo4j
+    devDatabaseType neo4j
+    prodDatabaseType neo4j
+    enableHibernateCache false
+    serverPort 8081
+    serviceDiscoveryType consul
+  }
+  entities Blog, Post, Tag
+}
+
+application {
+  config {
+    baseName store
+    reactive true
+    packageName com.okta.developer.store
+    applicationType microservice
+    authenticationType oauth2
+    buildTool gradle
+    databaseType mongodb
+    devDatabaseType mongodb
+    prodDatabaseType mongodb
+    enableHibernateCache false
+    serverPort 8082
+    serviceDiscoveryType consul
+  }
+  entities Product
+}
+
+entity Blog {
+  name String required minlength(3)
+  handle String required minlength(2)
+}
+
+entity Post {
+  title String required
+  content TextBlob required
+  date Instant required
+}
+
+entity Tag {
+  name String required minlength(2)
+}
+
+entity Product {
+  title String required
+  price BigDecimal required min(0)
+  image ImageBlob
+}
+
+relationship ManyToOne {
+  Blog{user(login)} to User
+  Post{blog(name)} to Blog
+}
+
+relationship ManyToMany {
+  Post{tag(name)} to Tag{post}
+}
+
+paginate Post, Tag with infinite-scroll
+paginate Product with pagination
+
+microservice Product with store
+microservice Blog, Post, Tag with blog
+
+deployment {
+  deploymentType docker-compose
+  appsFolders [gateway, blog, store]
+  dockerRepositoryName "mraible"
+}
+```
+
+Then run the following command:
 
 ```shell
-jhipster jdl reactive-ms
+jhipster jdl reactive-ms.jdl
 ```
 
 After the generation, you will find sub-folders were created for the `gateway`, `store`, and `blog` services. The `gateway` will act as the front-end application and as a secure router to the `store` and `blog` microservices.
@@ -67,7 +165,7 @@ Create a [Docker Hub](https://hub.docker.com/) personal account, if you don't ha
 
 **Note**: _your-dockerhub-secret_ can be your Docker Hub password, or a token if you have two-factor authentication enabled.
 
-### Run Kubernetes generator
+### Run the Kubernetes sub-generator
 
 Now let's generate the Kubernetes Yaml descriptors using JHipster. During the process, the generator will prompt for an FQDN (Fully qualified domain name) for the Ingress services, so let's first create a public IP on Google Cloud. With the help of [nip.io](nip.io), if you set <public-ip>.nip.io as your FQDN, you can test the deployment without having to purchase a real domain.
 
@@ -78,7 +176,7 @@ After you sign up, install [`gcloud` CLI](https://cloud.google.com/sdk/docs/inst
 ```shell
 gcloud compute addresses create gateway-ip --global
 ```
-**Note**: The name for public IP must be the gateway or monolith application base name, you can find it in the JDL.
+**Note**: The name for public IP must be the gateway or monolith application base name, you can find it in the JDL. For the current example the application base name is `gateway`.
 
 ```
 application {
@@ -106,13 +204,12 @@ Choose the following options when prompted:
 - Which applications? (select all)
 - Set up monitoring? **No**
 - Which applications with clustered databases? select **store**
-- Admin password for JHipster Registry: (generate one)
 - Kubernetes namespace: **demo**
 - Docker repository name: **your-dockerhub-username**
 - Command to push Docker image: `docker push`
 - Enable Istio? **No**
 - Kubernetes service type? **Ingress**
-- Kubernetes ingress type? **GKE**
+- Kubernetes ingress type? **Google Kubernetes Engine Ingress**
 - Root FQDN for ingress services: **\<public-ip\>.nip.io**
 - Use dynamic storage provisioning? **Yes**
 - Use a specific storage class? (leave empty)
@@ -128,7 +225,7 @@ spec:
     email: <your-email>
 ```
 
-### Deploy on Google Kubernetes Engine
+### Deploy to Google Kubernetes Engine
 
 Create a Kubernetes cluster on Google Cloud:
 
@@ -154,7 +251,7 @@ Apply the deployment descriptors, from the `kubernetes` folder:
 ./kubectl-apply.sh -f
 ```
 
-**Important note**: Keycloak client applications (registry, microservices) will fail the startup until Let's Encrypt has issued the certificate and it has been synchronized inside the cluster. In the following section, the issuance process is explained in more detail.
+**Important note**: Keycloak client applications (a monolith or microservices) will fail the startup until Let's Encrypt has issued the certificate and it has been synchronized inside the cluster. In the following section, the issuance process is explained in more detail.
 
 The certificate might take some minutes to be ready, you can check the status by inspecting the object events:
 
@@ -197,23 +294,23 @@ Once the cluster is healthy, you can test the deployment by navigating to **http
 
 If you click on **Sign in** you will be redirected to the Keycloak sign-in page. As the certificate for TLS was issued by the Let's Encrypt staging environment, the browser won't trust it by default. Accept the certificate and you will be able to sign in. If you inspect the certificate, you will find the certificate hierarchy.
 
-{% img blog/keycloak-kubernetes-prod/firefox-warning.png alt:"Firefox browser warning" width:"800" %}{: .center-image }
+{% img blog/keycloak-kubernetes-prod/firefox-warning.png alt:"Firefox browser warning" width:"700" %}{: .center-image }
 
-{% img blog/keycloak-kubernetes-prod/firefox-advanced.png alt:"Firefox advanced information on warning" width:"800" %}{: .center-image }
+{% img blog/keycloak-kubernetes-prod/firefox-advanced.png alt:"Firefox advanced information on warning" width:"700" %}{: .center-image }
 
-{% img blog/keycloak-kubernetes-prod/certificate-info.png alt:"Certificate information" width:"800" %}{: .center-image }
+{% img blog/keycloak-kubernetes-prod/certificate-info.png alt:"Certificate information" width:"700" %}{: .center-image }
 
 ## Using cert-manager with Let's Encrypt Certificates
 
 cert-manager is an X.509 certificate controller for Kubernetes and OpenShift. It automates the issuance of certificates from popular public and private Certificate Authorities, to secure Ingress with TLS. It ensures the certificates are valid and up-to-date, and attempts to renew certificates before expiration.
 
-With cert-manager, a certificate issuer is a resource type in the Kubernetes cluster, and Let's Encrypt is one of the supported sources of certificates than can be configured as the issuer. The [ACME](https://www.rfc-editor.org/rfc/rfc8555) (Automated Certificate Management Environment) protocol is a framework for automating the issuance and domain validation procedure, which allows servers to obtain certificates without user interaction. Let's Encrypt is a Certificate Authority that supports ACME protocol, and through cert-manager, the cluster can request and install Let's Manager certificates.
+With cert-manager, a certificate issuer is a resource type in the Kubernetes cluster, and Let's Encrypt is one of the supported sources of certificates than can be configured as the issuer. The [ACME](https://www.rfc-editor.org/rfc/rfc8555) (Automated Certificate Management Environment) protocol is a framework for automating the issuance and domain validation procedure, which allows servers to obtain certificates without user interaction. Let's Encrypt is a Certificate Authority that supports ACME protocol, and through cert-manager, the cluster can request and install Let's Encrypt generated certificates.
 
 ### Certificate issuance flow
 
 The process for obtaining a certificate with ACME protocol has two major tasks, __Domain Validation__, where the agent proves it controls the domain, and __Certificate Issuance__, where the agent requests a certificate (or renews or revokes).
 
-At a high level, the following steps are required for obtaining a certificate from an ACME server:
+At a high level, the following steps are required for obtaining a certificate from an ACME server. In the test deployment, cert-manager acts as the agent, and Let's Encrypt staging as the CA (Certificate Authority).
 
 1. The agent registers to the CA with a key pair
 2. The agent submits an order for a certificate to be issued
