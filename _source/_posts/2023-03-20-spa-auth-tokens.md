@@ -170,7 +170,7 @@ If you still need to, open the SPA code in your favorite IDE. Depending on your 
     issuer: ISSUER,
     redirectUri: window.location.origin + '/login/callback',
     scopes: ['openid', 'profile', 'email', 'offline_access']
-  }
+}
 ```
 
 Now try rerunning the SPA. If you inspect the network request, you'll see the refresh token too. You can see the tokens by looking at the contents of your Local Storage too.
