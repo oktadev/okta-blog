@@ -14,7 +14,7 @@ type: awareness
 
 Adding authentication to public clients such as Single Page Applications (SPA) and JavaScript applications can be a source of confusion. Identity Providers like Okta try to help you via multiple support systems. Still, it can feel like a lot of work. Especially since you're responsible for way more than authentication alone in the applications you work on!
 
-As part of authentication, your client application makes multiple calls to an Authorization server, and you get back several strings, which are tokens. Let's demystify what's going on behind the scenes and closely examine what those tokens are and how you use them within your client application.
+As part of authentication, your client application makes multiple calls to an authorization server, and you get back several strings, which are tokens. Let's demystify what's going on behind the scenes and closely examine what those tokens are and how you use them within your client application.
 
 {% include toc.md %}
 
@@ -26,9 +26,9 @@ OAuth 2.0 with OIDC is the best practice for adding authentication and authoriza
 OAuth 2.0 handles authorization to resources, such as when your front-end application gets data from a backend API by making an HTTP request. OAuth 2.0 standards have the flexibility to support authorization across your entire application system through different flows and grant types. For example, different OAuth 2.0 flows support JavaScript-based front-end applications, for your APIs and back-end services to communicate, and even for IOT devices in your home automation system. OpenID Connect (OIDC) is an identity layer on OAuth 2.0 that provides standardized identity information.
 
 ## OAuth 2.0 + OIDC for JavaScript clients and SPA
-SPAs and other JavaScript front-ends are public clients, meaning they can't maintain secret information for authorization, such as a Client Secret, a super secret value that traditional server-rendered web applications use for authorization. In both application types, we should use a flow called Authorization Code and an extension to the flow called Proof Key for Code Exchange (PKCE).
+SPAs and other JavaScript front-ends are public clients, which means they can't maintain secret information for authorization, unlike a confidential client. A confidential client (such as a traditional server-rendered web app) can keep super secret information such as a Client Secret for authorization. In both application types, we should use a flow called Authorization Code and an extension to the flow called Proof Key for Code Exchange (PKCE).
 
-Let's see how this flow works step by step by following what happens when a cute dinosaur named Sunny prepares to sign in to the "Rawr" app.
+Let's see how this flow works step-by-step following what happens when a cute dinosaur named Sunny prepares to sign in to the "Rawr" app.
 
 {% img blog/spa-auth-tokens/flow-1-sign-in-start.jpg alt:"Sunny, a cute smiley dinosaur, is ready to sign in to the Rawr app" width:"800" %}{: .center-image }
 
@@ -109,11 +109,11 @@ The OpenID Connect specification requires a standardized mechanism for client di
 
 In the discovery response, we have the endpoints for the authorization and token requests which we'll use in the following steps. We also have a user info endpoint to query for user information and endpoints to validate the ID token. If you find the property for `claims_supported`, you'll see the claims cover various identifying information about the user. 
 
-## Debug the Authorization Code and Token requests 
+## Debug the authorization code and token requests 
 
 We can see this OAuth flow using the [OpenID Connect Debugger](https://oidcdebugger.com/) tool. Open the site on a browser with good developer debugging capabilities. You'll see something like this:
 
-{% img blog/spa-auth-tokens/oidc-debugger.jpg alt:"OIDC Debugger site showing form fields" width:"800" %}{: .center-image }
+{% img blog/spa-auth-tokens/oidc-debugger.jpg alt:"OIDC debugger site showing form fields" width:"800" %}{: .center-image }
 
 Some fields are pre-populated, which is helpful. Add the other key information needed:
 * **Authorize URI (required)** - the authorize endpoint from the discovery doc
@@ -127,7 +127,7 @@ At the bottom of the page, you'll see how the authorization code request is form
 
 First, you'll authenticate using Okta if you still need to sign in by redirecting to an Okta-hosted sign-in page. Redirecting to the Identity Provider's hosted sign-in page is the best practice for security, so it's also a common practice you'll see across Identity Providers. Completing sign-in redirects you back to the OIDC debugger with a success message. You'll see the authorization code automatically exchanged for tokens.
 
-{% img blog/spa-auth-tokens/oidc-debugger-success.jpg alt:"Authorization code and tokens returned in the OIDC Debugger upon successful sign-in" width:"800" %}{: .center-image }
+{% img blog/spa-auth-tokens/oidc-debugger-success.jpg alt:"Authorization code and tokens returned in the OIDC debugger upon successful sign-in" width:"800" %}{: .center-image }
 
 The token format for ID tokens is JSON Web Token (JWT). The access token from Okta is also a JWT. JWT is an open standard (RFC 7519) that allows systems to exchange information in JSON format securely. They are compact and safe from modifications, but our tokens contain public information. Don't worry! They are secure, just not confidential. 
 
@@ -139,7 +139,7 @@ So this is cool, but what do we do with the tokens in our SPA? Let's bring these
 
 ## Add authentication to your SPA
 
-First, we need an Okta OIDC application supporting our SPA's redirect URI. We could edit the existing OIDC Debugger application we created previously, or we can use a handy Okta CLI command to set everything up for us and to scaffold out a sample application in our preferred framework.
+First, we need an Okta OIDC application supporting our SPA's redirect URI. We could edit the existing OIDC debugger application we created previously, or we can use a handy Okta CLI command to set everything up for us and to scaffold out a sample application in our preferred framework.
 
 Use the following command in the terminal to get going quickly. There's a separate command for each Angular, React, and Vue.
 
@@ -160,7 +160,7 @@ okta start vue
 
 Follow the instructions in the terminal to start the application. You should be able to sign in and sign out. Additionally, you can watch network requests for the calls it makes.
 
-We don't have a refresh token by default. You can enable that in the Okta Admin Console. Navigate to the [Okta Developer site](https://developer.okta.com/) and sign in to your Okta organization. In the Admin Console, navigate to **Applications** > **Applications** and select the Okta application for the SPA you created. Edit the settings to enable **Refresh Token**. It automatically adds Refresh Token rotation. Save your changes.
+We don't have a refresh token by default. You can enable that in the Okta Admin Console. Navigate to the [Okta Developer site](https://developer.okta.com/) and sign in to your Okta organization. In the Admin Console, navigate to **Applications** > **Applications** and select the Okta application for the SPA you created. Edit the settings to enable **Refresh Token**. It automatically adds Refresh Token Rotation. Save your changes.
 
 If you still need to, open the SPA code in your favorite IDE. Depending on your framework, navigate to the `config.js` or `app.config.ts` file. You'll see the OIDC config and property for `scopes` where you will add `offline_access`. Your OIDC config looks something like this:
 
@@ -173,7 +173,7 @@ If you still need to, open the SPA code in your favorite IDE. Depending on your 
 }
 ```
 
-Now try rerunning the SPA. If you inspect the network request, you'll see the refresh token too. You can see the tokens by looking at the contents of your Local Storage too.
+Now try rerunning the SPA. If you inspect the network request, you'll see the refresh token too. You can see the tokens by looking at the contents of your local storage too.
 
 ## Use auth tokens in SPAs
 
