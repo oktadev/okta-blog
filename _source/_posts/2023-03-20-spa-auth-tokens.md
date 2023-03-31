@@ -199,10 +199,14 @@ You'll want to ensure you're not adding the access token to calls outside your s
 
 A great way to manage adding the Authorization header and the logic to verify the call matches the allowlist of origins is using an interceptor. Interceptors sit between your application and outgoing (or incoming) HTTP requests. Angular includes the concept of interceptors within the framework, and if you use Axios in Vue or React apps, you can configure interceptors there.
 
+You can see access tokens in action within the SPA you previously created. If you navigate to **Messages** in the application, it will make a call to a resource server and add the access token to the Authorization header. If you want to see the messages request succeed, you'll need to run the resource server in Okta's [samples-nodejs-express-4 repo](https://github.com/okta/samples-nodejs-express-4).
+
 ### How to use the ID token
 Since the ID token contains user identity information, you can use it to start populating your user store and for supporting identifiers you need immediately, such as their name.
 
 {% img blog/spa-auth-tokens/id-token.jpg alt:"Sunny looking at his profile in the Rawr app where they see their name, dinosaur family, and their avatar" width:"800" %}{: .center-image }
+
+In the SPA you previously created, you can see all your claims if you navigate to **Profile**.
 
 The Okta SDK automatically decodes the ID token so that we can use the claims without decoding the payload ourselves. But before we jump right into using the claims, the Okta SDK first validates the token signature, which helps ensure the token's integrity and that it hasn't been altered. Let's take a quick peek under the covers at what happens during this validation process.
 
