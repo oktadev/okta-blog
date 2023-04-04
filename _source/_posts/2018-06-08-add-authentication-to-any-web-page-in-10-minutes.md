@@ -29,7 +29,7 @@ changelog:
     </a>
     Heads up... this blog post is old!
   </p>
-  <p>For an updated instructions on adding authentication using the Okta Sign-in Widget, see
+  <p>For updated instructions on adding authentication using the Okta Sign-in Widget, see
     <a href="https://developer.okta.com/docs/guides/embedded-siw/main/">
       Embedded Okta Sign-In Widget fundamentals</a>.
   </p>
