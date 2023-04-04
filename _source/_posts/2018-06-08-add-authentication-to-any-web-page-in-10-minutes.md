@@ -19,9 +19,21 @@ changelog:
   - 2020-08-05: Specify implicit flow as a grant type that needs to be allowed. Implicit is required for v2.x of the Sign-In Widget. The latest version supports authorization code flow with PKCE. See [okta-blog#363](https://github.com/oktadeveloper/okta-blog/pull/363) for changes.
   - 2019-11-16: Added screencast of this tutorial. See [okta-blog#85](https://github.com/oktadeveloper/okta-blog/pull/85) for changes.
   - 2019-10-31: Removed Trusted Origin (CORS) section since it's no longer needed. Changes to this post can be viewed in [okta-blog#69](https://github.com/oktadeveloper/okta-blog/pull/69).
-update-title: "Embedded Okta Sign-In Widget fundamentals"
-update-url: https://developer.okta.com/docs/guides/embedded-siw/main/
 ---
+
+<div class="alert alert-info" role="alert">
+  <p class="title">
+    <a class="close" aria-label="Close" title="Close"
+       onclick="this.parentElement.parentElement.style.display='none'">
+      <span aria-hidden="true">&times;</span>
+    </a>
+    Heads up... this blog post is old!
+  </p>
+  <p>For an updated instructions on adding authentication using the Okta Sign-in Widget, see
+    <a href="https://developer.okta.com/docs/guides/embedded-siw/main/">
+      Embedded Okta Sign-In Widget fundamentals</a>.
+  </p>
+</div>
 
 Adding authentication to web pages can be pretty annoying.
 
