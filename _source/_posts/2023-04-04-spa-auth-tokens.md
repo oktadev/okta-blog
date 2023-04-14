@@ -225,6 +225,5 @@ If you liked this post, you might want to check out the following:
 * [The Identity of OAuth Public Clients](/blog/2022/06/01/oauth-public-client-identity)
 * [Is the OAuth 2.0 Implicit Flow Dead?](/blog/2019/05/01/is-the-oauth-implicit-flow-dead)
 * [The Things to Keep in Mind about Auth](/blog/2021/10/29/things-to-keep-in-mind-about-auth)
-* [Quick JavaScript Authentication with OktaDev Schematics](blog/2022/10/14/quick-javascript-authentication)
 
 Remember to follow us on [Twitter](https://twitter.com/oktadev) and subscribe to our [YouTube channel](https://www.youtube.com/c/OktaDev/) for more exciting content. We also want to hear about what tutorials you want to see. Leave us a comment below.
