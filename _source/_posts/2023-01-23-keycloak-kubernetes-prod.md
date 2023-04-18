@@ -343,6 +343,251 @@ The following annotations are added by the k8s sub-generator in the ingress reso
 - `acme.cert-manager.io/http01-edit-in-place: "true"`: The ingress is modified in place, instead of creating a new ingress resource for the HTTP01 challenge
 - `cert-manager.io/issue-temporary-certificate: "true"`: A temporary certificate will be set on the secret until the final certificate has been returned. used for keeping compatibility with the `ingress-gce` component.
 
+## Delegate authentication to Auth0
+
+Keycloak supports identity provider federation, meaning it can be configured to delegate authentication to one or more Identity Providers. An example of IDP federation is social login via Facebbok or Google. Authentication can be delegated to any IDP supporting OpenID Connect or SAML 2.0. Auth0 uses the OpenID Connect protocol to authenticate users and allows adding custom logic to the login and identity flows via Auth0 Actions. JHipster applications require custom token claims for authorization,  and these can be configured using Auth0 Actions.
+
+### Create an Auth0 account
+
+Sign up at [Auth0](https://auth0.com/signup) and install the [Auth0 CLI](https://github.com/auth0/auth0-cli). Then run:
+
+```shell
+auth0 login
+```
+
+The terminal will display a device confirmation code and open a browser session to activate the device.
+
+**NOTE**: My browser was not displaying anything, so I had to manually activate the device by opening the URL `https://auth0.auth0.com/activate?user_code={deviceCode}`.
+
+On successful login, you will see the tenant, which you will use as issuer later:
+
+```
+✪ Welcome to the Auth0 CLI 🎊
+
+If you don't have an account, please create one here: https://auth0.com/signup.
+
+Your device confirmation code is: KGFL-LNVB
+
+ ▸    Press Enter to open the browser to log in or ^C to quit...
+
+Waiting for the login to complete in the browser... ⣻Opening in existing browser session.
+Waiting for the login to complete in the browser... done
+
+ ▸    Successfully logged in.
+ ▸    Tenant: dev-avup2laz.us.auth0.com
+```
+
+The next step is to create a client app:
+
+```shell
+auth0 apps create
+```
+
+When prompted, choose the following options:
+
+- Name: `jhipster`
+- Description: `<optional description>`
+- Type: `Regular Web Application`
+- Callback URLs: `http://gateway.rey.10.107.88.159.nip.io/login/oauth2/code/auth0`
+- Logout URLs: `http://gateway.rey.10.107.88.159.nip.io`
+
+Once the app is created, you will see the OIDC app's configuration:
+
+```
+Name: jhipster
+Description: jhipster microservices
+Callback URLs: http://gateway.rey.10.107.88.159.nip.io/login/oauth2/code/oidc
+Allowed Logout URLs: http://gateway.rey.10.107.88.159.nip.io/
+
+=== dev-avup2laz.us.auth0.com application created
+
+  CLIENT ID            cVXPpz5J2SOtbJ3qmayca06pjFUFftfW
+  NAME                 jhipster
+  DESCRIPTION          jhipster microservices
+  TYPE                 Regular Web Application
+  CALLBACKS            http://gateway.rey.10.107.88.159.nip.io/login/oauth2/code/oidc
+  ALLOWED LOGOUT URLS  http://gateway.rey.10.107.88.159.nip.io
+  ALLOWED ORIGINS
+  ALLOWED WEB ORIGINS
+  TOKEN ENDPOINT AUTH
+  GRANTS               implicit, authorization_code, refresh_token, client_credentials
+
+ ▸    Quickstarts: https://auth0.com/docs/quickstart/webapp
+ ▸    Hint: Emulate this app's login flow by running `auth0 test login cVXPpz5J2SOtbJ3qmayca06pjFUFftfW`
+ ▸    Hint: Consider running `auth0 quickstarts download cVXPpz5J2SOtbJ3qmayca06pjFUFftfW`
+```
+
+**NOTE**: The client secret is [not displayed](https://github.com/auth0/auth0-cli/issues/488) in the CLI output for regular applications. You can run `auth0 apps open` to open a browser in the application configuration. Then copy the secret from the **Settings** tab. In the example above, the tenant is `dev-avup2laz.us.auth0.com`.
+
+
+### Create users and roles
+
+As Auth0 will be used as the identity provider, you must create some test users. With auth0-cli:
+
+```shell
+auth0 users create
+```
+
+Follow the steps, you will see an output like the lines below:
+
+```text
+Connection Name: Username-Password-Authentication
+ Name: Patrick
+ Email: patrick@email.com
+ Password: ********
+
+=== dev-avup2laz.us.auth0.com user created
+
+  ID          auth0|643ec0e1e671c7c9c5916ed6    
+  EMAIL       patrick@email.com                 
+  CONNECTION  Username-Password-Authentication  
+```
+
+Save the ID for later.
+
+For this example, Auth0 will also be used for role management. JHipster applications are generated with authorization based on two roles that must be mapped to the user: `ROLE_USER` and `ROLE_ADMIN`. Create those roles in Auth0:
+
+```shell
+autho0 roles create
+```
+
+You will see an output like the following:
+
+```text
+Name: ROLE_USER
+Description: A user
+
+=== dev-avup2laz.us.auth0.com role created
+
+ ID           rol_175cvyWy20sxohgo  
+ NAME         ROLE_USER             
+ DESCRIPTION  A user     
+```
+
+Assign the roles to the users you created:
+
+```shell
+auth0 users roles assign
+```
+
+Follow the steps, you will see the output below:
+
+```text
+User ID: auth0|643ec0e1e671c7c9c5916ed6
+? Roles rol_24d61Zxpvuas66tF (Name: ROLE_ADMIN), rol_175cvyWy20sxohgo (Name: ROLE_USER)
+
+=== dev-avup2laz.us.auth0.com roles assigned to user (2)
+
+  ID                    NAME        DESCRIPTION       
+  rol_24d61Zxpvuas66tF  ROLE_ADMIN  An administrator  
+  rol_175cvyWy20sxohgo  ROLE_USER   A user            
+```
+
+### Configure a Login Action
+
+Besides the user-roles assignment just explained, the authentication flow must be customized to add the roles and the username to the custom token claims expected by JHipster applications. The way to accomplish this task with Auth0 is by adding a Login Action.
+
+First [configure the editor](https://github.com/auth0/auth0-cli#customization) to use in the environment:
+
+```shell
+export EDITOR=nano
+```
+
+Then create the Login Action:
+
+```shell
+auth0 actions create
+```
+
+Select **post-login** for the Trigger. When the editor opens, set the following implementation for the `onExecutePostLogin` function.
+
+```javascript
+exports.onExecutePostLogin = async (event, api) => {
+  const namespace = 'https://www.jhipster.tech';
+  if (event.authorization) {
+    console.log(event.user);
+    api.idToken.setCustomClaim('preferred_username', event.user.email);
+    api.idToken.setCustomClaim(`${namespace}/roles`, event.authorization.roles);
+    api.accessToken.setCustomClaim(`${namespace}/roles`, event.authorization.roles);
+  }
+}
+```
+
+Save the file. You should see the output below once the action was created.
+
+```text
+Name: jhipster
+ Trigger: post-login
+
+=== dev-avup2laz.us.auth0.com action created
+
+  ID             083009b5-651e-43d3-8c1e-0053309da2ac                                                                     
+  NAME           jhipster                                                                                                 
+  TYPE           post-login                                                                                               
+  STATUS         pending                                                                                                  
+  DEPLOYED       ✗                                                                                                        
+  LAST DEPLOYED                                                                                                           
+  LAST UPDATED   0 seconds ago                                                                                            
+  CREATED        0 seconds ago                                                                                            
+  CODE           /**                                                                                                      
+                  * Handler that will be called during the execution of a PostLogin flow.                                 
+                  *                                                                                                       
+                  * @param {Event} event - Details about the user and the context in which they are logging in.           
+                  * @param {PostLoginAPI} api - Interface whose methods can be used to change the behavior of the login.  
+                  */                                                                                                      
+                 exports.onExecutePostLogin = async (event, api) => {                                                     
+                   const namespace = 'https://www.jhipster.tech';                                                         
+                   if (event.authorization) {                                                                             
+                     console.log(event.user);                                                                             
+                     api.idToken.setCustomClaim('preferred_username', event.user.email);                                  
+                     api.idToken.setCustomClaim(`${namespace}/roles`, event.authorization.roles);                         
+                     api.accessToken.setCustomClaim(`${namespace}/roles`, event.authorization.roles);                     
+                   }                                                                                                      
+                 };                                                                                                       
+
+
+                 /**                                                                                                      
+                  * Handler that will be invoked when this action is resuming after an external redirect. If your         
+                  * onExecutePostLogin function does not perform a redirect, this function can be safely ignored.         
+                  *                                                                                                       
+                  * @param {Event} event - Details about the user and the context in which they are logging in.           
+                  * @param {PostLoginAPI} api - Interface whose methods can be used to change the behavior of the login.  
+                  */                                                                                                      
+                 // exports.onContinuePostLogin = async (event, api) => {                                                 
+                 // };                                                                                                    
+
+```
+
+You can list the available actions with the following command:
+
+```shell
+auth0 actions list
+```
+
+```text
+=== dev-avup2laz.us.auth0.com actions
+
+  ID                                    NAME      TYPE        STATUS  DEPLOYED  
+  ee0ea308-0e50-4be3-893b-74f9ccbb3703  jhipster  post-login  built   ✗         
+```
+
+Note the `DEPLOYED` status is `x`. Go ahead and deploy it using the action ID:
+
+```shell
+auth0 actions deploy ee0ea308-0e50-4be3-893b-74f9ccbb3703
+```
+
+Now that all is set in the identity provider side, let's configure Keycloak, as identity broker delegating ot Auth0.
+
+### Add the Auth0 Identity Provider
+
+- browser redirector
+- add scopes to gateway client
+- notes on sync
+
+### Map the roles claim
+
+
 ## Learn More about Keycloak in production
 
 I hope you enjoyed this post and learned about some best practices for deploying Keycloak to production when doing JHipster development. Keep learning about Keycloak and JHipster! Check out the following links:
