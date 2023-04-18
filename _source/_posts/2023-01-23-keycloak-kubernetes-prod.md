@@ -577,12 +577,37 @@ Note the `DEPLOYED` status is `x`. Go ahead and deploy it using the action ID:
 auth0 actions deploy ee0ea308-0e50-4be3-893b-74f9ccbb3703
 ```
 
-Now that all is set in the identity provider side, let's configure Keycloak, as identity broker delegating ot Auth0.
+Once the action is deployed, you must attach it to the login flow. Login to Auth0, and in the left menu choose **Actions**. Then in the Flows screen, choose **Login**. On the right bottom section, choose **Custom**. Drag the **jhipster** action to flow diagram. The click **Apply**. The flow should look like the following:
+
+{% img blog/keycloak-kubernetes-prod/login-flow.png alt:"Custom Auth0 Login Action:"600" %}{: .center-image }
+
+Now that all is set in the identity provider side, let's configure Keycloak, as identity broker delegating to Auth0.
 
 ### Add the Auth0 Identity Provider
 
-- browser redirector
-- add scopes to gateway client
+Navigate to **http://keycloak.\<namespace\>.\<public-ip\>.nip.io**, login with admin/admin. On the left menu, choose the **jhipster** realm. Then, at the bottom of the menu, choose **Identity providers**. In the User-defined section, choose **OpenID Connect v1.0**. Fill the provider configuration as follows:
+
+- RedirectURI: **(pre-filled)**
+- Alias: **auth0**
+- User discovery endpoint: **On**
+- Discovery endpoint: **https://<auth0-tenant>/.well-known/openid-configuration**
+- Client authentication: **Client secret sent as post
+- Client ID: **auht0-client**id**
+- Client Secret: **auth0-client-secret**
+
+Click on **Add** to continue the configuration. Below Client Secret, click on **Advanced**. In the _Scopes_ field, set `openid profile email offline_access`.
+
+In the left menu, go to **Authentication**. In the flows table, choose **browser**. In the _Identity Provider Redirector_ step, click the **gear** icon. Set an alias for the configuration, and set **auth0** as the default identity provider. This configuration will skip the Keycloak login form, and display the Auth0 login form directly.
+
+{% img blog/keycloak-kubernetes-prod/auth0-redirector.png alt:"Identity provider redirector to Auth0:"400" %}{: .center-image }
+
+Go back to **Authentication**, and choose the **first broker login** flow. Disable the _Review Profile_ step.
+
+
+
+
+
+- map roles
 - notes on sync
 
 ### Map the roles claim
