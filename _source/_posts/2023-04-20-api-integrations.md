@@ -69,7 +69,7 @@ Host: dev-1234567.okta.com
 
 **Considerations with using OAuth**
 
-The preferred method is using OAuth to call Okta APIs. It's more secure, and using widely available standards makes the calling process require less manual code. You'll configure the scopes you want the process to access, which aren't tied to a specific user. But it is a 2-step process to make the API call as first you'll need to get the access token. 
+The preferred method is using OAuth to call Okta APIs. It's more secure, and using widely available standards makes the calling process require less manual code. You'll configure the scopes you want the process to access, which aren't tied to a specific user. But you'll need to get the access token before making the API call.
  
 
 **When to use OAuth authorization**
@@ -80,9 +80,9 @@ But, if you create an API Service application in Okta to share it outside of you
 
 **Use API Service Integrations**
 
-API Integration Services creates API integration applications using OAuth but with more powers! Your API Integration becomes more discoverable to potential customers with improved handling for scopes. You can submit your integration to the [Okta Integration Network (OIN)](https://developer.okta.com/docs/guides/okta-integration-network/), which makes your integration available in the OIN catalog. Potential customers can find your integration to add to their Okta org. Plus, as part of the submission process, you define the scopes your integration needs beforehand. Customers can see those scopes in the OIN catalog. Transparency in the required resources will help them feel more comfortable using your integration.
+API Service Integrations powers up your API integration applications using OAuth! Your API Integration becomes more discoverable to potential customers with improved handling for scopes. You can submit your integration to the [Okta Integration Network (OIN)](https://developer.okta.com/docs/guides/okta-integration-network/), which makes your integration available in the OIN catalog. Potential customers can find your integration to add to their Okta org. Plus, as part of the submission process, you define the scopes your integration needs beforehand. Customers can see those scopes in the OIN catalog. Transparency in the required resources will help them feel more comfortable using your integration.
 
-When you want to create an API Integration Service, you'll create a test integration as part of the submission form to trial locally before you finalize the submission.
+When creating integrations listed in the OIN, you can test your integration as part of the submission process. The OIN Manager provides a mechanism to create a local service app instance in your org to test your integration before you finalize the submission.
 
 ## Decide which API authorization mechanism to use
 
