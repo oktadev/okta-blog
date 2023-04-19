@@ -78,7 +78,7 @@ You should use OAuth as the preferred authorization mechanism for communication 
 
 But, if you create an API Service application in Okta to share it outside of your organization, you delegate the scope configuration to the customer as part of their process of setting up an API Service application. There's a temptation for potential customers to either allow too much access or, conversely, limit access, causing frustrations that your integration needs fixes to work as intended. 
 
-**Use API Integration Services**
+**Use API Service Integrations**
 
 API Integration Services creates API integration applications using OAuth but with more powers! Your API Integration becomes more discoverable to potential customers with improved handling for scopes. You can submit your integration to the [Okta Integration Network (OIN)](https://developer.okta.com/docs/guides/okta-integration-network/), which makes your integration available in the OIN catalog. Potential customers can find your integration to add to their Okta org. Plus, as part of the submission process, you define the scopes your integration needs beforehand. Customers can see those scopes in the OIN catalog. Transparency in the required resources will help them feel more comfortable using your integration.
 
@@ -86,13 +86,13 @@ When you want to create an API Integration Service, you'll create a test integra
 
 ## Decide which API authorization mechanism to use
 
-When calling Okta APIs, we recommend using OAuth 2.0, and API Integrations Services if you create an API Integration for the OIN. If you have limitations using OAuth 2.0 for your use case, use API Tokens.
+When calling Okta APIs, we recommend using OAuth 2.0, and API Service Integrations if you create an API integration for the OIN. If you have limitations using OAuth 2.0 for your use case, use API Tokens.
 
 {% img blog/api-integrations/flowchart.jpg alt:"Flowchart describing first using OAuth, then using  API Services Integration in cases of OIN application. Lastly use an API Token if there are no other options." width:"800" %}{: .center-image }
 
 ## Learn more about connecting to Okta APIs using OAuth Client Credentials
 
-API tokens are the simplest, but this simplicity makes them too limited for production applications' security and reliability needs. OAuth client credentials require more understanding to set up but scale indefinitely for internal use. And for code intended for use outside your organization, API Service Integrations built on top of OAuth maximize flexibility and control.
+API tokens are the simplest, but this simplicity makes them too limited for production applications' security and reliability needs. OAuth client credentials require more understanding to set up but scale indefinitely for internal use. And for code intended for use by your customers to access their Okta tenant, API Service Integrations built on top of OAuth maximize flexibility and control.
 
 If you found this post interesting, you might find these resources useful:
 
