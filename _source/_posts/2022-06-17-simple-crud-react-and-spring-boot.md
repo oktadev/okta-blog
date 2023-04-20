@@ -5,7 +5,7 @@ author: matt-raible
 by: advocate
 communities: [java, javascript]
 description: "React is one of the most popular JavaScript frameworks, and Spring Boot is wildly popular in the Java ecosystem. This article shows you how to use them in the same app and secure it all with Okta."
-tags: [java, spring-boot, react]
+tags: [java, spring-boot, react, auth0]
 tweets:
 - "React + Spring Boot makes for a nice development experience. Learn how to make them work together with OIDC authentication."
 - "Spring Boot with @java + React with @javascript == 💙. Learn how to build a @springboot + @reactjs CRUD app today!"
@@ -1301,7 +1301,7 @@ To build and package your React app with Maven, you can use the [frontend-maven-
     ...
     <frontend-maven-plugin.version>1.12.1</frontend-maven-plugin.version>
     <node.version>v16.18.1</node.version>
-    <npm.version>v8.19.2</npm.version>
+    <npm.version>8.19.2</npm.version>
 </properties>
 
 <profiles>
