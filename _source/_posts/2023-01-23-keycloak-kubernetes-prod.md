@@ -4,7 +4,7 @@ title: "OAuth2 microservices with Keycloak on Google Kubernetes Engine"
 author:
 by: contractor
 communities: [devops,security,java]
-description: "A walk-through of building a microservices architecture with JHipster, Keycloak for OAuth2, and Google Kubernetes Engine (GKE) deployment"
+description: "A walk-through of building a microservices architecture with JHipster, Keycloak for OAuth2, and Google Kubernetes Engine (GKE) deployment. Keycloak as identity broker with Auth0 as identity provider."
 tags: [keycloak, kubernetes, java, jhipster, security, oauth2]
 tweets:
 - ""
@@ -577,7 +577,7 @@ Note the `DEPLOYED` status is `x`. Go ahead and deploy it using the action ID:
 auth0 actions deploy ee0ea308-0e50-4be3-893b-74f9ccbb3703
 ```
 
-Once the action is deployed, you must attach it to the login flow. Login to Auth0, and in the left menu choose **Actions**. Then in the Flows screen, choose **Login**. On the right bottom section, choose **Custom**. Drag the **jhipster** action to flow diagram. The click **Apply**. The flow should look like the following:
+Once the action is deployed, you must attach it to the login flow. Sign in to Auth0, and on the left menu choose **Actions**. Then in the Flows screen, choose **Login**. On the right bottom section, choose **Custom**. Drag the **jhipster** action to flow diagram. The click **Apply**. The flow should look like the following:
 
 {% img blog/keycloak-kubernetes-prod/login-flow.png alt:"Custom Auth0 Login Action:"600" %}{: .center-image }
 
@@ -585,7 +585,7 @@ Now that all is set in the identity provider side, let's configure Keycloak, as 
 
 ### Add the Auth0 Identity Provider
 
-Navigate to **http://keycloak.\<namespace\>.\<public-ip\>.nip.io**, login with admin/admin. On the left menu, choose the **jhipster** realm. Then, at the bottom of the menu, choose **Identity providers**. In the User-defined section, choose **OpenID Connect v1.0**. Fill the provider configuration as follows:
+Navigate to **http://keycloak.\<namespace\>.\<public-ip\>.nip.io**, login with admin/admin. In the welcome page, choose **Administration Console**. On the left menu, the top select,  choose the **jhipster** realm. Then, at the bottom of the menu, choose **Identity providers**. In the User-defined section, choose **OpenID Connect v1.0**. Fill the provider configuration as follows:
 
 - RedirectURI: **(pre-filled)**
 - Alias: **auth0**
@@ -597,21 +597,35 @@ Navigate to **http://keycloak.\<namespace\>.\<public-ip\>.nip.io**, login with a
 
 Click on **Add** to continue the configuration. Below Client Secret, click on **Advanced**. In the _Scopes_ field, set `openid profile email offline_access`.
 
-In the left menu, go to **Authentication**. In the flows table, choose **browser**. In the _Identity Provider Redirector_ step, click the **gear** icon. Set an alias for the configuration, and set **auth0** as the default identity provider. This configuration will skip the Keycloak login form, and display the Auth0 login form directly.
+On the left menu, choose **Authentication**. In the flows table, choose **browser**. In the _Identity Provider Redirector_ step, click the **gear** icon. Set an alias for the configuration, and set **auth0** as the default identity provider. This configuration will skip the Keycloak sign in form, and display the Auth0 sign in form directly.
 
 {% img blog/keycloak-kubernetes-prod/auth0-redirector.png alt:"Identity provider redirector to Auth0:"400" %}{: .center-image }
 
 Go back to **Authentication**, and choose the **first broker login** flow. Disable the _Review Profile_ step.
 
 
-
-
-
-- map roles
 - notes on sync
 
 ### Map the roles claim
 
+The users that sign in through Auth0 are imported to Keycloak. The role assigned in Auth0 must be mapped to the pre-configured roles in Keycloak for the authorization mechanism to work. In the Keycloak Administration Console, go to **Identity providers** again, and choose auth0. The choose the **Mappers** tab. Click **Add mapper**. Fill the values as follows and click **Save**:
+
+- Name: **ROLE_USER**
+- Sync mode override: **Force** (update the user roles during every login)
+- Mapper type: **Claim to Role**
+- Claim: **https://www\.jhipster\.tech/roles** (escape the dot (.) with backslash (\.))
+- Claim Value: **ROLE_USER**
+- Role: Select **ROLE_USER**
+
+Repeat the process for mapping `ROLE_ADMIN`.
+
+{% img blog/keycloak-kubernetes-prod/role-mapper.png alt:"Add mapper form:"500" %}{: .center-image }
+
+### Test Keycloak as identity broker
+
+Navigate to **http://gateway.\<namespace\>.\<public-ip\>.nip.io**, the gateway home must display. Click on **sign in** and the browser should be redirected to Auth0 login:
+
+{% img blog/keycloak-kubernetes-prod/auth0-login.png alt:"Add mapper form:"400" %}{: .center-image }
 
 ## Learn More about Keycloak in production
 
