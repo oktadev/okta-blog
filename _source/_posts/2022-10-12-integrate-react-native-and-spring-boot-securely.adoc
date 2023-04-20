@@ -5,7 +5,7 @@ author: matt-raible
 by: advocate
 communities: [mobile,java,javascript]
 description: "Use JHipster to build a photo-sharing app for web and mobile that has a React frontend with OIDC authentication and a Spring Boot backend."
-tags: [react-native, spring-boot, jhipster]
+tags: [react-native, spring-boot, jhipster, auth0]
 tweets:
 - "Want to integrate a React Native app with a Spring Boot backend using OAuth 2.0 and OIDC? React Native JHipster makes it pretty darn easy. Learn how to use it in my latest tutorial."
 image: blog/react-native-jhipster/react-native-jhipster.jpg

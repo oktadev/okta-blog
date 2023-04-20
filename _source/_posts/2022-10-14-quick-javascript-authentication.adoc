@@ -5,7 +5,7 @@ author: matt-raible
 by: advocate
 communities: [javascript]
 description: "Learn how to use OktaDev Schematics to add authentication to your JavaScript projects."
-tags: [javascript, authentication, oktadev-schematics]
+tags: [javascript, authentication, oktadev-schematics, auth0]
 tweets:
 - "Need to add authentication to your JavaScript or TypeScript apps? You can do it quickly with @oktadev schematics!"
 image: blog/oktadev-schematics-auth0/quick-javascript-login.jpg

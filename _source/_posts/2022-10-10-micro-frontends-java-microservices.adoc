@@ -9,7 +9,7 @@ tweets:
 - "Want to ditch your monolith UI for micro frontends? My latest tutorial shows you how!"
 - "Learn how to build a @java microservices architecture that leverages micro frontends for the UI."
 - "Spring Boot and Spring Cloud simplify development of Java microservices, but what about the frontend? Try micro frontends!"
-tags: [java, microservices, microfrontends, jhipster]
+tags: [java, microservices, microfrontends, jhipster, auth0]
 type: conversion
 github: https://github.com/oktadev/auth0-micro-frontends-jhipster-example
 image: blog/micro-frontends-java/micro-frontends.jpg
@@ -24,6 +24,12 @@ Microservices have been quite popular in the Java ecosystem ever since Spring Bo
 _To be fair, MicroProfile isn't a framework; it's a spec with many implementations. In fact, both Quarkus and Helidon have MicroProfile flavors you can use._
 
 Today, I'll show you how to build a Java microservices architecture that leverages micro frontends for the UI. The backend will use Spring Boot and Spring Cloud, while the frontend will use React. You can also use Angular or Vue if you'd like.
+
+This tutorial is also available https://youtu.be/haTQ1xJKQQ8[as a screencast].
+
+++++
+{% youtube haTQ1xJKQQ8 %}
+++++
 
 **Prerequisites:**
 
