@@ -38,7 +38,7 @@ Run the app
 
 ## Create a Java REST API with Spring Boot
 
-Navigate to https://start.spring.io[start.spring.io] and make the following selections:
+Navigate to [start.spring.io](https://start.spring.io) and make the following selections:
 
 * **Project:** `Maven Project`
 * **Group:** `com.okta.developer`
