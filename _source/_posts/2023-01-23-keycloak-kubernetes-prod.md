@@ -345,7 +345,7 @@ The following annotations are added by the k8s sub-generator in the ingress reso
 
 ## Delegate authentication to Auth0
 
-Keycloak supports identity provider federation, meaning it can be configured to delegate authentication to one or more Identity Providers. An example of IDP federation is social login via Facebbok or Google. Authentication can be delegated to any IDP supporting OpenID Connect or SAML 2.0. Auth0 uses the OpenID Connect protocol to authenticate users and allows adding custom logic to the login and identity flows via Auth0 Actions. JHipster applications require custom token claims for authorization,  and these can be configured using Auth0 Actions.
+Keycloak supports identity provider federation, meaning it can be configured to delegate authentication to one or more Identity Providers. An example of IDP federation is social login via Facebbok or Google. Authentication can be delegated to any IDP supporting OpenID Connect or SAML 2.0. Auth0 uses the OpenID Connect protocol to authenticate users and allows adding custom logic to the login and identity flows via Auth0 Actions. JHipster applications require custom token claims for authorization,  and these can be configured using Auth0 Actions. The sections below describe the step by step process to add Auth0 authentication to the gateway using Keycloak, without making any application changes. You can find a detailed description of the [brokering flow](https://www.keycloak.org/docs/latest/server_admin/#_identity_broker_overview) in Keycloak server administration guide.
 
 ### Create an Auth0 account
 
@@ -385,36 +385,36 @@ auth0 apps create
 
 When prompted, choose the following options:
 
-- Name: `jhipster`
-- Description: `<optional description>`
-- Type: `Regular Web Application`
-- Callback URLs: `http://gateway.rey.10.107.88.159.nip.io/login/oauth2/code/auth0`
-- Logout URLs: `http://gateway.rey.10.107.88.159.nip.io`
+- Name: **jhipster**
+- Description: **<optional description>**
+- Type: **Regular Web Application**
+- Callback URLs: **http://gateway.\<namespace\>.\<public-ip\>.nip.io/login/oauth2/code/auth0**
+- Logout URLs: **http://gateway.\<namespace\>.\<public-ip\>.nip.io**
 
 Once the app is created, you will see the OIDC app's configuration:
 
 ```
 Name: jhipster
 Description: jhipster microservices
-Callback URLs: http://gateway.rey.10.107.88.159.nip.io/login/oauth2/code/oidc
-Allowed Logout URLs: http://gateway.rey.10.107.88.159.nip.io/
+Callback URLs: ***
+Allowed Logout URLs: ***
 
 === dev-avup2laz.us.auth0.com application created
 
-  CLIENT ID            cVXPpz5J2SOtbJ3qmayca06pjFUFftfW
+  CLIENT ID            ***
   NAME                 jhipster
   DESCRIPTION          jhipster microservices
   TYPE                 Regular Web Application
-  CALLBACKS            http://gateway.rey.10.107.88.159.nip.io/login/oauth2/code/oidc
-  ALLOWED LOGOUT URLS  http://gateway.rey.10.107.88.159.nip.io
+  CALLBACKS            ***
+  ALLOWED LOGOUT URLS  ***
   ALLOWED ORIGINS
   ALLOWED WEB ORIGINS
   TOKEN ENDPOINT AUTH
   GRANTS               implicit, authorization_code, refresh_token, client_credentials
 
  ▸    Quickstarts: https://auth0.com/docs/quickstart/webapp
- ▸    Hint: Emulate this app's login flow by running `auth0 test login cVXPpz5J2SOtbJ3qmayca06pjFUFftfW`
- ▸    Hint: Consider running `auth0 quickstarts download cVXPpz5J2SOtbJ3qmayca06pjFUFftfW`
+ ▸    Hint: Emulate this app's login flow by running `auth0 test login ***`
+ ▸    Hint: Consider running `auth0 quickstarts download ***`
 ```
 
 **NOTE**: The client secret is [not displayed](https://github.com/auth0/auth0-cli/issues/488) in the CLI output for regular applications. You can run `auth0 apps open` to open a browser in the application configuration. Then copy the secret from the **Settings** tab. In the example above, the tenant is `dev-avup2laz.us.auth0.com`.
@@ -428,7 +428,7 @@ As Auth0 will be used as the identity provider, you must create some test users.
 auth0 users create
 ```
 
-Follow the steps, you will see an output like the lines below:
+Complete the required information, you will see an output like the lines below:
 
 ```text
 Connection Name: Username-Password-Authentication
@@ -445,7 +445,7 @@ Connection Name: Username-Password-Authentication
 
 Save the ID for later.
 
-For this example, Auth0 will also be used for role management. JHipster applications are generated with authorization based on two roles that must be mapped to the user: `ROLE_USER` and `ROLE_ADMIN`. Create those roles in Auth0:
+For this example, Auth0 will also be used for role management. JHipster applications are generated with authorization based on two roles that can be assigned to the user: `ROLE_USER` and `ROLE_ADMIN`. Create those roles in Auth0:
 
 ```shell
 autho0 roles create
@@ -485,7 +485,7 @@ User ID: auth0|643ec0e1e671c7c9c5916ed6
 
 ### Configure a Login Action
 
-Besides the user-roles assignment just explained, the authentication flow must be customized to add the roles and the username to the custom token claims expected by JHipster applications. The way to accomplish this task with Auth0 is by adding a Login Action.
+Besides the roles assignment just explained, the authentication flow must be customized to add the roles and the username to the custom token claims expected by JHipster applications. The way to accomplish this task with Auth0 is by adding a Login Action.
 
 First [configure the editor](https://github.com/auth0/auth0-cli#customization) to use in the environment:
 
@@ -505,7 +505,6 @@ Select **post-login** for the Trigger. When the editor opens, set the following 
 exports.onExecutePostLogin = async (event, api) => {
   const namespace = 'https://www.jhipster.tech';
   if (event.authorization) {
-    console.log(event.user);
     api.idToken.setCustomClaim('preferred_username', event.user.email);
     api.idToken.setCustomClaim(`${namespace}/roles`, event.authorization.roles);
     api.accessToken.setCustomClaim(`${namespace}/roles`, event.authorization.roles);
@@ -563,6 +562,7 @@ You can list the available actions with the following command:
 ```shell
 auth0 actions list
 ```
+The output willl show the deployment status of each action:
 
 ```text
 === dev-avup2laz.us.auth0.com actions
@@ -577,29 +577,29 @@ Note the `DEPLOYED` status is `x`. Go ahead and deploy it using the action ID:
 auth0 actions deploy ee0ea308-0e50-4be3-893b-74f9ccbb3703
 ```
 
-Once the action is deployed, you must attach it to the login flow. Sign in to Auth0, and on the left menu choose **Actions**. Then in the Flows screen, choose **Login**. On the right bottom section, choose **Custom**. Drag the **jhipster** action to flow diagram. The click **Apply**. The flow should look like the following:
+Once the action is deployed, you must attach it to the login flow. Sign in to Auth0, and on the left menu choose **Actions**. Then in the Flows screen, choose **Login**. On the right bottom section, choose **Custom**. Drag the **jhipster** action to the flow diagram. Then click **Apply**. The flow should look like the following:
 
-{% img blog/keycloak-kubernetes-prod/login-flow.png alt:"Custom Auth0 Login Action:"600" %}{: .center-image }
+{% img blog/keycloak-kubernetes-prod/login-flow.png alt:"Custom Auth0 Login Action" width:"500" %}{: .center-image }
 
-Now that all is set in the identity provider side, let's configure Keycloak, as identity broker delegating to Auth0.
+Now that all is set in the identity provider side, let's configure Keycloak, as identity broker delegating authentication to Auth0.
 
 ### Add the Auth0 Identity Provider
 
-Navigate to **http://keycloak.\<namespace\>.\<public-ip\>.nip.io**, login with admin/admin. In the welcome page, choose **Administration Console**. On the left menu, the top select,  choose the **jhipster** realm. Then, at the bottom of the menu, choose **Identity providers**. In the User-defined section, choose **OpenID Connect v1.0**. Fill the provider configuration as follows:
+Navigate to **http://keycloak.\<namespace\>.\<public-ip\>.nip.io**, login with admin/admin. In the welcome page, choose **Administration Console**. On the left menu, for the top options,  choose the **jhipster** realm. Then, at the bottom of the menu, choose **Identity providers**. In the User-defined section, choose **OpenID Connect v1.0**. Fill the provider configuration as follows:
 
 - RedirectURI: **(pre-filled)**
 - Alias: **auth0**
 - User discovery endpoint: **On**
-- Discovery endpoint: **https://<auth0-tenant>/.well-known/openid-configuration**
-- Client authentication: **Client secret sent as post
-- Client ID: **auht0-client**id**
+- Discovery endpoint: **https://\<auth0-tenant\>/.well-known/openid-configuration**
+- Client authentication: **Client secret sent as post**
+- Client ID: **auht0-client-id**
 - Client Secret: **auth0-client-secret**
 
-Click on **Add** to continue the configuration. Below Client Secret, click on **Advanced**. In the _Scopes_ field, set `openid profile email offline_access`.
+Click on **Add** to continue the configuration. Below the Client Secret field, click on **Advanced**. In the _Scopes_ field, set `openid profile email offline_access`.
 
 On the left menu, choose **Authentication**. In the flows table, choose **browser**. In the _Identity Provider Redirector_ step, click the **gear** icon. Set an alias for the configuration, and set **auth0** as the default identity provider. This configuration will skip the Keycloak sign in form, and display the Auth0 sign in form directly.
 
-{% img blog/keycloak-kubernetes-prod/auth0-redirector.png alt:"Identity provider redirector to Auth0:"400" %}{: .center-image }
+{% img blog/keycloak-kubernetes-prod/auth0-redirector.png alt:"Identity provider redirector to Auth0" width:"450" %}{: .center-image }
 
 Go back to **Authentication**, and choose the **first broker login** flow. Disable the _Review Profile_ step.
 
@@ -608,24 +608,26 @@ Go back to **Authentication**, and choose the **first broker login** flow. Disab
 
 ### Map the roles claim
 
-The users that sign in through Auth0 are imported to Keycloak. The role assigned in Auth0 must be mapped to the pre-configured roles in Keycloak for the authorization mechanism to work. In the Keycloak Administration Console, go to **Identity providers** again, and choose auth0. The choose the **Mappers** tab. Click **Add mapper**. Fill the values as follows and click **Save**:
+The users that sign in through Auth0 are imported to Keycloak. The role assigned in Auth0 must be mapped to the pre-configured roles in Keycloak for the authorization mechanism to work. In the Keycloak Administration Console, go to **Identity providers** again, and choose **auth0**. Then choose the **Mappers** tab. Click **Add mapper**. Fill the values as follows and click **Save**:
 
 - Name: **ROLE_USER**
 - Sync mode override: **Force** (update the user roles during every login)
 - Mapper type: **Claim to Role**
-- Claim: **https://www\.jhipster\.tech/roles** (escape the dot (.) with backslash (\.))
+- Claim: **https://www\\.jhipster\\.tech/roles** (escape the dot (.) with backslash (\\.))
 - Claim Value: **ROLE_USER**
 - Role: Select **ROLE_USER**
 
 Repeat the process for mapping `ROLE_ADMIN`.
 
-{% img blog/keycloak-kubernetes-prod/role-mapper.png alt:"Add mapper form:"500" %}{: .center-image }
+{% img blog/keycloak-kubernetes-prod/role-mapper.png alt:"Add mapper form" width:"800" %}{: .center-image }
 
 ### Test Keycloak as identity broker
 
-Navigate to **http://gateway.\<namespace\>.\<public-ip\>.nip.io**, the gateway home must display. Click on **sign in** and the browser should be redirected to Auth0 login:
+Navigate to **http://gateway.\<namespace\>.\<public-ip\>.nip.io**, the gateway home must display. Click on **sign in** and the browser should be redirected to Auth0 sign in form:
 
-{% img blog/keycloak-kubernetes-prod/auth0-login.png alt:"Add mapper form:"400" %}{: .center-image }
+{% img blog/keycloak-kubernetes-prod/auth0-login.png alt:"Add mapper form" width:"350" %}{: .center-image }
+
+After signing in, the gateway home page will display the username (email). If roles were mapped correctly, the user should be able to create entities (granted by ROLE_USER), and the Administration menu will also display (granted by ROLE_ADMIN).
 
 ## Learn More about Keycloak in production
 
