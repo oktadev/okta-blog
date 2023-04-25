@@ -766,6 +766,8 @@ HTTP/1.1 403 Forbidden
 
 To access the protected endpoints, you need to generate an access token JWT. {% include setup/oidcdebugger.md %}
 
+{% img blog/java-jetty/oidc-debugger.png alt:"OIDC Debugger Configuration" width:"650" %}{: .center-image }
+
 Scroll down and click **Send Request**.
 
 {% img blog/java-jetty/oidc-debugger-success.png alt:"OIDC Debugger Success" width:"800" %}{: .center-image }
