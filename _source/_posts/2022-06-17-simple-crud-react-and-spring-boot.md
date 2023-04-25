@@ -13,6 +13,7 @@ image: blog/featured/okta-react-bottle-headphones.jpg
 type: conversion
 github: https://github.com/oktadev/okta-spring-boot-react-crud-example
 changelog:
+- 2023-04-25: Updated to use the Okta Spring Boot starter, which supports Auth0 in v3.0.3. You can find the changes to this post in [okta-blog#1427](https://github.com/oktadev/okta-blog/pull/1319) and the example app's changes in [okta-spring-boot-react-crud-example#62](okta-spring-boot-react-crud-example#54).
 - 2022-12-09: Updated to use Spring Boot 3 and Spring Security 6. You can find the changes to this post in [okta-blog#1319](https://github.com/oktadev/okta-blog/pull/1319) and the example app's changes in [okta-spring-boot-react-crud-example#54](https://github.com/oktadev/okta-spring-boot-react-crud-example/pull/54).
 - 2022-11-04: Updated to use H2 version 2 and Spring Boot 2.7.5. You can find the changes to this post in [okta-blog#1301](https://github.com/oktadev/okta-blog/pull/1301) and the example app's changes in [okta-spring-boot-react-crud-example#50](https://github.com/oktadev/okta-spring-boot-react-crud-example/pull/50).
 - 2022-09-16: Updated to Spring Boot 2.7.3, React 18.0.2, and added a section for Auth0. You can find the changes to this article in [okta-blog#1271](https://github.com/oktadev/okta-blog/pull/1271). What's required to switch to Auth0 can be viewed in [the `auth0` branch](https://github.com/oktadev/okta-spring-boot-react-crud-example/compare/auth0).
@@ -778,33 +779,35 @@ This dependency is a thin wrapper around Spring Security's OAuth and encapsulate
 
 ### Use Auth0 for OIDC
 
-If you'd rather use Auth0, that's possible too! First, you'll need to use the Spring Security dependencies as mentioned above. The Okta Spring Boot starter [currently doesn't work with Auth0](https://github.com/okta/okta-spring-boot/issues/358).
+If you'd rather use Auth0, that's possible too! The Okta Spring Boot starter works with Auth0, so it's pretty straightforward.
 
-Then, install the [Auth0 CLI](https://github.com/auth0/auth0-cli) and run `auth0 login` in a terminal.
+First, install the [Auth0 CLI](https://github.com/auth0/auth0-cli) and run `auth0 login` in a terminal.
 
-Next, run `auth0 apps create`, provide a memorable name, and select **Regular Web Application**. Specify `http://localhost:8080/login/oauth2/code/auth0` for the **Callback URLs** and `http://localhost:3000,http://localhost:8080` for the **Allowed Logout URLs**. 
+Next, run `auth0 apps create` to register a new OIDC app with appropriate callbacks:
 
-Modify your `src/main/resources/application.properties` to include your Auth0 issuer, client ID, and client secret. You will have to run `auth0 apps open` and select the app you created to copy your client secret. 
+```shell
+auth0 apps create \
+  --name "Spring Boot" \
+  --description "Spring Boot OIDC App" \
+  --type regular \
+  --callbacks http://localhost:8080/login/oauth2/code/okta \
+  --logout-urls http://localhost:3000,http://localhost:8080 \
+  --reveal-secrets
+```
+
+Modify your `src/main/resources/application.properties` to include your Auth0 issuer, client ID, and client secret. 
 
 ```properties
 # make sure to include the trailing slash for the Auth0 issuer
-spring.security.oauth2.client.provider.auth0.issuer-uri=https://<your-auth0-domain>/
-spring.security.oauth2.client.registration.auth0.client-id=<your-client-id>
-spring.security.oauth2.client.registration.auth0.client-secret=<your-client-secret>
-spring.security.oauth2.client.registration.auth0.scope=openid,profile,email
+okta.oauth2.issuer=https://<your-auth0-domain>/
+okta.oauth2.issuer.client-id=<your-client-id>
+okta.oauth2.issuer.client-secret=<your-client-secret>
+okta.oauth2.audience=https://<your-auth0-domain>/api/v2/
 ```
 
 Of course, you can also use your [Auth0 dashboard](https://manage.auth0.com) to configure your application. Just make sure to use the same URLs specified above. 
 
-After configuring Spring Security in the section below, update `UserController.java` to use `auth0` in its constructor:
-
-```java
-public UserController(ClientRegistrationRepository registrations) {
-    this.registration = registrations.findByRegistrationId("auth0");
-}
-```
-
-And update its `logout()` method to work with Auth0:
+After configuring Spring Security in the section below, update `UserController.java` and its `logout()` method to work with Auth0:
 
 ```java
 @PostMapping("/api/logout")
