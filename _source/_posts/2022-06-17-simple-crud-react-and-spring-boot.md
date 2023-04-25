@@ -31,7 +31,7 @@ This tutorial is also available [as a screencast](https://youtu.be/B5tcZoNyqGI).
 
 **Prerequisites:**
 
-You will need [Java 17](http://sdkman.io) and [Node 16](https://nodejs.org/) installed to complete this tutorial.
+You will need [Java 17](http://sdkman.io) and [Node 18](https://nodejs.org/) installed to complete this tutorial.
 
 {% include toc.md %}
 
@@ -1302,8 +1302,8 @@ To build and package your React app with Maven, you can use the [frontend-maven-
 <properties>
     ...
     <frontend-maven-plugin.version>1.12.1</frontend-maven-plugin.version>
-    <node.version>v16.18.1</node.version>
-    <npm.version>8.19.2</npm.version>
+    <node.version>v18.16.0</node.version>
+    <npm.version>9.6.5</npm.version>
 </properties>
 
 <profiles>
@@ -1368,7 +1368,7 @@ To build and package your React app with Maven, you can use the [frontend-maven-
                         <execution>
                             <id>npm test</id>
                             <goals>
-                                <goal>test</goal>
+                                <goal>npm</goal>
                             </goals>
                             <phase>test</phase>
                             <configuration>
