@@ -849,7 +849,7 @@ auth0 tenants list
   dev-0rb77jrp.us.auth0.com  
 ```
 
-Take the above domain and replace the placeholder in the `issuer-uri` property in the `application.properties` file. **Don't remove the trailing slash!**
+Take the above domain and replace the placeholder in the `okta.oauth2.issuer` property in the `src/main/resources/application.properties` file. **Don't remove the trailing slash!**
 
 ```properties
 okta.oauth2.issuer=https://dev-0rb77jrp.us.auth0.com/
