@@ -13,7 +13,7 @@ image: blog/featured/okta-react-bottle-headphones.jpg
 type: conversion
 github: https://github.com/oktadev/okta-spring-boot-react-crud-example
 changelog:
-- 2023-04-25: Updated to use the Okta Spring Boot starter, which supports Auth0 in v3.0.3. You can find the changes to this post in [okta-blog#1364](https://github.com/oktadev/okta-blog/pull/1364) and the example app's changes in [okta-spring-boot-react-crud-example#55](https://github.com/oktadev/okta-spring-boot-react-crud-example#55).
+- 2023-04-25: Updated to use the Okta Spring Boot starter, which supports Auth0 in v3.0.3. You can find the changes to this post in [okta-blog#1364](https://github.com/oktadev/okta-blog/pull/1364) and the example app's changes in [okta-spring-boot-react-crud-example#59](https://github.com/oktadev/okta-spring-boot-react-crud-example#59).
 - 2022-12-09: Updated to use Spring Boot 3 and Spring Security 6. You can find the changes to this post in [okta-blog#1319](https://github.com/oktadev/okta-blog/pull/1319) and the example app's changes in [okta-spring-boot-react-crud-example#54](https://github.com/oktadev/okta-spring-boot-react-crud-example/pull/54).
 - 2022-11-04: Updated to use H2 version 2 and Spring Boot 2.7.5. You can find the changes to this post in [okta-blog#1301](https://github.com/oktadev/okta-blog/pull/1301) and the example app's changes in [okta-spring-boot-react-crud-example#50](https://github.com/oktadev/okta-spring-boot-react-crud-example/pull/50).
 - 2022-09-16: Updated to Spring Boot 2.7.3, React 18.0.2, and added a section for Auth0. You can find the changes to this article in [okta-blog#1271](https://github.com/oktadev/okta-blog/pull/1271). What's required to switch to Auth0 can be viewed in [the `auth0` branch](https://github.com/oktadev/okta-spring-boot-react-crud-example/compare/auth0).
@@ -802,7 +802,6 @@ Modify your `src/main/resources/application.properties` to include your Auth0 is
 okta.oauth2.issuer=https://<your-auth0-domain>/
 okta.oauth2.issuer.client-id=<your-client-id>
 okta.oauth2.issuer.client-secret=<your-client-secret>
-okta.oauth2.audience=https://<your-auth0-domain>/api/v2/
 ```
 
 Of course, you can also use your [Auth0 dashboard](https://manage.auth0.com) to configure your application. Just make sure to use the same URLs specified above. 
