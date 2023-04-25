@@ -16,7 +16,7 @@ tweets:
 image: blog/featured/okta-java-short-bottle-headphones.jpg
 type: conversion
 redirect_to:
-  - "/blog/2022/09/26/java-jetty-oauth"
+  - "/blog/2023/04/26/java-jetty-oauth"
 ---
 
 Jetty is a small, highly-scalable Java-based web server and servlet engine. It supports HTTP/2, WebSockets, and many other protocols. It powers websites and frameworks, both large and small, such as Google AppEngine. Because it is an Eclipse project, its open source project is called Eclipse Jetty. it is standards compliant and open source, as well as commercially usable. It is the main alternative to Tomcat when hosting Java applications. Like you can with Tomcat, you can use Jetty both embedded and stand-alone.
