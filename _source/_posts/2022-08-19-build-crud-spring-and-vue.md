@@ -68,7 +68,7 @@ Before you start, please make sure you have the following prerequisites installe
 - [Java 17](https://adoptium.net/): or use [SDKMAN!](https://sdkman.io/) to manage and install multiple versions
 - [Okta CLI](https://cli.okta.com/manual/#installation): the Okta command-line interface
 - [HTTPie](https://httpie.org/doc#installation): a simple tool for making HTTP requests from a Bash shell
-- [Node 16+](https://nodejs.org)
+- [Node 18+](https://nodejs.org)
 - [Vue CLI](https://cli.vuejs.org/guide/installation.html): you'll use this to bootstrap the Vue client
 
 You will need a free Okta Developer account if you don't already have one. But you can wait until later in the tutorial and use the Okta CLI to log in or register for a new account.
@@ -427,7 +427,7 @@ You can just accept the defaults. For me, they were the following.
 Add additional dependencies for HTTP requests, logging, routing, and authentication.
 
 ```bash
-npm i axios@1.33 vuejs3-logger@1.0.0 vue-router@4.1.6 @okta/okta-vue@5.6.0
+npm i axios@1.3.6 vuejs3-logger@1.0.0 vue-router@4.1.6 @okta/okta-vue@5.6.0
 ```
 
 - `axios`: an HTTP client request library
