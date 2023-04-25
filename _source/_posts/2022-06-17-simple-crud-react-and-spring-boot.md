@@ -746,7 +746,7 @@ Are you sold? [Register for a forever-free developer account](https://developer.
 <dependency>
     <groupId>com.okta.spring</groupId>
     <artifactId>okta-spring-boot-starter</artifactId>
-    <version>2.1.6</version>
+    <version>3.0.3</version>
 </dependency>
 ```
 
@@ -768,6 +768,10 @@ This dependency is a thin wrapper around Spring Security's OAuth and encapsulate
 <dependency>
     <groupId>org.springframework.security</groupId>
     <artifactId>spring-security-oauth2-jose</artifactId>
+</dependency>
+<dependency>
+    <groupId>org.springframework.security</groupId>
+    <artifactId>spring-security-oauth2-resource-server</artifactId>
 </dependency>
 ```
 
