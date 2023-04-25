@@ -4,7 +4,7 @@ title: "OAuth2 microservices with Keycloak on Google Kubernetes Engine"
 author:
 by: contractor
 communities: [devops,security,java]
-description: "A walk-through of building a microservices architecture with JHipster, Keycloak for OAuth2, and Google Kubernetes Engine (GKE) deployment. Keycloak as identity broker with Auth0 as identity provider."
+description: "A walk-through of building a microservices architecture with JHipster, Keycloak for OAuth2, and Google Kubernetes Engine (GKE) deployment. Keycloak as identity broker with Auth0 as the identity provider."
 tags: [keycloak, kubernetes, java, jhipster, security, oauth2]
 tweets:
 - ""
@@ -48,7 +48,7 @@ npm install -g generator-jhipster@7.9.3
 ```
 If you'd rather use Yarn or Docker, follow the instructions at [jhipster.tech](https://www.jhipster.tech/installation/#local-installation-with-npm-recommended-for-normal-users).
 
-Generate the microservices architecture from a JDL (JHipster-specific domain langugage) descriptor file. Create a folder for the project and add the file `reactive-ms.jdl` with the following content:
+Generate the microservices architecture from a JDL (JHipster-specific domain language) descriptor file. Create a folder for the project and add the file `reactive-ms.jdl` with the following content:
 
 ```text
 application {
@@ -176,7 +176,7 @@ After you sign up, install [`gcloud` CLI](https://cloud.google.com/sdk/docs/inst
 ```shell
 gcloud compute addresses create gateway-ip --global
 ```
-**Note**: The name for public IP must be the gateway or monolith application base name, you can find it in the JDL. For the current example the application base name is `gateway`.
+**Note**: The name for public IP must be the gateway or monolith application base name, you can find it in the JDL. For the current example, the application base name is `gateway`.
 
 ```
 application {
@@ -304,7 +304,7 @@ If you click on **Sign in** you will be redirected to the Keycloak sign-in page.
 
 cert-manager is an X.509 certificate controller for Kubernetes and OpenShift. It automates the issuance of certificates from popular public and private Certificate Authorities, to secure Ingress with TLS. It ensures the certificates are valid and up-to-date, and attempts to renew certificates before expiration.
 
-With cert-manager, a certificate issuer is a resource type in the Kubernetes cluster, and Let's Encrypt is one of the supported sources of certificates than can be configured as the issuer. The [ACME](https://www.rfc-editor.org/rfc/rfc8555) (Automated Certificate Management Environment) protocol is a framework for automating the issuance and domain validation procedure, which allows servers to obtain certificates without user interaction. Let's Encrypt is a Certificate Authority that supports ACME protocol, and through cert-manager, the cluster can request and install Let's Encrypt generated certificates.
+With cert-manager, a certificate issuer is a resource type in the Kubernetes cluster, and Let's Encrypt is one of the supported sources of certificates that can be configured as the issuer. The [ACME](https://www.rfc-editor.org/rfc/rfc8555) (Automated Certificate Management Environment) protocol is a framework for automating the issuance and domain validation procedure, which allows servers to obtain certificates without user interaction. Let's Encrypt is a Certificate Authority that supports ACME protocol, and through cert-manager, the cluster can request and install Let's Encrypt generated certificates.
 
 ### Certificate issuance flow
 
@@ -345,7 +345,7 @@ The following annotations are added by the k8s sub-generator in the ingress reso
 
 ## Delegate authentication to Auth0
 
-Keycloak supports identity provider federation, meaning it can be configured to delegate authentication to one or more Identity Providers. An example of IDP federation is social login via Facebbok or Google. Authentication can be delegated to any IDP supporting OpenID Connect or SAML 2.0. Auth0 uses the OpenID Connect protocol to authenticate users and allows adding custom logic to the login and identity flows via Auth0 Actions. JHipster applications require custom token claims for authorization,  and these can be configured using Auth0 Actions. The sections below describe the step by step process to add Auth0 authentication to the gateway using Keycloak, without making any application changes. You can find a detailed description of the [brokering flow](https://www.keycloak.org/docs/latest/server_admin/#_identity_broker_overview) in Keycloak server administration guide.
+Keycloak supports identity provider federation, meaning it can be configured to delegate authentication to one or more Identity Providers. An example of IDP federation is social login via Facebook or Google. Authentication can be delegated to any IDP supporting OpenID Connect or SAML 2.0. Auth0 uses the OpenID Connect protocol to authenticate users and allows adding custom logic to the login and identity flows via Auth0 Actions. JHipster applications require custom token claims for authorization,  and these can be configured using Auth0 Actions. The sections below describe the step-by-step process to add Auth0 authentication to the gateway using Keycloak, without making any application changes. You can find a detailed description of the [brokering flow](https://www.keycloak.org/docs/latest/server_admin/#_identity_broker_overview) in the Keycloak server administration guide.
 
 ### Create an Auth0 account
 
@@ -561,7 +561,7 @@ You can list the available actions with the following command:
 ```shell
 auth0 actions list
 ```
-The output willl show the deployment status of each action:
+The output will show the deployment status of each action:
 
 ```text
 === dev-avup2laz.us.auth0.com actions
@@ -580,11 +580,11 @@ Once the action is deployed, you must attach it to the login flow. Sign in to Au
 
 {% img blog/keycloak-kubernetes-prod/login-flow.png alt:"Custom Auth0 Login Action" width:"500" %}{: .center-image }
 
-Now that all is set in the identity provider side, let's configure Keycloak, as identity broker delegating authentication to Auth0.
+Now that all is set on the identity provider side, let's configure Keycloak as an identity broker delegating authentication to Auth0.
 
 ### Add the Auth0 Identity Provider
 
-Navigate to **http://keycloak.\<namespace\>.\<public-ip\>.nip.io**, login with admin/admin. In the welcome page, choose **Administration Console**. On the left menu, for the top options,  choose the **jhipster** realm. Then, at the bottom of the menu, choose **Identity providers**. In the User-defined section, choose **OpenID Connect v1.0**. Fill the provider configuration as follows:
+Navigate to **http://keycloak.\<namespace\>.\<public-ip\>.nip.io**, sign in with admin/admin. On the welcome page, choose **Administration Console**. On the left menu, for the top options,  choose the **jhipster** realm. Then, at the bottom of the menu, choose **Identity providers**. In the User-defined section, choose **OpenID Connect v1.0**. Fill in the provider configuration as follows:
 
 - RedirectURI: **(pre-filled)**
 - Alias: **auth0**
@@ -596,7 +596,7 @@ Navigate to **http://keycloak.\<namespace\>.\<public-ip\>.nip.io**, login with a
 
 Click on **Add** to continue the configuration. Below the Client Secret field, click on **Advanced**. In the _Scopes_ field, set `openid profile email offline_access` and click on **Save**.
 
-On the left menu, choose **Authentication**. In the flows table, choose **browser**. In the _Identity Provider Redirector_ step, click the **gear** icon. Set an alias for the configuration, and set **auth0** as the default identity provider. This configuration will skip the Keycloak sign in form, and display the Auth0 sign in form directly.
+On the left menu, choose **Authentication**. In the flows table, choose **browser**. In the _Identity Provider Redirector_ step, click the **gear** icon. Set an alias for the configuration, and set **auth0** as the default identity provider. This configuration will skip the Keycloak sign-in form, and display the Auth0 sign-in form directly.
 
 {% img blog/keycloak-kubernetes-prod/auth0-redirector.png alt:"Identity provider redirector to Auth0" width:"450" %}{: .center-image }
 
@@ -604,7 +604,7 @@ Go back to **Authentication**, and choose the **first broker login** flow. Disab
 
 ### Map the roles claim
 
-The users that sign in through Auth0 are imported to Keycloak. The role assigned in Auth0 must be mapped to the pre-configured roles in Keycloak for the authorization mechanism to work. In the Keycloak Administration Console, go to **Identity providers** again, and choose **auth0**. Then choose the **Mappers** tab. Click **Add mapper**. Fill the values as follows and click **Save**:
+The users that sign in through Auth0 are imported to Keycloak. The role assigned in Auth0 must be mapped to the pre-configured roles in Keycloak for the authorization mechanism to work. In the Keycloak Administration Console, go to **Identity providers** again, and choose **auth0**. Then choose the **Mappers** tab. Click **Add mapper**. Fill in the values as follows and click **Save**:
 
 - Name: **ROLE_USER**
 - Sync mode override: **Force** (update the user roles during every login)
@@ -617,9 +617,9 @@ Repeat the process for mapping `ROLE_ADMIN`.
 
 {% img blog/keycloak-kubernetes-prod/role-mapper.png alt:"Add mapper form" width:"800" %}{: .center-image }
 
-### Test Keycloak as identity broker
+### Test Keycloak as an identity broker
 
-Navigate to **http://gateway.\<namespace\>.\<public-ip\>.nip.io**, the gateway home must display. Click on **sign in** and the browser should be redirected to Auth0 sign in form:
+Navigate to **http://gateway.\<namespace\>.\<public-ip\>.nip.io**, the gateway home must display. Click on **sign in** and the browser should be redirected to the Auth0 sign-in form:
 
 {% img blog/keycloak-kubernetes-prod/auth0-login.png alt:"Add mapper form" width:"350" %}{: .center-image }
 
