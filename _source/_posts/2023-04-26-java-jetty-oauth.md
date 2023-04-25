@@ -770,7 +770,7 @@ To access the protected endpoints, you need to generate an access token JWT. {% 
 
 Scroll down and click **Send Request**.
 
-{% img blog/java-jetty/oidc-debugger-success.png alt:"OIDC Debugger Success" width:"800" %}{: .center-image }
+{% img blog/java-jetty/oidc-debugger-success.jpg alt:"OIDC Debugger Success" width:"800" %}{: .center-image }
 
 Copy the access token to your clipboard and store it in a shell variable in the shell window you use to make requests.
 
