@@ -14,6 +14,7 @@ image: blog/spring-boot-vue3/spring-boot-vue.jpg
 type: conversion
 github: https://github.com/oktadev/okta-spring-boot-vue-crud-example
 changelog:
+- 2023-04-26: Updated to use the Okta Spring Boot starter, which supports Auth0 in v3.0.3. You can find the changes to this post in [okta-blog#1365](https://github.com/oktadev/okta-blog/pull/1365) and the example app's changes in [okta-spring-boot-vue-crud-example#8](https://github.com/oktadev/okta-spring-boot-vue-crud-example/pull/8).
 - 2023-01-20: Updated post to add Auth0 and use Spring Boot 3.0. You can find the changes to this post in [okta-blog#1284](https://github.com/oktadev/okta-blog/pull/1284). Example app changes can be found in [okta-spring-boot-vue-crud-example#6](https://github.com/oktadev/okta-spring-boot-vue-crud-example/pull/6).
 ---
 
@@ -97,7 +98,7 @@ The following command will download the starter project and un-tar it to a new d
 
 ```bash
 curl https://start.spring.io/starter.tgz \
-  -d bootVersion=3.0.2 \
+  -d bootVersion=3.0.6 \
   -d javaVersion=17 \
   -d dependencies=web,data-rest,lombok,data-jpa,h2,okta \
   -d type=gradle-project \
@@ -107,7 +108,7 @@ curl https://start.spring.io/starter.tgz \
 
 The dependencies you're including are:
 
-- `web`: [Spring Web MVC](https://docs.spring.io/spring-framework/docs/3.2.x/spring-framework-reference/html/mvc.html), adds basic HTTP REST functionality
+- `web`: [Spring Web MVC](https://docs.spring.io/spring-framework/docs/current/reference/html/web.html#mvc), adds basic HTTP REST functionality
 - `data-jpa`: [Spring Data JPA](https://spring.io/projects/spring-data-jpa), makes it easy to create JPA-based repositories
 - `data-rest`: [Spring Data REST](https://spring.io/projects/spring-data-rest), exposes Spring Data repositories as resource servers
 - `h2`: the [H2](https://www.h2database.com/html/main.html) in-memory database used for demonstration purposes
@@ -360,10 +361,11 @@ Edit the `SecurityConfiguration.java` file and change the filter chain's bean de
 ```java
 @Bean
 public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
-    http.authorizeHttpRequests()
-        .anyRequest().authenticated()
-        .and()
-        .oauth2ResourceServer().jwt();
+    http.authorizeHttpRequests((authz) -> {
+        authz.anyRequest().permitAll();
+    });
+    http.oauth2ResourceServer().jwt();
+
     return http.build();
 }
 ```
@@ -389,7 +391,6 @@ HTTP/1.1 401
 ...
 
 401 Unauthorized
-
 ```
 
 The resource server is finished. The next step is to create the Vue client.
@@ -426,7 +427,7 @@ You can just accept the defaults. For me, they were the following.
 Add additional dependencies for HTTP requests, logging, routing, and authentication.
 
 ```bash
-npm i axios@1.2.3 vuejs3-logger@1.0.0 vue-router@4.1.6 @okta/okta-vue@5.5.0
+npm i axios@1.33 vuejs3-logger@1.0.0 vue-router@4.1.6 @okta/okta-vue@5.6.0
 ```
 
 - `axios`: an HTTP client request library
@@ -1083,107 +1084,7 @@ You should be able to delete items, add new items, rename, and filter items. All
 
 You can also use Auth0 to secure the application! Let's start with the API (in the `resource-server` directory of the GitHub repo or your main project).
 
-The first step is to open the `build.gradle` file for the Spring Boot project and update the dependencies. You have to remove the Okta Spring Boot Starter (as it does not work with Auth0 yet) and add in some Spring Security dependencies that were being included by the Okta starter.
-
-Update the `implementation` dependencies in `build.gradle`.
-
-```gradle
-dependencies {
-    implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
-    implementation 'org.springframework.boot:spring-boot-starter-data-rest'
-    implementation 'org.springframework.boot:spring-boot-starter-web'
-    implementation 'org.springframework.security:spring-security-oauth2-resource-server'
-    implementation 'org.springframework.boot:spring-boot-starter-security'
-    implementation 'org.springframework.security:spring-security-config'
-    implementation 'org.springframework.security:spring-security-oauth2-jose'
-
-    compileOnly 'org.projectlombok:lombok'
-    runtimeOnly 'com.h2database:h2'
-    annotationProcessor 'org.projectlombok:lombok'
-    testImplementation 'org.springframework.boot:spring-boot-starter-test'
-}
-```
-
-Create an `AudienceValidator` class. This will validate JWTs very simply by checking to make sure the audience matches what is loaded from the application properties and passed into the constructor.
-`src/main/java/com/example/demo/AudienceValidator.java`
-
-```java
-package com.example.demo;
-
-import org.springframework.security.oauth2.core.OAuth2Error;
-import org.springframework.security.oauth2.core.OAuth2TokenValidator;
-import org.springframework.security.oauth2.core.OAuth2TokenValidatorResult;
-import org.springframework.security.oauth2.jwt.Jwt;
-
-class AudienceValidator implements OAuth2TokenValidator<Jwt> {
-    private final String audience;
-
-    AudienceValidator(String audience) {
-        this.audience = audience;
-    }
-
-    public OAuth2TokenValidatorResult validate(Jwt jwt) {
-        OAuth2Error error = new OAuth2Error("invalid_token", "The required audience is missing", null);
-
-        if (jwt.getAudience().contains(audience)) {
-            return OAuth2TokenValidatorResult.success();
-        }
-        return OAuth2TokenValidatorResult.failure(error);
-    }
-}
-```
-
-You need to add a JWT validator bean to the security configuration class. This uses the `AudienceValidator` class you added above to validate JWTs. Update the `SecurityConfiguration` class to the following.
-
-`src/main/java/com/example/demo/SecurityConfiguration.java`
-
-```java
-package com.example.demo;
-
-import org.springframework.beans.factory.annotation.Value;
-import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.Configuration;
-import org.springframework.security.config.annotation.web.builders.HttpSecurity;
-import org.springframework.security.oauth2.core.DelegatingOAuth2TokenValidator;
-import org.springframework.security.oauth2.core.OAuth2TokenValidator;
-import org.springframework.security.oauth2.jwt.*;
-import org.springframework.security.web.SecurityFilterChain;
-
-@Configuration
-public class SecurityConfiguration {
-
-    @Bean
-    public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
-        http.authorizeHttpRequests()
-            .anyRequest().authenticated()
-            .and()
-            .oauth2ResourceServer().jwt();
-        return http.build();
-    }
-
-    @Value("${auth0.audience}")
-    private String audience;
-
-    @Value("${spring.security.oauth2.resourceserver.jwt.issuer-uri}")
-    private String issuer;
-
-    @Bean
-    JwtDecoder jwtDecoder() {
-        NimbusJwtDecoder jwtDecoder = (NimbusJwtDecoder)
-            JwtDecoders.fromOidcIssuerLocation(issuer);
-
-        OAuth2TokenValidator<Jwt> audienceValidator = new AudienceValidator(audience);
-        OAuth2TokenValidator<Jwt> withIssuer = JwtValidators.createDefaultWithIssuer(issuer);
-        OAuth2TokenValidator<Jwt> withAudience = new DelegatingOAuth2TokenValidator<>(withIssuer, audienceValidator);
-
-        jwtDecoder.setJwtValidator(withAudience);
-
-        return jwtDecoder;
-    }
-}
-```
-
-Install the [Auth0 CLI](https://github.com/auth0/auth0-cli) and run `auth0 login` in a terminal.
+The first step is to install the [Auth0 CLI](https://github.com/auth0/auth0-cli) and run `auth0 login` in a terminal.
 
 ```bash
 Waiting for the login to complete in the browser... done
@@ -1198,8 +1099,8 @@ Update `src/main/resources/application.properties`. Fill in your actual Auth0 do
 
 ```properties
 server.port=9000
-auth0.audience=http://my-api
-spring.security.oauth2.resourceserver.jwt.issuer-uri=https://<your-auth0-domain>/
+okta.oauth2.issuer=https://<your-auth0-domain>/
+okta.oauth2.audience=http://my-api
 ```
 
 Start the API.
