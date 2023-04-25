@@ -607,7 +607,7 @@ java -jar target/SpringBootJetty-0.0.1-SNAPSHOT.jar
 
 In the next section, you will use Spring Security and Okta to protect the POST and DELETE endpoints.
 
-## Use the Okta CLI to Create an OIDC Application
+## Use the Okta CLI to create an OIDC application
 
 The first step to securing the app is configuring an OpenID Connect (OIDC) app on Okta. OpenID Connect is an identity authentication protocol built on top of OAuth 2.0, an authorization protocol. In short, OIDC is how the app verifies who the user is, and OAuth 2.0 is how the app verifies what the user is allowed to do. Spring Security provides the client-side implementation and, in this example, you'll be using Okta as the cloud provider.
 
@@ -617,7 +617,7 @@ You need to run the following commands from the `spring-boot-jetty-maven-okta` s
 
 > **NOTE:** You will use the oidcdebugger.com redirect URI to create an access token you can use from the command line with HTTPie. The second URI is the default redirect URI that Spring Security uses for Okta when using its OAuth login feature.
 
-## Configure the Spring Boot app for OIDC authentication
+## Configure the Spring Boot app for Okta
 
 The project uses [the Okta Spring Boot Starter](https://github.com/okta/okta-spring-boot) to simplify configure Spring Security. Find the following block in the `pom.xml` file and uncomment it.
 
@@ -670,7 +670,7 @@ public class SpringBootJettyApplication {
 }
 ```
 
-## Protect the DELETE and POST endpoints
+### Protect the DELETE and POST endpoints
 
 The `@PreAuthorize("isAuthenticated")` annotation has been added to the `indexPost()` and `indexDelete()` methods in the `WebController` class. This requires that each request to those endpoints be authenticated -- that is, a valid user will need to be logged in. Because you are using Okta as your OIDC provider, they will be able to have authenticated with Okta's servers, typically through a single sign-on.
 
@@ -762,7 +762,7 @@ HTTP/1.1 403 Forbidden
 }
 ```
 
-## Generate a JWT using the OIDC debugger
+### Generate a JWT using the OIDC Debugger
 
 To access the protected endpoints, you need to generate an access token JWT. {% include setup/oidcdebugger.md %}
 
@@ -833,8 +833,6 @@ If you look in the `src/main/resources/application.properties` file, you'll see 
 okta.oauth2.issuer=https://<your-auth0-domain>/
 okta.oauth2.audience=https://<your-auth0-domain>/api/v2/
 ```
-
-## Configure Auth0 OIDC
 
 Install the [Auth0 CLI](https://github.com/auth0/auth0-cli) and run `auth0 login` in a terminal.
 
