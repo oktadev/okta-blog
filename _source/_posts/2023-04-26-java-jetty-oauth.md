@@ -924,6 +924,6 @@ Here are some related blog posts:
 - [Secure Secrets With Spring Cloud Config and Vault](/blog/2022/10/20/spring-vault)
 - [Build a Simple CRUD App with Spring Boot and Vue.js](/blog/2022/08/19/build-crud-spring-and-vue)
 - [Get Started with Spring Boot and SAML](/blog/2022/08/05/spring-boot-saml)
-- [Use React and Spring Boot to Build a Simple CRUD App](https://developer.okta.com/blog/2022/06/17/simple-crud-react-and-spring-boot)
+- [Use React and Spring Boot to Build a Simple CRUD App](/blog/2022/06/17/simple-crud-react-and-spring-boot)
 
 If you have any questions about this post, please add a comment below. For more awesome content, follow [@oktadev](https://twitter.com/oktadev) on Twitter, follow us [on LinkedIn](https://www.linkedin.com/company/oktadev/), or subscribe to [our YouTube channel](https://www.youtube.com/c/oktadev).
