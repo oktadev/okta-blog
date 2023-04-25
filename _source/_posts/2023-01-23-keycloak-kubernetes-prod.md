@@ -388,7 +388,7 @@ When prompted, choose the following options:
 - Name: **jhipster**
 - Description: **<optional description>**
 - Type: **Regular Web Application**
-- Callback URLs: **http://gateway.\<namespace\>.\<public-ip\>.nip.io/login/oauth2/code/auth0**
+- Callback URLs: **https://keycloak.\<namespace\>.\<public-ip\>.nip.io/login/oauth2/code/auth0**
 - Logout URLs: **http://gateway.\<namespace\>.\<public-ip\>.nip.io**
 
 Once the app is created, you will see the OIDC app's configuration:
@@ -537,7 +537,6 @@ Name: jhipster
                  exports.onExecutePostLogin = async (event, api) => {                                                     
                    const namespace = 'https://www.jhipster.tech';                                                         
                    if (event.authorization) {                                                                             
-                     console.log(event.user);                                                                             
                      api.idToken.setCustomClaim('preferred_username', event.user.email);                                  
                      api.idToken.setCustomClaim(`${namespace}/roles`, event.authorization.roles);                         
                      api.accessToken.setCustomClaim(`${namespace}/roles`, event.authorization.roles);                     
@@ -595,16 +594,13 @@ Navigate to **http://keycloak.\<namespace\>.\<public-ip\>.nip.io**, login with a
 - Client ID: **auht0-client-id**
 - Client Secret: **auth0-client-secret**
 
-Click on **Add** to continue the configuration. Below the Client Secret field, click on **Advanced**. In the _Scopes_ field, set `openid profile email offline_access`.
+Click on **Add** to continue the configuration. Below the Client Secret field, click on **Advanced**. In the _Scopes_ field, set `openid profile email offline_access` and click on **Save**.
 
 On the left menu, choose **Authentication**. In the flows table, choose **browser**. In the _Identity Provider Redirector_ step, click the **gear** icon. Set an alias for the configuration, and set **auth0** as the default identity provider. This configuration will skip the Keycloak sign in form, and display the Auth0 sign in form directly.
 
 {% img blog/keycloak-kubernetes-prod/auth0-redirector.png alt:"Identity provider redirector to Auth0" width:"450" %}{: .center-image }
 
 Go back to **Authentication**, and choose the **first broker login** flow. Disable the _Review Profile_ step.
-
-
-- notes on sync
 
 ### Map the roles claim
 
