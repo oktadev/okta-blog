@@ -5,12 +5,13 @@ author: matt-raible
 by: advocate
 communities: [java,javascript]
 description: "Learn how to build a secure CRUD app with Spring Boot and Angular. You'll use Auth0 for authentication and authorization, and Cypress to verify it all works."
-tags: []
+tags: [java, spring-boot, angular, crud, auth0, cypress]
 tweets:
 - ""
 - ""
 - ""
-image:
+image: blog/spring-boot-angular/bootiful-angular.png
+github: https://github.com/oktadev/auth0-spring-boot-angular-crud-example
 type: conversion
 ---
 
@@ -98,6 +99,29 @@ Once you're authenticated, you'll see a link to manage your JUG Tours.
 You should be able to add new groups and events, as well as edit and delete them. 
 
 {% img blog/spring-boot-angular/jug-tours-list.png alt:"List of JUG Tours" width:"800" %}{: .center-image }
+
+### Verify Cypress end-to-end tests pass
+
+You can verify everything works by executing the Cypress tests that are included in the project. First, add environment variables for your credentials to the `.okta.env` (or `.okta.env.bat`) file you created earlier.
+
+```shell
+export CYPRESS_E2E_DOMAIN=<your-auth0-domain> # use the raw value, no https prefix
+export CYPRESS_E2E_USERNAME=<your-email>
+export CYPRESS_E2E_PASSWORD=<your-password>
+```
+
+Then, run `source .okta.env` (or `.okta.env.bat` on Windows) to set these environment variables. 
+
+Finally, run `npm run e2e` to start the app and run the Cypress tests.
+
+```shell
+cd app
+npm run e2e
+```
+
+{% img blog/spring-boot-angular/cypress-chrome.png alt:"Cypress tests running in Chrome" %}{: .center-image }
+
+If you'd like to see how this app was built, read on!
 
 ## Create a Java REST API with Spring Boot
 
@@ -509,7 +533,7 @@ Cancel with Ctrl+C and restart with `npm start`.
 
 ## Build an Angular detail component
 
-## Secure with OpenID Connect
+## Secure Spring Boot with OpenID Connect
 
 ## Configure Spring Security for maximum protection
 
