@@ -20,7 +20,7 @@ As part of authentication, your client application makes multiple calls to an au
 
 {% include toc.md %}
 
-There's a companion [video for this post](https://youtu.be/UZQ_ke8BuRU) if you want to check out how to run a SPA sample application, look at browser storage, and inspect network calls. 
+There's a [companion video for this post](https://youtu.be/UZQ_ke8BuRU) if you want to check out how to run a SPA sample application, look at browser storage, and inspect network calls. 
 
 {% youtube UZQ_ke8BuRU %}
 
