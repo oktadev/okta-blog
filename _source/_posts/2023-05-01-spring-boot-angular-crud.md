@@ -14,6 +14,16 @@ image:
 type: conversion
 ---
 
+
+
+Angular is one of the most popular frameworks for building single-page applications (SPAs). It's a TypeScript-based framework that allows you to declaratively describe your UI by creating small, reusable components. It's also backed by Google, which means it's likely to be around for a long time.
+
+I like to build tutorials with CRUD (create, read, update, and delete) apps because they show a lot of the base functionality you need when creating an app. Once you have the basics of CRUD completed, most of the integration work is finished, and you can move on to implementing the necessary business logic.
+
+In this tutorial, you'll learn how to build a secure CRUD app with Spring Boot and Angular. I'll use the OAuth 2.0 Authorization Code flow and package the Angular app in the Spring Boot app for distribution as a single artifact. At the same time, I'll show you how to keep Angular's productive workflow for developing locally. 
+
+<!-- You'll use Auth0 for authentication and authorization, and Cypress to verify it all works.-->
+
 {% include toc.md %}
 
 **Prerequisites**:
@@ -21,24 +31,77 @@ type: conversion
 - [Java 17](http://sdkman.io)
 - [Node 18](https://nodejs.org/)
 - [Auth0 CLI](https://github.com/auth0/auth0-cli#installation)
+- [An Auth0 account](https://auth0.com/signup)
 
-## Configure and Run
+## Configure and run a Spring Boot and Angular CRUD app
 
-Clone repo:
+I'm a frequent speaker at conferences and Java User Groups (JUGs) around the world. I've been a Java developer for 20+ years and love the Java community. I've found that speaking at JUGs is a great way to interact with the community and get raw feedback on presentations. 
 
-```
+Why am I telling you this? Because I thought it'd be fun to create a "JUG Tours" app today that allows you to create/edit/delete JUGs and view upcoming events.
+
+I realize that taking 20 minutes to build this app can be cumbersome, so I've already built it. It uses Spring Boot 3.1.0 and Angular 16. You can just clone, configure, and run!
+
+```shell
 git clone https://github.com/oktadev/auth0-spring-boot-angular-crud-example jugtours
+cd jugtours
 ```
 
-Create an Auth0 tenant
+Open a terminal window and run `auth0 login` to configure the Auth0 CLI to securely communicate with your tenant. Then, run `auth0 apps create` to register this app with appropriate URLs:
 
-Configure to work with Auth0
+```shell
+auth0 apps create \
+  --name "Bootiful Angular" \
+  --description "Spring Boot + Angular = ❤️" \
+  --type regular \
+  --callbacks http://localhost:8080/login/oauth2/code/okta,http://localhost:4200/login/oauth2/code/okta \
+  --logout-urls http://localhost:8080,http://localhost:4200 \
+  --reveal-secrets
+```
 
-Run the app
+Copy the outputted values from this command into an `.okta.env` file:
+
+```shell
+export OKTA_OAUTH2_ISSUER=https://<your-auth0-domain>/
+export OKTA_OAUTH2_CLIENT_ID=<your-client-id>
+export OKTA_OAUTH2_CLIENT_SECRET=<your-client-secret>
+```
+
+If you're on Windows, use `set` instead of `export` to set these environment variables and name the file `.okta.env.bat`:
+
+```shell
+set OKTA_OAUTH2_ISSUER=https://<your-auth0-domain>/
+set OKTA_OAUTH2_CLIENT_ID=<your-client-id>
+set OKTA_OAUTH2_CLIENT_SECRET=<your-client-secret>
+```
+
+Then, run `source .okta.env` (or `.okta.env.bat` on Windows) to set these environment variables in your current shell.
+
+Finally, run `./mvnw` (or `mvnw` on Windows) to start the app. 
+
+```shell
+source .okta.env # run .okta.env.bat on Windows
+./mvnw -Pprod # use mvnw -Pprod on Windows
+```
+
+You can then open `http://localhost:8080` in your favorite browser to view the app.
+
+{% img blog/spring-boot-angular/home-with-login.png alt:"JUG Tours homepage" width:"800" %}{: .center-image }
+
+Click **Login** and you'll be prompted to log in with Auth0. You'll also be asked for consent. This is because the app is requesting access to your profile and email address. Click **Accept** to continue.
+
+{% img blog/spring-boot-angular/auth0-consent.png alt:"Auth0 consent" width:"800" %}{: .center-image }
+
+Once you're authenticated, you'll see a link to manage your JUG Tours. 
+
+{% img blog/spring-boot-angular/manage-jugtours.png alt:"Manage JUG Tours" width:"800" %}{: .center-image }
+
+You should be able to add new groups and events, as well as edit and delete them. 
+
+{% img blog/spring-boot-angular/jug-tours-list.png alt:"List of JUG Tours" width:"800" %}{: .center-image }
 
 ## Create a Java REST API with Spring Boot
 
-Navigate to [start.spring.io](https://start.spring.io) and make the following selections:
+To begin, navigate to [start.spring.io](https://start.spring.io) and make the following selections:
 
 * **Project:** `Maven Project`
 * **Group:** `com.okta.developer`
