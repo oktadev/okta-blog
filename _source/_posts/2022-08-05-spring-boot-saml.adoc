@@ -8,7 +8,7 @@ description: "Learn how to build a Spring Boot application that authenticates ag
 tweets:
   - "Need SAML integration in your Spring Boot application? Get Started with Spring Boot and SAML using Okta!"
   - "Spring Boot + SAML + Okta = 💙! Learn more →"
-tags: [spring-boot, saml, spring-security, auth0]
+tags: [spring-boot, saml, spring-security, auth0, java]
 type: conversion
 github: https://github.com/oktadev/okta-spring-boot-saml-example
 image: blog/spring-boot-saml2/spring-boot-saml.jpg
