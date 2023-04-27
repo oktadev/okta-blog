@@ -57,7 +57,7 @@ auth0 apps create \
   --reveal-secrets
 ```
 
-Copy the outputted values from this command into an `.okta.env` file:
+Copy the outputted values from this command into a new `.okta.env` file:
 
 ```shell
 export OKTA_OAUTH2_ISSUER=https://<your-auth0-domain>/
@@ -65,7 +65,7 @@ export OKTA_OAUTH2_CLIENT_ID=<your-client-id>
 export OKTA_OAUTH2_CLIENT_SECRET=<your-client-secret>
 ```
 
-If you're on Windows, use `set` instead of `export` to set these environment variables and name the file `.okta.env.bat`:
+If you're on Windows, use `set` instead of `export` to set these environment variables, and name the file `.okta.env.bat`:
 
 ```shell
 set OKTA_OAUTH2_ISSUER=https://<your-auth0-domain>/
@@ -86,7 +86,7 @@ You can then open `http://localhost:8080` in your favorite browser to view the a
 
 {% img blog/spring-boot-angular/home-with-login.png alt:"JUG Tours homepage" width:"800" %}{: .center-image }
 
-Click **Login** and you'll be prompted to log in with Auth0. You'll also be asked for consent. This is because the app is requesting access to your profile and email address. Click **Accept** to continue.
+Click **Login**, and you'll be prompted to log in with Auth0. You'll also be asked for consent. This is because the app is requesting access to your profile and email address. Click **Accept** to continue.
 
 {% img blog/spring-boot-angular/auth0-consent.png alt:"Auth0 consent" width:"800" %}{: .center-image }
 
@@ -176,6 +176,9 @@ public class Group {
     @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     private Set<Event> events;
 
+    // JPA requires a default constructor
+    public Group() {}
+  
     public Group(String name) {
         this.name = name;
     }
@@ -212,6 +215,8 @@ public class Event {
     @ManyToMany
     private Set<User> attendees;
 
+    public Event() {}
+     
     public Event(Instant date, String title, String description) {
         this.date = date;
         this.title = title;
@@ -242,6 +247,8 @@ public class User {
     private String name;
     private String email;
 
+    public User() {}
+  
     public User(String id, String name, String email) {
         this.id = id;
         this.name = name;
@@ -1365,7 +1372,8 @@ public class SpaWebFilter extends OncePerRequestFilter {
      * Forwards any unmapped paths (except those containing a period) to the client {@code index.html}.
      */
     @Override
-    protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
+    protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, 
+                                    FilterChain filterChain) throws ServletException, IOException {
         String path = request.getRequestURI();
         if (!path.startsWith("/api") &&
             !path.startsWith("/login") &&
