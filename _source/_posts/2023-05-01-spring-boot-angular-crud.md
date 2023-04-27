@@ -1393,9 +1393,9 @@ Now, if you restart and reload the page, everything will work as expected. 🤩
 
 In this section, I was going to explain how to integrate Cypress into this project to support end-to-end tests. However, I discovered that its [schematic](https://www.npmjs.com/package/@cypress/schematic) doesn't work with Angular 16. That means, when I tried to run `ng add @cypress/schematic`, it didn't work. The good news is I figured out a workaround. I downgraded the project to Angular 15, ran the schematic, and then upgraded back to Angular 16.
 
-I wouldn't recommend enduring this pain. If you're interested in adding Cypress, look at [this pull request] to see the changes required. Add `.patch` to the end, download the file, and use it to update your project with Cypress end-to-end tests. I'll update this post when the schematic is updated to support Angular 16.
+I wouldn't recommend enduring this pain. If you're interested in adding Cypress, look at [this pull request](https://github.com/oktadev/auth0-spring-boot-angular-crud-example/pull/1) to see the changes required (in the **Files changed** tab). Add `.patch` to the end of the URL, download the file, and use it to update your project with Cypress end-to-end tests.
 
-If you've added the Cypress  tests, add environment variables with your credentials to the `.okta.env` (or `.okta.env.bat`) file you created earlier.
+If you added the Cypress tests, add environment variables with your credentials to the `.okta.env` (or `.okta.env.bat`) file you created earlier.
 
 ```shell
 export CYPRESS_E2E_DOMAIN=<your-auth0-domain> # use the raw value, no https prefix
