@@ -1,11 +1,12 @@
 ---
 layout: blog_post
-title: "Build a CRUD App with Spring Boot and Angular"
+title: "Build a Beautiful CRUD App with Spring Boot and Angular"
+# I'm not sure Beautiful is the right word here, but it seems better than simple like the React and Vue CRUD posts use. Bootiful might be better. 
 author: matt-raible
 by: advocate
 communities: [java,javascript]
 description: "Learn how to build a secure CRUD app with Spring Boot and Angular. You'll use Auth0 for authentication and authorization, and Cypress to verify it all works."
-tags: [java, spring-boot, angular, crud, auth0, cypress]
+tags: [java, spring-boot, angular, angular-material, crud, auth0, cypress]
 tweets:
 - "Spring Boot 3.1 + Angular 16 = 😍!"
 - "Spring Boot and Angular: still kicking ass after all these years!"
@@ -1432,5 +1433,10 @@ We've written some other fun Spring Boot, Angular, and JHipster tutorials. Check
 - [Use React and Spring Boot to Build a Simple CRUD App](https://auth0.com/blog/simple-crud-react-and-spring-boot/)
 - [Add OpenID Connect to Angular Apps Quickly](https://auth0.com/blog/add-oidc-to-angular-apps-quickly/)
 - [Full Stack Java with React, Spring Boot, and JHipster](https://auth0.com/blog/full-stack-java-with-react-spring-boot-and-jhipster/)
+
+I've also written a couple of InfoQ mini-books that you might find useful:
+
+- [The JHipster Mini-Book](https://www.infoq.com/minibooks/jhipster-mini-book/): Shows you how I built [21-Points Health](https://www.21-points.com) with JHipster (Angular, Spring Boot, and more). 
+- [The Angular Mini-Book](https://www.infoq.com/minibooks/angular-mini-book/): An in-depth guide to Angular, Bootstrap, and Spring Boot, with lots of cloud deployment guides. 
 
 If you have any questions, please leave a comment below. If you want to see the code for this project, check out its [GitHub repo](https://github.com/oktadev/auth0-spring-boot-angular-crud-example). Follow us on [Twitter](https://twitter.com/oktadev) and [YouTube](https://youtube.com/oktadev) for more content like this.
