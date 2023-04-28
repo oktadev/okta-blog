@@ -1720,16 +1720,20 @@ export CYPRESS_E2E_USERNAME=<your-email>
 export CYPRESS_E2E_PASSWORD=<your-password>
 ```
 
-Then, run `source .okta.env` (or `.okta.env.bat` on Windows) to set these environment variables.
+Then, run `source .okta.env` (or `.okta.env.bat` on Windows) to set these environment variables and start the app.
 
-Finally, run `npm run e2e` to start the app and run the Cypress tests.
+```shell
+mvn spring-boot:run -Pprod
+```
+
+In another terminal window, run the Cypress tests with Electron.
 
 ```shell
 cd app
-npm run e2e
+npx cypress run --browser electron --config baseUrl=http://localhost:8080
 ```
 
-{% img blog/spring-boot-angular/cypress-chrome.png alt:"Cypress tests running in Chrome" %}{: .center-image }
+{% img blog/spring-boot-angular/cypress-run.png alt:"Cypress tests running in Electron" %}{: .center-image }
 
 ## Build something fabulous with Spring Boot and Angular!
 
