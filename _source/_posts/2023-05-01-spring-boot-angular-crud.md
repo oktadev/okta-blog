@@ -16,7 +16,7 @@ github: https://github.com/oktadev/auth0-spring-boot-angular-crud-example
 type: conversion
 ---
 
-Angular is one of my favorite frameworks for building single-page applications (SPAs). As a Java developer, its separation of components, services, and pipes (aka JSP tags) made a lot of sense to me. It's a web framework that allows you to declaratively describe your UI by creating small, reusable components made. I believe it was a huge influencer in TypeScript's popularity. It's also backed by Google, which means it's likely going to be around for a long time.
+Angular is one of my favorite frameworks for building single-page applications (SPAs). As a Java developer, its separation of components, services, and pipes (aka JSP tags) made a lot of sense to me. It's a web framework that allows you to declaratively describe your UI by creating small, reusable components. I believe it was a huge influencer in TypeScript's popularity. It's also backed by Google, which means it's likely going to be around for a long time.
 
 I like to build CRUD (create, read, update, and delete) apps to understand frameworks. I think they show a lot of the base functionality you need when creating an app. Once you have the basics of CRUD completed, most of the integration work is finished, and you can move on to implementing the necessary business logic.
 
@@ -24,16 +24,19 @@ In this tutorial, you'll learn how to build a secure CRUD app with Spring Boot a
 
 {% include toc.md %}
 
+There are a number of tools you'll need to install to follow along with this tutorial. 
+
 **Prerequisites**:
 
 - [Java 17](http://sdkman.io)
 - [Node 18](https://nodejs.org/)
+- [HTTPie](https://httpie.io/cli)
 - [Auth0 CLI](https://github.com/auth0/auth0-cli#installation)
 - [An Auth0 account](https://auth0.com/signup)
 
 ## Configure and run a Spring Boot and Angular app
 
-I'm a frequent speaker at conferences and Java User Groups (JUGs) around the world. I've been a Java developer for 20+ years and love the Java community. I've found that speaking at JUGs is a great way to interact with the community and get raw feedback on presentations. 
+I'm a frequent speaker at conferences and Java User Groups (JUGs) around the world. I've been a Java developer for 20+ years and ❤️ the Java community. I've found that speaking at JUGs is a great way to interact with the community and get raw feedback on presentations. 
 
 {% twitter 1623190784072720386 %}
 
@@ -131,24 +134,26 @@ The easiest way to create a new Spring Boot app is to navigate to [start.spring.
 * **Project:** `Maven Project`
 * **Group:** `com.okta.developer`
 * **Artifact:** `jugtours`
-* **Dependencies**: `JPA`, `H2`, `Web`, `Validation`, `Okta`
+* **Dependencies**: `JPA`, `H2`, `Web`, `Validation`
 
 Click **Generate Project**, expand `jugtours.zip` after downloading, and open the project in your favorite IDE.
 
-You can also use [this link](https://start.spring.io/#!type=maven-project&language=java&packaging=jar&jvmVersion=17&groupId=com.okta.developer&artifactId=jugtours&name=jugtours&description=Demo%20project%20for%20Spring%20Boot&packageName=com.okta.developer.jugtours&dependencies=data-jpa,h2,web,validation,okta) or [HTTPie](https://httpie.io/) to create the project from the command line:
+You can also use [this link](https://start.spring.io/#!type=maven-project&language=java&platformVersion=3.1.0-RC1&packaging=jar&jvmVersion=17&groupId=com.okta.developer&artifactId=jugtours&name=jugtours&description=Track%20your%20JUG%20Tours!&packageName=com.okta.developer.jugtours&dependencies=data-jpa,h2,web,validation) or [HTTPie](https://httpie.io/) to create the project from the command line:
 
 ```shell
-https start.spring.io/starter.zip type==maven-project \
-  dependencies==data-jpa,h2,web,validation,okta \
+https start.spring.io/starter.zip type==maven-project bootVersion==3.1.0-RC1 \
+  dependencies==data-jpa,h2,web,validation \
   language==java platformVersion==17 \
   name==jugtours artifactId==jugtours \
   groupId==com.okta.developer packageName==com.okta.developer.jugtours \
   baseDir==jugtours | tar -xzvf -
 ```
 
+<!-- Spring Boot 3.1.0 scheduled for May 18. https://calendar.spring.io/ -->
+
 ### Add a JPA domain model
 
-Create a `src/main/java/com/okta/developer/jugtours/model` directory and a `Group.java` class in it.
+Open the jugtours project in your favorite IDE. Create a `src/main/java/com/okta/developer/jugtours/model` directory and a `Group.java` class in it.
 
 ```java
 package com.okta.developer.jugtours.model;
@@ -381,7 +386,7 @@ class GroupController {
 }
 ```
 
-Restart the app, hit `http://localhost:8080/api/groups` with [HTTPie](https://httpie.org), and you should see the list of groups.
+Restart the app, hit `http://localhost:8080/api/groups` with HTTPie, and you should see the list of groups.
 
     http :8080/api/groups
 
@@ -401,8 +406,10 @@ The Angular CLI was a revolutionary tool when it was released in 2016. It's now 
 You don't have to install Angular CLI globally, the `npx` command can install and run it for you.
 
 ```shell
-npx @angular/cli@16.0.0-rc.2 new app --routing --style css
+npx @angular/cli@16.0.0-rc.3 new app --routing --style css
 ```
+
+<!-- Angular 16 scheduled for release week of 2023-05-01. https://angular.io/guide/releases --> 
 
 Of course, you can use the tried-and-true `npm i -g @angular/cli` and `ng new app --routing --style css` if you prefer. You can even remove the version number if you want to live on the edge. 
 
@@ -415,7 +422,7 @@ ng add @angular/material
 
 You'll be promoted to choose a theme, set up typography styles, and include animations. Select the defaults.
 
-Modify `app.component.html` and move the CSS at the top to `app.component.css`:
+Modify `app/src/app/app.component.html` and move the CSS at the top to `app.component.css`:
 
 ```html
 <div class="toolbar" role="banner">
@@ -427,7 +434,7 @@ Modify `app.component.html` and move the CSS at the top to `app.component.css`:
 </div>
 ```
 
-**TIP**: Copy and paste from the [final `app.component.css`](https://github.com/oktadev/auth0-spring-boot-angular-crud-example/blob/main/app/src/app/app.component.css)  to yours if you want your app to match the screenshots in this tutorial.
+**TIP**: Copy and paste from the [final `app.component.css`](https://github.com/oktadev/auth0-spring-boot-angular-crud-example/blob/main/app/src/app/app.component.css) to yours if you want your app to match the screenshots in this tutorial.
 
 ### Call your Spring Boot API and display the results
 
@@ -461,7 +468,7 @@ export class AppComponent implements OnInit {
 }
 ```
 
-Before this will compile, you'll need to create a `model/group.ts` file with the following contents:
+Before this will compile, you'll need to create a `app/src/app/model/group.ts` file with the following contents:
 
 ```typescript
 export class Group {
@@ -508,15 +515,19 @@ Then, modify the `app.component.html` file to display the list of groups.
 ```  
 {% endraw %}
 
-Create a file called `proxy.conf.json` in the `src` folder of your project and use it to define your proxies:
+Create a file called `proxy.conf.js` in the `src` folder of your Angular project and use it to define your proxies:
 
-```json
-{
-  "/api": {
-    "target": "http://localhost:8080",
-    "secure": false
+```js
+const PROXY_CONFIG = [
+  {
+    context: ['/api'],
+    target: 'http://localhost:8080',
+    secure: true,
+    logLevel: 'debug'
   }
-}
+]
+
+module.exports = PROXY_CONFIG;
 ```
 
 Update `angular.json` and its `serve` command to use the proxy.
@@ -530,7 +541,7 @@ Update `angular.json` and its `serve` command to use the proxy.
     },
     "development": {
       "browserTarget": "app:build:development",
-      "proxyConfig": "src/proxy.conf.json"
+      "proxyConfig": "src/proxy.conf.js"
     }
   },
   "defaultConfiguration": "development"
@@ -539,7 +550,7 @@ Update `angular.json` and its `serve` command to use the proxy.
 
 Stop your app with `Ctrl+C` and restart it with `npm start`. Now you should see a list of groups in your Angular app!
 
-// todo image
+{% img blog/spring-boot-angular/app-group-list.png alt:"JUG Tours list" width:"800" %}{: .center-image }
 
 ### Build an Angular `GroupList` component
 
@@ -571,7 +582,7 @@ import { MatIconModule } from '@angular/material/icon';
   styleUrls: ['./group-list.component.css']
 })
 export class GroupListComponent {
-  title = 'JUG Tours';
+  title = 'Group List';
   loading = true;
   groups: Group[] = [];
   displayedColumns = ['id','name','events','actions'];
@@ -620,7 +631,7 @@ Update its HTML template to use Angular Material's table component.
   </ol>
 </nav>
 
-<a [routerLink]="['/group/new']" mat-raised-button color="primary" style="float: right">Add Group</a>
+<a [routerLink]="['/group/new']" mat-raised-button color="primary" style="float: right" id="add">Add Group</a>
 
 <h2>{{title}}</h2>
 <div *ngIf="loading; else list">
@@ -661,9 +672,123 @@ Update its HTML template to use Angular Material's table component.
 ```
 {% endraw %}
 
-Run `npm start` in your `app` directory to see how everything looks.
+Create a `HomeComponent` to display a welcome message and a link to the groups page. This will be the default route for the app.
 
-// todo screenshot
+```bash
+ng g c home --standalone
+```
+
+Update `home.component.html` with the following:
+
+```html
+<a mat-button color="primary" href="/groups">Manage JUG Tour</a>
+```
+
+Change `app.component.html` to use remove the list of groups above `<router-outlet>`:
+
+```html
+<div class="content" role="main">
+  <router-outlet></router-outlet>
+</div>
+```
+
+And, remove the groups fetching logic from `app.component.ts`:
+
+```typescript
+import { Component } from '@angular/core';
+
+@Component({
+  selector: 'app-root',
+  templateUrl: './app.component.html',
+  styleUrls: ['./app.component.css']
+})
+export class AppComponent {
+  title = 'JUG Tours';
+}
+```
+
+Add a route for the `HomeComponent` and `GroupListComponent` to `app-routing.module.ts`:
+
+```typescript
+import { HomeComponent } from './home/home.component';
+import { GroupListComponent } from './group-list/group-list.component';
+
+export const routes: Routes = [
+  { path: '', redirectTo: '/home', pathMatch: 'full' },
+  {
+    path: 'home',
+    component: HomeComponent
+  },
+  {
+    path: 'groups',
+    component: GroupListComponent
+  }
+];
+```
+
+Update the CSS in `styles.css` to have rules for the `breadcrumb` and `alert` classes:
+
+```css
+/* https://careydevelopment.us/blog/angular-how-to-add-breadcrumbs-to-your-ui */
+ol.breadcrumb {
+  padding: 0;
+  list-style-type: none;
+}
+
+.breadcrumb-item + .active {
+  color: inherit;
+  font-weight: 500;
+}
+
+.breadcrumb-item {
+  color: #3F51B5;
+  font-size: 1rem;
+  text-decoration: underline;
+  cursor: pointer;
+}
+
+.breadcrumb-item + .breadcrumb-item {
+  padding-left: 0.5rem;
+}
+
+.breadcrumb-item + .breadcrumb-item::before {
+  display: inline-block;
+  padding-right: 0.5rem;
+  color: rgb(108, 117, 125);
+  content: "/";
+}
+
+ol.breadcrumb li {
+  list-style-type: none;
+}
+
+ol.breadcrumb li {
+  list-style-type: none;
+  display: inline
+}
+
+.alert {
+  padding: 0.75rem 1.25rem;
+  margin-bottom: 1rem;
+  border: 1px solid transparent;
+}
+
+.alert-success {
+  color: #155724;
+  background-color: #d4edda;
+  border-color: #c3e6cb;
+}
+
+.alert-error {
+  color: #721c24;
+  background-color: #f8d7da;
+  border-color: #f5c6cb;
+}
+```
+
+Run `npm start` in your `app` directory to see how everything looks. Click on Manage JUG Tour, and you should see a list of the default groups.
+
+{% img blog/spring-boot-angular/group-list.png alt:"JUG Tours list" width:"800" %}{: .center-image }
 
 To squish the **Actions** column to the right, add the following to `group-list.component.css`:
 
@@ -673,13 +798,9 @@ To squish the **Actions** column to the right, add the following to `group-list.
 }
 ```
 
-Your Angular app should update itself as you make changes, and you should see a screen like the following at http://localhost:4200.
+Your Angular app should update itself as you make changes.
 
-Click on Manage JUG Tour, and you should see a list of the default groups.
-
-// todo: qa mat-toolbar in app.component.html - do we add that before this or after?
-// todo: screenshot
-// todo: is home needed?
+{% img blog/spring-boot-angular/group-list-actions.png alt:"Group list with squished actions column" width:"800" %}{: .center-image }
 
 It's great that you can see your Spring Boot API's data in your Angular app, but it's no fun if you can't modify it!
 
@@ -690,6 +811,20 @@ Create a `group-edit` component and use Angular's `HttpClient` to fetch the grou
 ```shell
 ng g c group-edit --standalone
 ```
+
+Add a route for this component to `app-routing.module.ts`:
+
+```typescript
+import { GroupEditComponent } from './group-edit/group-edit.component';
+
+export const routes: Routes = [
+  ...
+  {
+    path: 'group/:id',
+    component: GroupEditComponent
+  }
+];
+````
 
 Replace the code in `group-edit.component.ts` with the following:
 
@@ -778,7 +913,41 @@ export class GroupEditComponent implements OnInit {
 }
 ```
 
-This code needs a companion template, so update `group-edit.component.html` with the following:
+Create a `model/event.ts` file so this component will compile.
+
+```typescript
+export class Event {
+  id: number;
+  date: Date;
+  title: string;
+
+  constructor(obj?: any) {
+    this.id = obj?.id || null;
+    this.date = obj?.date || null;
+    this.title = obj?.title || null;
+  }
+}
+```
+
+Update `model/group.ts` to include the `Event` class.
+
+```typescript
+import { Event } from './event';
+
+export class Group {
+  id: number;
+  name: string;
+  events: Event[];
+
+  constructor(obj?: any) {
+    this.id = obj?.id || null;
+    this.name = obj?.name || null;
+    this.events = obj?.events || null;
+  }
+}
+````
+
+The `GroupEditComponent` needs to render a form, so update `group-edit.component.html` with the following:
 
 {% raw %}
 ```html
@@ -824,8 +993,8 @@ This code needs a companion template, so update `group-edit.component.html` with
     <button type="button" mat-mini-fab color="accent" (click)="addEvent()"
             aria-label="Add Event" *ngIf="group.id" matTooltip="Add Event"
             style="float: right; margin-top: -4px"><mat-icon>add</mat-icon></button>
-    <button type="submit" mat-raised-button color="primary" [disabled]="!editForm.form.valid">Save</button>
-    <button type="button" mat-button color="accent" (click)="cancel()">Cancel</button>
+    <button type="submit" mat-raised-button color="primary" [disabled]="!editForm.form.valid" id="save">Save</button>
+    <button type="button" mat-button color="accent" (click)="cancel()" id="cancel">Cancel</button>
   </div>
 </form>
 ```
@@ -844,7 +1013,7 @@ form, h2 {
 }
 
 .alert {
-  max-width: 460px;
+  max-width: 660px;
   margin: 0 auto;
 }
 
@@ -852,10 +1021,68 @@ form, h2 {
   width: 100%;
 }
 ```
- 
-Now you should be able to add and edit groups! Yaasss! 👏👏👏
 
-// todo: add and edit screenshots
+Now, with your Angular app running, you should be able to add and edit groups! Yaasss! 👏👏👏
+
+{% img blog/spring-boot-angular/group-edit.png alt:"Edit a group and add events" width:"800" %}{: .center-image }
+
+To make the navbar at the top use Angular Material colors, update `app.component.html` with the following:
+
+{% raw %}
+```html
+<mat-toolbar role="banner" color="primary" class="toolbar">
+  <img
+    width="40"
+    alt="Angular Logo"
+    src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAyNTAgMjUwIj4KICAgIDxwYXRoIGZpbGw9IiNERDAwMzEiIGQ9Ik0xMjUgMzBMMzEuOSA2My4ybDE0LjIgMTIzLjFMMTI1IDIzMGw3OC45LTQzLjcgMTQuMi0xMjMuMXoiIC8+CiAgICA8cGF0aCBmaWxsPSIjQzMwMDJGIiBkPSJNMTI1IDMwdjIyLjItLjFWMjMwbDc4LjktNDMuNyAxNC4yLTEyMy4xTDEyNSAzMHoiIC8+CiAgICA8cGF0aCAgZmlsbD0iI0ZGRkZGRiIgZD0iTTEyNSA1Mi4xTDY2LjggMTgyLjZoMjEuN2wxMS43LTI5LjJoNDkuNGwxMS43IDI5LjJIMTgzTDEyNSA1Mi4xem0xNyA4My4zaC0zNGwxNy00MC45IDE3IDQwLjl6IiAvPgogIDwvc3ZnPg=="
+  />
+  <span>{{ title }}</span>
+  <div class="spacer"></div>
+  <a aria-label="OktaDev on Twitter" target="_blank" rel="noopener" href="https://twitter.com/oktadev" title="Twitter">
+    <svg id="twitter-logo" height="24" data-name="Logo" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 400">
+      <rect width="400" height="400" fill="none"/>
+      <path
+        d="M153.62,301.59c94.34,0,145.94-78.16,145.94-145.94,0-2.22,0-4.43-.15-6.63A104.36,104.36,0,0,0,325,122.47a102.38,102.38,0,0,1-29.46,8.07,51.47,51.47,0,0,0,22.55-28.37,102.79,102.79,0,0,1-32.57,12.45,51.34,51.34,0,0,0-87.41,46.78A145.62,145.62,0,0,1,92.4,107.81a51.33,51.33,0,0,0,15.88,68.47A50.91,50.91,0,0,1,85,169.86c0,.21,0,.43,0,.65a51.31,51.31,0,0,0,41.15,50.28,51.21,51.21,0,0,1-23.16.88,51.35,51.35,0,0,0,47.92,35.62,102.92,102.92,0,0,1-63.7,22A104.41,104.41,0,0,1,75,278.55a145.21,145.21,0,0,0,78.62,23"
+        fill="#fff"/>
+    </svg>
+  </a>
+  <a aria-label="OktaDev on YouTube" target="_blank" rel="noopener" href="https://youtube.com/oktadev" title="YouTube">
+    <svg id="youtube-logo" height="24" width="24" data-name="Logo" xmlns="http://www.w3.org/2000/svg"
+         viewBox="0 0 24 24" fill="#fff">
+      <path d="M0 0h24v24H0V0z" fill="none"/>
+      <path
+        d="M21.58 7.19c-.23-.86-.91-1.54-1.77-1.77C18.25 5 12 5 12 5s-6.25 0-7.81.42c-.86.23-1.54.91-1.77 1.77C2 8.75 2 12 2 12s0 3.25.42 4.81c.23.86.91 1.54 1.77 1.77C5.75 19 12 19 12 19s6.25 0 7.81-.42c.86-.23 1.54-.91 1.77-1.77C22 15.25 22 12 22 12s0-3.25-.42-4.81zM10 15V9l5.2 3-5.2 3z"/>
+    </svg>
+  </a>
+</mat-toolbar>
+```
+{% endraw %}
+
+Since this is not a standalone component, you'll need to import `MatToolbarModule` in `app.module.ts`.
+
+```typescript
+import { MatToolbarModule } from '@angular/material/toolbar';
+
+@NgModule({
+  ...
+  imports: [
+    ...
+    MatToolbarModule
+  ],
+  ...
+})
+export class AppModule { }
+```
+
+Make some adjustments in `app.component.css` to make the toolbar look nicer.
+
+1. In the `.toolbar` rule, remove the `background-color` and `color` properties.
+2. Change the margin for `#twitter-logo` and `#youtube-logo` to `10px 16px 0 0`.
+3. Change the `.content` rule to have a margin of `65px auto 32px` and `align-items: stretch`.
+
+Now the app fills the screen more and the toolbar has matching colors.
+
+{% img blog/spring-boot-angular/toolbar-colors.png alt:"Toolbar colors match" width:"800" %}{: .center-image }
 
 ## Secure Spring Boot with OpenID Connect and OAuth
 
@@ -871,6 +1098,41 @@ Add the Okta Spring Boot starter to do OIDC authentication in your `pom.xml`. Th
     <artifactId>okta-spring-boot-starter</artifactId>
     <version>3.0.3</version>
 </dependency>
+```
+
+<!-- todo: remove this when Spring Security 6.1 is included in Spring Boot 3.1 -->
+While writing this post, I found a bug in Spring Security, so you'll to upgrade to the latest snapshot version. Add the Spring Security snapshot repository to your `pom.xml` and override the default version used by Spring Boot.
+
+```xml
+<project ...>
+    ...
+    <properties>
+        ...
+        <spring-security.version>6.1.0-SNAPSHOT</spring-security.version>
+    </properties>
+  
+    ...
+  
+    <repositories>
+        <repository>
+            <id>spring-milestones</id>
+            <name>Spring Milestones</name>
+            <url>https://repo.spring.io/milestone</url>
+            <snapshots>
+                <enabled>false</enabled>
+            </snapshots>
+        </repository>
+        <repository>
+            <id>spring-snapshots</id>
+            <name>Spring Snapshots</name>
+            <url>https://repo.spring.io/snapshot</url>
+            <releases>
+                <enabled>false</enabled>
+            </releases>
+        </repository>
+    </repositories>
+    ...
+</project>
 ```
 
 Install the [Auth0 CLI](https://github.com/auth0/auth0-cli) (if you haven't already) and run `auth0 login` in a shell.
@@ -903,18 +1165,22 @@ set OKTA_OAUTH2_CLIENT_ID=<your-client-id>
 set OKTA_OAUTH2_CLIENT_SECRET=<your-client-secret>
 ```
 
+Add `*.env` to your `.gitignore` file, so you don't accidentally expose your client secret.
+
 Then, run `source .okta.env` (or `.okta.env.bat` on Windows) to set these environment variables in your current shell.
 
 Finally, run `./mvnw` (or `mvnw` on Windows) to start the app.
 
 ```shell
-source .okta.env # run .okta.env.bat on Windows
-./mvnw -Pprod # use mvnw -Pprod on Windows
+source .okta.env
+./mvnw spring-boot:run
 ```
 
-You can then open `http://localhost:8080` in your favorite browser to view the app.
+**TIP**: You might have to run `chmod +x mvnw` in order to execute the Maven wrapper script.
 
-{% img blog/spring-boot-angular/home-with-login.png alt:"JUG Tours homepage" width:"800" %}{: .center-image }
+You can then open `http://localhost:8080` in your favorite browser. You'll be redirected to authenticate and returned afterward. You'll see 404 error from Spring Boot since you don't have anything mapped to the default `/` route.
+
+{% img blog/spring-boot-angular/404.png alt:"Spring Boot 404" width:"800" %}{: .center-image }
 
 ### Configure Spring Security for maximum protection
 
@@ -924,7 +1190,6 @@ To make Spring Security Angular-friendly, create a `SecurityConfiguration.java` 
 package com.okta.developer.jugtours.config;
 
 import com.okta.developer.jugtours.web.CookieCsrfFilter;
-import com.okta.developer.jugtours.web.SpaWebFilter;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -948,17 +1213,16 @@ public class SecurityConfiguration {
             .csrf((csrf) -> csrf
                 .csrfTokenRepository(CookieCsrfTokenRepository.withHttpOnlyFalse())
                 .csrfTokenRequestHandler(new CsrfTokenRequestAttributeHandler()))
-            .addFilterAfter(new CookieCsrfFilter(), BasicAuthenticationFilter.class)
-            .addFilterAfter(new SpaWebFilter(), BasicAuthenticationFilter.class);
+            .addFilterAfter(new CookieCsrfFilter(), BasicAuthenticationFilter.class);
 
         return http.build();
     }
 }
 ```
 
-This class has a lot going on, so let me explain a few things. In previous versions of Spring Security, there was an `authorizeRequests()` lambda you could use to secure paths. Since Spring Security 3.1, it's deprecated and you should use `authorizeHttpRequests()`.  The `authorizeRequests()` lambda is permissive by default, which means any paths you don't specify will be allowed. The recommended way, shown here with `authorizeHttpRequests()`, denies by default. This means you have to specify the resources you want to allow Spring Security to serve up, as well as the ones that the Angular app has.
+This class has a lot going on, so let me explain a few things. In previous versions of Spring Security, there was an `authorizeRequests()` lambda you could use to secure paths. Since Spring Security 3.1, it's deprecated and you should use `authorizeHttpRequests()`. The `authorizeRequests()` lambda is permissive by default, which means any paths you don't specify will be allowed. The recommended way, shown here with `authorizeHttpRequests()`, denies by default. This means you have to specify the resources you want to allow Spring Security to serve up, as well as the ones that the Angular app has.
 
-The `requestMatchers` line defines the URLs that are allowed for anonymous users. You will soon configure things, so your Angular app is served up by your Spring Boot app, hence the reason for allowing "/", "/index.html", and web files. You might also notice an exposed `/api/user` path.
+The `requestMatchers` line defines the URLs that are allowed for anonymous users. You will soon configure things, so your Angular app is served up by your Spring Boot app, hence the reason for allowing `/`, `/index.html`, and web files. You might also notice an exposed `/api/user` path.
 
 Configuring CSRF (cross-site request forgery) protection with `CookieCsrfTokenRepository.withHttpOnlyFalse()` means that the `XSRF-TOKEN` cookie won't be marked HTTP-only, so Angular can read it and send it back when it tries to manipulate data. The `CsrfTokenRequestAttributeHandler` is no longer the default, so you have to configure it as the request handler. You can read [this Stack Overflow answer](https://stackoverflow.com/a/74521360/65681) to learn more. Basically, since we're not sending the CSRF token to an HTML page, we don't have to worry about BREACH attacks. This means we can revert to the previous default from Spring Security 5.
 
@@ -1042,7 +1306,7 @@ public class UserController {
         var originUrl = request.getHeader(HttpHeaders.ORIGIN);
         Object[] params = {issuerUri, registration.getClientId(), originUrl};
         // Yes! We @ Auth0 should have an end_session_endpoint in our OIDC metadata.
-        // It's not included at the time of this writing, but will be coming soon! Configure Maven to build and package 
+        // It's not included at the time of this writing, but will be coming soon!
         var logoutUrl = MessageFormat.format("{0}v2/logout?client_id={1}&returnTo={2}", params);
         request.getSession().invalidate();
         return ResponseEntity.ok().body(of("logoutUrl", logoutUrl));
@@ -1062,6 +1326,10 @@ public interface UserRepository extends JpaRepository<User, String> {
 ```
 
 Add a new `findAllByUserId(String id)` method to `GroupRepository.java`.
+
+```java
+List<Group> findAllByUserId(String id);
+```
 
 Then inject `UserRepository` into `GroupController.java` and use it to create (or grab an existing user) when adding a new group. While you're there, modify the `groups()` method to filter by user.
 
@@ -1205,7 +1473,16 @@ export class AuthService {
 }
 ```
 
-Modify `home.component.ts` to use `AuthService` to see if the user is logged in. If they're not, show a Login button.
+Add the referenced `User` class to `app/src/app/model/user.ts`.
+
+```typescript
+export class User {
+  email!: number;
+  name!: string;
+}
+```
+
+Modify `home.component.ts` to use `AuthService` to see if the user is logged in. 
 
 ```typescript
 import { Component, OnInit } from '@angular/core';
@@ -1213,11 +1490,12 @@ import { CommonModule } from '@angular/common';
 import { MatButtonModule } from '@angular/material/button';
 import { AuthService } from '../auth.service';
 import { User } from '../model/user';
+import { RouterLink } from '@angular/router';
 
 @Component({
   selector: 'app-home',
   standalone: true,
-  imports: [CommonModule, MatButtonModule],
+  imports: [CommonModule, MatButtonModule, RouterLink],
   templateUrl: './home.component.html',
   styleUrls: ['./home.component.css']
 })
@@ -1239,18 +1517,51 @@ export class HomeComponent implements OnInit {
 }
 ```
 
-After all these changes, you should be able to restart both Spring Boot and Angular and witness the glory of planning your very own JUG Tour!
+Modify `home.component.html` to show the Login button if the user is not logged in, otherwise, show a Logout button.
 
-// todo: login screenshot
-// one jug: e.g. Omaha
+```html
+<div *ngIf="user; else login">
+  <h2>Welcome, {{ user.name }}!</h2>
+  <a mat-button color="primary" routerLink="/groups">Manage JUG Tour</a>
+  <br/><br/>
+  <button mat-raised-button color="primary" (click)="auth.logout()" id="logout">Logout</button>
+</div>
+<ng-template #login>
+  <p>Please log in to manage your JUG Tour.</p>
+  <button mat-raised-button color="primary" (click)="auth.login()" id="login">Login</button>
+</ng-template>
+```
+
+Update `app/src/proxy.conf.js` to have additional proxy paths for `/oauth2` and `/login`.
+
+```javascript
+const PROXY_CONFIG = [
+  {
+    context: ['/api', '/oauth2', '/login'],
+    ...
+  }
+]
+````
+
+After all these changes, you should be able to restart both Spring Boot and Angular and witness the glory of securely planning your very own JUG Tour!
+
+{% img blog/spring-boot-angular/login.png alt:"Angular app with Login" width:"800" %}{: .center-image }
+{% img blog/spring-boot-angular/logout.png alt:"Angular app with Logout" width:"800" %}{: .center-image }
 
 ## Configure Maven to package Angular with Spring Boot
 
 To build and package your React app with Maven, you can use the [frontend-maven-plugin](https://github.com/eirslett/frontend-maven-plugin) and Maven's profiles to activate it. Add properties for versions and a `<profiles>` section to your `pom.xml`.
 
-todo: ask Robert to fix &lt; in https://auth0.com/blog/simple-crud-react-and-spring-boot/#Configure-Spring-Security-for-React-and-User-Identity
-
 ```xml
+<properties>
+    ...
+    <frontend-maven-plugin.version>1.12.1</frontend-maven-plugin.version>
+    <node.version>v18.16.0</node.version>
+    <npm.version>9.6.5</npm.version>
+</properties>
+
+... 
+
 <profiles>
     <profile>
         <id>dev</id>
@@ -1317,10 +1628,7 @@ todo: ask Robert to fix &lt; in https://auth0.com/blog/simple-crud-react-and-spr
                             </goals>
                             <phase>test</phase>
                             <configuration>
-                                <arguments>test</arguments>
-                                <environmentVariables>
-                                    <CI>true</CI>
-                                </environmentVariables>
+                                <arguments>test -- --watch=false</arguments>
                             </configuration>
                         </execution>
                         <execution>
@@ -1351,8 +1659,6 @@ spring.profiles.active=@spring.profiles.active@
 ```
 
 After adding this, you should be able to run `mvn spring-boot:run -Pprod` and see your app running at `http://localhost:8080`.
-
-// todo: screenshot after login
 
 Everything will work just fine if you start at the root since Angular will handle routing. However, if you refresh the page when you're at `http://localhost:8080/groups`, you'll get a 404 error since Spring Boot doesn't have a route for `/groups`. To fix this, add a `SpaWebFilter` that conditionally forwards to the Angular app.
 
@@ -1393,7 +1699,7 @@ public class SpaWebFilter extends OncePerRequestFilter {
 And, add to your `SecurityConfiguration.java` class:
 
 ```java
-.addFilterAfter(new SpaWebFilter(), BasicAuthenticationFilter.class)
+.addFilterAfter(new SpaWebFilter(), BasicAuthenticationFilter.class);
 ```
 
 Now, if you restart and reload the page, everything will work as expected. 🤩
@@ -1402,7 +1708,9 @@ Now, if you restart and reload the page, everything will work as expected. 🤩
 
 In this section, I was going to explain how to integrate Cypress into this project to support end-to-end tests. However, I discovered that its [schematic](https://www.npmjs.com/package/@cypress/schematic) doesn't work with Angular 16. That means, when I tried to run `ng add @cypress/schematic`, it didn't work. The good news is I figured out a workaround. I downgraded the project to Angular 15, ran the schematic, and then upgraded back to Angular 16.
 
-I wouldn't recommend enduring this pain. If you're interested in adding Cypress, look at [this pull request](https://github.com/oktadev/auth0-spring-boot-angular-crud-example/pull/1) to see the changes required (in the **Files changed** tab). Add `.patch` to the end of the URL, download the file, and use it to update your project with Cypress end-to-end tests.
+I wouldn't recommend enduring this pain. If you're interested in adding Cypress, look at [this pull request](https://github.com/oktadev/auth0-spring-boot-angular-crud-example/pull/1) to see the changes required (in the **Files changed** tab). Add `.patch` to the end of the URL, download the file, and use it to update your project with Cypress end-to-end tests. 
+
+This patch will also update your Angular tests so `npm test` passes. It includes a new [`TestSecurityConfiguration`](https://github.com/oktadev/auth0-spring-boot-angular-crud-example/blob/e98479fc0cb31d59cf52f76e368583dea1545d1d/src/test/java/com/okta/developer/jugtours/TestSecurityConfiguration.java) class that makes it possible to run `mvn verify -Pprod` without having to set environment variables. It even includes a GitHub Actions workflow that runs the tests on every push.
 
 If you added the Cypress tests, add environment variables with your credentials to the `.okta.env` (or `.okta.env.bat`) file you created earlier.
 
