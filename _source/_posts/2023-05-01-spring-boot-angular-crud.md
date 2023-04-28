@@ -5,26 +5,26 @@ title: "Build a Beautiful CRUD App with Spring Boot and Angular"
 author: matt-raible
 by: advocate
 communities: [java,javascript]
-description: "Learn how to build a secure CRUD app with Spring Boot and Angular. You'll use Auth0 for authentication and authorization, and Cypress to verify it all works."
+description: "Learn how to build a secure CRUD app with Spring Boot and Angular. You'll use Auth0 for authentication and authorization and Cypress to verify it all works."
 tags: [java, spring-boot, angular, angular-material, crud, auth0, cypress]
 tweets:
-- "Spring Boot 3.1 + Angular 16 = 😍!"
-- "Spring Boot and Angular: still kicking ass after all these years!"
-- "Two of my favorite frameworks? Spring Boot and Angular! 🍃+ 🅰️= ❤️"
+  - "Spring Boot 3.1 + Angular 16 = 😍!"
+  - "Spring Boot and Angular: still kicking ass after all these years!"
+  - "Two of my favorite frameworks? Spring Boot and Angular! 🍃+ 🅰️= ❤️"
 image: blog/spring-boot-angular/bootiful-angular.png
 github: https://github.com/oktadev/auth0-spring-boot-angular-crud-example
 type: conversion
 ---
 
-Angular is one of my favorite frameworks for building single-page applications (SPAs). As a Java developer, its separation of components, services, and pipes (aka JSP tags) made a lot of sense to me. It's a web framework that allows you to declaratively describe your UI by creating small, reusable components. I believe it was a huge influencer in TypeScript's popularity. It's also backed by Google, which means it's likely going to be around for a long time.
+Angular is one of my favorite frameworks for building single-page applications (SPAs). As a Java developer, its separation of components, services, and pipes made a lot of sense to me. It's a web framework that allows you to declaratively describe your UI by creating small, reusable components. I believe it was a huge influencer in TypeScript's popularity. It's also backed by Google, which means it will likely be around for a long time.
 
-I like to build CRUD (create, read, update, and delete) apps to understand frameworks. I think they show a lot of the base functionality you need when creating an app. Once you have the basics of CRUD completed, most of the integration work is finished, and you can move on to implementing the necessary business logic.
+I like to build CRUD (create, read, update, and delete) apps to understand frameworks. I think they show a lot of the base functionality you need when creating an app. Once you complete the basics of CRUD, most of the integration work is finished, and you can move on to implementing the necessary business logic.
 
-In this tutorial, you'll learn how to build a secure CRUD app with Spring Boot and Angular. The final will result will use OAuth 2.0 authorization code flow and package the Angular app in the Spring Boot app for distribution as a single artifact. At the same time, I'll show you how to keep Angular's productive workflow when developing locally. 
+In this tutorial, you'll learn how to build a secure CRUD app with Spring Boot and Angular. The final will result will use OAuth 2.0 authorization code flow and package the Angular app in the Spring Boot app for distribution as a single artifact. At the same time, I'll show you how to keep Angular's productive workflow when developing locally.
 
 {% include toc.md %}
 
-There are a number of tools you'll need to install to follow along with this tutorial. 
+You'll need to install several tools to follow along with this tutorial.
 
 **Prerequisites**:
 
@@ -36,7 +36,7 @@ There are a number of tools you'll need to install to follow along with this tut
 
 ## Configure and run a Spring Boot and Angular app
 
-I'm a frequent speaker at conferences and Java User Groups (JUGs) around the world. I've been a Java developer for 20+ years and ❤️ the Java community. I've found that speaking at JUGs is a great way to interact with the community and get raw feedback on presentations. 
+I'm a frequent speaker at conferences and Java User Groups (JUGs) around the world. I've been a Java developer for 20+ years and ❤️ the Java community. I've found that speaking at JUGs is a great way to interact with the community and get raw feedback on presentations.
 
 {% twitter 1623190784072720386 %}
 
@@ -49,7 +49,7 @@ git clone https://github.com/oktadev/auth0-spring-boot-angular-crud-example jugt
 cd jugtours
 ```
 
-Open a terminal window and run `auth0 login` to configure the Auth0 CLI to get an API key for your tenant. Then, run `auth0 apps create` to register this app with appropriate URLs:
+Open a terminal window and run `auth0 login` to configure the Auth0 CLI to get an API key for your tenant. Then, run `auth0 apps create` to register this app with the appropriate URLs:
 
 ```shell
 auth0 apps create \
@@ -79,14 +79,14 @@ set OKTA_OAUTH2_CLIENT_SECRET=<your-client-secret>
 
 Then, run `source .okta.env` (or `.okta.env.bat` on Windows) to set these environment variables in your current shell.
 
-Finally, run `./mvnw` (or `mvnw` on Windows) to start the app. 
+Finally, run `./mvnw` (or `mvnw` on Windows) to start the app.
 
 ```shell
 source .okta.env # run .okta.env.bat on Windows
 ./mvnw -Pprod # use mvnw -Pprod on Windows
 ```
 
-You can then open `http://localhost:8080` in your favorite browser to view the app.
+To view the app, you can then open `http://localhost:8080` in your favorite browser.
 
 {% img blog/spring-boot-angular/home-with-login.png alt:"JUG Tours homepage" width:"800" %}{: .center-image }
 
@@ -94,11 +94,11 @@ Click **Login**, and you'll be prompted to log in with Auth0. You'll also be ask
 
 {% img blog/spring-boot-angular/auth0-consent.png alt:"Auth0 consent" width:"800" %}{: .center-image }
 
-Once you're authenticated, you'll see a link to manage your JUG Tours. 
+Once you're authenticated, you'll see a link to manage your JUG Tours.
 
 {% img blog/spring-boot-angular/manage-jugtours.png alt:"Manage JUG Tours" width:"800" %}{: .center-image }
 
-You should be able to add new groups and events, as well as edit and delete them. 
+You should be able to add new groups and events, as well as edit and delete them.
 
 {% img blog/spring-boot-angular/jug-tours-list.png alt:"List of JUG Tours" width:"800" %}{: .center-image }
 
@@ -112,7 +112,7 @@ export CYPRESS_E2E_USERNAME=<your-email>
 export CYPRESS_E2E_PASSWORD=<your-password>
 ```
 
-Then, run `source .okta.env` (or `.okta.env.bat` on Windows) to set these environment variables. 
+Then, run `source .okta.env` (or `.okta.env.bat` on Windows) to set these environment variables.
 
 Finally, run `npm run e2e` to start the app and run the Cypress tests.
 
@@ -125,7 +125,7 @@ npm run e2e
 
 Pretty slick, don't you think? 🤠
 
-If you'd like to see how this app was built, read on!
+Read on if you'd like to see how I created this app!
 
 ## Create a Java REST API with Spring Boot
 
@@ -320,9 +320,9 @@ class Initializer implements CommandLineRunner {
 }
 ```
 
-Start your app with `mvn spring-boot:run` and you should see groups and events being created.
+Start your app with `mvn spring-boot:run`, and you should see groups and events being created.
 
-Add a `GroupController.java` class (in `src/main/java/.../jugtours/web`) that allows you to CRUD groups. 
+Add a `GroupController.java` class (in `src/main/java/.../jugtours/web`) that allows you to CRUD groups.
 
 ```java
 package com.okta.developer.jugtours.web;
@@ -401,9 +401,9 @@ http DELETE :8080/api/group/8
 
 ## Create an Angular app with the Angular CLI
 
-The Angular CLI was a revolutionary tool when it was released in 2016. It's now the standard way to create new Angular projects, and it's the easiest way to get started with Angular. Many web frameworks have adopted similar tools to improve their developer experience.
+The Angular CLI was a revolutionary tool when it was released in 2016. It's now the standard way to create new Angular projects and the easiest way to get started with Angular. Many web frameworks have adopted similar tools to improve their developer experience.
 
-You don't have to install Angular CLI globally, the `npx` command can install and run it for you.
+You don't have to install Angular CLI globally. The `npx` command can install and run it for you.
 
 ```shell
 npx @angular/cli@16.0.0-rc.3 new app --routing --style css
@@ -411,16 +411,16 @@ npx @angular/cli@16.0.0-rc.3 new app --routing --style css
 
 <!-- Angular 16 scheduled for release week of 2023-05-01. https://angular.io/guide/releases --> 
 
-Of course, you can use the tried-and-true `npm i -g @angular/cli` and `ng new app --routing --style css` if you prefer. You can even remove the version number if you want to live on the edge. 
+Of course, you can use the tried-and-true `npm i -g @angular/cli` and `ng new app --routing --style css` if you prefer. You can even remove the version number if you want to live on the edge.
 
-After the app creation process completes, navigate into the `app` directory and install [Angular Material](https://material.angular.io/) to make the UI look better, particularly on mobile devices. 
+After the app creation process completes, navigate into the `app` directory and install [Angular Material](https://material.angular.io/) to make the UI look better, particularly on mobile devices.
 
 ```shell
 cd app
 ng add @angular/material
 ```
 
-You'll be promoted to choose a theme, set up typography styles, and include animations. Select the defaults.
+You'll be prompted to choose a theme, set up typography styles, and include animations. Select the defaults.
 
 Modify `app/src/app/app.component.html` and move the CSS at the top to `app.component.css`:
 
@@ -468,7 +468,7 @@ export class AppComponent implements OnInit {
 }
 ```
 
-Before this will compile, you'll need to create a `app/src/app/model/group.ts` file with the following contents:
+Before this compiles, you'll need to create a `app/src/app/model/group.ts` file with the following contents:
 
 ```typescript
 export class Group {
@@ -554,13 +554,13 @@ Stop your app with `Ctrl+C` and restart it with `npm start`. Now you should see 
 
 ### Build an Angular `GroupList` component
 
-Angular is a component framework that allows you to easily separate concerns. You don't want to render everything in your main `AppComponent`, so create a new component to display the list of groups.
+Angular is a component framework that allows you to separate concerns easily. You don't want to render everything in your main `AppComponent`, so create a new component to display the list of groups.
 
 ```shell
 ng g c group-list --standalone
 ```
 
-This will create a new component in `src/app/group-list` with a TypeScript file, HTML template, CSS file, and a test file. The `--standalone` flag is new in Angular 15 and allows you to isolate components to be self-contained and therefore easier to distribute. You don't need to use it if you're following along, but the final code uses it.
+This command will create a new component in `src/app/group-list` with a TypeScript file, HTML template, CSS file, and a test file. The `--standalone` flag is new in Angular 15 and allows you to isolate components to be self-contained and, therefore, easier to distribute. You don't need to use it if you're following along, but the final code uses it.
 
 Replace the code in `group-list.component.ts` with the following:
 
@@ -672,7 +672,7 @@ Update its HTML template to use Angular Material's table component.
 ```
 {% endraw %}
 
-Create a `HomeComponent` to display a welcome message and a link to the groups page. This will be the default route for the app.
+Create a `HomeComponent` to display a welcome message and a link to the groups page. This component will be the default route for the app.
 
 ```bash
 ng g c home --standalone
@@ -684,7 +684,7 @@ Update `home.component.html` with the following:
 <a mat-button color="primary" href="/groups">Manage JUG Tour</a>
 ```
 
-Change `app.component.html` to use remove the list of groups above `<router-outlet>`:
+Change `app.component.html` to  remove the list of groups above `<router-outlet>`:
 
 ```html
 <div class="content" role="main">
@@ -692,7 +692,7 @@ Change `app.component.html` to use remove the list of groups above `<router-outl
 </div>
 ```
 
-And, remove the groups fetching logic from `app.component.ts`:
+And remove the groups fetching logic from `app.component.ts`:
 
 ```typescript
 import { Component } from '@angular/core';
@@ -802,7 +802,7 @@ Your Angular app should update itself as you make changes.
 
 {% img blog/spring-boot-angular/group-list-actions.png alt:"Group list with squished actions column" width:"800" %}{: .center-image }
 
-It's great that you can see your Spring Boot API's data in your Angular app, but it's no fun if you can't modify it!
+It's great to see your Spring Boot API's data in your Angular app, but it's no fun if you can't modify it!
 
 ### Build an Angular `GroupEdit` component
 
@@ -1000,7 +1000,7 @@ The `GroupEditComponent` needs to render a form, so update `group-edit.component
 ```
 {% endraw %}
 
-If you look closely, you'll notice this component allows you to edit events for a group. This is a good example of how to handle nested objects in Angular.
+If you look closely, you'll notice this component allows you to edit events for a group. This component is an excellent example of how to handle nested objects in Angular.
 
 Update `group-edit.component.css` to make things look better on all devices:
 
@@ -1058,7 +1058,7 @@ To make the navbar at the top use Angular Material colors, update `app.component
 ```
 {% endraw %}
 
-Since this is not a standalone component, you'll need to import `MatToolbarModule` in `app.module.ts`.
+Since this is not a standalone component, you must import `MatToolbarModule` in `app.module.ts`.
 
 ```typescript
 import { MatToolbarModule } from '@angular/material/toolbar';
@@ -1080,7 +1080,7 @@ Make some adjustments in `app.component.css` to make the toolbar look nicer.
 2. Change the margin for `#twitter-logo` and `#youtube-logo` to `10px 16px 0 0`.
 3. Change the `.content` rule to have a margin of `65px auto 32px` and `align-items: stretch`.
 
-Now the app fills the screen more and the toolbar has matching colors.
+Now the app fills the screen more, and the toolbar has matching colors.
 
 {% img blog/spring-boot-angular/toolbar-colors.png alt:"Toolbar colors match" width:"800" %}{: .center-image }
 
@@ -1088,7 +1088,7 @@ Now the app fills the screen more and the toolbar has matching colors.
 
 I love building simple CRUD apps to learn a new tech stack, but I think it's even cooler to build a _secure_ one. So let's do that!
 
-Spring Security added support for OpenID Connect (OIDC) in version 5.0, circa 2017. This is awesome because it means you can use Spring Security to secure your app with a third-party identity provider (IdP) like Auth0. This is a much better option than trying to build our own authentication system and store user credentials.
+Spring Security added support for OpenID Connect (OIDC) in version 5.0, circa 2017. This is awesome because it means you can use Spring Security to secure your app with a third-party identity provider (IdP) like Auth0. This is a much better option than trying to build your own authentication system and store user credentials.
 
 Add the Okta Spring Boot starter to do OIDC authentication in your `pom.xml`. This will also add Spring Security to your app.
 
@@ -1101,7 +1101,7 @@ Add the Okta Spring Boot starter to do OIDC authentication in your `pom.xml`. Th
 ```
 
 <!-- todo: remove this when Spring Security 6.1 is included in Spring Boot 3.1 -->
-While writing this post, I found a bug in Spring Security, so you'll to upgrade to the latest snapshot version. Add the Spring Security snapshot repository to your `pom.xml` and override the default version used by Spring Boot.
+While writing this post, I found a bug in Spring Security, so you'll have to upgrade to the latest snapshot version. Add the Spring Security snapshot repository to your `pom.xml` and override the default version used by Spring Boot.
 
 ```xml
 <project ...>
@@ -1165,7 +1165,7 @@ set OKTA_OAUTH2_CLIENT_ID=<your-client-id>
 set OKTA_OAUTH2_CLIENT_SECRET=<your-client-secret>
 ```
 
-Add `*.env` to your `.gitignore` file, so you don't accidentally expose your client secret.
+Add `*.env` to your `.gitignore` file so you don't accidentally expose your client secret.
 
 Then, run `source .okta.env` (or `.okta.env.bat` on Windows) to set these environment variables in your current shell.
 
@@ -1176,9 +1176,9 @@ source .okta.env
 ./mvnw spring-boot:run
 ```
 
-**TIP**: You might have to run `chmod +x mvnw` in order to execute the Maven wrapper script.
+**TIP**: You might have to run `chmod +x mvnw` to execute the Maven wrapper script.
 
-You can then open `http://localhost:8080` in your favorite browser. You'll be redirected to authenticate and returned afterward. You'll see 404 error from Spring Boot since you don't have anything mapped to the default `/` route.
+You can then open `http://localhost:8080` in your favorite browser. You'll be redirected to authenticate and returned afterward. You'll see a 404 error from Spring Boot since you have nothing mapped to the default `/` route.
 
 {% img blog/spring-boot-angular/404.png alt:"Spring Boot 404" width:"800" %}{: .center-image }
 
@@ -1220,11 +1220,11 @@ public class SecurityConfiguration {
 }
 ```
 
-This class has a lot going on, so let me explain a few things. In previous versions of Spring Security, there was an `authorizeRequests()` lambda you could use to secure paths. Since Spring Security 3.1, it's deprecated and you should use `authorizeHttpRequests()`. The `authorizeRequests()` lambda is permissive by default, which means any paths you don't specify will be allowed. The recommended way, shown here with `authorizeHttpRequests()`, denies by default. This means you have to specify the resources you want to allow Spring Security to serve up, as well as the ones that the Angular app has.
+This class has a lot going on, so let me explain a few things. In previous versions of Spring Security, there was an `authorizeRequests()` lambda you could use to secure paths. Since Spring Security 3.1, it's deprecated, and you should use `authorizeHttpRequests()`. The `authorizeRequests()` lambda is permissive by default, which means any paths you don't specify will be allowed. The recommended way, shown here with `authorizeHttpRequests()`, denies by default. This means you have to specify the resources you want to allow Spring Security to serve up, as well as the ones that the Angular app has.
 
-The `requestMatchers` line defines the URLs that are allowed for anonymous users. You will soon configure things, so your Angular app is served up by your Spring Boot app, hence the reason for allowing `/`, `/index.html`, and web files. You might also notice an exposed `/api/user` path.
+The `requestMatchers` line defines the URLs allowed for anonymous users. You will soon configure things so your Spring Boot app serves up your Angular app, hence the reason for allowing `/`, `/index.html`, and web files. You might also notice an exposed `/api/user` path.
 
-Configuring CSRF (cross-site request forgery) protection with `CookieCsrfTokenRepository.withHttpOnlyFalse()` means that the `XSRF-TOKEN` cookie won't be marked HTTP-only, so Angular can read it and send it back when it tries to manipulate data. The `CsrfTokenRequestAttributeHandler` is no longer the default, so you have to configure it as the request handler. You can read [this Stack Overflow answer](https://stackoverflow.com/a/74521360/65681) to learn more. Basically, since we're not sending the CSRF token to an HTML page, we don't have to worry about BREACH attacks. This means we can revert to the previous default from Spring Security 5.
+Configuring CSRF (cross-site request forgery) protection with `CookieCsrfTokenRepository.withHttpOnlyFalse()` means that the `XSRF-TOKEN` cookie won't be marked HTTP-only, so Angular can read it and send it back when it tries to manipulate data. The `CsrfTokenRequestAttributeHandler` is no longer the default, so you have to configure it as the request handler. To learn more, you can read [this Stack Overflow answer](https://stackoverflow.com/a/74521360/65681). Basically, since we're not sending the CSRF token to an HTML page, we don't have to worry about BREACH attacks. This means we can revert to the previous default from Spring Security 5.
 
 You'll need to create the `CookieCsrfFilter` class that's added because Spring Security 6 no longer sets the cookie for you. Create it in the `web` package.
 
@@ -1241,7 +1241,7 @@ import org.springframework.web.filter.OncePerRequestFilter;
 import java.io.IOException;
 
 /**
- * Spring Security 6 doesn't set a XSRF-TOKEN cookie by default.
+ * Spring Security 6 doesn't set an XSRF-TOKEN cookie by default.
  * This solution is
  * <a href="https://github.com/spring-projects/spring-security/issues/12141#issuecomment-1321345077">
  * recommended by Spring Security.</a>
@@ -1261,7 +1261,7 @@ public class CookieCsrfFilter extends OncePerRequestFilter {
 }
 ```
 
-Create `src/main/java/.../jugtours/web/UserController.java` and populate it with the following code. This API will be used by Angular to 1) find out if a user is authenticated and 2) perform global logout.
+Create `src/main/java/.../jugtours/web/UserController.java` and populate it with the following code. Angular will use this API to 1) find out if a user is authenticated and 2) perform global logout.
 
 ```java
 package com.okta.developer.jugtours.web;
@@ -1420,11 +1420,11 @@ To highlight the changes, please review the `groups()` and `createGroup()` metho
 
 I like Angular because it's a secure-first framework. It has built-in support for CSRF, and it's easy to make it identity-aware. Let's do both!
 
-Angular's `HttpClient` has support for the client-side half of the CSRF protection. It'll read the cookie sent by Spring Boot and return it in an `X-XSRF-TOKEN` header. You can read more about this at [Angular's Security docs](https://angular.io/guide/http#security-xsrf-protection).
+Angular's `HttpClient` supports the client-side half of the CSRF protection. It'll read the cookie sent by Spring Boot and return it in an `X-XSRF-TOKEN` header. You can read more about this at [Angular's Security docs](https://angular.io/guide/http#security-xsrf-protection).
 
 ### Update Your Angular app's authentication mechanism
 
-Create a new `AuthService` class that will communicate with your Spring Boot API for authentication information. Add the following code to a new file at `app/src/app/auth.service.ts`.
+Create a new `AuthService` class to communicate with your Spring Boot API for authentication information. Add the following code to a new file at `app/src/app/auth.service.ts`.
 
 ```typescript
 import { Injectable } from '@angular/core';
@@ -1482,7 +1482,7 @@ export class User {
 }
 ```
 
-Modify `home.component.ts` to use `AuthService` to see if the user is logged in. 
+Modify `home.component.ts` to use `AuthService` to see if the user is logged in.
 
 ```typescript
 import { Component, OnInit } from '@angular/core';
@@ -1517,7 +1517,7 @@ export class HomeComponent implements OnInit {
 }
 ```
 
-Modify `home.component.html` to show the Login button if the user is not logged in, otherwise, show a Logout button.
+Modify `home.component.html` to show the Login button if the user is not logged in. Otherwise, show a Logout button.
 
 ```html
 <div *ngIf="user; else login">
@@ -1660,7 +1660,7 @@ spring.profiles.active=@spring.profiles.active@
 
 After adding this, you should be able to run `mvn spring-boot:run -Pprod` and see your app running at `http://localhost:8080`.
 
-Everything will work just fine if you start at the root since Angular will handle routing. However, if you refresh the page when you're at `http://localhost:8080/groups`, you'll get a 404 error since Spring Boot doesn't have a route for `/groups`. To fix this, add a `SpaWebFilter` that conditionally forwards to the Angular app.
+If you start at the root, everything will work fine since Angular will handle routing. However, if you refresh the page when you're at `http://localhost:8080/groups`, you'll get a 404 error since Spring Boot doesn't have a route for `/groups`. To fix this, add a `SpaWebFilter` that conditionally forwards to the Angular app.
 
 ```java
 package com.okta.developer.jugtours.web;
@@ -1696,7 +1696,7 @@ public class SpaWebFilter extends OncePerRequestFilter {
 }
 ```
 
-And, add to your `SecurityConfiguration.java` class:
+And add to your `SecurityConfiguration.java` class:
 
 ```java
 .addFilterAfter(new SpaWebFilter(), BasicAuthenticationFilter.class);
@@ -1706,9 +1706,9 @@ Now, if you restart and reload the page, everything will work as expected. 🤩
 
 ## Verify everything works with Cypress
 
-In this section, I was going to explain how to integrate Cypress into this project to support end-to-end tests. However, I discovered that its [schematic](https://www.npmjs.com/package/@cypress/schematic) doesn't work with Angular 16. That means, when I tried to run `ng add @cypress/schematic`, it didn't work. The good news is I figured out a workaround. I downgraded the project to Angular 15, ran the schematic, and then upgraded back to Angular 16.
+In this section, I was going to explain how to integrate Cypress into this project to support end-to-end tests. However, I discovered that its [schematic](https://www.npmjs.com/package/@cypress/schematic) doesn't work with Angular 16. That means when I tried to run `ng add @cypress/schematic`, it didn't work. The good news is I figured out a workaround. I downgraded the project to Angular 15, ran the schematic, and then upgraded to Angular 16.
 
-I wouldn't recommend enduring this pain. If you're interested in adding Cypress, look at [this pull request](https://github.com/oktadev/auth0-spring-boot-angular-crud-example/pull/1) to see the changes required (in the **Files changed** tab). Add `.patch` to the end of the URL, download the file, and use it to update your project with Cypress end-to-end tests. 
+I wouldn't recommend enduring this pain. If you're interested in adding Cypress, look at [this pull request](https://github.com/oktadev/auth0-spring-boot-angular-crud-example/pull/1) to see the changes required (in the **Files changed** tab). Add `.patch` to the end of the URL, download the file, and use it to update your project with Cypress end-to-end tests.
 
 This patch will also update your Angular tests so `npm test` passes. It includes a new [`TestSecurityConfiguration`](https://github.com/oktadev/auth0-spring-boot-angular-crud-example/blob/e98479fc0cb31d59cf52f76e368583dea1545d1d/src/test/java/com/okta/developer/jugtours/TestSecurityConfiguration.java) class that makes it possible to run `mvn verify -Pprod` without having to set environment variables. It even includes a GitHub Actions workflow that runs the tests on every push.
 
@@ -1733,7 +1733,7 @@ npm run e2e
 
 ## Build something fabulous with Spring Boot and Angular!
 
-I hope this post has helped you learn how to build secure Angular and Spring Boot apps. Using OpenID Connect is a recommended practice for authenticating full-stack apps like this one and Auth0 makes it easy to do. Adding CSRF protection and packaging your Spring Boot + Angular app as a single artifact is super cool too!
+I hope this post has helped you learn how to build secure Angular and Spring Boot apps. Using OpenID Connect is a recommended practice for authenticating full-stack apps like this one, and Auth0 makes it easy to do. Adding CSRF protection and packaging your Spring Boot + Angular app as a single artifact is super cool too!
 
 We've written some other fun Spring Boot, Angular, and JHipster tutorials. Check them out!
 
@@ -1744,7 +1744,7 @@ We've written some other fun Spring Boot, Angular, and JHipster tutorials. Check
 
 I've also written a couple of InfoQ mini-books that you might find useful:
 
-- [The JHipster Mini-Book](https://www.infoq.com/minibooks/jhipster-mini-book/): Shows you how I built [21-Points Health](https://www.21-points.com) with JHipster (Angular, Spring Boot, and more). 
-- [The Angular Mini-Book](https://www.infoq.com/minibooks/angular-mini-book/): An in-depth guide to Angular, Bootstrap, and Spring Boot, with lots of cloud deployment guides. 
+- [The JHipster Mini-Book](https://www.infoq.com/minibooks/jhipster-mini-book/): Shows you how I built [21-Points Health](https://www.21-points.com) with JHipster (Angular, Spring Boot, and more).
+- [The Angular Mini-Book](https://www.infoq.com/minibooks/angular-mini-book/): An in-depth guide to Angular, Bootstrap, and Spring Boot, with lots of cloud deployment guides.
 
 If you have any questions, please leave a comment below. If you want to see the code for this project, check out its [GitHub repo](https://github.com/oktadev/auth0-spring-boot-angular-crud-example). Follow us on [Twitter](https://twitter.com/oktadev) and [YouTube](https://youtube.com/oktadev) for more content like this.
