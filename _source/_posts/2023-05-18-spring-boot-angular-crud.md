@@ -406,14 +406,12 @@ The Angular CLI was a revolutionary tool when it was released in 2016. It's now 
 You don't have to install Angular CLI globally. The `npx` command can install and run it for you.
 
 ```shell
-npx @angular/cli@16.0.0-rc.3 new app --routing --style css
+npx @angular/cli@16 new app --routing --style css
 ```
-
-<!-- Angular 16 scheduled for release week of 2023-05-01. https://angular.io/guide/releases --> 
 
 Of course, you can use the tried-and-true `npm i -g @angular/cli` and `ng new app --routing --style css` if you prefer. You can even remove the version number if you want to live on the edge.
 
-After the app creation process completes, navigate into the `app` directory and install [Angular Material](https://material.angular.io/) to make the UI look better, particularly on mobile devices.
+After the app creation process completes, navigate into the `app` directory and install [Angular Material](https://material.angular.io/) to make the UI look beautiful, particularly on mobile devices.
 
 ```shell
 cd app
