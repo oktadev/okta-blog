@@ -4,7 +4,7 @@ title: "OAuth2 microservices with Keycloak on Google Kubernetes Engine"
 author:
 by: contractor
 communities: [devops,security,java]
-description: "A walk-through of building a microservices architecture with JHipster, Keycloak for OAuth2, and Google Kubernetes Engine (GKE) deployment. Keycloak as identity broker with Auth0 as the identity provider."
+description: "A walk-through of building a microservices architecture with JHipster, Keycloak for OAuth 2.0, and Google Kubernetes Engine (GKE) deployment."
 tags: [keycloak, kubernetes, java, jhipster, security, oauth2]
 tweets:
 - ""
@@ -13,7 +13,7 @@ tweets:
 image:
 type: awareness
 ---
-Keycloak is an open-source identity and access management solution that allows you to secure your applications and services with ease. JHipster, on the other hand, is a powerful development platform that provides developers with the tools they need to create modern, scalable, and robust web applications.
+Keycloak is an open-source identity and access management solution that allows you to secure your applications and services with ease. JHipster, on the other hand, is a powerful development platform that provides developers with the tools they need to create modern, scalable, and robust web applications using Spring Boot.
 
 Keycloak is the default OpenID Connect server configured with JHipster. Using Keycloak with JHipster is an excellent way to ensure that your web applications are secure and well-protected from unauthorized access. By integrating Keycloak with JHipster, you can easily implement authentication and authorization in your application, manage user identities, and provide secure access to resources.
 
@@ -167,7 +167,7 @@ Create a [Docker Hub](https://hub.docker.com/) personal account, if you don't ha
 
 ### Run the Kubernetes sub-generator
 
-Now let's generate the Kubernetes Yaml descriptors using JHipster. During the process, the generator will prompt for an FQDN (Fully qualified domain name) for the Ingress services, so let's first create a public IP on Google Cloud. With the help of [nip.io](nip.io), if you set <public-ip>.nip.io as your FQDN, you can test the deployment without having to purchase a real domain.
+Now let's generate the Kubernetes descriptors using JHipster. During the process, the generator will prompt for an FQDN (Fully qualified domain name) for the Ingress services, so let's first create a public IP on Google Cloud. With the help of [nip.io](nip.io), if you set <public-ip>.nip.io as your FQDN, you can test the deployment without having to purchase a real domain.
 
 Google Cloud provides a [free tier](https://cloud.google.com/free) of their services that grants you $300 in free credits if you are a new user.
 
@@ -332,7 +332,7 @@ The `Challenge` resource is queued for scheduled processing. The challenge contr
 
 ### The HTTP01 Ingress solver
 
-The HTTP-01 challenge is the most common challenge type. Let's Encrypt gives a token to the agent, and the agent must place a file at http://<YOUR_DOMAIN>/.well-known/acme-challenge/<TOKEN> that contains the token and a thumbprint (computation) of the agent. Once the agent tells Let's Encrypt that the file is ready, Let's Encrypt validates the file and issues the certificate.
+The HTTP-01 challenge is the most common challenge type. Let's Encrypt gives a token to the agent, and the agent must place a file at `http://<YOUR_DOMAIN>/.well-known/acme-challenge/<TOKEN>` that contains the token and a thumbprint (computation) of the agent. Once the agent tells Let's Encrypt that the file is ready, Let's Encrypt validates the file and issues the certificate.
 
 The challenge type is configured in the issuer, along with the ingress class for the solver. cert-manager will create a new Ingress resource to route Let's Encrypt challenge requests to the solver pods, which are also created automatically.
 
@@ -345,7 +345,7 @@ The following annotations are added by the k8s sub-generator in the ingress reso
 
 ## Delegate authentication to Auth0
 
-Keycloak supports identity provider federation, meaning it can be configured to delegate authentication to one or more Identity Providers. An example of IDP federation is social login via Facebook or Google. Authentication can be delegated to any IDP supporting OpenID Connect or SAML 2.0. Auth0 uses the OpenID Connect protocol to authenticate users and allows adding custom logic to the login and identity flows via Auth0 Actions. JHipster applications require custom token claims for authorization,  and these can be configured using Auth0 Actions. The sections below describe the step-by-step process to add Auth0 authentication to the gateway using Keycloak, without making any application changes. You can find a detailed description of the [brokering flow](https://www.keycloak.org/docs/latest/server_admin/#_identity_broker_overview) in the Keycloak server administration guide.
+Keycloak supports identity provider federation, meaning it can be configured to delegate authentication to one or more Identity Providers. An example of IDP federation is social login via Facebook or Google. Authentication can be delegated to any IDP supporting OpenID Connect or SAML 2.0. Auth0 uses the OpenID Connect protocol to authenticate users and allows adding custom logic to the login and identity flows via Auth0 Actions. JHipster applications require custom access token claims for authorization, and these can be configured using Auth0 Actions. The sections below describe the step-by-step process to add Auth0 authentication to the gateway using Keycloak, without making any application changes. You can find a detailed description of the [brokering flow](https://www.keycloak.org/docs/latest/server_admin/#_identity_broker_overview) in the Keycloak server administration guide.
 
 ### Create an Auth0 account
 
@@ -359,7 +359,7 @@ The terminal will display a device confirmation code and open a browser session 
 
 **NOTE**: My browser was not displaying anything, so I had to manually activate the device by opening the URL `https://auth0.auth0.com/activate?user_code={deviceCode}`.
 
-On successful login, you will see the tenant, which you will use as issuer later:
+On successful login, you will see the tenant, which you will use as the issuer later:
 
 ```
 ✪ Welcome to the Auth0 CLI 🎊
@@ -422,7 +422,7 @@ Allowed Logout URLs: ***
 
 ### Create users and roles
 
-As Auth0 will be used as the identity provider, you must create some test users. With auth0-cli:
+As Auth0 will be used as the identity provider, you must create some test users. You can do this with the Auth0 CLI:
 
 ```shell
 auth0 users create
@@ -445,7 +445,7 @@ Connection Name: Username-Password-Authentication
 
 Save the ID for later.
 
-For this example, Auth0 will also be used for role management. JHipster applications are generated with authorization based on two roles that can be assigned to the user: `ROLE_USER` and `ROLE_ADMIN`. Create those roles in Auth0:
+For this example, Auth0 will also be used for role management. JHipster applications are generated with authorization based on two roles that can be assigned to the user: `ROLE_USER` and `ROLE_ADMIN`. Create these roles in Auth0:
 
 ```shell
 autho0 roles create
@@ -485,9 +485,9 @@ User ID: auth0|643ec0e1e671c7c9c5916ed6
 
 ### Configure a Login Action
 
-Besides the roles assignment just explained, the authentication flow must be customized to add the roles and the username to the custom token claims expected by JHipster applications. The way to accomplish this task with Auth0 is by adding a Login Action.
+Besides the roles assignment I just explained, the authentication flow must be customized to add the roles and the username to the access token claims expected by JHipster applications. The way to accomplish this task with Auth0 is by adding a Login Action.
 
-First [configure the editor](https://github.com/auth0/auth0-cli#customization) to use in the environment:
+First [configure your preferred editor](https://github.com/auth0/auth0-cli#customization) to use with the Auth0 CLI:
 
 ```shell
 export EDITOR=nano
@@ -584,14 +584,14 @@ Now that all is set on the identity provider side, let's configure Keycloak as a
 
 ### Add the Auth0 Identity Provider
 
-Navigate to **http://keycloak.\<namespace\>.\<public-ip\>.nip.io**, sign in with admin/admin. On the welcome page, choose **Administration Console**. On the left menu, for the top options,  choose the **jhipster** realm. Then, at the bottom of the menu, choose **Identity providers**. In the User-defined section, choose **OpenID Connect v1.0**. Fill in the provider configuration as follows:
+Navigate to **http://keycloak.\<namespace\>.\<public-ip\>.nip.io**, and sign in with admin/admin. On the welcome page, choose **Administration Console**. On the left menu, for the top options,  choose the **jhipster** realm. Then, at the bottom of the menu, choose **Identity providers**. In the User-defined section, choose **OpenID Connect v1.0**. Fill in the provider configuration as follows:
 
 - RedirectURI: **(pre-filled)**
 - Alias: **auth0**
 - User discovery endpoint: **On**
-- Discovery endpoint: **https://\<auth0-tenant\>/.well-known/openid-configuration**
+- Discovery endpoint: **https://\<auth0-domain\>/.well-known/openid-configuration**
 - Client authentication: **Client secret sent as post**
-- Client ID: **auht0-client-id**
+- Client ID: **auth0-client-id**
 - Client Secret: **auth0-client-secret**
 
 Click on **Add** to continue the configuration. Below the Client Secret field, click on **Advanced**. In the _Scopes_ field, set `openid profile email offline_access` and click on **Save**.
@@ -609,7 +609,7 @@ The users that sign in through Auth0 are imported to Keycloak. The role assigned
 - Name: **ROLE_USER**
 - Sync mode override: **Force** (update the user roles during every login)
 - Mapper type: **Claim to Role**
-- Claim: **https://www\\.jhipster\\.tech/roles** (escape the dot (.) with backslash (\\.))
+- Claim: **https://www\\.jhipster\\.tech/roles** (escape the dot `.` with backslash `\\.`)
 - Claim Value: **ROLE_USER**
 - Role: Select **ROLE_USER**
 
@@ -619,7 +619,7 @@ Repeat the process for mapping `ROLE_ADMIN`.
 
 ### Test Keycloak as an identity broker
 
-Navigate to **http://gateway.\<namespace\>.\<public-ip\>.nip.io**, the gateway home must display. Click on **sign in** and the browser should be redirected to the Auth0 sign-in form:
+Navigate to **http://gateway.\<namespace\>.\<public-ip\>.nip.io**. The gateway homepage should display. Click on **sign in** and you should be redirected to the Auth0 sign-in form:
 
 {% img blog/keycloak-kubernetes-prod/auth0-login.png alt:"Add mapper form" width:"350" %}{: .center-image }
 
@@ -634,4 +634,4 @@ I hope you enjoyed this post and learned about some best practices for deploying
 - [Full Stack Java with React, Spring Boot, and JHipster](https://auth0.com/blog/full-stack-java-with-react-spring-boot-and-jhipster/)
 - [Introducing Spring Native for JHipster: Serverless Full-Stack Made Easy](/blog/2022/03/03/spring-native-jhipster)
 
-For more tutorials like this one, follow [@oktadev](https://twitter.com/oktadev) on Twitter. We also have a [YouTube channel](https://youtube.com/c/oktadev) you might like. If you have any questions, please leave a comment below!
+For more tutorials like this one, follow [@oktadev](https://twitter.com/oktadev) on Twitter. We also have a [YouTube channel](https://youtube.com/oktadev) you might like. If you have any questions, please leave a comment below!
