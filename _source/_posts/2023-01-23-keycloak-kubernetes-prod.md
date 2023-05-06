@@ -23,7 +23,7 @@ The JHipster Kubernetes generator creates all the necessary Kubernetes resources
 
 {% include toc.md %}
 
-## Best practices for Keycloak in production
+## Recommended practices for Keycloak in production
 
 Keycloak can be started in development mode with the `start-dev` command or production mode with the `start` command. Production mode follows a _secure by default_ principle and expects _hostname_ and _HTTPS/TLS_ configuration to be set, otherwise, Keycloak won't start and will display an error. Also, in production mode HTTP is disabled by default.
 
@@ -338,10 +338,20 @@ The challenge type is configured in the issuer, along with the ingress class for
 
 The following annotations are added by the k8s sub-generator in the ingress resource, for the challenge solver to work and the TLS certificate to be automatically created by cert-manager:
 
-- `kubernetes.io/ingress.allow-http: "true"`: Required to allow HTTP connections from challenge requests
-- `cert-manager.io/issuer: letsencrypt-staging`: The name of the issuer to acquire the certificate, which must be in the same namespace
-- `acme.cert-manager.io/http01-edit-in-place: "true"`: The ingress is modified in place, instead of creating a new ingress resource for the HTTP01 challenge
-- `cert-manager.io/issue-temporary-certificate: "true"`: A temporary certificate will be set on the secret until the final certificate has been returned. used for keeping compatibility with the `ingress-gce` component.
+```yml
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: gateway
+  namespace: demo
+  annotations:
+    kubernetes.io/ingress.allow-http: "true" # Required to allow HTTP connections from challenge requests
+    kubernetes.io/ingress.class: gce
+    kubernetes.io/ingress.global-static-ip-name: gateway-ip
+    cert-manager.io/issuer: letsencrypt-staging # The name of the issuer to acquire the certificate, which must be in the same namespace
+    acme.cert-manager.io/http01-edit-in-place: "true" # The ingress is modified in place, instead of creating a new ingress resource for the HTTP01 challenge
+    cert-manager.io/issue-temporary-certificate: "true" # A temporary certificate will be set on the secret until the final certificate has been returned. used for keeping compatibility with the `ingress-gce` component
+```
 
 ## Delegate authentication to Auth0
 
@@ -627,7 +637,7 @@ After signing in, the gateway home page will display the username (email). If ro
 
 ## Learn More about Keycloak in production
 
-I hope you enjoyed this post and learned about some best practices for deploying Keycloak to production when doing JHipster development. Keep learning about Keycloak and JHipster! Check out the following links:
+I hope you enjoyed this post and learned about some best practices for deploying Keycloak to production when doing JHipster development. Keep learning about Keycloak and Spring Boot! Check out the following links:
 
 - [Integrate React Native and Spring Boot Securely](/blog/2022/10/12/integrate-react-native-and-spring-boot-securely)
 - [Use GitHub Actions to Build GraalVM Native Images](/blog/2022/04/22/github-actions-graalvm)
