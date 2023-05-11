@@ -619,7 +619,7 @@ The users that sign in through Auth0 are imported to Keycloak. The role assigned
 - Claim Value: **ROLE_USER**
 - Role: Select **ROLE_USER**
 
-Repeat the process for mapping `ROLE_ADMIN`.
+Repeat the process for mapping ROLE_ADMIN.
 
 {% img blog/keycloak-kubernetes-prod/role-mapper.png alt:"Add mapper form" width:"800" %}{: .center-image }
 
