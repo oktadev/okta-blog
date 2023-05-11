@@ -1,6 +1,6 @@
 ---
 layout: blog_post
-title: "OAuth2 microservices with Keycloak on Google Kubernetes Engine"
+title: "Keycloak in Production with Spring Boot and JHipster"
 author:
 by: contractor
 communities: [devops,security,java]
@@ -15,9 +15,9 @@ type: awareness
 ---
 Keycloak is an open-source identity and access management solution that allows you to secure your applications and services with ease. JHipster, on the other hand, is a powerful development platform that provides developers with the tools they need to create modern, scalable, and robust web applications using Spring Boot.
 
-Keycloak is the default OpenID Connect server configured with JHipster. Using Keycloak with JHipster is an excellent way to ensure that your web applications are secure and well-protected from unauthorized access. By integrating Keycloak with JHipster, you can easily implement authentication and authorization in your application, manage user identities, and provide secure access to resources.
+Keycloak is the default OpenID Connect server configured with JHipster. Using Keycloak with JHipster is an excellent way to ensure that your web applications are secure and well-protected from unauthorized access. By integrating Keycloak to your applications, you can easily implement authentication and authorization, manage user identities, and provide secure access to resources.
 
-The JHipster Kubernetes generator creates all the necessary Kubernetes resources, such as deployments, services, and ingresses, based on the configuration of the JHipster application. This includes setting up the database, configuring security, and setting up any necessary environment variables. Since JHipster 8, the Kubernetes sub-generator supports Keycloak for Ingress GKE deployment. In this post, I'll walk you through the generation of a demo JHipster microservices application with Keycloak integration, and its deployment to Google Kubernetes Engine (GKE).
+The JHipster Kubernetes generator creates all the necessary Kubernetes resources, such as deployments, services, and ingresses, based on the configuration of the JHipster application. This includes setting up the database, configuring security, and setting up any necessary environment variables. Since JHipster 8, the Kubernetes sub-generator supports Keycloak for Ingress GKE deployment. In this post, I'll walk you through the generation of a demo Spring Boot microservices application with Keycloak integration using JHipster, and its deployment to Google Kubernetes Engine (GKE).
 
 {% img blog/keycloak-kubernetes-prod/keycloak-gke.png alt:"Keycloak, JHipster, GKE logos" width:"500" %}{: .center-image }
 
@@ -35,11 +35,11 @@ Keycloak documentation provides some key guidelines for production deployment th
 - **Production grade database**: The database plays a crucial role in the performance and Keycloak supports several production-grade databases, including PostgreSQL.
 - **High Availability**: Choose multi-mode clustered deployment. In production mode, distributed caching of realm and session data is enabled and all nodes in the network are discovered.
 
-## Deploy microservices and Keycloak to Google Cloud
+## Deploy Spring Boot microservices and Keycloak to Google Kubernetes Engine
 
-In this walkthrough, you will build a microservices architecture example from JHipster, consisting of a `gateway` application based on Spring Gateway and two reactive microservices `blog` and `store`. The `gateway` will act as the entrance to your microservices, providing HTTP routing and load balancing, quality of service, security and API documentation for all microservices. With the help of the JHipster Kubernetes sub-generator, you can deploy the application and its required services (Consul for service discovery, and Keycloak for OpenID Connect) to Google Kubernetes Engine (GKE).
+In this walkthrough, you will build a microservices architecture example from JHipster, consisting of a `gateway` application based on Spring Gateway and two Spring Boot reactive microservices `blog` and `store`. The `gateway` will act as the entrance to your microservices, providing HTTP routing and load balancing, quality of service, security and API documentation for all microservices. With the help of the JHipster Kubernetes sub-generator, you can deploy the application and its required services (Consul for service discovery, and Keycloak for OpenID Connect) to Google Kubernetes Engine (GKE).
 
-### Build a microservices architecture
+### Build the Spring Boot microservices architecture
 
 Install JHipster, you can do the classical local installation with npm.
 
@@ -76,8 +76,6 @@ application {
     authenticationType oauth2
     buildTool gradle
     databaseType neo4j
-    devDatabaseType neo4j
-    prodDatabaseType neo4j
     enableHibernateCache false
     serverPort 8081
     serviceDiscoveryType consul
@@ -94,8 +92,6 @@ application {
     authenticationType oauth2
     buildTool gradle
     databaseType mongodb
-    devDatabaseType mongodb
-    prodDatabaseType mongodb
     enableHibernateCache false
     serverPort 8082
     serviceDiscoveryType consul
@@ -125,7 +121,7 @@ entity Product {
 }
 
 relationship ManyToOne {
-  Blog{user(login)} to User
+  Blog{user(login)} to User with builtInEntity
   Post{blog(name)} to Blog
 }
 
@@ -242,7 +238,7 @@ gcloud container clusters create jhipster-cluster \
 Install [cert-manager](https://cert-manager.io/docs/tutorials/getting-started-with-cert-manager-on-google-kubernetes-engine-using-lets-encrypt-for-ingress-ssl/) in your cluster:
 
 ```shell
-kubectl apply -f https://github.com/cert-manager/cert-manager/releases/download/v1.10.0/cert-manager.yaml
+kubectl apply -f https://github.com/cert-manager/cert-manager/releases/download/v1.11.0/cert-manager.yaml
 ```
 
 Apply the deployment descriptors, from the `kubernetes` folder:
@@ -455,7 +451,7 @@ Connection Name: Username-Password-Authentication
 
 Save the ID for later.
 
-For this example, Auth0 will also be used for role management. JHipster applications are generated with authorization based on two roles that can be assigned to the user: `ROLE_USER` and `ROLE_ADMIN`. Create these roles in Auth0:
+For this example, Auth0 will also be used for role management. JHipster applications are generated with authorization based on two roles that can be assigned to the user: ROLE_USER and ROLE_ADMIN. Create these roles in Auth0:
 
 ```shell
 autho0 roles create
