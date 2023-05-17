@@ -10,6 +10,8 @@ tweets:
 - "Let's demystify authentication and authorization in single-page applications with this step-by-step explanation!"
 image: blog/spa-auth-tokens/social.jpg
 type: awareness
+changelog:
+- 2023-04-26: Embedded a link to a [companion YouTube video](https://youtu.be/UZQ_ke8BuRU).
 ---
 
 Adding authentication to public clients such as Single Page Applications (SPA) and JavaScript applications can be a source of confusion. Identity Providers like Okta try to help you via multiple support systems. Still, it can feel like a lot of work. Especially since you're responsible for way more than authentication alone in the applications you work on!
@@ -17,6 +19,10 @@ Adding authentication to public clients such as Single Page Applications (SPA) a
 As part of authentication, your client application makes multiple calls to an authorization server, and you get back several strings, which are tokens. Let's demystify what's going on behind the scenes and closely examine what those tokens are and how you use them within your client application.
 
 {% include toc.md %}
+
+There's a [companion video for this post](https://youtu.be/UZQ_ke8BuRU) if you want to check out how to run a SPA sample application, look at browser storage, and inspect network calls. 
+
+{% youtube UZQ_ke8BuRU %}
 
 ## Authentication and Authorization using OAuth 2.0 + OpenID Connect (OIDC)
 OAuth 2.0 with OIDC is the best practice for adding authentication and authorization to your software applications. Authentication verifies the identity of who you claim to be, and authorization verifies you have access to data you want to see or actions you want to perform. It is lightweight with less effort to set up and use than Security Assertion Markup Language (SAML), an alternate authentication and authorization mechanism that pre-existing systems may use. For newer systems, you'll want to use OAuth 2.0 + OIDC.
@@ -225,6 +231,5 @@ If you liked this post, you might want to check out the following:
 * [The Identity of OAuth Public Clients](/blog/2022/06/01/oauth-public-client-identity)
 * [Is the OAuth 2.0 Implicit Flow Dead?](/blog/2019/05/01/is-the-oauth-implicit-flow-dead)
 * [The Things to Keep in Mind about Auth](/blog/2021/10/29/things-to-keep-in-mind-about-auth)
-* [Quick JavaScript Authentication with OktaDev Schematics](blog/2022/10/14/quick-javascript-authentication)
 
 Remember to follow us on [Twitter](https://twitter.com/oktadev) and subscribe to our [YouTube channel](https://www.youtube.com/c/OktaDev/) for more exciting content. We also want to hear about what tutorials you want to see. Leave us a comment below.
