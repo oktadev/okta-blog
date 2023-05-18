@@ -15,9 +15,11 @@ tweets:
 - "Build a Java REST API with @JettyProject and learn how to lock it down with OAuth 2.0 in this tutorial."
 image: blog/featured/okta-java-short-bottle-headphones.jpg
 type: conversion
+redirect_to:
+  - "/blog/2023/04/26/java-jetty-oauth"
 ---
 
-Jetty is a small, highly-scalable Java-based web server and servlet engine. It supports HTTP/2, WebSockets, and many other protocols. It powers websites and frameworks, both large and small, such as Google AppEngine. Because it is an Eclipse project, its open source project is called Eclipse Jetty. it is standards compliant and open source, as well as commercially usable. It is the main alternative to Tomcat when hosting Java applications. Like you can with Tomcat, you can use Jetty both embedded and stand-alone. 
+Jetty is a small, highly-scalable Java-based web server and servlet engine. It supports HTTP/2, WebSockets, and many other protocols. It powers websites and frameworks, both large and small, such as Google AppEngine. Because it is an Eclipse project, its open source project is called Eclipse Jetty. it is standards compliant and open source, as well as commercially usable. It is the main alternative to Tomcat when hosting Java applications. Like you can with Tomcat, you can use Jetty both embedded and stand-alone.
 
 By default, Spring Boot creates applications with embedded web servers, which means that the server is embedded within the application code itself, so you don't have to run a separate web server to publish Java web applications. However, with a little configuration, you can also publish a WAR file to a separate Jetty or Tomcat servlet container (old-school application server style). Spring also uses Tomcat by default, but you can easily change this, as you'll see.
 
@@ -219,13 +221,14 @@ Tour du Mont Blanc
 Teton Crest Trail
 Everest Base Camp via Cho La Pass
 Kesugi Ridge
-
 ```
 
 POST a new hike:
+
 ```
 http -f POST :8080/hikes hike="Pear Lake"
 ```
+
 ```
 HTTP/1.1 200 OK
 ...

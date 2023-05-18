@@ -4,7 +4,7 @@ title: "Streamline Your Okta Configuration in Angular Apps"
 author: alisa-duncan
 by: advocate
 communities: [javascript]
-description: ""
+description: "Introducing a new method to configure Okta authentication in your Angular apps using the forRoot pattern! Read on to learn how this pattern works and why you'd want to use it."
 tags: [angular]
 tweets:
 - "Follow best patterns to quickly add your Okta configuration to #Angular apps by using the forRoot pattern!"
