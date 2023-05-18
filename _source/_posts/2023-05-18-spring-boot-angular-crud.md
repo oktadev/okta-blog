@@ -100,6 +100,8 @@ Once you're authenticated, you'll see a link to manage your JUG Tours.
 
 You should be able to add new groups and events, as well as edit and delete them.
 
+// todo: change date and topic in screenshot below
+
 {% img blog/spring-boot-angular/jug-tours-list.png alt:"List of JUG Tours" width:"800" %}{: .center-image }
 
 ### Verify Cypress end-to-end tests pass
@@ -1021,6 +1023,8 @@ form, h2 {
 
 Now, with your Angular app running, you should be able to add and edit groups! Yaasss! 👏👏👏
 
+// todo: update screenshot to include topic
+
 {% img blog/spring-boot-angular/group-edit.png alt:"Edit a group and add events" width:"800" %}{: .center-image }
 
 To make the navbar at the top use Angular Material colors, update `app.component.html` with the following:
@@ -1698,7 +1702,7 @@ npx cypress run --browser electron --config baseUrl=http://localhost:8080
 
 I hope this tutorial has helped you learn how to build secure Angular and Spring Boot apps. Using OpenID Connect is a recommended practice for authenticating full-stack apps like this one, and Auth0 makes it easy to do. Adding CSRF protection and packaging your Spring Boot + Angular app as a single artifact is super cool too!
 
-We've written some other fun Spring Boot, Angular, and JHipster tutorials. Check them out!
+We've written related tutorials about Spring Boot, Angular, and JHipster:
 
 - [Build a Simple CRUD App with Spring Boot and Vue.js](https://auth0.com/blog/build-crud-spring-and-vue/)
 - [Use React and Spring Boot to Build a Simple CRUD App](https://auth0.com/blog/simple-crud-react-and-spring-boot/)
@@ -1707,7 +1711,7 @@ We've written some other fun Spring Boot, Angular, and JHipster tutorials. Check
 
 I've also written a couple of InfoQ mini-books that you might find useful:
 
-- [The JHipster Mini-Book](https://www.infoq.com/minibooks/jhipster-mini-book/): Shows you how I built [21-Points Health](https://www.21-points.com) with JHipster (Angular, Spring Boot, and more).
-- [The Angular Mini-Book](https://www.infoq.com/minibooks/angular-mini-book/): An in-depth guide to Angular, Bootstrap, and Spring Boot, with lots of cloud deployment guides.
+- [The JHipster Mini-Book](https://www.infoq.com/minibooks/jhipster-mini-book/): Shows how I built [21-Points Health](https://www.21-points.com) with JHipster (Angular, Spring Boot, Bootstrap, and more).
+- [The Angular Mini-Book](https://www.infoq.com/minibooks/angular-mini-book/): An in-depth guide to Angular, Bootstrap, Spring Boot, and DevOpts with several cloud deployment guides.
 
 If you have any questions, please leave a comment below. If you want to see the code for this project, check out its [GitHub repo](https://github.com/oktadev/auth0-spring-boot-angular-crud-example). Follow us on [Twitter](https://twitter.com/oktadev) and [YouTube](https://youtube.com/oktadev) for more content like this.
