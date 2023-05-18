@@ -10,7 +10,7 @@ tweets:
 - ""
 - ""
 - ""
-image: blog/step-up-auth/stepup.png
+image: blog/step-up-auth/stepup.jpg
 type: awareness
 ---
 
@@ -108,7 +108,7 @@ With **OIDC**, this behavior is achievable using the `acr_values` and `max_a
 
 The following diagram steps through the sequence of access-
 
-{% img blog/step-up-auth/request-timing.png  alt:"timing of authentication and re-authentication" width:"800" %}
+{% img blog/step-up-auth/request-timing.jpg  alt:"timing of authentication and re-authentication" width:"800" %}
 
 
 -   The acr_values parameter will have the assurance level requested for a session. 
