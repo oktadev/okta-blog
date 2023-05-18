@@ -16,7 +16,7 @@ type: awareness
 
 # Step-up Authentication with Okta Workforce Identity Cloud
 
-Step-up authentication in an application is a pattern of allowing access to non-critical resources using basic level of authentication, and requiring additional authentications for critical resources. This has the effect of providing a balance between frictionless user experience and security in an application.
+Step-up authentication in an application is a pattern of allowing access to non-critical resources using a basic level of authentication, and requiring additional authentication for critical resources. This offers a balance between frictionless user experience and security in an application.
 
 There are several methodologies to provide the functionality as discussed [here](/blog/2023/03/08/step-up-auth). 
 
@@ -27,19 +27,19 @@ In this article we will explore few ways [Okta Workforce Identity Cloud (WIC)](h
 
 ### Using ACR values
 
-WIC supports `acr_values` (Authentication Context Class Reference values) parameter as defined in [OIDC specification](https://openid.net/specs/openid-connect-core-1_0.html#AuthorizationEndpoint) to provide the step-up authentication functionality.  
+WIC supports the `acr_values` (Authentication Context Class Reference values) parameter as defined in [OIDC specification](https://openid.net/specs/openid-connect-core-1_0.html#AuthorizationEndpoint) to provide the step-up authentication functionality.  
 
 **Scenario**
 
-* Application using **OIDC** for authentication- It can be a web, single page application (SPA) or native mobile application.
+* An application is using **OIDC** for authentication- It can be a web application, single page application (SPA) or native mobile application.
 
-* The need is to maintain a basic assurance level for a user session after user initially authenticates to the application.
+* A basic assurance level for a user session must be maintained after user initially authenticates to the application.
 
 * When the user accesses a sensitive resource, she should be prompted for step-up authentication using additional authentication factors.
 
 * Once step-up is successful, the user session should move to a higher assurance level for a specified duration of time.  
 
-* Next time the sensitive resource is accessed within the stipulated period, no more challenges should be presented, ensuring a relatively friction-less user experience.
+* Next time the sensitive resource is accessed within the stipulated period, no more challenges should be presented, ensuring a relatively frictionless user experience.
 
 
 **Solution**
@@ -55,9 +55,9 @@ WIC supports `acr_values` (Authentication Context Class Reference values) parame
 
 * Currently WIC supports a pre-defined [list](https://developer.okta.com/docs/guides/step-up-authentication/main/#predefined-parameter-values) of `acr_values`. These values are mapped to assurance levels supported in WIC [authentication policies](https://help.okta.com/oie/en-us/Content/Topics/identity-engine/policies/about-app-sign-on-policies.htm).
 
-* The non-Okta specific defined values such as `phr` and `phrh` are taken from [this](https://openid.net/specs/openid-connect-eap-acr-values-1_0.html#OpenID.PAPE) OIDC spec. 
+* The non-Okta-specific defined values such as `phr` and `phrh` are taken from [this](https://openid.net/specs/openid-connect-eap-acr-values-1_0.html#OpenID.PAPE) OIDC spec. 
 
-* The following guide explains the capability in more details - [Guide](https://developer.okta.com/docs/guides/step-up-authentication/main/)
+* [This guide](https://developer.okta.com/docs/guides/step-up-authentication/main/) explains the capability in more detail.
 
 * **Limitation**: Currently it is not possible to define custom `acr_values` 
 
@@ -91,9 +91,9 @@ Refer to this [sample app](https://github.com/indranilokg/WIC/tree/main/Step%20U
 
 **Scenario**
 
-* Application using **OIDC** for authentication- It can be a web, single page application (SPA) or native mobile application.
+* An application is using **OIDC** for authentication- It can be a web application, single page application (SPA) or native mobile application.
 
-* Every time the user accesses sensitive area of an application, she needs to be prompted for re-authentication.
+* Every time the user accesses a sensitive area of an application, she needs to be prompted for re-authentication.
 
 **Solution**
 
@@ -133,7 +133,7 @@ What about applications that don't use OIDC?
 
 **Scenario**
 
-* Any web, desktop or native application, not using OIDC to integrate with WIC.
+* A web, desktop, or native application is not using OIDC to integrate with WIC.
 
 * A secure middleware/business layer is available to the application, such as in 3-tiered web applications.
 
@@ -243,3 +243,5 @@ We will look at CIBA based scenario in more detail in a later article.
 ## In summary
 
 Whether you application is using modern protocols such as OpenID Connect or built from legacy technologies, Okta's Workforce Identity Cloud can help you prompt users to step-up their authentication only when necessary for accessing sensitive resources. 
+
+Use your [Okta Developer Account](https://developer.okta.com/signup/) to test different step-up authentication flows and determine which is best for your application!
