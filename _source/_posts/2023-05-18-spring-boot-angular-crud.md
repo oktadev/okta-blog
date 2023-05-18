@@ -1023,6 +1023,8 @@ Now, with your Angular app running, you should be able to add and edit groups! Y
 
 {% img blog/spring-boot-angular/group-edit.png alt:"Edit a group and add events" width:"800" %}{: .center-image }
 
+{% img blog/spring-boot-angular/group-edit.png alt:"Edit a group and add events" width:"800" %}{: .center-image }
+
 To make the navbar at the top use Angular Material colors, update `app.component.html` with the following:
 
 {% raw %}
@@ -1696,7 +1698,7 @@ npx cypress run --browser electron --config baseUrl=http://localhost:8080
 
 ## Build something fabulous with Spring Boot and Angular!
 
-I hope this tutorial has helped you learn how to build secure Angular and Spring Boot apps. Using OpenID Connect is a recommended practice for authenticating full-stack apps like this one, and Auth0 makes it easy to do. Adding CSRF protection and packaging your Spring Boot + Angular app as a single artifact is super cool too!
+I hope this post has helped you learn how to build secure Angular and Spring Boot apps. Using OpenID Connect is a recommended practice for authenticating full-stack apps like this one, and Auth0 makes it easy to do. Adding CSRF protection and packaging your Spring Boot + Angular app as a single artifact is super cool too!
 
 We've written some other fun Spring Boot, Angular, and JHipster tutorials. Check them out!
 
