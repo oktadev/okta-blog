@@ -1023,8 +1023,6 @@ Now, with your Angular app running, you should be able to add and edit groups! Y
 
 {% img blog/spring-boot-angular/group-edit.png alt:"Edit a group and add events" width:"800" %}{: .center-image }
 
-{% img blog/spring-boot-angular/group-edit.png alt:"Edit a group and add events" width:"800" %}{: .center-image }
-
 To make the navbar at the top use Angular Material colors, update `app.component.html` with the following:
 
 {% raw %}
