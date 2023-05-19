@@ -138,18 +138,16 @@ The easiest way to create a new Spring Boot app is to navigate to [start.spring.
 
 Click **Generate Project**, expand `jugtours.zip` after downloading, and open the project in your favorite IDE.
 
-You can also use [this link](https://start.spring.io/#!type=maven-project&language=java&platformVersion=3.1.0-RC1&packaging=jar&jvmVersion=17&groupId=com.okta.developer&artifactId=jugtours&name=jugtours&description=Track%20your%20JUG%20Tours!&packageName=com.okta.developer.jugtours&dependencies=data-jpa,h2,web,validation) or [HTTPie](https://httpie.io/) to create the project from the command line:
+You can also use [this link](https://start.spring.io/#!type=maven-project&language=java&platformVersion=3.1.0&packaging=jar&jvmVersion=17&groupId=com.okta.developer&artifactId=jugtours&name=jugtours&description=Track%20your%20JUG%20Tours!&packageName=com.okta.developer.jugtours&dependencies=data-jpa,h2,web,validation) or [HTTPie](https://httpie.io/) to create the project from the command line:
 
 ```shell
-https start.spring.io/starter.zip type==maven-project bootVersion==3.1.0-RC1 \
+https start.spring.io/starter.zip type==maven-project bootVersion==3.1.0 \
   dependencies==data-jpa,h2,web,validation \
   language==java platformVersion==17 \
   name==jugtours artifactId==jugtours \
   groupId==com.okta.developer packageName==com.okta.developer.jugtours \
   baseDir==jugtours | tar -xzvf -
 ```
-
-<!-- Spring Boot 3.1.0 scheduled for May 18. https://calendar.spring.io/ -->
 
 ### Add a JPA domain model
 
@@ -470,11 +468,12 @@ Before this compiles, you'll need to create a `app/src/app/model/group.ts` file 
 
 ```typescript
 export class Group {
-  id: number;
+  id: number | null;
   name: string;
-  constructor(obj?: any) {
-    this.id = obj?.id || null;
-    this.name = obj?.name || null;
+
+  constructor(group: Partial<Group> = {}) {
+    this.id = group?.id || null;
+    this.name = group?.name || '';
   }
 }
 ```
@@ -915,14 +914,14 @@ Create a `model/event.ts` file so this component will compile.
 
 ```typescript
 export class Event {
-  id: number;
-  date: Date;
+  id: number | null;
+  date: Date | null;
   title: string;
 
-  constructor(obj?: any) {
-    this.id = obj?.id || null;
-    this.date = obj?.date || null;
-    this.title = obj?.title || null;
+  constructor(event: Partial<Event> = {}) {
+    this.id = event?.id || null;
+    this.date = event?.date || null;
+    this.title = event?.title || '';
   }
 }
 ```
@@ -933,14 +932,14 @@ Update `model/group.ts` to include the `Event` class.
 import { Event } from './event';
 
 export class Group {
-  id: number;
+  id: number | null;
   name: string;
   events: Event[];
 
-  constructor(obj?: any) {
-    this.id = obj?.id || null;
-    this.name = obj?.name || null;
-    this.events = obj?.events || null;
+  constructor(group: Partial<Group> = {}) {
+    this.id = group?.id || null;
+    this.name = group?.name || '';
+    this.events = group?.events || [];
   }
 }
 ````
@@ -1096,41 +1095,6 @@ Add the Okta Spring Boot starter to do OIDC authentication in your `pom.xml`. Th
     <artifactId>okta-spring-boot-starter</artifactId>
     <version>3.0.3</version>
 </dependency>
-```
-
-<!-- todo: remove this when Spring Security 6.1 is included in Spring Boot 3.1 -->
-While writing this post, I found a bug in Spring Security, so you'll have to upgrade to the latest snapshot version. Add the Spring Security snapshot repository to your `pom.xml` and override the default version used by Spring Boot.
-
-```xml
-<project ...>
-    ...
-    <properties>
-        ...
-        <spring-security.version>6.1.0-SNAPSHOT</spring-security.version>
-    </properties>
-  
-    ...
-  
-    <repositories>
-        <repository>
-            <id>spring-milestones</id>
-            <name>Spring Milestones</name>
-            <url>https://repo.spring.io/milestone</url>
-            <snapshots>
-                <enabled>false</enabled>
-            </snapshots>
-        </repository>
-        <repository>
-            <id>spring-snapshots</id>
-            <name>Spring Snapshots</name>
-            <url>https://repo.spring.io/snapshot</url>
-            <releases>
-                <enabled>false</enabled>
-            </releases>
-        </repository>
-    </repositories>
-    ...
-</project>
 ```
 
 Install the [Auth0 CLI](https://github.com/auth0/auth0-cli) (if you haven't already) and run `auth0 login` in a shell.
@@ -1456,7 +1420,7 @@ export class AuthService {
 
   async isAuthenticated(): Promise<boolean> {
     const user = await lastValueFrom(this.getUser());
-    return user !== undefined;
+    return user !== null;
   }
 
   login(): void {
@@ -1507,9 +1471,6 @@ export class HomeComponent implements OnInit {
   async ngOnInit() {
     this.isAuthenticated = await this.auth.isAuthenticated();
     await this.auth.getUser().subscribe(data => this.user = data);
-    this.auth.$authenticationState.subscribe((isAuthenticated: boolean) => {
-      this.isAuthenticated = isAuthenticated;
-    });
   }
 
 }
@@ -1746,7 +1707,7 @@ We've written some other fun Spring Boot, Angular, and JHipster tutorials. Check
 
 I've also written a couple of InfoQ mini-books that you might find useful:
 
-- [The JHipster Mini-Book](https://www.infoq.com/minibooks/jhipster-mini-book/): Shows you how I built [21-Points Health](https://www.21-points.com) with JHipster (Angular, Spring Boot, and more).
-- [The Angular Mini-Book](https://www.infoq.com/minibooks/angular-mini-book/): An in-depth guide to Angular, Bootstrap, and Spring Boot, with lots of cloud deployment guides.
+- [The JHipster Mini-Book](https://www.infoq.com/minibooks/jhipster-mini-book/): Shows how I built [21-Points Health](https://www.21-points.com) with JHipster (Angular, Spring Boot, Bootstrap, and more). It includes a chapter on microservices with Spring Boot, React, and Auth0.
+- [The Angular Mini-Book](https://www.infoq.com/minibooks/angular-mini-book/): A practical guide to Angular, Bootstrap, and Spring Boot. It uses Kotlin and Gradle, recommended security practices, and contains several cloud deployment guides.
 
-If you have any questions, please leave a comment below. If you want to see the code for this project, check out its [GitHub repo](https://github.com/oktadev/auth0-spring-boot-angular-crud-example). Follow us on [Twitter](https://twitter.com/oktadev) and [YouTube](https://youtube.com/oktadev) for more content like this.
+If you have any questions, please leave a comment below. If you want to see the completed code for this tutorial, check out its [GitHub repo](https://github.com/oktadev/auth0-spring-boot-angular-crud-example). Follow us on [Twitter](https://twitter.com/oktadev) and [YouTube](https://youtube.com/oktadev) for more content like this.
