@@ -1707,7 +1707,7 @@ We've written some other fun Spring Boot, Angular, and JHipster tutorials. Check
 
 I've also written a couple of InfoQ mini-books that you might find useful:
 
-- [The JHipster Mini-Book](https://www.infoq.com/minibooks/jhipster-mini-book/): Shows how I built [21-Points Health](https://www.21-points.com) with JHipster (Angular, Spring Boot, Bootstrap, and more). Includes a chapter on microservices with Spring Boot, React, and Auth0. 
-- [The Angular Mini-Book](https://www.infoq.com/minibooks/angular-mini-book/): A practical guide to Angular, Bootstrap, and Spring Boot. Uses Kotlin and Gradle, recommended security practices, and contains several cloud deployment guides.
+- [The JHipster Mini-Book](https://www.infoq.com/minibooks/jhipster-mini-book/): Shows how I built [21-Points Health](https://www.21-points.com) with JHipster (Angular, Spring Boot, Bootstrap, and more). It includes a chapter on microservices with Spring Boot, React, and Auth0.
+- [The Angular Mini-Book](https://www.infoq.com/minibooks/angular-mini-book/): A practical guide to Angular, Bootstrap, and Spring Boot. It uses Kotlin and Gradle, recommended security practices, and contains several cloud deployment guides.
 
 If you have any questions, please leave a comment below. If you want to see the completed code for this tutorial, check out its [GitHub repo](https://github.com/oktadev/auth0-spring-boot-angular-crud-example). Follow us on [Twitter](https://twitter.com/oktadev) and [YouTube](https://youtube.com/oktadev) for more content like this.
