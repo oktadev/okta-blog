@@ -1024,7 +1024,7 @@ Now, with your Angular app running, you should be able to add and edit groups! Y
 
 To make the navbar at the top use Angular Material colors, update `app.component.html` with the following:
 
-
+{% raw %}
 ```html
 <mat-toolbar role="banner" color="primary" class="toolbar">
   <img
