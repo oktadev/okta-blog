@@ -1,7 +1,6 @@
 ---
 layout: blog_post
 title: "Build a Beautiful CRUD App with Spring Boot and Angular"
-# I'm not sure Beautiful is the right word here, but it seems better than simple like the React and Vue CRUD posts use. Bootiful might be better. 
 author: matt-raible
 by: advocate
 communities: [java,javascript]
@@ -34,7 +33,7 @@ You'll need to install several tools to follow along with this tutorial.
 - [Auth0 CLI](https://github.com/auth0/auth0-cli#installation)
 - [An Auth0 account](https://auth0.com/signup)
 
-## Configure and run a Spring Boot and Angular app
+## Configure and Run a Spring Boot and Angular App
 
 I'm a frequent speaker at conferences and Java User Groups (JUGs) around the world. I've been a Java developer for 20+ years and ❤️ the Java community. I've found that speaking at JUGs is a great way to interact with the community and get raw feedback on presentations.
 
@@ -88,19 +87,19 @@ source .okta.env # run .okta.env.bat on Windows
 
 To view the app, you can then open `http://localhost:8080` in your favorite browser.
 
-{% img blog/spring-boot-angular/home-with-login.png alt:"JUG Tours homepage" width:"800" %}{: .center-image }
+![JUG Tours homepage](https://images.ctfassets.net/23aumh6u8s0i/4Y763SJqSEPanyzRqfj099/41e91e79f0c230b9888b50f39c93b55a/home-with-login.png)
 
 Click **Login**, and you'll be prompted to log in with Auth0. You'll also be asked for consent. This is because the app is requesting access to your profile and email address. Click **Accept** to continue.
 
-{% img blog/spring-boot-angular/auth0-consent.png alt:"Auth0 consent" width:"800" %}{: .center-image }
+![Auth0 consent](https://images.ctfassets.net/23aumh6u8s0i/6gQb2y8DkHXSjzSTW9ni15/dcf3d562d58aba681059b90f4d95c6c4/auth0-consent.png)
 
 Once you're authenticated, you'll see a link to manage your JUG Tours.
 
-{% img blog/spring-boot-angular/manage-jugtours.png alt:"Manage JUG Tours" width:"800" %}{: .center-image }
+![Manage JUG Tours](https://images.ctfassets.net/23aumh6u8s0i/2brQIoV44IGlFkR7xOCFq9/4ed44296e3338f7d2db5eae820d0a7f2/manage-jugtours.png)
 
 You should be able to add new groups and events, as well as edit and delete them.
 
-{% img blog/spring-boot-angular/jug-tours-list.png alt:"List of JUG Tours" width:"800" %}{: .center-image }
+![List of JUG Tours](https://images.ctfassets.net/23aumh6u8s0i/79DUq1VEicwIUMNvMjSKLE/dcf7455b5d4615a49ed4cac82c9d0859/jug-tours-list.png)
 
 ### Verify Cypress end-to-end tests pass
 
@@ -121,7 +120,7 @@ cd app
 npm run e2e
 ```
 
-{% img blog/spring-boot-angular/cypress-chrome.png alt:"Cypress tests running in Chrome" %}{: .center-image }
+![Cypress tests running in Chrome](https://images.ctfassets.net/23aumh6u8s0i/40zwChkJRYncZyIxInzmaK/0fb201920728cfba18edbde74ea9830a/cypress-chrome.png)
 
 Pretty slick, don't you think? 🤠
 
@@ -397,7 +396,7 @@ http PUT :8080/api/group/8 id=8 name='SF JUG' address='By the Bay'
 http DELETE :8080/api/group/8
 ```
 
-## Create an Angular app with the Angular CLI
+## Create an Angular App with the Angular CLI
 
 The Angular CLI was a revolutionary tool when it was released in 2016. It's now the standard way to create new Angular projects and the easiest way to get started with Angular. Many web frameworks have adopted similar tools to improve their developer experience.
 
@@ -547,7 +546,7 @@ Update `angular.json` and its `serve` command to use the proxy.
 
 Stop your app with `Ctrl+C` and restart it with `npm start`. Now you should see a list of groups in your Angular app!
 
-{% img blog/spring-boot-angular/app-group-list.png alt:"JUG Tours list" width:"800" %}{: .center-image }
+![JUG Tours list](https://images.ctfassets.net/23aumh6u8s0i/6xjEtnptNvA1AfuDIKPt4i/40bc540a19d01d9293e5ed8fd66cd788/app-group-list.png)
 
 ### Build an Angular `GroupList` component
 
@@ -785,7 +784,7 @@ ol.breadcrumb li {
 
 Run `npm start` in your `app` directory to see how everything looks. Click on Manage JUG Tour, and you should see a list of the default groups.
 
-{% img blog/spring-boot-angular/group-list.png alt:"JUG Tours list" width:"800" %}{: .center-image }
+![JUG Tours list](https://images.ctfassets.net/23aumh6u8s0i/3ne28D8dvaY488s4FMnvIz/bd1bd6607abcc7d99e4281f218b36ffc/group-list.png)
 
 To squish the **Actions** column to the right, add the following to `group-list.component.css`:
 
@@ -797,7 +796,7 @@ To squish the **Actions** column to the right, add the following to `group-list.
 
 Your Angular app should update itself as you make changes.
 
-{% img blog/spring-boot-angular/group-list-actions.png alt:"Group list with squished actions column" width:"800" %}{: .center-image }
+![Group list with squished actions column](https://images.ctfassets.net/23aumh6u8s0i/3ekbrkzdHhRa8bpByQeFge/84f2a0d34409071b605cc5c92f6eb27c/group-list-actions.png)
 
 It's great to see your Spring Boot API's data in your Angular app, but it's no fun if you can't modify it!
 
@@ -1021,11 +1020,11 @@ form, h2 {
 
 Now, with your Angular app running, you should be able to add and edit groups! Yaasss! 👏👏👏
 
-{% img blog/spring-boot-angular/group-edit.png alt:"Edit a group and add events" width:"800" %}{: .center-image }
+![Edit a group and add events](https://images.ctfassets.net/23aumh6u8s0i/71x2qbhqvJwkPp7TXnzIvT/c8f9a064cca503c41c7a79ec7faac184/group-edit.png)
 
 To make the navbar at the top use Angular Material colors, update `app.component.html` with the following:
 
-{% raw %}
+
 ```html
 <mat-toolbar role="banner" color="primary" class="toolbar">
   <img
@@ -1079,7 +1078,7 @@ Make some adjustments in `app.component.css` to make the toolbar look nicer.
 
 Now the app fills the screen more, and the toolbar has matching colors.
 
-{% img blog/spring-boot-angular/toolbar-colors.png alt:"Toolbar colors match" width:"800" %}{: .center-image }
+![Toolbar colors match](https://images.ctfassets.net/23aumh6u8s0i/7oWbC4jk1TiVGMU9UMxJsf/9032fda7e1134abf2fc25aae3c5b6680/toolbar-colors.png)
 
 ## Secure Spring Boot with OpenID Connect and OAuth
 
@@ -1142,7 +1141,7 @@ source .okta.env
 
 You can then open `http://localhost:8080` in your favorite browser. You'll be redirected to authenticate and returned afterward. You'll see a 404 error from Spring Boot since you have nothing mapped to the default `/` route.
 
-{% img blog/spring-boot-angular/404.png alt:"Spring Boot 404" width:"800" %}{: .center-image }
+![Spring Boot 404](https://images.ctfassets.net/23aumh6u8s0i/1NFrqslNxHbuc3qqpMZljP/b987bc78eb3a8d632178b0eb20626299/404.png)
 
 ### Configure Spring Security for maximum protection
 
@@ -1384,7 +1383,7 @@ I like Angular because it's a secure-first framework. It has built-in support fo
 
 Angular's `HttpClient` supports the client-side half of the CSRF protection. It'll read the cookie sent by Spring Boot and return it in an `X-XSRF-TOKEN` header. You can read more about this at [Angular's Security docs](https://angular.io/guide/http#security-xsrf-protection).
 
-### Update Your Angular app's authentication mechanism
+### Update your Angular app's authentication mechanism
 
 Create a new `AuthService` class to communicate with your Spring Boot API for authentication information. Add the following code to a new file at `app/src/app/auth.service.ts`.
 
@@ -1504,10 +1503,11 @@ const PROXY_CONFIG = [
 
 After all these changes, you should be able to restart both Spring Boot and Angular and witness the glory of securely planning your very own JUG Tour!
 
-{% img blog/spring-boot-angular/login.png alt:"Angular app with Login" width:"800" %}{: .center-image }
-{% img blog/spring-boot-angular/logout.png alt:"Angular app with Logout" width:"800" %}{: .center-image }
+![Angular app with Login](https://images.ctfassets.net/23aumh6u8s0i/6VAjPkUaxTrhEE10OS59AM/03acfb657cbd3f950403da5f112c008c/login.png)
 
-## Configure Maven to package Angular with Spring Boot
+![Angular app with Logout](https://images.ctfassets.net/23aumh6u8s0i/2wfRE1zV56Ip8p2II9i17f/855175bba2f59605036f3e22e91ae0ec/logout.png)
+
+## Configure Maven to Package Angular with Spring Boot
 
 To build and package your React app with Maven, you can use the [frontend-maven-plugin](https://github.com/eirslett/frontend-maven-plugin) and Maven's profiles to activate it. Add properties for versions and a `<profiles>` section to your `pom.xml`.
 
@@ -1663,7 +1663,7 @@ And add to your `SecurityConfiguration.java` class:
 
 Now, if you restart and reload the page, everything will work as expected. 🤩
 
-## Verify everything works with Cypress
+## Verify Everything Works with Cypress
 
 In this section, I was going to explain how to integrate Cypress into this project to support end-to-end tests. However, I discovered that its [schematic](https://www.npmjs.com/package/@cypress/schematic) doesn't work with Angular 16. That means when I tried to run `ng add @cypress/schematic`, it didn't work. The good news is I figured out a workaround. I downgraded the project to Angular 15, ran the schematic, and then upgraded to Angular 16.
 
@@ -1692,11 +1692,11 @@ cd app
 npx cypress run --browser electron --config baseUrl=http://localhost:8080
 ```
 
-{% img blog/spring-boot-angular/cypress-run.png alt:"Cypress tests running in Electron" %}{: .center-image }
+![Cypress tests running in Electron](https://images.ctfassets.net/23aumh6u8s0i/271WoJ0iB5q3dVdP90VUBH/3c25f6b29d4b45de04195916eff0c184/cypress-run.png)
 
-## Build something fabulous with Spring Boot and Angular!
+## Build Something Fabulous with Spring Boot and Angular!
 
-I hope this tutorial has helped you learn how to build secure Angular and Spring Boot apps. Using OpenID Connect is a recommended practice for authenticating full-stack apps like this one, and Auth0 makes it easy to do. Adding CSRF protection and packaging your Spring Boot + Angular app as a single artifact is super cool too!
+I hope this post has helped you learn how to build secure Angular and Spring Boot apps. Using OpenID Connect is a recommended practice for authenticating full-stack apps like this one, and Auth0 makes it easy to do. Adding CSRF protection and packaging your Spring Boot + Angular app as a single artifact is super cool too!
 
 We've written some other fun Spring Boot, Angular, and JHipster tutorials. Check them out!
 
