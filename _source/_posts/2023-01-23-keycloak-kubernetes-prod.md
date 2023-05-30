@@ -355,13 +355,13 @@ Keycloak supports identity provider federation, meaning it can be configured to 
 
 ### Create an Auth0 account
 
-Sign up at [Auth0](https://auth0.com/signup) and install the [Auth0 CLI](https://github.com/auth0/auth0-cli). Then run:
+Sign up at [Auth0](https://auth0.com/signup) and install the [Auth0 CLI](https://github.com/auth0/auth0-cli). Then in the command line run:
 
 ```shell
 auth0 login
 ```
 
-The terminal will display a device confirmation code and open a browser session to activate the device.
+The command output will display a device confirmation code and open a browser session to activate the device.
 
 **NOTE**: My browser was not displaying anything, so I had to manually activate the device by opening the URL `https://auth0.auth0.com/activate?user_code={deviceCode}`.
 
@@ -383,48 +383,39 @@ Waiting for the login to complete in the browser... done
  ▸    Tenant: dev-avup2laz.us.auth0.com
 ```
 
-The next step is to create a client app:
+The next step is to create a client app, which you can do in one command:
 
 ```shell
-auth0 apps create
+auth0 apps create \
+  --name "Spring Boot + Keycloak" \
+  --description "JHipster + Spring Boot + Keycloak = 🤠" \
+  --type regular \
+  --callbacks https://keycloak.<namespace>.<public-ip>.nip.io/realms/jhipster/broker/auth0/endpoint \
+  --logout-urls http://gateway.<namespace>.<public-ip>.nip.io \
+  --reveal-secrets
 ```
-
-When prompted, choose the following options:
-
-- Name: **jhipster**
-- Description: **<optional description>**
-- Type: **Regular Web Application**
-- Callback URLs: **https://keycloak.\<namespace\>.\<public-ip\>.nip.io/login/oauth2/code/auth0**
-- Logout URLs: **http://gateway.\<namespace\>.\<public-ip\>.nip.io**
 
 Once the app is created, you will see the OIDC app's configuration:
 
 ```
-Name: jhipster
-Description: jhipster microservices
-Callback URLs: ***
-Allowed Logout URLs: ***
-
 === dev-avup2laz.us.auth0.com application created
 
   CLIENT ID            ***
-  NAME                 jhipster
-  DESCRIPTION          jhipster microservices
-  TYPE                 Regular Web Application
+  NAME                 Spring Boot + Keycloak                                             
+  DESCRIPTION          JHipster + Spring Boot + Keycloak = 🤠                             
+  TYPE                 Regular Web Application                                            
+  CLIENT SECRET        ***
   CALLBACKS            ***
   ALLOWED LOGOUT URLS  ***
-  ALLOWED ORIGINS
-  ALLOWED WEB ORIGINS
-  TOKEN ENDPOINT AUTH
-  GRANTS               implicit, authorization_code, refresh_token, client_credentials
+  ALLOWED ORIGINS                                                                         
+  ALLOWED WEB ORIGINS                                                                     
+  TOKEN ENDPOINT AUTH                                                                     
+  GRANTS               implicit, authorization_code, refresh_token, client_credentials    
 
  ▸    Quickstarts: https://auth0.com/docs/quickstart/webapp
  ▸    Hint: Emulate this app's login flow by running `auth0 test login ***`
  ▸    Hint: Consider running `auth0 quickstarts download ***`
 ```
-
-**NOTE**: The client secret is [not displayed](https://github.com/auth0/auth0-cli/issues/488) in the CLI output for regular applications. You can run `auth0 apps open` to open a browser in the application configuration. Then copy the secret from the **Settings** tab. In the example above, the tenant is `dev-avup2laz.us.auth0.com`.
-
 
 ### Create users and roles
 
@@ -636,8 +627,8 @@ After signing in, the gateway home page will display the username (email). If ro
 I hope you enjoyed this post and learned about some best practices for deploying Keycloak to production when doing JHipster development. Keep learning about Keycloak and Spring Boot! Check out the following links:
 
 - [Integrate React Native and Spring Boot Securely](/blog/2022/10/12/integrate-react-native-and-spring-boot-securely)
-- [Use GitHub Actions to Build GraalVM Native Images](/blog/2022/04/22/github-actions-graalvm)
 - [Full Stack Java with React, Spring Boot, and JHipster](https://auth0.com/blog/full-stack-java-with-react-spring-boot-and-jhipster/)
-- [Introducing Spring Native for JHipster: Serverless Full-Stack Made Easy](/blog/2022/03/03/spring-native-jhipster)
+- [Build a Beautiful CRUD App with Spring Boot and Angular](https://auth0.com/blog/spring-boot-angular-crud/)
+- [Get Started with Jetty, Java, and OAuth](https://auth0.com/blog/java-jetty-oauth/)
 
 For more tutorials like this one, follow [@oktadev](https://twitter.com/oktadev) on Twitter. We also have a [YouTube channel](https://youtube.com/oktadev) you might like. If you have any questions, please leave a comment below!
