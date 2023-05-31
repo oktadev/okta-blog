@@ -138,11 +138,11 @@ microservice Blog, Post, Tag with blog
 deployment {
   deploymentType docker-compose
   appsFolders [gateway, blog, store]
-  dockerRepositoryName "mraible"
+  dockerRepositoryName "indiepopart"
 }
 ```
 
-Then run the following command:
+Repalce the `dockerRepositoryName` with your account name. Then run the following command:
 
 ```shell
 jhipster jdl reactive-ms.jdl
@@ -240,6 +240,8 @@ Install [cert-manager](https://cert-manager.io/docs/tutorials/getting-started-wi
 ```shell
 kubectl apply -f https://github.com/cert-manager/cert-manager/releases/download/v1.11.0/cert-manager.yaml
 ```
+
+**Note**: If you see a `kubectl` error __The gcp auth plugin has been removed. __, see (https://cloud.google.com/blog/products/containers-kubernetes/kubectl-auth-changes-in-gke)[https://cloud.google.com/blog/products/containers-kubernetes/kubectl-auth-changes-in-gke] for details on how to fix it.
 
 Apply the deployment descriptors, from the `kubernetes` folder:
 
@@ -606,7 +608,7 @@ The users that sign in through Auth0 are imported to Keycloak. The role assigned
 - Name: **ROLE_USER**
 - Sync mode override: **Force** (update the user roles during every login)
 - Mapper type: **Claim to Role**
-- Claim: **https://www\\.jhipster\\.tech/roles** (escape the dot `.` with backslash `\\.`)
+- Claim: **https://www\\.jhipster\\.tech/roles** (escape the dot `.` with backslash `\.`)
 - Claim Value: **ROLE_USER**
 - Role: Select **ROLE_USER**
 
