@@ -238,10 +238,10 @@ gcloud container clusters create jhipster-cluster \
 Install [cert-manager](https://cert-manager.io/docs/tutorials/getting-started-with-cert-manager-on-google-kubernetes-engine-using-lets-encrypt-for-ingress-ssl/) in your cluster:
 
 ```shell
-kubectl apply -f https://github.com/cert-manager/cert-manager/releases/download/v1.11.0/cert-manager.yaml
+kubectl apply -f https://github.com/cert-manager/cert-manager/releases/download/v1.12.1/cert-manager.yaml
 ```
 
-**Note**: If you see a `kubectl` error __The gcp auth plugin has been removed. __, see (https://cloud.google.com/blog/products/containers-kubernetes/kubectl-auth-changes-in-gke)[https://cloud.google.com/blog/products/containers-kubernetes/kubectl-auth-changes-in-gke] for details on how to fix it.
+**Note**: If you see a `kubectl` error __The gcp auth plugin has been removed. __, see [https://cloud.google.com/blog/products/containers-kubernetes/kubectl-auth-changes-in-gke](https://cloud.google.com/blog/products/containers-kubernetes/kubectl-auth-changes-in-gke) for details on how to fix it.
 
 Apply the deployment descriptors, from the `kubernetes` folder:
 
