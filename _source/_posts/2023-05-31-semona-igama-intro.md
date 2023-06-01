@@ -1,13 +1,10 @@
 ---
-disqus_thread_id: 
-discourse_topic_id: 
-discourse_comment_url: 
 layout: blog_post
 title: "Supporting Devs Through Advocacy"
 author: semona-igama
 by: advocate
 communities: [javascript, python, announcement]
-description: "Semona Igam joins Okta Developer Relations!"
+description: "Semona Igama joins Okta Developer Relations!"
 tags: [javascript, python, advocacy, okta]
 type: awareness
 ---
