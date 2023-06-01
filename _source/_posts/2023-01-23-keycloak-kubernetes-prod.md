@@ -235,6 +235,14 @@ gcloud container clusters create jhipster-cluster \
 
 **Note**: you can choose a different zone and machine type.
 
+Then fetch the cluster credentials with:
+
+```shell
+gcloud container clusters get-credentials jhipster-cluster --zone southamerica-east1-a
+```
+
+`get-credentials` will update a `kubeconfig` file with appropriate credentials and endpoint information to point `kubectl` at a specific cluster in Google Kubernetes Engine.
+
 Install [cert-manager](https://cert-manager.io/docs/tutorials/getting-started-with-cert-manager-on-google-kubernetes-engine-using-lets-encrypt-for-ingress-ssl/) in your cluster:
 
 ```shell
@@ -272,7 +280,7 @@ Events:
 Also, the ingress service will be updated once the certificate is available. You can check the ingress events with the following command:
 
 ```shell
-kubectl get ingress gateway -n demo
+kubectl describe ingress gateway -n demo
 ```
 
 The output should contain the message "certs updated":
@@ -282,9 +290,9 @@ Events:
   Type     Reason             Age                   From                       Message
   ----     ------             ----                  ----                       -------
 ...
-  Normal   Sync               5m24s (x9 over 11m)   loadbalancer-controller    Scheduled for sync
-  Normal   Sync               5m10s (x2 over 8m4s)  loadbalancer-controller    UrlMap "k8s2-um-syujj5e4-rey-gateway-f99qha5q" updated
-  Normal   Sync               4m58s                 loadbalancer-controller    TargetProxy "k8s2-ts-syujj5e4-rey-gateway-f99qha5q" certs updated
+  Normal   Sync               78s (x2 over 4m33s)  loadbalancer-controller    UrlMap "k8s2-um-ag6evarw-demo-gateway-gijhgcnp" updated
+  Normal   Sync               66s (x9 over 9m6s)   loadbalancer-controller    Scheduled for sync
+  Normal   Sync               25s                  loadbalancer-controller    TargetProxy "k8s2-ts-ag6evarw-demo-gateway-gijhgcnp" certs updated
 ```
 Once the cluster is healthy, you can test the deployment by navigating to **http://gateway.\<namespace\>.\<public-ip\>.nip.io** :
 
