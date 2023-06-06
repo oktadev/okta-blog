@@ -898,3 +898,10 @@ semona-igama:
   github: https://github.com/isemona
   linkedin: https://www.linkedin.com/in/semonaigama/
   bio: Semona has been with Okta for three years supporting developers as a Developer Support Engineer. She is excited to transition to a Dev Advocate role - advocating for Okta developer community needs. Outside of work, Semona is a foodie, loves kombucha, and is interested in board games and ultimate frisbee.
+
+daniel-marma:
+  full_name: Daniel Marma
+  display_name: Dan Marma
+  avatar: avatar-daniel-marma.jpeg
+  linkedin: https://www.linkedin.com/in/danmarma/
+  bio: "As a Product Acceleration Principal Architect at Okta, Dan brings decades of enterprise technology and process design (Including 6+ years within okta professional services) to the okta product team focused on ensuring a smooth transition to Okta Identity Engine and implementing other New Products in the market.  He has worked with 1,000's of client complex Identity solutions, many 1st of kind in IAM."
