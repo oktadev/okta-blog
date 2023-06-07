@@ -28,7 +28,7 @@ You might notice I didn't mention SAML as an authentication type. That's because
 
 My recommendation: just use OIDC.
 
-If you _must_ use SAML with Spring Boot, this tutorial should make it quick and easy. You can also watch it https://youtu.be/haTQ1xJKQQ8[as a screencast].
+If you _must_ use SAML with Spring Boot, this tutorial should make it quick and easy. You can also watch it https://youtu.be/UsXcWXg216E[as a screencast].
 
 ++++
 {% youtube UsXcWXg216E %}
