@@ -29,6 +29,8 @@ In March, with product manager Megha Rastogi, we discussed what Workforce Identi
 
 {% youtube <PiY5HDp0ABI> %} 
 
+## SSWS Auth Tokens vs OAuth
+
 In April, with Director of Technical Strategy Matt Egan, we explored the [Okta Integration Network](https://www.okta.com/integrations/) and compared OAuth integration between applications to its predecessor, SSWS tokens. Spoiler alert: Handing out a token that confers a lot of perms indefinitely to anyone who holds it isn't a great idea these days! 
 
 {% youtube <oHvukPsaAko> %}
