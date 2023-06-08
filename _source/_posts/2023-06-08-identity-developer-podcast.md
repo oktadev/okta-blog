@@ -3,7 +3,7 @@ layout: blog_post
 title: "Unlock identity expertise with our new developer podcast!"
 author: edunham
 by: advocate
-communities: [podcast]
+communities: [devops]
 description: ""
 tags: []
 tweets:
