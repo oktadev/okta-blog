@@ -5,7 +5,7 @@ author: edunham
 by: advocate
 communities: [devops,security,mobile,.net,java,javascript,go,php,python,ruby]
 description: "Listen and learn about the nuances of Okta's identity ecosystem"
-tags: [announcement, podcast, identity, WebAuthN, passkeys, OIN, enterprise]
+tags: [announcement, podcast, identity, webauthn, passkeys, oin, enterprise]
 tweets:
 - ""
 - ""
