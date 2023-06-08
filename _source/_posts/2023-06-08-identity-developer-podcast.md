@@ -1,26 +1,28 @@
 ---
 layout: blog_post
-title: "Unlock identity expertise with our new developer podcast!"
+title: "Unlock Identity Expertise with Our New Developer Podcast!"
 author: edunham
 by: advocate
-communities: [devops]
-description: ""
-tags: []
+communities: [devops,security,mobile,.net,java,javascript,go,php,python,ruby]
+description: "Listen and learn about the nuances of Okta's identity ecosystem"
+tags: [announcement, podcast, identity, WebAuthN, passkeys, OIN, enterprise]
 tweets:
 - ""
 - ""
 - ""
 image: blog/identity-developer-podcast/podcast.jpg 
-type: awareness|conversion
+type: awareness
 ---
 
 Do you enjoy podcasts? I find that, like audiobooks, podcasts can transform boring tasks into an opportunity for entertainment and education. 
 
 I'm delighted to announce a new offering from Okta's Workforce Developer Advocacy Team: our monthly podcast! 
 
+## Listen and learn with the Workforce Identity Developer Podcast
+
 The audio version of the Workforce Identity Developer Podcast is available on [Casted](https://listen.casted.us/public/49/Workforce-Identity-Developer-Podcast-4ce90a5f), where you can also explore Auth0's ongoing [Authorization in software podcast](https://authorizationinsoftware.auth0.com/public/49/Authorization-in-Software-f9b69587) and [Identity Unlocked](https://identityunlocked.auth0.com/public/49/Identity%2C-Unlocked.--bed7fada) podcast as well.
 
-In March, with product manager Megha Rastogi, we discussed what Workforce Identity means, and review some of the history of security that gotu s here. We dig into phishing resistant MFA, and compare the relative benefits and drawbacks of WebAuthN and Passkeys. 
+In March, with product manager Megha Rastogi, we discussed what Workforce Identity means and reviewed some of the history of security that got us here. We dig into phishing-resistant MFA and compare the relative benefits and drawbacks of WebAuthN and Passkeys. 
 
 {% youtube <PiY5HDp0ABI> %} 
 
@@ -32,4 +34,6 @@ In May, with Product Acceleration Principal Architect Dan Marma, we discussed hi
 
 {% youtube <enWM5ZHnEp4> %}
 
-Every podcast has its own comments section on the (developer forum){https://devforum.okta.com/c/developer-podcast-comments/25}. Let us know what you think of each episode, and share any topics that you'd like to hear about in the coming months!
+You can also get alerted on new podcasts through our social channels! Follow us on [Twitter](https://twitter.com/oktadev) and subscribe to our [YouTube channel](https://www.youtube.com/c/OktaDev/) for new identity content. 
+
+Every podcast has a comments section on the (developer forum){https://devforum.okta.com/c/developer-podcast-comments/25}. Let us know what you think of each episode, and share any topics that you'd like to hear about in the coming months!
