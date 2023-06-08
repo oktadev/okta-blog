@@ -342,7 +342,7 @@ Use the tweet ID from the Tweets URL
 
 ```bash
 # width and height are optional (in px)
-{% youtube <VIDEO-ID> [width? height?]%}
+{% youtube VIDEO-ID [width? height?]%}
 
 # example from https://www.youtube.com/watch?v=8vY-9tXlCW4
 {% youtube 8vY-9tXlCW4 %} # default width and height of 700 x 394
