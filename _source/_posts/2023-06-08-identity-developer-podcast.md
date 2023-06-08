@@ -22,6 +22,9 @@ I'm delighted to announce a new offering from Okta's Workforce Developer Advocac
 
 The audio version of the Workforce Identity Developer Podcast is available on [Casted](https://listen.casted.us/public/49/Workforce-Identity-Developer-Podcast-4ce90a5f), where you can also explore Auth0's ongoing [Authorization in software podcast](https://authorizationinsoftware.auth0.com/public/49/Authorization-in-Software-f9b69587) and [Identity Unlocked](https://identityunlocked.auth0.com/public/49/Identity%2C-Unlocked.--bed7fada) podcast as well.
 
+
+## WebAuthN & Passkeys
+
 In March, with product manager Megha Rastogi, we discussed what Workforce Identity means and reviewed some of the history of security that got us here. We dig into phishing-resistant MFA and compare the relative benefits and drawbacks of WebAuthN and Passkeys. 
 
 {% youtube <PiY5HDp0ABI> %} 
