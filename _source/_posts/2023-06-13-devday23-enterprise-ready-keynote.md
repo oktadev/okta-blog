@@ -34,6 +34,6 @@ How about some extra resources?
 
 ## Get ready for more enterprise-ready content!
 
-In the following weeks, watch for more posts featuring the conference presentations. You'll learn more about the sort of things enterprises look for, authentication considerations, managing users, and elevating authentication mechanisms.
+In the following weeks, watch for more posts featuring the conference presentations. You'll learn more about what enterprises look for, authentication considerations, managing users, and elevating authentication mechanisms.
 
 Are you gearing up for enterprise customers? Follow us on [Twitter](https://twitter.com/oktadev) and subscribe to our [YouTube channel](https://www.youtube.com/c/OktaDev/) for ongoing content about this topic. We'd also love to hear from you! Please comment below if you have any questions or want to share anything about becoming enterprise-ready or any other topics you'd like to learn more about.
