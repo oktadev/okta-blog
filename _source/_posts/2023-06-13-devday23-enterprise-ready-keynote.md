@@ -28,7 +28,7 @@ You can check out the keynote presentation here:
 
 Check out his presentation, and discover more about this topic. 
 
-{% speakerdeck 71c7f3dc793f4d649610ed9cd799f7b3 %}
+{% speakerdeck 71c7f3dc793f4d649610ed9cd799f7b3 600px %}
 
 You won't want to miss applying these concepts to a real application! [Sign up](https://regionalevents.okta.com/devday23workshopsignup) to stay up to date on upcoming content on how you can apply identity, user management, and automation to your SaaS application.
 
