@@ -1,6 +1,6 @@
 ---
 layout: blog_post
-title: "What Does It Mean to Be Enterprise Ready: Devday23 Keynote Enterprise Readiness"
+title: "What Does It Mean to Be Enterprise Ready: Devday23 Keynote"
 author: alisa-duncan
 by: advocate
 communities: [devops,security,.net,java,javascript,php,python]
@@ -14,7 +14,7 @@ image: blog/devday23-enterprise-ready-keynote/social.jpg
 type: awareness
 ---
 
-What makes a SaaS application ready for enterprise customers? Between handling application security, user onboarding, and scalable and secure authentication practices, there's much to consider and prepare before determining your app is "enterprise ready."
+What makes a SaaS application ready for enterprise customers when it comes to identity? Between handling application security, user onboarding, and scalable and secure authentication practices, there's much to consider and prepare before determining your app is "enterprise ready."
 
 ## Road to making your SaaS applications enterprise-ready
 
@@ -28,9 +28,11 @@ You can check out the keynote presentation here:
 
 Check out his presentation, and discover more about this topic. 
 
-{% speakerdeck 7d2f5ae974ad45c8b59ef04461c9a5fe %}
+{% speakerdeck 71c7f3dc793f4d649610ed9cd799f7b3 %}
 
-How about some extra resources?
+You won't want to miss applying these concepts to a real application! [Sign up](https://regionalevents.okta.com/devday23workshopsignup) to stay up to date on upcoming content on how you can apply identity, user management, and automation to your SaaS application.
+
+Prepare your application for enterprise-ready identity. The ["Setting the Bar for Enterprise-Grade Identity"](https://www.okta.com/sites/default/files/2022-11/Okta_WP_Enterprise_Ready_R2.pdf) whitepaper includes benchmarks you can use to enhance your secure management of your SaaS apps.
 
 ## Get ready for more enterprise-ready content!
 
