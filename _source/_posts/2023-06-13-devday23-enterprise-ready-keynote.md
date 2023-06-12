@@ -14,7 +14,7 @@ image: blog/devday23-enterprise-ready-keynote/social.jpg
 type: awareness
 ---
 
-What makes a SaaS application ready for enterprise customers when it comes to identity? Between handling application security, user onboarding, and scalable and secure authentication practices, there's much to consider and prepare before determining your app is "enterprise ready."
+What makes a SaaS application ready for enterprise customers when it comes to identity? Between handling application security, user onboarding, and scalable, secure authentication practices, there's much to consider and prepare before determining your app is "enterprise ready."
 
 ## Road to making your SaaS applications enterprise-ready
 
