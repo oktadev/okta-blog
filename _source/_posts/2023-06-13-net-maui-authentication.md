@@ -17,7 +17,7 @@ github: https://github.com/oktadev/okta-net-maui-example
 
 Have you ever been inspired by a colleague's work and decided to explore a new tool or technology? That's what happened to me when my colleague, Andrea Chiarelli, wrote a blog post "[Add Authentication to .NET MAUI Apps with Auth0](https://auth0.com/blog/add-authentication-to-dotnet-maui-apps-with-auth0/)." As someone who is always looking for ways to improve my skills and stay up-to-date with the latest trends in technology, I was intrigued by his post and decided to try MAUI, but this time using Okta for user authentication.
 
-In this tutorial, I’ll walk you through the steps of integrating Okta into an MAUI application, including a few troubleshooting tips for issues I encountered. Hopefully, my experience will inspire and help others who want to make their MAUI applications more secure with Okta.
+In this tutorial, I'll walk you through the steps of integrating Okta into an MAUI application, including a few troubleshooting tips for issues I encountered. Hopefully, my experience will inspire and help others who want to make their MAUI applications more secure with Okta.
 
 **Prerequisites**
 
@@ -41,39 +41,39 @@ To create a new .NET MAUI project, follow these steps:
 2. In the "Create a new project" dialog box, search for "MAUI" in the search box, and select ".NET MAUI App" as the project template.
 3. Click on the "Next" button and enter "OktaMauiSampleApp" as the project name and select a location for your project in the "Configure your new project" window.
 4. Select the target framework and click the "Create" button to create your project.
-5. Restore your project’s dependencies and build your solution to ensure everything is in place.
+5. Restore your project's dependencies and build your solution to ensure everything is in place.
 6. Select the desired target platform in the Debug Target drop-down and launch your application. You will see a screen like the following:
 
 {% img blog/net-maui-authentication/maui-start.jpg alt:"Starting application" height:"400" %}{: .center-image }
 
-That's it! You have successfully created a .NET MAUI application using Visual Studio 2022. Now, it’s time to improve the security of your application by integrating Okta to enable authentication.
+That's it! You have successfully created a .NET MAUI application using Visual Studio 2022. Now, it's time to improve the security of your application by integrating Okta to enable authentication.
 
-> **Troubleshooting**: If you face the error “Local source of NuGet packages doesn't exist” try creating a new NuGet config by running the following command `dotnet new nugetconfig` and rebuild your solution.
+> **Troubleshooting**: If you face the error "Local source of NuGet packages doesn't exist" try creating a new NuGet config by running the following command `dotnet new nugetconfig` and rebuild your solution.
 
-> **Troubleshooting**: If you face the error “NETSDK1112: The runtime pack for Microsoft.NETCore.App.Runtime.win-x64 was not downloaded” try running a NuGet restore specifying your runtime `dotnet restore --runtime win-x64`
+> **Troubleshooting**: If you face the error "NETSDK1112: The runtime pack for Microsoft.NETCore.App.Runtime.win-x64 was not downloaded" try running a NuGet restore specifying your runtime `dotnet restore --runtime win-x64`
 
 ## Add authentication to your MAUI application
 
 {% include setup/cli.md type="native" loginRedirectUri="myapp://callback" logoutRedirectUri="myapp://callback"  %}
 
-You’ll need the application’s configuration values from the Okta CLI output to set up authentication in your MAUI application. You can run the following command in the Okta CLI to show your application’s configuration:
+You'll need the application's configuration values from the Okta CLI output to set up authentication in your MAUI application. You can run the following command in the Okta CLI to show your application's configuration:
 
 `okta apps config --app=<YOUR_APP_ID>`
 
-Now, it’s time to get back to code. You’ll need to build the logic to add authentication to your MAUI application, so this is what you’ll need to implement:
+Now, it's time to get back to code. You'll need to build the logic to add authentication to your MAUI application, so this is what you'll need to implement:
 
-- **OktaClient**: The client you’ll use to sign users in and out
+- **OktaClient**: The client you'll use to sign users in and out
 - **OktaClientConfiguration**: This class will represent the Okta configuration
 - **WebBrowserAuthenticator**: An implementation of `IdentityModel.OidcClient.Browser.IBrowser`, which contains the logic to interact with the browser during the sign-in/out process.
 - Configure DI for the Okta Client.
 - Update the UI to support Sign-In and Sign-Out
 - Add platform-specific changes to handle authentication
 
-Let’s get started!
+Let's get started!
 
 ### Create the OpenID Connect (OIDC) client
 
-For this project, we will use the [IdentityModel.OidcClient](https://github.com/IdentityModel/IdentityModel.OidcClient) dependency, so let’s right-click on “Project > Manage NuGet Packages” and search and install `IdentityModel.OidcClient`.
+For this project, we will use the [IdentityModel.OidcClient](https://github.com/IdentityModel/IdentityModel.OidcClient) dependency, so let's right-click on "Project > Manage NuGet Packages" and search and install `IdentityModel.OidcClient`.
 
 Create an `OktaClient` class with the following content. To organize things, I put this file in an Okta folder:
 
@@ -212,16 +212,16 @@ namespace OktaMauiSampleApp.Okta
 }
 ```
 
-Before jumping into the `OktaClientConfiguration` creation, I’d like to explain a few differences between this implementation and the Auth0 client described in [Add Authentication to .NET MAUI Apps with Auth0](https://auth0.com/blog/add-authentication-to-dotnet-maui-apps-with-auth0/) blog post from Auth0 by Okta.
+Before jumping into the `OktaClientConfiguration` creation, I'd like to explain a few differences between this implementation and the Auth0 client described in [Add Authentication to .NET MAUI Apps with Auth0](https://auth0.com/blog/add-authentication-to-dotnet-maui-apps-with-auth0/) blog post from Auth0 by Okta.
 
-Okta provides [two different types of authorization servers](https://developer.okta.com/docs/concepts/auth-servers/), the “Org Authorization Server” (Org AS) and the “Custom Authorization Server” (Custom AS). Suppose you try to use a Custom AS with IdentityModel. In that case. In that case, you will face the following error “[Error loading discovery document: Endpoint belongs to different authority: https://xxxxxxxxx.com/oauth2/v1/clients](https://devforum.okta.com/t/error-loading-discovery-document-endpoint-belongs-to-different-authority/6582)”. This is because, during discovery, IdentityModel validates that all endpoints belong to the same authorization server, and with Okta, the client registration occurs at the Org level, not the authorization server level.
+Okta provides [two different types of authorization servers](https://developer.okta.com/docs/concepts/auth-servers/), the "Org Authorization Server" (Org AS) and the "Custom Authorization Server" (Custom AS). Suppose you try to use a Custom AS with IdentityModel. In that case. In that case, you will face the following error "[Error loading discovery document: Endpoint belongs to different authority: https://xxxxxxxxx.com/oauth2/v1/clients](https://devforum.okta.com/t/error-loading-discovery-document-endpoint-belongs-to-different-authority/6582)". This is because, during discovery, IdentityModel validates that all endpoints belong to the same authorization server, and with Okta, the client registration occurs at the Org level, not the authorization server level.
 
-In Okta, applications are global to the Org and can be used for multiple authorization servers; that’s why you cannot register a client for only one Authorization Server and, ultimately, why the path in metadata is not specific to the Authorization Server that the discovery request was for.
+In Okta, applications are global to the Org and can be used for multiple authorization servers; that's why you cannot register a client for only one Authorization Server and, ultimately, why the path in metadata is not specific to the Authorization Server that the discovery request was for.
 To avoid the above mentioned issue, we must implement our discovery logic and tell IdentityModel that endpoints can belong to two different authorization servers. The method `EnsureProviderInformationAsync` contains the custom discovery logic, and we need to make sure to call this method before the actual Login and Logout.
 
-Also, for logout, Okta needs the ID Token, so you need to store the login’s response in your application which contains the ID Token, among other essential properties.
+Also, for logout, Okta needs the ID Token, so you need to store the login's response in your application which contains the ID Token, among other essential properties.
 
-Now, let’s jump into the `OktaClientConfiguration` implementation.
+Now, let's jump into the `OktaClientConfiguration` implementation.
 
 ### Create the Okta Client Configuration
 
@@ -348,7 +348,7 @@ public static class MauiProgram
 
 ### Update the MAUI application to support sign in and signout
 
-Now, it’s time to update the UI to display the login and logout buttons, plus the user’s claims once they’re authenticated. Open the `MainPage.xaml` file and replace the content with the following:
+Now, it's time to update the UI to display the login and logout buttons, plus the user's claims once they're authenticated. Open the `MainPage.xaml` file and replace the content with the following:
 
 ```csharp
 <?xml version="1.0" encoding="utf-8" ?>
@@ -508,13 +508,13 @@ public partial class MainPage : ContentPage
 }
 ```
 
-The UI logic is very simple. We have a `StackLayout` called `HomeView` that will be displayed once the user is authenticated. This component has a “Log Out” button and a `ListView` where we show the user’s claims. Once the user logs out, the `HomeView` component is hidden, and the “Log In” button is displayed again.
+The UI logic is very simple. We have a `StackLayout` called `HomeView` that will be displayed once the user is authenticated. This component has a "Log Out" button and a `ListView` where we show the user's claims. Once the user logs out, the `HomeView` component is hidden, and the "Log In" button is displayed again.
 
-That’s all here! It’s time to make the platform-specific updates and try our MAUI application.
+That's all here! It's time to make the platform-specific updates and try our MAUI application.
 
 ### Add platform-specific changes to handle authentication
 
-For this tutorial, I’ll focus on Android, but you can easily refer to [Andrea’s article](https://auth0.com/blog/add-authentication-to-dotnet-maui-apps-with-auth0/) to add the missing bits to support iOS.
+For this tutorial, I'll focus on Android, but you can easily refer to [Andrea's article](https://auth0.com/blog/add-authentication-to-dotnet-maui-apps-with-auth0/) to add the missing bits to support iOS.
 
 In the `Platforms/Android` folder, create a new file called `WebAuthenticationCallbackActivity` and copy and paste the following content:
 
@@ -563,13 +563,13 @@ Finally, open the `AndroidManifest.xml` file located in the same folder and add 
 </manifest>
 ```
 
-Woohoo! It’s time to test the Android version application. It should look like this:
+Woohoo! It's time to test the Android version application. It should look like this:
 
 {% img blog/net-maui-authentication/demo.gif alt:"Completed application" height:"400" %}{: .center-image }
 
 ## Keep experimenting with MAUI, .NET, OAuth, and OIDC
 
-This tutorial provides you with the fundamental steps to create your Okta client and add authentication with Okta to your MAUI applications. You can go further and try authentication on other platforms as well! I’d love to know what platform you’re using; let me know in the comments below.
+This tutorial provides you with the fundamental steps to create your Okta client and add authentication with Okta to your MAUI applications. You can go further and try authentication on other platforms as well! I'd love to know what platform you're using; let me know in the comments below.
 
 You can get the complete sample code for this MAUI authentication project from [GitHub](https://github.com/laura-rodriguez/okta-maui-sample-app).
 
