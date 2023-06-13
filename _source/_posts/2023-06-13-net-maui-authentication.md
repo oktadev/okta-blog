@@ -5,7 +5,7 @@ author: laura-rodriguez
 by: contractor
 communities: [mobile, .net]
 description: "Add authentication to your MAUI applications and keep your .NET mobile apps secure!"
-tags: [.NET, mobile]
+tags: [net, mobile]
 tweets:
   - ""
   - ""
