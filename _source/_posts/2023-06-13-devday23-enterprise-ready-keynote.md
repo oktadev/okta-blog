@@ -16,6 +16,11 @@ type: awareness
 
 What makes a SaaS application ready for enterprise customers when it comes to identity? Between handling application security, user onboarding, and scalable, secure authentication practices, there's much to consider and prepare before determining your app is "enterprise ready."
 
+|Posts in the enterprise-ready Devday23 presentation series|
+| --- |
+| 1. **What Does It Mean to Be Enterprise Ready: Devday23 Keynote Enterprise Readiness** |
+| 2. [What Enterprises Look For: Devday23 Enterprise Customer Perspectives](/blog/2023/06/15/devday23-enterprise-customer) |
+
 ## Road to making your SaaS applications enterprise-ready
 
 We recently hosted a half-day virtual conference covering this topic at [WIC Devday 23](https://developerday.com/events/devday23-wic). We launched the event with a keynote covering why enterprise readiness is essential and what considerations to take. We invited Arnab Bose, Chief Product Officer, Workforce Identity Cloud at Okta, to lead the important "Why" and "What" questions.
