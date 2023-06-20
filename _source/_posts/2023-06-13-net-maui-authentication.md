@@ -27,7 +27,7 @@ If you are getting started with .NET MAUI Apps, you can find all the requirement
 - [Visual Studio 2022 Version 17.4.5](https://visualstudio.microsoft.com/vs/)
 - [.NET 7](https://dotnet.microsoft.com/en-us/download/dotnet/7.0)
 - [Okta CLI](https://cli.okta.com)
-  > [Okta](https://developer.okta.com/) has Authentication and User Management APIs that reduce development time with instant-on, scalable user infrastructure.
+> [Okta](https://developer.okta.com/) has Authentication and User Management APIs that reduce development time with instant-on, scalable user infrastructure.
 
 {% include toc.md %}
 
@@ -348,13 +348,14 @@ public static class MauiProgram
 
 ### Update the MAUI application to support sign in and signout
 
-Now, it's time to update the UI to display the login and logout buttons, plus the user's claims once they're authenticated. Open the `MainPage.xaml` file and replace the content with the following:
+Now, it's time to update the UI to display the sign in and signout buttons, plus the user's claims once they're authenticated. Open the `MainPage.xaml` file and replace the content with the following:
 
 ```csharp
 <?xml version="1.0" encoding="utf-8" ?>
-<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
-             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             x:Class="OktaMauiSampleApp.MainPage">
+<ContentPage
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    x:Class="OktaMauiSampleApp.MainPage">
     <ScrollView>
         <VerticalStackLayout
             Spacing="25"
@@ -415,8 +416,6 @@ Now, it's time to update the UI to display the login and logout buttons, plus th
                     HorizontalOptions="Center"
                     Margin="0,30"/>
 
-
-
                 <ListView x:Name="UserInfoLvw">
                     <ListView.HeaderTemplate>
                         <DataTemplate>
@@ -430,11 +429,9 @@ Now, it's time to update the UI to display the login and logout buttons, plus th
                     </ListView.HeaderTemplate>
                 </ListView>
 
-
             </StackLayout>
         </VerticalStackLayout>
     </ScrollView>
-
 </ContentPage>
 ```
 
@@ -449,9 +446,9 @@ namespace OktaMauiSampleApp;
 
 public partial class MainPage : ContentPage
 {
-            int count = 0;
-            private OktaClient _oktaClient;
-            private LoginResult _authenticationData;
+    int count = 0;
+    private OktaClient _oktaClient;
+    private LoginResult _authenticationData;
 
     public MainPage(OktaClient oktaClient)
     {
@@ -508,13 +505,13 @@ public partial class MainPage : ContentPage
 }
 ```
 
-The UI logic is very simple. We have a `StackLayout` called `HomeView` that will be displayed once the user is authenticated. This component has a "Log Out" button and a `ListView` where we show the user's claims. Once the user logs out, the `HomeView` component is hidden, and the "Log In" button is displayed again.
+The UI logic is very minimal. We have a `StackLayout` called `HomeView` that will be displayed once the user is authenticated. This component has a "Log Out" button and a `ListView` where we show the user's claims. Once the user logs out, the `HomeView` component is hidden, and the "Log In" button is displayed again.
 
 That's all here! It's time to make the platform-specific updates and try our MAUI application.
 
 ### Add platform-specific changes to handle authentication
 
-For this tutorial, I'll focus on Android, but you can easily refer to [Andrea's article](https://auth0.com/blog/add-authentication-to-dotnet-maui-apps-with-auth0/) to add the missing bits to support iOS.
+For this tutorial, I'll focus on Android, but you can easily refer to "[Add Authentication to .NET MAUI Apps with Auth0](https://auth0.com/blog/add-authentication-to-dotnet-maui-apps-with-auth0/)" to add the code to support iOS.
 
 In the `Platforms/Android` folder, create a new file called `WebAuthenticationCallbackActivity` and copy and paste the following content:
 
@@ -552,12 +549,14 @@ Finally, open the `AndroidManifest.xml` file located in the same folder and add 
 <manifest xmlns:android="http://schemas.android.com/apk/res/android">
     <application android:allowBackup="true" android:icon="@mipmap/appicon" android:roundIcon="@mipmap/appicon_round" android:supportsRtl="true"></application>
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
-    <uses-permission android:name="android.permission.INTERNET" />			 <!-- 👇 new code -->
-  <queries>
-    <intent>
-      <action android:name="android.support.customtabs.action.CustomTabsService" />
-    </intent>
-  </queries>
+    <uses-permission android:name="android.permission.INTERNET" />
+
+    <!-- 👇 new code -->
+    <queries>
+        <intent>
+            <action android:name="android.support.customtabs.action.CustomTabsService" />
+        </intent>
+    </queries>
   <!-- 👆 new code -->
 
 </manifest>
@@ -571,7 +570,7 @@ Woohoo! It's time to test the Android version application. It should look like t
 
 This tutorial provides you with the fundamental steps to create your Okta client and add authentication with Okta to your MAUI applications. You can go further and try authentication on other platforms as well! I'd love to know what platform you're using; let me know in the comments below.
 
-You can get the complete sample code for this MAUI authentication project from [GitHub](https://github.com/laura-rodriguez/okta-maui-sample-app).
+You can get the complete sample code for this MAUI authentication project from [GitHub](https://github.com/oktadev/okta-net-maui-example).
 
 If you enjoyed this tutorial, you might also like these:
 
