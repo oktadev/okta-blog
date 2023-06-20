@@ -48,9 +48,9 @@ To create a new .NET MAUI project, follow these steps:
 
 That's it! You have successfully created a .NET MAUI application using Visual Studio 2022. Now, it's time to improve the security of your application by integrating Okta to enable authentication.
 
-> **Troubleshooting**: If you face the error "Local source of NuGet packages doesn't exist" try creating a new NuGet config by running the following command `dotnet new nugetconfig` and rebuild your solution.
+> **Troubleshooting**: If you face the error "Local source of NuGet packages doesn't exist", try creating a new NuGet config by running the following command: `dotnet new nugetconfig` and rebuild your solution.
 
-> **Troubleshooting**: If you face the error "NETSDK1112: The runtime pack for Microsoft.NETCore.App.Runtime.win-x64 was not downloaded" try running a NuGet restore specifying your runtime `dotnet restore --runtime win-x64`
+> **Troubleshooting**: If you face the error: "NETSDK1112: The runtime pack for Microsoft.NETCore.App.Runtime.win-x64 was not downloaded", try running a NuGet restore specifying your runtime `dotnet restore --runtime win-x64`
 
 ## Add authentication to your MAUI application
 
@@ -214,10 +214,10 @@ namespace OktaMauiSampleApp.Okta
 
 Before jumping into the `OktaClientConfiguration` creation, I'd like to explain a few differences between this implementation and the Auth0 client described in [Add Authentication to .NET MAUI Apps with Auth0](https://auth0.com/blog/add-authentication-to-dotnet-maui-apps-with-auth0/) blog post from Auth0 by Okta.
 
-Okta provides [two different types of authorization servers](https://developer.okta.com/docs/concepts/auth-servers/), the "Org Authorization Server" (Org AS) and the "Custom Authorization Server" (Custom AS). Suppose you try to use a Custom AS with IdentityModel. In that case. In that case, you will face the following error "[Error loading discovery document: Endpoint belongs to different authority: https://xxxxxxxxx.com/oauth2/v1/clients](https://devforum.okta.com/t/error-loading-discovery-document-endpoint-belongs-to-different-authority/6582)". This is because, during discovery, IdentityModel validates that all endpoints belong to the same authorization server, and with Okta, the client registration occurs at the Org level, not the authorization server level.
+Okta provides [two different types of authorization servers](https://developer.okta.com/docs/concepts/auth-servers/), the "Org Authorization Server" (Org AS) and the "Custom Authorization Server" (Custom AS). Suppose you try to use a Custom AS with IdentityModel. In that case, you will face the following error: "[Error loading discovery document: Endpoint belongs to different authority: https://xxxxxxxxx.com/oauth2/v1/clients](https://devforum.okta.com/t/error-loading-discovery-document-endpoint-belongs-to-different-authority/6582)". This is because during discovery, IdentityModel validates that all endpoints belong to the same authorization server, and with Okta, the client registration occurs at the Org level, not the authorization server level.
 
 In Okta, applications are global to the Org and can be used for multiple authorization servers; that's why you cannot register a client for only one Authorization Server and, ultimately, why the path in metadata is not specific to the Authorization Server that the discovery request was for.
-To avoid the above mentioned issue, we must implement our discovery logic and tell IdentityModel that endpoints can belong to two different authorization servers. The method `EnsureProviderInformationAsync` contains the custom discovery logic, and we need to make sure to call this method before the actual Login and Logout.
+To avoid the issue mentioned above, we must implement our discovery logic and tell IdentityModel that endpoints can belong to two different authorization servers. The method `EnsureProviderInformationAsync` contains the custom discovery logic, and we need to make sure to call this method before the actual Login and Logout.
 
 Also, for logout, Okta needs the ID Token, so you need to store the login's response in your application which contains the ID Token, among other essential properties.
 
@@ -225,7 +225,7 @@ Now, let's jump into the `OktaClientConfiguration` implementation.
 
 ### Create the Okta Client Configuration
 
-In the Okta folder, create a class called `OktaClientConfiguration` ,and copy and paste the following content:
+In the Okta folder, create a class called `OktaClientConfiguration`, and copy and paste the following content:
 
 ```csharp
 using IBrowser = IdentityModel.OidcClient.Browser.IBrowser;
@@ -348,7 +348,7 @@ public static class MauiProgram
 
 ### Update the MAUI application to support sign in and signout
 
-Now, it's time to update the UI to display the sign in and signout buttons, plus the user's claims once they're authenticated. Open the `MainPage.xaml` file and replace the content with the following:
+Now, it's time to update the UI to display the sign in and sign out buttons, plus the user's claims once they're authenticated. Open the `MainPage.xaml` file and replace the content with the following:
 
 ```csharp
 <?xml version="1.0" encoding="utf-8" ?>
