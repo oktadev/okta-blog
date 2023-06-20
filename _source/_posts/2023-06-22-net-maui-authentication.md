@@ -564,7 +564,7 @@ Finally, open the `AndroidManifest.xml` file located in the same folder and add 
 
 Woohoo! It's time to test the Android version application. It should look like this:
 
-{% img blog/net-maui-authentication/demo.gif alt:"Completed application" height:"400" %}{: .center-image }
+{% img blog/net-maui-authentication/demo.gif alt:"Completed application" height:"600" %}{: .center-image }
 
 ## Keep experimenting with MAUI, .NET, OAuth, and OIDC
 
