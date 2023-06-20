@@ -329,7 +329,7 @@ public static class MauiProgram
 
         var oktaClientConfiguration = new Okta.OktaClientConfiguration()
         {
-    // Use "https://{yourOktaDomain}/oauth2/default" for the "default" authorization server, or
+            // Use "https://{yourOktaDomain}/oauth2/default" for the "default" authorization server, or
             // "https://{yourOktaDomain}/oauth2/<MyCustomAuthorizationServerId>"
 
             OktaDomain = "https://{yourOktaDomain}/oauth2/default"
