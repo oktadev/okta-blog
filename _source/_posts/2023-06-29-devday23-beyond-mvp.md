@@ -1,7 +1,7 @@
 ---
 layout: blog_post
 title: "How to Take Your Enterprise-Ready SaaS App Beyond MVP"
-author: alisa-duncan
+author: aaron-parecki
 by: advocate
 communities: [devops,security,.net,java,javascript,php,python]
 description: "With enterprise-ready identity added to your SaaS app, you're ready to take your app beyond MVP! Find out how you can make your app stand out, and get a closer look at provisioning and Okta workflows with Aaron Parecki, Security Architect Group Manager at Okta."
@@ -33,7 +33,12 @@ Aaron Parecki, Security Architect Group Manager at Okta, shared ways you can lev
 
 ## Learn more about Okta Workflows, provisioning, and SaaS application maturity
 
-{% speakerdeck ee97e681e84646879cfb303bfa061604 600px %}
+{% speakerdeck 1caf89fecfe74ca38d30205fabdc49fe 600px %}
+
+* [SCIM](https://scim.cloud)
+* [A Developer's Guide to SCIM](https://youtu.be/JmA83cy0uVc) (video)
+* [Okta Workflow Connector Builder](https://help.okta.com/wf/en-us/Content/Topics/Workflows/connector-builder/connector-builder.htm)
+* [Workflow Tutorials](https://www.youtube.com/playlist?list=PLIid085fSVdvyK8F4xuk49EchBPmAVNHG) (video)
 
 In the following weeks, watch for posts featuring the conference presentations, including elevating about elevating authentication mechanisms and automating your deployments.
 
