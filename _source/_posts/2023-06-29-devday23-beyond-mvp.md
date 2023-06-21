@@ -12,7 +12,7 @@ image: blog/devday23-beyond-mvp/social.jpg
 type: awareness
 ---
 
-Ready to move beyond MVP in your journey in making your SaaS app support enterprise-ready identity? With the must-have functionality in place, you're ready to make your app stand out, get noticed by enterprise customers, and to handle user provisioning and automation that can scale!
+Ready to move beyond MVP in the journey of adding enterprise-ready identity in your SaaS app? With the must-have functionality in place, you're ready to make your app stand out, get noticed by enterprise customers, and handle user provisioning and automation that can scale!
 
 So what might that look like? 🤔
 
