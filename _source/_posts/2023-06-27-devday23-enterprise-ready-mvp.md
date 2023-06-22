@@ -17,7 +17,7 @@ Understanding what enterprise customers look for in a SaaS app is step one, but 
 |Posts in the enterprise-ready Devday23 presentation series|
 | --- |
 | 1. [What Does It Mean to Be Enterprise Ready: Devday23 Keynote Enterprise Readiness](/blog/2023/06/13/devday23-enterprise-ready-keynote) |
-| 2. [What Enterprises Look For: Devday23 Enterprise Customer Perspectives]() |
+| 2. [What Enterprises Look For: Devday23 Enterprise Customer Perspectives](/blog/2023/06/15/devday23-enterprise-customer) |
 | 3. **How to Build an Enterprise-Ready MVP SaaS App** |
 
 ## Enterprise-ready identity
