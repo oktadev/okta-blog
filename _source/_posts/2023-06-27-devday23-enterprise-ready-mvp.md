@@ -30,7 +30,7 @@ Learn the what, whys, hows, and more from Dan Marma, Product Acceleration Princi
 
 ## Single Sign On (SSO) in your SaaS applications
 
-{% speakerdeck ee97e681e84646879cfb303bfa061604 600px %}
+{% speakerdeck b5003a7a95684a00a24ad3e1bff3f7eb 600px %}
 
 In the following weeks, watch for more posts featuring the conference presentations. You'll learn more about how to move your application beyond identity MVP and elevated authentication mechanisms.
 
