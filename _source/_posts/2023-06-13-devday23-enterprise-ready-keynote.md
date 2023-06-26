@@ -21,6 +21,7 @@ What makes a SaaS application ready for enterprise customers when it comes to id
 | 1. **What Does It Mean to Be Enterprise Ready: Devday23 Keynote Enterprise Readiness** |
 | 2. [What Enterprises Look For: Devday23 Enterprise Customer Perspectives](/blog/2023/06/15/devday23-enterprise-customer) |
 | 3. [How to Build an Enterprise-Ready MVP SaaS App](/blog/2023/06/27/devday23-enterprise-ready-mvp) |
+| 4. [How to Take Your Enterprise-Ready SaaS App Beyond MVP](/blog/2023/06/29/devday23-beyond-mvp) |
 
 ## Road to making your SaaS applications enterprise-ready
 

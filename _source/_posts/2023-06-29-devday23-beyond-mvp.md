@@ -22,7 +22,7 @@ In this installment of creating an enterprise-ready SaaS app, we'll cover this a
 | --- |
 | 1. [What Does It Mean to Be Enterprise Ready: Devday23 Keynote Enterprise Readiness](/blog/2023/06/13/devday23-enterprise-ready-keynote) |
 | 2. [What Enterprises Look For: Devday23 Enterprise Customer Perspectives](/blog/2023/06/15/devday23-enterprise-customer) |
-| 3. [How to Build an Enterprise-Ready MVP SaaS App]() |
+| 3. [How to Build an Enterprise-Ready MVP SaaS App](/blog/2023/06/27/devday23-enterprise-ready-mvp) |
 | 4. **How to Take Your Enterprise-Ready SaaS App Beyond MVP** |
 
 ## Take your enterprise-ready SaaS app to the next level
