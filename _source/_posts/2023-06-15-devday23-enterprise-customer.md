@@ -20,6 +20,8 @@ Welcome to the second step of becoming enterprise ready. Join us as we help you 
 | --- |
 | 1. [What Does It Mean to Be Enterprise Ready: Devday23 Keynote Enterprise Readiness](/blog/2023/06/13/devday23-enterprise-ready-keynote) |
 | 2. **What Enterprises Look For: Devday23 Enterprise Customer Perspectives** |
+| 3. [How to Build an Enterprise-Ready MVP SaaS App](/blog/2023/06/27/devday23-enterprise-ready-mvp) |
+
 
 ## Understanding enterprise customers
 
