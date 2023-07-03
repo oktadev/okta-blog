@@ -1,7 +1,7 @@
 ---
 layout: blog_post
 title: "Keycloak in Production with Spring Boot and JHipster"
-author:
+author: jimena-garbarino
 by: contractor
 communities: [devops,security,java]
 description: "A walk-through of building a microservices architecture with JHipster, Keycloak for OAuth 2.0, and Google Kubernetes Engine (GKE) deployment."
@@ -21,17 +21,27 @@ The JHipster Kubernetes generator creates all the necessary Kubernetes resources
 
 {% img blog/keycloak-kubernetes-prod/keycloak-gke.png alt:"Keycloak, JHipster, GKE logos" width:"500" %}{: .center-image }
 
+> **This tutorial was created with the following frameworks and tools**:
+> - [Node.js v16.19.1](https://docs.npmjs.com/downloading-and-installing-node-js-and-npm)
+> - [npm 8.19.3](https://docs.npmjs.com/downloading-and-installing-node-js-and-npm)
+> - [Java OpenJDK 17](https://jdk.java.net/java-se-ri/17)
+> - [Docker 24.0.2](https://docs.docker.com/desktop/)
+> - [Google Cloud CLI 397.0.0](https://cloud.google.com/sdk/docs/install)
+> - [Kubectl v1.26.3](https://kubernetes.io/docs/tasks/tools/)
+> - [Auth0 1.0.0](https://github.com/auth0/auth0-cli#installation)
+
+
 {% include toc.md %}
 
 ## Recommended practices for Keycloak in production
 
-Keycloak can be started in development mode with the `start-dev` command or production mode with the `start` command. Production mode follows a _secure by default_ principle and expects _hostname_ and _HTTPS/TLS_ configuration to be set, otherwise, Keycloak won't start and will display an error. Also, in production mode HTTP is disabled by default.
+When running Keycloak in a container, it can be started in development mode with the `start-dev` command or production mode with the `start` command, both available in the default container image. Production mode follows a _secure by default_ principle and expects _hostname_ and _HTTPS/TLS_ configuration to be set, otherwise, Keycloak won't start and will display an error. Also, in production mode HTTP is disabled by default.
 
-Keycloak documentation provides some key guidelines for production deployment that apply to all environments.
+Keycloak documentation provides some [key guidelines](https://www.keycloak.org/server/configuration-production) for production deployment that apply to all environments.
 
-- **HTTPS/TLS**: The exchange of credentials and other sensitive data with Keycloak requires all communication to and from Keycloak to be secured, so HTTP over TLS must be enabled.
+- **HTTPS/TLS**: The exchange of credentials and other sensitive data with Keycloak requires all communication to and from Keycloak to be secured. HTTP over TLS can be enabled by configuring Keycloak to load the required certificate infrastructure or by using a reverse proxy to keep a secure connection with clients while communicating with Keycloak using HTTP.
 - **Keycloak hostname**: Keycloak usually runs in a private network but certain public-facing endpoints must be exposed to applications. The base URLs determine how tokens are issued and validated, how action links are created, and how the OpenID Connect Discovery Document `realms/{realm-name}/.well-known/openid-configuration` is created.
-- **Reverse proxy**: A reverse proxy/load balancer component is recommended for a production environment, unifying access to the network. Keycloak supports multiple proxy modes. The `edge` mode allows HTTP communication between the proxy and Keycloak, and the proxy keeps a secure connection with clients.
+- [**Reverse proxy**](https://www.keycloak.org/server/reverseproxy): A reverse proxy/load balancer component is recommended for a production environment, unifying access to the network. Keycloak supports multiple proxy modes. The `edge` mode allows HTTP communication between the proxy and Keycloak, and the proxy keeps a secure connection with clients, using HTTPS/TLS.
 - **Production grade database**: The database plays a crucial role in the performance and Keycloak supports several production-grade databases, including PostgreSQL.
 - **High Availability**: Choose multi-mode clustered deployment. In production mode, distributed caching of realm and session data is enabled and all nodes in the network are discovered.
 
@@ -154,9 +164,9 @@ Create a [Docker Hub](https://hub.docker.com/) personal account, if you don't ha
 
 ```shell
 ./gradlew -Pprod bootJar jib \
--Djib.to.image=<your-dockerhub-username>/gateway \
--Djib.to.auth.username=<your-dockerhub-username> \
--Djib.to.auth.password=<your-dockerhub-secret>
+  -Djib.to.image=<your-dockerhub-username>/gateway \
+  -Djib.to.auth.username=<your-dockerhub-username> \
+  -Djib.to.auth.password=<your-dockerhub-secret>
 ```
 
 **Note**: The _your-dockerhub-secret_ value will be your Docker Hub password or an access token if you have two-factor authentication enabled.
@@ -229,10 +239,10 @@ Create a Kubernetes cluster on Google Cloud:
 
 ```shell
 gcloud container clusters create jhipster-cluster \
---zone southamerica-east1-a \
---machine-type n1-standard-4 \
---enable-autorepair \
---enable-autoupgrade
+  --zone southamerica-east1-a \
+  --machine-type n1-standard-4 \
+  --enable-autorepair \
+  --enable-autoupgrade
 ```
 
 **Note**: you can choose a different zone and machine type.
