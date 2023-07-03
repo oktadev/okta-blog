@@ -142,7 +142,7 @@ deployment {
 }
 ```
 
-Repalce the `dockerRepositoryName` with your account name. Then run the following command:
+Replace the `dockerRepositoryName` with your [Docker Hub](https://hub.docker.com/) account name. Then run the following command:
 
 ```shell
 jhipster jdl reactive-ms.jdl
@@ -159,7 +159,7 @@ Create a [Docker Hub](https://hub.docker.com/) personal account, if you don't ha
 -Djib.to.auth.password=<your-dockerhub-secret>
 ```
 
-**Note**: _your-dockerhub-secret_ can be your Docker Hub password, or a token if you have two-factor authentication enabled.
+**Note**: The _your-dockerhub-secret_ value will be your Docker Hub password or an access token if you have two-factor authentication enabled.
 
 ### Run the Kubernetes sub-generator
 
@@ -187,9 +187,11 @@ Find out the IP address with the following command:
 gcloud compute addresses describe gateway-ip --global --format='value(address)'
 ```
 
-Create a `kuberntes` folder at the root of the project, and run the generator:
+Create a `kubernetes` folder at the root of the project, and run the generator:
 
 ```shell
+mkdir kubernetes
+cd kubernetes
 jhipster kubernetes
 ```
 
@@ -246,10 +248,10 @@ gcloud container clusters get-credentials jhipster-cluster --zone southamerica-e
 Install [cert-manager](https://cert-manager.io/docs/tutorials/getting-started-with-cert-manager-on-google-kubernetes-engine-using-lets-encrypt-for-ingress-ssl/) in your cluster:
 
 ```shell
-kubectl apply -f https://github.com/cert-manager/cert-manager/releases/download/v1.12.1/cert-manager.yaml
+kubectl apply -f https://github.com/cert-manager/cert-manager/releases/download/v1.12.2/cert-manager.yaml
 ```
 
-**Note**: If you see a `kubectl` error __The gcp auth plugin has been removed. __, see [https://cloud.google.com/blog/products/containers-kubernetes/kubectl-auth-changes-in-gke](https://cloud.google.com/blog/products/containers-kubernetes/kubectl-auth-changes-in-gke) for details on how to fix it.
+**Note**: If you see a `kubectl` error __The gcp auth plugin has been removed.__, see [Here's what to know about changes to kubectl authentication coming in GKE v1.26](https://cloud.google.com/blog/products/containers-kubernetes/kubectl-auth-changes-in-gke) for details on how to fix it.
 
 Apply the deployment descriptors, from the `kubernetes` folder:
 
@@ -257,7 +259,7 @@ Apply the deployment descriptors, from the `kubernetes` folder:
 ./kubectl-apply.sh -f
 ```
 
-**Important note**: Keycloak client applications (a monolith or microservices) will fail the startup until Let's Encrypt has issued the certificate and it has been synchronized inside the cluster. In the following section, the issuance process is explained in more detail.
+**Important note**: Keycloak client applications (a monolith or microservices) will fail to start until Let's Encrypt has issued the certificate and it has synchronized inside the cluster. In the following section, the issuance process is explained in more detail.
 
 The certificate might take some minutes to be ready, you can check the status by inspecting the object events:
 
@@ -289,7 +291,7 @@ The output should contain the message "certs updated":
 Events:
   Type     Reason             Age                   From                       Message
   ----     ------             ----                  ----                       -------
-...
+  ...
   Normal   Sync               78s (x2 over 4m33s)  loadbalancer-controller    UrlMap "k8s2-um-ag6evarw-demo-gateway-gijhgcnp" updated
   Normal   Sync               66s (x9 over 9m6s)   loadbalancer-controller    Scheduled for sync
   Normal   Sync               25s                  loadbalancer-controller    TargetProxy "k8s2-ts-ag6evarw-demo-gateway-gijhgcnp" certs updated
@@ -306,7 +308,7 @@ If you click on **Sign in** you will be redirected to the Keycloak sign-in page.
 
 {% img blog/keycloak-kubernetes-prod/certificate-info.png alt:"Certificate information" width:"700" %}{: .center-image }
 
-## Using cert-manager with Let's Encrypt Certificates
+## Use cert-manager with Let's Encrypt Certificates
 
 cert-manager is an X.509 certificate controller for Kubernetes and OpenShift. It automates the issuance of certificates from popular public and private Certificate Authorities, to secure Ingress with TLS. It ensures the certificates are valid and up-to-date, and attempts to renew certificates before expiration.
 
@@ -640,5 +642,8 @@ I hope you enjoyed this post and learned about some best practices for deploying
 - [Full Stack Java with React, Spring Boot, and JHipster](https://auth0.com/blog/full-stack-java-with-react-spring-boot-and-jhipster/)
 - [Build a Beautiful CRUD App with Spring Boot and Angular](https://auth0.com/blog/spring-boot-angular-crud/)
 - [Get Started with Jetty, Java, and OAuth](https://auth0.com/blog/java-jetty-oauth/)
+
+
+If you're interested in getting staying informed about Auth0 every month, [subscribe to our Zero Index Newsletter](https://a0.to/nl-signup/java)!
 
 For more tutorials like this one, follow [@oktadev](https://twitter.com/oktadev) on Twitter. We also have a [YouTube channel](https://youtube.com/oktadev) you might like. If you have any questions, please leave a comment below!
