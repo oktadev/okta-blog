@@ -21,29 +21,19 @@ The JHipster Kubernetes generator creates all the necessary Kubernetes resources
 
 {% img blog/keycloak-kubernetes-prod/keycloak-gke.png alt:"Keycloak, JHipster, GKE logos" width:"500" %}{: .center-image }
 
-> **This tutorial was created with the following frameworks and tools**:
+> **This tutorial was created with the following tools and services**:
 > - [Node.js v16.19.1](https://docs.npmjs.com/downloading-and-installing-node-js-and-npm)
 > - [npm 8.19.3](https://docs.npmjs.com/downloading-and-installing-node-js-and-npm)
 > - [Java OpenJDK 17](https://jdk.java.net/java-se-ri/17)
+> - [DockerHub account](https://hub.docker.com/)
 > - [Docker 24.0.2](https://docs.docker.com/desktop/)
 > - [Google Cloud CLI 397.0.0](https://cloud.google.com/sdk/docs/install)
 > - [Kubectl v1.26.3](https://kubernetes.io/docs/tasks/tools/)
-> - [Auth0 1.0.0](https://github.com/auth0/auth0-cli#installation)
+> - [Auth0 account](https://auth0.com/signup)
+> - [Auth0 CLI 1.0.0](https://github.com/auth0/auth0-cli#installation)
 
 
 {% include toc.md %}
-
-## Recommended practices for Keycloak in production
-
-When running Keycloak in a container, it can be started in development mode with the `start-dev` command or production mode with the `start` command, both available in the default container image. Production mode follows a _secure by default_ principle and expects _hostname_ and _HTTPS/TLS_ configuration to be set, otherwise, Keycloak won't start and will display an error. Also, in production mode HTTP is disabled by default.
-
-Keycloak documentation provides some [key guidelines](https://www.keycloak.org/server/configuration-production) for production deployment that apply to all environments.
-
-- **HTTPS/TLS**: The exchange of credentials and other sensitive data with Keycloak requires all communication to and from Keycloak to be secured. HTTP over TLS can be enabled by configuring Keycloak to load the required certificate infrastructure or by using a reverse proxy to keep a secure connection with clients while communicating with Keycloak using HTTP.
-- **Keycloak hostname**: Keycloak usually runs in a private network but certain public-facing endpoints must be exposed to applications. The base URLs determine how tokens are issued and validated, how action links are created, and how the OpenID Connect Discovery Document `realms/{realm-name}/.well-known/openid-configuration` is created.
-- [**Reverse proxy**](https://www.keycloak.org/server/reverseproxy): A reverse proxy/load balancer component is recommended for a production environment, unifying access to the network. Keycloak supports multiple proxy modes. The `edge` mode allows HTTP communication between the proxy and Keycloak, and the proxy keeps a secure connection with clients, using HTTPS/TLS.
-- **Production grade database**: The database plays a crucial role in the performance and Keycloak supports several production-grade databases, including PostgreSQL.
-- **High Availability**: Choose multi-mode clustered deployment. In production mode, distributed caching of realm and session data is enabled and all nodes in the network are discovered.
 
 ## Deploy Spring Boot microservices and Keycloak to Google Kubernetes Engine
 
@@ -56,9 +46,8 @@ Install JHipster, you can do the classical local installation with npm.
 ```bash
 npm install -g generator-jhipster@7.9.3
 ```
-If you'd rather use Yarn or Docker, follow the instructions at [jhipster.tech](https://www.jhipster.tech/installation/#local-installation-with-npm-recommended-for-normal-users).
 
-Generate the microservices architecture from a JDL (JHipster-specific domain language) descriptor file. Create a folder for the project and add the file `reactive-ms.jdl` with the following content:
+Generate the microservices architecture from a JDL (JHipster Domain Language) descriptor file. Create a folder for the project and add the file `reactive-ms.jdl` with the following content:
 
 ```text
 application {
@@ -152,7 +141,7 @@ deployment {
 }
 ```
 
-Replace the `dockerRepositoryName` with your [Docker Hub](https://hub.docker.com/) account name. Then run the following command:
+Create a [Docker Hub](https://hub.docker.com/) personal account, if you don't have one, and replace the `dockerRepositoryName` with the account name. Then run the following command:
 
 ```shell
 jhipster jdl reactive-ms.jdl
@@ -160,7 +149,7 @@ jhipster jdl reactive-ms.jdl
 
 After the generation, you will find sub-folders were created for the `gateway`, `store`, and `blog` services. The `gateway` will act as the front-end application and as a secure router to the `store` and `blog` microservices.
 
-Create a [Docker Hub](https://hub.docker.com/) personal account, if you don't have one. Then build and publish each application image. For example, in the `gateway` folder run:
+Then build and publish each application image. For example, in the `gateway` folder run:
 
 ```shell
 ./gradlew -Pprod bootJar jib \
@@ -169,7 +158,7 @@ Create a [Docker Hub](https://hub.docker.com/) personal account, if you don't ha
   -Djib.to.auth.password=<your-dockerhub-secret>
 ```
 
-**Note**: The _your-dockerhub-secret_ value will be your Docker Hub password or an access token if you have two-factor authentication enabled.
+**Note**: The _your-dockerhub-secret_ value will be your Docker Hub password or an access token if you have two-factor authentication enabled. If you are already logged in using `docker login` it is not required pass username/pass to each command.
 
 ### Run the Kubernetes sub-generator
 
@@ -202,7 +191,7 @@ Create a `kubernetes` folder at the root of the project, and run the generator:
 ```shell
 mkdir kubernetes
 cd kubernetes
-jhipster kubernetes
+jhipster k8s
 ```
 
 Choose the following options when prompted:
@@ -261,7 +250,7 @@ Install [cert-manager](https://cert-manager.io/docs/tutorials/getting-started-wi
 kubectl apply -f https://github.com/cert-manager/cert-manager/releases/download/v1.12.2/cert-manager.yaml
 ```
 
-**Note**: If you see a `kubectl` error __The gcp auth plugin has been removed.__, see [Here's what to know about changes to kubectl authentication coming in GKE v1.26](https://cloud.google.com/blog/products/containers-kubernetes/kubectl-auth-changes-in-gke) for details on how to fix it.
+**Note**: If you see a `kubectl` error _The gcp auth plugin has been removed._, see [Here's what to know about changes to kubectl authentication coming in GKE v1.26](https://cloud.google.com/blog/products/containers-kubernetes/kubectl-auth-changes-in-gke) for details on how to fix it.
 
 Apply the deployment descriptors, from the `kubernetes` folder:
 
@@ -318,7 +307,15 @@ If you click on **Sign in** you will be redirected to the Keycloak sign-in page.
 
 {% img blog/keycloak-kubernetes-prod/certificate-info.png alt:"Certificate information" width:"700" %}{: .center-image }
 
-## Use cert-manager with Let's Encrypt Certificates
+You can delete the cluster and public IP in between sessions to save costs with the following `gcloud` commands:
+
+```shell
+gcloud container clusters delete <cluster-name> \
+  --zone <cluster-zone>
+gcloud compute addresses delete <public-ip> --global
+```
+
+## About cert-manager and Let's Encrypt Certificates
 
 cert-manager is an X.509 certificate controller for Kubernetes and OpenShift. It automates the issuance of certificates from popular public and private Certificate Authorities, to secure Ingress with TLS. It ensures the certificates are valid and up-to-date, and attempts to renew certificates before expiration.
 
@@ -373,7 +370,9 @@ metadata:
 
 ## Delegate authentication to Auth0
 
-Keycloak supports identity provider federation, meaning it can be configured to delegate authentication to one or more Identity Providers. An example of IDP federation is social login via Facebook or Google. Authentication can be delegated to any IDP supporting OpenID Connect or SAML 2.0. Auth0 uses the OpenID Connect protocol to authenticate users and allows adding custom logic to the login and identity flows via Auth0 Actions. JHipster applications require custom access token claims for authorization, and these can be configured using Auth0 Actions. The sections below describe the step-by-step process to add Auth0 authentication to the gateway using Keycloak, without making any application changes. You can find a detailed description of the [brokering flow](https://www.keycloak.org/docs/latest/server_admin/#_identity_broker_overview) in the Keycloak server administration guide.
+Keycloak supports identity provider federation, meaning it can be configured to delegate authentication to one or more Identity Providers. An example of IDP federation is social login via Facebook or Google. Authentication can be delegated to any IDP supporting OpenID Connect or SAML 2.0. Auth0 uses the OpenID Connect protocol to authenticate users and allows adding custom logic to the login and identity flows via Auth0 Actions.
+
+JHipster applications require custom access token claims for authorization, and these can be configured using Auth0 Actions. The sections below describe the step-by-step process to add Auth0 authentication to the gateway using Keycloak, without making any application changes. You can find a detailed description of the [brokering flow](https://www.keycloak.org/docs/latest/server_admin/#_identity_broker_overview) in the Keycloak server administration guide.
 
 ### Create an Auth0 account
 
@@ -643,6 +642,18 @@ Navigate to **http://gateway.\<namespace\>.\<public-ip\>.nip.io**. The gateway h
 {% img blog/keycloak-kubernetes-prod/auth0-login.png alt:"Add mapper form" width:"350" %}{: .center-image }
 
 After signing in, the gateway home page will display the username (email). If roles were mapped correctly, the user should be able to create entities (granted by ROLE_USER), and the Administration menu will also display (granted by ROLE_ADMIN).
+
+## Summary of recommended practices for Keycloak in production
+
+When running Keycloak in a container, it can be started in development mode with the `start-dev` command or production mode with the `start` command, both available in the default container image. Production mode follows a _secure by default_ principle and expects _hostname_ and _HTTPS/TLS_ configuration to be set, otherwise, Keycloak won't start and will display an error. Also, in production mode HTTP is disabled by default.
+
+Keycloak documentation provides some [key guidelines](https://www.keycloak.org/server/configuration-production) for production deployment that apply to all environments.
+
+- **HTTPS/TLS**: The exchange of credentials and other sensitive data with Keycloak requires all communication to and from Keycloak to be secured. HTTP over TLS can be enabled by configuring Keycloak to load the required certificate infrastructure or by using a reverse proxy to keep a secure connection with clients while communicating with Keycloak using HTTP.
+- **Keycloak hostname**: Keycloak usually runs in a private network but certain public-facing endpoints must be exposed to applications. The base URLs determine how tokens are issued and validated, how action links are created, and how the OpenID Connect Discovery Document `realms/{realm-name}/.well-known/openid-configuration` is created.
+- [**Reverse proxy**](https://www.keycloak.org/server/reverseproxy): A reverse proxy/load balancer component is recommended for a production environment, unifying access to the network. Keycloak supports multiple proxy modes. The `edge` mode allows HTTP communication between the proxy and Keycloak, and the proxy keeps a secure connection with clients, using HTTPS/TLS.
+- **Production grade database**: The database plays a crucial role in the performance and Keycloak supports several production-grade databases, including PostgreSQL.
+- **High Availability**: Choose multi-mode clustered deployment. In production mode, distributed caching of realm and session data is enabled and all nodes in the network are discovered.
 
 ## Learn More about Keycloak in production
 
