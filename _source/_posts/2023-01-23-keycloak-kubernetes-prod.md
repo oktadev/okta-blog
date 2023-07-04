@@ -312,6 +312,9 @@ You can delete the cluster and public IP in between sessions to save costs with 
 ```shell
 gcloud container clusters delete <cluster-name> \
   --zone <cluster-zone>
+```
+
+```shell  
 gcloud compute addresses delete <public-ip> --global
 ```
 
@@ -596,7 +599,7 @@ auth0 actions deploy ee0ea308-0e50-4be3-893b-74f9ccbb3703
 
 Once the action is deployed, you must attach it to the login flow. Sign in to Auth0, and on the left menu choose **Actions**. Then in the Flows screen, choose **Login**. On the right bottom section, choose **Custom**. Drag the **jhipster** action to the flow diagram. Then click **Apply**. The flow should look like the following:
 
-{% img blog/keycloak-kubernetes-prod/login-flow.png alt:"Custom Auth0 Login Action" width:"500" %}{: .center-image }
+{% img blog/keycloak-kubernetes-prod/login-flow.png alt:"Custom Auth0 Login Action" width:"600" %}{: .center-image }
 
 Now that all is set on the identity provider side, let's configure Keycloak as an identity broker delegating authentication to Auth0.
 
