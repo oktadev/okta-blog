@@ -29,7 +29,7 @@ The base application is a minimal "to-do list" built as a B2C application. Four 
 
 You can pick which workshop to participate in and the order in which you participate. Choose the workshops that best address your next most pressing need.
 
-> We want to ensure you can follow the workshops and focus on understanding how to enhance the application for enterprise use cases, so don't use this base application as a template for your B2C or B2B application - it has some obvious intentional security shortcomings!
+> We want to ensure you can follow the workshops and focus on understanding how to enhance the application for enterprise use cases, so don't use this base application as a template expecting a production-quality B2C or B2B application - it has some obvious intentional security shortcomings!
 
 {% include toc.md %}
 
@@ -65,7 +65,7 @@ You can find the source code for the project on [GitHub](https://github.com/). I
 
 You will also need a code editor or IDE to make changes to the application. Feel free to use your favorite IDE. It may be helpful for your IDE to have built-in terminal access as there may be command-line operations to run in the workshops.
 
-If you are searching for an IDE, we recommend [Visual Studio Code](https://code.visualstudio.com/).
+If you are searching for an IDE, I recommend [Visual Studio Code](https://code.visualstudio.com/).
 
 ## Install application dependencies
 
