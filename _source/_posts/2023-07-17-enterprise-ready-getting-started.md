@@ -5,7 +5,7 @@ author: alisa-duncan
 by: advocate
 communities: [devops,security,.net,java,javascript,php,python]
 description: "Start your journey to identity maturity for your SaaS applications in the enterprise-ready workshops! This post covers installing and running the base application in preparation for the upcoming workshops."
-tags: [enterprise-ready-workshops]
+tags: [enterprise-ready-workshops, react, express]
 image: blog/enterprise-ready-getting-started/social.jpg
 type: awareness
 github: https://github.com/oktadev/okta-enterprise-ready-workshops
