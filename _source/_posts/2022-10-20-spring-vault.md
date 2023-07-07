@@ -33,7 +33,7 @@ Nowadays it is widely recommended to never store secret values in code. Therefor
 > - [Okta CLI 0.10.0](https://cli.okta.com)
 > - [Docker 20.10.12](https://docs.docker.com/engine/install/)
 > - [HTTPie 3.2.1](https://httpie.io/docs/cli/installation)
-> - [Vault 1.14](https://hub.docker.com/r/hashicorp/vault)
+> - [HashiCorp Vault 1.14.0](https://hub.docker.com/r/hashicorp/vault)
 
 {% include toc.md %}
 
