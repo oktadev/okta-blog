@@ -1,6 +1,6 @@
 ---
 layout: blog_post
-title: "Secure Secrets With Spring Cloud Config and Vault"
+title: "Secure Secrets with Spring Cloud Config and Vault"
 author: jimena-garbarino
 by: contractor
 community: [java]
