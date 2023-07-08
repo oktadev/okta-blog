@@ -22,12 +22,12 @@ The JHipster Kubernetes generator creates all the necessary Kubernetes resources
 {% img blog/keycloak-kubernetes-prod/keycloak-gke.png alt:"Keycloak, JHipster, GKE logos" width:"500" %}{: .center-image }
 
 > **This tutorial was created with the following tools and services**:
-> - [Node.js v16.19.1](https://docs.npmjs.com/downloading-and-installing-node-js-and-npm)
-> - [npm 8.19.3](https://docs.npmjs.com/downloading-and-installing-node-js-and-npm)
+> - [Node.js v18.16.1](https://docs.npmjs.com/downloading-and-installing-node-js-and-npm)
+> - [npm 9.5.1](https://docs.npmjs.com/downloading-and-installing-node-js-and-npm)
 > - [Java OpenJDK 17](https://jdk.java.net/java-se-ri/17)
 > - [DockerHub account](https://hub.docker.com/)
 > - [Docker 24.0.2](https://docs.docker.com/desktop/)
-> - [Google Cloud CLI 397.0.0](https://cloud.google.com/sdk/docs/install)
+> - [Google Cloud CLI 437.0.1](https://cloud.google.com/sdk/docs/install)
 > - [Kubectl v1.26.3](https://kubernetes.io/docs/tasks/tools/)
 > - [Auth0 account](https://auth0.com/signup)
 > - [Auth0 CLI 1.0.0](https://github.com/auth0/auth0-cli#installation)
@@ -37,23 +37,22 @@ The JHipster Kubernetes generator creates all the necessary Kubernetes resources
 
 ## Deploy Spring Boot microservices and Keycloak to Google Kubernetes Engine
 
-In this walkthrough, you will build a microservices architecture example from JHipster, consisting of a `gateway` application based on Spring Gateway and two Spring Boot reactive microservices `blog` and `store`. The `gateway` will act as the entrance to your microservices, providing HTTP routing and load balancing, quality of service, security and API documentation for all microservices. With the help of the JHipster Kubernetes sub-generator, you can deploy the application and its required services (Consul for service discovery, and Keycloak for OpenID Connect) to Google Kubernetes Engine (GKE).
+In this walkthrough, you will build a microservices architecture example from JHipster, consisting of a `gateway` application based on Spring Gateway and two Spring Boot microservices `blog` and `store`. The `gateway` will act as the entrance to your microservices, providing HTTP routing and load balancing, quality of service, security and API documentation for all microservices. With the help of the JHipster Kubernetes sub-generator, you can deploy the application and its required services (Consul for service discovery, and Keycloak for OpenID Connect) to Google Kubernetes Engine (GKE).
 
 ### Build the Spring Boot microservices architecture
 
 Install JHipster, you can do the classical local installation with npm.
 
 ```bash
-npm install -g generator-jhipster@7.9.3
+npm install -g generator-jhipster@8.0.0-beta.1
 ```
 
-Generate the microservices architecture from a JDL (JHipster Domain Language) descriptor file. Create a folder for the project and add the file `reactive-ms.jdl` with the following content:
+Generate the microservices architecture from a JDL (JHipster Domain Language) descriptor file. Create a folder for the project and add the file `microservices.jdl` with the following content:
 
 ```text
 application {
   config {
     baseName gateway
-    reactive true
     packageName com.okta.developer.gateway
     applicationType gateway
     authenticationType oauth2
@@ -69,7 +68,6 @@ application {
 application {
   config {
     baseName blog
-    reactive true
     packageName com.okta.developer.blog
     applicationType microservice
     authenticationType oauth2
@@ -85,7 +83,6 @@ application {
 application {
   config {
     baseName store
-    reactive true
     packageName com.okta.developer.store
     applicationType microservice
     authenticationType oauth2
@@ -144,7 +141,7 @@ deployment {
 Create a [Docker Hub](https://hub.docker.com/) personal account, if you don't have one, and replace the `dockerRepositoryName` with the account name. Then run the following command:
 
 ```shell
-jhipster jdl reactive-ms.jdl
+jhipster jdl microservices.jdl
 ```
 
 After the generation, you will find sub-folders were created for the `gateway`, `store`, and `blog` services. The `gateway` will act as the front-end application and as a secure router to the `store` and `blog` microservices.
