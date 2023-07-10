@@ -159,11 +159,24 @@ Then build and publish each application image. For example, in the `gateway` fol
 
 ### Run the Kubernetes sub-generator
 
-Now let's generate the Kubernetes descriptors using JHipster. During the process, the generator will prompt for an FQDN (Fully qualified domain name) for the Ingress services, so let's first create a public IP on Google Cloud. With the help of [nip.io](nip.io), if you set <public-ip>.nip.io as your FQDN, you can test the deployment without having to purchase a real domain.
+Now let's generate the Kubernetes descriptors using JHipster. During the process, the generator will prompt for an FQDN (Fully qualified domain name) for the Ingress services, so let's first create a public IP on Google Cloud. With the help of [nip.io](nip.io), if you set \<public-ip\>.nip.io as your FQDN, you can test the deployment without having to purchase a real domain.
 
 Google Cloud provides a [free tier](https://cloud.google.com/free) of their services that grants you $300 in free credits if you are a new user.
 
-After you sign up, install [`gcloud` CLI](https://cloud.google.com/sdk/docs/install). When you reach the end of the process, the last step is to run `gcloud init` and set up authorization for the tool. Also, install the [Kubectl authentication plugin](https://cloud.google.com/blog/products/containers-kubernetes/kubectl-auth-changes-in-gke).
+After you sign up, install [`gcloud` CLI](https://cloud.google.com/sdk/docs/install). When you reach the end of the process, the last step is to run `gcloud init` and set up authorization for the tool. Also, install the [Kubectl authentication plugin](https://cloud.google.com/blog/products/containers-kubernetes/kubectl-auth-changes-in-gke). Enable Compute and Container APIs:
+
+```shell
+gcloud services enable compute.googleapis.com
+gcloud services enable container.googleapis.com
+```
+
+You can list the services that are enabled with the following command:
+
+```shell
+gcloud services list
+```
+
+Create the public IP with the following command:
 
 ```shell
 gcloud compute addresses create gateway-ip --global
@@ -295,6 +308,8 @@ Events:
 Once the cluster is healthy, you can test the deployment by navigating to **http://gateway.\<namespace\>.\<public-ip\>.nip.io** :
 
 {% img blog/keycloak-kubernetes-prod/gateway-home.png alt:"Gateway homepage" width:"800" %}{: .center-image }
+
+**Note**: If you see a _Server Error_ it might be because the `gateway` is not in Running status yet. You can check the pod status with `kubectl get pod -n <namespace>`.
 
 If you click on **Sign in** you will be redirected to the Keycloak sign-in page. As the certificate for TLS was issued by the Let's Encrypt staging environment, the browser won't trust it by default. Accept the certificate and you will be able to sign in. If you inspect the certificate, you will find the certificate hierarchy.
 
@@ -602,7 +617,7 @@ Now that all is set on the identity provider side, let's configure Keycloak as a
 
 ### Add the Auth0 Identity Provider
 
-Navigate to **http://keycloak.\<namespace\>.\<public-ip\>.nip.io**, and sign in with admin/admin. On the welcome page, choose **Administration Console**. On the left menu, for the top options,  choose the **jhipster** realm. Then, at the bottom of the menu, choose **Identity providers**. In the User-defined section, choose **OpenID Connect v1.0**. Fill in the provider configuration as follows:
+Navigate to **https://keycloak.\<namespace\>.\<public-ip\>.nip.io**, and sign in with admin/admin. On the welcome page, choose **Administration Console**. On the left menu, for the top options,  choose the **jhipster** realm. Then, at the bottom of the menu, choose **Identity providers**. In the User-defined section, choose **OpenID Connect v1.0**. Fill in the provider configuration as follows:
 
 - RedirectURI: **(pre-filled)**
 - Alias: **auth0**
