@@ -609,7 +609,14 @@ Note the `DEPLOYED` status is `x`. Go ahead and deploy it using the action ID:
 auth0 actions deploy ee0ea308-0e50-4be3-893b-74f9ccbb3703
 ```
 
-Once the action is deployed, you must attach it to the login flow. Sign in to Auth0, and on the left menu choose **Actions**. Then in the Flows screen, choose **Login**. On the right bottom section, choose **Custom**. Drag the **jhipster** action to the flow diagram. Then click **Apply**. The flow should look like the following:
+Once the action is deployed, you must attach it to the login flow. You can do this with Auth0 [Management API for Actions](https://auth0.com/docs/api/management/v2#!/Actions/patch_bindings):
+
+```shell
+auth0 api patch "actions/triggers/post-login/bindings" \
+  --data '{"bindings":[{"ref":{"type":"action_id","value":"ee0ea308-0e50-4be3-893b-74f9ccbb3703"},"display_name":"Add Roles"}]}'
+```
+
+You cans visualize the flow in the Auth0 dashboard. Sign in and on the left menu you choose **Actions**, then in the **Flows** screen, choose **Login**.
 
 {% img blog/keycloak-kubernetes-prod/login-flow.png alt:"Custom Auth0 Login Action" width:"600" %}{: .center-image }
 
