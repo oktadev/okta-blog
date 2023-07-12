@@ -22,7 +22,7 @@ Having an enterprise-ready identity in your SaaS applications means your applica
 
 The base application is a minimal "to-do list" built as a B2C application. Four workshops take this base application and enhance it for your enterprise customers:
 
-1. **Onboard your customer's workforce with OpenID Connect** - Enable your customers to bring their existing users into your app using [OpenID Connect (OIDC)](https://openid.net/developers/how-connect-works/), an industry-standard authentication mechanism.
+1. **Onboarding your customers with OIDC** - Enable your customers to bring their own [OpenID Connect (OIDC)](https://openid.net/developers/how-connect-works/) server to sign in to your applicatio using an industry-standard authentication mechanism.
 2. **Sync all your customer's users with SCIM** - Give your app the complete picture of your customer's user base using [System for Cross-domain Identity Management (SCIM)](https://scim.cloud/).
 3. **Add automated reporting with no-code Okta Workflows** - Enable your customers to automate actions within your app using a low/no-code configuration mechanism.
 4. **Automate Okta management with Terraform** - Automate environment creation and ensure consistency in managing your Okta organization using Terraform.
@@ -47,9 +47,9 @@ Each tech stack has the required tooling to install on your machine. Depending o
 
 Next, you'll install the required tools, get a local copy of the project, and walk through the commands to start and stop the application.
 
-There's a [companion video for this post](https://youtu.be/UZQ_ke8BuRU) that shows the installation process and running the application. 
+There's a [companion video for this post](https://youtu.be/FCSNMtLtwRg) that shows the installation process and running the application. 
 
-{% youtube UZQ_ke8BuRU %}
+{% youtube FCSNMtLtwRg %}
 
 ### Install NodeJS, npm, and npx
 
