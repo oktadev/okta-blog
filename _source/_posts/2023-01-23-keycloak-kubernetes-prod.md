@@ -305,13 +305,13 @@ Events:
   Normal   Sync               66s (x9 over 9m6s)   loadbalancer-controller    Scheduled for sync
   Normal   Sync               25s                  loadbalancer-controller    TargetProxy "k8s2-ts-ag6evarw-demo-gateway-gijhgcnp" certs updated
 ```
-Once the cluster is healthy, you can test the deployment by navigating to **http://gateway.\<namespace\>.\<public-ip\>.nip.io** :
+Once the cluster is healthy, you can test the deployment by navigating to **http://gateway.demo.\<public-ip\>.nip.io** :
 
 {% img blog/keycloak-kubernetes-prod/gateway-home.png alt:"Gateway homepage" width:"800" %}{: .center-image }
 
-**Note**: If you see a _Server Error_ it might be because the `gateway` is not in Running status yet. You can check the pod status with `kubectl get pod -n <namespace>`.
+**Note**: If you see a _Server Error_ it might be because the `gateway` is not in Running status yet. You can check the pod status with `kubectl get pod -n demo`.
 
-If you click on **Sign in** you will be redirected to the Keycloak sign-in page. As the certificate for TLS was issued by the Let's Encrypt staging environment, the browser won't trust it by default. Accept the certificate and you will be able to sign in. If you inspect the certificate, you will find the certificate hierarchy.
+If you click on **Sign in** you will be redirected to the Keycloak sign-in page. As the certificate for TLS was issued by the Let's Encrypt staging environment, the browser won't trust it by default. Accept the certificate and you will be able to sign in with admin/admin or user/user. If you inspect the certificate, you will find the certificate hierarchy.
 
 {% img blog/keycloak-kubernetes-prod/firefox-warning.png alt:"Firefox browser warning" width:"700" %}{: .center-image }
 
@@ -319,7 +319,11 @@ If you click on **Sign in** you will be redirected to the Keycloak sign-in page.
 
 {% img blog/keycloak-kubernetes-prod/certificate-info.png alt:"Certificate information" width:"700" %}{: .center-image }
 
-You can delete the cluster and public IP in between sessions to save costs with the following `gcloud` commands:
+You can update admin password by signing in to Keycloak at **https://keycloak.demo.\<public-ip\>.nip.io**, and then choosing **jhipster** realm on the top left drop down options. Then choose **Users** on the left menu, select the **admin** user, and select the **Credentials** tab. There you can click **Reset password** and set a new password for the user.
+
+{% img blog/keycloak-kubernetes-prod/reset-password.png alt:"Reset password form" width:"900" %}{: .center-image }
+
+**Important Note**: You can delete the cluster and public IP in between sessions to save costs with the following `gcloud` commands:
 
 ```shell
 gcloud container clusters delete <cluster-name> \
@@ -426,8 +430,8 @@ auth0 apps create \
   --name "Spring Boot + Keycloak" \
   --description "JHipster + Spring Boot + Keycloak = 🤠" \
   --type regular \
-  --callbacks https://keycloak.<namespace>.<public-ip>.nip.io/realms/jhipster/broker/auth0/endpoint \
-  --logout-urls http://gateway.<namespace>.<public-ip>.nip.io \
+  --callbacks https://keycloak.demo.<public-ip>.nip.io/realms/jhipster/broker/auth0/endpoint \
+  --logout-urls http://gateway.demo.<public-ip>.nip.io \
   --reveal-secrets
 ```
 
@@ -624,7 +628,7 @@ Now that all is set on the identity provider side, let's configure Keycloak as a
 
 ### Add the Auth0 Identity Provider
 
-Navigate to **https://keycloak.\<namespace\>.\<public-ip\>.nip.io**, and sign in with admin/admin. On the welcome page, choose **Administration Console**. On the left menu, for the top options,  choose the **jhipster** realm. Then, at the bottom of the menu, choose **Identity providers**. In the User-defined section, choose **OpenID Connect v1.0**. Fill in the provider configuration as follows:
+Navigate to **https://keycloak.demo.\<public-ip\>.nip.io**, and sign in with admin/admin. On the welcome page, choose **Administration Console**. On the left menu, for the top options,  choose the **jhipster** realm. Then, at the bottom of the menu, choose **Identity providers**. In the User-defined section, choose **OpenID Connect v1.0**. Fill in the provider configuration as follows:
 
 - RedirectURI: **(pre-filled)**
 - Alias: **auth0**
@@ -633,6 +637,9 @@ Navigate to **https://keycloak.\<namespace\>.\<public-ip\>.nip.io**, and sign in
 - Client authentication: **Client secret sent as post**
 - Client ID: **auth0-client-id**
 - Client Secret: **auth0-client-secret**
+- Client assertion signature algorithm: **Algorithm not specified** (not required for the selected client authentication method)
+
+**Note**: Auth0's Enterprise plan supports Private Key JWT as a client authentication method.
 
 Click on **Add** to continue the configuration. Below the Client Secret field, click on **Advanced**. In the _Scopes_ field, set `openid profile email offline_access` and click on **Save**.
 
@@ -659,7 +666,7 @@ Repeat the process for mapping ROLE_ADMIN.
 
 ### Test Keycloak as an identity broker
 
-Navigate to **http://gateway.\<namespace\>.\<public-ip\>.nip.io**. The gateway homepage should display. Click on **sign in** and you should be redirected to the Auth0 sign-in form:
+Navigate to **http://gateway.demo.\<public-ip\>.nip.io**. The gateway homepage should display. Click on **sign in** and you should be redirected to the Auth0 sign-in form:
 
 {% img blog/keycloak-kubernetes-prod/auth0-login.png alt:"Add mapper form" width:"350" %}{: .center-image }
 
