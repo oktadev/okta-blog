@@ -14,4 +14,9 @@ image:
 type: conversion
 ---
 
+|Posts in the enterprise-ready workshop series|
+| --- |
+| 1. [**How to get Going with the Enterprise-Ready Identity for SaaS Apps Workshops**](/blog/2023/06/06/semona-igama-intro) |
+| 2. [Name of post]() |
+
 To be filled out
