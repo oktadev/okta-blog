@@ -22,7 +22,7 @@ If you're ready to start automating Okta administration tasks, where should you 
 
 {% youtube LilghHdW18Q %} 
 
-Listen to the audio version on Casted [here](https://listen.casted.us/public/49/Workforce-Identity-Developer-Podcast-4ce90a5f/59f5cd1e). 
+Listen to the [audio version on Casted](https://listen.casted.us/public/49/Workforce-Identity-Developer-Podcast-4ce90a5f/59f5cd1e). 
 
 Where are you in your own automation journey? What are your next steps to enhance automation? Let us know in the comments below!
 
