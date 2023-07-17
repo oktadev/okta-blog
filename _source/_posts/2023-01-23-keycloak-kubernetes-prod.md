@@ -223,7 +223,7 @@ Choose the following options when prompted:
 
 ### Customize the configuration
 
-Let's Encrypt requires an email address to remind you to renew the certificate after 30 days before expiry. You will only receive this email if something goes wrong when renewing the certificate with cert-manager. Set the email address in the issuer yaml descriptor `kubernetes/cert-manager/letsencrypt-staging-issuer.yml`:
+The generated Kubernetes descriptors will create a certificates issuer in the cluster, pointing to Let's Encrypt staging environment. The Let's Encrypt issuer requires an email address to remind you to renew the certificate after 30 days before expiry. You will only receive this email if something goes wrong when renewing the certificate with cert-manager. Set the email address in the issuer yaml descriptor `kubernetes/cert-manager/letsencrypt-staging-issuer.yml`:
 
 ```yml
 spec:
@@ -232,7 +232,7 @@ spec:
     email: <your-email>
 ```
 
-### Deploy to Google Kubernetes Engine
+### Deploy to Google Kubernetes Engine (GKE)
 
 Create a Kubernetes cluster on Google Cloud:
 
@@ -311,7 +311,7 @@ Once the cluster is healthy, you can test the deployment by navigating to **http
 
 **Note**: If you see a _Server Error_ it might be because the `gateway` is not in Running status yet. You can check the pod status with `kubectl get pod -n demo`.
 
-If you click on **Sign in** you will be redirected to the Keycloak sign-in page. As the certificate for TLS was issued by the Let's Encrypt staging environment, the browser won't trust it by default. Accept the certificate and you will be able to sign in with admin/admin or user/user. If you inspect the certificate, you will find the certificate hierarchy.
+If you click on **Sign in** you will be redirected to the Keycloak sign-in page. As the certificate for TLS was issued by the Let's Encrypt _staging_ environment, the browser won't trust it by default. Accept the certificate and you will be able to sign in with admin/admin or user/user. If you inspect the certificate, you will find the certificate hierarchy.
 
 {% img blog/keycloak-kubernetes-prod/firefox-warning.png alt:"Firefox browser warning" width:"700" %}{: .center-image }
 
@@ -319,9 +319,8 @@ If you click on **Sign in** you will be redirected to the Keycloak sign-in page.
 
 {% img blog/keycloak-kubernetes-prod/certificate-info.png alt:"Certificate information" width:"700" %}{: .center-image }
 
-You can update admin password by signing in to Keycloak at **https://keycloak.demo.\<public-ip\>.nip.io**, and then choosing **jhipster** realm on the top left drop down options. Then choose **Users** on the left menu, select the **admin** user, and select the **Credentials** tab. There you can click **Reset password** and set a new password for the user.
+**Note**: Let's Encrypt production environment issues [browser-trusted certificates](https://letsencrypt.org/how-it-works/), but it does not work with nip.io domains due to rate limits per domain.
 
-{% img blog/keycloak-kubernetes-prod/reset-password.png alt:"Reset password form" width:"900" %}{: .center-image }
 
 **Important Note**: You can delete the cluster and public IP in between sessions to save costs with the following `gcloud` commands:
 
@@ -333,6 +332,30 @@ gcloud container clusters delete <cluster-name> \
 ```shell  
 gcloud compute addresses delete <public-ip> --global
 ```
+
+### Add HTTPS to the Gateway
+
+The GKE Ingress will serve the primary certificate if no certificate has a Common Name (CN) that matches the domain name in the client request. This means in the previous ingress configuration, the Keycloak certificate will be served for `gateway` HTTPS requests. You can update the `tls` section in the `gateway-ingress.yml` file to generate a certificate for the gateway itself:
+
+```yml
+tls:
+  - secretName: keycloak-ssl
+    hosts:
+      - keycloak.demo.<public-ip>.nip.io
+  - secretName: gateway-ssl
+    hosts:
+      - gateway.demo.<public-ip>.nip.io
+```
+
+Also, you should force HTTPS in the gateway as explained in the [JHipster Security documentation](https://www.jhipster.tech/security/#https).
+
+
+### Update the admin password
+
+You can update admin password by signing in to Keycloak at **https://keycloak.demo.\<public-ip\>.nip.io**, and then choosing **jhipster** realm on the top left drop down options. Then choose **Users** on the left menu, select the **admin** user, and select the **Credentials** tab. There you can click **Reset password** and set a new password for the user.
+
+{% img blog/keycloak-kubernetes-prod/reset-password.png alt:"Reset password form" width:"900" %}{: .center-image }
+
 
 ## About cert-manager and Let's Encrypt Certificates
 
@@ -431,7 +454,7 @@ auth0 apps create \
   --description "JHipster + Spring Boot + Keycloak = 🤠" \
   --type regular \
   --callbacks https://keycloak.demo.<public-ip>.nip.io/realms/jhipster/broker/auth0/endpoint \
-  --logout-urls http://gateway.demo.<public-ip>.nip.io \
+  --logout-urls https://keycloak.demo.<public-ip>.nip.io/realms/jhipster/broker/auth0/endpoint/logout_response \
   --reveal-secrets
 ```
 
@@ -639,9 +662,7 @@ Navigate to **https://keycloak.demo.\<public-ip\>.nip.io**, and sign in with adm
 - Client Secret: **auth0-client-secret**
 - Client assertion signature algorithm: **Algorithm not specified** (not required for the selected client authentication method)
 
-**Note**: Auth0's Enterprise plan supports Private Key JWT as a client authentication method.
-
-Click on **Add** to continue the configuration. Below the Client Secret field, click on **Advanced**. In the _Scopes_ field, set `openid profile email offline_access` and click on **Save**.
+Click on **Show Metadata** and set `https://<auth0-domain>/oidc/logout` as the Logout URL. Click on **Add** to continue the configuration. Below the Client Secret field, click on **Advanced**. In the _Scopes_ field, set `openid profile email offline_access` and click on **Save**.
 
 On the left menu, choose **Authentication**. In the flows table, choose **browser**. In the _Identity Provider Redirector_ step, click the **gear** icon. Set an alias for the configuration, and set **auth0** as the default identity provider. This configuration will skip the Keycloak sign-in form, and display the Auth0 sign-in form directly.
 
