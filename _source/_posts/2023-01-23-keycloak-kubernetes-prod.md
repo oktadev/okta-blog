@@ -155,7 +155,7 @@ Then build and publish each application image. For example, in the `gateway` fol
   -Djib.to.auth.password=<your-dockerhub-secret>
 ```
 
-**Note**: The _your-dockerhub-secret_ value will be your Docker Hub password or an access token if you have two-factor authentication enabled. If you are already logged in using `docker login` it is not required pass username/pass to each command.
+**Note**: The _your-dockerhub-secret_ value will be your Docker Hub password or an access token if you have two-factor authentication enabled. If you are already logged in using `docker login` it is not required passing username/pass to each command.
 
 ### Run the Kubernetes sub-generator
 
@@ -352,7 +352,7 @@ Also, you should force HTTPS in the gateway as explained in the [JHipster Securi
 
 ### Update the admin password
 
-You can update admin password by signing in to Keycloak at **https://keycloak.demo.\<public-ip\>.nip.io**, and then choosing **jhipster** realm on the top left drop down options. Then choose **Users** on the left menu, select the **admin** user, and select the **Credentials** tab. There you can click **Reset password** and set a new password for the user.
+You can update admin password by signing in to Keycloak at **https://keycloak.demo.\<public-ip\>.nip.io** with admin/admin, and then choosing **jhipster** realm on the top left drop down options. Then choose **Users** on the left menu, select the **admin** user, and select the **Credentials** tab. There you can click **Reset password** and set a new password for the user.
 
 {% img blog/keycloak-kubernetes-prod/reset-password.png alt:"Reset password form" width:"900" %}{: .center-image }
 
@@ -662,7 +662,7 @@ Navigate to **https://keycloak.demo.\<public-ip\>.nip.io**, and sign in with adm
 - Client Secret: **auth0-client-secret**
 - Client assertion signature algorithm: **Algorithm not specified** (not required for the selected client authentication method)
 
-Click on **Show Metadata** and set `https://<auth0-domain>/oidc/logout` as the Logout URL. Click on **Add** to continue the configuration. Below the Client Secret field, click on **Advanced**. In the _Scopes_ field, set `openid profile email offline_access` and click on **Save**.
+Click on **Add** to continue the configuration. Click on **Show Metadata** and set `https://<auth0-domain>/oidc/logout` as the Logout URL.  Below the Client Secret field, click on **Advanced**. In the _Scopes_ field, set `openid profile email offline_access` and click on **Save**.
 
 On the left menu, choose **Authentication**. In the flows table, choose **browser**. In the _Identity Provider Redirector_ step, click the **gear** icon. Set an alias for the configuration, and set **auth0** as the default identity provider. This configuration will skip the Keycloak sign-in form, and display the Auth0 sign-in form directly.
 
