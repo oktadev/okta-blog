@@ -44,7 +44,7 @@ In this walkthrough, you will build a microservices architecture example from JH
 Install JHipster, you can do the classical local installation with npm.
 
 ```bash
-npm install -g generator-jhipster@8.0.0-beta.1
+npm install -g generator-jhipster@8.0.0-beta.2
 ```
 
 Generate the microservices architecture from a JDL (JHipster Domain Language) descriptor file. Create a folder for the project and add the file `microservices.jdl` with the following content:
