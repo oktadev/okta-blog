@@ -11,7 +11,7 @@ tweets:
 - ""
 - ""
 image:
-type: awareness|conversion
+type: awareness
 --
 
 In this hands-on workshop, you will use Terraform to manage users and groups in your Okta Developer Organization.-
