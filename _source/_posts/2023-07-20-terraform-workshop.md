@@ -5,7 +5,7 @@ author: edunham
 by: advocate
 communities: [devops,go]
 description: "Get started managing your Okta resources with Terraform"
-tags: [terraform,devops,go,automation]
+tags: [devops,go,automation]
 tweets:
 - ""
 - ""
