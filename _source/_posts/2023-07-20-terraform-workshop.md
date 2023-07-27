@@ -3,7 +3,7 @@ layout: blog_post
 title: "Okta Terraform Workshop"
 author: edunham
 by: advocate
-communities: [devops,go]
+communities: [devops]
 description: "Get started managing your Okta resources with Terraform! Use this hands-on workshop to understand where Terraform fits in the Okta ecosystem and write your first Terraform code. "
 tags: [devops, go, automation, terraform]
 tweets:
