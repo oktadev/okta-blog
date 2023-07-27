@@ -1,7 +1,7 @@
 ---
 layout: blog_post
 title: "Okta Terraform Workshop"
-author: aaron-parecki
+author: edunham 
 by: advocate
 communities: [devops,go]
 description: "Get started managing your Okta resources with Terraform! Use this hands-on workshop to understand where Terraform fits in the Okta ecosystem and write your first Terraform code using the Okta provider. "
