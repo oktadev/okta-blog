@@ -1,16 +1,17 @@
 ---
 layout: blog_post
-title: "Okta Terraform Workshop"
-author: edunham
+title: "How to Take Your Enterprise-Ready SaaS App Beyond MVP"
+author: aaron-parecki
 by: advocate
-communities: [devops]
-description: "Get started managing your Okta resources with Terraform! Use this hands-on workshop to understand where Terraform fits in the Okta ecosystem and write your first Terraform code. "
-tags: [devops, go, automation, terraform]
+communities: [devops,security,.net,java,javascript,php,python]
+description: "With enterprise-ready identity added to your SaaS app, you're ready to take your app beyond MVP! Find out how you can make your app stand out, and get a closer look at provisioning and Okta workflows with Aaron Parecki, Security Architect Group Manager at Okta."
+tags: [devday23, enterprise-ready]
 tweets:
 - ""
-image: blog/terraform-workshop/tf-workshop-social-image.jpg
+image: blog/devday23-beyond-mvp/social.jpg
 type: awareness
---
+---
+
 
 In this hands-on workshop, you will use Terraform to manage users and groups in your Okta Developer Organization.-
 
