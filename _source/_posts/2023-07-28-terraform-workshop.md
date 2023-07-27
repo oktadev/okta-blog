@@ -4,7 +4,7 @@ title: "Okta Terraform Workshop"
 author: aaron-parecki
 by: advocate
 communities: [devops,go]
-description: "With enterprise-ready identity added to your SaaS app, you're ready to take your app beyond MVP! Find out how you can make your app stand out, and get a closer look at provisioning and Okta workflows with Aaron Parecki, Security Architect Group Manager at Okta."
+description: "Get started managing your Okta resources with Terraform! Use this hands-on workshop to understand where Terraform fits in the Okta ecosystem and write your first Terraform code using the Okta provider. "
 tags: [devday23, enterprise-ready]
 tweets:
 - ""
