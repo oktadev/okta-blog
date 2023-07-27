@@ -12,8 +12,9 @@ image: blog/terraform-workshop/tf-workshop-social-image.jpg
 type: awareness
 ---
 
+This workshop is part of our Enterprise Readiness Workshop series. Getting familiar with managing identity as code with Okta's Terraform provider can help you assist enterprise customers and simplify any identity setup steps that your product might require. Follow along with this workshop to use Terraform to manage users and groups in your Okta Developer Organization.
 
-In this hands-on workshop, you will use Terraform to manage users and groups in your Okta Developer Organization.-
+{% include toc.md %}
 
 # Why Terraform? 
 
@@ -22,38 +23,39 @@ Terraform is a general-purpose Infrastructure As Code tool. Okta's Terraform mod
 
 * Testing and review. Terraform can guarantee that you make the exact same change to production as to your test environment. You can use your existing code review processes to make sure the right people have approved a change when it happens in Terraform, as well. 
 * CI/CD Automation. Terraform lets you add Okta tasks to your continuous integration and continuous delivery pipelines. A Terraform integration in your Okta org has limited scopes, just like a human user, so your automation can only make the kinds of changes that you expect it to. 
-* Sharing configuration. If you want to help someone else to make a specific change in their Okta organization, you can give them Terraform code which describes that change.Terraform can make the exact same change anywhere it's run, whereas telling a person how to configure their organization through the admin console increases the opportunities for human error. 
-* Auditability. If you already have tools which back up and track changes to your codebase, adding Terraform code to those tools lets you apply all their benefits to your Okta organization's configuration. 
+* Sharing configuration. If you want to help someone else to make a specific change in their Okta organization, you can give them Terraform code which describes that change. Terraform can make the exact same change anywhere it's run, whereas telling a person how to configure their organization through the admin console increases opportunities for human error. 
+* Auditability. If you already have tools which back up and track changes to your codebase, managing Terraform code with the same processes lets you enjoy the same benefits for your infrastructure.
 
 If you're new to Terraform, start with Hashicorp's [Terraform tutorials](https://developer.hashicorp.com/terraform/tutorials). This workshop assumes that you already have Terraform installed on your computer, and that you have an Okta Developer Account. 
 
 # Key Terraform Concepts
 
-Terraform code describes a desired state for cloud infrastructure to be in. After writing Terraform code, the `terraform plan` command predicts what changes will be required to make the infrastructure match the code, and the `terraform apply` command changes the infrastructure. 
+Terraform code describes a desired state for cloud infrastructure. After you write your Terraform code, the `terraform plan` command predicts what changes will be required to make the infrastructure match the code, and the `terraform apply` command changes the infrastructure. 
 
-Terraform code is analogous to a well-written ticket for an ops team. For instance, if the ticket asks the operator to create a new user account on a cloud service, the operator would first log in to the web UI and check whether the user account already exists. Checking the current state of the infrastructure is what Terraform does when a person or automated system runs `terraform plan`. Next, the operator would use their knowledge of the cloud provider to click the buttons which create the requested account. Changing the infrastructure is what Terraform does during `terraform apply`. 
+A Terraform project is a directory containing .tf files. These Terraform files contain providers, resources, and perhaps variables and data sources too. After running `terraform init` in a Terraform project, Terraform downloads all required providers to the `.terraform` directory in that project. 
 
-The operator completing a ticket needs to have credentials to the cloud service, and knowledge of how to use that service. Terraform also needs to know how to use the service, and needs to be authorized to make changes. Terraform's knowledge of each service comes from a codebase called a provider, which defines resources for each piece of infrastructure that the provider can manage. Arguments passed to the provider in the Terraform code include the secrets which it uses to authenticate with the cloud service that the provider describes. 
-
-A Terraform project is a directory containing .tf files. These Terraform files contain providers, resources, and perhaps variables and data sources too. After running terraform init in a Terraform project, Terraform downloads all required providers to a .terraform directory in that project. 
-
-Terraform also stores data about the state of the infrastructure by creating the file terraform.tfstate in the Terraform project. Every piece of infrastructure should be represented in only one terraform.tfstate file, so if several collaborators work on the same Terraform codebase together, it's best to use Terraform Cloud or a similar service to share a single terraform.tfstate file. 
+Terraform also stores data about the state of the infrastructure by creating the file `terraform.tfstate` in the project. Every piece of infrastructure should be represented in only one `terraform.tfstate` file, so if several collaborators work on the same Terraform codebase together, it's best to use Terraform Cloud or a similar service to share a single `terraform.tfstate` file. 
 
 
 # Setting Up the Okta Terraform Provider
+
+Before you can use Terraform to manage resources in your organization, you must provide it with appropriate credentials. The following steps will connect a Terraform project on your local system to your Okta Developer account. 
+
 ## Security Note
+
 Setting up any Terraform provider involves working with some secrets that can grant access to your infrastructure. The Okta terraform provider uses a client ID and private key. Anyone who has these secrets can act on behalf of Terraform in your Okta organization. Secrets are replaced by placeholder values in the code examples that follow. 
 
-When you work with Terraform, you must manage these secrets as carefully as you protect every other means of accessing your infrastructure. If you manage your Terraform code in source control, avoid committing secrets. If you're running Terraform in automation, find an appropriate secrets management solution to handle the sensitive credentials. 
-Create Terraform Files
+When you work with Terraform, you must manage these secrets as carefully as you protect every other means of accessing your infrastructure. If you store your Terraform code in source control, avoid committing secrets. If you're running Terraform in automation, find an appropriate secrets management solution to handle the sensitive credentials. 
 
-Create a new directory to start your Terraform project in. Pick a name that makes sense:`okta-terraform-workshop` is a safe bet. In the terminal, I'll do this with `mkdir okta-terraform-workshop; cd okta-terraform-workshop`. 
+## Create Terraform Files
+
+Create a new directory to start your Terraform project in. Pick a name that makes sense: `okta-terraform-workshop` is a safe bet. In the terminal, you can do this with `mkdir okta-terraform-workshop; cd okta-terraform-workshop`. 
 
 Check that Terraform is installed and up to date with `terraform -v`. If you're on an old version of Terraform, follow the instructions in the upgrade message to get the latest version. 
 
-In your favorite editor or IDE, open the file `main.tf` in your Terraform workshop directory. When playing with Terraform, everything can go in main.tf at first. Later we'll refactor some of our Terraform code into a second file for ease of maintenance. 
+In your favorite editor or IDE, create and open the file `main.tf` in your Terraform workshop directory. When you're experimenting with Terraform, everything can go in `main.tf` at first. As `main.tf` gets too large to work with easily, it can be refactored into smaller files, and eventually into separate modules, for ease of maintenance. 
 
-First, we'll set up the Okta provider by adding a provider block at the top of `main.tf`: 
+First, set up the Okta provider by adding a provider block at the top of `main.tf`: 
 
 ```
 terraform {
@@ -64,13 +66,14 @@ terraform {
   }
 }
 ```
-If you ever need a reminder of how that provider block should look, check the first page of the [Okta provider docs](https://registry.terraform.io/providers/okta/okta/latest/docs) on the Terraform registry. Whenever you see `registry.terraform.io/providers` in the URL of a search result, you know you've found the docs written by the provider authors themselves
 
-Specifying Okta as a required provider ensures that Terraform will download the provider once you run `terraform init`. Can the Terraform code in this project manage resources in your Okta organization yet? 
+If you ever need a reminder of how that provider block should look, check the first page of the [Okta provider docs](https://registry.terraform.io/providers/okta/okta/latest/docs) on the Terraform registry. Whenever you see `registry.terraform.io/providers` in the URL of a search result, you know you've found the docs which the provider's authors shipped alongside its code.
 
-If you wanted to make changes in an Okta organization through the admin console, you would need to know how to use Okta, but you would also need credentials to log in. Similarly, the Terraform project needs credentials for the Okta organization that you want it to manage. 
+Specifying Okta as a required provider ensures that Terraform will download the provider once you run `terraform init`. 
 
-The provider configuration which tells Terraform how to access the your Okta organization will go in `main.tf`: 
+Can the Terraform code in this project manage resources in your Okta organization yet? If you wanted to make changes in an Okta organization through the admin console, you would need to know how to use Okta, but you would also need credentials to log in. Similarly, the Terraform project needs credentials for the Okta organization that you want it to manage. 
+
+The provider configuration which tells Terraform how to access the desired Okta organization will go in `main.tf`: 
 
 ```
 provider "okta" {
@@ -82,15 +85,13 @@ provider "okta" {
 }
 
 ```
-All of those fields are mandatory, and we'll find the values for them soon. 
+All of those fields are mandatory, and you will fill out the missing values in the next steps. The `org_name` will come from the URL of your Okta Developer Account, and the `client_id` and `private_key` will come from the App Integration. 
 
-The `org_name` will come from the URL of your Okta Developer Account, and the `client_id` and `private_key` will come from the App Integration. 
-
-Scopes describe categories of changes that Terraform is allowed to make with the Okta Provider. This list of scopes will appear twice: Once here in the provider definition, and again in the Okta App Integration. Later on, you can explore what would happen if the scopes had been set up wrong at this step. 
+Scopes describe categories of changes that Terraform is allowed to make with the Okta Provider. This list of scopes will appear twice: Once here in the provider definition, and again in the Okta App Integration. The 3 scopes provided will be enough to do the exercises in this workshop. Later on, you can explore what would happen if the scopes had been set up wrong at this step. 
 
 # Create the Okta App Integration
 
-Now in a web browser I'll log in to my Okta Developer Account at developer.okta.com. If you don't have an account yet, now is a great time to create one. Developer accounts are a safe place to experiment without the risk of accidentally changing your production infrastructure.
+Now in a web browser I'll log in to my Okta Developer Account at [developer.okta.com](developer.okta.com). If you don't have an account yet, now is a great time to create one. Developer accounts are a safe place to experiment without the risk of accidentally changing your production infrastructure. Developer accounts don't have a time limit, so you can always test your code before taking it to production.
 
 After logging in to your Developer Account, note the landing page URL. It looks like `https://dev-1234567890-admin.okta.com/admin/getting-started`. Everything after `https://` and before `-admin` is your `org_name`, and can be copied and pasted into your Terraform provider definition in `main.tf`. 
  
@@ -100,18 +101,19 @@ Click the blue "Create App Integration" button, and select "API Services" as the
 
 In the General tab of the application, the Client ID is visible. Copy it to the `client_id` field in your Terraform provider configuration. 
 
-Under the client ID, the "client authentication" radio button defaults to "Client secret". Terraform needs to use "Public key / Private key" authentication, so click the edit button next to the "client credentials" section heading, and switch the authentication to public key / private key. Click "add key", generate a new key, and save the private key as pkcs.pem in your Terraform project directory. 
+Below the client ID, the "client authentication" radio button defaults to "Client secret". Terraform needs to use "Public key / Private key" authentication, so click the edit button next to the "client credentials" section heading, and switch the authentication to public key / private key. Click "add key", generate a new key, and save the private key as `pkcs.pem` in your Terraform project directory. This key must be converted to RSA format for Terraform to use. 
 
-Save your changes to the general settings of the API Service App, and navigate to the app's Okta API Scopes. Grant okta.groups.manage, okta.policies.manage, and okta.users.manage for this workshop. 
+Save your changes to the general settings of the API Service App, and navigate to the app's Okta API Scopes. Grant `okta.groups.manage`, `okta.policies.manage`, and `okta.users.manage` for this workshop. 
 
 In the terminal, `cd okta-terraform-workshop` and convert the PKCS-1 key to an RSA key: 
 
 ```
 $ openssl rsa -in pkcs.pem -out rsa.pem
 ```
+
 # Configure Okta Provider
 
-After setting up the app integration, you know all the values to pass in to the provider configuration! In `main.tf`, fill out that provider block with the `org_name`, `client_id`, and `private_key` file location. 
+After setting up the app integration, you know all the values to pass in to the provider configuration! In `main.tf`, check that your provider block contains the `org_name`, `client_id`, and `private_key` file location. 
 
 ```
 provider "okta" {
@@ -122,16 +124,20 @@ provider "okta" {
   private_key = "${path.module}/rsa.pem"
 }
 ```
+
 # Manage Users and Groups
+
 Now Terraform is ready to make changes to your Okta org by using the Okta provider. Take one last look at the empty users list in your developer account's admin console, because you're about to create some users with Terraform!
 
 This workshop's examples will create users for some plants and animals, and assign them to a garden group. The exercises will work just as well if you choose a different theme, however, so feel free to customize your users and groups to keep things interesting. 
 
 ## Describe the User Resource
 
-Resources in Terraform code describe infrastructure out in the world, in this case in Okta, that Terraform will manage. The first resource will describe a user, and applying the Terraform will create that user in the Okta Developer Account with the app integration credentials that were passed to the provider configuration. 
+Resources in Terraform code describe infrastructure, in this case Okta objects, that Terraform will manage. The first resource will describe a user, and applying the Terraform will create that user in the Okta Developer Account whose app integration credentials were passed to the provider configuration. 
 
-In the [Okta Provider docs](https://registry.terraform.io/providers/okta/okta/latest/docs) on the Terraform Registry, the `okta_user` resource documentation shows that only the first name, last name, login, and email fields are mandatory. This resource description goes after the provider definition in `main.tf`: 
+In the [Okta Provider docs](https://registry.terraform.io/providers/okta/okta/latest/docs) on the Terraform Registry, the `okta_user` resource documentation shows that only the `first_name`, `last_name`, `login`, and `email` fields are mandatory. 
+
+This resource description goes after the provider definition in `main.tf`: 
 
 ```
 resource "okta_user" "bird" {
@@ -142,7 +148,7 @@ resource "okta_user" "bird" {
 }
 ```
 
-Add that resource after the Terraform provider in main.tf. Notice how the type of the resource is okta_user, and the name of this one particular resource is "bird"? 
+Add that resource after the Terraform provider in `main.tf`. Notice how the type of the resource is `okta_user`, and the name of this one particular resource is `"bird"`? The name `"bird"` is only used within your Terraform code to refer to this particular user. You'll use it later when adding the user to a group.
 
 Save `main.tf`, then run `terraform plan` in your `terraform-workshop` directory to see what will change once you run `terraform apply`: 
 
@@ -170,8 +176,10 @@ Terraform will perform the following actions:
 Plan: 1 to add, 0 to change, 0 to destroy.
 
 ```
-Since there are no surprises in the `terraform plan` output, apply the changes with `terraform apply`:
 
+Should you apply this plan? In this case, you wanted your code to create one user with the specified attributes. The plan indicates that one user with those attributes will be created. If the plan had suggested changing or destroying infrastructure, or creating several objects when you only intended to create one, you would need to go re-assess your code changes instead of applying it. 
+
+But there are no surprises in the `terraform plan` output, so you can apply the changes with `terraform apply`:
 
 ```
 Terraform used the selected providers to generate the following execution
@@ -205,9 +213,9 @@ Enter 'yes' to confirm that the plan is still what you want, and Terraform creat
 
 In the admin console of your Okta Developer Account, go to Directory in the left column and select People. Do you see the newly created user in the list? Note that the resource name "bird" is only used within Terraform, and doesn't show up to the user or in the admin interface. 
 
-##Make another user
+## Make another user
 
-Now you can make a second user with Terraform! Try creating a Terraform resource that Terraform will internally call "butterfly", with the name Papilio zelicaon, and the login and email swallowtail.butterfly@example.com. 
+Now you can make a second user with Terraform! Try creating an Okta user resource that Terraform will internally call `"butterfly"`, with the name `Papilio zelicaon`, and the login and email `swallowtail.butterfly@example.com`. 
 
 Plan and apply your Terraform, and look at the new user in your admin console. 
 
@@ -261,7 +269,7 @@ When you inspect the new group, you may notice that it has no users assigned to 
 
 ## Add users to the group
 
-Group memberships are managed with the `okta_group_memberships` resource. Where would you look for information on what fields an `okta_group_memberships` resource requires? The [provider docs](https://registry.terraform.io/providers/okta/okta/latest/docs/resources/group_memberships) can show you. 
+Group memberships are managed with the `okta_group_memberships` resource. Where would you look for information on what fields an `okta_group_memberships` resource requires? The [provider docs](https://registry.terraform.io/providers/okta/okta/latest/docs/resources/group_memberships) can help. 
 
 ```
 resource "okta_group_memberships" "gardenmembers" {
@@ -304,7 +312,7 @@ resource "okta_user" "flower" {
 
 Before planning and applying, go to the Okta API Scopes tab of your app integration in the admin console, and revoke the `okta.users.manage` scope. When you try to run `terraform plan`, you'll get a 403: `the API returned an error: The access token provided does not contain the required scopes., Status: 403 Forbidden`
 
-Grant that `okta.users.manage` scope again, and the plan will succeed. 
+Grant that `okta.users.manage` scope again in the console, and the plan will succeed. 
 
 Now in `main.tf`, in the Okta Terraform provider configuration, try taking away the `okta.users.manage` scope, so that the scopes line looks like this: 
 
@@ -341,7 +349,6 @@ Hummingbirds can migrate over 2000 miles per year, so let's remove the hummingbi
 
 Simply removing the resource and trying to run `terraform plan` will yield an error: 
 
-
 ```
 Error: Reference to undeclared resource
 
@@ -352,15 +359,15 @@ A managed resource "okta_user" "bird" has not been declared in the root
 module.
 ```
 
-
 What went wrong? The error came from the line where the bird was assigned to the garden group. 
 
-To successfully remove a resource, all uses of it must also be removed. In this example, the `bird` resource is only used in its assignment to the `garden` group. Removing that assignment along with the resource will allow the plan to succeed. Since the resource has the unique name `bird`, another way to find everywhere it's referenced would be to search the Terraform project for that string: `grep bird *.tf`. 
+To successfully remove a resource, all references to it must also be removed. In this example, the `bird` resource is only used in its assignment to the `garden` group. Removing that assignment along with the resource will allow the plan to succeed. Since the resource has the unique name `bird`, another way to find everywhere it's referenced would be to search the Terraform project for that string: `grep bird *.tf`. 
 
-The bird's user account is not removed until you run `terraform apply`. 
+In the Okta console, you'll see that the bird's user account is not removed until you run `terraform apply`. 
 
 # Use Terraform Variables
-The simple examples so far have used a lot of hardcoded strings. One in particular is the `example.com` domain that all of the users have their logins and IDs at. What if you expected that to change, and wanted to update everyone at once to a new email domain? 
+
+The simple examples so far have used a lot of hardcoded strings. One in particular is the `example.com` domain that all of the users have their logins and IDs at. What if you expected that to change, and wanted to move to a new email domain? 
 
 Terraform's [variables](https://developer.hashicorp.com/terraform/language/values/variables) can help. 
 
@@ -371,8 +378,6 @@ variable "domain" {
   type    = string
   default = "example.com"
 }
-
-
 ```
 
 Now you can replace all the instances of `example.com` with `var.domain`. Here's how that would look for the butterfly, including the syntax for using the variable within a string: 
@@ -401,23 +406,23 @@ Can you create and use a list variable to replace the hardcoded list in your `ok
 
 As you configure more resources with Terraform, it gets harder to keep track of everything in one big file. Fortunately, Terraform recognizes all `.tf` files in a directory as belonging to the same project.
 
-To see this in action, try moving both of the remaining user resources, the butterfly and the flower, from `main.tf` into a new file called `users.tf`. `terraform plan` will report "No changes. Your infrastructure matches the configuration."
+To see this in action, try moving both of the remaining user resources, the butterfly and the flower, from `main.tf` into a new file called `users.tf`. After this change, `terraform plan` will report "No changes. Your infrastructure matches the configuration."
 
 As your Terraform project grows more complex, you'll use more features of the language. You might use [modules](https://developer.hashicorp.com/terraform/language/modules) to reuse similar configurations. You'll probably use more variables to take inputs to Terraform from the environment where it's running. 
 
 # Terraform Formatting
 
-If you're using an editor or IDE that doesn't automatically fix your indentation and other formatting details, run the command `terraform fmt` to clean up the formatting of all `.tf` files.
+If you're using an editor or IDE that doesn't automatically fix your indentation and other formatting details, run the command `terraform fmt` from the command line in your Terraform project directory to clean up the formatting of all `.tf` files.
 
 Try adding some ugly whitespace to one of your Terraform files, and then use `terraform fmt` to clean it up!
 
 # Importing Resources
 
-What if a user existed in Okta before you started working with Terraform, and you wanted to create a Terraform resource to represent them? [Terraform import](https://developer.hashicorp.com/terraform/language/import), an experimental feature, can help. 
+What if a user existed in Okta before you started working with Terraform, and you wanted to create a Terraform resource to represent them? [Terraform import](https://developer.hashicorp.com/terraform/language/import), an experimental feature, does this. 
 
-First you'll need something to import. Create a user by hand through the Okta admin console. 
+To try it out, you'll need something to import. Create a user by hand through the Okta admin console. 
 
-Navigate to Directory, People, Add Person. The garden could use a tree in it, so this example will make the tree Acer macrophyllum, `bigleaf.maple@example.com`. 
+Navigate to Directory, People, Add Person. The garden could use a tree in it, so this example will make the tree `Acer macrophyllum`, `bigleaf.maple@example.com`. 
 
 View that user in the Okta admin console, and its ID appears at the end of the URL: `https://dev-1234567890-admin.okta.com/admin/user/profile/view/abc123`. Use that ID when importing the resource to the Terraform state. 
 
@@ -433,7 +438,6 @@ import {
 Run `terraform plan -generate-config-out=generated.tf` to generate the configuration for everything defined in import blocks. 
 
 After planning, `generated.tf` contains the value of every possible field on the resource!
-
 
 ```
 # __generated__ by Terraform
@@ -480,11 +484,12 @@ resource "okta_user" "tree" {
 	title = null
 	user_type = null
 	zip_code= null
-}``` 
+}
+``` 
 
-Run `terraform apply` to complete the import. 
+After the plan creates `generated.tf`, run `terraform apply` to complete the import.  
 
-Copy the relevant fields from `generated.tf` into `users.tf`, and modify them to use any relevant variables:
+Copy the fields you'd like to manage from `generated.tf` into `users.tf`, and modify them to use any relevant variables:
 
 ```
 resource "okta_user" "tree" {
@@ -503,13 +508,11 @@ After this refactor, a `terraform plan` will only show changes that update the m
 
 Config drift can happen when Okta resources are manually changed through the admin console and no longer match their Terraform configurations. You can introduce configuration drift by manually changing a resource.
 
-Foxgloves are poisonous, so you might not want them in the garden. Remove the foxglove from the garden group in the admin console, and suspend their account in the admin console. 
+Foxgloves are poisonous, so you might not want them in the garden. In the Okta admin console, remove the foxglove from the garden group  and suspend their account. 
 
 After taking those actions by hand in the web interface, run `terraform plan`. Terraform detects that the foxglove changed, and wants to put things back to exactly how they're described in `main.tf`! 
 
-
 ```
-
 Terraform will perform the following actions:
 
   # okta_group_memberships.gardenmembers will be updated in-place
@@ -532,17 +535,23 @@ Terraform will perform the following actions:
 Plan: 0 to add, 2 to change, 0 to destroy.
 ```
 
-The best way for your organization to handle this drift will depend on your business needs. 
+## Config Drift Solutions
 
-## Make Terraform match Okta
+The best way for your organization to handle this drift will depend on your business needs. When Terraform and Okta disagree about a resource, it's up to you to decide which of them is more correct, and change the less correct one so that they match.
 
-If manual changes need to be reflected by Terraform changes, import the changed resources as demonstrated above
+### Make Terraform match Okta
 
-## Make Okta match Terraform
+If manual changes need to be reflected by Terraform changes, use `terraform import`, as shown above, to change your Terraform. 
 
-If manual changes represent errors that should be overwritten by Terraform, simply run `terraform apply`. 
+### Make Okta match Terraform
 
-After running `terraform apply`, the admin console will show that the foxglove user is back to being active and in the garden group, just how Terraform describes it. 
+If manual changes to Okta represent errors that should be overwritten by Terraform, simply run `terraform apply`. 
+
+## Fix the Config Drift
+
+For the purposes of this workshop, assume that Terraform's configuration represents the desired state of the infrastructure. How should you make Okta match Terraform? 
+
+After you run `terraform apply`, the admin console will show that the foxglove user is back to being active and in the garden group, just how Terraform describes it. 
 
 # Control API Usage
 
@@ -550,10 +559,18 @@ Every Okta organization has an API rate limit. You can find the current rate lim
 
 If you're using Terraform in an organization with other API integrations, you might want to fine-tune how much of the organization's total rate limit you want Terraform to consume. To do this, go to your Terraform application in the admin console, and move the slider on the Application Rate Limits tab there. 
 
+# Clean Up
+
+If you would like to remove all resources managed by your Terraform configuration from your Okta Developer account, run the command `terraform destroy`. This will remove everything that you created during this workshop, so your account is a clean slate next time you want to test your code in it. 
+
+Never run `terraform destroy` on infrastructure that you want to keep! 
 
 # Next Steps
+
+In this workshop, you've taken your first steps managing Okta with Terraform. You've learned to create, change, import, and destroy resources, as well as refactoring and formatting your Terraform code. You've also begun to consider more advanced topics that you'll encounter in your Terraform journey, like config drift and API usage. 
 
 * Learn more about Terraform in the Hashicorp docs. Could Terraform help you manage cloud infrastructure beyond Okta?
 * Explore other resource types in the Okta Terraform Provider docs, and try configuring them in your developer account. 
 * If your organization already uses Terraform to manageinfrastructure, learn about how terraform.tfstate files and secrets are managed. 
 * Follow Oktadev on Twitter and YouTube to find out about future workshops and tutorials!
+* Leave a comment to let us know what you thought about using Okta's Terraform module! What features would you like to learn about next? 
