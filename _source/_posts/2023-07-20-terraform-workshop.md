@@ -5,12 +5,10 @@ author: edunham
 by: advocate
 communities: [devops,go]
 description: "Get started managing your Okta resources with Terraform"
-tags: [devops,go,automation]
+tags: [devops, go, automation, terraform]
 tweets:
 - ""
-- ""
-- ""
-image:
+image: blog/terraform-workshop/tf-workshop-social-image.jpg
 type: awareness
 --
 
@@ -372,6 +370,8 @@ variable "domain" {
   type    = string
   default = "example.com"
 }
+
+
 ```
 
 Now you can replace all the instances of `example.com` with `var.domain`. Here's how that would look for the butterfly, including the syntax for using the variable within a string: 
