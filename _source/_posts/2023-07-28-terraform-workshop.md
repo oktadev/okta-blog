@@ -5,10 +5,10 @@ author: aaron-parecki
 by: advocate
 communities: [devops,go]
 description: "Get started managing your Okta resources with Terraform! Use this hands-on workshop to understand where Terraform fits in the Okta ecosystem and write your first Terraform code using the Okta provider. "
-tags: [devday23, enterprise-ready]
+tags: [automation, terraform, workshop]
 tweets:
 - ""
-image: blog/devday23-beyond-mvp/social.jpg
+image: blog/terraform-workshop/tf-workshop-social-image.jpg
 type: awareness
 ---
 
