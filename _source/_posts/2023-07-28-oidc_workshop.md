@@ -1,6 +1,6 @@
 ---
 layout: blog_post
-title: "Enterprise Readiness Workshop: OpenID Connect"
+title: "Enterprise-Ready Workshop: OpenID Connect"
 author: [edunham, aaron-parecki]
 by: advocate
 communities: [security,javascript]
