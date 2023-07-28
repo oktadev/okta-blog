@@ -105,7 +105,7 @@ Below the client ID, the "client authentication" radio button defaults to "Clien
 
 Save your changes to the general settings of the API Service App, and navigate to the app's Okta API Scopes. Grant `okta.groups.manage`, `okta.policies.manage`, and `okta.users.manage` for this workshop. 
 
-In the terminal, `cd okta-terraform-workshop` and convert the PKCS-1 key to an RSA key: 
+In the terminal, `cd okta-terraform-workshop` and convert the PKCS-1 key to an RSA (PKCS-8) key: 
 
 ```
 $ openssl rsa -in pkcs.pem -out rsa.pem
@@ -378,11 +378,17 @@ To successfully remove a resource, all references to it must also be removed. In
 
 In the Okta console, you'll see that the bird's user account is not removed until you run `terraform apply`. 
 
-# Use Terraform Variables
+# Explore More Terraform Features
+
+As you use Terraform to describe the complexity of the real world, you'll need more of its features. In the next steps of this workshop, you'll practice intermediate Terraform skills as they apply to the Okta provider. 
+
+## Use Terraform Variables
 
 The simple examples so far have used a lot of hardcoded strings. One in particular is the `example.com` domain that all of the users have their logins and IDs at. What if you expected that to change, and wanted to move to a new email domain? 
 
 Terraform's [variables](https://developer.hashicorp.com/terraform/language/values/variables) can help. 
+
+### Variable Email Domain
 
 To declare a variable, in this case a string representing the email domain, tell Terraform the variable type and optionally a default value. This variable definition can go in `main.tf` while the project is still small: 
 
@@ -415,7 +421,57 @@ $ terraform apply -var "domain=test.org"
 
 Can you create and use a list variable to replace the hardcoded list in your `okta_group_memberships` resource?
 
-# Refactor Terraform Files
+### Try Alternative Key File Handling
+
+You've already used a built-in Terraform variable to describe the current file path, when telling the Okta provider where to look for the the private key:
+
+```
+  private_key = "${path.module}/rsa.pem"
+```
+
+#### Import File to Terraform
+Equivalently, you could specify the private key with Terraform's builtin `file` function: 
+
+```
+  private_key = file("rsa.pem")
+```
+
+#### Read Environment Variable From Terraform
+If your key file would be passed as an environment variable from your secrets management solution, you can pass it to your Terraform. If your Terraform can access the key through an environment variable `SECRET_PKEY`, it would be passed as a `var` whenever Terraform is invoked: 
+
+```
+$ terraform plan -var "pk_from_env=${SECRET_PKEY}"
+```
+
+This argument to Terraform reads the `SECRET_PKEY` environment variable into the `pk_from_env` Terraform variable. The `pk_from_env` variable can then be used to tell the Okta provider its private key:
+
+```
+private_key = "${var.pk_from_env}"
+```
+
+This pattern of reading secrets and variables from the shell where Terraform runs is especially common in continuous integration, continuous deployment, and other automation.
+
+## Use Multi-Line Strings
+
+So far you've used lists, strings, and string interpolation. What would you do if you needed to set a variable to a value with several lines? 
+
+Terraform's [strings](https://developer.hashicorp.com/terraform/language/expressions/strings) support `heredoc` syntax. Here's how the `garden` group looks with a more flowery description: 
+
+```
+resource "okta_group" "garden" {
+  name        = "The Garden"
+  description = <<POEM
+When daisies pied and violets blue
+And lady-smocks all silver-white
+And cuckoo-buds of yellow hue
+Do paint the meadows with delight.  
+POEM  
+}
+```
+
+Notice how `<<` and a custom delimiter, in this case `POEM`, start the multi-line string. The same delimiter, in this case `POEM`, on its own line, ends the string. 
+
+## Refactor Terraform Files
 
 As you configure more resources with Terraform, it gets harder to keep track of everything in one big file. Fortunately, Terraform recognizes all `.tf` files in a directory as belonging to the same project.
 
@@ -423,7 +479,7 @@ To see this in action, try moving both of the remaining user resources, the butt
 
 As your Terraform project grows more complex, you'll use more features of the language. You might use [modules](https://developer.hashicorp.com/terraform/language/modules) to reuse similar configurations. You'll probably use more variables to take inputs to Terraform from the environment where it's running. 
 
-# Format Terraform Code
+## Format Terraform Code
 
 If you're using an editor or IDE that doesn't automatically fix your indentation and other formatting details, run the command `terraform fmt` from the command line in your Terraform project directory to clean up the formatting of all `.tf` files.
 
