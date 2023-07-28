@@ -37,7 +37,7 @@ A Terraform project is a directory containing .tf files. These Terraform files c
 Terraform also stores data about the state of the infrastructure by creating the file `terraform.tfstate` in the project. Every piece of infrastructure should be represented in only one `terraform.tfstate` file, so if several collaborators work on the same Terraform codebase together, it's best to use Terraform Cloud or a similar service to share a single `terraform.tfstate` file. 
 
 
-# Setting Up the Okta Terraform Provider
+# Set Up the Okta Terraform Provider
 
 Before you can use Terraform to manage resources in your organization, you must provide it with appropriate credentials. The following steps will connect a Terraform project on your local system to your Okta Developer account. 
 
