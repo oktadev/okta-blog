@@ -111,7 +111,7 @@ In the terminal, `cd okta-terraform-workshop` and convert the PKCS-1 key to an R
 $ openssl rsa -in pkcs.pem -out rsa.pem
 ```
 
-# Configure Okta Provider
+# Configure the Okta Terraform Provider
 
 After setting up the app integration, you know all the values to pass in to the provider configuration! In `main.tf`, check that your provider block contains the `org_name`, `client_id`, and `private_key` file location. 
 
@@ -131,7 +131,18 @@ Now Terraform is ready to make changes to your Okta org by using the Okta provid
 
 This workshop's examples will create users for some plants and animals, and assign them to a garden group. The exercises will work just as well if you choose a different theme, however, so feel free to customize your users and groups to keep things interesting. 
 
-## Describe the User Resource
+## Creating Your First User
+
+When creating a new Okta object with Terraform, you will always follow the same basic steps:  
+
+- Decide what to create
+- Check the docs for how to create that resource
+- Write Terraform code
+- Plan and apply the Terraform
+
+In this workshop, the first thing you'll create is a user. 
+
+### Write Terraform for the User
 
 Resources in Terraform code describe infrastructure, in this case Okta objects, that Terraform will manage. The first resource will describe a user, and applying the Terraform will create that user in the Okta Developer Account whose app integration credentials were passed to the provider configuration. 
 
@@ -149,6 +160,8 @@ resource "okta_user" "bird" {
 ```
 
 Add that resource after the Terraform provider in `main.tf`. Notice how the type of the resource is `okta_user`, and the name of this one particular resource is `"bird"`? The name `"bird"` is only used within your Terraform code to refer to this particular user. You'll use it later when adding the user to a group.
+
+## Plan and Apply the Terraform
 
 Save `main.tf`, then run `terraform plan` in your `terraform-workshop` directory to see what will change once you run `terraform apply`: 
 
@@ -213,7 +226,7 @@ Enter 'yes' to confirm that the plan is still what you want, and Terraform creat
 
 In the admin console of your Okta Developer Account, go to Directory in the left column and select People. Do you see the newly created user in the list? Note that the resource name "bird" is only used within Terraform, and doesn't show up to the user or in the admin interface. 
 
-## Make another user
+## Create Another User
 
 Now you can make a second user with Terraform! Try creating an Okta user resource that Terraform will internally call `"butterfly"`, with the name `Papilio zelicaon`, and the login and email `swallowtail.butterfly@example.com`. 
 
@@ -230,7 +243,7 @@ resource "okta_user" "butterfly" {
 }
 ```
 
-## Create a group
+## Create a Group
 
 Just like when creating a user, the [Okta Terraform Provider docs](https://registry.terraform.io/providers/okta/okta/latest/docs/resources/group) offer guidance on which fields are available, and which are required, when creating a group. 
 
@@ -267,7 +280,7 @@ You added 1 new group resource, and Terraform plans to add 1 new group. The plan
 
 When you inspect the new group, you may notice that it has no users assigned to it. Let's fix that!
 
-## Add users to the group
+## Add Users to the Group
 
 Group memberships are managed with the `okta_group_memberships` resource. Where would you look for information on what fields an `okta_group_memberships` resource requires? The [provider docs](https://registry.terraform.io/providers/okta/okta/latest/docs/resources/group_memberships) can help. 
 
@@ -287,7 +300,7 @@ Plan and apply the Terraform, then look at the group in your admin console. Are 
 
 Now that you're getting more comfortable with basic Terraform operations, let's pause and look at some ways that things might have gone wrong in the previous steps. 
 
-## Multiple keys in the application 
+## Multiple Keys in the Application 
 
 To cause this error, avigate to your Terraform application in the Okta Admin Console, and create a second keypair. 
 
@@ -297,7 +310,7 @@ Try setting your first keypair, the one you created the RSA key from, to "inacti
 
 To fix this error, set the older keypair to active, and the newer keypair to inactive. Suddenly, the plan succeeds again! Once the newer keypair is set to inactive, you can delete it.
 
-## Missing scopes 
+## Missing Scopes 
 
 To see the impact of a missing scope error, try creating a user when the Terraform provider's scopes are set up incorrectly. Let's add a flower to `main.tf`: 
 
@@ -402,7 +415,7 @@ $ terraform apply -var "domain=test.org"
 
 Can you create and use a list variable to replace the hardcoded list in your `okta_group_memberships` resource?
 
-# Terraform Refactoring
+# Refactor Terraform Files
 
 As you configure more resources with Terraform, it gets harder to keep track of everything in one big file. Fortunately, Terraform recognizes all `.tf` files in a directory as belonging to the same project.
 
@@ -410,21 +423,25 @@ To see this in action, try moving both of the remaining user resources, the butt
 
 As your Terraform project grows more complex, you'll use more features of the language. You might use [modules](https://developer.hashicorp.com/terraform/language/modules) to reuse similar configurations. You'll probably use more variables to take inputs to Terraform from the environment where it's running. 
 
-# Terraform Formatting
+# Format Terraform Code
 
 If you're using an editor or IDE that doesn't automatically fix your indentation and other formatting details, run the command `terraform fmt` from the command line in your Terraform project directory to clean up the formatting of all `.tf` files.
 
 Try adding some ugly whitespace to one of your Terraform files, and then use `terraform fmt` to clean it up!
 
-# Importing Resources
+# Import Resources
 
 What if a user existed in Okta before you started working with Terraform, and you wanted to create a Terraform resource to represent them? [Terraform import](https://developer.hashicorp.com/terraform/language/import), an experimental feature, does this. 
+
+## Manually Create User
 
 To try it out, you'll need something to import. Create a user by hand through the Okta admin console. 
 
 Navigate to Directory, People, Add Person. The garden could use a tree in it, so this example will make the tree `Acer macrophyllum`, `bigleaf.maple@example.com`. 
 
 View that user in the Okta admin console, and its ID appears at the end of the URL: `https://dev-1234567890-admin.okta.com/admin/user/profile/view/abc123`. Use that ID when importing the resource to the Terraform state. 
+
+## Import Data With Terraform
 
 Create a new Terraform file, `imports.tf`, and add an import block to that file: 
 
@@ -489,6 +506,8 @@ resource "okta_user" "tree" {
 
 After the plan creates `generated.tf`, run `terraform apply` to complete the import.  
 
+## Clean Up After Import
+
 Copy the fields you'd like to manage from `generated.tf` into `users.tf`, and modify them to use any relevant variables:
 
 ```
@@ -507,6 +526,8 @@ After this refactor, a `terraform plan` will only show changes that update the m
 # Find and Fix Configuration Drift
 
 Config drift can happen when Okta resources are manually changed through the admin console and no longer match their Terraform configurations. You can introduce configuration drift by manually changing a resource.
+
+## Create Configuration Drift
 
 Foxgloves are poisonous, so you might not want them in the garden. In the Okta admin console, remove the foxglove from the garden group  and suspend their account. 
 
@@ -535,15 +556,15 @@ Terraform will perform the following actions:
 Plan: 0 to add, 2 to change, 0 to destroy.
 ```
 
-## Config Drift Solutions
+## Compare Configuration Drift Solutions
 
 The best way for your organization to handle this drift will depend on your business needs. When Terraform and Okta disagree about a resource, it's up to you to decide which of them is more correct, and change the less correct one so that they match.
 
-### Make Terraform match Okta
+### Make Terraform Match Okta
 
 If manual changes need to be reflected by Terraform changes, use `terraform import`, as shown above, to change your Terraform. 
 
-### Make Okta match Terraform
+### Make Okta Match Terraform
 
 If manual changes to Okta represent errors that should be overwritten by Terraform, simply run `terraform apply`. 
 
