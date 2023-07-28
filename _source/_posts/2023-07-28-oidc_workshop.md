@@ -1,6 +1,6 @@
 ---
 layout: blog_post
-title: "OIDC Workshop"
+title: "Enterprise Readiness Workshop: OpenID Connect"
 author: [edunham, aaron-parecki]
 by: advocate
 communities: [security,javascript]
@@ -13,13 +13,14 @@ tweets:
 image: blog/oidc_workshop/social.jpg
 type: awareness
 ---
-# OIDC Workshop
-
 This workshop is part of our Enterprise Readiness Workshop series. 
 
 In this workshop, you will enhance a sample application to let users access it using their organization's identity provider. When any enterprise customer considers buying your software to enhance their employees' productivity, their IT and security teams want to make sure employees can access your app securely. As a developer, you'd prefer not to rebuild large portions of your authentication flow for every new customer. Fortunately, the OpenID Connect standard solves both of these problems! By adding OpenID Connect (OIDC) support to your app, you can meet the identity security needs of every enterprise organization that uses an OIDC-compatible identity provider. 
 
 Today, we'll walk through adding OIDC to our Todo sample application. 
+
+For an in-depth walkthrough of developing and troubleshooting the code in this workshop, follow along on with the video: 
+{% youtube -gwgEAa4TkU %}
 
 {% include toc.md %}
 
