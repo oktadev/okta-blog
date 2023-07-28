@@ -89,7 +89,7 @@ All of those fields are mandatory, and you will fill out the missing values in t
 
 Scopes describe categories of changes that Terraform is allowed to make with the Okta Provider. This list of scopes will appear twice: Once here in the provider definition, and again in the Okta App Integration. The 3 scopes provided will be enough to do the exercises in this workshop. Later on, you can explore what would happen if the scopes had been set up wrong at this step. 
 
-# Create the Okta App Integration
+## Create the Okta App Integration
 
 Now in a web browser I'll log in to my Okta Developer Account at [developer.okta.com](developer.okta.com). If you don't have an account yet, now is a great time to create one. Developer accounts are a safe place to experiment without the risk of accidentally changing your production infrastructure. Developer accounts don't have a time limit, so you can always test your code before taking it to production.
 
@@ -111,7 +111,7 @@ In the terminal, `cd okta-terraform-workshop` and convert the PKCS-1 key to an R
 $ openssl rsa -in pkcs.pem -out rsa.pem
 ```
 
-# Configure the Okta Terraform Provider
+## Configure the Okta Terraform Provider
 
 After setting up the app integration, you know all the values to pass in to the provider configuration! In `main.tf`, check that your provider block contains the `org_name`, `client_id`, and `private_key` file location. 
 
