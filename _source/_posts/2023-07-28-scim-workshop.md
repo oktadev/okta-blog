@@ -55,7 +55,7 @@ Before we build our SCIM server, let's have a plan of action.
 
 {% img blog/scim-workshop/scim-diagram.jpg alt:"Diagram of SCIM workflow" %}{: .center-image }
 
-SCIM is implemented as a RESTful API. It uses Create, Read, Update, and Delete endpoints. The endpoints required by the SCIM spec are: 
+SCIM is implemented as a RESTful API. It uses `Create`, `Read`, `Update`, and `Delete` endpoints. The endpoints required by the SCIM spec are: 
 
 - GET /Users - Retrieve all users 
 - GET /Users?filter=userName - GET User with the filter "userName" (filtering is optional)
