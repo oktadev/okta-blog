@@ -476,7 +476,7 @@ POEM
 }
 ```
 
-Notice how `<<` and a custom delimiter, in this case `POEM`, start the multi-line string. The same delimiter, in this case `POEM`, on its own line, ends the string. 
+Notice how `<<` and a custom delimiter, in this case `POEM`, start the multi-line string. The same delimiter, in this case, `POEM` on its own line ends the string. 
 
 ## Refactor Terraform Files
 
