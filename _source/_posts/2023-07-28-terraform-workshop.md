@@ -1,6 +1,6 @@
 ---
 layout: blog_post
-title: "Okta Terraform Workshop"
+title: "Enterprise-Ready Workshop: Terraform"
 author: edunham 
 by: advocate
 communities: [devops,go]
