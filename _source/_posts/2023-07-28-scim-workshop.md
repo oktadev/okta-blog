@@ -54,6 +54,7 @@ Before we build our SCIM server, let's have a plan of action.
 - Build the SCIM Interface in the Todo sample app and test it with Postman
 
 {% img blog/scim-workshop/scim-diagram.jpg alt:"Diagram of SCIM workflow" %}{: .center-image }
+
 SCIM is implemented as a RESTful API. It uses Create, Read, Update, and Delete endpoints. The endpoints required by the SCIM spec are: 
 
 - GET /Users - Retrieve all users 
@@ -73,7 +74,7 @@ Before we begin, please note that this implementation of SCIM is meant to be ven
 
 Follow (these setup instructions)[/blog/2023/07/27/enterprise-ready-getting-started] to install and run the Todo sample app. Run `node -v` and make sure you have Node version 18 or newer. 
 
-We will build SCIM support atop the OIDC support added in the Enterprise-Ready Workshop on OpenID Connect. To start with a version of  [the sample app](https://github.com/oktadev/okta-enterprise-ready-workshops/) that already has OIDC support implemented, `git checkout oidc-complete-live`. 
+We will build SCIM support atop the OIDC support added in the Enterprise-Ready Workshop on OpenID Connect. To start with a version of  [the sample app](https://github.com/oktadev/okta-enterprise-ready-workshops/) that already has OIDC support implemented, `git checkout oidc-workshop-complete`. 
 
 ## Update the User Model
 
@@ -1086,21 +1087,21 @@ In the Directory tab of the Okta admin console sidebar, navigate to People, and 
 In your Todo app logs, what request do you expect to see from Okta when a user's information is updated? You should see the PUT request to your `/scim/v2/Users/4` endpoint shortly after saving Leo's new name. 
 
 
-## Tool Recommendations for Development 
+# Tool Recommendations for Development 
 While troubleshooting and developing an application, it can be helpful to use tools that let you inspect your code's behavior closely, including the way it handles secrets. These tools helped me as I developed the sample code used in the workshop, and might help you as you build your own projects. 
 
 The features that make these tools excellent for testing also make them terrible for use in production. In a production context, security is essential. For troubleshooting production services, integrate your application with your team's secure logging and secrets management infrastructure. 
 
-### View requests to and from the app
+## View requests to and from the app
 When [ngrok](https://ngrok.com/) is supported in my environment, it's my favorite tool for viewing requests to and from a local server. If ngrok is blocked, use Okta's [system logs](https://help.okta.com/en-us/Content/Topics/Reports/Reports_SysLog.htm) to see requests from the app to Okta. [Morgan](https://github.com/expressjs/morgan) can help you log inbound HTTP requests to the server.
 
 [Wireshark](https://www.wireshark.org/) is a powerful tool for examining all network traffic, including HTTP requests. 
 
-### Public URLs for local apps
+## Public URLs for local apps
 ngrok is my favorite solution for giving an app a public address, but it's not allowed by all networks. When ngrok isn't supported, [localtunnel]() is a good alternative. 
 ### Testing Server Behavior
 [Postman](https://www.postman.com/) and [Hoppscotch](https://hoppscotch.io/) offer a friendly interface for sending custom request bodies and headers to a server. If you prefer to work in the terminal, cURL can do the same things with the right arguments passed to it. 
-### Debugging Running Code
+## Debugging Running Code
 If you are using Visual Studio Code as your IDE, I recommend enabling your built-in debugger tool. This will allow you to inspect the request body by adding breakpoints as needed. 
 
 Follow [Visual Studio's docs](https://code.visualstudio.com/docs/editor/debugging) to find the Run And Debug view. I used the following `launch.json` configuration for Visual Studio when working on this app:
@@ -1135,7 +1136,7 @@ module.exports = composePlugins(withNx(), (config) => {
 });
 ```
 
-## Conclusion 
+# Conclusion 
 
 Congratulations, you've added SCIM support to an OIDC application! Not only have you supported SCIM for a single Okta organization, but the implementation choices made throughout this workshop prioritize scalability so that the Todo app can integrate with as many additional identity providers as necessary! By giving every integration its own unique SCIM endpoint and API token, you prepare your application to seamlessly integrate with as many customers as you want. 
 
