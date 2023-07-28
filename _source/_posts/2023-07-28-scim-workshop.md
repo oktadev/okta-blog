@@ -34,7 +34,7 @@ There are many challenges with managing user identities across services:
 - Manually adding accounts at scale
 
 SCIM, the System for Cross-domain Identity Management, is an open standard which addresses those problems. SCIM: 
-- Provides near-instant updates to the downstream system whenever someone joins, moves inside of, or leaves a company
+- Provides near-instant updates to the SaaS app whenever someone joins, moves inside of, or leaves a company
 - Allows management of user identities in cloud-based applications and services - i.e., you will have awareness of your users' up-to-date information
 - Enables automated control of user lifecycle (governance): provisioning (joiner), synchronizing user changes (movers), and de-provisioning (leaver) between identity providers (IdPs) and service providers (SPs)
 - Promotes interoperability via an open standard, which means allowing systems to exchange and make use of info being shared, e.g., I have worked with partners who have used SCIM as a solution to role-based access to resources 
@@ -72,7 +72,7 @@ Before we begin, please note that this implementation of SCIM is meant to be ven
 
 ## Set Up the Sample Application
 
-Follow (these setup instructions)[/blog/2023/07/27/enterprise-ready-getting-started] to install and run the Todo sample app. Run `node -v` and make sure you have Node version 18 or newer. 
+Follow [these setup instructions](/blog/2023/07/27/enterprise-ready-getting-started) to install and run the Todo sample app. Run `node -v` and make sure you have Node version 18 or newer. 
 
 We will build SCIM support atop the OIDC support added in the Enterprise-Ready Workshop on OpenID Connect. To start with a version of  [the sample app](https://github.com/oktadev/okta-enterprise-ready-workshops/) that already has OIDC support implemented, `git checkout oidc-workshop-complete`. 
 
@@ -111,7 +111,7 @@ Now that we have the user table with the necessary fields, we'll need to edit th
 
 Let's update the users in `seed.ts`. We'll also need to hardcode `externalId` and `active` for both users. Note that `externalId`  is a unique identifier issued by the provisioning client and must be stored in the SCIM server. The `externalId` is also considered stable because a user's name and email address can change. Along with the `active` attribute, `externalId` is not a SCIM protocol core attribute, but we will need it when we connect with Okta. In Okta, the  [Okta SCIM Docs](https://developer.okta.com/docs/guides/scim-provisioning-integration-prepare/main/#basic-user-schema) tell us that this unique identifier is the user's global id (GUID). Ref:
 
-We'll also set an `apikey` to an arbitrary string, because it will be used when we implement token auth to test each route as we build it.
+We'll also set an `apikey` to an random string, because it will be used when we implement token auth to test each route as we build it.
 
 After those changes, here's how `seed.ts` will look:
 
@@ -161,7 +161,7 @@ main()
 ```
 Now we are ready to seed the database. If you already added records to the database, you can run `npx prisma migrate reset` before running `npm run init-db`.
 
-A neat feature with Prisma is the option to view the user table locally. To do this, go to the root of this workshop folder, and run `npx prisma studio`. You should be redirected to a webpage where you can see all the tables you've created. 
+A neat feature with Prisma is the option to view the user table locally. To do this, go to the root of this workshop folder, and run `npx prisma studio`. Your browser should open to a web page where you can see all the tables you've created. 
 
 
 ## Add a SCIM file and create a scimRoute
@@ -274,7 +274,7 @@ scimRoute.post('/Users', passport.authenticate('bearer'), async (req, res) => {
     });
     let userResponse: IUserSchema;
     let httpStatus = 201;
-    // If there is any records returned, then we have a duplicate
+    // If there are any records returned, then we have a duplicate
     if (duplicateUser) {
         // User Found... Error
         console.log('Account Exist ID: ', duplicateUser.id);
@@ -330,7 +330,7 @@ We'll need to set up a few things for Postman to authenticate and interact with 
 
 #### 1 ) Add Bearer Token Auth to Secure the SCIM Routes
 
-When testing our routes, Postman will authenticate to the Todo app backend using a bearer token. To support token auth, first install the appropriate passport libraries. 
+When testing our routes, Postman (acting as the SCIM client) will authenticate to the Todo app backend using a bearer token. To support token auth, first install the appropriate passport libraries. 
 
 In your terminal, run: 
 
@@ -712,7 +712,7 @@ If you seeded your database with `seed.ts`, the result will look like this.
 ```
 ### Get user by ID
 
-According to the [SCIM spec](https://datatracker.ietf.org/doc/html/rfc7644#section-3.4.1), the endpoint `/Users/id` can retrieve details about one particular user. If a user with the specified ID exists, the server responds with HTTP status code 200 (OK) and includes the user's information in the body of the response. It should return a 404 if no user was found with the requested identifier.  How can `scim.ts` fulfill the spec's requirements to look up users by their IDs? 
+According to the [SCIM spec](https://datatracker.ietf.org/doc/html/rfc7644#section-3.4.1), the endpoint `/Users/[id]` can retrieve details about one particular user. If a user with the specified ID exists, the server responds with HTTP status code 200 (OK) and includes the user's information in the body of the response. It should return a 404 if no user was found with the requested identifier.  How can `scim.ts` fulfill the spec's requirements to look up users by their IDs? 
 
 ```
 // Retrieve a specific User by ID
@@ -770,7 +770,7 @@ scimRoute.get('/Users/:userId', passport.authenticate('bearer'), async (req, res
 ```
 ##### Test looking up a user by their ID
 
-With Postman, send a request with no body to look up the user with ID 1. What URL should you hit to look up that user? What type of request should you send? 
+With Postman, send a request to look up the user with ID 1. What URL should you hit to look up that user? What type of request should you send? 
 
 A GET request to `http://localhost:3333/scim/v2/Users/1` will look up the appropriate user. A successful response should look like this: 
 
@@ -803,7 +803,7 @@ A GET request to `http://localhost:3333/scim/v2/Users/1` will look up the approp
 ```
 ### Support updating user info
 
-Section 3.5.1 of the  [SCIM spec](https://www.rfc-editor.org/rfc/rfc7644#section-3.5.1), tells us how to update a user's information if we know their ID. Users are updated by a PUT to the `/Users/id` endpoint. if the user exists, the server updates its records for the user and responds with HTTP status code 200 (OK), including the user's latest information in the body of the response. If no user with the specified ID is found, the server returns a 404.
+Section 3.5.1 of the  [SCIM spec](https://www.rfc-editor.org/rfc/rfc7644#section-3.5.1), tells us how to update a user's information if we know their ID. Users are updated by a PUT to the `/Users/[id]` endpoint. if the user exists, the server updates its records for the user and responds with HTTP status code 200 (OK), including the user's latest information in the body of the response. If no user with the specified ID is found, the server returns a 404.
 
 Can you implement this behavior in the Todo app's backend? One way to do it would be to add this code to `scim.ts`: 
 
@@ -1017,7 +1017,7 @@ We'll need to set up a few things for Okta to authenticate and interact with our
 
 ### 1) Give your app a public URL
 One way to give your app a public URL or IP would be to host it on a cloud instance with DNS that you control. But if that isn't an option, you can use Localtunnel to temporarily issue a public web address to your own computer. 
-For this example, we'll use [Localtunnel](https://theboroer.github.io/localtunnel-www/). To run the tunnel, you'll start the api with the following command:
+For this example, we'll use [Localtunnel](https://localtunnel.me). To run the tunnel, you'll start the api with the following command:
 
 ```
 npm run serve-api
@@ -1029,7 +1029,7 @@ In another terminal, start the tunnel using:
 npx localtunnel --port 3333
 ```
 
-It will ask for permission to install the npm package; say yes. And when you start localtunnel, it will print a URL to your terminal, such as http:/unique-url-for-squirrels. You will need that URL when we create a SCIM app in Okta so that Okta can send requests to your Todo app.
+It will ask for permission to install the npm package; say yes. And when you start localtunnel, it will print a URL to your terminal, such as http://unique-url-for-squirrels. You will need that URL when we create a SCIM app in Okta so that Okta can send requests to your Todo app.
 
 ### 2) Log in to your Okta Developer Account
 Log in to your [Okta developer account](https://developer.okta.com/login/), or sign up if you don't have one yet. 
@@ -1098,7 +1098,7 @@ When [ngrok](https://ngrok.com/) is supported in my environment, it's my favorit
 [Wireshark](https://www.wireshark.org/) is a powerful tool for examining all network traffic, including HTTP requests. 
 
 ## Public URLs for local apps
-ngrok is my favorite solution for giving an app a public address, but it's not allowed by all networks. When ngrok isn't supported, [localtunnel]() is a good alternative. 
+ngrok is my favorite solution for giving an app a public address, but it's not allowed by all networks. When ngrok isn't supported, [localtunnel](https://localtunnel.me) is a good alternative. 
 ### Testing Server Behavior
 [Postman](https://www.postman.com/) and [Hoppscotch](https://hoppscotch.io/) offer a friendly interface for sending custom request bodies and headers to a server. If you prefer to work in the terminal, cURL can do the same things with the right arguments passed to it. 
 ## Debugging Running Code
