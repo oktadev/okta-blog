@@ -25,7 +25,6 @@ In this workshop, you will learn how to implement SCIM and support provisioning 
 
 # Understanding SCIM 
 
-{% img blog/scim-workshop/scim-diagram.jpg alt:"Diagram of SCIM workflow" %}{: .center-image }
 
 ## What problems does SCIM solve?
 There are many challenges with managing user identities across services:
@@ -54,6 +53,7 @@ Before we build our SCIM server, let's have a plan of action.
 - Install the sample application and set up your development environment
 - Build the SCIM Interface in the Todo sample app and test it with Postman
 
+{% img blog/scim-workshop/scim-diagram.jpg alt:"Diagram of SCIM workflow" %}{: .center-image }
 SCIM is implemented as a RESTful API. It uses Create, Read, Update, and Delete endpoints. The endpoints required by the SCIM spec are: 
 
 - GET /Users - Retrieve all users 
@@ -382,7 +382,7 @@ import bodyParser from 'body-parser';
 And instruct the app to use `bodyParser` for the relevant content types: 
 
 ```
-app.use(bodyParser.json({ type: ['application/json', 'application/scim+json'] }));
+app.use(bodyParser.json({ type: ['application/scim+json'] }));
 ```
 Sign up for [Postman](https://identity.getpostman.com/login) or sign in to your account, and configure it to communicate with your local instance of the Todo app. 
 
