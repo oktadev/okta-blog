@@ -130,7 +130,7 @@ provider "okta" {
 
 With the provider configured, Terraform is ready to make changes to your Okta org. In the Okta Admin Console in your browser, take one last look at the empty Users list (found under the Directory heading in the left sidebar), because you're about to create some users with Terraform!
 
-In keeping with the Terraform theme, this workshop's examples will create users for some plants and animals, and assign them to a garden group. The exercises will work just as well if you choose a different theme, however, so feel free to customize your users and groups to keep things interesting. 
+In keeping with the Terraform theme, this workshop's examples will create users for some plants and animals, and assign them to a garden group. However, the exercises will work just as well if you choose a different theme, so feel free to customize your users and groups to keep things interesting. 
 
 ## Creating Your First User
 
