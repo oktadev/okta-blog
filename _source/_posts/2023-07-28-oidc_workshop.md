@@ -25,7 +25,7 @@ Today, we'll walk through adding OIDC to our Todo sample application.
 
 ## Before You Begin: 
 
-Follow the [getting started guide](https://developer.okta.com/blog/2023/07/27/enterprise-ready-getting-started) to set up the Todo app and its dependencies. Make sure you can run the app locally and view its login page in your browser. Launch Prisma studio to examine the database, as well. 
+Follow the [getting started guide](/blog/2023/07/27/enterprise-ready-getting-started) to set up the Todo app and its dependencies. Make sure you can run the app locally and view its login page in your browser. Launch Prisma studio to examine the database, as well. 
 
 You will also need a free [Okta Developer Account](https://developer.okta.com/login/), to test the setup steps your customer will follow when integrating their OpenID Connect server with your application. 
 
