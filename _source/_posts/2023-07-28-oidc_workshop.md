@@ -1,7 +1,7 @@
 ---
 layout: blog_post
 title: "Enterprise-Ready Workshop: OpenID Connect"
-author: [edunham, aaron-parecki]
+author: [aaron-parecki, edunham]
 by: advocate
 communities: [security,javascript]
 description: "Add OpenID Connect support to a sample app, and build the skills to make your production applications more appealing to enterprise customers!"
