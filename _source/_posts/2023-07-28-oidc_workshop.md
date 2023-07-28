@@ -34,7 +34,7 @@ You will also need a free [Okta Developer Account](https://developer.okta.com/lo
 
 The Todo app currently only supports password login, but your enterprise customers' IT departments don't want their users managing one-off passwords. You would also like to use customer data, such as which user accounts belong to which organizations, to enhance your app's features. 
 
-Since you value flexibility and maintainability, you want to use a passport library to let your app integrate with arbitrary OpenID Connect servers. 
+Since you value flexibility and maintainability, you want to use a library to let your app integrate with arbitrary OpenID Connect servers. 
 
 Introducing these features will require adding logic to the application's backend to handle user accounts and org memberships appropriately, and frontend code to authenticate users with their organization's identity provider when appropriate while supporting password authentication for users who aren't signing in via OIDC. To use these features of your app, you will set it up with an OIDC integration in your Okta Developer Account.
 
@@ -61,6 +61,7 @@ Since your app will have many customers with different identity providers, you'l
 - API Key, for future use, if you add API access to the app for users in this org
 - Issuer, an identifier representing the OIDC server for the org
 
+Note that to keep things simple for demonstration purposes, we are storing the client secret and API key in plain text in the database. In production, you should use some sort of encrypted key store to manage these credentials.
 Here's how organization support looks in `Schema.prisma`:
 ```
 model Org {
@@ -82,7 +83,7 @@ model Org {
 
 The sample application already manages rudimentary user accounts, but with OIDC support, users will belong to organizations. The user model in `schema.prisma` needs a relationship to an organization, which is implemented with the `org` and `orgID` fields. 
 
-Previously, the sample app treated a user's email address as their unique identifier. This can cause problems if the user's organization changes its domain name, or if the user's email address changes when they change their name. Instead, with OIDC support, a unique identifier for each user can be supplied by their identity provider. This identifier is called `subject` in the OIDC protocol, and is guaranteed to be a unique and stable identifier for that user on that server. It's possible for multiple OIDC servers to issue the same `subject` ID, but the combination of server and subject uniquely identifies a single user.
+Previously, the sample app treated a user's email address as their unique identifier. This can cause problems if the user's organization changes its domain name, or if the user's email address changes when they change their name. Instead, with OIDC support, a unique identifier for each user can be supplied by their identity provider. This identifier is called `sub` (short for "subject") in the OIDC protocol, and is guaranteed to be a unique and stable identifier for that user on that server. It's possible for multiple OIDC servers to issue the same `sub` ID, since this is not a globally unique value, so the combination of server and subject uniquely identifies a single user.
 
 With a relationship to the user's `org`, and an `externalID` from their organization, the user model will look like this: 
 
@@ -132,7 +133,7 @@ To handle both OIDC and non-OIDC users, the app should first prompt for the user
 
 ## Hide password field
 
-The first change in `src/app/components/signin.tsx` is hiding the password field at first. Find the `div` containing the password, give it an identifier, and set it to be hidden by default: 
+The first change in `src/app/components/signin.tsx` is hiding the password field when the page is first loaded. Find the `div` containing the password, give it an identifier, and set it to be hidden by default: 
 
 ```
 <div id="password-field" className="mb-6" hidden>
@@ -228,7 +229,7 @@ And finally, make sure that `onUsernameEnteredFn` is included in the provider co
 
 From the perspective of the app's frontend, these are all the changes that matter. Supporting OIDC will not change how the frontend communicates with the backend through sessions. 
 
-The frontend is now ready to use the backend's `/api/openid/check` endpoint to investigate whether a user belongs to an OIDC org, and then hit the org's custom `/api/openid/start/${org_id}` endpoint to initiate the login flow if an org is found! Your next step is to add these endpoints to the application's backend. 
+The frontend is now ready to use the backend's `/api/openid/check` endpoint to investigate whether a user belongs to an OIDC org, and then redirect the browser to the org's custom `/api/openid/start/${org_id}` endpoint to initiate the login flow if an org is found! Your next step is to add these endpoints to the application's backend. 
 
 # Backend Changes
 
@@ -236,7 +237,7 @@ The application's backend will use a library to handle most of the OIDC authenti
 
 ## Install Passport OIDC Library
 
-Since the sample app is using Passport for authentication, the Passport OIDC library will offer seamless integration. 
+Since the sample app is already using Passport for password authentication, the Passport OIDC library will offer seamless integration with the OpenID Connect provider.
 
 In your project, run `npm install --save passport-openidconnect` to install the library.  This will update `package.json` automatically to specify the installed version: 
 
@@ -248,7 +249,7 @@ In your project, run `npm install --save passport-openidconnect` to install the 
 
 Add the following helper functions to `apps/api/src/main.ts` to simplify your upcoming work. 
 
-`orgFromId` will take an integer org ID and return the first database result for an organization that the ID references:
+`orgFromId` will take an integer org ID and return the database record for the organization that the ID references:
 
 ```
 async function orgFromId(id) {
@@ -276,7 +277,7 @@ function getDomainFromEmail(email) {
 
 ## Add OpenID Org Check Route
 
-The `api/openid/check` endpoint will return the numeric ID of the org that a user's email domain belongs to, or `null` if the user isn't part of an org. The user's full email address will arrive at the endpoint in the request body, so the helper function `getDomainFromEmail` will return the domain, before it's used to look up the corresponsding org in the database. Add this code to `main.ts`: 
+The `/api/openid/check` endpoint will return the numeric ID of the org that a user's email domain belongs to, or `null` if the user isn't part of an org. The user's full email address will arrive at the endpoint in the request body, so the helper function `getDomainFromEmail` will return the domain, before it's used to look up the corresponsding org in the database. Add this code to `main.ts`: 
 
 ```
 app.post('/api/openid/check', async (req, res, next) => {
@@ -309,7 +310,7 @@ app.post('/api/openid/check', async (req, res, next) => {
 });
 ```
 
-If the user belongs to an org and the database knows the `issuer`, or OIDC server, for that org, the org's ID will be returned. Otherwise, a `null` result will indicate that the user is not part of an org that the app knows about. 
+If the user belongs to an org and the database knows the `issuer` (the OIDC server) for that org, the org's ID will be returned. Otherwise, a `null` result will indicate that the user is not part of an org that the app knows about. 
 
 Note that if the user's domain isn't assigned to an org, this code will also search the entire database for any org containing a user with the specified email address. This helps handle edge cases where a user kept their old domain after a subsidiary was acquired by your customer, or has a mismatched domain for other reasons. 
 
@@ -386,7 +387,7 @@ Now that the Passport OIDC library is configured to interface with the database 
 
 ## Start the OpenID Flow
 
-The frontend will hit the backend's `/openid/start/${org_id}` endpoint to initiate the OpenID login flow when a user belongs to an org. 
+The frontend will redirect the browser to the backend's `/openid/start/${org_id}` endpoint to initiate the OpenID login flow when a user belongs to an org. 
 
 When that endpoint is hit, it will identify the org and create an appropriate strategy for it. It will then handle any errors that might result, and call `passport.authenticate` to use the OpenID configuration passed from the database through the newly created `Strategy` and authenticate the user. 
 
@@ -413,7 +414,7 @@ app.get('/openid/start/:id', async (req, res, next) => {
 
 For passport to authenticate the user, it will redirect them to their identity provider so that they can log in. After the OpenID server authenticates the user, it redirects them back to the application's `callback` url. 
 
-To recap, a call to the backend's `/openid/start/` endpoint with an org's ID will use passport to redirect the user to their org's OpenID server. The user will prove their identity to their org's OpenID server, and that server will return the authenticated session to the Todo app via passport. Only the app's backend will touch the session information from the OIDC server, so frontend tampering cannot intercept the user's session. 
+To recap, redirecting the user to the backend's `/openid/start/` endpoint with an org's ID will use passport to redirect the user to their org's OpenID server. The user will prove their identity to their org's OpenID server, and that server will redirect the user to the app's backend, at which point Passport will start a session to the Todo app. Only the app's backend will see the information from the OIDC server, so frontend tampering cannot intercept the user's session. 
 
 Once the OpenID server has authenticated the user, it will redirect them to the Todo app backend's `callback` URL. Your next step is to implement the `/openid/callback/${org_id}` endpoint.
 
@@ -455,7 +456,7 @@ Visit [developer.okta.com](developer.okta.com) and log in to your Developer Acco
 
 ## Create App Integration
 
-In the Okta admin console, navigate to "Applications" under the "Applications" heading in the left sidebar. Click the "Create App Integration" button, because your sample app isn't published to the app catalog. (If your app's audience includes a lot of Okta customers, publishing to the Okta catalog can simplify their onboarding process.) 
+In the Okta admin console, navigate to "Applications" under the "Applications" heading in the left sidebar. Click the "Create App Integration" button, because your sample app isn't published to the app catalog. (If your app's audience includes a lot of Okta customers, publishing to the Okta Integration Network can simplify their onboarding process.) 
 
 In the "Create a new app integration" dialogue box, select the "OIDC - OpenID Connect" sign-in method, specify that the application is a "Web Application" in the "Application Type" options that appear, and use the "Next" button to continue. 
 
