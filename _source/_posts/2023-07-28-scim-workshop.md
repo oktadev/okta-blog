@@ -297,7 +297,7 @@ scimRoute.post('/Users', passport.authenticate('bearer'), async (req, res) => {
                 org: { connect: { id: ORG_ID } },
                 name,
                 email,
-                password,
+      
                 externalId,
                 active
             }
