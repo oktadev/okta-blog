@@ -240,7 +240,7 @@ Finally, we are ready to get started! Let's work on our first CRUD endpoint.
 
 ### Create User Function - POST /Users - 
 
-Let's refer to the [SCIM spec](https://datatracker.ietf.org/doc/html/rfc7644#section-3.3) on creating a user. To create a user, the spec says that the client sends a POST request containing a "User" to the `/Users` endpoint. In response to the POST, the server signals a successful creation with an HTTP status code 201 (Created) and returns a representation of the user created. If the server determines that the creation of the requested user conflicts with existing users (e.g., a "User" resource with a duplicate "userName"), the server MUST return HTTP status code 409 (Conflict) with a "scimType" error code of "uniqueness," as per Section 3.12.
+Let's refer to the [SCIM spec](https://datatracker.ietf.org/doc/html/rfc7644#section-3.3) on creating a user. The spec says the IdP sends a POST request containing a "User" to the `/Users` endpoint to create a user. In response to the POST, the server signals a successful creation with an HTTP status code 201 (Created) and returns a representation of the user created. If the server determines that the creation of the requested user conflicts with existing users (e.g., a "User" resource with a duplicate "userName"), the server MUST return HTTP status code 409 (Conflict) with a "scimType" error code of "uniqueness," as per Section 3.12.
 
 Our `/Users` endpoint can fulfill those requirements with the following code: 
 
