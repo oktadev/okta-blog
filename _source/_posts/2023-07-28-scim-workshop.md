@@ -1143,7 +1143,7 @@ module.exports = composePlugins(withNx(), (config) => {
 
 # Conclusion 
 
-Congratulations, you've added SCIM support to an OIDC application! Not only have you supported SCIM for a single Okta organization, but the implementation choices made throughout this workshop prioritize scalability so that the Todo app can integrate with as many additional identity providers as necessary! By giving every integration its own unique SCIM endpoint and API token, you prepare your application to seamlessly integrate with as many customers as you want. 
+Congratulations, you've added SCIM support to an OIDC application! Not only have you supported SCIM for a single Okta organization, but the implementation choices made throughout this workshop prioritize scalability so that the Todo app can integrate with as many additional identity providers as necessary! By giving every integration its own unique SCIM endpoint and API token, you prepare your application to seamlessly integrate with as many customers as you want. Keep in mind, IdPs that support SCIM may implement SCIM differently, so you will need to reference the specific IdP's implementation docs.
 
 If you have followed along with the workshops so far, you now have a Todo application secured by OpenID Connect with SCIM provisioning. Your users can now authenticate securely with OIDC and make use of this application once they have been provisioned and assigned to the application from an Identity Provider such as Okta. 
 
