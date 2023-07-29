@@ -273,7 +273,7 @@ scimRoute.post('/Users', passport.authenticate('bearer'), async (req, res) => {
             name: true,
         },
         where: {
-            email,
+            id,
             org: { id: ORG_ID }
         }
     });
