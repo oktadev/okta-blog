@@ -38,7 +38,7 @@ SaaS customers have high expectations for the applications that they purchase. C
 
 SCIM, the System for Cross-domain Identity Management, is an open standard which addresses those problems. SCIM: 
 - Provides near-instant updates to the SaaS app whenever someone joins, moves inside of, or leaves a company
-- Allows management of user identities in cloud-based applications and services - i.e., you will have awareness of your users' up-to-date information
+- Allows management of user identities in cloud-based applications and services - i.e., you will have an awareness of your enterprise customers' users' up-to-date information
 - Enables automated control of user lifecycle (governance): provisioning (joiner), synchronizing user changes (movers), and de-provisioning (leaver) between identity providers (IdPs) and service providers (SPs)
 - Promotes interoperability via an open standard, which means allowing systems to exchange and make use of info being shared, e.g., I have worked with partners who have used SCIM as a solution to role-based access to resources 
 
