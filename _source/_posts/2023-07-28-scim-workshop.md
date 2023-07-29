@@ -34,7 +34,6 @@ In this workshop, you will learn how to implement SCIM and support provisioning 
 SaaS customers have high expectations for the applications that they purchase. Customers, especially at enterprise scale, expect apps to seamlessly integrate with identity providers in order to maximize user productivity. ```
 - Enterprise customers expect that onboarding a user in their identity provider will immediately create accounts for that user in all of SaaS apps where they grant that user access.
 - For security as well as convenience, customers expect that deleting or deactivating a user account from their identity provider will delete that user's accounts from all their enterprise SaaS apps. 
-- Manually managing users through CSVs
 - Manually adding accounts at scale
 
 SCIM, the System for Cross-domain Identity Management, is an open standard which addresses those problems. SCIM: 
