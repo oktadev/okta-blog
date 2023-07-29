@@ -31,7 +31,7 @@ In this workshop, you will learn how to implement SCIM and support provisioning 
 
 
 ## What problems does SCIM solve?
-There are many challenges with managing user identities across services:
+SaaS customers have high expectations for the applications that they purchase. Customers, especially at enterprise scale, expect apps to seamlessly integrate with identity providers in order to maximize user productivity. ```
 - SaaS developers want to know as soon as someone joins a company so they can set up an account 
 - SaaS developers also want to know when someone leaves a company to deactivate their account and associated resources.
 - Manually managing users through CSVs
