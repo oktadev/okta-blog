@@ -481,6 +481,8 @@ According to [the SCIM spec](https://www.rfc-editor.org/rfc/rfc7644#section-3.4.
 
 In addition, filtering by username is an OPTIONAL parameter for SCIM service providers refer to this section of [the SCIM spec](https://datatracker.ietf.org/doc/html/rfc7644#section-3.4.2.2). However, Okta requires username filtering support as it checks to see if the user exists by username first before creating them. Ref: [Okta Docs](https://developer.okta.com/docs/reference/scim/scim-20/#create-users)
 
+Why would a SCIM client, in this case the identity provider, ever want to ask our app's SCIM server what users it knows about? Okta keeps track of what identifiers each SCIM integration is using for each user, and stores those as the user's "externalId" Okta uses this endpoint to test whether a user exists and find out what ID the SCIM server uses for that individual, so that it can send the correct request type with the correct ID: PUT to update an existing user, or POST to create a new account for a user that wasn't previously known to the SCIM server. 
+
 To fulfill these requirements, the sample app's backend can handle GET requests to the `/Users` endpoint in `scim.ts` like this: 
 
 ```
