@@ -949,6 +949,11 @@ What response do you expect? You should get an HTTP 200 with a body like this:
 
 Section 3.6 of the  [SCIM spec](https://www.rfc-editor.org/rfc/rfc7644#section-3.6), tells us that service providers may choose to permanently delete users with a 204 (No Content). If no user with the specified ID is found, the server returns a 404 (Not found).
 
+When a user leaves an organization, some identity providers will delete that user entirely. Revoking the user's access to all applications is an essential component of securely offboarding them. Additionally, when an enterprise purchases a subscription plan for a SaaS app with a limited number of seats, they expect that removing a user from that app will free up a seat in their license for another user to gain access.
+
+Deleting accounts of removed users can help your application comply with data retention regulations. Over time, storing and backing up information every user who has ever used your app, instead of only tracking active accounts, can get expensive in both storage costs and backup/restore process duration. 
+
+
 ```
 // Delete Users
 // DELETE: /Users/:userId
