@@ -1098,7 +1098,7 @@ While troubleshooting and developing an application, it can be helpful to use to
 The features that make these tools excellent for testing also make them terrible for use in production. In a production context, security is essential. For troubleshooting production services, integrate your application with your team's secure logging and secrets management infrastructure. 
 
 ## View requests to and from the app
-When [ngrok](https://ngrok.com/) is supported in my environment, it's my favorite tool for viewing requests to and from a local server. If ngrok is blocked, use Okta's [system logs](https://help.okta.com/en-us/Content/Topics/Reports/Reports_SysLog.htm) to see requests from the app to Okta. [Morgan](https://github.com/expressjs/morgan) can help you log inbound HTTP requests to the server.
+When [ngrok](https://ngrok.com/) is supported in my environment, it's my favorite tool for viewing requests to and from a local server. Unfortunately, some firewalls forbid ngrok but allow localtunnel, which is why localtunnel was used for this workshop's demonstrations. If ngrok is blocked, use Okta's [system logs](https://help.okta.com/en-us/Content/Topics/Reports/Reports_SysLog.htm) to see requests from the app to Okta. [Morgan](https://github.com/expressjs/morgan) can help you log inbound HTTP requests to the server.
 
 [Wireshark](https://www.wireshark.org/) is a powerful tool for examining all network traffic, including HTTP requests. 
 
