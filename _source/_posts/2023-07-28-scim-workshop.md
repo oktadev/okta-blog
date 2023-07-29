@@ -197,7 +197,7 @@ import { Prisma, PrismaClient } from '@prisma/client';
 
 Some SCIM endpoints in `scim.ts` will return user information from the Todo app's database. To easily retrieve this information from the SCIM endpoints, implement an `IUserSchema` interface and instantiate it as the defaultUserSchema. The information in the `IUserSchema` matches the SCIM spec, as you'll see soon.  
 
-To simplify the example code, we'll support one org at first, by hardcoding the org ID as 1. When you're ready to support multiple SCIM clients, you can easily replace this constant value with a function to look up the correct org ID based on. In addition, when we receive a request to create a user from an IdP, their org's attribute value will be hardcoded to 1 when they are created in the database. Therefore, letting us know that they belong to this specific org. 
+To simplify the example code, we'll support one org at first, by hardcoding the org ID as 1. When you're ready to support multiple SCIM clients, you can easily replace this constant value with a function to look up the correct org ID based on based on the context of the request. In addition, when an IdP instructs our SCIM server to create a user, the user's org ID will be hardcoded to 1 when they are created in the database. An update to support multiple organizations would also need to update the user creation code to associate them with the correct organization, as well. 
 the context of the incoming request.```
 ```
 const prisma = new PrismaClient();
