@@ -1021,7 +1021,7 @@ Now that we have a working SCIM application, let's test it with an Identity Prov
 We'll need to set up a few things for Okta to authenticate and interact with our local server. 
 
 ### 1) Give your app a public URL
-One way to give your app a public URL or IP would be to host it on a cloud instance with DNS that you control. But if that isn't an option, you can use Localtunnel to temporarily issue a public web address to your own computer. 
+One way to give your app a public URL or IP would be to host it on a cloud instance with DNS that you control. For development purposes, you can use Localtunnel to provide a public address to the app running on your own computer.
 For this example, we'll use [Localtunnel](https://localtunnel.me). To run the tunnel, you'll start the api with the following command:
 
 ```
