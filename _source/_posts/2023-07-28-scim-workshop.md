@@ -14,7 +14,11 @@ image: blog/scim-workshop/social.jpg
 type: awareness
 ---
 
-Hello SaaS developers! Do you currently have a need to provision, de-provision, and/or sync users across services? If so, then SCIM is the right tool for you! What is SCIM, you ask? SCIM stands for System for Cross-domain Identity Management. And it is an open standard protocol that allows us to manage identities across systems as well as manage common user lifecycles. So in this workshop, our goal is to build a SCIM server in a SaaS app using this standard protocol and, in the end, connect it to an identity provider such as Okta. 
+Hello SaaS developers! You sell your software to technologically mature enterprises, and they expect it to interface seamlessly with all their other tools. In our Enterprise-Ready Workshop on OpenID Connect, you learned how to solve part of this problem, by creating user accounts in your application for your customers' employees whenever they log in. 
+
+But creating accounts when users log in is only one of your customers' many expectations! Your app is also expected to know about users who haven't logged in yet, and remove the accounts of employees who are removed from your customer's identity provider. 
+
+In this workshop, we'll solve those problems and more with SCIM, the System for Cross-domain Identity Management. SCIM is an open standard protocol that allows us to manage identities across systems as well as common user lifecycles. In this workshop, we will enhance a sample application by adding SCIM server functionality to it, and connect the sample application's SCIM server to an Okta client. 
 
 
 In this workshop, we'll cover the following:
