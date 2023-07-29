@@ -32,7 +32,7 @@ In this workshop, you will learn how to implement SCIM and support provisioning 
 
 ## What problems does SCIM solve?
 SaaS customers have high expectations for the applications that they purchase. Customers, especially at enterprise scale, expect apps to seamlessly integrate with identity providers in order to maximize user productivity. ```
-- SaaS developers want to know as soon as someone joins a company so they can set up an account 
+- Enterprise customers expect that onboarding a user in their identity provider will immediately create accounts for that user in all of SaaS apps where they grant that user access.
 - SaaS developers also want to know when someone leaves a company to deactivate their account and associated resources.
 - Manually managing users through CSVs
 - Manually adding accounts at scale
