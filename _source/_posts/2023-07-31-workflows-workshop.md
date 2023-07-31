@@ -3,12 +3,10 @@ layout: blog_post
 title: "Enterprise Ready Workshop: Workflows"
 author: max-katz
 by: advocate
-communities: [no-code, javascript]
-description: "Add automated reporting with no-code Okta Workflows!"
+communities: [no-code,javascript]
+description: "Add automated reporting with no-code Okta Workflows. Enhance customer satisfaction by enabling custom automation."
 tags: [enterprise-ready-workshops, workflows, no-code, low-code]
 tweets:
-- ""
-- ""
 - ""
 image: blog/workflows-workshop/social.jpg
 type: awareness
