@@ -239,11 +239,7 @@ In this step, you will create several todo items.
 3. Enter several todo items
 
 
-![
-Todo application with several items
-](https://katzmax.files.wordpress.com/2023/07/workflows_todoapp.png)<figcaption>
-Todo application with several items
-</figcaption>
+![ Todo application with several items ](https://katzmax.files.wordpress.com/2023/07/workflows_todoapp.png)<figcaption> Todo application with several items </figcaption>
 
 ## Building the Todo Report flow
 In this section, you will build a flow that does the following: 
@@ -275,11 +271,7 @@ In this step, you will add a card to call the application API end point to retri
 Click the **Save** button to save changes
 
 
-![
-The API Connector - Get card
-](https://katzmax.files.wordpress.com/2023/07/workflows_get_card.png)<figcaption>
-The API Connector - Get card
-</figcaption>
+![ The API Connector - Get card ](https://katzmax.files.wordpress.com/2023/07/workflows_get_card.png)<figcaption> The API Connector - Get card </figcaption>
 
 You can test the **Get** card. 
 
@@ -288,21 +280,13 @@ You can test the **Get** card.
 3. Expand the Body field to see the tasks from the application
 
 
-![
-Testing the Get card
-](https://katzmax.files.wordpress.com/2023/07/workflows_get_card_testing.png)<figcaption>
-Testing the Get card
-</figcaption>
+![ Testing the Get card ](https://katzmax.files.wordpress.com/2023/07/workflows_get_card_testing.png)<figcaption> Testing the Get card </figcaption>
 
 You can also test the flow. Click the **Close** button to go back to flow editing. Click the **Test** button to test the flow. 
 
 The **Flow History** page shows data passed from card to card for each card flow. 
 
-![
-Testing the flow
-](https://katzmax.files.wordpress.com/2023/07/workflows_get_card_testing_history.png)<figcaption>
-Testing the flow
-</figcaption>
+![ Testing the flow ](https://katzmax.files.wordpress.com/2023/07/workflows_get_card_testing_history.png)<figcaption> Testing the flow </figcaption>
 
 In the next section, you will create the text message. 
 
@@ -321,11 +305,7 @@ Your card should look like this:
 
 https://katzmax.files.wordpress.com/2023/07/workflows_compose_card.png
 
-![
-The Compose card
-](https://katzmax.files.wordpress.com/2023/07/workflows_compose_card.png)<figcaption>
-The Compose card
-</figcaption>
+![ The Compose card ](https://katzmax.files.wordpress.com/2023/07/workflows_compose_card.png)<figcaption> The Compose card </figcaption>
 
 If you want, you can test the **Compose** card. Click the ▶️ button at the bottom of the card. 
 
@@ -333,11 +313,7 @@ Now, let's take the output from the **API Connector - Get** card and pass it to 
 
 1. Take the **Body** field from the **Get** card and pass it over to the **Compose** card, placing it under the current text
 
-![
-Passing data to the Compose card
-](https://katzmax.files.wordpress.com/2023/07/workflows_get_connect_compose.gif)<figcaption>
-Passing data to the Compose card
-</figcaption>
+![ Passing data to the Compose card ](https://katzmax.files.wordpress.com/2023/07/workflows_get_connect_compose.gif)<figcaption> Passing data to the Compose card </figcaption>
 
 Now, click the **Test** button at the top of the flow to test it. 
 
@@ -347,11 +323,7 @@ Now that you have two cards on a flow, using the **Flow History**, you can see h
 
 For now, you build a flow that calls an external API service and displays the output. Next, you are going to add a step to email the result. 
 
-![
-Flow history
-](https://katzmax.files.wordpress.com/2023/07/workflows_flow_history.png)<figcaption>
-Flow history
-</figcaption>
+![ Flow history ](https://katzmax.files.wordpress.com/2023/07/workflows_flow_history.png)<figcaption> Flow history </figcaption>
 
 Next, let's work on emailing the message. 
 
@@ -369,11 +341,7 @@ To email the message, you are going to use the **Gmail** card.
 
 The card should look like this when added:
 
-![
-The Gmail - Send Email card
-](https://katzmax.files.wordpress.com/2023/07/workflows_gmail_send_card.png)<figcaption>
-The Gmail - Send Email card
-</figcaption>
+![ The Gmail - Send Email card ](https://katzmax.files.wordpress.com/2023/07/workflows_gmail_send_card.png)<figcaption> The Gmail - Send Email card </figcaption>
 
 Next, you need to set fields on the **Send Email** card. 
 
@@ -385,21 +353,13 @@ Next, you need to set fields on the **Send Email** card.
  
 The flow should look like this: 
 
-![
-The Todo Report flow
-](https://katzmax.files.wordpress.com/2023/07/workflows_todo_report_flow.png)<figcaption>
-The Todo Report flow
-</figcaption>
+![ The Todo Report flow ](https://katzmax.files.wordpress.com/2023/07/workflows_todo_report_flow.png)<figcaption> The Todo Report flow </figcaption>
 
 Go ahead and test the flow. Click the **Test** button and check that you received the email. 
 
 You should receive an email that looks like this: 
 
-![
-An email with the todo report
-](https://katzmax.files.wordpress.com/2023/07/workflows_email_report_not_formatted.png)<figcaption>
-An email with the todo report
-</figcaption>
+![ An email with the todo report ](https://katzmax.files.wordpress.com/2023/07/workflows_email_report_not_formatted.png)<figcaption> An email with the todo report </figcaption>
 
 The email is not formatted yet. But it's neat that you can call an API, create a message, and email it without writing any code. 
 
@@ -411,47 +371,23 @@ You need this flow to run on schedule. For example, you want to run this flow ev
 
 1. In the flow editor, move to the beginning of the flow, to the area before the **API Connector - Get** card
 2. In the box where it says **When this happens**, click the **Add event** button
-![
-Adding the Schedule card
-](https://katzmax.files.wordpress.com/2023/07/workflows_add_schedule_card.png)<figcaption>
-Adding the Schedule card
-</figcaption>
+![ Adding the Schedule card ](https://katzmax.files.wordpress.com/2023/07/workflows_add_schedule_card.png)<figcaption> Adding the Schedule card </figcaption>
 3. You will right away see a Flow Schedule dialog where you can set when to run the flow
-![
-Flow schedule
-](https://katzmax.files.wordpress.com/2023/07/workflows_flow_schedule_settings.png)<figcaption>
-Flow schedule
-</figcaption>
+![ Flow schedule ](https://katzmax.files.wordpress.com/2023/07/workflows_flow_schedule_settings.png)<figcaption> Flow schedule </figcaption>
 4. Update the flow to run every **Friday at 9 am local time**. Feel free to set a schedule that works for you. To test the flow, you don't need to wait for the schedule. You can always use the **Test** button
-![
-Running the flow every Friday at 9 am
-](https://katzmax.files.wordpress.com/2023/07/workflows_flow_schedule_settings2.png)<figcaption>
-Running the flow every Friday at 9 am
-</figcaption>
+![ Running the flow every Friday at 9 am ](https://katzmax.files.wordpress.com/2023/07/workflows_flow_schedule_settings2.png)<figcaption> Running the flow every Friday at 9 am </figcaption>
 5. Click the **Save** button to save the schedule
 6. To see when the flow runs next, toggle the **Flow is OFF**
 
-![
-The flow is off
-](https://katzmax.files.wordpress.com/2023/07/workflows_flow_off.png)<figcaption>
-The flow is off
-</figcaption>
+![ The flow is off ](https://katzmax.files.wordpress.com/2023/07/workflows_flow_off.png)<figcaption> The flow is off </figcaption>
 
 When the flow is on, you will see the next time it runs: 
 
-![
-The flow is on
-](https://katzmax.files.wordpress.com/2023/07/workflows_flow_on.png)<figcaption>
-The flow is on
-</figcaption>
+![ The flow is on ](https://katzmax.files.wordpress.com/2023/07/workflows_flow_on.png)<figcaption> The flow is on </figcaption>
 
 Your flow should look like this: 
 
-![
-A flow to get the todo summary and send it via email
-](https://katzmax.files.wordpress.com/2023/07/workflows_todo_flow_final_1.png)<figcaption>
-A flow to get the todo summary and send it via email
-</figcaption>
+![ A flow to get the todo summary and send it via email ](https://katzmax.files.wordpress.com/2023/07/workflows_todo_flow_final_1.png)<figcaption> A flow to get the todo summary and send it via email </figcaption>
 
 ## Updating the flow to send a pretty message
 In this section, you will update the flow to send a pretty message. You will complete the following: 
@@ -527,11 +463,7 @@ A flow becomes a helper flow when the first card (step) is the **Helper Flow** c
 2. Under **Okta Apps**, select the **Helper Flow** card
 
 Your flow should look like this:
-![
-A helper flow
-](https://katzmax.files.wordpress.com/2023/07/workflows_helper_flow.png)<figcaption>
-A helper flow
-</figcaption>
+![ A helper flow ](https://katzmax.files.wordpress.com/2023/07/workflows_helper_flow.png)<figcaption> A helper flow </figcaption>
 
 In the next step, you will set up the flow inputs. 
 
@@ -540,22 +472,14 @@ In this step, you will define inputs the main flow will pass to the helper flow.
 
 1. To add a flow input field, click inside the **Click or drag and create** box and enter **Item**
 2. Move the mouse over the field type indicated by **Aa**, open the list, and select **Object** from the list
-![
-Creating helper flow inputs
-](https://katzmax.files.wordpress.com/2023/07/workflows_create_helper_flow_inputs.gif)<figcaption>
-Creating helper flow inputs
-</figcaption>
+![ Creating helper flow inputs ](https://katzmax.files.wordpress.com/2023/07/workflows_create_helper_flow_inputs.gif)<figcaption> Creating helper flow inputs </figcaption>
 3. Under the **Item**, create the following two fields:
     - Name: **task**, type: **Text**
     - Name: **completed**, type: **Text**
 
 The **Helper Flow** card should look like this: 
 
-![
-Helper flow inputs
-](https://katzmax.files.wordpress.com/2023/07/workflows_helper_flow_inputs.png)<figcaption>
-Helper flow inputs
-</figcaption>
+![ Helper flow inputs ](https://katzmax.files.wordpress.com/2023/07/workflows_helper_flow_inputs.png)<figcaption> Helper flow inputs </figcaption>
 
 You need to create one more input field. This will be a new field, not part of the Item object.
 
@@ -563,11 +487,7 @@ You need to create one more input field. This will be a new field, not part of t
 
 The final **Helper Flow** card looks like this:
 
-![
-Helper flow with inputs
-](https://katzmax.files.wordpress.com/2023/07/workflows_helper_flow_inputs_final.png)<figcaption>
-Helper flow with inputs
-</figcaption>
+![ Helper flow with inputs ](https://katzmax.files.wordpress.com/2023/07/workflows_helper_flow_inputs_final.png)<figcaption> Helper flow with inputs </figcaption>
 
 Your helper flow is set up to accept two inputs. A JSON object with two fields: **task** and **completed** and a text field (**memo**). Next, you are going to create a pretty message. 
 
@@ -584,11 +504,7 @@ In this step, you will use the **Compose** card to create the message.
 
 The **Compose** card should look like this: 
 
-![
-The Compose card
-](https://katzmax.files.wordpress.com/2023/07/workflows_compose_card_helper_flow.png)<figcaption>
-The Compose card
-</figcaption>
+![ The Compose card ](https://katzmax.files.wordpress.com/2023/07/workflows_compose_card_helper_flow.png)<figcaption> The Compose card </figcaption>
 
 ### Returning the message to the main flow
 
@@ -599,11 +515,7 @@ To complete this flow, you must return the message to the main flow.
 
 The flow should look like this:
 
-![
-Completed helper flow
-](https://katzmax.files.wordpress.com/2023/07/workflows_helper_flow_final.png)<figcaption>
-Completed helper flow
-</figcaption>
+![ Completed helper flow ](https://katzmax.files.wordpress.com/2023/07/workflows_helper_flow_final.png)<figcaption> Completed helper flow </figcaption>
 
 Next, you will update the main flow to call this helper flow. 
 
@@ -613,30 +525,20 @@ In this step, you will update the main flow to call the helper flow.
 
 1. Open the **Todo Report** flow
 2. You are going to add the **List - Reduce** card. Click the **+** between the **Get** card and the **Compose** card, select the **calculator icon > List (category) > Reduce** card. Your flow should look like this:
-![Adding the Reduce card](https://katzmax.files.wordpress.com/2023/07/workflows_add_reduce_card.png)<figcaption>
-Adding the Reduce card
-</figcaption>
+![Adding the Reduce card](https://katzmax.files.wordpress.com/2023/07/workflows_add_reduce_card.png)<figcaption> Adding the Reduce card </figcaption>
 3. On the **Get** card, add **todos** field under the **Body** field. Set the field type to **Object**
-![Adding the todos field on the Get card](https://katzmax.files.wordpress.com/2023/07/workflows_get_card_adding_todos.png)<figcaption>
-Adding the todos field on the Get card
-</figcaption>
+![Adding the todos field on the Get card](https://katzmax.files.wordpress.com/2023/07/workflows_get_card_adding_todos.png)<figcaption> Adding the todos field on the Get card </figcaption>
 4. Take the **todos** field and connect it to the list field on the **Reduce** card
 5. For **Helper Flow**, click the **Choose Flow** button and select the **Todo Report_Helper** flow
 6. For the **memo** field, change its type to **Text** and enter **Todo Items**
 7. For the **Item** field, click the arrow on the right side of the field and select **Item** from the list
-![Selecting the data to send to the helper flow](https://katzmax.files.wordpress.com/2023/07/workflows_reduce_card_helperflow_input1.png)<figcaption>
-Selecting the data to send to the helper flow
-</figcaption>
+![Selecting the data to send to the helper flow](https://katzmax.files.wordpress.com/2023/07/workflows_reduce_card_helperflow_input1.png)<figcaption> Selecting the data to send to the helper flow </figcaption>
 8. For the item in the output section of the card, set its type to **Text**. The **Reduce** card should look like this:
-![The Reduce card](https://katzmax.files.wordpress.com/2023/07/workflows_reduce_card_final.png)<figcaption>
-The Reduce card
-</figcaption>
+![The Reduce card](https://katzmax.files.wordpress.com/2023/07/workflows_reduce_card_final.png)<figcaption> The Reduce card </figcaption>
 9. Delete the **Compose** card
 10. Connect the **item** field from the **Reduce** card to the **Body** field on the **Send Email** card. The final flow should look like this:
 
-![The Completed Todo Report flow](https://katzmax.files.wordpress.com/2023/07/workflows_todo_flow_final_with_reduce.png)<figcaption>
-The Completed Todo Report flow
-</figcaption>
+![The Completed Todo Report flow](https://katzmax.files.wordpress.com/2023/07/workflows_todo_flow_final_with_reduce.png)<figcaption> The Completed Todo Report flow </figcaption>
 
 ### How does the Reduce card work
 
@@ -660,9 +562,7 @@ Todo Items
 ```
 
 
-![Helper flow first run](https://katzmax.files.wordpress.com/2023/07/workflows_reduce_flowhistory_test1.png)<figcaption>
-Helper flow first run
-</figcaption>
+![Helper flow first run](https://katzmax.files.wordpress.com/2023/07/workflows_reduce_flowhistory_test1.png)<figcaption> Helper flow first run </figcaption>
 
 
 #### Second run
@@ -683,9 +583,7 @@ Todo Item
 
 > Watch a Workflows video (false)
 ```
-![Helper flow second run](https://katzmax.files.wordpress.com/2023/07/workflows_reduce_flowhistory_test2.png)<figcaption>
-Helper flow second run
-</figcaption>
+![Helper flow second run](https://katzmax.files.wordpress.com/2023/07/workflows_reduce_flowhistory_test2.png)<figcaption> Helper flow second run </figcaption>
 
 #### Third run
 
@@ -711,9 +609,7 @@ Todo Items
 > Build your first automation (false)
 ```
 
-![Helper flow third run](https://katzmax.files.wordpress.com/2023/07/workflows_reduce_flowhistory_test3.png)<figcaption>
-Helper flow third run
-</figcaption>
+![Helper flow third run](https://katzmax.files.wordpress.com/2023/07/workflows_reduce_flowhistory_test3.png)<figcaption> Helper flow third run </figcaption>
 
 #### Fourth run
 
@@ -743,15 +639,11 @@ Todo Items
 > Read Workflows docs (true)
 ```
 
-![Helper flow fourth run](https://katzmax.files.wordpress.com/2023/07/workflows_reduce_flowhistory_test4.png)<figcaption>
-Helper flow fourth run
-</figcaption>
+![Helper flow fourth run](https://katzmax.files.wordpress.com/2023/07/workflows_reduce_flowhistory_test4.png)<figcaption> Helper flow fourth run </figcaption>
 
 Since all the items were processed, the **Reduce** card is done and the flow execution moves on to the next card, the **Send Email** card. 
 
-![The flow continues after the Reduce card processes all the items](https://katzmax.files.wordpress.com/2023/07/workflows_todo_flow_final_with_reduce.png)<figcaption>
-The flow continues after the Reduce card processes all the items
-</figcaption>
+![The flow continues after the Reduce card processes all the items](https://katzmax.files.wordpress.com/2023/07/workflows_todo_flow_final_with_reduce.png)<figcaption> The flow continues after the Reduce card processes all the items </figcaption>
 
 
 ## Testing the flow
@@ -766,7 +658,6 @@ To test the flow:
 You will receive an email like this:
 
 ![Todo email report](https://katzmax.files.wordpress.com/2023/07/workflows_email_report.png)<figcaption>Todo email report</figcaption>
-
 
 ## What you learned
 In this tutorial, you built and learned the following:
