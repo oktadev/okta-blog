@@ -18,7 +18,7 @@ What's the automation journey, and how does it relate to organizational maturity
 
 If you're ready to start automating Okta administration tasks, where should you start? 
 
-## Episode Links
+## Find the OktaDev Workforce podcast on approaching identity automation
 
 {% youtube LilghHdW18Q %} 
 
