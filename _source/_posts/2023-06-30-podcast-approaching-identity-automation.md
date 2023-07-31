@@ -10,7 +10,7 @@ image: blog/identity-developer-podcast/podcast.jpg
 type: awareness
 ---
 
-# Approaching Automation
+# Approaching automation in identity
 
 Product Manager Jeff Taylor joins us for the first time to discuss the principles behind successful automation. 
 
