@@ -44,9 +44,9 @@ You need access to the following tools to complete this workshop.
 This is a short list of what is possible.
 
 ###Workflows flows
-In Workflows, you will be building flows. A flow is a sequence of steps to complete a goal. It’s similar to a  script where every code line is a step to complete a goal. In Workflows, you will build the flow visually without writing any code. 
+In Workflows, you will be building flows. A flow is a sequence of steps to complete a goal. It's similar to a  script where every code line is a step to complete a goal. In Workflows, you will build the flow visually without writing any code. 
 
-You will learn about the Workflows building blocks in a few minutes. First, let’s create your first flow. 
+You will learn about the Workflows building blocks in a few minutes. First, let's create your first flow. 
 
 ## Getting access to Workflows
 There are two ways to access Workflows. 
@@ -56,7 +56,7 @@ There are two ways to access Workflows.
 
 
 ### Workflows when using other Okta products
-If you have Okta SSO or Okta UD you might be entitled to Workflows. Check if you can access Workflows by going to **Okta organization > Admin > Workflows > Workflows console**. If you use these products but don’t have access to Workflows, please contact your CSM
+If you have Okta SSO or Okta UD you might be entitled to Workflows. Check if you can access Workflows by going to **Okta organization > Admin > Workflows > Workflows console**. If you use these products but don't have access to Workflows, please contact your CSM
 
 ### Workflows as part of WIC trial
 To sign up for a WIC trial:
@@ -120,8 +120,8 @@ A card has two types of fields: input and output. Input fields accept values. Ou
 
 This is an example of the **Text - Length** card. This card calculates and returns the number of characters in a text string.
 
-- The **text** field is the card’s input
-- The **length** field is the card’s output (the lower grey area)
+- The **text** field is the card's input
+- The **length** field is the card's output (the lower grey area)
 
 ![The Text-Length card calculates text length](https://katzmax.files.wordpress.com/2023/07/workflows_text_length_card.png)<figcaption>The Text-Length card calculates text length</figcaption>
 
@@ -329,7 +329,7 @@ The Compose card
 
 If you want, you can test the **Compose** card. Click the ▶️ button at the bottom of the card. 
 
-Now, let’s take the output from the **API Connector - Get** card and pass it to the **Compose** card. The output is not formatted-friendly, but we will fix it later. 
+Now, let's take the output from the **API Connector - Get** card and pass it to the **Compose** card. The output is not formatted-friendly, but we will fix it later. 
 
 1. Take the **Body** field from the **Get** card and pass it over to the **Compose** card, placing it under the current text
 
@@ -341,7 +341,7 @@ Passing data to the Compose card
 
 Now, click the **Test** button at the top of the flow to test it. 
 
-You will see the output in the **Compose** card. It’s not formatted (plain JSON for now), but that’s OK. You will fix it in a later step. 
+You will see the output in the **Compose** card. It's not formatted (plain JSON for now), but that's OK. You will fix it in a later step. 
 
 Now that you have two cards on a flow, using the **Flow History**, you can see how data is passed from card to card. 
 
@@ -353,7 +353,7 @@ Flow history
 Flow history
 </figcaption>
 
-Next, let’s work on emailing the message. 
+Next, let's work on emailing the message. 
 
 ### Sending the message via email
 
@@ -381,7 +381,7 @@ Next, you need to set fields on the **Send Email** card.
 2. For the **Subject** field, enter **Todo Report**
 3. For the **Body** field, connect the output field from the **Compose** card to the **Body** field in **Send Email** card
 4. All other fields are optional
-5. Let’s test the **Send Email** card. Click the ▶️ button on the card. You only need to enter the **Body** field. All other fields will carry the information you entered. Enter any text and click the **Test** button. Now check your email.
+5. Let's test the **Send Email** card. Click the ▶️ button on the card. You only need to enter the **Body** field. All other fields will carry the information you entered. Enter any text and click the **Test** button. Now check your email.
  
 The flow should look like this: 
 
@@ -401,7 +401,7 @@ An email with the todo report
 An email with the todo report
 </figcaption>
 
-The email is not formatted yet. But it’s neat that you can call an API, create a message, and email it without writing any code. 
+The email is not formatted yet. But it's neat that you can call an API, create a message, and email it without writing any code. 
 
 There is one last step left before we make the message look pretty. The step is to make this flow run automatically. 
 
@@ -422,7 +422,7 @@ Flow schedule
 ](https://katzmax.files.wordpress.com/2023/07/workflows_flow_schedule_settings.png)<figcaption>
 Flow schedule
 </figcaption>
-4. Update the flow to run every **Friday at 9 am local time**. Feel free to set a schedule that works for you. To test the flow, you don’t need to wait for the schedule. You can always use the **Test** button
+4. Update the flow to run every **Friday at 9 am local time**. Feel free to set a schedule that works for you. To test the flow, you don't need to wait for the schedule. You can always use the **Test** button
 ![
 Running the flow every Friday at 9 am
 ](https://katzmax.files.wordpress.com/2023/07/workflows_flow_schedule_settings2.png)<figcaption>
