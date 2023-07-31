@@ -14,6 +14,10 @@ type: awareness
 
 This workshop is part of our Enterprise-Ready Workshop series. Follow along to get familiar with managing identity as code using Okta's Terraform provider, so you can assist enterprise customers and simplify any identity setup steps that your product might require. In this workshop, you'll use Terraform to manage users and groups in an Okta Organization, while practicing beginner and intermediate Terraform skills.
 
+The steps in this workshop are also demonstrated in the accompanying video, so that you can follow along in whatever medium is the best fit for your current learning needs.  
+
+{% youtube 5_x0VmvjXmg %}
+
 {% include toc.md %}
 
 # Why Terraform? 
