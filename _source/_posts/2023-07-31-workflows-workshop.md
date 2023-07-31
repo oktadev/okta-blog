@@ -326,7 +326,7 @@ To email the message, you are going to use the **Gmail** card.
 
 The card should look like this when added:
 
-{% img blog/workflows-workshop/Workflows_Gmail_send_card.jpg alt:"The Gmail - Send Email card" %}{: .center-image }
+{% img blog/workflows-workshop/Workflows_Gmail_Send_card.jpg alt:"The Gmail - Send Email card" %}{: .center-image }
 Next, you need to set fields on the **Send Email** card. 
 
 1. For the **Email** field, enter your email (or any other email you can check)
