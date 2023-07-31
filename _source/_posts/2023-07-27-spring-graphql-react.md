@@ -509,17 +509,28 @@ query companyById($id: ID) {
     }
  }
 ```
+Update the test configuration in `build.gradle` file, so passed tests are logged:
+
+```text
+tasks.named('test') {
+	useJUnitPlatform()
+
+	testLogging {
+		// set options for log level LIFECYCLE
+		events "failed", "passed"
+	}
+}
+```
 
 Run the test with:
 
 ```shell
-./gradlew test
+./gradlew clean test
 ```
 
+- show the output
 
-
-
-- create the migration
+### Add Neo4j seed data
 
 Let's add Neo4j migrations dependency for the seed data insertion. Edit the file `build.gradle` and add:
 
@@ -529,9 +540,75 @@ dependencies {
   implementation 'eu.michael-simons.neo4j:neo4j-migrations-spring-boot-starter:2.4.0'
 }
 ```
+Create the folder `src/main/resources/neo4j/migrations` and the following migration files:
+
+```sql
+CREATE CONSTRAINT FOR (c:Company) REQUIRE c.companyNumber IS UNIQUE;
+//Constraint for a node key is a Neo4j Enterprise feature only - run on an instance with enterprise
+//CREATE CONSTRAINT ON (p:Person) ASSERT (p.birthMonth, p.birthYear, p.name) IS NODE KEY
+CREATE CONSTRAINT FOR (p:Property) REQUIRE p.titleNumber IS UNIQUE;
+```
+
+```sql
+LOAD CSV WITH HEADERS FROM "file:///PSCAmericans.csv" AS row
+MERGE (c:Company {companyNumber: row.company_number})
+RETURN COUNT(*);
+```
+
+```sql
+LOAD CSV WITH HEADERS FROM "file:///PSCAmericans.csv" AS row
+MERGE (p:Person {name: row.`data.name`, birthYear: row.`data.date_of_birth.year`, birthMonth: row.`data.date_of_birth.month`})
+  ON CREATE SET p.nationality = row.`data.nationality`,
+  p.countryOfResidence = row.`data.country_of_residence`
+// TODO: Address
+RETURN COUNT(*);
+```
+
+```sql
+LOAD CSV WITH HEADERS FROM "file:///PSCAmericans.csv" AS row
+MATCH (c:Company {companyNumber: row.company_number})
+MATCH (p:Person {name: row.`data.name`, birthYear: row.`data.date_of_birth.year`, birthMonth: row.`data.date_of_birth.month`})
+MERGE (p)-[r:HAS_CONTROL]->(c)
+SET r.nature = split(replace(replace(replace(row.`data.natures_of_control`, "[",""),"]",""),  '"', ""), ",")
+RETURN COUNT(*);
+```
+
+```sql
+LOAD CSV WITH HEADERS FROM "file:///CompanyDataAmericans.csv" AS row
+MATCH (c:Company {companyNumber: row.` CompanyNumber`})
+SET c.name = row.CompanyName,
+c.mortgagesOutstanding = toInteger(row.`Mortgages.NumMortOutstanding`),
+c.incorporationDate = Date(Datetime({epochSeconds: apoc.date.parse(row.IncorporationDate,'s','dd/MM/yyyy')})),
+c.SIC = row.`SICCode.SicText_1`,
+c.countryOfOrigin = row.CountryOfOrigin,
+c.status = row.CompanyStatus,
+c.category = row.CompanyCategory;
+```
+
+```sql
+LOAD CSV WITH HEADERS FROM "file:///LandOwnershipAmericans.csv" AS row
+MATCH (c:Company {companyNumber: row.`Company Registration No. (1)`})
+MERGE (p:Property {titleNumber: row.`Title Number`})
+SET p.address = row.`Property Address`,
+p.county  = row.County,
+p.price   = toInteger(row.`Price Paid`),
+p.district = row.District
+MERGE (c)-[r:OWNS]->(p)
+WITH row, c,r,p WHERE row.`Date Proprietor Added` IS NOT NULL
+SET r.date = Date(Datetime({epochSeconds: apoc.date.parse(row.`Date Proprietor Added`,'s','dd-MM-yyyy')}));
+CREATE INDEX FOR (c:Company) ON c.incorporationDate;
+```
 
 
-Download the seed files from the following locations:
+Update `application.properties` and add the following properties:
+
+```properties
+spring.graphql.graphiql.enabled=true
+spring.graphql.schema.introspection.enabled=true
+org.neo4j.migrations.transaction-mode=PER_STATEMENT
+```
+
+Download the following seed files to some folder:
 - [CompanyDataAmericans](https://guides.neo4j.com/ukcompanies/data/CompanyDataAmericans.csv)
 - [LandOwnershipAmericans](https://guides.neo4j.com/ukcompanies/data/LandOwnershipAmericans.csv)
 - [PSCAmericans.csv](https://guides.neo4j.com/ukcompanies/data/PSCAmericans.csv)
@@ -563,6 +640,13 @@ services:
 ```
 As you can see the compose file will mount `<csv-folder>` to a `/var/lib/neo4j/import` volume, making the content accessible from the running ne44j container.
 Replace `<csv-folder>` with the path to the downloaded CSVs.
+
+In a terminal, go to the `docker` folder and run:
+
+```shell
+docker compose -f neo4j.yml up
+```
+
 
 - graphiql
 
