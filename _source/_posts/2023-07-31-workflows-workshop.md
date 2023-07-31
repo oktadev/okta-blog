@@ -116,7 +116,7 @@ This is an example of the **Text - Length** card. This card calculates and retur
 - The **text** field is the card's input
 - The **length** field is the card's output (the lower grey area)
 
-{% img blog/workflows-workshop/Workflows_text_length_card.jpg alt:"The Text-Length card calculates text length" %}{: .center-image }
+{% img blog/workflows-workshop/Workflows_Text_Length_card.jpg alt:"The Text-Length card calculates text length" %}{: .center-image }
 There are two types of cards:
 
 - App action cards are steps that control other applications or web services. For example, Gmail, Slack, and Jira
@@ -262,7 +262,7 @@ In this step, you will add a card to call the application API end point to retri
 Click the **Save** button to save changes
 
 
-{% img blog/workflows-workshop/Workflows_get_card.jpg alt:"The API Connector - Get card" %}{: .center-image }
+{% img blog/workflows-workshop/Workflows_Get_card.jpg alt:"The API Connector - Get card" %}{: .center-image }
 You can test the **Get** card. 
 
 1. Click the ▶️ button at the bottom of the card
@@ -270,12 +270,12 @@ You can test the **Get** card.
 3. Expand the Body field to see the tasks from the application
 
 
-{% img blog/workflows-workshop/Workflows_get_card_testing.jpg alt:"Testing the Get card" %}{: .center-image }
+{% img blog/workflows-workshop/Workflows_Get_card_testing.jpg alt:"Testing the Get card" %}{: .center-image }
 You can also test the flow. Click the **Close** button to go back to flow editing. Click the **Test** button to test the flow. 
 
 The **Flow History** page shows data passed from card to card for each card flow. 
 
-{% img blog/workflows-workshop/Workflows_get_card_testing_history.jpg alt:"Testing the flow" %}{: .center-image }
+{% img blog/workflows-workshop/Workflows_Get_card_testing_history.jpg alt:"Testing the flow" %}{: .center-image }
 In the next section, you will create the text message. 
 
 ### Creating the message
@@ -293,7 +293,7 @@ Your card should look like this:
 
 https://katzmax.files.wordpress.com/2023/07/workflows_compose_card.png
 
-{% img blog/workflows-workshop/Workflows_compose_card.jpg alt:"The Compose card" %}{: .center-image }
+{% img blog/workflows-workshop/Workflows_Compose_card.jpg alt:"The Compose card" %}{: .center-image }
 If you want, you can test the **Compose** card. Click the ▶️ button at the bottom of the card. 
 
 Now, let's take the output from the **API Connector - Get** card and pass it to the **Compose** card. The output is not formatted-friendly, but we will fix it later. 
@@ -326,7 +326,7 @@ To email the message, you are going to use the **Gmail** card.
 
 The card should look like this when added:
 
-{% img blog/workflows-workshop/Workflows_gmail_send_card.jpg alt:"The Gmail - Send Email card" %}{: .center-image }
+{% img blog/workflows-workshop/Workflows_Gmail_send_card.jpg alt:"The Gmail - Send Email card" %}{: .center-image }
 Next, you need to set fields on the **Send Email** card. 
 
 1. For the **Email** field, enter your email (or any other email you can check)
@@ -337,7 +337,7 @@ Next, you need to set fields on the **Send Email** card.
  
 The flow should look like this: 
 
-{% img blog/workflows-workshop/Workflows_todo_report_flow.jpg alt:"The Todo Report flow" %}{: .center-image }
+{% img blog/workflows-workshop/Workflows_Todo_report_flow.jpg alt:"The Todo Report flow" %}{: .center-image }
 Go ahead and test the flow. Click the **Test** button and check that you received the email. 
 
 You should receive an email that looks like this: 
@@ -353,7 +353,7 @@ You need this flow to run on schedule. For example, you want to run this flow ev
 
 1. In the flow editor, move to the beginning of the flow, to the area before the **API Connector - Get** card
 2. In the box where it says **When this happens**, click the **Add event** button
-{% img blog/workflows-workshop/Workflows_add_schedule_card.jpg alt:"Adding the Schedule card" %}{: .center-image }3. You will right away see a Flow Schedule dialog where you can set when to run the flow
+{% img blog/workflows-workshop/Workflows_add_Schedule_card.jpg alt:"Adding the Schedule card" %}{: .center-image }3. You will right away see a Flow Schedule dialog where you can set when to run the flow
 {% img blog/workflows-workshop/Workflows_flow_schedule_settings.jpg alt:"Flow schedule" %}{: .center-image }4. Update the flow to run every **Friday at 9 am local time**. Feel free to set a schedule that works for you. To test the flow, you don't need to wait for the schedule. You can always use the **Test** button
 {% img blog/workflows-workshop/Workflows_flow_schedule_settings2.jpg alt:"Running the flow every Friday at 9 am" %}{: .center-image }5. Click the **Save** button to save the schedule
 6. To see when the flow runs next, toggle the **Flow is OFF**
@@ -364,7 +364,7 @@ When the flow is on, you will see the next time it runs:
 {% img blog/workflows-workshop/Workflows_flow_on.jpg alt:"The flow is on" %}{: .center-image }
 Your flow should look like this: 
 
-{% img blog/workflows-workshop/Workflows_todo_flow_final_1.jpg alt:"A flow to get the todo summary and send it via email" %}{: .center-image }
+{% img blog/workflows-workshop/Workflows_Todo_flow_final_1.jpg alt:"A flow to get the todo summary and send it via email" %}{: .center-image }
 ## Updating the flow to send a pretty message
 In this section, you will update the flow to send a pretty message. You will complete the following: 
 
@@ -476,7 +476,7 @@ In this step, you will use the **Compose** card to create the message.
 
 The **Compose** card should look like this: 
 
-{% img blog/workflows-workshop/Workflows_compose_card_helper_flow.jpg alt:"The Compose card" %}{: .center-image }
+{% img blog/workflows-workshop/Workflows_Compose_card_helper_flow.jpg alt:"The Compose card" %}{: .center-image }
 ### Returning the message to the main flow
 
 To complete this flow, you must return the message to the main flow. 
@@ -495,16 +495,16 @@ In this step, you will update the main flow to call the helper flow.
 
 1. Open the **Todo Report** flow
 2. You are going to add the **List - Reduce** card. Click the **+** between the **Get** card and the **Compose** card, select the **calculator icon > List (category) > Reduce** card. Your flow should look like this:
-{% img blog/workflows-workshop/Workflows_add_reduce_card.jpg alt:"Adding the Reduce card" %}{: .center-image }3. On the **Get** card, add **todos** field under the **Body** field. Set the field type to **Object**
-{% img blog/workflows-workshop/Workflows_get_card_adding_todos.jpg alt:"Adding the todos field on the Get card" %}{: .center-image }4. Take the **todos** field and connect it to the list field on the **Reduce** card
+{% img blog/workflows-workshop/Workflows_add_Reduce_card.jpg alt:"Adding the Reduce card" %}{: .center-image }3. On the **Get** card, add **todos** field under the **Body** field. Set the field type to **Object**
+{% img blog/workflows-workshop/Workflows_Get_card_adding_todos.jpg alt:"Adding the todos field on the Get card" %}{: .center-image }4. Take the **todos** field and connect it to the list field on the **Reduce** card
 5. For **Helper Flow**, click the **Choose Flow** button and select the **Todo Report_Helper** flow
 6. For the **memo** field, change its type to **Text** and enter **Todo Items**
 7. For the **Item** field, click the arrow on the right side of the field and select **Item** from the list
-{% img blog/workflows-workshop/Workflows_reduce_card_helperflow_input1.jpg alt:"Selecting the data to send to the helper flow" %}{: .center-image }8. For the item in the output section of the card, set its type to **Text**. The **Reduce** card should look like this:
-{% img blog/workflows-workshop/Workflows_reduce_card_final.jpg alt:"The Reduce card" %}{: .center-image }9. Delete the **Compose** card
+{% img blog/workflows-workshop/Workflows_Reduce_card_helperflow_input1.jpg alt:"Selecting the data to send to the helper flow" %}{: .center-image }8. For the item in the output section of the card, set its type to **Text**. The **Reduce** card should look like this:
+{% img blog/workflows-workshop/Workflows_Reduce_card_final.jpg alt:"The Reduce card" %}{: .center-image }9. Delete the **Compose** card
 10. Connect the **item** field from the **Reduce** card to the **Body** field on the **Send Email** card. The final flow should look like this:
 
-{% img blog/workflows-workshop/Workflows_todo_flow_final_with_reduce.jpg alt:"The Completed Todo Report flow" %}{: .center-image }
+{% img blog/workflows-workshop/Workflows_Todo_flow_final_with_Reduce.jpg alt:"The Completed Todo Report flow" %}{: .center-image }
 ### How does the Reduce card work
 
 A good way to learn how the **Reduce** card works is to look at the **Todo Report_Helper** flow history. Reduce is a way to take a list and reduce it to a single value. In this example, you take a list of todo items and reduce them to a single text message. 
@@ -527,7 +527,7 @@ Todo Items
 ```
 
 
-{% img blog/workflows-workshop/Workflows_reduce_flowhistory_test1.jpg alt:"Helper flow first run" %}{: .center-image }
+{% img blog/workflows-workshop/Workflows_Reduce_flowhistory_test1.jpg alt:"Helper flow first run" %}{: .center-image }
 
 #### Second run
 The **memo** field is now set to what was returned after the first run:
@@ -547,7 +547,7 @@ Todo Item
 
 > Watch a Workflows video (false)
 ```
-{% img blog/workflows-workshop/Workflows_reduce_flowhistory_test2.jpg alt:"Helper flow second run" %}{: .center-image }
+{% img blog/workflows-workshop/Workflows_Reduce_flowhistory_test2.jpg alt:"Helper flow second run" %}{: .center-image }
 #### Third run
 
 The **memo** field is now set to what was returned after the second run:
@@ -572,7 +572,7 @@ Todo Items
 > Build your first automation (false)
 ```
 
-{% img blog/workflows-workshop/Workflows_reduce_flowhistory_test3.jpg alt:"Helper flow third run" %}{: .center-image }
+{% img blog/workflows-workshop/Workflows_Reduce_flowhistory_test3.jpg alt:"Helper flow third run" %}{: .center-image }
 #### Fourth run
 
 The **memo** field is now set to what was returned after the third run:
@@ -601,10 +601,10 @@ Todo Items
 > Read Workflows docs (true)
 ```
 
-{% img blog/workflows-workshop/Workflows_reduce_flowhistory_test4.jpg alt:"Helper flow fourth run" %}{: .center-image }
+{% img blog/workflows-workshop/Workflows_Reduce_flowhistory_test4.jpg alt:"Helper flow fourth run" %}{: .center-image }
 Since all the items were processed, the **Reduce** card is done and the flow execution moves on to the next card, the **Send Email** card. 
 
-{% img blog/workflows-workshop/Workflows_todo_flow_final_with_reduce.jpg alt:"The flow continues after the Reduce card processes all the items" %}{: .center-image }
+{% img blog/workflows-workshop/Workflows_Todo_flow_final_with_Reduce.jpg alt:"The flow continues after the Reduce card processes all the items" %}{: .center-image }
 
 ## Testing the flow
 
