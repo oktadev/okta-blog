@@ -4,7 +4,7 @@ title: "June Podcast: Approaching Automation with Jeff Taylor"
 author: edunham
 by: advocate
 communities: [devops,security]
-description: "Listen and learn about the automation journey"
+description: "Listen and learn about the identity automation journey"
 tags: [podcast, automation, enterprise]
 image: blog/identity-developer-podcast/podcast.jpg
 type: awareness
