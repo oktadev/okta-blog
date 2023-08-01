@@ -14,7 +14,9 @@ image: blog/identity-developer-podcast/podcast.jpg
 type: awareness
 ---
 
-# Building SDKs to delight developers
+Having libraries that interact with services helps make your coding life easier when developing solutions. You may evaluate and estimate the complexity of your software development projects based on the Software Development Kit (SDK) ease of use. So what makes a great SDK?
+
+## Building SDKs to delight developers
 
 Staff SDK Engineer Laura Rodriguez and Developer Advocate Alisa Duncan join us this month to discuss the SDKs that make Okta's APIs idiomatically accessible from various languges and frameworks. 
 
