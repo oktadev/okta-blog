@@ -467,7 +467,7 @@ In a production setting, you would have your customers provide you with informat
 
 Visit [developer.okta.com](developer.okta.com) and log in to your Developer Account, or sign up if you don't have an account yet. Open the admin console if you're redirected to your user account dashboard. 
 
-## Create an Authorization Server
+## Create an authorization server
 
 In the Okta Admin Console, navigate to **Applications** under the "Applications" heading in the left sidebar. Click the **Create App Integration** button, because your sample app isn't published to the app catalog. (If your app's audience includes a lot of Okta customers, publishing to the [Okta Integration Network](https://www.okta.com/okta-integration-network/) can simplify their onboarding process.) 
 
