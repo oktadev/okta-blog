@@ -19,9 +19,9 @@ In this workshop, you will enhance a sample application to let users access it u
 
 |Posts in the enterprise-ready workshop series|
 | --- |
-| 1. [How to get Going with the Enterprise-Ready Identity for SaaS Apps Workshops](blog/2023/07/27/enterprise-ready-getting-started) |
-| 2. **Enterprise-Ready Workshop: OpenID Connect** |
-| 3. [Enterprise-Ready Workshop: SCIM](/blog/2023/07/28/scim-workshop) |
+| 1. [How to get Going with the Enterprise-Ready Identity for SaaS Apps Workshops](/blog/2023/07/27/enterprise-ready-getting-started) |
+| 2. **Enterprise-Ready Workshop: Authenticate with OpenID Connect** |
+| 3. [Enterprise-Ready Workshop: Manage Users with SCIM](/blog/2023/07/28/scim-workshop) |
 | 4. [Enterprise-Ready Workshop: Terraform](/blog/2023/07/28/terraform-workshop) |
 
 Today, we'll walk through adding OIDC to our Todo sample application. 
@@ -516,11 +516,11 @@ To set up users and groups in your Okta Developer Account, try our Terraform wor
 
 |Posts in the enterprise-ready workshop series|
 | --- |
-| 1. [How to get Going with the Enterprise-Ready Identity for SaaS Apps Workshops](blog/2023/07/27/enterprise-ready-getting-started) |
-| 2. **Enterprise-Ready Workshop: OpenID Connect** |
-| 3. [Enterprise-Ready Workshop: SCIM](/blog/2023/07/28/scim-workshop) |
+| 1. [How to get Going with the Enterprise-Ready Identity for SaaS Apps Workshops](/blog/2023/07/27/enterprise-ready-getting-started) |
+| 2. **Enterprise-Ready Workshop: Authenticate with OpenID Connect** |
+| 3. [Enterprise-Ready Workshop: Manage Users with SCIM](/blog/2023/07/28/scim-workshop) |
 | 4. [Enterprise-Ready Workshop: Terraform](/blog/2023/07/28/terraform-workshop) |
 
 When gathering requirements from enterprise customers, pay attention to their security and interoperability needs surrounding workforce identity. Ask whether their identity administrators prefer OIDC, or allowing employees to manage passwords for every service! 
 
-Have you added OIDC support to an application? What parts of the process did you find most challenging? Did you get positive feedback from your customers about it? Share your story in the comments below!
+Follow us on [Twitter](https://twitter.com/oktadev) and subscribe to our [YouTube](https://www.youtube.com/c/oktadev) channel to get notified about exciting new content. Have you added OIDC support to an application? What parts of the process did you find most challenging? Did you get positive feedback from your customers about it? Share your story in the comments below!
