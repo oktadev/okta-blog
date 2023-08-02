@@ -47,7 +47,7 @@ https start.spring.io/starter.zip \
   packaging==jar \
   javaVersion==17 \
   type==gradle-project \
-  dependencies==okta,data-neo4j,graphql,web \
+  dependencies==data-neo4j,graphql,web \
   groupId==com.okta.developer \
   artifactId==spring-graphql  \
   name=="Spring Boot GraphQL API Application" \
@@ -395,6 +395,72 @@ public interface CompanyRepository extends ReactiveNeo4jRepository<Company, Long
 }
 ----
 
+Create the configuration class `GraphQLConfig` under the root package:
+
+[source, java]
+----
+package com.okta.developer.demo;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.boot.autoconfigure.graphql.GraphQlSourceBuilderCustomizer;
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
+import org.springframework.web.servlet.config.annotation.CorsRegistry;
+import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
+
+@Configuration(proxyBeanMethods = false)
+class GraphQLConfig {
+
+    private static Logger logger = LoggerFactory.getLogger("graphql");
+
+    @Bean
+    public GraphQlSourceBuilderCustomizer sourceBuilderCustomizer() {
+        return (builder) ->
+                builder.inspectSchemaMappings(report -> {
+                    logger.debug(report.toString());
+                });
+    }
+
+    @Bean
+    public WebMvcConfigurer corsConfigurer() {
+        return new WebMvcConfigurer() {
+            @Override
+            public void addCorsMappings(CorsRegistry registry) {
+                registry.addMapping("/graphql").allowedOrigins("http://localhost:3000");
+            }
+        };
+    }
+}
+----
+
+Create the configuration class `SpringBootGraphQLApiConfig` in the root package as well, with the following code:
+
+[source, java]
+----
+package com.okta.developer.demo;
+
+import org.neo4j.driver.Driver;
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
+import org.springframework.data.neo4j.core.ReactiveDatabaseSelectionProvider;
+import org.springframework.data.neo4j.core.transaction.ReactiveNeo4jTransactionManager;
+import org.springframework.data.neo4j.repository.config.ReactiveNeo4jRepositoryConfigurationExtension;
+import org.springframework.transaction.ReactiveTransactionManager;
+
+@Configuration
+public class SpringBootGraphQLApiConfig {
+
+    @Bean(ReactiveNeo4jRepositoryConfigurationExtension.DEFAULT_TRANSACTION_MANAGER_BEAN_NAME) //Required for neo4j
+    public ReactiveTransactionManager reactiveTransactionManager(
+            Driver driver,
+            ReactiveDatabaseSelectionProvider databaseNameProvider) {
+        return new ReactiveNeo4jTransactionManager(driver, databaseNameProvider);
+    }
+
+}
+----
+
 Create the package `com.okta.developer.demo.controller` and the class `CompanyController` implementing the query endpoints matching the queries defined in the graphql schema:
 
 [source, java]
@@ -647,8 +713,9 @@ spring.neo4j.authentication.username=neo4j
 
 Create a `.env` file int the project root to store the Neo4j credentials:
 
+[source,shell]
 ----
-SPRING_NEO4J_AUTHENTICATION_PASSWORD=verysecret
+export SPRING_NEO4J_AUTHENTICATION_PASSWORD=verysecret
 ----
 
 
@@ -702,6 +769,7 @@ Go to the project root folder and start the application with:
 
 [source, shell]
 ----
+source .env
 ./gradlew bootRun
 ----
 
@@ -717,7 +785,7 @@ Wait for the logs to inform the seed data migrations have run:
 ----
 
 
-Test the API with GraphiQL at http://localhost:8080/graphiql. In the query box, paste the following query
+Test the API with GraphiQL at http://localhost:8080/graphiql. In the query box on the left, paste the following query
 
 
 [source, graphql]
@@ -737,10 +805,92 @@ Test the API with GraphiQL at http://localhost:8080/graphiql. In the query box, 
 }
 ----
 
+You should see the query output in the box on the right:
+
+
+image::{% asset_path blog/spring-graphql-react/graphiql-test.png %}[alt=GraphiQL example,width=800,align=center]
+
 
 
 
 === Add resource server security
+
+
+Add the `okta-spring-boot-starter` dependency to the `build.gradle` file:
+----
+dependencies {
+    ...
+	implementation 'com.okta.spring:okta-spring-boot-starter:3.0.4'
+    ...
+}
+----
+
+
+Sign up at https://auth0.com/signup[Auth0] and install the https://github.com/auth0/auth0-cli[Auth0 CLI]. Then in the command line run:
+
+[source, shell]
+----
+auth0 login
+----
+
+The command output will display a device confirmation code and open a browser session to activate the device.
+
+**NOTE**: My browser was not displaying anything, so I had to manually activate the device by opening the URL `https://auth0.auth0.com/activate?user_code={deviceCode}`.
+
+On successful login, you will see the tenant, which you will use as the issuer later:
+
+----
+✪ Welcome to the Auth0 CLI 🎊
+
+If you don't have an account, please create one here: https://auth0.com/signup.
+
+Your device confirmation code is: KGFL-LNVB
+
+ ▸    Press Enter to open the browser to log in or ^C to quit...
+
+Waiting for the login to complete in the browser... ⣻Opening in existing browser session.
+Waiting for the login to complete in the browser... done
+
+ ▸    Successfully logged in.
+ ▸    Tenant: dev-avup2laz.us.auth0.com
+----
+
+The next step is to create a client app, which you can do in one command:
+
+[source, shell]
+----
+auth0 apps create \
+  --name "Spring GrahpQL API" \
+  --description "GraphQL API with Spring Boot and Spring for GraphQL" \
+  --type regular \
+  --callbacks \
+  --logout-urls  \
+  --reveal-secrets
+----
+
+Once the app is created, you will see the OIDC app's configuration:
+
+----
+=== dev-avup2laz.us.auth0.com application created
+
+  CLIENT ID            ***
+  NAME                 Spring Boot + Keycloak
+  DESCRIPTION          JHipster + Spring Boot + Keycloak = 🤠
+  TYPE                 Regular Web Application
+  CLIENT SECRET        ***
+  CALLBACKS            ***
+  ALLOWED LOGOUT URLS  ***
+  ALLOWED ORIGINS
+  ALLOWED WEB ORIGINS
+  TOKEN ENDPOINT AUTH
+  GRANTS               implicit, authorization_code, refresh_token, client_credentials
+
+ ▸    Quickstarts: https://auth0.com/docs/quickstart/webapp
+ ▸    Hint: Emulate this app's login flow by running `auth0 test login ***`
+ ▸    Hint: Consider running `auth0 quickstarts download ***`
+----
+
+
 
 == Build a React client
 
