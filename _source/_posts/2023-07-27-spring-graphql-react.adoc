@@ -564,7 +564,7 @@ dependencies {
 
 Create the folder `src/main/resources/neo4j/migrations` and the following migration files:
 
-.V001_Constraint.cypher
+.V001__Constraint.cypher
 [source, cypher]
 ----
 CREATE CONSTRAINT FOR (c:Company) REQUIRE c.companyNumber IS UNIQUE;
@@ -573,7 +573,7 @@ CREATE CONSTRAINT FOR (c:Company) REQUIRE c.companyNumber IS UNIQUE;
 CREATE CONSTRAINT FOR (p:Property) REQUIRE p.titleNumber IS UNIQUE;
 ----
 
-.V002_Company.cypher
+.V002__Company.cypher
 [source, cypher]
 ----
 LOAD CSV WITH HEADERS FROM "file:///PSCAmericans.csv" AS row
@@ -581,7 +581,7 @@ MERGE (c:Company {companyNumber: row.company_number})
 RETURN COUNT(*);
 ----
 
-.V003_Person.cypher
+.V003__Person.cypher
 [source, cypher]
 ----
 LOAD CSV WITH HEADERS FROM "file:///PSCAmericans.csv" AS row
@@ -592,7 +592,7 @@ MERGE (p:Person {name: row.`data.name`, birthYear: row.`data.date_of_birth.year`
 RETURN COUNT(*);
 ----
 
-.V004_PersonCompany.cypher
+.V004__PersonCompany.cypher
 [source, cypher]
 ----
 LOAD CSV WITH HEADERS FROM "file:///PSCAmericans.csv" AS row
@@ -603,7 +603,7 @@ SET r.nature = split(replace(replace(replace(row.`data.natures_of_control`, "[",
 RETURN COUNT(*);
 ----
 
-.V005_CompanyData.cypher
+.V005__CompanyData.cypher
 [source, cypher]
 ----
 LOAD CSV WITH HEADERS FROM "file:///CompanyDataAmericans.csv" AS row
@@ -617,7 +617,7 @@ c.status = row.CompanyStatus,
 c.category = row.CompanyCategory;
 ----
 
-.V006_Land.cypher
+.V006__Land.cypher
 [source, cypher]
 ----
 LOAD CSV WITH HEADERS FROM "file:///LandOwnershipAmericans.csv" AS row
@@ -640,7 +640,17 @@ Update `application.properties` and add the following properties:
 spring.graphql.graphiql.enabled=true
 spring.graphql.schema.introspection.enabled=true
 org.neo4j.migrations.transaction-mode=PER_STATEMENT
+spring.neo4j.uri=bolt://localhost:7687
+spring.neo4j.authentication.username=neo4j
 ----
+
+
+Create a `.env` file int the project root to store the Neo4j credentials:
+
+----
+SPRING_NEO4J_AUTHENTICATION_PASSWORD=verysecret
+----
+
 
 Download the following seed files to some folder:
 
@@ -686,7 +696,48 @@ docker compose -f neo4j.yml up
 ----
 
 
-- graphiql
+=== Run the API server
+
+Go to the project root folder and start the application with:
+
+[source, shell]
+----
+./gradlew bootRun
+----
+
+Wait for the logs to inform the seed data migrations have run:
+
+----
+2023-08-02T13:06:14.386-03:00  INFO 28673 --- [           main] a.s.neo4j.migrations.core.Migrations     : Applied migration 001 ("Constraint").
+2023-08-02T13:06:23.379-03:00  INFO 28673 --- [           main] a.s.neo4j.migrations.core.Migrations     : Applied migration 002 ("Company").
+2023-08-02T13:11:23.693-03:00  INFO 28673 --- [           main] a.s.neo4j.migrations.core.Migrations     : Applied migration 003 ("Person").
+2023-08-02T13:21:03.680-03:00  INFO 28673 --- [           main] a.s.neo4j.migrations.core.Migrations     : Applied migration 004 ("PersonCompany").
+2023-08-02T13:21:06.519-03:00  INFO 28673 --- [           main] a.s.neo4j.migrations.core.Migrations     : Applied migration 005 ("CompanyData").
+2023-08-02T13:21:06.551-03:00  INFO 28673 --- [           main] a.s.neo4j.migrations.core.Migrations     : Applied migration 006 ("Land").
+----
+
+
+Test the API with GraphiQL at http://localhost:8080/graphiql. In the query box, paste the following query
+
+
+[source, graphql]
+----
+{
+    companyById(id: 12) {
+        id
+        SIC
+        name
+        status
+        category
+        companyNumber
+        countryOfOrigin
+        incorporationDate
+        mortgagesOutstanding
+    }
+}
+----
+
+
 
 
 === Add resource server security
