@@ -13,10 +13,12 @@ github: https://github.com/oktadev/okta-enterprise-ready-workshops
 
 Having an enterprise-ready identity in your SaaS applications means your application supports authentication best practices, can scale across multiple customers and users, has automated means to re-create environments, and can securely add enhancements and value-adds your customers expect. Join us in this free virtual workshop series where we take your SaaS application on a journey of enterprise-ready identity.
 
-<!-- |Posts in the enterprise-ready workshop series|
+|Posts in the enterprise-ready workshop series|
 | --- |
 | 1. **How to get Going with the Enterprise-Ready Identity for SaaS Apps Workshops** |
-| 2. [Name of post]() | -->
+| 2. [Enterprise-Ready Workshop: OpenID Connect](/blog/2023/07/28/oidc_workshop) |
+| 3. [Enterprise-Ready Workshop: SCIM](/blog/2023/07/28/scim-workshop) |
+| 4. [Enterprise-Ready Workshop: Terraform](/blog/2023/07/28/terraform-workshop) |
 
 ## Build enterprise-ready SaaS apps with help from these Okta workshops 
 
@@ -140,9 +142,11 @@ Prisma Studio runs on `localhost:5555` in your web browser. Feel free to take a 
 
 Now that you can run the application locally, you're ready to start on a workshop of your choice! Find the workshops you want to participate in:
 
-<!-- |Posts in the enterprise-ready workshop series|
+|Posts in the enterprise-ready workshop series|
 | --- |
 | 1. **How to get Going with the Enterprise-Ready Identity for SaaS Apps Workshops** |
-| 2. [Name of post]() | -->
+| 2. [Enterprise-Ready Workshop: OpenID Connect](/blog/2023/07/28/oidc_workshop) |
+| 3. [Enterprise-Ready Workshop: SCIM](/blog/2023/07/28/scim-workshop) |
+| 4. [Enterprise-Ready Workshop: Terraform](/blog/2023/07/28/terraform-workshop) |
 
 Ready to become enterprise-ready? Follow us on [Twitter](https://twitter.com/oktadev) and subscribe to our [YouTube](https://www.youtube.com/c/oktadev) channel to get notified about new workshops. If you have any questions or want to share what workshops/base application tech stacks you'd like to see next, please comment below!
