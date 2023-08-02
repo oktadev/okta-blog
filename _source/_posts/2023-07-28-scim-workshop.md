@@ -1,6 +1,6 @@
 ---
 layout: blog_post
-title: "Enterprise-Ready Workshop: SCIM"
+title: "Enterprise-Ready Workshop: Manage users with SCIM"
 author: semona-igama
 by: advocate
 communities: [security,javascript]
@@ -27,6 +27,9 @@ But creating accounts when users log in is only one of your customers' many expe
 
 In this workshop, we'll solve those problems and more with SCIM, the System for Cross-domain Identity Management. SCIM is an open standard protocol that allows us to manage identities across systems as well as common user lifecycles. In this workshop, we will enhance a sample application by adding SCIM server functionality to it, and connect the sample application's SCIM server to an Okta client. 
 
+For an in-depth walkthrough of developing and troubleshooting the code in this workshop, follow along on with the video: 
+{% youtube 78CuvtW8KvI %}
+
 
 In this workshop, we'll cover the following:
 
@@ -34,7 +37,7 @@ In this workshop, we'll cover the following:
 
 By following these steps, you will learn how to implement SCIM and support provisioning from multiple organizations/tenants. Although we'll integrate with Okta as an example, remember that almost every identity provider on the web has SCIM support! 
 
-## What problems does SCIM solve?
+## Managing users across systems at scale
 
 SaaS customers have high expectations for the applications that they purchase. Customers, especially at enterprise scale, expect apps to seamlessly integrate with identity providers in order to maximize user productivity.
 - Enterprise customers expect that onboarding a user in their identity provider will immediately create accounts for that user in all of SaaS apps where they grant that user access.
@@ -53,7 +56,7 @@ SCIM is a very well-designed standard; therefore, it can be implemented across s
 
 Now that I've provided you with some background on SCIM, let's move on to building the server!
 
-## Implement SCIM in a SaaS application 
+## Implement user management using SCIM in a SaaS application 
 
 Before we build our SCIM server, let's have a plan of action. 
 
@@ -61,7 +64,7 @@ Before we build our SCIM server, let's have a plan of action.
 - Install the sample application and set up your development environment
 - Build the SCIM Interface in the Todo sample app and test it with Postman
 
-{% img blog/scim-workshop/scim-diagram.jpg alt:"Diagram of SCIM workflow" %}{: .center-image }
+{% img blog/scim-workshop/scim-diagram.jpg alt:"Diagram of SCIM workflow showing the Identity Provider requests the SCIM server with GET, POST, PUT, and DEL user calls and the SCIM server responds with a standard SCIM interface" width:"800" %}{: .center-image }
 
 SCIM is implemented as a RESTful API. It uses `Create`, `Read`, `Update`, and `Delete` endpoints. The endpoints required by the SCIM spec are: 
 

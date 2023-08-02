@@ -1,6 +1,6 @@
 ---
 layout: blog_post
-title: "Enterprise-Ready Workshop: OpenID Connect"
+title: "Enterprise-Ready Workshop: Authenticate with OpenID Connect"
 author: [aaron-parecki, edunham]
 by: advocate
 communities: [security,javascript]
