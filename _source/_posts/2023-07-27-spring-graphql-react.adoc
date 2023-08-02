@@ -13,27 +13,34 @@ tweets:
 image:
 type: awareness
 ---
+:page-liquid:
+:toc: macro
+:experimental:
+:commandkey: &#8984;
 
 - introduction
 
 Following this step by step guide you can build a GraphQL API for querying a sample dataset of related companies, persons and properties, seeded to a Neo4j database.
 
-> **This tutorial was created with the following frameworks and tools**:
-> - [Node.js v18.16.1](https://docs.npmjs.com/downloading-and-installing-node-js-and-npm)
-> - [npm 9.5.1](https://docs.npmjs.com/downloading-and-installing-node-js-and-npm)
-> - [Java OpenJDK 17](https://jdk.java.net/java-se-ri/17)
-> - [Docker 24.0.2](https://docs.docker.com/desktop/)
-> - [Auth0 account](https://auth0.com/signup)
-> - [Auth0 CLI 1.0.0](https://github.com/auth0/auth0-cli#installation)
+[NOTE]
+====
+.This tutorial was created with the following frameworks and tools:
+- https://docs.npmjs.com/downloading-and-installing-node-js-and-npm[Node.js v18.16.1]
+- https://docs.npmjs.com/downloading-and-installing-node-js-and-npm[npm 9.5.1]
+- https://jdk.java.net/java-se-ri/17[Java OpenJDK 17]
+- https://docs.docker.com/desktop/[Docker 24.0.2]
+- https://auth0.com/signup[Auth0 account]
+- https://github.com/auth0/auth0-cli#installation[Auth0 CLI 1.0.0]
+====
 
-{% include toc.md %}
+toc::[]
 
-
-## Build a GraphQL API with Spring for GraphQL
+== Build a GraphQL API with Spring for GraphQL
 
 Create the application with Spring Initializr and HTTPie:
 
-```shell
+[source,shell]
+----
 https start.spring.io/starter.zip \
   bootVersion==3.1.2 \
   language==java \
@@ -46,15 +53,12 @@ https start.spring.io/starter.zip \
   name=="Spring Boot GraphQL API Application" \
   description=="Demo project of a Spring Boot GraphQL API" \
   packageName==com.okta.developer.demo > spring-graphql-api.zip
-```
+----
 
-Unzip the file and start editing the project.
+Unzip the file and start editing the project. Define the GraphQL api with a schema file, under `src/main/resources/graphql/schema.graphqls` with the following content:
 
-- create the grahpql api
-
-Define the GraphQL api with a schema file, under `src/main/resources/graphql/schema.graphqls` with the following content:
-
-```text
+[source, graphql]
+----
 type Query {
     companyById(id: ID): Company
     companyList(page: Int): [Company!]!
@@ -92,13 +96,14 @@ type Property {
     district: String
     titleNumber: String
 }
-```
+----
 
 As you can see the schema is defining the object types `Company`, `Person` and `Property` and the query types `companyById`, `companyList` and `companyCount`.
 
 Start adding classes for the domain. Create the package `com.okta.developer.demo.domain` under `src/main/java`. Add the classes `Person`, `Property` and `Company`.
 
-```java
+[source, java]
+----
 package com.okta.developer.demo.domain;
 
 import org.springframework.data.neo4j.core.schema.GeneratedValue;
@@ -180,9 +185,10 @@ public class Person {
         return this.id;
     }
 }
-```
+----
 
-```java
+[source, java]
+----
 package com.okta.developer.demo.domain;
 
 import org.springframework.data.neo4j.core.schema.GeneratedValue;
@@ -249,10 +255,10 @@ public class Property {
         this.titleNumber = titleNumber;
     }
 }
-```
+----
 
-
-```java
+[source, java]
+----
 package com.okta.developer.demo.domain;
 
 import org.springframework.data.neo4j.core.schema.GeneratedValue;
@@ -372,11 +378,12 @@ public class Company {
     }
 
 }
+----
 
-```
 Create the package `com.okta.developer.demo.repository` and the class `CompanyRepository`:
 
-```java
+[source, java]
+----
 package com.okta.developer.demo.repository;
 
 
@@ -386,12 +393,12 @@ import org.springframework.data.neo4j.repository.ReactiveNeo4jRepository;
 public interface CompanyRepository extends ReactiveNeo4jRepository<Company, Long> {
 
 }
-```
-
+----
 
 Create the package `com.okta.developer.demo.controller` and the class `CompanyController` implementing the query endpoints matching the queries defined in the graphql schema:
 
-```java
+[source, java]
+----
 package com.okta.developer.demo.controller;
 
 import com.okta.developer.demo.domain.Company;
@@ -426,11 +433,12 @@ public class CompanyController {
     }
 
 }
-```
+----
 
 Create a the `CompanyControllerTests` class for the web layer in the folder `src/main/test/java` under the package `com.okta.developer.demo.controller`:
 
-```java
+[source, java]
+----
 package com.okta.developer.demo.controller;
 
 import com.okta.developer.demo.domain.Company;
@@ -485,16 +493,17 @@ public class CompanyControllerTests {
                         "companyNumber": "12345678",
                         "countryOfOrigin": "UK",
                         "incorporationDate": "2020-01-01",
-                        "mortgagesOutstanding": 0                       
+                        "mortgagesOutstanding": 0
                     }
                 """);
     }
 }
-```
+----
 
 Create the document file `companyDetails.graphql` containing the query definition for the test, in the folder `src/main/test/resources/graphql-test`:
 
-```text
+[source, graphql]
+----
 query companyById($id: ID) {
     companyById(id: $id) {
         id
@@ -508,10 +517,11 @@ query companyById($id: ID) {
         mortgagesOutstanding
     }
  }
-```
+----
 Update the test configuration in `build.gradle` file, so passed tests are logged:
 
-```text
+[source, groovy]
+----
 tasks.named('test') {
 	useJUnitPlatform()
 
@@ -520,60 +530,82 @@ tasks.named('test') {
 		events "failed", "passed"
 	}
 }
-```
+----
 
 Run the test with:
 
-```shell
+[source, shell]
+----
 ./gradlew clean test
-```
+----
+You should see logs for the successful tests:
 
-- show the output
 
-### Add Neo4j seed data
+----
+...
+SpringBootHraphQlApiApplicationTests > contextLoads() PASSED
+
+CompanyControllerTests > shouldGetCompany() PASSED
+...
+----
+
+
+=== Add Neo4j seed data
 
 Let's add Neo4j migrations dependency for the seed data insertion. Edit the file `build.gradle` and add:
 
-```text
+[source, groovy]
+----
 dependencies {
   ...
   implementation 'eu.michael-simons.neo4j:neo4j-migrations-spring-boot-starter:2.4.0'
 }
-```
+----
+
 Create the folder `src/main/resources/neo4j/migrations` and the following migration files:
 
-```sql
+.V001_Constraint.cypher
+[source, cypher]
+----
 CREATE CONSTRAINT FOR (c:Company) REQUIRE c.companyNumber IS UNIQUE;
 //Constraint for a node key is a Neo4j Enterprise feature only - run on an instance with enterprise
 //CREATE CONSTRAINT ON (p:Person) ASSERT (p.birthMonth, p.birthYear, p.name) IS NODE KEY
 CREATE CONSTRAINT FOR (p:Property) REQUIRE p.titleNumber IS UNIQUE;
-```
+----
 
-```sql
+.V002_Company.cypher
+[source, cypher]
+----
 LOAD CSV WITH HEADERS FROM "file:///PSCAmericans.csv" AS row
 MERGE (c:Company {companyNumber: row.company_number})
 RETURN COUNT(*);
-```
+----
 
-```sql
+.V003_Person.cypher
+[source, cypher]
+----
 LOAD CSV WITH HEADERS FROM "file:///PSCAmericans.csv" AS row
 MERGE (p:Person {name: row.`data.name`, birthYear: row.`data.date_of_birth.year`, birthMonth: row.`data.date_of_birth.month`})
   ON CREATE SET p.nationality = row.`data.nationality`,
   p.countryOfResidence = row.`data.country_of_residence`
 // TODO: Address
 RETURN COUNT(*);
-```
+----
 
-```sql
+.V004_PersonCompany.cypher
+[source, cypher]
+----
 LOAD CSV WITH HEADERS FROM "file:///PSCAmericans.csv" AS row
 MATCH (c:Company {companyNumber: row.company_number})
 MATCH (p:Person {name: row.`data.name`, birthYear: row.`data.date_of_birth.year`, birthMonth: row.`data.date_of_birth.month`})
 MERGE (p)-[r:HAS_CONTROL]->(c)
 SET r.nature = split(replace(replace(replace(row.`data.natures_of_control`, "[",""),"]",""),  '"', ""), ",")
 RETURN COUNT(*);
-```
+----
 
-```sql
+.V005_CompanyData.cypher
+[source, cypher]
+----
 LOAD CSV WITH HEADERS FROM "file:///CompanyDataAmericans.csv" AS row
 MATCH (c:Company {companyNumber: row.` CompanyNumber`})
 SET c.name = row.CompanyName,
@@ -583,9 +615,11 @@ c.SIC = row.`SICCode.SicText_1`,
 c.countryOfOrigin = row.CountryOfOrigin,
 c.status = row.CompanyStatus,
 c.category = row.CompanyCategory;
-```
+----
 
-```sql
+.V006_Land.cypher
+[source, cypher]
+----
 LOAD CSV WITH HEADERS FROM "file:///LandOwnershipAmericans.csv" AS row
 MATCH (c:Company {companyNumber: row.`Company Registration No. (1)`})
 MERGE (p:Property {titleNumber: row.`Title Number`})
@@ -597,26 +631,28 @@ MERGE (c)-[r:OWNS]->(p)
 WITH row, c,r,p WHERE row.`Date Proprietor Added` IS NOT NULL
 SET r.date = Date(Datetime({epochSeconds: apoc.date.parse(row.`Date Proprietor Added`,'s','dd-MM-yyyy')}));
 CREATE INDEX FOR (c:Company) ON c.incorporationDate;
-```
-
+----
 
 Update `application.properties` and add the following properties:
 
-```properties
+[source, properties]
+----
 spring.graphql.graphiql.enabled=true
 spring.graphql.schema.introspection.enabled=true
 org.neo4j.migrations.transaction-mode=PER_STATEMENT
-```
+----
 
 Download the following seed files to some folder:
-- [CompanyDataAmericans](https://guides.neo4j.com/ukcompanies/data/CompanyDataAmericans.csv)
-- [LandOwnershipAmericans](https://guides.neo4j.com/ukcompanies/data/LandOwnershipAmericans.csv)
-- [PSCAmericans.csv](https://guides.neo4j.com/ukcompanies/data/PSCAmericans.csv)
+
+- https://guides.neo4j.com/ukcompanies/data/CompanyDataAmericans.csv[CompanyDataAmericans]
+- https://guides.neo4j.com/ukcompanies/data/LandOwnershipAmericans.csv[LandOwnershipAmericans]
+- https://guides.neo4j.com/ukcompanies/data/PSCAmericans.csv[PSCAmericans.csv]
 
 
 Add the folder `src/main/docker` and create a file `neo4j.yml` with the following content:
 
-```yml
+[source, yaml]
+----
 # This configuration is intended for development purpose, it's **your** responsibility to harden it for production
 name: companies
 services:
@@ -637,25 +673,27 @@ services:
       interval: 5s
       timeout: 5s
       retries: 10
-```
+----
+
 As you can see the compose file will mount `<csv-folder>` to a `/var/lib/neo4j/import` volume, making the content accessible from the running ne44j container.
 Replace `<csv-folder>` with the path to the downloaded CSVs.
 
 In a terminal, go to the `docker` folder and run:
 
-```shell
+[source, shell]
+----
 docker compose -f neo4j.yml up
-```
+----
 
 
 - graphiql
 
 
-### Add resource server security
+=== Add resource server security
 
-## Build a React client
+== Build a React client
 
 
-### Add Auth0 Login
+=== Add Auth0 Login
 
-## Learn More
+== Learn More
