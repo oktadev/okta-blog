@@ -1,6 +1,6 @@
 ---
 layout: blog_post
-title: "Secure Secrets With Spring Cloud Config and Vault"
+title: "Secure Secrets with Spring Cloud Config and Vault"
 author: jimena-garbarino
 by: contractor
 community: [java]
@@ -13,6 +13,8 @@ tweets:
 image: blog/spring-vault/spring-vault.png
 github: https://github.com/oktadev/okta-spring-vault-example
 type: conversion
+changelog:
+- 2023-07-07: Updated to use Spring Boot 3.1 and HashiCorp Vault 1.14. You can see the changes in this post in [okta-blog#1400](https://github.com/oktadev/okta-blog/pull/1400) and the example app changes in [okta-spring-vault-example#4](https://github.com/oktadev/okta-spring-vault-example/pull/4).
 ---
 
 In 2013, GitHub released a search feature that allows users to scan code in all public repositories. A day after the release, however, they had to partially shut it down. It was speculated that the shutdown was because the feature allowed any user to search for all kinds of secrets stored in GitHub repositories. Later, in 2014, data on 50,000 Uber drivers was stolen. It seems someone got access to the company's database using login credentials found in a GitHub public repository. Hashicorp Vault, a tool for managing secrets and encrypting data in transit, was first announced in 2015 and Spring Vault, the integration of Spring with Vault, was first released in 2017.
@@ -31,7 +33,7 @@ Nowadays it is widely recommended to never store secret values in code. Therefor
 > - [Okta CLI 0.10.0](https://cli.okta.com)
 > - [Docker 20.10.12](https://docs.docker.com/engine/install/)
 > - [HTTPie 3.2.1](https://httpie.io/docs/cli/installation)
-> - [Vault 1.12.0](https://hub.docker.com/_/vault)
+> - [HashiCorp Vault 1.14.0](https://hub.docker.com/r/hashicorp/vault)
 
 {% include toc.md %}
 
@@ -41,7 +43,8 @@ Spring Boot applications can bind property values from environment variables. To
 
 ```shell
 https start.spring.io/starter.zip \
-  bootVersion==2.7.4 \
+  bootVersion==3.1.1 \
+  type==maven-project \
   dependencies==web,okta,cloud-config-client \
   groupId==com.okta.developer \
   artifactId==vault-demo-app  \
@@ -108,29 +111,14 @@ In an incognito window, go to `http://localhost:8080`. Here, you should see the 
 In the application logs, you'll see the security filter chain initializes an OAuth 2.0 authentication flow on startup:
 
 <pre><code>
-2022-09-07 08:50:09.460  INFO 20676 --- [           main] o.s.s.web.DefaultSecurityFilterChain     : Will secure any request with<br> [org.springframework.security.web.session.DisableEncodeUrlFilter@6b4a4e40,<br> org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@46a8c2b4,<br> org.springframework.security.web.context.SecurityContextPersistenceFilter@640d604,<br> org.springframework.security.web.header.HeaderWriterFilter@7b96de8d,<br> org.springframework.security.web.csrf.CsrfFilter@2a0b901c,<br> org.springframework.security.web.authentication.logout.LogoutFilter@38ac8968,<br> org.springframework.security.oauth2.client.web.OAuth2AuthorizationRequestRedirectFilter@7739aac4,<br> org.springframework.security.oauth2.client.web.OAuth2AuthorizationRequestRedirectFilter@36c07c75,<br> org.springframework.security.oauth2.client.web.OAuth2LoginAuthenticationFilter@353c6da1,<br> org.springframework.security.web.authentication.ui.DefaultLoginPageGeneratingFilter@7e61e25c,<br> org.springframework.security.web.authentication.ui.DefaultLogoutPageGeneratingFilter@4f664bee,<br> org.springframework.security.oauth2.server.resource.web.BearerTokenAuthenticationFilter@21b51e59,<br> org.springframework.security.web.savedrequest.RequestCacheAwareFilter@5438fa43,<br> org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@512abf25,<br> org.springframework.security.web.authentication.AnonymousAuthenticationFilter@76563ae7,<br> org.springframework.security.oauth2.client.web.OAuth2AuthorizationCodeGrantFilter@3e14d390,<br> org.springframework.security.web.session.SessionManagementFilter@4dc52559,<br> org.springframework.security.web.access.ExceptionTranslationFilter@51ac12ac,<br> org.springframework.security.web.access.intercept.FilterSecurityInterceptor@2407a36c]
+2023-07-06T18:11:28.757-06:00  INFO 61387 --- [           main] o.s.s.web.DefaultSecurityFilterChain     : Will secure any request with [org.springframework.security.web.session.DisableEncodeUrlFilter@1c4057f9, org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@1ddf42dd, org.springframework.security.web.context.SecurityContextHolderFilter@ac4e690, org.springframework.security.web.header.HeaderWriterFilter@29892a77, org.springframework.security.web.csrf.CsrfFilter@23469199, org.springframework.security.web.authentication.logout.LogoutFilter@3212bfd, org.springframework.security.oauth2.client.web.OAuth2AuthorizationRequestRedirectFilter@2673487b, org.springframework.security.oauth2.client.web.OAuth2AuthorizationRequestRedirectFilter@ff5d4f1, org.springframework.security.oauth2.client.web.OAuth2LoginAuthenticationFilter@2d07aacc, org.springframework.security.web.authentication.ui.DefaultLoginPageGeneratingFilter@da22aa, org.springframework.security.web.authentication.ui.DefaultLogoutPageGeneratingFilter@5c1c9881, org.springframework.security.oauth2.server.resource.web.authentication.BearerTokenAuthenticationFilter@18db3b3c, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@365bfc5f, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@1a7e799e, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@1c18ee69, org.springframework.security.oauth2.client.web.OAuth2AuthorizationCodeGrantFilter@147c00aa, org.springframework.security.web.access.ExceptionTranslationFilter@4a4b288a, org.springframework.security.web.access.intercept.FilterSecurityInterceptor@5613247e]
 </code></pre>
 
 Using environment variables for passing secrets to containerized applications is now considered bad practice because the environment can be inspected or logged in a number of cases. So, let's move on to using Spring Cloud Config server for secrets storage.
 
 ### Use Auth0 for OpenID Connect
 
-To use Auth0 as an OIDC provider, you need to add the `spring-boot-starter-oauth2-client` dependency, as the Okta Spring Boot Starter [does not support Auth0](https://github.com/okta/okta-spring-boot/issues/358) yet.
-
-You can create a demo application with Spring Initializr too:
-
-```shell
-https start.spring.io/starter.zip \
-  bootVersion==2.7.4 \
-  dependencies==web,oauth2-client,cloud-config-client \
-  groupId==com.okta.developer \
-  artifactId==vault-demo-app-auth0  \
-  name=="Spring Boot Application" \
-  description=="Demo project of a Spring Boot application with Vault protected secrets" \
-  packageName==com.okta.developer.vault > vault-demo-app-auth0.zip
-```
-
-Modify the `Application` class the same way as described in the previous section. Also set `spring.cloud.config.enabled=false` in `application.properties`.
+The Okta Spring Boot starter works with Auth0 too! To try it out, you need to create an Auth0 account and configure an application. 
 
 Sign up at [Auth0](https://auth0.com/signup) and install the [Auth0 CLI](https://github.com/auth0/auth0-cli). Then run:
 
@@ -163,33 +151,32 @@ Waiting for the login to complete in the browser... done
 The next step is to create a client app:
 
 ```shell
-auth0 apps create
+auth0 apps create \
+  --name "Spring Boot + Vault" \
+  --description "Demo project of a Spring Boot application with Vault protected secrets" \
+  --type regular \
+  --callbacks http://localhost:8080/login/oauth2/code/okta \
+  --logout-urls http://localhost:8080 \
+  --reveal-secrets
 ```
-
-When prompted, choose the following options:
-
-- Name: `vault-demo-app-auth0`
-- Description: `<optional description>`
-- Type: `Regular Web Application`
-- Callback URLs: `http://localhost:8080/login/oauth2/code/auth0`
-- Logout URLs: `http://localhost:8080`
 
 Once the app is created, you will see the OIDC app's configuration:
 
 ```
-Name: vault-demo-app-auth0
+Name: Spring Boot + Vault
 Description: Demo project of a Spring Boot application with Vault protected secrets
 Type: Regular Web Application
-Callback URLs: http://localhost:8080/login/oauth2/code/auth0
+Callback URLs: http://localhost:8080/login/oauth2/code/okta
 Allowed Logout URLs: http://localhost:8080
 
 === dev-avup2laz.us.auth0.com application created
 
  CLIENT ID            ****
- NAME                 vault-demo-app-auth0
+ NAME                 Spring Boot + Vault
  DESCRIPTION          Demo project of a Spring Boot application with Vault protected secrets
  TYPE                 Regular Web Application
- CALLBACKS            http://localhost:8080/login/oauth2/code/auth0
+ CLIENT SECRET        ****
+ CALLBACKS            http://localhost:8080/login/oauth2/code/okta
  ALLOWED LOGOUT URLS  http://localhost:8080
  ALLOWED ORIGINS
  ALLOWED WEB ORIGINS
@@ -201,15 +188,12 @@ Allowed Logout URLs: http://localhost:8080
 ▸    Hint: You might wanna try 'auth0 quickstarts download ****
 ```
 
-**NOTE**: The client secret is [not displayed](https://github.com/auth0/auth0-cli/issues/488) in the CLI output for regular applications. You can run `auth0 apps open` to open a browser in the application configuration. Then copy the secret from the **Settings** tab. In the example above, the tenant is `dev-avup2laz.us.auth0.com`.
-
-You can now run the demo app passing the oidc configuration through environment variables:
+You can now run the demo app passing the OIDC configuration through environment variables:
 
 ```shell
-SPRING_SECURITY_OAUTH2_CLIENT_PROVIDER_AUTH0_ISSUER_URI=https://{auth0Tenant}/ \
-SPRING_SECURITY_OAUTH2_CLIENT_REGISTRATION_AUTH0_CLIENT_ID={auth0clientId} \
-SPRING_SECURITY_OAUTH2_CLIENT_REGISTRATION_AUTH0_CLIENT_SECRET={auth0clientSecret} \
-SPRING_SECURITY_OAUTH2_CLIENT_REGISTRATION_AUTH0_SCOPE=openid,profile,email \
+OKTA_OAUTH2_ISSUER=https://{yourAuth0Tenant}/ \
+OKTA_OAUTH2_CLIENT_ID={yourAuth0ClientId} \
+OKTA_OAUTH2_CLIENT_SECRET={yourAuth0ClientSecret}
 ./mvnw spring-boot:run
 ```
 
@@ -223,7 +207,6 @@ If you choose **Continue with Google** you will see the consent screen:
 
 {% img blog/spring-vault-update/auth0-consent.png alt:"Auth0 authorize form" width:"450" %}{: .center-image }
 
-
 ## Spring Cloud Config with secrets encryption
 
 In microservice architectures, managing configuration with a centralized config server is essential. Secret encryption is desirable at rest and when in transit. Spring Cloud Config Server is a popular implementation. Let's configure the server to store encrypted secrets.
@@ -234,7 +217,8 @@ Using the Spring Initializr API, create a Vault + Config Server application:
 
 ```shell
 https start.spring.io/starter.zip \
-  bootVersion==2.7.4 \
+  bootVersion==3.1.1 \
+  type==maven-project \
   dependencies==cloud-config-server \
   groupId==com.okta.developer \
   artifactId==vault-config-server  \
@@ -289,8 +273,8 @@ ENCRYPT_KEY={encryptKey} ./mvnw spring-boot:run
 Then, in another terminal, encrypt your client ID and secret.
 
 ```shell
-http :8888/encrypt --raw {yourOktaClientId}
-http :8888/encrypt --raw {yourOktaClientSecret}
+http :8888/encrypt --raw {yourClientId}
+http :8888/encrypt --raw {yourClientSecret}
 ```
 
 In the `vault-config-server` project folder, create a `src/main/resources/config/vault-demo-app-dev.yml` file to store the secrets for the `dev` profile, with the following contents:
@@ -326,7 +310,7 @@ Start `vault-demo-app` without passing the environment variables:
 ./mvnw clean spring-boot:run
 ```
 
-When requesting `http://localhost:8080` it should again redirect to the Okta login.
+When requesting `http://localhost:8080` it should again redirect to the Okta login, or to Auth0 if you used its configuration.
 
 In a real environment, the config server should be secured. Spring Cloud Config Server supports asymmetric key encryption as well, with the server encrypting with the public key, and the clients decrypting with the private key. However, the documentation warns about spreading the key management process around clients.
 
@@ -343,7 +327,7 @@ As Spring Cloud Config Server supports Vault as a configuration backend, the nex
 Pull the Vault Docker image and start a container using the command below. Make sure to replace `{hostPath}` with a local directory path, such as `/tmp/vault`.
 
 ```shell
-docker pull vault
+docker pull hashicorp/vault
 ```
 
 ```shell
@@ -351,7 +335,7 @@ docker run --cap-add=IPC_LOCK \
 -e 'VAULT_DEV_ROOT_TOKEN_ID=00000000-0000-0000-0000-000000000000' \
 -p 8200:8200 \
 -v {hostPath}:/vault/logs \
---name my-vault vault
+--name my-vault hashicorp/vault
 ```
 
 **NOTE**:  The `docker run` command above will start a vault instance with the name `my-vault`. You can stop the container with `docker stop my-vault` and restart it with `docker start my-vault`. Note that all the secrets and data will be lost between restarts, as explained in the next paragraphs.
@@ -365,14 +349,14 @@ WARNING! dev mode is enabled! In this mode, Vault runs entirely in-memory
 and starts unsealed with a single unseal key. The root token is already
 authenticated to the CLI, so you can immediately begin using Vault.
 
-You may need to set the following environment variable:
+You may need to set the following environment variables:
 
     $ export VAULT_ADDR='http://0.0.0.0:8200'
 
 The unseal key and root token are displayed below in case you want to
 seal/unseal the Vault or re-authenticate.
 
-Unseal Key: +xTAEzkjb3kurSBa7TxAQUjoyBpaprlXwn+ZnSpEkuw=
+Unseal Key: Zrk/YYbx+ExlmJNWxwhJjH/4/iHSXsLs7hcTxU/XD9E=
 Root Token: 00000000-0000-0000-0000-000000000000
 
 Development mode should NOT be used in production installations!
@@ -403,11 +387,11 @@ Initialized     true
 Sealed          false
 Total Shares    1
 Threshold       1
-Version         1.12.0
-Build Date      2022-10-10T18:14:33Z
+Version         1.14.0
+Build Date      2023-06-19T11:40:23Z
 Storage Type    inmem
-Cluster Name    vault-cluster-389dcb61
-Cluster ID      cc063fcf-e1f2-2e75-6059-cd9117559f0d
+Cluster Name    vault-cluster-2324c0a1
+Cluster ID      e60d8783-7ff7-f342-169b-dcc78de4ab3b
 HA Enabled      false
 ```
 
@@ -423,9 +407,9 @@ You should see a success message. Now store the Okta secrets for the `vault-demo
 
 ```shell
 vault kv put secret/vault-demo-app,dev \
-okta.oauth2.clientId="{yourOktaClientId}" \
-okta.oauth2.clientSecret="{yourOktaClientSecret}" \
-okta.oauth2.issuer="{yourOktaIssuerURI}"
+okta.oauth2.clientId="{yourClientId}" \
+okta.oauth2.clientSecret="{yourClientSecret}" \
+okta.oauth2.issuer="{yourIssuerURI}"
 ```
 ```shell
 vault kv get secret/vault-demo-app,dev
@@ -437,7 +421,7 @@ Check `vault_audit.log` in your specified `{hostPath}` directory. Operations are
 
 ```json
 {
-   "time":"2022-10-13T03:00:25.145796389Z",
+   "time":"2023-07-07T03:00:25.145796389Z",
    "type":"request",
    "auth":{
       "client_token":"hmac-sha256:2d8d7aeded539495117218a14ef9ae9f0f525eb2f6078be25dfe8e329ceb3d3f",
@@ -460,7 +444,7 @@ Check `vault_audit.log` in your specified `{hostPath}` directory. Operations are
          ]
       },
       "token_type":"service",
-      "token_issue_time":"2022-10-13T02:55:13Z"
+      "token_issue_time":"2023-07-07T02:55:13Z"
    },
    "request":{
       "id":"50f70b23-3f2a-4857-5a8b-0c45982be491",
@@ -516,7 +500,7 @@ path "secret/data/application,dev" {
 
 All the paths above will be requested by the config server to provide configuration for the `vault-demo-app` when it starts with the `dev` profile active.
 
-{% img blog/spring-vault-update/vault-policy.png alt:"Vault policy section" width:"800" %}{: .center-image }
+{% img blog/spring-vault-update/vault-policy.png alt:"Vault policy section" width:"900" %}{: .center-image }
 
 Now, go back to the container command line, and create a token with the `vault-demo-app-policy`.
 
@@ -566,8 +550,8 @@ Note that the logging level is set to TRACE for the web client, to see the inter
 You should see the logs below if the server was configured correctly:
 
 ```
-2022-09-23 01:19:10.105  INFO 14072 --- [main] SpringBootConfigurationServerApplication:
- Started SpringBootConfigurationServerApplication in 4.525 seconds (JVM running for 4.859)
+2023-07-06T19:36:38.555-06:00  INFO 66168 --- [main] SpringBootConfigurationServerApplication : 
+ Started SpringBootConfigurationServerApplication in 1.011 seconds (process running for 1.184)
 ```
 
 You will not see the config server trying to connect to Vault in the logs. That will happen when a config client requests the properties. Start the `vault-demo-app`, passing the token just created in the environment variable `SPRING_CLOUD_CONFIG_TOKEN`. For example:
@@ -580,9 +564,9 @@ SPRING_CLOUD_CONFIG_TOKEN=hvs.CAESIKd9pYyc9xesiqmwvep... \
 When the `vault-demo-app` starts, it will request the configuration to the config server, which in turn will make REST requests to Vault. In the config server logs, with an increased logging level, you will be able to see those requests:
 
 ```
-2022-10-12 21:21:25.096 ...  : HTTP GET http://127.0.0.1:8200/v1/secret/data/vault-demo-app,dev
-2022-10-12 21:21:25.142 ...  : Accept=[application/json, application/*+json]
-2022-10-12 21:21:25.183 ...  : Response 200 OK
+2023-07-06T19:42:36.902 ...  : HTTP GET http://127.0.0.1:8200/v1/secret/data/vault-demo-app,dev
+2023-07-06T19:42:36.902 ...  : Accept=[application/json, application/*+json]
+2023-07-06T19:42:36.911 ...  : Response 200 OK
 ```
 
 Go to `http://localhost:8080` and verify that authentication with Okta works.
