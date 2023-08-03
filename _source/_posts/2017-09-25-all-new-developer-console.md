@@ -11,7 +11,17 @@ tags: [okta]
 type: awareness
 ---
 
-> WARNING: This blog post was written in 2017. It is out of date.  Okta no longer provides a developer-centric admin console.  Instead, all administrators use the same admin console for configuring Okta. 
+<div class="alert alert-info" role="alert">
+  <p class="title">
+    <a class="close" aria-label="Close" title="Close"
+       onclick="this.parentElement.parentElement.style.display='none'">
+      <span aria-hidden="true">&times;</span>
+    </a>
+    Heads up... this blog post is old!
+  </p>
+  <p>This blog post was written in 2017. It is out of date.  Okta no longer provides a developer-centric admin console.  Instead, all administrators use the same admin console for configuring Okta. 
+  </p>
+</div>
 
 
 
