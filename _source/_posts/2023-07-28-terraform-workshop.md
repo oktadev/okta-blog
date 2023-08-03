@@ -21,6 +21,10 @@ This workshop is part of our Enterprise-Ready Workshop series. Follow along to g
 | 3. [Enterprise-Ready Workshop: Manage Users with SCIM](/blog/2023/07/28/scim-workshop) |
 | 4. **Enterprise-Ready Workshop: Terraform** |
 
+The steps in this workshop are also demonstrated in the accompanying video, so that you can follow along in whatever medium is the best fit for your current learning needs.  
+
+{% youtube 5_x0VmvjXmg %}
+
 {% include toc.md %}
 
 ## Terraform automates manual work 
@@ -668,6 +672,7 @@ You've also begun to consider more advanced topics that you'll encounter in your
 
 * Learn more about Terraform in the Hashicorp docs. Could Terraform help you manage cloud infrastructure beyond Okta?
 * Explore other resource types in the Okta Terraform Provider docs, and try configuring them in your developer account. 
-* If your organization already uses Terraform to manage infrastructure, learn about how `terraform.tfstate` files and secrets are managed. 
+* If your organization already uses Terraform to manageinfrastructure, learn about how terraform.tfstate files and secrets are managed. 
+* Leave a comment to let us know what you thought about using Okta's Terraform module! What features would you like to learn about next? 
 
 Follow us on [Twitter](https://twitter.com/oktadev) and subscribe to our [YouTube](https://www.youtube.com/c/oktadev) channel to find out about future workshops and tutorials! Leave a comment to let us know what you thought about using Okta's Terraform module! What features would you like to learn about next? 
