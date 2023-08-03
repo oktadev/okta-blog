@@ -26,4 +26,8 @@ Why do we publish SDKs? How can you pick up languages on the fly to develop high
 
 {% youtube DQKwq0rn7Lk %}
 
-Have you used our SDKs? Tell us about your experiences in the comments below, and follow OktaDev on [YouTube](https://www.youtube.com/@OktaDev) and [Twitter](https://twitter.com/oktadev)! 
+Listen to the audio version on Casted [here](https://listen.casted.us/public/49/Workforce-Identity-Developer-Podcast-4ce90a5f/ddd303a0).
+
+Have you used our SDKs? Tell us about your experiences in the comments below, and follow OktaDev on [YouTube](https://www.youtube.com/@OktaDev) and [Twitter](https://twitter.com/oktadev)!
+
+ 
