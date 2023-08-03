@@ -18,9 +18,9 @@ Hello SaaS developers! You sell your software to technologically mature enterpri
 
 |Posts in the enterprise-ready workshop series|
 | --- |
-| 1. [How to get Going with the Enterprise-Ready Identity for SaaS Apps Workshops](blog/2023/07/27/enterprise-ready-getting-started) |
-| 2. [Enterprise-Ready Workshop: OpenID Connect](/blog/2023/07/28/oidc_workshop) |
-| 3. **Enterprise-Ready Workshop: SCIM** |
+| 1. [How to get Going with the Enterprise-Ready Identity for SaaS Apps Workshops](/blog/2023/07/27/enterprise-ready-getting-started) |
+| 2. [Enterprise-Ready Workshop: Authenticate with OpenID Connect](/blog/2023/07/28/oidc_workshop) |
+| 3. **Enterprise-Ready Workshop: Manage Users with SCIM** |
 | 4. [Enterprise-Ready Workshop: Terraform](/blog/2023/07/28/terraform-workshop) |
 
 But creating accounts when users log in is only one of your customers' many expectations! Your app is also expected to know about users who haven't logged in yet, and remove the accounts of employees who are removed from your customer's identity provider. 
@@ -1178,9 +1178,9 @@ If you have followed along with the workshops so far, you now have a Todo applic
 
 |Posts in the enterprise-ready workshop series|
 | --- |
-| 1. [How to get Going with the Enterprise-Ready Identity for SaaS Apps Workshops](blog/2023/07/27/enterprise-ready-getting-started) |
-| 2. [Enterprise-Ready Workshop: OpenID Connect](/blog/2023/07/28/oidc_workshop) |
-| 3. **Enterprise-Ready Workshop: SCIM** |
+| 1. [How to get Going with the Enterprise-Ready Identity for SaaS Apps Workshops](/blog/2023/07/27/enterprise-ready-getting-started) |
+| 2. [Enterprise-Ready Workshop: Authenticate with OpenID Connect](/blog/2023/07/28/oidc_workshop) |
+| 3. **Enterprise-Ready Workshop: Manage Users with SCIM** |
 | 4. [Enterprise-Ready Workshop: Terraform](/blog/2023/07/28/terraform-workshop) |
 
-Please comment below if you have any questions or want to share problems you have used SCIM to solve or are planning to solve. As all our sample projects and SDKs are open source, we invite you to initiate a pull request if you see something you want us to improve. Thank you! 
+Follow us on [Twitter](https://twitter.com/oktadev) and subscribe to our [YouTube](https://www.youtube.com/c/oktadev) channel to get notified about exciting new content. Please comment below if you have any questions or want to share problems you have used SCIM to solve or are planning to solve. As all our sample projects and SDKs are open source, we invite you to initiate a pull request if you see something you want us to improve. Thank you! 
