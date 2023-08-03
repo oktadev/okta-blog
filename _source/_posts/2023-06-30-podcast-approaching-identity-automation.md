@@ -26,4 +26,6 @@ Listen to the [audio version on Casted](https://listen.casted.us/public/49/Workf
 
 Where are you in your own automation journey? What are your next steps to enhance automation? Let us know in the comments below!
 
+Follow OktaDev on [YouTube](https://www.youtube.com/@OktaDev) and [Twitter](https://twitter.com/oktadev) to learn more about automating identity!
+
 
