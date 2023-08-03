@@ -119,6 +119,13 @@ The use of registered claims is optional, but when they are present, they MUST b
 
 NOTE: Timestamps are "seconds since the epoch" integer format. JWT libraries usually add up to a few minutes of leeway to these values to account for clock skew between systems.
 
+When an Okta authorization server returns an access or ID token to a client, two claims are of particular note:
+
+ - Scopes (`scp`) - A list of accessible data points about the user - name, groups, etc. - and the client's API access rights as that user.
+ - Audience (`aud`) - A list of parties the token should be sent to and parsed by. The audience is the Okta Authorization Server Issuer URI for access tokens requesting Okta API access. The audience is the customer's API URI for access tokens requesting customer API access. For ID tokens, it's the client ID. Working with Okta, only one server is being targeted, so the list should only contain one item.
+
+For more information, see the https://developer.okta.com/docs/reference/api/oidc/#scopes[Scopes] and https://developer.okta.com/docs/reference/api/oidc/#tokens-and-claims[Tokens and Claims] sections of https://developer.okta.com/docs/reference/api/oidc/[Okta's OIDC API reference].
+
 === JWT Header
 
 The header of a JWT contains information about how the token was created.  In my example, the "algorithm" (`alg`) claim is set to `HS256`, which specifies the hashing algorithm HMAC SHA-256 is used to generate or validate the signature.
