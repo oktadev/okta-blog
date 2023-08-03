@@ -1,6 +1,6 @@
 ---
 layout: blog_post
-title: "Enterprise Ready Workshop: Workflows"
+title: "Enterprise Ready Workshop: Automate with with no-code Okta Workflows"
 author: max-katz
 by: advocate
 communities: [no-code,javascript]
@@ -12,22 +12,31 @@ image: blog/workflows-workshop/social.jpg
 type: awareness
 ---
 
-## Introduction
+This tutorial is part of the Enterprise-ready workshop series. In this workshop, you'll enhance the base Todo application by creating an automated report using Okta's no-code Workflows. 
+
 You built the following Todo application: 
 
-{% img blog/workflows-workshop/Workflows_todoapp.jpg alt:"Todo application" %}{: .center-image }
-You need to add one additional enterprise capability. You need to add a todo report that summarizes all the todo items and is automatically emailed once a week. 
+{% img blog/workflows-workshop/Workflows_todoapp.jpg alt:"The Todo application you built showing tasks to try workflows, watch a workflows video, build your first animation, and read the workflows docs" width:"800" %}{: .center-image }
+You need to add one additional enterprise capability. You need to add a todo report that summarizes all the todo items for your organization and automatically emails the report once a week. 
 
 The email report looks like this: 
 
-{% img blog/workflows-workshop/Workflows_email_report.jpg alt:"Todo email report" %}{: .center-image }
+{% img blog/workflows-workshop/Workflows_email_report.jpg alt:"Todo email report showing each todo item from the Todo application with a boolean indicating completed state" width:"800" %}{: .center-image }
 
-## What you need to complete this workshop
+|Posts in the enterprise-ready workshop series|
+| --- |
+| 1. [How to get Going with the Enterprise-Ready Identity for SaaS Apps Workshops](/blog/2023/07/27/enterprise-ready-getting-started) |
+| 2. [Enterprise-Ready Workshop: Authenticate with OpenID Connect](/blog/2023/07/28/oidc_workshop) |
+| 3. [Enterprise-Ready Workshop: Manage Users with SCIM](/blog/2023/07/28/scim-workshop) |
+| 4. [Enterprise-Ready Workshop: Terraform](/blog/2023/07/028/terraform-workshop) |
+| 5. **Enter-Ready Workshop: Automate with no-code Okta Workflows** |
+**What you need to complete the workshop**
 You need access to the following tools to complete this workshop. 
 
-- [npm](https://www.npmjs.com/)
 - The completed todo application ([download](https://github.com/oktadev/okta-enterprise-ready-workshops/tree/oidc-workshop-completed))
 - Access to Okta Worklfows. You will learn how to gain access to Workflows in a later section
+
+You'll also want to ensure you're up and running with the base Todo application by following [How to Get Going with the Enterprise-Ready Identity for SaaS Apps Workshops](/blog/2023/07/27/enterprise-ready-getting-started).
 
 ## What is Okta Workflows?
 [Okta Workflows](https://www.okta.com/platform/workflows/) is a no-code platform that allows building automation to help with identity processes. For example, you can build the following workflows without asking IT or developers for help:
