@@ -898,3 +898,17 @@ semona-igama:
   github: https://github.com/isemona
   linkedin: https://www.linkedin.com/in/semonaigama/
   bio: Semona has been with Okta for three years supporting developers as a Developer Support Engineer. She is excited to transition to a Dev Advocate role - advocating for Okta developer community needs. Outside of work, Semona is a foodie, loves kombucha, and is interested in board games and ultimate frisbee.
+
+daniel-marma:
+  full_name: Daniel Marma
+  display_name: Dan Marma
+  avatar: avatar-daniel-marma.jpeg
+  linkedin: https://www.linkedin.com/in/danmarma/
+  bio: As a Product Acceleration Principal Architect at Okta, Dan brings decades of enterprise technology and process design (including 6+ years within Okta professional services) to the Okta product team focused on ensuring a smooth transition to Okta Identity Engine and implementing other new products in the market.  He has worked with thousands of client complex identity solutions, many first of kind in IAM.
+
+max-katz:
+  full_name: Max Katz
+  display_name: Max Katz
+  avatar: avatar-max-katz.jpg
+  linkedin: https://www.linkedin.com/in/maxkatz/
+  bio: Max Katz is Okta Workflows Developer Advocate. Max loves the no-code automation space and provides developer education with content, videos, and online meetups. Before Okta, Max led the North America Developer Advocacy team at IBM. Before IBM, Max led developer advocacy for a cloud-based mobile app platform, Appery, helping it grow from zero to over 400,000 developers. Max regularly writes on his http://maxkatz.net blog.
