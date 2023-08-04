@@ -17,6 +17,7 @@ This tutorial is part of the Enterprise-ready workshop series. In this workshop,
 You built the following Todo application: 
 
 {% img blog/workflows-workshop/Workflows_todoapp.jpg alt:"The Todo application you built showing tasks to try workflows, watch a workflows video, build your first animation, and read the workflows docs" width:"800" %}{: .center-image }
+
 You need to add one additional enterprise capability. You need to add a todo report that summarizes all the todo items for your organization and automatically emails the report once a week. 
 
 The email report looks like this: 
@@ -30,6 +31,7 @@ The email report looks like this:
 | 3. [Enterprise-Ready Workshop: Manage Users with SCIM](/blog/2023/07/28/scim-workshop) |
 | 4. [Enterprise-Ready Workshop: Terraform](/blog/2023/07/028/terraform-workshop) |
 | 5. **Enter-Ready Workshop: Automate with no-code Okta Workflows** |
+
 **What you need to complete the workshop**
 You need access to the following tools to complete this workshop. 
 
@@ -79,7 +81,8 @@ You will see the Workflows home page:
 
 
 {% img blog/workflows-workshop/Workflows_console_main.jpg alt:"Workflows home page" %}{: .center-image }
-## You will build
+
+## Steps to build your automated email report using Okta Workflows
 In this workshop, you will learn how to build an automated email report in Okta Workflows. You will learn and complete the following steps to build the automated report: 
 
 - Build your first Workflows flow
@@ -110,9 +113,11 @@ To start, you will create a new flow.
 9. Click **Save** to save the flow name and description
 
 {% img blog/workflows-workshop/Workflows_create_new_flow.jpg alt:"Creating new flow" %}{: .center-image }
+
 Congratulations, you created a Workflows flow. 
 
 {% img blog/workflows-workshop/Workflows_new_flow_created.jpg alt:"A new Workflows flow" %}{: .center-image }
+
 ## Workflows building blocks
 Before building the flow, you should learn about Workflows building blocks. 
 
@@ -126,6 +131,7 @@ This is an example of the **Text - Length** card. This card calculates and retur
 - The **length** field is the card's output (the lower grey area)
 
 {% img blog/workflows-workshop/Workflows_Text_Length_card.jpg alt:"The Text-Length card calculates text length" %}{: .center-image }
+
 There are two types of cards:
 
 - App action cards are steps that control other applications or web services. For example, Gmail, Slack, and Jira
@@ -145,7 +151,7 @@ Here is again what you are going to build:
 - Emailing the message
 - Set up the flow to run on schedule
 
-Before you start building the flow, you need to get the Todo application.  
+Before building the flow, you need to get the Todo application.  
 
 ## Getting the Todo application
 In this section, you will: 
@@ -204,7 +210,7 @@ npm start
 
 #### Accessing application API with a tunnel
 
-Workflows is running on the cloud, and this application runs locally on your computer. For Workflows to be able to call the API on your local machine, you need to create a tunnel. 
+Workflows run on the cloud, and this application runs locally on your computer. For Workflows to be able to call the API on your local machine, you need to create a tunnel. 
 
 In a new terminal window (or tab), run the following command to start the tunnel: 
 
@@ -239,19 +245,19 @@ In this step, you will create several todo items.
     - User: bob@tables.fake, password: correct horse battery staple
 3. Enter several todo items
 
-
 {% img blog/workflows-workshop/Workflows_todoapp.jpg alt:"Todo application with several items" %}{: .center-image }
+
 ## Building the Todo Report flow
 In this section, you will build a flow that does the following: 
 
-1.Calls an API service
-2.Creates a message
-3.Sends the message via email
-4.Update the flow to run on schedule
+1. Calls an API service
+2. Creates a message
+3. Sends the message via email
+4. Update the flow to run on schedule
 
 ### Calling the API service
 
-In this step, you will add a card to call the application API end point to retrieve all the todo items.
+In this step, you will add a card to call the application API endpoint to retrieve all the todo items.
  
 
 1. Return to the flow you created
@@ -272,6 +278,7 @@ Click the **Save** button to save changes
 
 
 {% img blog/workflows-workshop/Workflows_Get_card.jpg alt:"The API Connector - Get card" %}{: .center-image }
+
 You can test the **Get** card. 
 
 1. Click the ▶️ button at the bottom of the card
@@ -280,11 +287,13 @@ You can test the **Get** card.
 
 
 {% img blog/workflows-workshop/Workflows_Get_card_testing.jpg alt:"Testing the Get card" %}{: .center-image }
+
 You can also test the flow. Click the **Close** button to go back to flow editing. Click the **Test** button to test the flow. 
 
 The **Flow History** page shows data passed from card to card for each card flow. 
 
 {% img blog/workflows-workshop/Workflows_Get_card_testing_history.jpg alt:"Testing the flow" %}{: .center-image }
+
 In the next section, you will create the text message. 
 
 ### Creating the message
@@ -303,6 +312,7 @@ Your card should look like this:
 https://katzmax.files.wordpress.com/2023/07/workflows_compose_card.png
 
 {% img blog/workflows-workshop/Workflows_Compose_card.jpg alt:"The Compose card" %}{: .center-image }
+
 If you want, you can test the **Compose** card. Click the ▶️ button at the bottom of the card. 
 
 Now, let's take the output from the **API Connector - Get** card and pass it to the **Compose** card. The output is not formatted-friendly, but we will fix it later. 
@@ -310,7 +320,8 @@ Now, let's take the output from the **API Connector - Get** card and pass it to 
 1. Take the **Body** field from the **Get** card and pass it over to the **Compose** card, placing it under the current text
 
 {% img blog/workflows-workshop/workflows_get_connect_compose.gif alt:"Passing data to the Compose card" %}{: .center-image }
-Now, click the **Test** button at the top of the flow to test it. 
+
+Click the **Test** button at the top of the flow to test it. 
 
 You will see the output in the **Compose** card. It's not formatted (plain JSON for now), but that's OK. You will fix it in a later step. 
 
@@ -319,13 +330,14 @@ Now that you have two cards on a flow, using the **Flow History**, you can see h
 For now, you build a flow that calls an external API service and displays the output. Next, you are going to add a step to email the result. 
 
 {% img blog/workflows-workshop/Workflows_flow_history.jpg alt:"Flow history" %}{: .center-image }
+
 Next, let's work on emailing the message. 
 
 ### Sending the message via email
 
 In this step, you will add a card to send the message you created in the previous step. 
 
-To email the message, you are going to use the **Gmail** card. 
+To email the message, you will use the **Gmail** card. 
 
 1. Click **Add app** action
 2. Find the **Gmail** app
@@ -336,6 +348,7 @@ To email the message, you are going to use the **Gmail** card.
 The card should look like this when added:
 
 {% img blog/workflows-workshop/Workflows_Gmail_Send_card.jpg alt:"The Gmail - Send Email card" %}{: .center-image }
+
 Next, you need to set fields on the **Send Email** card. 
 
 1. For the **Email** field, enter your email (or any other email you can check)
@@ -347,11 +360,13 @@ Next, you need to set fields on the **Send Email** card.
 The flow should look like this: 
 
 {% img blog/workflows-workshop/Workflows_Todo_report_flow.jpg alt:"The Todo Report flow" %}{: .center-image }
+
 Go ahead and test the flow. Click the **Test** button and check that you received the email. 
 
 You should receive an email that looks like this: 
 
 {% img blog/workflows-workshop/Workflows_email_report_not_formatted.jpg alt:"An email with the todo report" %}{: .center-image }
+
 The email is not formatted yet. But it's neat that you can call an API, create a message, and email it without writing any code. 
 
 There is one last step left before we make the message look pretty. The step is to make this flow run automatically. 
@@ -368,12 +383,15 @@ You need this flow to run on schedule. For example, you want to run this flow ev
 6. To see when the flow runs next, toggle the **Flow is OFF**
 
 {% img blog/workflows-workshop/Workflows_flow_off.jpg alt:"The flow is off" %}{: .center-image }
+
 When the flow is on, you will see the next time it runs: 
 
 {% img blog/workflows-workshop/Workflows_flow_on.jpg alt:"The flow is on" %}{: .center-image }
+
 Your flow should look like this: 
 
 {% img blog/workflows-workshop/Workflows_Todo_flow_final_1.jpg alt:"A flow to get the todo summary and send it via email" %}{: .center-image }
+
 ## Updating the flow to send a pretty message
 In this section, you will update the flow to send a pretty message. You will complete the following: 
 
@@ -387,7 +405,7 @@ In this section, you will update the flow to send a pretty message. You will com
 ### Understanding the JSON returned from the API service
 The response from the API service looks like this:
 
-```
+```json
 {
   "todos": [
     {
@@ -424,7 +442,7 @@ The response from the API service looks like this:
 
 The above JSON is an array of objects. To create a pretty message, you need to process each JSON object. You will use the **task** and the **completed** paths for the new message.
 
-To process a JSON array, you must use a helper workflow in Workflows. A helper flow is a flow that another flow calls. A helper flow can also participate in a for-each-like logic. 
+You must use a helper workflow in Workflows to process a JSON array. A helper flow is a flow that another flow calls. A helper flow can also participate in a for-each-like logic. 
 
 You will also use the **Reduce** card in Workflows to create a message. The Reduce card works similarly to the [reduce()](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/reduce) function in JavaScript. 
 
@@ -449,6 +467,7 @@ A flow becomes a helper flow when the first card (step) is the **Helper Flow** c
 
 Your flow should look like this:
 {% img blog/workflows-workshop/Workflows_helper_flow.jpg alt:"A helper flow" %}{: .center-image }
+
 In the next step, you will set up the flow inputs. 
 
 ### Setting up helper flow inputs
@@ -463,6 +482,7 @@ In this step, you will define inputs the main flow will pass to the helper flow.
 The **Helper Flow** card should look like this: 
 
 {% img blog/workflows-workshop/Workflows_helper_flow_inputs.jpg alt:"Helper flow inputs" %}{: .center-image }
+
 You need to create one more input field. This will be a new field, not part of the Item object.
 
 1. Click inside the **Click or drag to create** box and create the **memo** field. Set its type to **Text** 
@@ -470,11 +490,12 @@ You need to create one more input field. This will be a new field, not part of t
 The final **Helper Flow** card looks like this:
 
 {% img blog/workflows-workshop/Workflows_helper_flow_inputs_final.jpg alt:"Helper flow with inputs" %}{: .center-image }
+
 Your helper flow is set up to accept two inputs. A JSON object with two fields: **task** and **completed** and a text field (**memo**). Next, you are going to create a pretty message. 
 
 ### Building the message
 
-In this step, you will use the **Compose** card to create the message. 
+You will use the **Compose** card to create the message in this step. 
 
 1. To add the **Compose** card, click **Add function > Most popular (category) > Compose**
 2. Next, place the **memo** field inside the **Compose** card, as shown in the screenshot below
@@ -486,9 +507,10 @@ In this step, you will use the **Compose** card to create the message.
 The **Compose** card should look like this: 
 
 {% img blog/workflows-workshop/Workflows_Compose_card_helper_flow.jpg alt:"The Compose card" %}{: .center-image }
+
 ### Returning the message to the main flow
 
-To complete this flow, you must return the message to the main flow. 
+You must return the message to the main flow to complete this flow. 
 
 1. To add the **Return** card, click **Add function > Flow Control (category) > Return**
 2. Take the **Output** from the **Compose** card and connect it to the **Return** card
@@ -496,6 +518,7 @@ To complete this flow, you must return the message to the main flow.
 The flow should look like this:
 
 {% img blog/workflows-workshop/Workflows_helper_flow_final.jpg alt:"Completed helper flow" %}{: .center-image }
+
 Next, you will update the main flow to call this helper flow. 
 
 ### Adding the Reduce card
@@ -503,7 +526,7 @@ Next, you will update the main flow to call this helper flow.
 In this step, you will update the main flow to call the helper flow. 
 
 1. Open the **Todo Report** flow
-2. You are going to add the **List - Reduce** card. Click the **+** between the **Get** card and the **Compose** card, select the **calculator icon > List (category) > Reduce** card. Your flow should look like this:
+2. You will add the **List - Reduce** card. Click the **+** between the **Get** card and the **Compose** card, select the **calculator icon > List (category) > Reduce** card. Your flow should look like this:
 {% img blog/workflows-workshop/Workflows_add_Reduce_card.jpg alt:"Adding the Reduce card" %}{: .center-image }3. On the **Get** card, add **todos** field under the **Body** field. Set the field type to **Object**
 {% img blog/workflows-workshop/Workflows_Get_card_adding_todos.jpg alt:"Adding the todos field on the Get card" %}{: .center-image }4. Take the **todos** field and connect it to the list field on the **Reduce** card
 5. For **Helper Flow**, click the **Choose Flow** button and select the **Todo Report_Helper** flow
@@ -514,9 +537,10 @@ In this step, you will update the main flow to call the helper flow.
 10. Connect the **item** field from the **Reduce** card to the **Body** field on the **Send Email** card. The final flow should look like this:
 
 {% img blog/workflows-workshop/Workflows_Todo_flow_final_with_Reduce.jpg alt:"The Completed Todo Report flow" %}{: .center-image }
+
 ### How does the Reduce card work
 
-A good way to learn how the **Reduce** card works is to look at the **Todo Report_Helper** flow history. Reduce is a way to take a list and reduce it to a single value. In this example, you take a list of todo items and reduce them to a single text message. 
+A good way to learn how the **Reduce** card works is to look at the **Todo Report_Helper** flow history. Reduce is a way to reduce a list to a single value. In this example, you take a list of todo items and reduce them to a single text message. 
 
 The helper flow will run four times (the number of todo items in the Todo application). 
 
@@ -557,6 +581,7 @@ Todo Item
 > Watch a Workflows video (false)
 ```
 {% img blog/workflows-workshop/Workflows_Reduce_flowhistory_test2.jpg alt:"Helper flow second run" %}{: .center-image }
+
 #### Third run
 
 The **memo** field is now set to what was returned after the second run:
@@ -582,6 +607,7 @@ Todo Items
 ```
 
 {% img blog/workflows-workshop/Workflows_Reduce_flowhistory_test3.jpg alt:"Helper flow third run" %}{: .center-image }
+
 #### Fourth run
 
 The **memo** field is now set to what was returned after the third run:
@@ -611,6 +637,7 @@ Todo Items
 ```
 
 {% img blog/workflows-workshop/Workflows_Reduce_flowhistory_test4.jpg alt:"Helper flow fourth run" %}{: .center-image }
+
 Since all the items were processed, the **Reduce** card is done and the flow execution moves on to the next card, the **Send Email** card. 
 
 {% img blog/workflows-workshop/Workflows_Todo_flow_final_with_Reduce.jpg alt:"The flow continues after the Reduce card processes all the items" %}{: .center-image }
@@ -627,6 +654,7 @@ To test the flow:
 You will receive an email like this:
 
 {% img blog/workflows-workshop/Workflows_email_report.jpg alt:"Todo email report" %}{: .center-image }
+
 ## What you learned
 In this tutorial, you built and learned the following:
 
