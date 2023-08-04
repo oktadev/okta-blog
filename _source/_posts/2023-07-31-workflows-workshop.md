@@ -309,7 +309,6 @@ Todos Items
 
 Your card should look like this: 
 
-https://katzmax.files.wordpress.com/2023/07/workflows_compose_card.png
 
 {% img blog/workflows-workshop/Workflows_Compose_card.jpg alt:"The Compose card" %}{: .center-image }
 
