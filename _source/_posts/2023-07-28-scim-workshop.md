@@ -12,6 +12,8 @@ tweets:
 - ""
 image: blog/scim-workshop/social.jpg
 type: awareness
+changelog: 
+- 2023-08-04: Fixed duplicate user code to search by email not id. This is according to SCIM spec Section 3.3.
 ---
 
 Hello SaaS developers! You sell your software to technologically mature enterprises, and they expect it to interface seamlessly with all their other tools. In our [Enterprise-Ready Workshop on OpenID Connect](/blog/2023-07-28-oidc_workshop), you learned how to solve part of this problem, by creating user accounts in your application for your customers' employees whenever they log in. 
@@ -287,7 +289,7 @@ scimRoute.post('/Users', passport.authenticate('bearer'), async (req, res) => {
       name: true,
     },
     where: {
-      id,
+      email,
       org: { id: ORG_ID }
     }
   });
