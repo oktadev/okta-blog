@@ -1,6 +1,6 @@
 ---
 layout: blog_post
-title: "How to build an API with Spring for GraphQL"
+title: "How to build a GraphQL API with Spring for GraphQL"
 author: jimena-garbarino
 by: contractor
 communities: [security,java,javascript]
@@ -31,6 +31,8 @@ Following this step by step guide you can build a GraphQL API for querying a sam
 - https://docs.docker.com/desktop/[Docker 24.0.2]
 - https://auth0.com/signup[Auth0 account]
 - https://github.com/auth0/auth0-cli#installation[Auth0 CLI 1.0.0]
+- https://httpie.io/[HTTPie 3.2.2]
+- https://nextjs.org/[Next.js 13.4.6]
 ====
 
 toc::[]
@@ -633,45 +635,54 @@ Create the folder `src/main/resources/neo4j/migrations` and the following migrat
 .V001__Constraint.cypher
 [source, cypher]
 ----
+{% raw %}
 CREATE CONSTRAINT FOR (c:Company) REQUIRE c.companyNumber IS UNIQUE;
 //Constraint for a node key is a Neo4j Enterprise feature only - run on an instance with enterprise
 //CREATE CONSTRAINT ON (p:Person) ASSERT (p.birthMonth, p.birthYear, p.name) IS NODE KEY
 CREATE CONSTRAINT FOR (p:Property) REQUIRE p.titleNumber IS UNIQUE;
+{% endraw %}
 ----
 
 .V002__Company.cypher
 [source, cypher]
 ----
+{% raw %}
 LOAD CSV WITH HEADERS FROM "file:///PSCAmericans.csv" AS row
 MERGE (c:Company {companyNumber: row.company_number})
 RETURN COUNT(*);
+{% endraw %}
 ----
 
 .V003__Person.cypher
 [source, cypher]
 ----
+{% raw %}
 LOAD CSV WITH HEADERS FROM "file:///PSCAmericans.csv" AS row
 MERGE (p:Person {name: row.`data.name`, birthYear: row.`data.date_of_birth.year`, birthMonth: row.`data.date_of_birth.month`})
   ON CREATE SET p.nationality = row.`data.nationality`,
   p.countryOfResidence = row.`data.country_of_residence`
 // TODO: Address
 RETURN COUNT(*);
+{% endraw %}
 ----
 
 .V004__PersonCompany.cypher
 [source, cypher]
 ----
+{% raw %}
 LOAD CSV WITH HEADERS FROM "file:///PSCAmericans.csv" AS row
 MATCH (c:Company {companyNumber: row.company_number})
 MATCH (p:Person {name: row.`data.name`, birthYear: row.`data.date_of_birth.year`, birthMonth: row.`data.date_of_birth.month`})
 MERGE (p)-[r:HAS_CONTROL]->(c)
 SET r.nature = split(replace(replace(replace(row.`data.natures_of_control`, "[",""),"]",""),  '"', ""), ",")
 RETURN COUNT(*);
+{% endraw %}
 ----
 
 .V005__CompanyData.cypher
 [source, cypher]
 ----
+{% raw %}
 LOAD CSV WITH HEADERS FROM "file:///CompanyDataAmericans.csv" AS row
 MATCH (c:Company {companyNumber: row.` CompanyNumber`})
 SET c.name = row.CompanyName,
@@ -681,11 +692,13 @@ c.SIC = row.`SICCode.SicText_1`,
 c.countryOfOrigin = row.CountryOfOrigin,
 c.status = row.CompanyStatus,
 c.category = row.CompanyCategory;
+{% endraw %}
 ----
 
 .V006__Land.cypher
 [source, cypher]
 ----
+{% raw %}
 LOAD CSV WITH HEADERS FROM "file:///LandOwnershipAmericans.csv" AS row
 MATCH (c:Company {companyNumber: row.`Company Registration No. (1)`})
 MERGE (p:Property {titleNumber: row.`Title Number`})
@@ -697,6 +710,7 @@ MERGE (c)-[r:OWNS]->(p)
 WITH row, c,r,p WHERE row.`Date Proprietor Added` IS NOT NULL
 SET r.date = Date(Datetime({epochSeconds: apoc.date.parse(row.`Date Proprietor Added`,'s','dd-MM-yyyy')}));
 CREATE INDEX FOR (c:Company) ON c.incorporationDate;
+{% endraw %}
 ----
 
 Update `application.properties` and add the following properties:
@@ -762,7 +776,6 @@ In a terminal, go to the `docker` folder and run:
 docker compose -f neo4j.yml up
 ----
 
-
 === Run the API server
 
 Go to the project root folder and start the application with:
@@ -807,13 +820,469 @@ Test the API with GraphiQL at http://localhost:8080/graphiql. In the query box o
 
 You should see the query output in the box on the right:
 
-
 image::{% asset_path blog/spring-graphql-react/graphiql-test.png %}[alt=GraphiQL example,width=800,align=center]
 
+== Build a React client
+
+Now let's create a Single Page Application (SPA) with React to consume the GraphQL API with React and Next.js. Install Node and in a terminal run:
+
+[source, shell]
+----
+npx create-next-app@latest
+----
+
+Answer the questions as follows:
+----
+✔ What is your project named? … react-graphql
+✔ Would you like to use TypeScript? … Yes
+✔ Would you like to use ESLint? … Yes
+✔ Would you like to use Tailwind CSS? … No
+✔ Would you like to use `src/` directory? … Yes
+✔ Would you like to use App Router? (recommended) … Yes
+✔ Would you like to customize the default import alias? … No
+----
+
+Then add the the MUI Datagrid dependency:
+
+[source, shell]
+----
+cd react-graphql
+npm install @mui/x-data-grid
+----
+
+Test run the application with:
+
+[source, shell]
+----
+npm run dev
+----
+
+Navigate to http://localhost:3000 and you should see the default Next.js page:
+
+image::{% asset_path blog/spring-graphql-react/nextjs-default.png %}[alt=Next.js default page,width=800,align=center]
+
+=== Create the API client
+
+Create the folder `src/app/services` and add the file `base.tsx` with the following code:
+
+[source, tsx]
+----
+{% raw %}
+import axios from "axios";
+
+export const backendAPI = axios.create({
+  baseURL: process.env.NEXT_PUBLIC_API_SERVER_URL
+});
+
+export default backendAPI;
+{% endraw %}
+----
+
+Add the file `src/app/services/companies.tsx` with the following content:
+
+[source, tsx]
+----
+{% raw %}
+import { AxiosError } from "axios";
+import { backendAPI } from "./base";
+
+export type CompaniesQuery = {
+  page: number;
+};
+
+export type OwnerDTO = {
+  name: string;
+  id: string;
+};
+
+export type CompanyPropertyDTO = {
+  id: string;
+  address: string;
+  county: string;
+  district: string;
+  titleNumber: string;
+}
+
+export type CompanyDTO = {
+  name: string;
+  SIC: string;
+  id: string;
+  companyNumber: string;
+  category: string;
+  countryOfOrigin: string;
+  mortgagesOutstanding: number;
+  status: string;
+  incorporationDate: string;
+};
+
+export type CompanyDetailsDTO = CompanyDTO & {
+  controlledBy: OwnerDTO[];
+  owns: CompanyPropertyDTO[];
+};
 
 
 
-=== Add resource server security
+export const CompanyApi = {
+
+  getCompanyCount: async () => {
+    try {
+      console.log("get company count request");
+      const response = await backendAPI.post("/graphql", {
+        query: `{
+        companyCount
+      }`,
+      });
+      return response.data.data.companyCount as number;
+    } catch (error) {
+      console.log("handle get company count error", error);
+      if (error instanceof AxiosError) {
+        let axiosError = error as AxiosError;
+        if (axiosError.response?.data) {
+          throw new Error(axiosError.response?.data as string);
+        }
+      }
+      throw new Error("Unknown error, please contact the administrator");
+    }
+  },
+
+
+  getCompanyList: async (params?: CompaniesQuery) => {
+    try {
+      console.log("get companies request", params);
+      //await new Promise((resolve) => setTimeout(resolve, 1000));
+      const response = await backendAPI.post("/graphql", {
+        query: `{
+        companyList(page: ${params?.page || 1}) {
+          name,
+          SIC,
+          id,
+          companyNumber,
+          category
+        }}`,
+      });
+      return response.data.data.companyList as CompanyDTO[];
+    } catch (error) {
+      console.log("handle get companies error", error);
+      if (error instanceof AxiosError) {
+        let axiosError = error as AxiosError;
+        if (axiosError.response?.data) {
+          throw new Error(axiosError.response?.data as string);
+        }
+      }
+      throw new Error("Unknown error, please contact the administrator");
+    }
+  },
+
+  getCompanyById: async (id: string) => {
+    try {
+      console.log("get company by id request");
+      const response = await backendAPI.post("/graphql", {
+        query: `{
+        companyById(id: "${id}") {
+          name,
+          SIC,
+          id,
+          companyNumber,
+          category,
+          countryOfOrigin,
+          mortgagesOutstanding,
+          status,
+          incorporationDate,
+          controlledBy {
+            name,
+            id
+          },
+          owns {
+            address,
+          }
+        }
+      }`,
+      });
+      return response.data.data.companyById as CompanyDetailsDTO;
+    } catch (err) {
+      console.log("handle get company by id error", err);
+      if (err instanceof AxiosError) {
+        let axiosError = err as AxiosError;
+        if (axiosError.response?.data) {
+          throw new Error(axiosError.response?.data as string);
+        }
+      }
+      throw new Error("Unknown error, please contact the administrator");
+    }
+  },
+
+};
+{% endraw %}
+----
+
+Create the folder `src/app/hooks` and add the file `useAsync.tsx` with the following content:
+
+[source, tsx]
+----
+{% raw %}
+
+'use client';
+
+import { useCallback, useState } from "react";
+
+export const enum AsyncState {
+  INITIAL = 1,
+  PENDING = 2,
+  SUCCESS = 3,
+  ERROR = 4,
+}
+
+export const useAsync = <T, P, E = string>(
+  asyncOperation: (params: P) => Promise<T>
+) => {
+  const [status, setStatus] = useState<AsyncState>(AsyncState.INITIAL);
+  const [error, setError] = useState<E | null>(null);
+  const [data, setData] = useState<T | null>(null);
+  const { saveAccessToken } = useAccessToken();
+
+  const execute = useCallback(
+    async (params: P) => {
+      setStatus(AsyncState.PENDING);
+      setError(null)
+      setData(null)
+      try {
+        const response = await asyncOperation(params);
+        setStatus(AsyncState.SUCCESS);
+        setData(response);
+        setError(null);
+      } catch (err: any) {
+        setError(err.toString());
+        setStatus(AsyncState.ERROR);
+      }
+    },
+    [asyncOperation, saveAccessToken]
+  );
+
+  return {
+    status,
+    data,
+    error,
+    execute,
+  };
+};
+{% endraw %}
+----
+
+
+=== Create a companies home page
+
+Create the folder `src/app/components/companies` and add the file `CompanyTable.tsx` with the following content:
+
+[source, tsx]
+----
+{% raw %}
+'use client'
+
+import { DataGrid, GridColDef, GridEventListener, GridPaginationModel } from "@mui/x-data-grid";
+
+
+export interface CompanyData {
+  id: string,
+  name: string,
+  category: string,
+  companyNumber: string,
+  SIC: string
+}
+
+export interface CompanyTableProps {
+  rowCount: number,
+  rows: CompanyData[],
+  columns: GridColDef[],
+  pagination: GridPaginationModel,
+  onRowClick?: GridEventListener<"rowClick">
+  onPageChange?: (pagination: GridPaginationModel) => void,
+
+}
+
+const CompanyTable = (props: CompanyTableProps) => {
+
+  return (
+    <>
+      <DataGrid
+        rowCount={props.rowCount}
+        rows={props.rows}
+        columns={props.columns}
+        pageSizeOptions={[props.pagination.pageSize ]}
+        initialState={{
+          pagination: {
+            paginationModel: { page: props.pagination.page, pageSize: props.pagination.pageSize },
+          },
+        }}
+        disableColumnMenu={true}
+        disableRowSelectionOnClick={true}
+        disableColumnFilter={true}
+        disableDensitySelector={true}
+        paginationMode="server"
+        onRowClick={props.onRowClick}
+        onPaginationModelChange={props.onPageChange}
+      />
+    </>
+  );
+};
+
+export default CompanyTable;
+{% endraw %}
+----
+
+Add the file `src/app/components/companies/CompanyViewContainer.tsx` with the following content:
+
+[source, tsx]
+----
+{% raw %}
+import { CompanyApi } from "@/app/services/companies";
+import { useEffect } from "react";
+import CompanyView from "./CompanyView";
+import { AsyncState, useAsync } from "@/app/hooks/useAsync";
+
+interface CompanyViewProperties {
+  id: string;
+}
+
+const CompanyViewContainer = (props: CompanyViewProperties) => {
+  const { status, data, error, execute } = useAsync(CompanyApi.getCompanyById);
+
+  useEffect(() => {
+    execute(props.id);
+  }, [props.id]);
+
+  status === AsyncState.PENDING && <div>Loading...</div>;
+  status === AsyncState.ERROR && <div>{error}</div>;
+
+  let company = data && {
+    id: data.id,
+    name: data.name,
+    category: data.category,
+    companyNumber: data.companyNumber,
+    SIC: data.SIC,
+    countryOfOrigin: data.countryOfOrigin,
+    mortgagesOutstanding: data.mortgagesOutstanding,
+    status: data.status,
+    incorporationDate: data.incorporationDate,
+    controlledBy: data.controlledBy,
+    owns: data.owns,
+  };
+
+  return company && <CompanyView company={company}></CompanyView>;
+};
+
+export default CompanyViewContainer;
+{% endraw %}
+----
+
+Add the file `src/app/HomePage.tsx` with the following content:
+
+[source, tsx]
+----
+{% raw %}
+"use client";
+
+import { Box, Typography } from "@mui/material";
+import CompanyTableContainer from "./components/companies/CompanyTableContainer";
+import { useSearchParams } from "next/navigation";
+
+const HomePage = () => {
+  const searchParams = useSearchParams();
+  const page = searchParams.get("page")
+    ? parseInt(searchParams.get("page") as string)
+    : 1;
+
+  console.log("HomePage");
+  return (
+      <Box>
+        <Typography variant="h4" component="h1">
+          Companies
+        </Typography>
+      </Box>
+      <Box mt={2}>
+        <CompanyTableContainer page={page}></CompanyTableContainer>
+      </Box>
+  );
+};
+
+export default HomePage;
+{% endraw %}
+----
+
+Update the contents of `src/app/page.tsx` and set:
+
+[source, tsx]
+----
+{% raw %}
+import HomePage from "./HomePage";
+
+const Page = () => {
+  return (
+    <HomePage></HomePage>
+  );
+}
+
+export default Page;
+{% endraw %}
+----
+
+Create the file `src/app/layout/WideLayout.tsx` with the following content:
+
+[source, tsx]
+----
+{% raw %}
+"use client";
+
+import { Container } from "@mui/material";
+
+const WideLayout = (props: { children: React.ReactNode }) => {
+  return (
+    <Container maxWidth="xl" sx={{ pb: 2 }}>
+    {props.children}
+    </Container>
+  );
+};
+
+export default WideLayout;
+{% endraw %}
+----
+
+Update the contents of `src/app/layout.tsx` and set:
+
+[source, tsx]
+----
+{% raw %}
+import "../styles/globals.css";
+import { Inter } from "next/font/google";
+import WideLayout from "./layout/WideLayout";
+
+const inter = Inter({ subsets: ["latin"] });
+
+export const metadata = {
+  title: "Create Next App",
+  description: "Generated by create next app",
+};
+
+export default function RootLayout({
+  children,
+}: {
+  children: React.ReactNode;
+}) {
+  return (
+    <html lang="en">
+      <body className={inter.className}>
+          <WideLayout>{children}</WideLayout>
+      </body>
+    </html>
+  );
+}
+{% endraw %}
+----
+
+
+
+== Add Auth0 Login and Resource Server Security
+
+=== Add resource server security to the GraphQL API server
 
 
 Add the `okta-spring-boot-starter` dependency to the `build.gradle` file:
@@ -860,11 +1329,11 @@ The next step is to create a client app, which you can do in one command:
 [source, shell]
 ----
 auth0 apps create \
-  --name "Spring GrahpQL API" \
-  --description "GraphQL API with Spring Boot and Spring for GraphQL" \
+  --name "GraphQL Server" \
+  --description "Spring Boot GraphQL Resource Server" \
   --type regular \
-  --callbacks \
-  --logout-urls  \
+  --callbacks http://localhost:8080/login/oauth2/code/okta \
+  --logout-urls http://localhost:8080 \
   --reveal-secrets
 ----
 
@@ -874,12 +1343,12 @@ Once the app is created, you will see the OIDC app's configuration:
 === dev-avup2laz.us.auth0.com application created
 
   CLIENT ID            ***
-  NAME                 Spring Boot + Keycloak
-  DESCRIPTION          JHipster + Spring Boot + Keycloak = 🤠
+  NAME                 GraphQL Server
+  DESCRIPTION          Spring Boot GraphQL Resource Server
   TYPE                 Regular Web Application
   CLIENT SECRET        ***
-  CALLBACKS            ***
-  ALLOWED LOGOUT URLS  ***
+  CALLBACKS            http://localhost:8080/login/oauth2/code/okta
+  ALLOWED LOGOUT URLS  http://localhost:8080
   ALLOWED ORIGINS
   ALLOWED WEB ORIGINS
   TOKEN ENDPOINT AUTH
@@ -890,11 +1359,52 @@ Once the app is created, you will see the OIDC app's configuration:
  ▸    Hint: Consider running `auth0 quickstarts download ***`
 ----
 
+Set the clientId, issuer and audience for OAuth2 in the `application.properties` file:
+
+[source, properties]
+----
+okta.oauth2.issuer=https://<auth0-domain/
+okta.oauth2.client-id=<auth0-client-id>
+okta.oauth2.audience=api-server
+----
+
+Add the clientSecret to the `.env` file:
+
+[source, shell]
+----
+export OKTA_OAUTH2_CLIENT_SECRET=<auth0-client-secret>
+----
+
+Add the following factory method to the class `SpringBootGraphQLApiConfig`, for requiring a bearer token for all requests:
+
+[source, java]
+----
+
+    @Bean
+    public SecurityFilterChain configure(HttpSecurity http) throws Exception {
+        http.oauth2ResourceServer(oauth2ResourceServer -> oauth2ResourceServer.jwt(withDefaults()));
+        return http.build();
+    }
+----
+
+Again, in the root folder, run the API server with:
+[source, shell]
+----
+source .env
+./gradlew bootRun
+----
+
+With HTTPie, send a request to the API server using a bearer access token:
+
+[source, shell]
+---
+---
 
 
-== Build a React client
+
+=== Add Auth0 Login to the React client
 
 
-=== Add Auth0 Login
+== Stop all services
 
 == Learn More
