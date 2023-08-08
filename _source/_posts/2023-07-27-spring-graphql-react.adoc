@@ -16,7 +16,7 @@ type: awareness
 :page-liquid:
 :toc: macro
 :experimental:
-:commandkey: &#8984;
+
 
 - introduction
 
@@ -848,6 +848,7 @@ Then add the the MUI Datagrid dependency:
 ----
 cd react-graphql
 npm install @mui/x-data-grid
+npm install @mui/material @emotion/react @emotion/styled
 ----
 
 Test run the application with:
@@ -1038,7 +1039,6 @@ export const useAsync = <T, P, E = string>(
   const [status, setStatus] = useState<AsyncState>(AsyncState.INITIAL);
   const [error, setError] = useState<E | null>(null);
   const [data, setData] = useState<T | null>(null);
-  const { saveAccessToken } = useAccessToken();
 
   const execute = useCallback(
     async (params: P) => {
@@ -1055,7 +1055,7 @@ export const useAsync = <T, P, E = string>(
         setStatus(AsyncState.ERROR);
       }
     },
-    [asyncOperation, saveAccessToken]
+    [asyncOperation]
   );
 
   return {
@@ -1068,6 +1068,13 @@ export const useAsync = <T, P, E = string>(
 {% endraw %}
 ----
 
+
+Add a file `src/.env.example` and `src/env.local` in the root folder, both with the following content:
+
+[source, shell]
+----
+NEXT_PUBLIC_API_SERVER_URL=http://localhost:8080
+----
 
 === Create a companies home page
 
@@ -1113,6 +1120,7 @@ const CompanyTable = (props: CompanyTableProps) => {
             paginationModel: { page: props.pagination.page, pageSize: props.pagination.pageSize },
           },
         }}
+        density="compact"
         disableColumnMenu={true}
         disableRowSelectionOnClick={true}
         disableColumnFilter={true}
@@ -1129,48 +1137,100 @@ export default CompanyTable;
 {% endraw %}
 ----
 
-Add the file `src/app/components/companies/CompanyViewContainer.tsx` with the following content:
+Add the file `src/app/components/companies/CompanyTableContainer.tsx` with the following content:
 
 [source, tsx]
 ----
 {% raw %}
+"use client";
+
+import {
+  GridColDef,
+  GridEventListener,
+  GridPaginationModel,
+} from "@mui/x-data-grid";
+import CompanyTable from "./CompanyTable";
+import { usePathname, useRouter, useSearchParams } from "next/navigation";
+import { AsyncState, useAsync } from "@/app/hooks/useAsync";
 import { CompanyApi } from "@/app/services/companies";
 import { useEffect } from "react";
-import CompanyView from "./CompanyView";
-import { AsyncState, useAsync } from "@/app/hooks/useAsync";
 
-interface CompanyViewProperties {
-  id: string;
+interface CompanyTableProperties {
+  page?: number;
 }
 
-const CompanyViewContainer = (props: CompanyViewProperties) => {
-  const { status, data, error, execute } = useAsync(CompanyApi.getCompanyById);
+const CompanyTableContainer = (props: CompanyTableProperties) => {
+  const router = useRouter();
+  const searchParams = useSearchParams()!;
+  const pathName = usePathname();
+  const page = props.page ? props.page : 1;
+
+  const { status, data, error, execute } = useAsync(CompanyApi.getCompanyList);
+  const {
+    status: statusCount,
+    data: count,
+    error: errorCount,
+    execute: executeGetCount,
+  } = useAsync(CompanyApi.getCompanyCount);
 
   useEffect(() => {
-    execute(props.id);
-  }, [props.id]);
+    // Only refresh when the page changes
+    execute({ page: page });
+  }, [page]);
 
-  status === AsyncState.PENDING && <div>Loading...</div>;
-  status === AsyncState.ERROR && <div>{error}</div>;
+  useEffect(() => {
+    executeGetCount({});
+  }, []);
 
-  let company = data && {
-    id: data.id,
-    name: data.name,
-    category: data.category,
-    companyNumber: data.companyNumber,
-    SIC: data.SIC,
-    countryOfOrigin: data.countryOfOrigin,
-    mortgagesOutstanding: data.mortgagesOutstanding,
-    status: data.status,
-    incorporationDate: data.incorporationDate,
-    controlledBy: data.controlledBy,
-    owns: data.owns,
+  const columns: GridColDef[] = [
+    { field: "id", headerName: "ID", width: 70 },
+    {
+      field: "companyNumber",
+      headerName: "Company #",
+      width: 100,
+      sortable: false,
+    },
+    { field: "name", headerName: "Company Name", width: 350, sortable: false },
+    { field: "category", headerName: "Category", width: 200, sortable: false },
+    { field: "SIC", headerName: "SIC", width: 400, sortable: false },
+  ];
+
+  const onPageChange = (pagination: GridPaginationModel) => {
+    console.log("page change", pagination);
+    const params = new URLSearchParams(searchParams.toString());
+    params.set("page", pagination.page.toString());
+    router.push(pathName + "?" + params.toString());
   };
 
-  return company && <CompanyView company={company}></CompanyView>;
+  const isFetchSuccess =
+    status === AsyncState.SUCCESS &&
+    statusCount === AsyncState.SUCCESS &&
+    data &&
+    count;
+  const isFetchError =
+    status === AsyncState.ERROR || statusCount === AsyncState.ERROR;
+  const isFetchPending =
+    status === AsyncState.PENDING || statusCount === AsyncState.PENDING;
+
+  return (
+    <>
+      {isFetchPending && <div>Loading...</div>}
+      {isFetchError && <div>Error</div>}
+
+      {isFetchSuccess && (
+        <CompanyTable
+          pagination={{ page: page, pageSize: 10 }}
+          rowCount={count}
+          rows={data}
+          columns={columns}
+          onPageChange={onPageChange}
+        ></CompanyTable>
+      )}
+    </>
+  );
 };
 
-export default CompanyViewContainer;
+export default CompanyTableContainer;
 {% endraw %}
 ----
 
@@ -1193,6 +1253,7 @@ const HomePage = () => {
 
   console.log("HomePage");
   return (
+    <>
       <Box>
         <Typography variant="h4" component="h1">
           Companies
@@ -1201,6 +1262,7 @@ const HomePage = () => {
       <Box mt={2}>
         <CompanyTableContainer page={page}></CompanyTableContainer>
       </Box>
+    </>
   );
 };
 
@@ -1236,7 +1298,7 @@ import { Container } from "@mui/material";
 
 const WideLayout = (props: { children: React.ReactNode }) => {
   return (
-    <Container maxWidth="xl" sx={{ pb: 2 }}>
+    <Container maxWidth="lg" sx={{ mt: 4}}>
     {props.children}
     </Container>
   );
@@ -1278,7 +1340,16 @@ export default function RootLayout({
 {% endraw %}
 ----
 
+Run the client application with:
 
+[source, shell]
+----
+npm run dev
+----
+
+Navigate to http://localhost:3000 and you should see the companies list:
+
+image::{% asset_path blog/spring-graphql-react/react-datagrid.png %}[alt=Home page companies datagrid,width=900,align=center]
 
 == Add Auth0 Login and Resource Server Security
 
@@ -1408,3 +1479,5 @@ With HTTPie, send a request to the API server using a bearer access token:
 == Stop all services
 
 == Learn More
+
+Keep in touch! If you have questions about this post, please ask them in the comments below. And follow us! We're https://twitter.com/oktadev[@oktadev on Twitter], https://youtube.com/c/oktadev[@oktadev on YouTube], and frequently post to our https://www.linkedin.com/company/oktadev/[LinkedIn page].
