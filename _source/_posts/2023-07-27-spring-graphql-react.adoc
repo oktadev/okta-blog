@@ -864,7 +864,7 @@ image::{% asset_path blog/spring-graphql-react/nextjs-default.png %}[alt=Next.js
 
 === Create the API client
 
-Create the folder `src/app/services` and add the file `base.tsx` with the following code:
+Create the folder `src/services` and add the file `base.tsx` with the following code:
 
 [source, tsx]
 ----
@@ -879,7 +879,7 @@ export default backendAPI;
 {% endraw %}
 ----
 
-Add the file `src/app/services/companies.tsx` with the following content:
+Add the file `src/services/companies.tsx` with the following content:
 
 [source, tsx]
 ----
@@ -1016,7 +1016,7 @@ export const CompanyApi = {
 {% endraw %}
 ----
 
-Create the folder `src/app/hooks` and add the file `useAsync.tsx` with the following content:
+Create the folder `src/hooks` and add the file `useAsync.tsx` with the following content:
 
 [source, tsx]
 ----
@@ -1078,7 +1078,7 @@ NEXT_PUBLIC_API_SERVER_URL=http://localhost:8080
 
 === Create a companies home page
 
-Create the folder `src/app/components/companies` and add the file `CompanyTable.tsx` with the following content:
+Create the folder `src/components/companies` and add the file `CompanyTable.tsx` with the following content:
 
 [source, tsx]
 ----
@@ -1137,7 +1137,7 @@ export default CompanyTable;
 {% endraw %}
 ----
 
-Add the file `src/app/components/companies/CompanyTableContainer.tsx` with the following content:
+Add the file `src/components/companies/CompanyTableContainer.tsx` with the following content:
 
 [source, tsx]
 ----
@@ -1151,8 +1151,8 @@ import {
 } from "@mui/x-data-grid";
 import CompanyTable from "./CompanyTable";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
-import { AsyncState, useAsync } from "@/app/hooks/useAsync";
-import { CompanyApi } from "@/app/services/companies";
+import { AsyncState, useAsync } from "@/hooks/useAsync";
+import { CompanyApi } from "@/services/companies";
 import { useEffect } from "react";
 
 interface CompanyTableProperties {
@@ -1241,8 +1241,8 @@ Add the file `src/app/HomePage.tsx` with the following content:
 {% raw %}
 "use client";
 
+import CompanyTableContainer from "@/components/companies/CompanyTableContainer";
 import { Box, Typography } from "@mui/material";
-import CompanyTableContainer from "./components/companies/CompanyTableContainer";
 import { useSearchParams } from "next/navigation";
 
 const HomePage = () => {
@@ -1251,7 +1251,6 @@ const HomePage = () => {
     ? parseInt(searchParams.get("page") as string)
     : 1;
 
-  console.log("HomePage");
   return (
     <>
       <Box>
@@ -1287,7 +1286,7 @@ export default Page;
 {% endraw %}
 ----
 
-Create the file `src/app/layout/WideLayout.tsx` with the following content:
+Create the file `src/layout/WideLayout.tsx` with the following content:
 
 [source, tsx]
 ----
@@ -1313,9 +1312,9 @@ Update the contents of `src/app/layout.tsx` and set:
 [source, tsx]
 ----
 {% raw %}
+import WideLayout from "@/layout/WideLayout";
 import "../styles/globals.css";
 import { Inter } from "next/font/google";
-import WideLayout from "./layout/WideLayout";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -1340,7 +1339,7 @@ export default function RootLayout({
 {% endraw %}
 ----
 
-Run the client application with:
+Also remove `src/app/global.css` and `src/app/layout.css`. Then run the client application with:
 
 [source, shell]
 ----
@@ -1351,7 +1350,7 @@ Navigate to http://localhost:3000 and you should see the companies list:
 
 image::{% asset_path blog/spring-graphql-react/react-datagrid.png %}[alt=Home page companies datagrid,width=900,align=center]
 
-== Add Auth0 Login and Resource Server Security
+== Add Auth0 login and resource server security
 
 === Add resource server security to the GraphQL API server
 
@@ -1474,6 +1473,101 @@ With HTTPie, send a request to the API server using a bearer access token:
 
 
 === Add Auth0 Login to the React client
+
+
+When using Auth0 as the identity provider, you can configure the Universal Login Page for a quick integration, without having to build the login forms. First, create the an SPA application using the auth0 CLI:
+
+[source, shell]
+----
+auth0 apps create \
+  --name "React client for GraphQL" \
+  --description "SPA React client for a Spring GraphQL API" \
+  --type spa \
+  --callbacks http://localhost:3000/callback \
+  --logout-urls http://localhost:3000 \
+  --reveal-secrets
+----
+
+
+Copy the auth0 domain and the client Id, and update the file 'src/.env.local' with the following properties:
+
+[source, shell]
+----
+NEXT_PUBLIC_AUTH0_DOMAIN={auth0Domain}
+NEXT_PUBLIC_AUTH0_CLIENT_ID={auth0ClientId}
+NEXT_PUBLIC_AUTH0_CALLBACK_URL=http://localhost:3000/callback
+NEXT_PUBLIC_AUTH0_AUDIENCE=api-server
+----
+
+For handling the Auth0 post-login behaviour, you need to add the page `src/app/callback/page.tsx` with the following content.
+
+[source, tsx]
+----
+const Page = () => {
+  return <></>;
+};
+
+export default Page;
+----
+
+For this example, the callback page will render empty.
+
+Add the `@auth0/auth0-react` dependency to the `package.json` file:
+
+[source, shell]
+----
+npm install @auth0/auth0-react
+----
+
+Create the component `Auth0ProviderWithNavigate` in the folder `src/components/authentication` with the following content:
+
+[source, tsx]
+----
+{% raw %}
+"use client";
+
+import { AppState, Auth0Provider } from "@auth0/auth0-react";
+import { useRouter } from "next/navigation";
+import React from "react";
+
+
+const Auth0ProviderWithNavigate = (props: { children: React.ReactNode }) => {
+  const router = useRouter();
+
+  const domain = process.env.NEXT_PUBLIC_AUTH0_DOMAIN || "";
+  const clientId = process.env.NEXT_PUBLIC_AUTH0_CLIENT_ID || "";
+  const redirectUri = process.env.NEXT_PUBLIC_AUTH0_CALLBACK_URL || "";
+  const audience = process.env.NEXT_PUBLIC_AUTH0_AUDIENCE || "";
+
+  const onRedirectCallback = (appState?: AppState) => {
+    console.log("appState", appState);
+    router.push(appState?.returnTo || window.location.pathname);
+  };
+
+  if (!(domain && clientId && redirectUri)) {
+    return null;
+  }
+
+  return (
+    <Auth0Provider
+      domain={domain}
+      clientId={clientId}
+      authorizationParams={{
+        audience: audience,
+        redirect_uri: redirectUri,
+      }}
+      useRefreshTokens={true}
+      onRedirectCallback={onRedirectCallback}
+    >
+      <>{props.children}</>
+    </Auth0Provider>
+  );
+};
+
+export default Auth0ProviderWithNavigate;
+{% endraw %}
+----
+
 
 
 == Stop all services
