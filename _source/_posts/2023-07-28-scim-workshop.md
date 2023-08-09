@@ -12,6 +12,9 @@ tweets:
 - ""
 image: blog/scim-workshop/social.jpg
 type: awareness
+changelog:
+- 2023-08-09: 
+
 ---
 
 Hello SaaS developers! You sell your software to technologically mature enterprises, and they expect it to interface seamlessly with all their other tools. In our [Enterprise-Ready Workshop on OpenID Connect](/blog/2023-07-28-oidc_workshop), you learned how to solve part of this problem, by creating user accounts in your application for your customers' employees whenever they log in. 
@@ -103,7 +106,7 @@ These are described in section 8.1 of the [SCIM spec](https://datatracker.ietf.o
 
 Note: We'll be using a basic autoincrement for the user's id to lessen the complexity of this project. However, for production, we recommend using a unique id generator such as [xid](https://www.npmjs.com/package/xid-js). 
 
-Update the user model in `schema.prisma`: 
+Update the user model in `prisma/schema.prisma`: 
 
 ```
 model User {
@@ -120,9 +123,9 @@ model User {
 }
 ```
 
-Now that we have the user table with the necessary fields, we'll need to edit the `seed_script.ts` file. In this workshop, we'll design our SCIM server code to be extensible for supporting multiple separate organizations. Provisioning multiple separate orgs accommodates your customers who may be using different identity providers with different SCIM clients. By giving each organization its own endpoint and API token, we ensure that no org can accidentally update or overwrite another org's users.
+Now that we have the user table with the necessary fields, we'll need to edit the `prisma/seed_script.ts` file. In this workshop, we'll design our SCIM server code to be extensible for supporting multiple separate organizations. Provisioning multiple separate orgs accommodates your customers who may be using different identity providers with different SCIM clients. By giving each organization its own endpoint and API token, we ensure that no org can accidentally update or overwrite another org's users.
 
-Let's update the users in `seed.ts`. We'll also need to hardcode `externalId` and `active` for both users. Note that `externalId`  is a unique identifier issued by the provisioning client, and must be stored in the SCIM server. The `externalId` is also considered stable because a user's name and email address can change, but its identifier in the SCIM client cannot. Along with the `active` attribute, `externalId` is not a SCIM protocol core attribute, but Okta's scim implementation expects it. The [Okta SCIM Docs](https://developer.okta.com/docs/guides/scim-provisioning-integration-prepare/main/#basic-user-schema) tell us that this unique identifier is the user's global id (GUID).
+Let's update the users in `seed_script.ts`. We'll also need to hardcode `externalId` and `active` for both users. Note that `externalId`  is a unique identifier issued by the provisioning client, and must be stored in the SCIM server. The `externalId` is also considered stable because a user's name and email address can change, but its identifier in the SCIM client cannot. Along with the `active` attribute, `externalId` is not a SCIM protocol core attribute, but Okta's scim implementation expects it. The [Okta SCIM Docs](https://developer.okta.com/docs/guides/scim-provisioning-integration-prepare/main/#basic-user-schema) tell us that this unique identifier is the user's global id (GUID).
 
 We'll also give each org an `apikey` set to a random string. Using a different key for each org helps our code ensure that no client can accidentally view or edit users belonging to another. 
 
@@ -180,7 +183,7 @@ A neat feature with Prisma is the option to view the user table locally. To do t
 
 ## Add a SCIM file and create a scimRoute
 
-For maintainability, we should keep our SCIM implementation code in one place. Let's create a SCIM file, `scim.ts`, in`apps/src/assets`, and import it in `main.ts`. As a result, your `scim.ts` file will look like this: 
+For maintainability, we should keep our SCIM implementation code in one place. Let's create a SCIM file, `scim.ts`, in`apps/api/src`, and import it in `main.ts`. As a result, your `scim.ts` file will look like this: 
 
 ```ts
 import { Router } from 'express';
