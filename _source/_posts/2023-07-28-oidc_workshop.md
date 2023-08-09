@@ -69,7 +69,7 @@ Since your app will have many customers with different identity providers, you'l
 - Issuer, an identifier representing the OIDC server for the org
 
 Note that to keep things simple for demonstration purposes, we are storing the client secret and API key in plain text in the database. In production, you should use some sort of encrypted key store to manage these credentials.
-Here's how organization support looks in `schema.prisma`:
+Here's how organization support looks in `prisma/schema.prisma`:
 
 ```
 model Org {
@@ -89,7 +89,7 @@ model Org {
 
 ### Enhance the `User` model for multi-tenant OIDC
 
-The sample application already manages rudimentary user accounts, but with OIDC support, users will belong to organizations. The user model in `schema.prisma` needs a relationship to an organization, which is implemented with the `org` and `orgID` fields. 
+The sample application already manages rudimentary user accounts, but with OIDC support, users will belong to organizations. The user model in `prisma/schema.prisma` needs a relationship to an organization, which is implemented with the `org` and `orgID` fields. 
 
 Previously, the sample app treated a user's email address as their unique identifier. This can cause problems if the user's organization changes its domain name, or if the user's email address changes when they change their name. Instead, with OIDC support, a unique identifier for each user can be supplied by their identity provider. This identifier is called `sub` (short for "subject") in the OIDC protocol, and is guaranteed to be a unique and stable identifier for that user on that server. It's possible for multiple OIDC servers to issue the same `sub` ID, since this is not a globally unique value, so the combination of server and subject uniquely identifies a single user.
 
@@ -141,7 +141,7 @@ To handle both OIDC and non-OIDC users, the app should first prompt for the user
 
 ### Hide the password field
 
-The first change in `src/app/components/signin.tsx` is hiding the password field when the page is first loaded. Find the `div` containing the password, give it an identifier, and set it to be hidden by default: 
+The first change in `apps/todo-app/src/app/components/signin.tsx` is hiding the password field when the page is first loaded. Find the `div` containing the password, give it an identifier, and set it to be hidden by default: 
 
 ```html
 <div id="password-field" className="mb-6" hidden>
@@ -191,7 +191,7 @@ The `onUsernameEnteredFn` code doesn't exist yet, but you'll write it in the nex
 
 ## Start the OpenID flow for authentication
 
-To complete the frontend changes, implement the `onUsernameEnteredFn` in `authState.tsx`. This will be similar to `onAuthenticateFn`, which is already provided in the sample code. 
+To complete the frontend changes, implement the `onUsernameEnteredFn` in `apps/todo-app/src/app/components/authState.tsx`. This will be similar to `onAuthenticateFn`, which is already provided in the sample code. 
 
 Declare `onUsernameEnteredFn` in the `AuthContextType` Type: 
 
@@ -253,7 +253,7 @@ Since the sample app is already using Passport for password authentication, the 
 In your project, run `npm install --save passport-openidconnect` to install the library.  This will update `package.json` automatically to specify the installed version: 
 
 ```
-    "passport-openidconnect": "^0.1.1",
+  "passport-openidconnect": "^0.1.1",
 ```
 
 ### Add helper functions
@@ -333,6 +333,20 @@ When users are redirected to the OIDC identity provider and back, their session 
 ### Use the Passport OIDC library
 
 The [Passport OIDC Docs](https://www.passportjs.org/packages/passport-openidconnect/) show an example of using the library with a single OIDC provider. Since the sample app will support many customers with different OIDC providers, it will need to create a `Strategy` based on values retrieved from the database instead of relying on hardcoded information. 
+
+In order to use the OIDC library, you need to import it into the file. 
+
+At the top of `main.ts`, you'll find other imports, such as `import passportLocal from 'passport-local';`. The Todo app uses the local passport strategy, and you'll add the OIDC strategy. Add the import for the OIDC passport after the import for 'passport-local':
+
+```ts
+import passportOIDC from 'passport-openidconnect';
+```
+
+With the library imported, you'll define an variable for the OIDC strategy so you can utilize it within the API. Below the import statements, there's `const LocalStrategy = passportLocal.Strategy;`. Immediately after this line of code, define the OIDC strategy by adding the following line of code:
+
+```ts
+const OpenIDConnectStrategy = passportOIDC.Strategy;
+```
 
 To create a `Strategy` for each organization, write the `createStrategy` function to look up the necessary values and generate a `passport-openidconnect` strategy from them. Just as in the `passport-openidconnect` docs, the `Strategy` will also have a `verify` function to run after the OIDC flow completes. Add logic to this `verify` function to store missing data about the logged-in user in the Todo app's database. This `createStrategy` function, and the `verify` function within it, can be added to `main.ts` for now. 
 
