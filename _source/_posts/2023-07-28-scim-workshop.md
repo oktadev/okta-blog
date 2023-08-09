@@ -129,7 +129,7 @@ Let's update the users in `seed_script.ts`. We'll also need to hardcode `externa
 
 We'll also give each org an `apikey` set to a random string. Using a different key for each org helps our code ensure that no client can accidentally view or edit users belonging to another. 
 
-After those changes, here's how `seed.ts` will look:
+After those changes, here's how `seed_script.ts` will look:
 
 ```ts
 async function main() {
@@ -257,6 +257,8 @@ Finally, we are ready to get started! Let's work on our first CRUD endpoint.
 
 Let's refer to the [SCIM spec](https://datatracker.ietf.org/doc/html/rfc7644#section-3.3) on creating a user. The spec says the IdP sends a POST request containing a "User" to the `/Users` endpoint to create a user. In response to the POST, the server signals a successful creation with an HTTP status code 201 (Created) and returns a representation of the user created. If the server determines that the creation of the requested user conflicts with existing users (e.g., a "User" resource with a duplicate "userName"), the server MUST return HTTP status code 409 (Conflict) with a "scimType" error code of "uniqueness," as per Section 3.12.
 
+Our SCIM Server will define a user's uniqueness by their externalId and orgId. You can see how this is done below when we check for a duplicate user. 
+
 Our `/Users` endpoint can fulfill those requirements with the following code: 
 
 ```ts
@@ -283,6 +285,7 @@ scimRoute.post('/Users', passport.authenticate('bearer'), async (req, res) => {
   // Set displayName to name
   const name = displayName;
   // Check if the User exists in the database
+  // externalId + orgId = user uniqueness per SCIM RFC Section 3.3 
   const duplicateUser = await prisma.user.findFirst({
     select: {
       id: true,
@@ -290,7 +293,7 @@ scimRoute.post('/Users', passport.authenticate('bearer'), async (req, res) => {
       name: true,
     },
     where: {
-      id,
+      externalId,
       org: { id: ORG_ID }
     }
   });
@@ -410,7 +413,7 @@ app.use(bodyParser.json({ type: ['application/scim+json'] }));
 
 Sign up for [Postman](https://identity.getpostman.com/login) or sign in to your account, and configure it to communicate with your local instance of the Todo app. 
 
-In Postman, the request URL will be`http://localhost:3333/scim/v2/Users` if you're running the Todo app locally. In the Headers tab, add the key `Content-Type` and set its value to `application/scim+json`, and then add an additional key, `Authorization`, and set it to `Bearer 131313`.This bearer token value comes from the `apikey` variable set earlier in `seed.ts`. 
+In Postman, the request URL will be`http://localhost:3333/scim/v2/Users` if you're running the Todo app locally. In the Headers tab, add the key `Content-Type` and set its value to `application/scim+json`, and then add an additional key, `Authorization`, and set it to `Bearer 131313`.This bearer token value comes from the `apikey` variable set earlier in `seed_script.ts`. 
 
 Now we are ready to test with Postman with our local server. You can also make cURL requests directly from the terminal if you prefer. 
 
@@ -690,7 +693,7 @@ The result lists all users in the database.
 
 Let's look up whether any users in the Todo app have the email address `trinity@portal.example`. Try sending a GET request with no body to `http://localhost:3333/scim/v2/Users?filter=userName eq "trinity@portal.example"&startIndex=1&count=100` What result do you expect? 
 
-If you seeded your database with `seed.ts`, the result will look like this. 
+If you seeded your database with `seed_script.ts`, the result will look like this. 
 
 ```json
 {
@@ -1063,7 +1066,7 @@ In the Sign-On Options tab of the SCIM Test App, give the app a helpful name in 
 
 In the Sign-On Options dialogue, keep the default settings, as these won't be used by our app. Click the blue "Done" button at the bottom of the page. 
 
-In the Provisioning tab of the application, click the Configure API Integration button, check the Enable API Integration box. Provide the Base URL, which is the localtunnel URL with `/scim/v2` appended to the end. The API Token is `Bearer 131313` if you're using the values seeded by `seed.ts`. Save these settings.
+In the Provisioning tab of the application, click the Configure API Integration button, check the Enable API Integration box. Provide the Base URL, which is the localtunnel URL with `/scim/v2` appended to the end. The API Token is `Bearer 131313` if you're using the values seeded by `seed_script.ts`. Save these settings.
 
  When you save these settings or use the "Test API Credentials" button, Okta will make a `GET /Users` request with the API token you've provided in order to establish a connection with your SCIM server. 
 
