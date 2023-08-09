@@ -866,6 +866,7 @@ image::{% asset_path blog/spring-graphql-react/nextjs-default.png %}[alt=Next.js
 
 Create the folder `src/services` and add the file `base.tsx` with the following code:
 
+.base.tsx
 [source, tsx]
 ----
 {% raw %}
@@ -881,6 +882,7 @@ export default backendAPI;
 
 Add the file `src/services/companies.tsx` with the following content:
 
+.companies.tsx
 [source, tsx]
 ----
 {% raw %}
@@ -891,37 +893,13 @@ export type CompaniesQuery = {
   page: number;
 };
 
-export type OwnerDTO = {
-  name: string;
-  id: string;
-};
-
-export type CompanyPropertyDTO = {
-  id: string;
-  address: string;
-  county: string;
-  district: string;
-  titleNumber: string;
-}
-
 export type CompanyDTO = {
   name: string;
   SIC: string;
   id: string;
   companyNumber: string;
   category: string;
-  countryOfOrigin: string;
-  mortgagesOutstanding: number;
-  status: string;
-  incorporationDate: string;
 };
-
-export type CompanyDetailsDTO = CompanyDTO & {
-  controlledBy: OwnerDTO[];
-  owns: CompanyPropertyDTO[];
-};
-
-
 
 export const CompanyApi = {
 
@@ -974,50 +952,13 @@ export const CompanyApi = {
     }
   },
 
-  getCompanyById: async (id: string) => {
-    try {
-      console.log("get company by id request");
-      const response = await backendAPI.post("/graphql", {
-        query: `{
-        companyById(id: "${id}") {
-          name,
-          SIC,
-          id,
-          companyNumber,
-          category,
-          countryOfOrigin,
-          mortgagesOutstanding,
-          status,
-          incorporationDate,
-          controlledBy {
-            name,
-            id
-          },
-          owns {
-            address,
-          }
-        }
-      }`,
-      });
-      return response.data.data.companyById as CompanyDetailsDTO;
-    } catch (err) {
-      console.log("handle get company by id error", err);
-      if (err instanceof AxiosError) {
-        let axiosError = err as AxiosError;
-        if (axiosError.response?.data) {
-          throw new Error(axiosError.response?.data as string);
-        }
-      }
-      throw new Error("Unknown error, please contact the administrator");
-    }
-  },
-
 };
 {% endraw %}
 ----
 
 Create the folder `src/hooks` and add the file `useAsync.tsx` with the following content:
 
+.useAsync.tsx
 [source, tsx]
 ----
 {% raw %}
@@ -1080,6 +1021,7 @@ NEXT_PUBLIC_API_SERVER_URL=http://localhost:8080
 
 Create the folder `src/components/companies` and add the file `CompanyTable.tsx` with the following content:
 
+.CompanyTable.tsx
 [source, tsx]
 ----
 {% raw %}
@@ -1139,6 +1081,7 @@ export default CompanyTable;
 
 Add the file `src/components/companies/CompanyTableContainer.tsx` with the following content:
 
+.CompanyTableContainer.tsx
 [source, tsx]
 ----
 {% raw %}
@@ -1236,6 +1179,7 @@ export default CompanyTableContainer;
 
 Add the file `src/app/HomePage.tsx` with the following content:
 
+.HomePage.tsx
 [source, tsx]
 ----
 {% raw %}
@@ -1271,6 +1215,7 @@ export default HomePage;
 
 Update the contents of `src/app/page.tsx` and set:
 
+.app/page.tsx
 [source, tsx]
 ----
 {% raw %}
@@ -1288,6 +1233,7 @@ export default Page;
 
 Create the file `src/layout/WideLayout.tsx` with the following content:
 
+.WideLayout.tsx
 [source, tsx]
 ----
 {% raw %}
@@ -1309,6 +1255,7 @@ export default WideLayout;
 
 Update the contents of `src/app/layout.tsx` and set:
 
+.app/layout.tsx
 [source, tsx]
 ----
 {% raw %}
@@ -1350,7 +1297,7 @@ Navigate to http://localhost:3000 and you should see the companies list:
 
 image::{% asset_path blog/spring-graphql-react/react-datagrid.png %}[alt=Home page companies datagrid,width=900,align=center]
 
-== Add Auth0 login and resource server security
+== Add security with Auth0
 
 === Add resource server security to the GraphQL API server
 
@@ -1470,8 +1417,6 @@ With HTTPie, send a request to the API server using a bearer access token:
 ---
 ---
 
-
-
 === Add Auth0 Login to the React client
 
 
@@ -1489,8 +1434,9 @@ auth0 apps create \
 ----
 
 
-Copy the auth0 domain and the client Id, and update the file 'src/.env.local' with the following properties:
+Copy the auth0 domain and the client Id, and update the 'src/.env.local' with the following properties (add the new variables to the example file too):
 
+.env.local
 [source, shell]
 ----
 NEXT_PUBLIC_AUTH0_DOMAIN={auth0Domain}
@@ -1501,6 +1447,7 @@ NEXT_PUBLIC_AUTH0_AUDIENCE=api-server
 
 For handling the Auth0 post-login behaviour, you need to add the page `src/app/callback/page.tsx` with the following content.
 
+.callback/page.tsx
 [source, tsx]
 ----
 const Page = () => {
@@ -1512,7 +1459,7 @@ export default Page;
 
 For this example, the callback page will render empty.
 
-Add the `@auth0/auth0-react` dependency to the `package.json` file:
+Add the `@auth0/auth0-react` dependency to the project:
 
 [source, shell]
 ----
@@ -1521,6 +1468,7 @@ npm install @auth0/auth0-react
 
 Create the component `Auth0ProviderWithNavigate` in the folder `src/components/authentication` with the following content:
 
+.Auth0ProviderWithNavigate.tsx
 [source, tsx]
 ----
 {% raw %}
@@ -1540,7 +1488,6 @@ const Auth0ProviderWithNavigate = (props: { children: React.ReactNode }) => {
   const audience = process.env.NEXT_PUBLIC_AUTH0_AUDIENCE || "";
 
   const onRedirectCallback = (appState?: AppState) => {
-    console.log("appState", appState);
     router.push(appState?.returnTo || window.location.pathname);
   };
 
@@ -1568,10 +1515,222 @@ export default Auth0ProviderWithNavigate;
 {% endraw %}
 ----
 
+The component `Auth0ProviderWithNavigate` wraps children component with `Auth0Provider`, the provider of the auth0 context, remembering the requested URL for redirection after login.
+Use the component in the `WideLayout` component:
+
+.WideLayout.tsx
+[source, tsx]
+----
+{% raw %}
+const WideLayout = (props: { children: React.ReactNode }) => {
+  return (
+    <Auth0ProviderWithNavigate>
+      <Container maxWidth="lg" sx={{ mt: 4}}>
+      {props.children}
+      </Container>
+    </Auth0ProviderWithNavigate>
+  );
+};
+{% endraw %}
+----
+
+Add the file `src/components/authentication/AuthenticationGuard.tsx` with the following content:
+
+.AuthenticationGuard.tsx
+[source, tsx]
+----
+"use client";
+
+import { useAuth0 } from "@auth0/auth0-react";
+import { useEffect } from "react";
+
+const AuthenticationGuard = (props: { children: React.ReactNode }) => {
+  const { isLoading, isAuthenticated, error, loginWithRedirect } = useAuth0();
+
+  useEffect(() => {
+    if (!isAuthenticated && !isLoading) {
+      loginWithRedirect({
+        appState: { returnTo: window.location.href },
+      });
+    }
+  }, [isAuthenticated, isLoading, loginWithRedirect]);
+
+  if (isLoading) {
+    return <div>Loading...</div>;
+  }
+  if (error) {
+    return <div>Oops... {error.message}</div>;
+  }
+  return <>{isAuthenticated && props.children}</>;
+};
+
+export default AuthenticationGuard;
+----
+
+The `AuthenticationGuard` component will be used to protect pages that require authentication, redirecting to the Auth0 universal login. Protect the `HomePage` component wrapping its content in the `AuthenticationGuard` component:
+
+.HomePage.tsx
+[source, tsx]
+----
+{% raw %}
+  ...
+  return (
+    <AuthenticationGuard>
+      <Box>
+        <Typography variant="h4" component="h1">
+          Companies
+        </Typography>
+      </Box>
+      <Box mt={2}>
+        <CompanyTableContainer page={page}></CompanyTableContainer>
+      </Box>
+    </AuthenticationGuard>
+  );
+  ...
+{% endraw %}
+----
 
 
-== Stop all services
+=== Call the API server with an accessToken
+
+Add th file `src/services/auth.tsx` with the following code:
+
+.auth.tsx
+[source, tsx]
+----
+import backendAPI from "./base";
+
+let requestInterceptor: number;
+let responseInterceptor: number;
+
+export const clearInterceptors = () => {
+  backendAPI.interceptors.request.eject(requestInterceptor);
+  backendAPI.interceptors.response.eject(responseInterceptor);
+};
+
+export const setInterceptors = (accessToken: String) => {
+  console.log("setInterceptors", accessToken);
+
+  clearInterceptors();
+
+  requestInterceptor = backendAPI.interceptors.request.use(
+    // @ts-expect-error
+    function (config) {
+      return {
+        ...config,
+        headers: {
+          ...config.headers,
+          Authorization: `Bearer ${accessToken}`,
+        },
+      };
+    },
+    function (error) {
+      console.log("request interceptor error", error);
+      return Promise.reject(error);
+    }
+  );
+};
+----
+
+Add the file `src/hooks/useAccessToken.tsx` with the following content:
+
+.useAccessToken.tsx
+[source, tsx]
+----
+"use client";
+
+import { useAuth0 } from "@auth0/auth0-react";
+import { useCallback, useState } from "react";
+import { useAuth0 } from "@auth0/auth0-react";
+
+export const useAccessToken = () => {
+  const { isAuthenticated, getAccessTokenSilently } = useAuth0();
+  const [accessToken, setAccessToken] = useState("");
+
+  const saveAccessToken = useCallback(async () => {
+    if (isAuthenticated) {
+      try {
+        const tokenValue = await getAccessTokenSilently();
+        if (accessToken !== tokenValue) {
+          setInterceptors(tokenValue);
+          setAccessToken(tokenValue);
+        }
+      } catch (err) {
+        // Inactivity timeout
+        console.log("getAccessTokenSilently error", err);
+      }
+    }
+  }, [getAccessTokenSilently, isAuthenticated, accessToken]);
+
+  return {
+    saveAccessToken,
+  };
+};
+----
+
+The hook will call Auth0 `getAccessTokenSilently` and will trigger a token refresh if the accessToken is expired. Then it will update axios interceptors to set the updated bearer token value in the request headers.
+Update `useAsync` implementation:
+
+.useAsync.tsx
+[source, tsx]
+----
+...
+export const useAsync = <T, P, E = string>(
+  asyncOperation: (params: P) => Promise<T>
+) => {
+  const [status, setStatus] = useState<AsyncState>(AsyncState.INITIAL);
+  const [error, setError] = useState<E | null>(null);
+  const [data, setData] = useState<T | null>(null);
+  const { saveAccessToken } = useAccessToken();
+
+  const execute = useCallback(
+    async (params: P) => {
+      setStatus(AsyncState.PENDING);
+      setError(null)
+      setData(null)
+      try {
+        await saveAccessToken();
+        const response = await asyncOperation(params);
+        setStatus(AsyncState.SUCCESS);
+        setData(response);
+        setError(null);
+      } catch (err: any) {
+        setError(err.toString());
+        setStatus(AsyncState.ERROR);
+      }
+    },
+    [asyncOperation, saveAccessToken]
+  );
+
+  return {
+    status,
+    data,
+    error,
+    execute,
+  };
+};
+...
+----
+
+Run the application with:
+
+[source, shell]
+----
+npm run dev
+----
+
+Go to http://localhost:3000 and you should be redirected to Auth0 universal login page. After login, you should see the companies list again.
+
+image::{% asset_path blog/spring-graphql-react/auth0-universal-login.png %}[alt=Auth0 universal login form,width=400,align=center]
+
+image::{% asset_path blog/spring-graphql-react/auth0-authorize-app.png %}[alt=Auth0 authorize application form,width=400,align=center]
+
+Once the companies load, you can inspect the network requests and see the bearer token is sent in the request headers. It will look like the example below:
+
+----
+Authorization: Bearer eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCIsImtpZCI6IlJzZHNsM211SjNYU2ZVT0tDOEMxSiJ9.eyJodHRwczovL3d3dy5qaGlwc3Rlci50ZWNoL3JvbGVzIjpbIlJPTEVfQURNSU4iLCJST0xFX1VTRVIiXSwiaXNzIjoiaHR0cHM6Ly9kZXYtYXZ1cDJsYXoudXMuYXV0aDAuY29tLyIsInN1YiI6ImF1dGgwfDY0MzQxOTkxNTJmYjc2N2Y3ZWFlZDU2NyIsImF1ZCI6WyJhcGktc2VydmVyIiwiaHR0cHM6Ly9kZXYtYXZ1cDJsYXoudXMuYXV0aDAuY29tL3VzZXJpbmZvIl0sImlhdCI6MTY5MTU5NDE3NCwiZXhwIjoxNjkxNTk0Mjk0LCJhenAiOiI1WW5QeEJiTjRoYXFyd2JNaXRpZFBRVTBjb0l2YUI3SCIsInNjb3BlIjoib3BlbmlkIHByb2ZpbGUgZW1haWwgb2ZmbGluZV9hY2Nlc3MifQ.oRMJNIwSeO9dfHi6Q2tr_B51YetEPZqjcVEEIBe3ky9tEe50tTB5ssMTbVaR78_1qXA663Cn4EMPEYTLlb_wiOHEqnKpZnpq0O07G2MGszkrgv5giaQBOXvr9UT_Kc3pFPK-xMVmOsicLoF_mz8iyOzReG1Gcw0UbS1fZsJthdtC9svLiPGC1rn-dwPJxPpKy118vWLbEgO3NsdVfaiPxbucv0TL_B8Msd-wBD8N4M_yej9jl7w2JT0ltLza_-Glbxr1aQBKd19O2QT8ovgyE325BYqeYiUOaV7efwMgqHUm7z4LngaPLRNhMLP2BExG7bUQD2JjH2Mh19LFYNM-Gw
+----
 
 == Learn More
 
-Keep in touch! If you have questions about this post, please ask them in the comments below. And follow us! We're https://twitter.com/oktadev[@oktadev on Twitter], https://youtube.com/c/oktadev[@oktadev on YouTube], and frequently post to our https://www.linkedin.com/company/oktadev/[LinkedIn page].
+I hope you enjoyed this tutorial, and found this example useful. As you can see, not much work would be required to consume more company data from the GraphQL server, just a query update in the client. As you could see, Auth0 Universal Login and Auth0 React SDK provide an efficient way to secure your React applications, following security best practices. Keep in touch! If you have questions about this post, please ask them in the comments below. And follow us! We're https://twitter.com/oktadev[@oktadev on Twitter], https://youtube.com/c/oktadev[@oktadev on YouTube], and frequently post to our https://www.linkedin.com/company/oktadev/[LinkedIn page].
