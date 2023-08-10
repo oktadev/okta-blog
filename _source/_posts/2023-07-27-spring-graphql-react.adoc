@@ -18,13 +18,13 @@ type: awareness
 :experimental:
 
 
-- introduction
+GraphQL is a query language for APIs and a runtime that allows the API consumer to get exactly the required information instead of the server exclusively controlling the contents of the response. While some REST APIs implementations require loading resources from multiple URLs for aggregation, GraphQL APIs can follow references between related objects and return them in a single request. This step by step guide demonstrates how to build a GraphQL API with Spring Boot and Spring for GaphQL, for querying a sample dataset of related companies, persons and properties, seeded to a Neo4j database. It also demonstrates how to build a React client with Next.js and MUI Datagrid to consume the API, and secure it with Auth0 authentication.
 
-Following this step by step guide you can build a GraphQL API for querying a sample dataset of related companies, persons and properties, seeded to a Neo4j database.
+image::{% asset_path blog/spring-graphql-react/logos.png %}[alt=Spring, GraphQL and React,width=700,align=center]
 
 [NOTE]
 ====
-.This tutorial was created with the following frameworks and tools:
+.This example was created with the following tools and services:
 - https://docs.npmjs.com/downloading-and-installing-node-js-and-npm[Node.js v18.16.1]
 - https://docs.npmjs.com/downloading-and-installing-node-js-and-npm[npm 9.5.1]
 - https://jdk.java.net/java-se-ri/17[Java OpenJDK 17]
@@ -38,6 +38,8 @@ Following this step by step guide you can build a GraphQL API for querying a sam
 toc::[]
 
 == Build a GraphQL API with Spring for GraphQL
+
+- describe the API
 
 Create the application with Spring Initializr and HTTPie:
 
@@ -786,7 +788,7 @@ source .env
 ./gradlew bootRun
 ----
 
-Wait for the logs to inform the seed data migrations have run:
+Wait for the logs to inform the seed data migrations have run (it might take a while):
 
 ----
 2023-08-02T13:06:14.386-03:00  INFO 28673 --- [           main] a.s.neo4j.migrations.core.Migrations     : Applied migration 001 ("Constraint").
@@ -820,7 +822,7 @@ Test the API with GraphiQL at http://localhost:8080/graphiql. In the query box o
 
 You should see the query output in the box on the right:
 
-image::{% asset_path blog/spring-graphql-react/graphiql-test.png %}[alt=GraphiQL example,width=800,align=center]
+image::{% asset_path blog/spring-graphql-react/graphiql-test.png %}[alt=GraphiQL example,width=900,align=center]
 
 == Build a React client
 
