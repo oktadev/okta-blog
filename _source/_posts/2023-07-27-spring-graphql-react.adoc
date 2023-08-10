@@ -18,7 +18,7 @@ type: awareness
 :experimental:
 
 
-GraphQL is a query language for APIs and a runtime that allows the API consumer to get exactly the required information instead of the server exclusively controlling the contents of the response. While some REST APIs implementations require loading resources from multiple URLs for aggregation, GraphQL APIs can follow references between related objects and return them in a single request. This step by step guide demonstrates how to build a GraphQL API with Spring Boot and Spring for GaphQL, for querying a sample dataset of related companies, persons and properties, seeded to a Neo4j database. It also demonstrates how to build a React client with Next.js and MUI Datagrid to consume the API, and secure it with Auth0 authentication.
+GraphQL is a query language for APIs and a runtime that allows the API consumer to get exactly the required information instead of the server exclusively controlling the contents of the response. While some REST APIs implementations require loading the references of a resource from multiple URLs, GraphQL APIs can follow references between related objects and return them in a single request. This step by step guide demonstrates how to build a GraphQL API with Spring Boot and Spring for GaphQL, for querying a sample dataset of related companies, persons and properties, seeded to a Neo4j database. It also demonstrates how to build a React client with Next.js and MUI Datagrid to consume the API. Both the client and the server are secured with Auth0 authentication.
 
 image::{% asset_path blog/spring-graphql-react/logos.png %}[alt=Spring, GraphQL and React,width=700,align=center]
 
@@ -824,6 +824,11 @@ You should see the query output in the box on the right:
 
 image::{% asset_path blog/spring-graphql-react/graphiql-test.png %}[alt=GraphiQL example,width=900,align=center]
 
+[NOTE]
+====
+If you see a warning message in the server logs, that reads _The query used a deprecated function: id_, you can ignore it, Spring Data Neo4j still https://github.com/spring-projects/spring-data-neo4j/issues/2716[behaves correctly].
+====
+
 == Build a React client
 
 Now let's create a Single Page Application (SPA) with React to consume the GraphQL API with React and Next.js. Install Node and in a terminal run:
@@ -835,13 +840,13 @@ npx create-next-app@latest
 
 Answer the questions as follows:
 ----
-✔ What is your project named? … react-graphql
-✔ Would you like to use TypeScript? … Yes
-✔ Would you like to use ESLint? … Yes
-✔ Would you like to use Tailwind CSS? … No
-✔ Would you like to use `src/` directory? … Yes
-✔ Would you like to use App Router? (recommended) … Yes
-✔ Would you like to customize the default import alias? … No
+✔ What is your project named? ... react-graphql
+✔ Would you like to use TypeScript? ... Yes
+✔ Would you like to use ESLint? ... Yes
+✔ Would you like to use Tailwind CSS? ... No
+✔ Would you like to use `src/` directory? ... Yes
+✔ Would you like to use App Router? (recommended) ... Yes
+✔ Would you like to customize the default import alias? ... No
 ----
 
 Then add the the MUI Datagrid dependency:
@@ -1382,9 +1387,9 @@ Set the clientId, issuer and audience for OAuth2 in the `application.properties`
 
 [source, properties]
 ----
-okta.oauth2.issuer=https://<auth0-domain/
-okta.oauth2.client-id=<auth0-client-id>
-okta.oauth2.audience=api-server
+okta.oauth2.issuer=https://{your-auth0-domain}/
+okta.oauth2.client-id={clientId}
+okta.oauth2.audience=https://{your-auth0-domain}/api/v2/
 ----
 
 Add the clientSecret to the `.env` file:
@@ -1441,10 +1446,10 @@ Copy the auth0 domain and the client Id, and update the 'src/.env.local' with th
 .env.local
 [source, shell]
 ----
-NEXT_PUBLIC_AUTH0_DOMAIN={auth0Domain}
-NEXT_PUBLIC_AUTH0_CLIENT_ID={auth0ClientId}
+NEXT_PUBLIC_AUTH0_DOMAIN={your-auth0-domain}
+NEXT_PUBLIC_AUTH0_CLIENT_ID={clientId}
 NEXT_PUBLIC_AUTH0_CALLBACK_URL=http://localhost:3000/callback
-NEXT_PUBLIC_AUTH0_AUDIENCE=api-server
+NEXT_PUBLIC_AUTH0_AUDIENCE=https://{your-auth0-domain}/api/v2/
 ----
 
 For handling the Auth0 post-login behaviour, you need to add the page `src/app/callback/page.tsx` with the following content.
