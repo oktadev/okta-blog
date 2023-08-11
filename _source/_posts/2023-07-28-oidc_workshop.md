@@ -294,7 +294,7 @@ function getDomainFromEmail(email) {
 
 ## Add route to check the OpenID org
 
-The `/api/openid/check` endpoint will return the numeric ID of the org that a user's email domain belongs to, or `null` if the user isn't part of an org. The user's full email address will arrive at the endpoint in the request body, so the helper function `getDomainFromEmail` will return the domain, before it's used to look up the corresponsding org in the database. Add this code to `apps/api/src/main.ts`: 
+The `/api/openid/check` endpoint will return the numeric ID of the org that a user's email domain belongs to, or `null` if the user isn't part of an org. The user's full email address will arrive at the endpoint in the request body, so the helper function `getDomainFromEmail` will return the domain, before it's used to look up the corresponding org in the database. Add this code to `apps/api/src/main.ts`: 
 
 ```ts
 app.post('/api/openid/check', async (req, res, next) => {
