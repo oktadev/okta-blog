@@ -21,7 +21,7 @@ Hello SaaS developers! You sell your software to technologically mature enterpri
 
 |Posts in the enterprise-ready workshop series|
 | --- |
-| 1. [How to get Going with the Enterprise-Ready Identity for SaaS Apps Workshops](/blog/2023/07/27/enterprise-ready-getting-started) |
+| 1. [How to Get Going with the Enterprise-Ready SaaS Apps Workshops](/blog/2023/07/27/enterprise-ready-getting-started) |
 | 2. [Enterprise-Ready Workshop: Authenticate with OpenID Connect](/blog/2023/07/28/oidc_workshop) |
 | 3. **Enterprise-Ready Workshop: Manage Users with SCIM** |
 | 4. [Enterprise-Ready Workshop: Terraform](/blog/2023/07/28/terraform-workshop) |
@@ -1321,7 +1321,7 @@ If you have followed along with the workshops so far, you now have a Todo applic
 
 |Posts in the enterprise-ready workshop series|
 | --- |
-| 1. [How to get Going with the Enterprise-Ready Identity for SaaS Apps Workshops](/blog/2023/07/27/enterprise-ready-getting-started) |
+| 1. [How to Get Going with the Enterprise-Ready SaaS Apps Workshops](/blog/2023/07/27/enterprise-ready-getting-started) |
 | 2. [Enterprise-Ready Workshop: Authenticate with OpenID Connect](/blog/2023/07/28/oidc_workshop) |
 | 3. **Enterprise-Ready Workshop: Manage Users with SCIM** |
 | 4. [Enterprise-Ready Workshop: Terraform](/blog/2023/07/28/terraform-workshop) |

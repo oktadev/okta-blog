@@ -19,7 +19,7 @@ In this workshop, you will be wearing the hat of a SaaS developer who will up-le
 
 |Posts in the enterprise-ready workshop series|
 | --- |
-| 1. [How to get Going with the Enterprise-Ready Identity for SaaS Apps Workshops](/blog/2023/07/27/enterprise-ready-getting-started) |
+| 1. [How to Get Going with the Enterprise-Ready SaaS Apps Workshops](/blog/2023/07/27/enterprise-ready-getting-started) |
 | 2. **Enterprise-Ready Workshop: Authenticate with OpenID Connect** |
 | 3. [Enterprise-Ready Workshop: Manage Users with SCIM](/blog/2023/07/28/scim-workshop) |
 | 4. [Enterprise-Ready Workshop: Terraform](/blog/2023/07/28/terraform-workshop) |
@@ -549,7 +549,7 @@ To set up users and groups in your Okta Developer Account, try our Terraform wor
 
 |Posts in the enterprise-ready workshop series|
 | --- |
-| 1. [How to get Going with the Enterprise-Ready Identity for SaaS Apps Workshops](/blog/2023/07/27/enterprise-ready-getting-started) |
+| 1. [How to Get Going with the Enterprise-Ready SaaS Apps Workshops](/blog/2023/07/27/enterprise-ready-getting-started) |
 | 2. **Enterprise-Ready Workshop: Authenticate with OpenID Connect** |
 | 3. [Enterprise-Ready Workshop: Manage Users with SCIM](/blog/2023/07/28/scim-workshop) |
 | 4. [Enterprise-Ready Workshop: Terraform](/blog/2023/07/28/terraform-workshop) |

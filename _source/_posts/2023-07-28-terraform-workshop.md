@@ -16,7 +16,7 @@ This workshop is part of our Enterprise-Ready Workshop series. Follow along to g
 
 |Posts in the enterprise-ready workshop series|
 | --- |
-| 1. [How to get Going with the Enterprise-Ready Identity for SaaS Apps Workshops](/blog/2023/07/27/enterprise-ready-getting-started) |
+| 1. [How to Get Going with the Enterprise-Ready SaaS Apps Workshops](/blog/2023/07/27/enterprise-ready-getting-started) |
 | 2. [Enterprise-Ready Workshop: Authenticate with OpenID Connect](/blog/2023/07/28/oidc_workshop) |
 | 3. [Enterprise-Ready Workshop: Manage Users with SCIM](/blog/2023/07/28/scim-workshop) |
 | 4. **Enterprise-Ready Workshop: Terraform** |
@@ -663,7 +663,7 @@ Check out the other workshops in the enterprise-ready series if you haven't alre
 
 |Posts in the enterprise-ready workshop series|
 | --- |
-| 1. [How to get Going with the Enterprise-Ready Identity for SaaS Apps Workshops](/blog/2023/07/27/enterprise-ready-getting-started) |
+| 1. [How to Get Going with the Enterprise-Ready SaaS Apps Workshops](/blog/2023/07/27/enterprise-ready-getting-started) |
 | 2. [Enterprise-Ready Workshop: Authenticate with OpenID Connect](/blog/2023/07/28/oidc_workshop) |
 | 3. [Enterprise-Ready Workshop: Manage Users with SCIM](/blog/2023/07/28/scim-workshop) |
 | 4. **Enterprise-Ready Workshop: Terraform** |
