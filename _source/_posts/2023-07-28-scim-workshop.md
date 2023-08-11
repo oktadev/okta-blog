@@ -190,7 +190,7 @@ import { Router } from 'express';
 export const scimRoute = Router();
 ```
 
-And you’ll then import the scimRoute in `apps/api/src/main.ts` and after `import session from 'express-session';` as shown below:
+And you'll then import the scimRoute in `apps/api/src/main.ts` and after `import session from 'express-session';` as shown below:
 
 ```ts
 import express from 'express';
