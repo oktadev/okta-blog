@@ -485,7 +485,6 @@ const server = app.listen(port, () => {
   console.log(`Listening at http://localhost:${port}/api`);
 });
 server.on('error', console.error);
-### Add HTTP Logging
 
 Lastly, I'll also be adding an external tool, [Morgan](https://github.com/expressjs/morgan), that will help log HTTP requests; by doing so, we'll be able to confirm whether requests are reaching our server. 
 
