@@ -754,7 +754,7 @@ services:
     volumes:
       - <csv-folder>:/var/lib/neo4j/import
     environment:
-      - NEO4J_AUTH=neo4j/verysecret
+      - NEO4J_AUTH=neo4j/${NEO4J_PASSWORD}
       - NEO4JLABS_PLUGINS=["apoc"]
     # If you want to expose these ports outside your dev PC,
     # remove the "127.0.0.1:" prefix
@@ -766,6 +766,13 @@ services:
       interval: 5s
       timeout: 5s
       retries: 10
+----
+
+Create the file `src/main/docker/.env` with the following content:
+
+[source, shell]
+----
+NEO4j_PASSWORD=verysecret
 ----
 
 As you can see the compose file will mount `<csv-folder>` to a `/var/lib/neo4j/import` volume, making the content accessible from the running ne44j container.
@@ -1246,17 +1253,26 @@ Create the file `src/layout/WideLayout.tsx` with the following content:
 {% raw %}
 "use client";
 
-import { Container } from "@mui/material";
+import { Container, ThemeProvider, createTheme } from "@mui/material";
+
+const theme = createTheme({
+  typography: {
+    fontFamily: "inherit",
+  },
+});
 
 const WideLayout = (props: { children: React.ReactNode }) => {
   return (
-    <Container maxWidth="lg" sx={{ mt: 4}}>
-    {props.children}
-    </Container>
+    <ThemeProvider theme={theme}>
+      <Container maxWidth="lg" sx={{ mt: 4 }}>
+        {props.children}
+      </Container>
+    </ThemeProvider>
   );
 };
 
 export default WideLayout;
+
 {% endraw %}
 ----
 
@@ -1267,10 +1283,12 @@ Update the contents of `src/app/layout.tsx` and set:
 ----
 {% raw %}
 import WideLayout from "@/layout/WideLayout";
-import "../styles/globals.css";
-import { Inter } from "next/font/google";
+import { Ubuntu} from "next/font/google";
 
-const inter = Inter({ subsets: ["latin"] });
+const font = Ubuntu({
+  subsets: ['latin'],
+  weight: ['300','400','500','700'],
+});
 
 export const metadata = {
   title: "Create Next App",
@@ -1282,10 +1300,11 @@ export default function RootLayout({
 }: {
   children: React.ReactNode;
 }) {
+  console.log("layout");
   return (
     <html lang="en">
-      <body className={inter.className}>
-          <WideLayout>{children}</WideLayout>
+      <body className={font.className}>
+        <WideLayout>{children}</WideLayout>
       </body>
     </html>
   );
@@ -1740,4 +1759,4 @@ Authorization: Bearer eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCIsImtpZCI6IlJzZHNsM211Sj
 
 == Learn More
 
-I hope you enjoyed this tutorial, and found this example useful. As you can see, not much work would be required to consume more company data from the GraphQL server, just a query update in the client. As you could see, Auth0 Universal Login and Auth0 React SDK provide an efficient way to secure your React applications, following security best practices. Keep in touch! If you have questions about this post, please ask them in the comments below. And follow us! We're https://twitter.com/oktadev[@oktadev on Twitter], https://youtube.com/c/oktadev[@oktadev on YouTube], and frequently post to our https://www.linkedin.com/company/oktadev/[LinkedIn page].
+I hope you enjoyed this tutorial, and found this example useful. As you can see, not much work would be required to consume more company data from the GraphQL server, just a query update in the client. Also the Auth0 Universal Login and Auth0 React SDK provide an efficient way to secure your React applications, following security best practices. Check you Auth0 documentation for adding https://developer.auth0.com/resources/guides/spa/react/basic-authentication#add-user-sign-up-to-react[sign-up] and https://developer.auth0.com/resources/guides/spa/react/basic-authentication#add-user-logout-to-react[logout] functionality to your React application. Keep in touch! If you have questions about this post, please ask them in the comments below. And follow us! We're https://twitter.com/oktadev[@oktadev on Twitter], https://youtube.com/c/oktadev[@oktadev on YouTube], and frequently post to our https://www.linkedin.com/company/oktadev/[LinkedIn page].
