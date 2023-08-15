@@ -15,11 +15,11 @@ type: awareness
 ---
 This workshop is part of our Enterprise Readiness Workshop series. 
 
-In this workshop, you will enhance a sample application to let users access it using their organization's identity provider. When any enterprise customer considers buying your software to enhance their employees' productivity, their IT and security teams want to make sure employees can access your app securely. As a developer, you'd prefer not to rebuild large portions of your authentication flow for every new customer. Fortunately, the OpenID Connect standard solves both of these problems! By adding OpenID Connect (OIDC) support to your app, you can meet the identity security needs of every enterprise organization that uses an OIDC-compatible identity provider. 
+In this workshop, you will be wearing the hat of a SaaS developer who will up-level his/her app to allow users (from your big enterprise customers) to log on using their own company credentials without providing a password directly to your app. When any enterprise customer considers buying your software to enhance their employees' productivity, their IT and security teams want to make sure employees can access your app securely. As a developer, you'd prefer not to rebuild large portions of your authentication flow for every new customer. Fortunately, the OpenID Connect standard solves both of these problems! By adding OpenID Connect (OIDC) support to your app, you can meet the identity security needs of every enterprise organization that uses an OIDC-compatible identity provider. 
 
 |Posts in the enterprise-ready workshop series|
 | --- |
-| 1. [How to get Going with the Enterprise-Ready Identity for SaaS Apps Workshops](/blog/2023/07/27/enterprise-ready-getting-started) |
+| 1. [How to Get Going with the Enterprise-Ready SaaS Apps Workshops](/blog/2023/07/27/enterprise-ready-getting-started) |
 | 2. **Enterprise-Ready Workshop: Authenticate with OpenID Connect** |
 | 3. [Enterprise-Ready Workshop: Manage Users with SCIM](/blog/2023/07/28/scim-workshop) |
 | 4. [Enterprise-Ready Workshop: Terraform](/blog/2023/07/28/terraform-workshop) |
@@ -33,7 +33,7 @@ For an in-depth walkthrough of developing and troubleshooting the code in this w
 
 **Before you begin** 
 
-Follow the [getting started guide](/blog/2023/07/27/enterprise-ready-getting-started) to set up the Todo app and its dependencies. Make sure you can run the app locally and view the login page in your browser. Launch Prisma Studio to examine the database, as well. 
+Follow the [getting started guide](/blog/2023/07/27/enterprise-ready-getting-started) to set up the Todo app and its dependencies. Make sure you can run the app locally and view the login page in your browser. Launch Prisma Studio (`npx prisma studio`) to examine the database, as well. 
 
 You will also need a free [Okta Developer Account](https://developer.okta.com/login/), to test the setup steps your customer will follow when integrating their OpenID Connect server with your application. 
 
@@ -47,7 +47,7 @@ Introducing these features will require adding logic to the application's backen
 
 ## Support OIDC in the Prisma database schema
 
-The sample application defines the relationship between Todo items and users in the file `schema.prisma`. Prisma uses this file to create SQLite tables for you. 
+The sample application defines the relationship between Todo items and users in the file `prisma/schema.prisma`. Prisma uses this file to create SQLite tables for you. 
 
 With OIDC support, the app will need to store information about organizations in its database, as well as tracking the relationships between those organizations and the user accounts and Todo items. 
 
@@ -69,7 +69,8 @@ Since your app will have many customers with different identity providers, you'l
 - Issuer, an identifier representing the OIDC server for the org
 
 Note that to keep things simple for demonstration purposes, we are storing the client secret and API key in plain text in the database. In production, you should use some sort of encrypted key store to manage these credentials.
-Here's how organization support looks in `schema.prisma`:
+
+In the file `prisma/schema.prisma`, add organization support by appending the following code:
 
 ```
 model Org {
@@ -89,11 +90,11 @@ model Org {
 
 ### Enhance the `User` model for multi-tenant OIDC
 
-The sample application already manages rudimentary user accounts, but with OIDC support, users will belong to organizations. The user model in `schema.prisma` needs a relationship to an organization, which is implemented with the `org` and `orgID` fields. 
+The sample application already manages rudimentary user accounts, but with OIDC support, users will belong to organizations. The user model in `prisma/schema.prisma` needs a relationship to an organization, which is implemented with the `org` and `orgID` fields. 
 
 Previously, the sample app treated a user's email address as their unique identifier. This can cause problems if the user's organization changes its domain name, or if the user's email address changes when they change their name. Instead, with OIDC support, a unique identifier for each user can be supplied by their identity provider. This identifier is called `sub` (short for "subject") in the OIDC protocol, and is guaranteed to be a unique and stable identifier for that user on that server. It's possible for multiple OIDC servers to issue the same `sub` ID, since this is not a globally unique value, so the combination of server and subject uniquely identifies a single user.
 
-With a relationship to the user's `org`, and an `externalID` from their organization, the user model will look like this: 
+In `prisma/schema.prisma`, add fields for a relationship to the user's `org`, and an `externalID` from their organization, to make the user model look like this: 
 
 ```
 model User {
@@ -111,7 +112,9 @@ model User {
 
 ### Track orgs for Todo items
 
-To associate Todo items with organizations as well as users, each item will need to be able to track its `org` and `orgId`. This looks almost identical to how its `user` and `userId` are stored: 
+To associate Todo items with organizations as well as users, each item will need to be able to track its `org` and `orgId`. 
+
+In `prisma/schema.prisma`, add fields to the Todo model to track these values. This is similar to how the Todo's `user` and `userId` are stored: 
 
 ```
 model Todo {
@@ -129,9 +132,9 @@ model Todo {
 
 ### Run the Prisma database migration
 
-After saving these changes to `schema.prisma`, open a terminal and run `npx prisma generate` to generate the new schema, and `npx prisma db push` to apply it. 
+After saving these changes to `prisma/schema.prisma`, open a terminal and run `npx prisma generate` to generate the new schema, and `npx prisma db push` to apply it. 
 
-After completing this migration, you can explore the new database structure in Prisma. Users belong to organizations, and tasks can be associated with orgs. 
+After completing this migration, you can explore the new database structure in Prisma, by running `npx prisma studio` . Users belong to organizations, and tasks can be associated with orgs. 
 
 ## Update the React application to support multi-tenant OIDC organizations
 
@@ -141,7 +144,7 @@ To handle both OIDC and non-OIDC users, the app should first prompt for the user
 
 ### Hide the password field
 
-The first change in `src/app/components/signin.tsx` is hiding the password field when the page is first loaded. Find the `div` containing the password, give it an identifier, and set it to be hidden by default: 
+The first change in `apps/todo-app/src/app/components/signin.tsx` is hiding the password field when the page is first loaded. Find the `div` containing the password, give it an identifier, and set it to be hidden by default: 
 
 ```html
 <div id="password-field" className="mb-6" hidden>
@@ -151,7 +154,7 @@ The first change in `src/app/components/signin.tsx` is hiding the password field
 
 The sample app grays out the Sign In button if the email address or password field is empty. With OIDC, the user will submit their email address first, and then follow an appropriate login flow based on the results of the app backend looking up that email. 
 
-Find the line of `signin.tsx` where the Sign In button checks for both username and password and change it to check for only the username: 
+Find the line of `apps/todo-app/src/app/components/signin.tsx` where the Sign In button checks for both username and password and change it to check for only the username: 
 
 ```tsx
 disabled = {!username}
@@ -159,9 +162,11 @@ disabled = {!username}
 
 ### Validate the user's organization
 
-The `signIn` function in `signin.tsx` will need to check whether a user belongs to an organization. If the user belongs to an org, the app's frontend should redirect them to the backend to complete their login flow with their identity provider. This redirect ensures that malicious software affecting the user's browser or device has no chance to intercept or inspect the OIDC exchange between your app's backend and the user's identity provider. 
+The `signIn` function in `apps/todo-app/src/app/components/signin.tsx` will need to check whether a user belongs to an organization. If the user belongs to an org, the app's frontend should redirect them to the backend to complete their login flow with their identity provider. This redirect ensures that malicious software affecting the user's browser or device has no chance to intercept or inspect the OIDC exchange between your app's backend and the user's identity provider. 
 
 This logic expects the backend to return a numeric organization ID when it runs the `onUsernameEnteredFn` function to look up the username. If the user isn't in an org, that function will return `null` and the user will continue to password authentication. 
+
+In `apps/todo-app/src/app/components/signin.tsx`, add the following logic to the beginnin of the `onAuthenticate` function: 
 
 ```ts
   const onAuthenticate = async () => { 
@@ -181,7 +186,7 @@ This logic expects the backend to return a numeric organization ID when it runs 
 ```
 Don't change the sample app's logic for when the Sign In button submits both a username and a password, because users without OIDC will still provide both to log in.
 
-Since the `onUsernameEnteredFn` will be implemented in the `authState` component, make sure to import it to the Signin function in `signin.tsx`, along with the `onAuthenticateFn`: 
+Since the `onUsernameEnteredFn` will be implemented in the `authState` component, make sure to import it to the Signin function in `apps/todo-app/src/app/components/signin.tsx`, along with the `onAuthenticateFn`: 
 
 ```ts
   const { onAuthenticateFn, onUsernameEnteredFn } = useAuthState();
@@ -191,7 +196,7 @@ The `onUsernameEnteredFn` code doesn't exist yet, but you'll write it in the nex
 
 ## Start the OpenID flow for authentication
 
-To complete the frontend changes, implement the `onUsernameEnteredFn` in `authState.tsx`. This will be similar to `onAuthenticateFn`, which is already provided in the sample code. 
+To complete the frontend changes, implement the `onUsernameEnteredFn` in `apps/todo-app/src/app/components/authState.tsx`. This will be similar to `onAuthenticateFn`, which is already provided in the sample code. 
 
 Declare `onUsernameEnteredFn` in the `AuthContextType` Type: 
 
@@ -205,7 +210,7 @@ Add it to the `defaultAuthContext`:
   onUsernameEnteredFn: async () => null,
 ```
 
-Implement `onUsernameEnteredFn` by modifying a copy of `onAuthenticateFn` in `authState.tsx`. Instead of using the `/api/signin` endpoint on the app's backend, you'll use the `/api/openid/check` endpoint:  
+Implement `onUsernameEnteredFn` by modifying a copy of `onAuthenticateFn` in `apps/todo-app/src/app/components/authState.tsx`. Instead of using the `/api/signin` endpoint on the app's backend, you'll use the `/api/openid/check` endpoint:  
 
 ```ts
   const onUsernameEnteredFn = async (username: string) => {
@@ -253,7 +258,7 @@ Since the sample app is already using Passport for password authentication, the 
 In your project, run `npm install --save passport-openidconnect` to install the library.  This will update `package.json` automatically to specify the installed version: 
 
 ```
-    "passport-openidconnect": "^0.1.1",
+  "passport-openidconnect": "^0.1.1",
 ```
 
 ### Add helper functions
@@ -289,7 +294,7 @@ function getDomainFromEmail(email) {
 
 ## Add route to check the OpenID org
 
-The `/api/openid/check` endpoint will return the numeric ID of the org that a user's email domain belongs to, or `null` if the user isn't part of an org. The user's full email address will arrive at the endpoint in the request body, so the helper function `getDomainFromEmail` will return the domain, before it's used to look up the corresponsding org in the database. Add this code to `main.ts`: 
+The `/api/openid/check` endpoint will return the numeric ID of the org that a user's email domain belongs to, or `null` if the user isn't part of an org. The user's full email address will arrive at the endpoint in the request body, so the helper function `getDomainFromEmail` will return the domain, before it's used to look up the corresponding org in the database. Add this code to `apps/api/src/main.ts`: 
 
 ```ts
 app.post('/api/openid/check', async (req, res, next) => {
@@ -328,13 +333,27 @@ Note that if the user's domain isn't assigned to an org, this code will also sea
 
 ### Loosen the cookie policy for the OIDC redirect authentication flow
 
-When users are redirected to the OIDC identity provider and back, their session cookies should stay with them. This behavior would be prohibited by a strict cookie policy. In `main.ts`, change the session cookie policy from `sameSite: 'strict'` to `sameSite: 'lax'`. 
+When users are redirected to the OIDC identity provider and back, their session cookies should stay with them. This behavior would be prohibited by a strict cookie policy. In `apps/api/src/main.ts`, change the session cookie policy from `sameSite: 'strict'` to `sameSite: 'lax'`. 
 
 ### Use the Passport OIDC library
 
 The [Passport OIDC Docs](https://www.passportjs.org/packages/passport-openidconnect/) show an example of using the library with a single OIDC provider. Since the sample app will support many customers with different OIDC providers, it will need to create a `Strategy` based on values retrieved from the database instead of relying on hardcoded information. 
 
-To create a `Strategy` for each organization, write the `createStrategy` function to look up the necessary values and generate a `passport-openidconnect` strategy from them. Just as in the `passport-openidconnect` docs, the `Strategy` will also have a `verify` function to run after the OIDC flow completes. Add logic to this `verify` function to store missing data about the logged-in user in the Todo app's database. This `createStrategy` function, and the `verify` function within it, can be added to `main.ts` for now. 
+In order to use the OIDC library, you need to import it into the file. 
+
+At the top of `apps/api/src/main.ts`, you'll find other imports, such as `import passportLocal from 'passport-local';`. The Todo app uses the local passport strategy, and you'll add the OIDC strategy. Add the import for the OIDC passport after the import for 'passport-local':
+
+```ts
+import passportOIDC from 'passport-openidconnect';
+```
+
+With the library imported, you'll define an variable for the OIDC strategy so you can utilize it within the API. Below the import statements, there's `const LocalStrategy = passportLocal.Strategy;`. Immediately after this line of code, define the OIDC strategy by adding the following line of code:
+
+```ts
+const OpenIDConnectStrategy = passportOIDC.Strategy;
+```
+
+To create a `Strategy` for each organization, write the `createStrategy` function to look up the necessary values and generate a `passport-openidconnect` strategy from them. Just as in the `passport-openidconnect` docs, the `Strategy` will also have a `verify` function to run after the OIDC flow completes. Add logic to this `verify` function to store missing data about the logged-in user in the Todo app's database. This `createStrategy` function, and the `verify` function within it, can be added to `apps/api/src/main.ts` for now. 
 
 Later, you will create a `Strategy` for each org when you need to use it, and discard the `Strategy` afterwards. As long as the org's information in the database remains unchanged, the `Strategy` for that org will be always be the same whenever it's recreated. 
 
@@ -433,9 +452,11 @@ Once the OpenID server has authenticated the user, it will redirect them to the 
 
 ### Receive callback after authentication
 
-When the OIDC server redirects to the `callback` URL on the application's backend, Passport will redirect the user back to the app. First, though, the backend should validate that the ID of the request corresponds to a real org in the database, and make the OIDC strategy for that org so Passport can continue to use it. 
+When the OIDC server redirects to the `callback` URL on the application's backend, Passport will redirect the user back to the app. 
 
-Use code like this to implement the `callback` route in `main.ts`: 
+First, though, the backend should validate that the ID of the request corresponds to a real org in the database, and make the OIDC strategy for that org so Passport can continue to use it. 
+
+Add this new route to the end of  `apps/api/src/main.ts` in order to implement the `callback` route: 
 
 ```ts
 app.get('/openid/callback/:id', async (req, res, next) => {
@@ -481,13 +502,21 @@ Finally, under Assignments, select "Allow everyone in your organization to acces
 
 ### Add org configuration to the database
 
-Using Prisma Studio to edit your app's database, fill out the `client_id` and `client_secret` for the org with ID 1, using the values from Okta. 
+You will need to edit the database and add a new organization using Prisma Studio. In your terminal, run
 
-In the "Security" section of the sidebar in the Okta Admin Console, navigate to **API**. This page lists the Issuer URI for the Okta organization, which goes into the app's database for that org as its `issuer`. 
+```console
+npx prisma studio
+```
 
-Click the name of the default authorization server in the Okta Admin Console, and visit the Metadata URI. This URI will be of the form `your-dev-account-id.okta.com/oauth2/default/.well-known/oauth-authorization-server`. From this authorization server metadata, copy the `authorization_endpoint` to the `authorization_endpoint` field in your app's database. Copy the `token_endpoint` to the corresponding field in the database as well. 
+This commands launches a website that allows you to manage your database.
 
-To find the `userinfo_endpoint`, replace the string `oauth-authorization-server` in the metadata URL with `openid-configuration`, and copy the `userinfo_endpoint` from the resulting page to the database. 
+Open the model for `Org`, press the green **Add record** button, and press the green **Save 1 change**. You should have an `org` record where the ID is 1. Now that you have an `org`, edit the columns as specified below:
+
+  1. **Domain** - Enter the domain name of this organization. It should match the domain name of the email address they'll use. For example, if your customer's organization domain is `whiterabbit.fake`, the domain record is "whiterabbit.fake". Since we are testing with made-up customers, use the email domain you used when you signed up for the Okta Developer Edition organization.
+  1. **Client ID** and **Client Secret** - Fill out the `client_id` and `client_secret` for the org with ID 1, using the values from Okta. 
+  2. **Issuer** - In the "Security" section of the sidebar in the Okta Admin Console, navigate to **API**. This page lists the Issuer URI for the Okta organization, which goes into the app's database for that org as its `issuer`. 
+  3. **Authorization endpoint** and **Token endpoint** - On the same page in the Okta Admin console as the issuer, click the name of the default authorization server, find the **Metadata URI**. This URI will be of the form `your-dev-account-id.okta.com/oauth2/default/.well-known/oauth-authorization-server`. Click on the URI to open it in the browser where you will see data in JSON format. From this authorization server metadata, copy the `authorization_endpoint` to the `authorization_endpoint` field in your app's database. Copy the `token_endpoint` to the corresponding field in the database as well. 
+  4. **Userinfo endpoint** - To find the `userinfo_endpoint`, replace the string `oauth-authorization-server` in the metadata URL with `openid-configuration`, and copy the `userinfo_endpoint` from the resulting page to the database. 
 
 After this step, your database should contain the `client_id` and `client_secret` unique to the OIDC app that you made in Okta. All endpoint fields will start with the Okta organization's domain. 
 
@@ -500,11 +529,15 @@ Save the database changes in Prisma, and the first customer's OpenID configurati
 
 ## Use OIDC authentication in the application
 
-Now, when a user whose email domain is associated with an OIDC org tries to sign in to your app, they'll be redirected to that org's login page! If the user is already logged in to their Okta org in the browser session where they load the Todo app, the authentication and redirect process may happen too quickly to see. Be sure to log out of your Okta org if you want to be prompted for its credentials when accessing the Todo app via the OIDC flow. 
+Before, all users had to memorize or manage yet another password, just for your app. Enterprise customers deciding whether to buy your app would have to weigh the drawbacks of passwords' security issues and inconvenience against the benefits of using your software. 
+
+Now, these customers can use their existing identity provider to let any user log in to your app, and customize that login experience to their own security needs. Since you used redirect authentication, your app will never see the credentials that authenticate each user with the identity provider, which adds an extra layer of security. 
+
+In technical terms, when a user whose email domain is associated with an OIDC org tries to sign in to your app, they'll be redirected to that org's login page! If the user is already logged in to their Okta org in the browser session where they load the Todo app, the authentication and redirect process may happen too quickly to see. If you want to see each step of the redirect login flow, visit your app in a new private browsing session. 
 
 The first time an OIDC user logs into the app, their user record is created in the database automatically. 
 
-Create some user accounts in your Okta Admin Console, and try logging into the Todo app as those users! Use Prisma to see how each user's database record is created the first time they log in. 
+[Create some user accounts](https://help.okta.com/en-us/Content/Topics/users-groups-profiles/usgp-add-users.htm) in your Okta Admin Console, and try logging into the Todo app as those users! Use Prisma (`npx prisma studio`) to see how each user's database record is created the first time they log in. 
 
 ## Learn more about enterprise ready identity SaaS apps 
 
@@ -516,7 +549,7 @@ To set up users and groups in your Okta Developer Account, try our Terraform wor
 
 |Posts in the enterprise-ready workshop series|
 | --- |
-| 1. [How to get Going with the Enterprise-Ready Identity for SaaS Apps Workshops](/blog/2023/07/27/enterprise-ready-getting-started) |
+| 1. [How to Get Going with the Enterprise-Ready SaaS Apps Workshops](/blog/2023/07/27/enterprise-ready-getting-started) |
 | 2. **Enterprise-Ready Workshop: Authenticate with OpenID Connect** |
 | 3. [Enterprise-Ready Workshop: Manage Users with SCIM](/blog/2023/07/28/scim-workshop) |
 | 4. [Enterprise-Ready Workshop: Terraform](/blog/2023/07/28/terraform-workshop) |
