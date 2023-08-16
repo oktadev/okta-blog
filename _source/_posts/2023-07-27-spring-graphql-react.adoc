@@ -18,7 +18,7 @@ type: awareness
 :experimental:
 
 
-GraphQL is a query language for APIs and a runtime that allows the API consumer to get exactly the required information instead of the server exclusively controlling the contents of the response. While some REST APIs implementations require loading the references of a resource from multiple URLs, GraphQL APIs can follow references between related objects and return them in a single request. This step by step guide demonstrates how to build a GraphQL API with Spring Boot and Spring for GaphQL, for querying a sample dataset of related companies, persons and properties, seeded to a Neo4j database. It also demonstrates how to build a React client with Next.js and MUI Datagrid to consume the API. Both the client and the server are secured with Auth0 authentication.
+GraphQL is a query language for APIs and a runtime that allows the API consumer to get exactly the required information instead of the server exclusively controlling the contents of the response. While some REST APIs implementations require loading the references of a resource from multiple URLs, GraphQL APIs can follow references between related objects and return them in a single request. This step by step guide demonstrates how to build a GraphQL API with Spring Boot and Spring for GraphQL, for querying a sample dataset of related companies, persons and properties, seeded to a Neo4j database. It also demonstrates how to build a React client with Next.js and MUI Datagrid to consume the API. Both the client and the server are secured with Auth0 authentication using Okta Spring Boot Starter for the server and Auth0 React SDK for the client.
 
 image::{% asset_path blog/spring-graphql-react/logos.png %}[alt=Spring, GraphQL and React,width=700,align=center]
 
@@ -39,7 +39,7 @@ toc::[]
 
 == Build a GraphQL API with Spring for GraphQL
 
-- describe the API
+The resource server is a Spring Boot web application that exposes a GraphQL API with Spring for GraphQL. The API allows querying a Neo4j database containing information about companies and their related owners and properties, using Spring Data Neo4j. The data was obtained from a Neo4j https://neo4j.com/graphgists/35a813ba-ea10-4165-9065-84f8802cbae8/[use case example].
 
 Create the application with Spring Initializr and HTTPie:
 
@@ -61,10 +61,10 @@ https start.spring.io/starter.zip \
 
 Unzip the file and start editing the project. Define the GraphQL api with a schema file, under `src/main/resources/graphql/schema.graphqls` with the following content:
 
+.schema.graphqls
 [source, graphql]
 ----
 type Query {
-    companyById(id: ID): Company
     companyList(page: Int): [Company!]!
     companyCount: Int
 }
@@ -102,7 +102,7 @@ type Property {
 }
 ----
 
-As you can see the schema is defining the object types `Company`, `Person` and `Property` and the query types `companyById`, `companyList` and `companyCount`.
+As you can see the schema is defining the object types `Company`, `Person` and `Property` and the query types `companyList` and `companyCount`.
 
 Start adding classes for the domain. Create the package `com.okta.developer.demo.domain` under `src/main/java`. Add the classes `Person`, `Property` and `Company`.
 
@@ -775,8 +775,8 @@ Create the file `src/main/docker/.env` with the following content:
 NEO4j_PASSWORD=verysecret
 ----
 
-As you can see the compose file will mount `<csv-folder>` to a `/var/lib/neo4j/import` volume, making the content accessible from the running ne44j container.
-Replace `<csv-folder>` with the path to the downloaded CSVs.
+As you can see the compose file will mount `<csv-folder>` to a `/var/lib/neo4j/import` volume, making the content accessible from the running neo4j container.
+Replace `<csv-folder>` with the path to the CSV files downloaded before.
 
 In a terminal, go to the `docker` folder and run:
 
@@ -838,7 +838,11 @@ If you see a warning message in the server logs, that reads _The query used a de
 
 == Build a React client
 
-Now let's create a Single Page Application (SPA) with React to consume the GraphQL API with React and Next.js. Install Node and in a terminal run:
+Now let's create a Single Page Application (SPA) to consume the GraphQL API with React and Next.js.
+
+. describe client application, MUI, Next, TypeScript, Container pattern
+
+Install Node and in a terminal run:
 
 [source, shell]
 ----
@@ -919,7 +923,6 @@ export const CompanyApi = {
 
   getCompanyCount: async () => {
     try {
-      console.log("get company count request");
       const response = await backendAPI.post("/graphql", {
         query: `{
         companyCount
@@ -941,8 +944,6 @@ export const CompanyApi = {
 
   getCompanyList: async (params?: CompaniesQuery) => {
     try {
-      console.log("get companies request", params);
-      //await new Promise((resolve) => setTimeout(resolve, 1000));
       const response = await backendAPI.post("/graphql", {
         query: `{
         companyList(page: ${params?.page || 1}) {
@@ -970,15 +971,14 @@ export const CompanyApi = {
 {% endraw %}
 ----
 
+. describe useAsync
+
 Create the folder `src/hooks` and add the file `useAsync.tsx` with the following content:
 
 .useAsync.tsx
 [source, tsx]
 ----
 {% raw %}
-
-'use client';
-
 import { useCallback, useState } from "react";
 
 export const enum AsyncState {
@@ -1039,8 +1039,6 @@ Create the folder `src/components/companies` and add the file `CompanyTable.tsx`
 [source, tsx]
 ----
 {% raw %}
-'use client'
-
 import { DataGrid, GridColDef, GridEventListener, GridPaginationModel } from "@mui/x-data-grid";
 
 
@@ -1093,14 +1091,32 @@ export default CompanyTable;
 {% endraw %}
 ----
 
+Create a `Loader.tsx` component in the folder `src/components/loader` with the following content:
+
+.Loader.tsx
+[source, tsx]
+----
+{% raw %}
+import { Box, CircularProgress, Skeleton } from "@mui/material";
+
+const Loader = () => {
+  return (
+    <Box sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: 200 }}>
+      <CircularProgress />
+    </Box>
+  );
+}
+
+export default Loader;
+{% endraw %}
+----
+
 Add the file `src/components/companies/CompanyTableContainer.tsx` with the following content:
 
 .CompanyTableContainer.tsx
 [source, tsx]
 ----
 {% raw %}
-"use client";
-
 import {
   GridColDef,
   GridEventListener,
@@ -1111,6 +1127,7 @@ import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import { AsyncState, useAsync } from "@/hooks/useAsync";
 import { CompanyApi } from "@/services/companies";
 import { useEffect } from "react";
+import Loader from "../loader/Loader";
 
 interface CompanyTableProperties {
   page?: number;
@@ -1153,7 +1170,6 @@ const CompanyTableContainer = (props: CompanyTableProperties) => {
   ];
 
   const onPageChange = (pagination: GridPaginationModel) => {
-    console.log("page change", pagination);
     const params = new URLSearchParams(searchParams.toString());
     params.set("page", pagination.page.toString());
     router.push(pathName + "?" + params.toString());
@@ -1171,7 +1187,7 @@ const CompanyTableContainer = (props: CompanyTableProperties) => {
 
   return (
     <>
-      {isFetchPending && <div>Loading...</div>}
+      {isFetchPending && <Loader/>}
       {isFetchError && <div>Error</div>}
 
       {isFetchSuccess && (
@@ -1245,6 +1261,7 @@ export default Page;
 {% endraw %}
 ----
 
+. Explain layout component and theme required for next.js font to work
 Create the file `src/layout/WideLayout.tsx` with the following content:
 
 .WideLayout.tsx
@@ -1300,7 +1317,6 @@ export default function RootLayout({
 }: {
   children: React.ReactNode;
 }) {
-  console.log("layout");
   return (
     <html lang="en">
       <body className={font.className}>
@@ -1324,6 +1340,8 @@ Navigate to http://localhost:3000 and you should see the companies list:
 image::{% asset_path blog/spring-graphql-react/react-datagrid.png %}[alt=Home page companies datagrid,width=900,align=center]
 
 == Add security with Auth0
+
+. explain the security design
 
 === Add resource server security to the GraphQL API server
 
@@ -1477,7 +1495,7 @@ For handling the Auth0 post-login behaviour, you need to add the page `src/app/c
 [source, tsx]
 ----
 const Page = () => {
-  return <></>;
+  return <Loader/>
 };
 
 export default Page;
@@ -1498,8 +1516,6 @@ Create the component `Auth0ProviderWithNavigate` in the folder `src/components/a
 [source, tsx]
 ----
 {% raw %}
-"use client";
-
 import { AppState, Auth0Provider } from "@auth0/auth0-react";
 import { useRouter } from "next/navigation";
 import React from "react";
@@ -1550,11 +1566,13 @@ Use the component in the `WideLayout` component:
 {% raw %}
 const WideLayout = (props: { children: React.ReactNode }) => {
   return (
-    <Auth0ProviderWithNavigate>
-      <Container maxWidth="lg" sx={{ mt: 4}}>
-      {props.children}
-      </Container>
-    </Auth0ProviderWithNavigate>
+    <ThemeProvider theme={theme}>
+      <Auth0ProviderWithNavigate>
+        <Container maxWidth="lg" sx={{ mt: 4 }}>
+          {props.children}
+        </Container>
+      </Auth0ProviderWithNavigate>
+    </ThemeProvider>
   );
 };
 {% endraw %}
@@ -1565,10 +1583,11 @@ Add the file `src/components/authentication/AuthenticationGuard.tsx` with the fo
 .AuthenticationGuard.tsx
 [source, tsx]
 ----
-"use client";
+'use client'
 
 import { useAuth0 } from "@auth0/auth0-react";
 import { useEffect } from "react";
+import Loader from "../loader/Loader";
 
 const AuthenticationGuard = (props: { children: React.ReactNode }) => {
   const { isLoading, isAuthenticated, error, loginWithRedirect } = useAuth0();
@@ -1582,7 +1601,7 @@ const AuthenticationGuard = (props: { children: React.ReactNode }) => {
   }, [isAuthenticated, isLoading, loginWithRedirect]);
 
   if (isLoading) {
-    return <div>Loading...</div>;
+    return <Loader />;
   }
   if (error) {
     return <div>Oops... {error.message}</div>;
@@ -1593,26 +1612,24 @@ const AuthenticationGuard = (props: { children: React.ReactNode }) => {
 export default AuthenticationGuard;
 ----
 
-The `AuthenticationGuard` component will be used to protect pages that require authentication, redirecting to the Auth0 universal login. Protect the `HomePage` component wrapping its content in the `AuthenticationGuard` component:
+The `AuthenticationGuard` component will be used to protect pages that require authentication, redirecting to the Auth0 universal login. Protect the index page wrapping its content in the `AuthenticationGuard` component:
 
-.HomePage.tsx
+.app/page.tsx
 [source, tsx]
 ----
 {% raw %}
-  ...
+import AuthenticationGuard from "@/components/authentication/AuthenticationGuard";
+import HomePage from "./HomePage";
+
+const Page = () => {
   return (
     <AuthenticationGuard>
-      <Box>
-        <Typography variant="h4" component="h1">
-          Companies
-        </Typography>
-      </Box>
-      <Box mt={2}>
-        <CompanyTableContainer page={page}></CompanyTableContainer>
-      </Box>
+      <HomePage></HomePage>
     </AuthenticationGuard>
   );
-  ...
+};
+
+export default Page;
 {% endraw %}
 ----
 
@@ -1635,7 +1652,6 @@ export const clearInterceptors = () => {
 };
 
 export const setInterceptors = (accessToken: String) => {
-  console.log("setInterceptors", accessToken);
 
   clearInterceptors();
 
@@ -1663,8 +1679,6 @@ Add the file `src/hooks/useAccessToken.tsx` with the following content:
 .useAccessToken.tsx
 [source, tsx]
 ----
-"use client";
-
 import { useAuth0 } from "@auth0/auth0-react";
 import { useCallback, useState } from "react";
 import { useAuth0 } from "@auth0/auth0-react";
