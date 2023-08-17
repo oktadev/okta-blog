@@ -106,6 +106,7 @@ As you can see the schema is defining the object types `Company`, `Person` and `
 
 Start adding classes for the domain. Create the package `com.okta.developer.demo.domain` under `src/main/java`. Add the classes `Person`, `Property` and `Company`.
 
+.Person.java
 [source, java]
 ----
 package com.okta.developer.demo.domain;
@@ -191,6 +192,7 @@ public class Person {
 }
 ----
 
+.Property.java
 [source, java]
 ----
 package com.okta.developer.demo.domain;
@@ -261,6 +263,7 @@ public class Property {
 }
 ----
 
+.Company.java
 [source, java]
 ----
 package com.okta.developer.demo.domain;
@@ -386,6 +389,7 @@ public class Company {
 
 Create the package `com.okta.developer.demo.repository` and the class `CompanyRepository`:
 
+.CompanyRepository.java
 [source, java]
 ----
 package com.okta.developer.demo.repository;
@@ -401,6 +405,7 @@ public interface CompanyRepository extends ReactiveNeo4jRepository<Company, Long
 
 Create the configuration class `GraphQLConfig` under the root package:
 
+.GraphQLConfig.java
 [source, java]
 ----
 package com.okta.developer.demo;
@@ -440,6 +445,7 @@ class GraphQLConfig {
 
 Create the configuration class `SpringBootGraphQLApiConfig` in the root package as well, with the following code:
 
+.SpringBootGraphQLApiConfig.java
 [source, java]
 ----
 package com.okta.developer.demo;
@@ -467,6 +473,7 @@ public class SpringBootGraphQLApiConfig {
 
 Create the package `com.okta.developer.demo.controller` and the class `CompanyController` implementing the query endpoints matching the queries defined in the graphql schema:
 
+.CompanyController.java
 [source, java]
 ----
 package com.okta.developer.demo.controller;
@@ -487,12 +494,6 @@ public class CompanyController {
     private CompanyRepository companyRepository;
 
     @QueryMapping
-    public Mono<Company> companyById(@Argument Long id) {
-        return companyRepository.findById(id);
-    }
-
-
-    @QueryMapping
     public Flux<Company> companyList(@Argument Long page) {
         return companyRepository.findAll().skip((page - 1) * 10).take(10);
     }
@@ -507,6 +508,7 @@ public class CompanyController {
 
 Create a the `CompanyControllerTests` class for the web layer in the folder `src/main/test/java` under the package `com.okta.developer.demo.controller`:
 
+.CompanyControllerTests.java
 [source, java]
 ----
 package com.okta.developer.demo.controller;
@@ -518,6 +520,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.graphql.GraphQlTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.graphql.test.tester.GraphQlTester;
+import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
 import java.time.LocalDate;
@@ -534,11 +537,11 @@ public class CompanyControllerTests {
     private CompanyRepository companyRepository;
 
     @Test
-    void shouldGetCompany() {
+    void shouldGetCompanies() {
 
 
-        when(this.companyRepository.findById(123L))
-                .thenReturn(Mono.just(new Company(
+        when(this.companyRepository.findAll())
+                .thenReturn(Flux.just(new Company(
                         "1234",
                         "private",
                         "12345678",
@@ -549,33 +552,32 @@ public class CompanyControllerTests {
                         "active")));
 
         this.graphQlTester
-                .documentName("companyDetails")
-                .variable("id", "123")
+                .documentName("companyList")
+                .variable("page", 1)
                 .execute()
-                .path("companyById")
+                .path("companyList")
                 .matchesJson("""
-                    {
+                    [{
                         "id": null,
                         "SIC": "1234",
                         "name": "Test Company",
                         "status": "active",
                         "category": "private",
                         "companyNumber": "12345678",
-                        "countryOfOrigin": "UK",
-                        "incorporationDate": "2020-01-01",
-                        "mortgagesOutstanding": 0
-                    }
+                        "countryOfOrigin": "UK"
+                    }]
                 """);
     }
 }
 ----
 
-Create the document file `companyDetails.graphql` containing the query definition for the test, in the folder `src/main/test/resources/graphql-test`:
+Create the document file `companyList.graphql` containing the query definition for the test, in the folder `src/main/test/resources/graphql-test`:
 
+.companyList.graphql
 [source, graphql]
 ----
-query companyById($id: ID) {
-    companyById(id: $id) {
+query companyList($page: Int) {
+    companyList(page: $page) {
         id
         SIC
         name
@@ -583,13 +585,12 @@ query companyById($id: ID) {
         category
         companyNumber
         countryOfOrigin
-        incorporationDate
-        mortgagesOutstanding
     }
- }
+}
 ----
 Update the test configuration in `build.gradle` file, so passed tests are logged:
 
+.build.gradle
 [source, groovy]
 ----
 tasks.named('test') {
@@ -624,6 +625,7 @@ CompanyControllerTests > shouldGetCompany() PASSED
 
 Let's add Neo4j migrations dependency for the seed data insertion. Edit the file `build.gradle` and add:
 
+.build.gradle
 [source, groovy]
 ----
 dependencies {
@@ -726,7 +728,6 @@ spring.neo4j.uri=bolt://localhost:7687
 spring.neo4j.authentication.username=neo4j
 ----
 
-
 Create a `.env` file int the project root to store the Neo4j credentials:
 
 [source,shell]
@@ -734,16 +735,15 @@ Create a `.env` file int the project root to store the Neo4j credentials:
 export SPRING_NEO4J_AUTHENTICATION_PASSWORD=verysecret
 ----
 
-
 Download the following seed files to some folder:
 
 - https://guides.neo4j.com/ukcompanies/data/CompanyDataAmericans.csv[CompanyDataAmericans]
 - https://guides.neo4j.com/ukcompanies/data/LandOwnershipAmericans.csv[LandOwnershipAmericans]
 - https://guides.neo4j.com/ukcompanies/data/PSCAmericans.csv[PSCAmericans.csv]
 
-
 Add the folder `src/main/docker` and create a file `neo4j.yml` with the following content:
 
+.neo4j.yml
 [source, yaml]
 ----
 # This configuration is intended for development purpose, it's **your** responsibility to harden it for production
@@ -770,6 +770,7 @@ services:
 
 Create the file `src/main/docker/.env` with the following content:
 
+.\.env
 [source, shell]
 ----
 NEO4j_PASSWORD=verysecret
@@ -806,14 +807,12 @@ Wait for the logs to inform the seed data migrations have run (it might take a w
 2023-08-02T13:21:06.551-03:00  INFO 28673 --- [           main] a.s.neo4j.migrations.core.Migrations     : Applied migration 006 ("Land").
 ----
 
-
 Test the API with GraphiQL at http://localhost:8080/graphiql. In the query box on the left, paste the following query
-
 
 [source, graphql]
 ----
 {
-    companyById(id: 12) {
+    companyList(page: 20) {
         id
         SIC
         name
@@ -821,8 +820,6 @@ Test the API with GraphiQL at http://localhost:8080/graphiql. In the query box o
         category
         companyNumber
         countryOfOrigin
-        incorporationDate
-        mortgagesOutstanding
     }
 }
 ----
@@ -838,9 +835,7 @@ If you see a warning message in the server logs, that reads _The query used a de
 
 == Build a React client
 
-Now let's create a Single Page Application (SPA) to consume the GraphQL API with React and Next.js.
-
-. describe client application, MUI, Next, TypeScript, Container pattern
+Now let's create a Single Page Application (SPA) to consume the GraphQL API with React and Next.js. The list of companies will display in a https://mui.com/material-ui/getting-started/[MUI] https://mui.com/x/react-data-grid/[Datagrid] component. The application will use Next.js `app` router. The `src/app` folder will contain routing files only, and the UI components and application code will be located in other folders.
 
 Install Node and in a terminal run:
 
@@ -971,7 +966,7 @@ export const CompanyApi = {
 {% endraw %}
 ----
 
-. describe useAsync
+. Update to use useAsync from Vercel
 
 Create the folder `src/hooks` and add the file `useAsync.tsx` with the following content:
 
@@ -1022,7 +1017,6 @@ export const useAsync = <T, P, E = string>(
 };
 {% endraw %}
 ----
-
 
 Add a file `src/.env.example` and `src/env.local` in the root folder, both with the following content:
 
@@ -1261,8 +1255,7 @@ export default Page;
 {% endraw %}
 ----
 
-. Explain layout component and theme required for next.js font to work
-Create the file `src/layout/WideLayout.tsx` with the following content:
+Add a component defining the page width, for using it in the root layout. Create the file `src/layout/WideLayout.tsx` with the following content:
 
 .WideLayout.tsx
 [source, tsx]
@@ -1289,10 +1282,10 @@ const WideLayout = (props: { children: React.ReactNode }) => {
 };
 
 export default WideLayout;
-
 {% endraw %}
 ----
 
+With the implementation above, the page content will be wrapped in a `ThemeProvider` component, so https://github.com/vercel/next.js/discussions/45433[MUI child components inherit the font family] from the root layout.
 Update the contents of `src/app/layout.tsx` and set:
 
 .app/layout.tsx
@@ -1341,10 +1334,9 @@ image::{% asset_path blog/spring-graphql-react/react-datagrid.png %}[alt=Home pa
 
 == Add security with Auth0
 
-. explain the security design
+For securing both the server and client, Auth0 platform provides the best customer experience, and with a few simple configuration steps, you can add authentication to your applications. Sign up at https://auth0.com/signup[Auth0] and install the https://github.com/auth0/auth0-cli[Auth0 CLI] that will help you create the tenant and the client applications.
 
 === Add resource server security to the GraphQL API server
-
 
 Add the `okta-spring-boot-starter` dependency to the `build.gradle` file:
 ----
@@ -1355,8 +1347,7 @@ dependencies {
 }
 ----
 
-
-Sign up at https://auth0.com/signup[Auth0] and install the https://github.com/auth0/auth0-cli[Auth0 CLI]. Then in the command line run:
+Then in the command line login to Auth0 with the CLI:
 
 [source, shell]
 ----
@@ -1422,6 +1413,7 @@ Once the app is created, you will see the OIDC app's configuration:
 
 Set the clientId, issuer and audience for OAuth2 in the `application.properties` file:
 
+.application.properties
 [source, properties]
 ----
 okta.oauth2.issuer=https://{your-auth0-domain}/
@@ -1431,6 +1423,7 @@ okta.oauth2.audience=https://{your-auth0-domain}/api/v2/
 
 Add the clientSecret to the `.env` file:
 
+.\.env
 [source, shell]
 ----
 export OKTA_OAUTH2_CLIENT_SECRET=<auth0-client-secret>
@@ -1438,14 +1431,16 @@ export OKTA_OAUTH2_CLIENT_SECRET=<auth0-client-secret>
 
 Add the following factory method to the class `SpringBootGraphQLApiConfig`, for requiring a bearer token for all requests:
 
+.SpringBootGraphQLApiConfig.java
 [source, java]
 ----
-
+    ...
     @Bean
     public SecurityFilterChain configure(HttpSecurity http) throws Exception {
         http.oauth2ResourceServer(oauth2ResourceServer -> oauth2ResourceServer.jwt(withDefaults()));
         return http.build();
     }
+    ...
 ----
 
 Again, in the root folder, run the API server with:
@@ -1458,11 +1453,19 @@ source .env
 With HTTPie, send a request to the API server using a bearer access token:
 
 [source, shell]
----
----
+----
+ACCESS_TOKEN={auth0AccessToken}
+echo -E '{"query":"{\n    companyList(page: 20) {\n        id\n        SIC\n        name\n        status\n        category\n        companyNumber\n        countryOfOrigin\n    }\n}"}' | \
+  http -A bearer -a $ACCESS_TOKEN POST http://localhost:8080/graphql
+----
+
+[NOTE]
+====
+Follow https://auth0.com/docs/secure/tokens/access-tokens/get-management-api-access-tokens-for-testing[these instructions] to get an access token for the Auth0 Management API, which can be used for testing the server API.
+====
+
 
 === Add Auth0 Login to the React client
-
 
 When using Auth0 as the identity provider, you can configure the Universal Login Page for a quick integration, without having to build the login forms. First, create the an SPA application using the auth0 CLI:
 
@@ -1476,7 +1479,6 @@ auth0 apps create \
   --logout-urls http://localhost:3000 \
   --reveal-secrets
 ----
-
 
 Copy the auth0 domain and the client Id, and update the 'src/.env.local' with the following properties (add the new variables to the example file too):
 
@@ -1632,7 +1634,6 @@ const Page = () => {
 export default Page;
 {% endraw %}
 ----
-
 
 === Call the API server with an accessToken
 
