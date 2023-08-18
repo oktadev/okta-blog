@@ -36,7 +36,7 @@ The email report looks like this:
 You need access to the following tools to complete this workshop. 
 
 - The completed todo application ([download](https://github.com/oktadev/okta-enterprise-ready-workshops/tree/oidc-workshop-completed))
-- Access to Okta Worklfows. You will learn how to gain access to Workflows in a later section
+- Access to Okta Workflows. You will learn how to gain access to Workflows in a later section
 
 You'll also want to ensure you're up and running with the base Todo application by following [How to Get Going with the Enterprise-Ready Identity for SaaS Apps Workshops](/blog/2023/07/27/enterprise-ready-getting-started).
 
