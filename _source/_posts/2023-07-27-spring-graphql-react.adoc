@@ -966,58 +966,6 @@ export const CompanyApi = {
 {% endraw %}
 ----
 
-. Update to use useAsync from Vercel
-
-Create the folder `src/hooks` and add the file `useAsync.tsx` with the following content:
-
-.useAsync.tsx
-[source, tsx]
-----
-{% raw %}
-import { useCallback, useState } from "react";
-
-export const enum AsyncState {
-  INITIAL = 1,
-  PENDING = 2,
-  SUCCESS = 3,
-  ERROR = 4,
-}
-
-export const useAsync = <T, P, E = string>(
-  asyncOperation: (params: P) => Promise<T>
-) => {
-  const [status, setStatus] = useState<AsyncState>(AsyncState.INITIAL);
-  const [error, setError] = useState<E | null>(null);
-  const [data, setData] = useState<T | null>(null);
-
-  const execute = useCallback(
-    async (params: P) => {
-      setStatus(AsyncState.PENDING);
-      setError(null)
-      setData(null)
-      try {
-        const response = await asyncOperation(params);
-        setStatus(AsyncState.SUCCESS);
-        setData(response);
-        setError(null);
-      } catch (err: any) {
-        setError(err.toString());
-        setStatus(AsyncState.ERROR);
-      }
-    },
-    [asyncOperation]
-  );
-
-  return {
-    status,
-    data,
-    error,
-    execute,
-  };
-};
-{% endraw %}
-----
-
 Add a file `src/.env.example` and `src/env.local` in the root folder, both with the following content:
 
 [source, shell]
@@ -1118,14 +1066,29 @@ import {
 } from "@mui/x-data-grid";
 import CompanyTable from "./CompanyTable";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
-import { AsyncState, useAsync } from "@/hooks/useAsync";
 import { CompanyApi } from "@/services/companies";
 import { useEffect } from "react";
 import Loader from "../loader/Loader";
+import { useAsync } from "react-use-custom-hooks";
 
 interface CompanyTableProperties {
   page?: number;
 }
+
+const columns: GridColDef[] = [
+  { field: "id", headerName: "ID", width: 70 },
+  {
+    field: "companyNumber",
+    headerName: "Company #",
+    width: 100,
+    sortable: false,
+  },
+  { field: "name", headerName: "Company Name", width: 350, sortable: false },
+  { field: "category", headerName: "Category", width: 200, sortable: false },
+  { field: "SIC", headerName: "SIC", width: 400, sortable: false },
+];
+
+
 
 const CompanyTableContainer = (props: CompanyTableProperties) => {
   const router = useRouter();
@@ -1133,62 +1096,28 @@ const CompanyTableContainer = (props: CompanyTableProperties) => {
   const pathName = usePathname();
   const page = props.page ? props.page : 1;
 
-  const { status, data, error, execute } = useAsync(CompanyApi.getCompanyList);
-  const {
-    status: statusCount,
-    data: count,
-    error: errorCount,
-    execute: executeGetCount,
-  } = useAsync(CompanyApi.getCompanyCount);
-
-  useEffect(() => {
-    // Only refresh when the page changes
-    execute({ page: page });
-  }, [page]);
-
-  useEffect(() => {
-    executeGetCount({});
-  }, []);
-
-  const columns: GridColDef[] = [
-    { field: "id", headerName: "ID", width: 70 },
-    {
-      field: "companyNumber",
-      headerName: "Company #",
-      width: 100,
-      sortable: false,
-    },
-    { field: "name", headerName: "Company Name", width: 350, sortable: false },
-    { field: "category", headerName: "Category", width: 200, sortable: false },
-    { field: "SIC", headerName: "SIC", width: 400, sortable: false },
-  ];
+  const { data: dataList, loading: loadingList, error: errorList } = useAsync(() => CompanyApi.getCompanyList({ page: page }), [page]);
+  const { data: dataCount } = useAsync(() => CompanyApi.getCompanyCount(), []);
 
   const onPageChange = (pagination: GridPaginationModel) => {
+    console.log("page change", pagination);
     const params = new URLSearchParams(searchParams.toString());
     params.set("page", pagination.page.toString());
     router.push(pathName + "?" + params.toString());
   };
 
-  const isFetchSuccess =
-    status === AsyncState.SUCCESS &&
-    statusCount === AsyncState.SUCCESS &&
-    data &&
-    count;
-  const isFetchError =
-    status === AsyncState.ERROR || statusCount === AsyncState.ERROR;
-  const isFetchPending =
-    status === AsyncState.PENDING || statusCount === AsyncState.PENDING;
+  console.log(dataList);
 
   return (
     <>
-      {isFetchPending && <Loader/>}
-      {isFetchError && <div>Error</div>}
+      {loadingList && <Loader/>}
+      {errorList && <div>Error</div>}
 
-      {isFetchSuccess && (
+      {!loadingList && dataList && (
         <CompanyTable
           pagination={{ page: page, pageSize: 10 }}
-          rowCount={count}
-          rows={data}
+          rowCount={dataCount}
+          rows={dataList}
           columns={columns}
           onPageChange={onPageChange}
         ></CompanyTable>
@@ -1710,48 +1639,46 @@ export const useAccessToken = () => {
 ----
 
 The hook will call Auth0 `getAccessTokenSilently` and will trigger a token refresh if the accessToken is expired. Then it will update axios interceptors to set the updated bearer token value in the request headers.
-Update `useAsync` implementation:
+Create the `useAsyncWithToken` hook:
 
-.useAsync.tsx
+.useAsyncWithToken.tsx
 [source, tsx]
 ----
-...
-export const useAsync = <T, P, E = string>(
-  asyncOperation: (params: P) => Promise<T>
+import { useAccessToken } from "./useAccessToken";
+import { useAsync } from "react-use-custom-hooks";
+
+export const useAsyncWithToken = <T, P, E = string>(
+  asyncOperation: () => Promise<T>, deps: any[]
 ) => {
-  const [status, setStatus] = useState<AsyncState>(AsyncState.INITIAL);
-  const [error, setError] = useState<E | null>(null);
-  const [data, setData] = useState<T | null>(null);
   const { saveAccessToken } = useAccessToken();
 
-  const execute = useCallback(
-    async (params: P) => {
-      setStatus(AsyncState.PENDING);
-      setError(null)
-      setData(null)
-      try {
-        await saveAccessToken();
-        const response = await asyncOperation(params);
-        setStatus(AsyncState.SUCCESS);
-        setData(response);
-        setError(null);
-      } catch (err: any) {
-        setError(err.toString());
-        setStatus(AsyncState.ERROR);
-      }
-    },
-    [asyncOperation, saveAccessToken]
-  );
+  // Add saveAccessToken to the dependency list
+  const [ data, loading, error ] = useAsync(async () => {
+    await saveAccessToken();
+    return asyncOperation();
+  }, {},  deps);
 
   return {
-    status,
     data,
-    error,
-    execute,
+    loading,
+    error
   };
 };
-...
 ----
+
+
+Update the calls in the `CompanyTableContainer` component to use the `useAsyncWithToken` hook:
+
+.CompanyTableContainer.tsx
+[source, tsx]
+----
+  ...
+  const { data: dataList, loading: loadingList, error: errorList } = useAsyncWithToken(() => CompanyApi.getCompanyList({ page: page }), [page]);
+  const { data: dataCount } = useAsyncWithToken(() => CompanyApi.getCompanyCount(), []);
+  ...
+
+----
+
 
 Run the application with:
 
