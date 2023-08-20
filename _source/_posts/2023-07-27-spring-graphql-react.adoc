@@ -32,7 +32,7 @@ image::{% asset_path blog/spring-graphql-react/logos.png %}[alt=Spring, GraphQL 
 - https://auth0.com/signup[Auth0 account]
 - https://github.com/auth0/auth0-cli#installation[Auth0 CLI 1.0.0]
 - https://httpie.io/[HTTPie 3.2.2]
-- https://nextjs.org/[Next.js 13.4.6]
+- https://nextjs.org/[Next.js 13.4.19]
 ====
 
 toc::[]
@@ -59,7 +59,7 @@ https start.spring.io/starter.zip \
   packageName==com.okta.developer.demo > spring-graphql-api.zip
 ----
 
-Unzip the file and start editing the project. Define the GraphQL api with a schema file, under `src/main/resources/graphql/schema.graphqls` with the following content:
+Unzip the file and start editing the project. Define the GraphQL api with a schema file `schema.graphqls`, in the folder `src/main/resources/graphql/` with the following content:
 
 .schema.graphqls
 [source, graphql]
@@ -403,7 +403,7 @@ public interface CompanyRepository extends ReactiveNeo4jRepository<Company, Long
 }
 ----
 
-Create the configuration class `GraphQLConfig` under the root package:
+Create the configuration class `GraphQLConfig` under the root package. This class will enable CORS from the React client and log the GraphQL schema mappings:
 
 .GraphQLConfig.java
 [source, java]
@@ -443,7 +443,7 @@ class GraphQLConfig {
 }
 ----
 
-Create the configuration class `SpringBootGraphQLApiConfig` in the root package as well, with the following code:
+Create the configuration class `SpringBootGraphQLApiConfig` in the root package as well, defining a reactive transaction manager required for reactive Neo4j:
 
 .SpringBootGraphQLApiConfig.java
 [source, java]
@@ -741,7 +741,7 @@ Download the following seed files to some folder:
 - https://guides.neo4j.com/ukcompanies/data/LandOwnershipAmericans.csv[LandOwnershipAmericans]
 - https://guides.neo4j.com/ukcompanies/data/PSCAmericans.csv[PSCAmericans.csv]
 
-Add the folder `src/main/docker` and create a file `neo4j.yml` with the following content:
+Create the folder `src/main/docker` and create a file `neo4j.yml` there, with the following content:
 
 .neo4j.yml
 [source, yaml]
@@ -773,7 +773,7 @@ Create the file `src/main/docker/.env` with the following content:
 .\.env
 [source, shell]
 ----
-NEO4j_PASSWORD=verysecret
+NEO4J_PASSWORD=verysecret
 ----
 
 As you can see the compose file will mount `<csv-folder>` to a `/var/lib/neo4j/import` volume, making the content accessible from the running neo4j container.
@@ -841,7 +841,7 @@ Install Node and in a terminal run:
 
 [source, shell]
 ----
-npx create-next-app@latest
+npx create-next-app@13.4.19
 ----
 
 Answer the questions as follows:
@@ -859,9 +859,10 @@ Then add the the MUI Datagrid dependency:
 
 [source, shell]
 ----
-cd react-graphql
-npm install @mui/x-data-grid
-npm install @mui/material @emotion/react @emotion/styled
+cd react-graphql && \
+  npm install @mui/x-data-grid && \
+  npm install @mui/material @emotion/react @emotion/styled && \
+  npm install react-use-custom-hooks
 ----
 
 Test run the application with:
@@ -966,7 +967,7 @@ export const CompanyApi = {
 {% endraw %}
 ----
 
-Add a file `src/.env.example` and `src/env.local` in the root folder, both with the following content:
+Add a file `.env.example` and `.env.local` in the root folder, both with the following content:
 
 [source, shell]
 ----
@@ -975,7 +976,7 @@ NEXT_PUBLIC_API_SERVER_URL=http://localhost:8080
 
 === Create a companies home page
 
-Create the folder `src/components/companies` and add the file `CompanyTable.tsx` with the following content:
+Create the folder `src/components/company` and add the file `CompanyTable.tsx` with the following content:
 
 .CompanyTable.tsx
 [source, tsx]
@@ -1053,7 +1054,7 @@ export default Loader;
 {% endraw %}
 ----
 
-Add the file `src/components/companies/CompanyTableContainer.tsx` with the following content:
+Add the file `src/components/company/CompanyTableContainer.tsx` with the following content:
 
 .CompanyTableContainer.tsx
 [source, tsx]
@@ -1061,13 +1062,11 @@ Add the file `src/components/companies/CompanyTableContainer.tsx` with the follo
 {% raw %}
 import {
   GridColDef,
-  GridEventListener,
   GridPaginationModel,
 } from "@mui/x-data-grid";
 import CompanyTable from "./CompanyTable";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import { CompanyApi } from "@/services/companies";
-import { useEffect } from "react";
 import Loader from "../loader/Loader";
 import { useAsync } from "react-use-custom-hooks";
 
@@ -1096,8 +1095,8 @@ const CompanyTableContainer = (props: CompanyTableProperties) => {
   const pathName = usePathname();
   const page = props.page ? props.page : 1;
 
-  const { data: dataList, loading: loadingList, error: errorList } = useAsync(() => CompanyApi.getCompanyList({ page: page }), [page]);
-  const { data: dataCount } = useAsync(() => CompanyApi.getCompanyCount(), []);
+  const [ dataList, loadingList, errorList ] = useAsync(() => CompanyApi.getCompanyList({ page: page }), {}, [page]);
+  const [ dataCount ] = useAsync(() => CompanyApi.getCompanyCount(), {}, []);
 
   const onPageChange = (pagination: GridPaginationModel) => {
     console.log("page change", pagination);
@@ -1138,7 +1137,7 @@ Add the file `src/app/HomePage.tsx` with the following content:
 {% raw %}
 "use client";
 
-import CompanyTableContainer from "@/components/companies/CompanyTableContainer";
+import CompanyTableContainer from "@/components/company/CompanyTableContainer";
 import { Box, Typography } from "@mui/material";
 import { useSearchParams } from "next/navigation";
 
@@ -1250,7 +1249,7 @@ export default function RootLayout({
 {% endraw %}
 ----
 
-Also remove `src/app/global.css` and `src/app/layout.css`. Then run the client application with:
+Also remove `src/app/global.css` and `src/app/page.module.css`. Then run the client application with:
 
 [source, shell]
 ----
