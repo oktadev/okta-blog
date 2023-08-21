@@ -129,7 +129,7 @@ Let's update the users in `prisma/seed_script.ts`. We'll also need to hardcode `
 
 We'll also give each org an `apikey` set to a random string. Using a different key for each org helps our code ensure that no client can accidentally view or edit users belonging to another. 
 
-Keeping the orignal imports in `prisma/seed_script.ts` and after making the above changes, this is how the file should look:
+Keeping the original imports in `prisma/seed_script.ts` and after making the above changes, this is how the file should look:
 
 ```ts
 import { PrismaClient } from '@prisma/client'
