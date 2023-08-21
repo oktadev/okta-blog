@@ -12,7 +12,7 @@ image: blog/workflows-workshop/social.jpg
 type: awareness
 ---
 
-This tutorial is part of the Enterprise-ready workshop series. In this workshop, you'll enhance the base Todo application by creating an automated report using Okta's no-code Workflows. 
+This tutorial is part of the enterprise-ready workshop series. In this workshop, you'll enhance the base Todo application by creating an automated report using Okta's no-code Workflows. 
 
 You built the following Todo application: 
 
