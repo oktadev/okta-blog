@@ -1331,3 +1331,33 @@ If you have followed along with the workshops so far, you now have a Todo applic
 | 4. [Enterprise-Ready Workshop: Terraform](/blog/2023/07/28/terraform-workshop) |
 
 Follow us on [Twitter](https://twitter.com/oktadev) and subscribe to our [YouTube](https://www.youtube.com/c/oktadev) channel to get notified about exciting new content. Please comment below if you have any questions or want to share problems you have used SCIM to solve or are planning to solve. As all our sample projects and SDKs are open source, we invite you to initiate a pull request if you see something you want us to improve. Thank you! 
+
+## Supplemental
+
+# Replacement for auto-increment
+
+In the OIDC and SCIM video, it was recommended to have a better way to assign the id attribute. And in both workshops, we used basic autoincrement for the user’s id to lessen the complexity of the projects. However, for production, we recommend using a unique id generator such as uuid. I know I mentioned using xid in my accompanying video, but when considering which to use, keep in mind and as secure best practice whether or not the library is frequently maintained. 
+
+
+# Automatically handle assigning users to designated orgs
+
+As mentioned, to simplify the example code, I demoed supporting one org at first by hardcoding the org ID as 1. 
+
+```
+// To funnel users into their designated orgs
+const ORG_ID = 1;
+```
+
+When you’re ready to support multiple SCIM clients, you can retrieve the api string from the request headers sent from the IdP. Then do an org look-up with the findFirst SQL function and select the org id where the api key matches that of the one you extracted from the request headers. Doing so will automatically generate a user with the correct organization.
+
+```
+// Create the User in the database
+    const user = await prisma.user.create({
+      data: {
+        org: { connect: { id: ORG_ID } },
+        name,
+        email,
+        externalId,
+        active
+      }
+```
