@@ -1348,7 +1348,7 @@ As mentioned, to simplify the example code, I demoed supporting one org at first
 const ORG_ID = 1;
 ```
 
-When you're ready to support multiple SCIM clients, you can retrieve the api string from the request headers sent from the IdP. Then do an org look-up with the findFirst SQL function and select the org id where the api key matches that of the one you extracted from the request headers. Doing so will automatically generate a user with the correct organization.
+When you're ready to support multiple SCIM clients, you can retrieve the api string from the request headers sent from the IdP. Then do an org look-up with the findFirst SQL function and select the org id where the api key matches that of the one you extracted from the request headers. Doing so will automatically generate a user for the correct organization.
 
 ```ts
 // Create the User in the database
