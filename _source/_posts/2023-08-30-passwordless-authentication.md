@@ -64,7 +64,7 @@ Because of the security risks associated with passwords, the security community 
     <td>{% img blog/passwordless-authentication/warning.jpg alt:"Warning icon" width:"100" %}</td>
     <td markdown="span">
     **Time-based one-time passwords (TOTP)**<br/>
-    TOTP are the codes you get through software authenticators, such as Okta Verify or Google Authenticator, valid for a short time. While TOTP improves SMS OTP, it can be vulnerable to meddler-in-the-middle (MITM) attacks, displays the code in plaintext and expects the user to transcribe the value accurately and quickly to authenticate.
+    TOTP are the codes you get through software authenticators, such as Okta Verify or Google Authenticator, valid for a short time. While TOTP improves SMS OTP, any SMS factor is still vulnerable to meddler-in-the-middle (MITM) attacks, displays the code in plaintext and expects the user to transcribe the value accurately and quickly to authenticate.
     </td>
 </tr>
 <tr>
