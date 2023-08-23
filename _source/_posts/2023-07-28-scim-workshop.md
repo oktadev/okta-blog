@@ -1336,7 +1336,7 @@ Follow us on [Twitter](https://twitter.com/oktadev) and subscribe to our [YouTub
 
 # Replacement for auto-increment
 
-In the OIDC and SCIM video, it was recommended to have a better way to assign the id attribute. And in both workshops, we used basic autoincrement for the user’s id to lessen the complexity of the projects. However, for production, we recommend using a unique id generator such as uuid. I know I mentioned using xid in my accompanying video, but when considering which to use, keep in mind and as secure best practice whether or not the library is frequently maintained. 
+In the OIDC and SCIM video, it was recommended to have a better way to assign the id attribute. And in both workshops, we used basic autoincrement for the user'git s id to lessen the complexity of the projects. However, for production, we recommend using a unique id generator such as uuid. I know I mentioned using xid in my accompanying video, but when considering which to use, keep in mind and as secure best practice whether or not the library is frequently maintained. 
 
 
 # Automatically handle assigning users to designated orgs
