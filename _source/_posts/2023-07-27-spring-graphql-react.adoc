@@ -1700,6 +1700,158 @@ Once the companies load, you can inspect the network requests and see the bearer
 Authorization: Bearer eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCIsImtpZCI6IlJzZHNsM211SjNYU2ZVT0tDOEMxSiJ9.eyJodHRwczovL3d3dy5qaGlwc3Rlci50ZWNoL3JvbGVzIjpbIlJPTEVfQURNSU4iLCJST0xFX1VTRVIiXSwiaXNzIjoiaHR0cHM6Ly9kZXYtYXZ1cDJsYXoudXMuYXV0aDAuY29tLyIsInN1YiI6ImF1dGgwfDY0MzQxOTkxNTJmYjc2N2Y3ZWFlZDU2NyIsImF1ZCI6WyJhcGktc2VydmVyIiwiaHR0cHM6Ly9kZXYtYXZ1cDJsYXoudXMuYXV0aDAuY29tL3VzZXJpbmZvIl0sImlhdCI6MTY5MTU5NDE3NCwiZXhwIjoxNjkxNTk0Mjk0LCJhenAiOiI1WW5QeEJiTjRoYXFyd2JNaXRpZFBRVTBjb0l2YUI3SCIsInNjb3BlIjoib3BlbmlkIHByb2ZpbGUgZW1haWwgb2ZmbGluZV9hY2Nlc3MifQ.oRMJNIwSeO9dfHi6Q2tr_B51YetEPZqjcVEEIBe3ky9tEe50tTB5ssMTbVaR78_1qXA663Cn4EMPEYTLlb_wiOHEqnKpZnpq0O07G2MGszkrgv5giaQBOXvr9UT_Kc3pFPK-xMVmOsicLoF_mz8iyOzReG1Gcw0UbS1fZsJthdtC9svLiPGC1rn-dwPJxPpKy118vWLbEgO3NsdVfaiPxbucv0TL_B8Msd-wBD8N4M_yej9jl7w2JT0ltLza_-Glbxr1aQBKd19O2QT8ovgyE325BYqeYiUOaV7efwMgqHUm7z4LngaPLRNhMLP2BExG7bUQD2JjH2Mh19LFYNM-Gw
 ----
 
+== Update the GraphQL query in the client
+
+The GraphQL query in the react client application can be easily updated to request more data from the server. For example, add the `status` and information about who controls the company. First update the API client:
+
+.companies.tsx
+[source, tsx]
+----
+...
+  getCompanyList: async (params?: CompaniesQuery) => {
+
+    try {
+      const response = await backendAPI.post("/graphql", {
+        query: `{
+        companyList(page: ${params?.page || 0}) {
+          name,
+          SIC,
+          id,
+          companyNumber,
+          category,
+          status,
+          controlledBy {
+            name
+          }
+        }}`,
+      });
+      return response.data.data.companyList as CompanyDTO[];
+    } catch (error) {
+      console.log("handle get companies error", error);
+      if (error instanceof AxiosError) {
+        let axiosError = error as AxiosError;
+        if (axiosError.response?.data) {
+          throw new Error(axiosError.response?.data as string);
+        }
+      }
+      throw new Error("Unknown error, please contact the administrator");
+    }
+  },
+...
+----
+
+Then update the `CompanyData` interface in the `CompanyTable.tsx` component:
+
+.CompanyTable.tsx
+[source, tsx]
+----
+export interface CompanyData {
+  id: string,
+  name: string,
+  category: string,
+  companyNumber: string,
+  SIC: string
+  status: string,
+  owner: string
+}
+----
+
+Finally, update the `CompanyTableContainer` column definitions, and data formatting. The final code should look like below:
+
+.CompanyTableContainer.tsx
+[source, tsx]
+----
+{% raw %}
+import { GridColDef, GridPaginationModel } from "@mui/x-data-grid";
+import CompanyTable from "./CompanyTable";
+import { usePathname, useRouter, useSearchParams } from "next/navigation";
+import { CompanyApi, CompanyDTO } from "@/services/companies";
+import Loader from "../loader/Loader";
+import { useAsyncWithToken } from "@/app/hooks/useAsyncWithToken";
+
+interface CompanyTableProperties {
+  page?: number;
+}
+
+const columns: GridColDef[] = [
+  { field: "id", headerName: "ID", width: 70 },
+  {
+    field: "companyNumber",
+    headerName: "Company #",
+    width: 100,
+    sortable: false,
+  },
+  { field: "name", headerName: "Company Name", width: 250, sortable: false },
+  { field: "category", headerName: "Category", width: 200, sortable: false },
+  { field: "SIC", headerName: "SIC", width: 200, sortable: false },
+  { field: "status", headerName: "Status", width: 100, sortable: false },
+  { field: "owner", headerName: "Owner", width: 200, sortable: false },
+];
+
+const CompanyTableContainer = (props: CompanyTableProperties) => {
+  const router = useRouter();
+  const searchParams = useSearchParams()!;
+  const pathName = usePathname();
+  const page = props.page ? props.page : 1;
+
+  const {
+    data: dataList,
+    loading: loadingList,
+    error: errorList,
+  } = useAsyncWithToken(
+    () => CompanyApi.getCompanyList({ page: page - 1}),
+    [props.page]
+  );
+
+  const { data: dataCount } = useAsyncWithToken(
+    () => CompanyApi.getCompanyCount(),
+    []
+  );
+
+  const onPageChange = (pagination: GridPaginationModel) => {
+    const params = new URLSearchParams(searchParams.toString());
+    const page = pagination.page + 1;
+    params.set("page", page.toString());
+    router.push(pathName + "?" + params.toString());
+  };
+
+
+  const companyData = dataList?.map((company: CompanyDTO) => {
+    return {
+      id: company.id,
+      name: company.name,
+      category: company.category,
+      companyNumber: company.companyNumber,
+      SIC: company.SIC,
+      status: company.status,
+      owner: company.controlledBy.map((person) => person.name).join(", "),
+    }
+  });
+
+  return (
+    <>
+      {loadingList && <Loader />}
+      {errorList && <div>Error</div>}
+
+      {!loadingList && dataList && (
+        <CompanyTable
+          pagination={{ page: page - 1, pageSize: 10 }}
+          rowCount={dataCount}
+          rows={companyData}
+          columns={columns}
+          onPageChange={onPageChange}
+        ></CompanyTable>
+      )}
+    </>
+  );
+};
+
+export default CompanyTableContainer;
+{% endraw %}
+----
+
+Give it a try, and notice how the simple was the update.
+
 == Learn More
 
 I hope you enjoyed this tutorial, and found this example useful. As you can see, not much work would be required to consume more company data from the GraphQL server, just a query update in the client. Also the Auth0 Universal Login and Auth0 React SDK provide an efficient way to secure your React applications, following security best practices. Check you Auth0 documentation for adding https://developer.auth0.com/resources/guides/spa/react/basic-authentication#add-user-sign-up-to-react[sign-up] and https://developer.auth0.com/resources/guides/spa/react/basic-authentication#add-user-logout-to-react[logout] functionality to your React application. Keep in touch! If you have questions about this post, please ask them in the comments below. And follow us! We're https://twitter.com/oktadev[@oktadev on Twitter], https://youtube.com/c/oktadev[@oktadev on YouTube], and frequently post to our https://www.linkedin.com/company/oktadev/[LinkedIn page].
