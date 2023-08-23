@@ -495,7 +495,7 @@ public class CompanyController {
 
     @QueryMapping
     public Flux<Company> companyList(@Argument Long page) {
-        return companyRepository.findAll().skip((page - 1) * 10).take(10);
+        return companyRepository.findAll().skip(page * 10).take(10);
     }
 
     @QueryMapping
@@ -942,7 +942,7 @@ export const CompanyApi = {
     try {
       const response = await backendAPI.post("/graphql", {
         query: `{
-        companyList(page: ${params?.page || 1}) {
+        companyList(page: ${params?.page || 0}) {
           name,
           SIC,
           id,
@@ -1095,13 +1095,13 @@ const CompanyTableContainer = (props: CompanyTableProperties) => {
   const pathName = usePathname();
   const page = props.page ? props.page : 1;
 
-  const [ dataList, loadingList, errorList ] = useAsync(() => CompanyApi.getCompanyList({ page: page }), {}, [page]);
+  const [ dataList, loadingList, errorList ] = useAsync(() => CompanyApi.getCompanyList({ page: page - 1 }), {}, [page]);
   const [ dataCount ] = useAsync(() => CompanyApi.getCompanyCount(), {}, []);
 
   const onPageChange = (pagination: GridPaginationModel) => {
-    console.log("page change", pagination);
     const params = new URLSearchParams(searchParams.toString());
-    params.set("page", pagination.page.toString());
+    const page = pagination.page + 1;
+    params.set("page", page.toString());
     router.push(pathName + "?" + params.toString());
   };
 
@@ -1114,7 +1114,7 @@ const CompanyTableContainer = (props: CompanyTableProperties) => {
 
       {!loadingList && dataList && (
         <CompanyTable
-          pagination={{ page: page, pageSize: 10 }}
+          pagination={{ page: page - 1, pageSize: 10 }}
           rowCount={dataCount}
           rows={dataList}
           columns={columns}
@@ -1266,16 +1266,7 @@ For securing both the server and client, Auth0 platform provides the best custom
 
 === Add resource server security to the GraphQL API server
 
-Add the `okta-spring-boot-starter` dependency to the `build.gradle` file:
-----
-dependencies {
-    ...
-	implementation 'com.okta.spring:okta-spring-boot-starter:3.0.4'
-    ...
-}
-----
-
-Then in the command line login to Auth0 with the CLI:
+In the command line login to Auth0 with the CLI:
 
 [source, shell]
 ----
@@ -1339,22 +1330,31 @@ Once the app is created, you will see the OIDC app's configuration:
  ▸    Hint: Consider running `auth0 quickstarts download ***`
 ----
 
+Add the `okta-spring-boot-starter` dependency to the `build.gradle` file:
+----
+dependencies {
+    ...
+	implementation 'com.okta.spring:okta-spring-boot-starter:3.0.4'
+    ...
+}
+----
+
 Set the clientId, issuer and audience for OAuth2 in the `application.properties` file:
 
 .application.properties
 [source, properties]
 ----
-okta.oauth2.issuer=https://{your-auth0-domain}/
+okta.oauth2.issuer=https://{yourAuth0Domain}/
 okta.oauth2.client-id={clientId}
-okta.oauth2.audience=https://{your-auth0-domain}/api/v2/
+okta.oauth2.audience=https://{yourAuth0Domain}/api/v2/
 ----
 
 Add the clientSecret to the `.env` file:
 
-.\.env
+..env
 [source, shell]
 ----
-export OKTA_OAUTH2_CLIENT_SECRET=<auth0-client-secret>
+export OKTA_OAUTH2_CLIENT_SECRET={clientSecret}
 ----
 
 Add the following factory method to the class `SpringBootGraphQLApiConfig`, for requiring a bearer token for all requests:
@@ -1413,10 +1413,10 @@ Copy the auth0 domain and the client Id, and update the 'src/.env.local' with th
 .env.local
 [source, shell]
 ----
-NEXT_PUBLIC_AUTH0_DOMAIN={your-auth0-domain}
+NEXT_PUBLIC_AUTH0_DOMAIN={yourAuth0Domain}
 NEXT_PUBLIC_AUTH0_CLIENT_ID={clientId}
 NEXT_PUBLIC_AUTH0_CALLBACK_URL=http://localhost:3000/callback
-NEXT_PUBLIC_AUTH0_AUDIENCE=https://{your-auth0-domain}/api/v2/
+NEXT_PUBLIC_AUTH0_AUDIENCE=https://{yourAuth0Domain}/api/v2/
 ----
 
 For handling the Auth0 post-login behaviour, you need to add the page `src/app/callback/page.tsx` with the following content.
@@ -1424,6 +1424,8 @@ For handling the Auth0 post-login behaviour, you need to add the page `src/app/c
 .callback/page.tsx
 [source, tsx]
 ----
+import Loader from "@/components/loader/Loader";
+
 const Page = () => {
   return <Loader/>
 };
@@ -1608,9 +1610,9 @@ Add the file `src/hooks/useAccessToken.tsx` with the following content:
 .useAccessToken.tsx
 [source, tsx]
 ----
+import { setInterceptors } from "@/services/auth";
 import { useAuth0 } from "@auth0/auth0-react";
 import { useCallback, useState } from "react";
-import { useAuth0 } from "@auth0/auth0-react";
 
 export const useAccessToken = () => {
   const { isAuthenticated, getAccessTokenSilently } = useAuth0();
@@ -1672,7 +1674,7 @@ Update the calls in the `CompanyTableContainer` component to use the `useAsyncWi
 [source, tsx]
 ----
   ...
-  const { data: dataList, loading: loadingList, error: errorList } = useAsyncWithToken(() => CompanyApi.getCompanyList({ page: page }), [page]);
+  const { data: dataList, loading: loadingList, error: errorList } = useAsyncWithToken(() => CompanyApi.getCompanyList({ page: page - 1 }), [page]);
   const { data: dataCount } = useAsyncWithToken(() => CompanyApi.getCompanyCount(), []);
   ...
 
