@@ -14,9 +14,9 @@ image: blog/passwordless-authentication/social.jpg
 type: awareness
 ---
 
-Passwords? Bah! Who wants to remember all those letters, numbers, and special character combinations? Password managers and password manager browser extensions can help us, but what if we stopped using passwords instead? What if we stopped using other phishable authentication factors, such as SMS one-time passwords (OTP)? What if authentication was so seamless that we could use built-in device hardware capabilities instead?
+Passwords? Bah! Who wants to remember all those letter, number, and special character combinations? Password managers and password manager browser extensions can help us, but what if we stopped using passwords entirely? What if we stopped using authentication factors, such as SMS one-time passwords (OTP), that pose risks where malicious actors can access sensitive authentication information (phishing)? What if authentication was so seamless that we could use built-in device hardware capabilities instead?
 
-Seamless, easy-to-use authentication is the future many dream of, and a group called the [Fast Identity Online (FIDO) Alliance](https://fidoalliance.org/). The FIDO Alliance is a group of organizations that focuses on providing open and free authentication standards utilizing more secure technologies. And we've heard of the [World Wide Web Consortium (W3C)](https://www.w3.org/) as a group that builds web standards. How do these two groups intersect when it comes to authentication security? Let's better understand the collaboration and what it means for us.
+Seamless, easy-to-use authentication is the future many dream of, including a group called the [Fast Identity Online (FIDO) Alliance](https://fidoalliance.org/). The FIDO Alliance is a group of organizations that focuses on providing open and free authentication standards utilizing more secure technologies. And we've heard of the [World Wide Web Consortium (W3C)](https://www.w3.org/) as a group that builds web standards. How do these two groups intersect when it comes to authentication security? Let's better understand the collaboration and what it means for us.
 
 {% include toc.md %}
 
@@ -80,9 +80,9 @@ What we want is a robust, phishing-resistant, easy-to-use authentication mechani
 
 ## Phishing-resistant authentication
 
-Phishing-resistant authentication factors include local biometric factors and secure possession-based factors. Using cryptographically unique credentials for each website and new browser capabilities that make secure authentication easy to use is the winning combination!  
+Phishing-resistant authentication factors include local biometric factors and secure possession-based factors. Using cryptographically unique credentials for each website and new browser capabilities that streamlines secure authentication is the winning combination!  
 
-Using FIDO and W3C's combined forces brings us to a new authentication standard called FIDO2. FIDO2 retained the cryptographically secure authentication key from the previous U2F method. They introduced a new protocol to an existing standard for devices to interoperate with web browsers called [Client to Authenticator Protocol (CTAP2)](https://fidoalliance.org/specs/fido-v2.0-ps-20190130/fido-client-to-authenticator-protocol-v2.0-ps-20190130.html). Devices supporting CTAP2 include those with built-in hardware authenticators and external devices. An example of a device with built-in hardware authenticators includes laptops with fingerprint sensors or cameras for facial recognition. External devices include security keys, phones, and watches with Bluetooth, USB, or NFC communication capability.
+Using FIDO and W3C's combined forces brings us to a new authentication standard called FIDO2. FIDO2 retained the cryptographically secure authentication key from the previous U2F method. They introduced a new protocol to an existing standard for devices to interoperate with web browsers called [Client to Authenticator Protocol (CTAP2)](https://fidoalliance.org/specs/fido-v2.0-ps-20190130/fido-client-to-authenticator-protocol-v2.0-ps-20190130.html). Devices supporting CTAP2 include those with built-in biometric readers such as phones, and external devices such as smart keys. An example of a device with built-in hardware authenticators includes laptops with fingerprint sensors or cameras for facial recognition. External devices include security keys, phones, and watches with Bluetooth, USB, or NFC communication capability.
 
 {% img blog/passwordless-authentication/ctap.jpg alt:"Graphic of device icons such as phone, laptop, smart card, and smart key along with forms of communication (Bluetooth, USB, and NFC)" width:"800" %}{: .center-image }
 
@@ -157,7 +157,7 @@ The server remembers you're using passkeys! 🎉 The server responds with a chal
 
 {% img blog/passwordless-authentication/webauthnio-authn-response.jpg alt:"webauthn.io site network call response to authenticate user" width:"800" %}{: .center-image }
 
-The website utilizes WebAuthn, which causes the browser to pass the challenge to the authenticator. The authenticator verifies it has credentials for the site and can sign the challenge using the keyset registered, a process called "assertion." The authenticator requests user consent via biometric verification or a PIN and returns the signed assertion. The browser presents the user with an authentication challenge through the browser, which we see in the screenshots above of the authentication flow. The user grants consent using the passkey.
+The website uses WebAuthn to get credentials, which causes the browser to pass the challenge to the authenticator. The authenticator verifies it has credentials for the site and can sign the challenge using the keyset registered, a process called "assertion." The authenticator requests user consent via biometric verification or a PIN and returns the signed assertion. The browser presents the user with an authentication challenge through the browser, which we see in the screenshots above of the authentication flow. The user grants consent using the passkey.
 
 {% img blog/passwordless-authentication/webauthnio-authn-ctap.jpg alt:"webauthn.io site authentication authenticator grant" width:"800" %}{: .center-image }
 
