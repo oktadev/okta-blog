@@ -4,7 +4,7 @@ title: "How to build a GraphQL API with Spring for GraphQL"
 author: jimena-garbarino
 by: contractor
 communities: [security,java,javascript]
-description: "A step by step guide for building a secured GraphQL API with Spring Boot and Auth0 authentication on React"
+description: "A step-by-step guide for building a secured GraphQL API with Spring Boot and Auth0 authentication on React"
 tags: [java, javascript]
 tweets:
 - ""
@@ -18,7 +18,7 @@ type: awareness
 :experimental:
 
 
-GraphQL is a query language for APIs and a runtime that allows the API consumer to get exactly the required information instead of the server exclusively controlling the contents of the response. While some REST APIs implementations require loading the references of a resource from multiple URLs, GraphQL APIs can follow references between related objects and return them in a single request. This step by step guide demonstrates how to build a GraphQL API with Spring Boot and Spring for GraphQL, for querying a sample dataset of related companies, persons and properties, seeded to a Neo4j database. It also demonstrates how to build a React client with Next.js and MUI Datagrid to consume the API. Both the client and the server are secured with Auth0 authentication using Okta Spring Boot Starter for the server and Auth0 React SDK for the client.
+GraphQL is a query language for APIs and a runtime that allows the API consumer to get exactly the required information instead of the server exclusively controlling the contents of the response. While some REST API implementations require loading the references of a resource from multiple URLs, GraphQL APIs can follow references between related objects and return them in a single request. This step-by-step guide demonstrates how to build a GraphQL API with Spring Boot and Spring for GraphQL, for querying a sample dataset of related companies, persons, and properties, seeded to a Neo4j database. It also demonstrates how to build a React client with Next.js and MUI Datagrid to consume the API. Both the client and the server are secured with Auth0 authentication using Okta Spring Boot Starter for the server and Auth0 React SDK for the client.
 
 image::{% asset_path blog/spring-graphql-react/logos.png %}[alt=Spring, GraphQL and React,width=700,align=center]
 
@@ -102,7 +102,7 @@ type Property {
 }
 ----
 
-As you can see the schema is defining the object types `Company`, `Person` and `Property` and the query types `companyList` and `companyCount`.
+As you can see the schema defines the object types `Company`, `Person` and `Property` and the query types `companyList` and `companyCount`.
 
 Start adding classes for the domain. Create the package `com.okta.developer.demo.domain` under `src/main/java`. Add the classes `Person`, `Property` and `Company`.
 
@@ -506,7 +506,7 @@ public class CompanyController {
 }
 ----
 
-Create a the `CompanyControllerTests` class for the web layer in the folder `src/main/test/java` under the package `com.okta.developer.demo.controller`:
+Create the `CompanyControllerTests` class for the web layer in the folder `src/main/test/java` under the package `com.okta.developer.demo.controller`:
 
 .CompanyControllerTests.java
 [source, java]
@@ -594,12 +594,12 @@ Update the test configuration in `build.gradle` file, so passed tests are logged
 [source, groovy]
 ----
 tasks.named('test') {
-	useJUnitPlatform()
+  useJUnitPlatform()
 
-	testLogging {
-		// set options for log level LIFECYCLE
-		events "failed", "passed"
-	}
+  testLogging {
+    // set options for log level LIFECYCLE
+    events "failed", "passed"
+  }
 }
 ----
 
@@ -1249,7 +1249,7 @@ export default function RootLayout({
 {% endraw %}
 ----
 
-Also remove `src/app/global.css` and `src/app/page.module.css`. Then run the client application with:
+Also, remove `src/app/global.css` and `src/app/page.module.css`. Then run the client application with:
 
 [source, shell]
 ----
@@ -1262,7 +1262,7 @@ image::{% asset_path blog/spring-graphql-react/react-datagrid.png %}[alt=Home pa
 
 == Add security with Auth0
 
-For securing both the server and client, Auth0 platform provides the best customer experience, and with a few simple configuration steps, you can add authentication to your applications. Sign up at https://auth0.com/signup[Auth0] and install the https://github.com/auth0/auth0-cli[Auth0 CLI] that will help you create the tenant and the client applications.
+For securing both the server and client, the Auth0 platform provides the best customer experience, and with a few simple configuration steps, you can add authentication to your applications. Sign up at https://auth0.com/signup[Auth0] and install the https://github.com/auth0/auth0-cli[Auth0 CLI] that will help you create the tenant and the client applications.
 
 === Add resource server security to the GraphQL API server
 
@@ -1334,7 +1334,7 @@ Add the `okta-spring-boot-starter` dependency to the `build.gradle` file:
 ----
 dependencies {
     ...
-	implementation 'com.okta.spring:okta-spring-boot-starter:3.0.4'
+  implementation 'com.okta.spring:okta-spring-boot-starter:3.0.4'
     ...
 }
 ----
@@ -1395,7 +1395,7 @@ Follow https://auth0.com/docs/secure/tokens/access-tokens/get-management-api-acc
 
 === Add Auth0 Login to the React client
 
-When using Auth0 as the identity provider, you can configure the Universal Login Page for a quick integration, without having to build the login forms. First, create the an SPA application using the auth0 CLI:
+When using Auth0 as the identity provider, you can configure the Universal Login Page for a quick integration, without having to build the login forms. First, create an SPA application using the auth0 CLI:
 
 [source, shell]
 ----
@@ -1419,7 +1419,7 @@ NEXT_PUBLIC_AUTH0_CALLBACK_URL=http://localhost:3000/callback
 NEXT_PUBLIC_AUTH0_AUDIENCE=https://{yourAuth0Domain}/api/v2/
 ----
 
-For handling the Auth0 post-login behaviour, you need to add the page `src/app/callback/page.tsx` with the following content.
+For handling the Auth0 post-login behavior, you need to add the page `src/app/callback/page.tsx` with the following content.
 
 .callback/page.tsx
 [source, tsx]
@@ -1489,7 +1489,7 @@ export default Auth0ProviderWithNavigate;
 {% endraw %}
 ----
 
-The component `Auth0ProviderWithNavigate` wraps children component with `Auth0Provider`, the provider of the auth0 context, remembering the requested URL for redirection after login.
+The component `Auth0ProviderWithNavigate` wraps the children component with `Auth0Provider`, the provider of the auth0 context, remembering the requested URL for redirection after login.
 Use the component in the `WideLayout` component:
 
 .WideLayout.tsx
@@ -1544,7 +1544,7 @@ const AuthenticationGuard = (props: { children: React.ReactNode }) => {
 export default AuthenticationGuard;
 ----
 
-The `AuthenticationGuard` component will be used to protect pages that require authentication, redirecting to the Auth0 universal login. Protect the index page wrapping its content in the `AuthenticationGuard` component:
+The `AuthenticationGuard` component will be used to protect pages that require authentication, redirecting to the Auth0 universal login. Protect the index page by wrapping its content in the `AuthenticationGuard` component:
 
 .app/page.tsx
 [source, tsx]
@@ -1688,7 +1688,7 @@ Run the application with:
 npm run dev
 ----
 
-Go to http://localhost:3000 and you should be redirected to Auth0 universal login page. After login, you should see the companies list again.
+Go to http://localhost:3000 and you should be redirected to the Auth0 universal login page. After login in, you should see the companies list again.
 
 image::{% asset_path blog/spring-graphql-react/auth0-universal-login.png %}[alt=Auth0 universal login form,width=400,align=center]
 
@@ -1702,7 +1702,7 @@ Authorization: Bearer eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCIsImtpZCI6IlJzZHNsM211Sj
 
 == Update the GraphQL query in the client
 
-The GraphQL query in the react client application can be easily updated to request more data from the server. For example, add the `status` and information about who controls the company. First update the API client:
+The GraphQL query in the React client application can be easily updated to request more data from the server. For example, add the `status` and information about who controls the company. First, update the API client:
 
 .companies.tsx
 [source, tsx]
@@ -1850,8 +1850,8 @@ export default CompanyTableContainer;
 {% endraw %}
 ----
 
-Give it a try, and notice how the simple was the update.
+Give it a try, and notice how simple was the update.
 
 == Learn More
 
-I hope you enjoyed this tutorial, and found this example useful. As you can see, not much work would be required to consume more company data from the GraphQL server, just a query update in the client. Also the Auth0 Universal Login and Auth0 React SDK provide an efficient way to secure your React applications, following security best practices. Check you Auth0 documentation for adding https://developer.auth0.com/resources/guides/spa/react/basic-authentication#add-user-sign-up-to-react[sign-up] and https://developer.auth0.com/resources/guides/spa/react/basic-authentication#add-user-logout-to-react[logout] functionality to your React application. Keep in touch! If you have questions about this post, please ask them in the comments below. And follow us! We're https://twitter.com/oktadev[@oktadev on Twitter], https://youtube.com/c/oktadev[@oktadev on YouTube], and frequently post to our https://www.linkedin.com/company/oktadev/[LinkedIn page].
+I hope you enjoyed this tutorial, and found this example useful. As you can see, not much work would be required to consume more company data from the GraphQL server, just a query update in the client. Also, the Auth0 Universal Login and Auth0 React SDK provide an efficient way to secure your React applications, following security best practices. Check the Auth0 documentation for adding https://developer.auth0.com/resources/guides/spa/react/basic-authentication#add-user-sign-up-to-react[sign-up] and https://developer.auth0.com/resources/guides/spa/react/basic-authentication#add-user-logout-to-react[logout] functionality to your React application. Keep in touch! If you have questions about this post, please ask them in the comments below. And follow us! We're https://twitter.com/oktadev[@oktadev on Twitter], https://youtube.com/c/oktadev[@oktadev on YouTube], and frequently post to our https://www.linkedin.com/company/oktadev/[LinkedIn page].
