@@ -103,41 +103,30 @@ So how does this work? At a high level, your FIDO2 authentication flow utilizes 
 2. Something you have, the authenticator device, which may be a security key or a capable phone
 3. Something you are, biometric data such as fingerprint or facial recognition
 
-Before we authenticate, we need an account with compliant credentials, so let's start with the registration process. We'll use a public demo site demonstrating how passkeys work as we step through what's going on in the registration and authentication process. Follow along at [webauthn.io](https://webauthn.io/).
+Before we authenticate, we need an account with compliant credentials, so let's start with the registration process. We'll use a public demo site demonstrating how passkeys work as we step through what's going on in the registration and authentication process. Follow along at Auth0's [webauthn.me](https://webauthn.me/).
 
-There are a couple of components at play. From the user's perspective, they interact with a website and a device like their phone. From a technology perspective, there's WebAuthn and CTAP2. I'll show screenshots of the user perspective underlying network calls and describe the hand-off between WebAuthn and CTAP2.
+There are a couple of components at play. From the user's perspective, they interact with a website and a device like their phone. From a technology perspective, there's WebAuthn and CTAP2. I'll show screenshots of each step, discuss the interaction between the web app and server of the relying party, and describe the hand-off between WebAuthn and CTAP2.
 
 ## Registering a user for passkeys
 
 The user opens their favorite site in the browser. In the FIDO2 world, the site that makes the WebAuthn calls is the _Relying Party_, and the browser is the _Client_. If your site uses a single-page application frontend, the relying party includes both the frontend and backend server. 
 
-{% img blog/passwordless-authentication/webauthnio.jpg alt:"webauthn.io site showing a user name field an buttons to register or authenticate" width:"800" %}{: .center-image }
+{% img blog/passwordless-authentication/webauthnme.jpg alt:"webauthn.me site showing a user name field and a register button" width:"800" %}{: .center-image }
 
-The web app for the site displays a form to gather user information, an email address, or a user name. The user enters the required information and presses **Register**. The web app recognizes the browser as FIDO2 capable and asks if the user wants to sign in using a passkey instead of a password. Of course, the user says, "Yes!"
+The web app for the site displays a form to gather user information, an email address or a user name. The user enters the required information and presses **Register**. The web app recognizes the browser as FIDO2 capable and asks if the user wants to sign in using a passkey instead of a password. Of course, the user says, "Yes!"
 
-{% img blog/passwordless-authentication/webauthnio-register.jpg alt:"webauthn.io site showing a user name entered in the form and a modal from the browser asking to create a passkey" width:"800" %}{: .center-image }
+{% img blog/passwordless-authentication/webauthnme-register.jpg alt:"webauthn.me site showing a user name entered in the form and a modal from the browser asking to create a passkey" width:"800" %}{: .center-image }
 
-The web app calls the server with credential request options, such as the username and registration-related data. You can open debugging capabilities in your browser and watch the network requests. Here, we see the payload for the call, which includes the username.
+Behinds the scenes the web app calls the server with credential request options, such as the username and registration-related data. The server responds with information about the relying party, a user ID, and a cryptographically random value for the registration process called a "challenge." The web app uses WebAuthn to generate a new credential, sending the response information from the server, including the challenge. The credential call from the browser to the authenticator is possible via CTAP2.
 
-{% img blog/passwordless-authentication/webauthnio-register-payload.jpg alt:"webauthn.io payload to register a user includes the username along with registration metadata configurable in advanced settings, such as encryption algorithm" width:"800" %}{: .center-image }
+{% img blog/passwordless-authentication/webauthnme-register-consent.jpg alt:"webauthn.me site showing OS prompt to create a passkey via TouchID" width:"800" %}{: .center-image }
 
-The server responds with information about the relying party, a user ID, and a cryptographically random value for the registration process called a "challenge." 
-
-{% img blog/passwordless-authentication/webauthnio-register-response.jpg alt:"webauthn.io response includes relying party id, user name and id, and the challenge" width:"800" %}{: .center-image }
-
-The user selects a device for the passkey, like a phone or tablet. The web app uses WebAuthn to generate a new credential, sending the response information from the server, including the challenge. The credential call from the browser to the authenticator is possible via CTAP2.
 
 The authenticator takes over, prompting the user for consent and biometric information. The authenticator generates a public/private key set for the website. The authenticator signs the public key with an attestation certificate for the device hardware. Signing the key with the attestation certificate proves the keyset is from a specific device. The authenticator returns the public key in the WebAuthn credential response.
 
-{% img blog/passwordless-authentication/webauthnio-ctap.jpg alt:"webauthn.io site with a modal to create a passkey showing a QR code" width:"800" %}{: .center-image }
+The web app calls the server with the public key and the user ID to store the user's credentials. The server verifies the key for completeness and integrity, such as ensuring the certificate's validity, the website origin is accurate, and that the challenge value matches the original response. Once verified, the server persists this info, matching your username with the public key so it has the information needed to authenticate you for the passkey later.
 
-The web app calls the server with the public key and the user ID to store the user's credentials.
-
-{% img blog/passwordless-authentication/webauthnio-register-success-payload.jpg alt:"webauthn.io site network call payload to complete registration" width:"800" %}{: .center-image }
-
-The server verifies the key for completeness and integrity, such as ensuring the certificate's validity, the website origin is accurate, and that the challenge value matches the original response. Once verified, the server persists this info, matching your username with the public key so it has the information needed to authenticate you for the passkey later.
-
-{% img blog/passwordless-authentication/webauthnio-register-success-response.jpg alt:"webauthn.io site network call response to complete the registration" width:"800" %}{: .center-image }
+{% img blog/passwordless-authentication/webauthnme-registration-success.jpg alt:"webauthn.me registration success" width:"800" %}{: .center-image }
 
 The user is now registered to use FIDO2 authentication mechanisms in the future. Before diving into user authentication, let's relook at registration. The above scenario demonstrates a user registration process for a new user account. But you can extend the method to pre-existing accounts on your favorite site. Let's say you already have an existing account on your favorite e-commerce site. You open the site and log in with your username and password. After authenticating, the web app recognizes the browser as FIDO2 capable and asks if you want to convert your authentication experience away from passwords. Of course, you'll want to say, "Yes, passkeys, please!" The rest of the steps are the same.
 
@@ -145,27 +134,19 @@ The user is now registered to use FIDO2 authentication mechanisms in the future.
 
 We can see what user authentication looks like with an account for the site set up and the initial passkey created.
 
-The user opens their favorite website (the Relying Party) in their browser (the Client) and initiates signing in by entering their username and pressing **Authenticate**. They'll see a prompt from the client to complete authentication using the passkey they created during registration.
+The user opens their favorite website (the Relying Party) in their browser (the Client) and initiates signing in by entering their username. In the [webauthn.me](https://webauthn.me) site we're using, the user authenticates immediately after registering as the next step demonstrating the process. 
 
-{% img blog/passwordless-authentication/webauthnio-authn.jpg alt:"webauthn.io site authenticate user prompt from the browser" width:"800" %}{: .center-image }
+{% img blog/passwordless-authentication/webauthnme-authn.jpg alt:"webauthn.io site authenticate user prompt from the browser" width:"800" %}{: .center-image }
 
-But we want to see what's going on under the covers, so let's look at the network call. The web app calls the server with the username from the user entry. 
-
-{% img blog/passwordless-authentication/webauthnio-authn-request.jpg alt:"webauthn.io site network call request to authenticate user" width:"800" %}{: .center-image }
-
-The server remembers you're using passkeys! 🎉 The server responds with a challenge and additional information required for authentication, such as Relying Party and user credentials or authenticator information.
-
-{% img blog/passwordless-authentication/webauthnio-authn-response.jpg alt:"webauthn.io site network call response to authenticate user" width:"800" %}{: .center-image }
+When the user tries to sign-in, the web app calls the server with the username entered. The server remembers you're using passkeys! 🎉 The server responds with a challenge and additional information required for authentication, such as Relying Party and user credentials or authenticator information.
 
 The website uses WebAuthn to get credentials, which causes the browser to pass the challenge to the authenticator. The authenticator verifies it has credentials for the site and can sign the challenge using the keyset registered, a process called "assertion." The authenticator requests user consent via biometric verification or a PIN and returns the signed assertion. The browser presents the user with an authentication challenge through the browser, which we see in the screenshots above of the authentication flow. The user grants consent using the passkey.
 
-{% img blog/passwordless-authentication/webauthnio-authn-ctap.jpg alt:"webauthn.io site authentication authenticator grant" width:"800" %}{: .center-image }
+{% img blog/passwordless-authentication/webauthnme-authn-consent.jpg alt:"webauthn.me site authentication authenticator grant" width:"800" %}{: .center-image }
 
-The web app sends the signed assertion to the server for validation. The server validates the public key used matches what it has on hand for the user, the challenge matches the one from the initiate request, and the Relying Party information is correct. We can see the request call payload for server verification. 
+The web app sends the signed assertion to the server for validation. The server validates the public key used matches what it has on hand for the user, the challenge matches the one from the initiate request, and the Relying Party information is correct. Authentication success!
 
-{% img blog/passwordless-authentication/webauthnio-authn-success.jpg alt:"webauthn.io site authentication success response" width:"800" %}{: .center-image }
-
-Authentication success!
+{% img blog/passwordless-authentication/webauthnme-authn-success.jpg alt:"webauthn.me site authentication success response" width:"800" %}{: .center-image }
 
 ## Passkeys everywhere
 
@@ -183,7 +164,7 @@ navigator.credentials.create({options});
 navigator.credentials.get({options});
 ```
 
-You'll need to pass in options for each call, including the Relying Party info, challenge, etc. If you want to use something other than Web Authentication APIs directly, you can find a library for your favorite tech stack on [webauthn.io](https://webauthn.io/).
+You'll need to pass in options for each call, including the Relying Party info, challenge, etc. If you want to use something other than Web Authentication APIs directly, you can find a library for your favorite tech stack on [awesome-webauthn](https://github.com/herrjemand/awesome-webauthn#server-libs) GitHub repo, or your tech stack's package manager.
 
 ## Using passkeys with Identity Providers
 
@@ -198,6 +179,7 @@ This post laid out the landscape of the new passwordless world, why there was a 
 * [Phishing-Resistant Authenticators with Megha Rastogi: Okta Workforce Identity Developer Podcast](https://youtu.be/PiY5HDp0ABI)
 * [Building a WebAuthn Application with Java](/blog/2022/04/26/webauthn-java)
 * [Our Take on Passkeys blogpost by Auth0](https://auth0.com/blog/our-take-on-passkeys/)
+* [Web Authentication information from Auth0](https://webauthn.me/introduction)
 * [Passkeys in Action video by the FIDO Alliance](https://youtu.be/SWocv4BhCNg)
 
 Don't forget to follow us on [Twitter](https://twitter.com/oktadev) and subscribe to our [YouTube channel](https://www.youtube.com/c/OktaDev/) for more great content. We'd also love to hear from you! Please comment below if you have questions or want to share your WebAuthn experience. Also, let us know what topics you'd like to see us cover next.
