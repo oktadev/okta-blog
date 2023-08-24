@@ -1317,29 +1317,16 @@ module.exports = composePlugins(withNx(), (config) => {
 });
 ```
 
-## Adding SCIM support to SaaS applications
-
-Congratulations, you've added SCIM support to an OIDC application! Not only have you supported SCIM for a single Okta organization, but the implementation choices made throughout this workshop prioritize scalability so that the Todo app can integrate with as many additional identity providers as necessary! By giving every integration its own unique SCIM endpoint and API token, you prepare your application to seamlessly integrate with as many customers as you want. Keep in mind, IdPs that support SCIM may implement SCIM differently, so you will need to reference the specific IdP's implementation docs.
-
-If you have followed along with the workshops so far, you now have a Todo application secured by OpenID Connect with SCIM provisioning. Your users can now authenticate securely with OIDC and make use of this application once they have been provisioned and assigned to the application from an Identity Provider such as Okta. 
-
-|Posts in the enterprise-ready workshop series|
-| --- |
-| 1. [How to Get Going with the Enterprise-Ready SaaS Apps Workshops](/blog/2023/07/27/enterprise-ready-getting-started) |
-| 2. [Enterprise-Ready Workshop: Authenticate with OpenID Connect](/blog/2023/07/28/oidc_workshop) |
-| 3. **Enterprise-Ready Workshop: Manage Users with SCIM** |
-| 4. [Enterprise-Ready Workshop: Terraform](/blog/2023/07/28/terraform-workshop) |
-
-Follow us on [Twitter](https://twitter.com/oktadev) and subscribe to our [YouTube](https://www.youtube.com/c/oktadev) channel to get notified about exciting new content. Please comment below if you have any questions or want to share problems you have used SCIM to solve or are planning to solve. As all our sample projects and SDKs are open source, we invite you to initiate a pull request if you see something you want us to improve. Thank you! 
-
 ## Supplemental
 
-### Replacement for auto-increment
+Enhance the scalability of your SCIM implementation with the following recommendations:
+
+### Improve security by replacing auto-increment
 
 In the OIDC and SCIM video, it was recommended to have a better way to assign the id attribute. And in both workshops, we used basic autoincrement for the user's id to lessen the complexity of the projects. However, for production, we recommend using a unique id generator such as [uuid](https://www.npmjs.com/package/uuid). I know I mentioned using xid in my accompanying video, but when considering which to use, keep in mind and as secure best practice whether or not the library is frequently maintained. 
 
 
-### Automatically handle assigning users to designated orgs
+### Enhance efficiency in managing multitenancy 
 
 As mentioned, to simplify the example code, I demoed supporting one org at first by hardcoding the org ID as 1. 
 
@@ -1361,3 +1348,18 @@ const user = await prisma.user.create({
     active
   }
 ```
+
+## Adding SCIM support to SaaS applications
+
+Congratulations, you've added SCIM support to an OIDC application! Not only have you supported SCIM for a single Okta organization, but the implementation choices made throughout this workshop prioritize scalability so that the Todo app can integrate with as many additional identity providers as necessary! By giving every integration its own unique SCIM endpoint and API token, you prepare your application to seamlessly integrate with as many customers as you want. Keep in mind, IdPs that support SCIM may implement SCIM differently, so you will need to reference the specific IdP's implementation docs.
+
+If you have followed along with the workshops so far, you now have a Todo application secured by OpenID Connect with SCIM provisioning. Your users can now authenticate securely with OIDC and make use of this application once they have been provisioned and assigned to the application from an Identity Provider such as Okta. 
+
+|Posts in the enterprise-ready workshop series|
+| --- |
+| 1. [How to Get Going with the Enterprise-Ready SaaS Apps Workshops](/blog/2023/07/27/enterprise-ready-getting-started) |
+| 2. [Enterprise-Ready Workshop: Authenticate with OpenID Connect](/blog/2023/07/28/oidc_workshop) |
+| 3. **Enterprise-Ready Workshop: Manage Users with SCIM** |
+| 4. [Enterprise-Ready Workshop: Terraform](/blog/2023/07/28/terraform-workshop) |
+
+Follow us on [Twitter](https://twitter.com/oktadev) and subscribe to our [YouTube](https://www.youtube.com/c/oktadev) channel to get notified about exciting new content. Please comment below if you have any questions or want to share problems you have used SCIM to solve or are planning to solve. As all our sample projects and SDKs are open source, we invite you to initiate a pull request if you see something you want us to improve. Thank you! 
