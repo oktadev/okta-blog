@@ -19,12 +19,12 @@ changelog:
 
 Hello SaaS developers! You sell your software to technologically mature enterprises, and they expect it to interface seamlessly with all their other tools. In our [Enterprise-Ready Workshop on OpenID Connect](/blog/2023-07-28-oidc_workshop), you learned how to solve part of this problem, by creating user accounts in your application for your customers' employees whenever they log in. 
 
-|Posts in the enterprise-ready workshop series|
+|Posts in the on-demand workshop series|
 | --- |
-| 1. [How to Get Going with the Enterprise-Ready SaaS Apps Workshops](/blog/2023/07/27/enterprise-ready-getting-started) |
+| 1. [How to Get Going with the On-Demand SaaS Apps Workshops](/blog/2023/07/27/enterprise-ready-getting-started) |
 | 2. [Enterprise-Ready Workshop: Authenticate with OpenID Connect](/blog/2023/07/28/oidc_workshop) |
 | 3. **Enterprise-Ready Workshop: Manage Users with SCIM** |
-| 4. [Enterprise-Ready Workshop: Terraform](/blog/2023/07/28/terraform-workshop) |
+| 4. [Enterprise Maturity Workshop: Terraform](/blog/2023/07/28/terraform-workshop) |
 
 But creating accounts when users log in is only one of your customers' many expectations! Your app is also expected to know about users who haven't logged in yet, and remove the accounts of employees who are removed from your customer's identity provider. 
 
