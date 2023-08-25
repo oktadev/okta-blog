@@ -1374,8 +1374,7 @@ Add the following factory method to the class `SpringBootGraphQLApiConfig`, for 
 Again, in the root folder, run the API server with:
 [source, shell]
 ----
-source .env
-./gradlew bootRun
+source .env && ./gradlew bootRun
 ----
 
 With HTTPie, send a request to the API server using a bearer access token:
@@ -1383,6 +1382,10 @@ With HTTPie, send a request to the API server using a bearer access token:
 [source, shell]
 ----
 ACCESS_TOKEN={auth0AccessToken}
+----
+
+[source, shell]
+----
 echo -E '{"query":"{\n    companyList(page: 20) {\n        id\n        SIC\n        name\n        status\n        category\n        companyNumber\n        countryOfOrigin\n    }\n}"}' | \
   http -A bearer -a $ACCESS_TOKEN POST http://localhost:8080/graphql
 ----
@@ -1408,7 +1411,7 @@ auth0 apps create \
   --reveal-secrets
 ----
 
-Copy the auth0 domain and the client Id, and update the 'src/.env.local' with the following properties (add the new variables to the example file too):
+Copy the auth0 domain and the client Id, and update the `src/.env.local` with the following properties (add the new variables to the example file too):
 
 .env.local
 [source, shell]
@@ -1854,4 +1857,5 @@ Give it a try, and notice how simple was the update.
 
 == Learn More
 
-I hope you enjoyed this tutorial, and found this example useful. As you can see, not much work would be required to consume more company data from the GraphQL server, just a query update in the client. Also, the Auth0 Universal Login and Auth0 React SDK provide an efficient way to secure your React applications, following security best practices. Check the Auth0 documentation for adding https://developer.auth0.com/resources/guides/spa/react/basic-authentication#add-user-sign-up-to-react[sign-up] and https://developer.auth0.com/resources/guides/spa/react/basic-authentication#add-user-logout-to-react[logout] functionality to your React application. Keep in touch! If you have questions about this post, please ask them in the comments below. And follow us! We're https://twitter.com/oktadev[@oktadev on Twitter], https://youtube.com/c/oktadev[@oktadev on YouTube], and frequently post to our https://www.linkedin.com/company/oktadev/[LinkedIn page].
+I hope you enjoyed this tutorial, and found this example useful. As you can see, not much work would be required to consume more company data from the GraphQL server, just a query update in the client. Also, the Auth0 Universal Login and Auth0 React SDK provide an efficient way to secure your React applications, following security best practices. Check the Auth0 documentation for adding https://developer.auth0.com/resources/guides/spa/react/basic-authentication#add-user-sign-up-to-react[sign-up] and https://developer.auth0.com/resources/guides/spa/react/basic-authentication#add-user-logout-to-react[logout] functionality to your React application. You can find all the code for this example in the https://github.com/indiepopart/spring-graphql-react[Github repository].
+Keep in touch! If you have questions about this post, please ask them in the comments below. And follow us! We're https://twitter.com/oktadev[@oktadev on Twitter], https://youtube.com/c/oktadev[@oktadev on YouTube], and frequently post to our https://www.linkedin.com/company/oktadev/[LinkedIn page].
