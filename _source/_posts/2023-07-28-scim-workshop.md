@@ -13,7 +13,7 @@ tweets:
 image: blog/scim-workshop/social.jpg
 type: awareness
 changelog:
-- 2023-08-09: 
+- 2023-08-21: Added a Supplemental section at the end
 
 ---
 
@@ -1315,6 +1315,38 @@ module.exports = composePlugins(withNx(), (config) => {
   }
   return config
 });
+```
+
+## Scale your SCIM server to support multitenancy
+
+Enhance the scalability of your SCIM implementation with the following recommendations:
+
+<strong>Improve security by replacing auto-increment</strong>
+
+In the OIDC and SCIM video, it was recommended to have a better way to assign the id attribute. And in both workshops, we used basic autoincrement for the user's id to lessen the complexity of the projects. However, for production, we recommend using a unique id generator such as [uuid](https://www.npmjs.com/package/uuid). I know I mentioned using xid in my accompanying video, but when considering which to use, keep in mind and as secure best practice whether or not the library is frequently maintained. 
+
+
+<strong>Enhance efficiency in managing multitenancy</strong> 
+
+As mentioned, to simplify the example code, I demoed supporting one org at first by hardcoding the org ID as 1. 
+
+```ts
+// To funnel users into their designated orgs
+const ORG_ID = 1;
+```
+
+When you're ready to support multiple SCIM clients, you can retrieve the api string from the request headers sent from the IdP. Then do an org look-up with the findFirst SQL function and select the org id where the api key matches that of the one you extracted from the request headers. Doing so will automatically generate a user for the correct organization.
+
+```ts
+// Create the User in the database
+const user = await prisma.user.create({
+  data: {
+    org: { connect: { id: ORG_ID } },
+    name,
+    email,
+    externalId,
+    active
+  }
 ```
 
 ## Adding SCIM support to SaaS applications
