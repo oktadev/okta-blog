@@ -18,9 +18,6 @@ You built the following Todo application:
 
 {% img blog/workflows-workshop/Workflows_todoapp.jpg alt:"The Todo application you built showing tasks to try workflows, watch a workflows video, build your first animation, and read the workflows docs" width:"800" %}{: .center-image }
 
-You have this app if you completed the [Authenticate with OpenID Connect](/blog/2023/07/28/oidc_workshop) workshop. We will also show you steps how to download the completed application to get started. 
-
-
 You need to add one additional enterprise capability. You need to add a todo report that summarizes all the todo items for your organization and automatically emails the report once a week. 
 
 The email report looks like this: 
@@ -35,13 +32,15 @@ The email report looks like this:
 | 4. [Enterprise-Ready Workshop: Terraform](/blog/2023/07/028/terraform-workshop) |
 | 5. **Enter-Ready Workshop: Automate with no-code Okta Workflows** |
 
-**What you need to complete the workshop**
-You need access to the following tools to complete this workshop. 
+## What you need to complete the workshop 
 
-- The completed todo application ([download](https://github.com/oktadev/okta-enterprise-ready-workshops/tree/oidc-workshop-completed))
+You need access to the following resources to complete this workshop. 
+
+- The completed Todo application. There are two ways to get the Todo application:
+  * You completed the [Authenticate with OpenID Connect](/blog/2023/07/28/oidc_workshop) workshop
+  * ([Download](https://github.com/oktadev/okta-enterprise-ready-workshops/tree/oidc-workshop-completed)) the completed Todo application
 - Access to Okta Workflows. You will learn how to gain access to Workflows in a later section
 
-You'll also want to ensure you're up and running with the base Todo application by following [How to Get Going with the Enterprise-Ready Identity for SaaS Apps Workshops](/blog/2023/07/27/enterprise-ready-getting-started).
 
 ## What is Okta Workflows?
 [Okta Workflows](https://www.okta.com/platform/workflows/) is a no-code platform that allows building automation to help with identity processes. For example, you can build the following workflows without asking IT or developers for help:
