@@ -14,11 +14,12 @@ type: awareness
 
 This tutorial is part of the enterprise-ready workshop series. In this workshop, you'll enhance the base Todo application by creating an automated report using Okta's no-code Workflows platform.
 
-
-
 You built the following Todo application: 
 
 {% img blog/workflows-workshop/Workflows_todoapp.jpg alt:"The Todo application you built showing tasks to try workflows, watch a workflows video, build your first animation, and read the workflows docs" width:"800" %}{: .center-image }
+
+You have this app if you completed the [Authenticate with OpenID Connect](/blog/2023/07/28/oidc_workshop) workshop. We will also show you steps how to download the completed application to get started. 
+
 
 You need to add one additional enterprise capability. You need to add a todo report that summarizes all the todo items for your organization and automatically emails the report once a week. 
 
@@ -675,3 +676,6 @@ More resources to help you learn more about Okta Workflows.
 - [Documentation](https://help.okta.com/wf/en-us/Content/Topics/Workflows/workflows-main.htm)
 - [Slack community](http://macadmins.org) (join the #okta-workflows channel)
 - Get help from support ([forum](https://support.okta.com/help/s/group/0F91Y000000PueUSAS/workflows?language=en_US), [questions](https://support.okta.com/help/s/global-search/%40uri?language=en_US#t=All&f:ProductFacet=[Workflows]&f:ContentTypeFacet=[Discussions]))
+
+
+[def]: https://developer.okta.com/blog/2023/07/28/oidc_workshop
