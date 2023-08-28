@@ -16,7 +16,7 @@ type: awareness
 
 Passwords? Bah! Who wants to remember all those letter, number, and special character combinations? Password managers and password manager browser extensions can help us, but what if we stopped using passwords entirely? What if we stopped using authentication factors, such as SMS one-time passwords (OTP), that pose risks where malicious actors can access sensitive authentication information (phishing)? What if authentication was so seamless that we could use built-in device hardware capabilities instead?
 
-Seamless, easy-to-use authentication is the future many dream of, including a group called the [Fast Identity Online (FIDO) Alliance](https://fidoalliance.org/). The FIDO Alliance is a group of organizations that focuses on providing open and free authentication standards utilizing more secure technologies. And we've heard of the [World Wide Web Consortium (W3C)](https://www.w3.org/) as a group that builds web standards. How do these two groups intersect when it comes to authentication security? Let's better understand the collaboration and what it means for us.
+Seamless, easy-to-use authentication is the future many dream of, including a group called the [Fast Identity Online (FIDO) Alliance](https://fidoalliance.org/). The FIDO Alliance is a group of organizations that focuses on providing open and free authentication standards utilizing more secure technologies. We've also heard the [World Wide Web Consortium (W3C)](https://www.w3.org/) is a group that builds web standards. How do these two groups intersect when it comes to authentication security? Let's better understand the collaboration and what it means for us.
 
 {% include toc.md %}
 
@@ -24,7 +24,7 @@ Seamless, easy-to-use authentication is the future many dream of, including a gr
 
 Passwords were the default authentication mechanism for years, but passwords are notoriously insecure and [cause most data breaches](https://www.okta.com/resources/whitepaper/protecting-against-data-breaches/). Research shows that >80% of breaches stem from stolen or weak passwords. So it's time for something more secure.
 
-Passwords are one way to authenticate, but there are other options. Authentication factors break down into the following categories:
+Passwords are just one way to authenticate, but there are other options. Authentication factors break down into the following categories:
 
 <table>
 <tr>
@@ -86,7 +86,7 @@ Using FIDO and W3C's combined forces brings us to a new authentication standard 
 
 {% img blog/passwordless-authentication/ctap.jpg alt:"Graphic of device icons such as phone, laptop, smart card, and smart key along with forms of communication (Bluetooth, USB, and NFC)" width:"800" %}{: .center-image }
 
-W3C introduced a new web standard for web authentication called [WebAuthn](https://www.w3.org/TR/webauthn-2/). A new browser API, the Web Authentication API, extends from the Credential Management API. The Web Authentication API supports secure authentication credentials using asymmetric encryption (where you have a public and private key) instead of passwords. All modern browsers have full or partial WebAuthn capabilities. You can check which browsers and versions support WebAuthn on [caniuse.com](https://caniuse.com/?search=webauthn). The screen capture shows browser support at the time of publishing. 
+The W3C then introduced a new web standard for web authentication on the web, called [WebAuthn](https://www.w3.org/TR/webauthn-2/). It added a new browser-based API, the Web Authentication API, which extends from the existing Credential Management API. Instead of using passwords, the Web Authentication API uses secure authentication credentials using asymmetric encryption (where you have a public and private key). All modern browsers now have full or partial support for WebAuthn. You can check which browsers and versions support WebAuthn on [caniuse.com](https://caniuse.com/?search=webauthn). The screen capture shows browser support at the time of publishing. 
 
 {% img blog/passwordless-authentication/webauthn-caniuse.jpg alt:"WebAuthn support across browsers showing Internet Explorer and Opera Mini having no support, Firefox desktop and mobile has partial support, and remaining browsers including Chrome, Edge, Safari on desktop and mobile having support." width:"800" %}{: .center-image }
 
