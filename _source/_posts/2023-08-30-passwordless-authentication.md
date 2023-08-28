@@ -98,7 +98,7 @@ A new term for this authentication mechanism without passwords is often called "
 
 ## Evolving from passwords to passkeys
 
-Passwordless authentication with CTAP2 and WebAuthn aren't new secure authentication mechanism since both have been around for a few years now. While CTAP2 and WebAuthn are an awesome progression to elevating security, a cool thing happened. Tech giants Apple, Google, and Microsoft _joined forces_ to standardize on making secure passwordless authentication seamless within and across their ecosystems with passkeys. Passkeys is another evolution on top of WebAuthn. Apple showcased passkeys migrating within iCloud so you don't need to create a separate passkey for each Apple device at a [recent developer event](https://developer.apple.com/videos/play/wwdc2022/10092/). Very slick! Who's ready for Google and Microsoft to follow suit? 🙋‍♀️
+Passwordless authentication with CTAP2 and WebAuthn aren't new secure authentication mechanism since both have been around for a few years now. While CTAP2 and WebAuthn are an awesome progression to elevating security, a cool thing happened. Tech giants Apple, Google, and Microsoft _joined forces_ to standardize on making secure passwordless authentication seamless within and across their ecosystems with passkeys. Passkeys is another evolution on top of WebAuthn. Secure, phishing-resistant authentication keeps getting better!
 
 ## FIDO2 authentication with WebAuthn and CTAP
  
@@ -154,7 +154,7 @@ The web app sends the signed assertion to the server for validation. The server 
 
 ## Passkeys everywhere
 
-A great thing about this mechanism is that it works across all compatible browsers and devices, making authentication a truly seamless experience. Let's say you first created a passkey for your favorite site on your phone and your phone's fingerprint scanner. Later, when you open the site on your laptop using another compatible browser, you'll see a prompt to create a new passkey for the laptop using biometric hardware built into your laptop automatically. Suppose you utilize devices within a vendor's ecosystem. In that case, your passkeys can migrate between devices, allowing you to authenticate with the device hardware without creating a separate passkey for each device, making authentication even more seamless.
+A great thing about this mechanism is that it works across all compatible browsers and devices, making authentication a truly seamless experience. Let's say you first created a passkey for your favorite site on your phone and your phone's fingerprint scanner. Later, when you open the site on your laptop using another compatible browser, you'll see a prompt to create a new passkey for the laptop using biometric hardware built into your laptop automatically. Suppose you utilize devices within a vendor's ecosystem. In that case, your passkeys can migrate between devices, allowing you to authenticate with the device hardware without creating a separate passkey for each device, making authentication even more seamless. Apple showcased passkeys migrating within iCloud so you don't need to create a separate passkey for each Apple device at a [recent developer event](https://developer.apple.com/videos/play/wwdc2022/10092/). Very slick! Who's ready for Google and Microsoft to follow suit? 🙋‍♀️
 
 ## Web Authentication API
 
