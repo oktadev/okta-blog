@@ -96,6 +96,10 @@ FIDO's Client to Authenticator Protocol complements WebAuthn to create a seamles
 
 A new term for this authentication mechanism without passwords is often called "passwordless." And the combination of WebAuthn and CTAP2 hardware devices to enable passwordless authentication is called a "passkey." What a great name!
 
+## Evolving from passwords to passkeys
+
+Passwordless authentication with CTAP2 and WebAuthn aren't new secure authentication mechanism since both have been around for a few years now. While CTAP2 and WebAuthn are an awesome progression to elevating security, a cool thing happened. Tech giants Apple, Google, and Microsoft _joined forces_ to standardize on making secure passwordless authentication seamless within and across their ecosystems with passkeys. Passkeys is another evolution on top of WebAuthn. Apple showcased passkeys migrating within iCloud so you don't need to create a separate passkey for each Apple device at a [recent developer event](https://developer.apple.com/videos/play/wwdc2022/10092/). Very slick! Who's ready for Google and Microsoft to follow suit? 🙋‍♀️
+
 ## FIDO2 authentication with WebAuthn and CTAP
  
 So how does this work? At a high level, your FIDO2 authentication flow utilizes each of the three factors:
