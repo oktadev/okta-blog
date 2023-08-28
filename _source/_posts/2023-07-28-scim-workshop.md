@@ -14,7 +14,7 @@ image: blog/scim-workshop/social.jpg
 type: awareness
 changelog:
 - 2023-08-21: Added a Supplemental section at the end
-- 2023-08-28: Corrected hyperlink to OIDC Workshop blog, provided more clarity in accessing the Prisma web interface.
+- 2023-08-28: Corrected hyperlink to OIDC Workshop blog, provided more clarity in accessing the Prisma web interface. Added a disclaimer for using API tokens. 
 
 ---
 
@@ -381,6 +381,8 @@ To test our code, we'll be using [Postman](https://www.postman.com/) to make req
 We'll need to set up a few things for Postman to authenticate and interact with our local server. 
 
 ### Add Bearer Token auth to secure the SCIM routes
+
+Disclaimer: We're showing examples with an API key for authorization, but we recommend using OAuth tokens (however it requires building out more infrastructure that is beyond this introductory workshop). Here is more info using [Okta as Identity Provider for OAuth tokens](https://help.okta.com/en-us/Content/Topics/Apps/Apps_App_Integration_Wizard_SCIM.htm).
 
 When testing our routes, Postman (acting as the SCIM client) will authenticate to the Todo app backend using a bearer token. To support token auth, first install the appropriate passport libraries. 
 
