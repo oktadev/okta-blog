@@ -37,8 +37,8 @@ The email report looks like this:
 You need access to the following resources to complete this workshop. 
 
 - The completed Todo application. There are two ways to get the Todo application:
-  * You completed the [Authenticate with OpenID Connect](/blog/2023/07/28/oidc_workshop) workshop
-  * ([Download](https://github.com/oktadev/okta-enterprise-ready-workshops/tree/oidc-workshop-completed)) the completed Todo application
+  1. You completed the [Authenticate with OpenID Connect](/blog/2023/07/28/oidc_workshop) workshop
+  2. ([Download](https://github.com/oktadev/okta-enterprise-ready-workshops/tree/oidc-workshop-completed)) the completed Todo application
 - Access to Okta Workflows. You will learn how to gain access to Workflows in a later section
 
 
