@@ -15,6 +15,8 @@ tweets:
 - "Still confused about what a #JWT is? This post will help‼️"
 image: blog/beginners-guide-to-jwt/jwt-101-social.png
 type: awareness
+changelog: 
+- 2023-08-03: Add clarification to JWT Claims section about `scp` and `aud`
 ---
 :toc: macro
 :page-liquid:
@@ -118,6 +120,13 @@ The use of registered claims is optional, but when they are present, they MUST b
 - Not Before (`nbf`) - The earliest time the JWT would be valid
 
 NOTE: Timestamps are "seconds since the epoch" integer format. JWT libraries usually add up to a few minutes of leeway to these values to account for clock skew between systems.
+
+When an Okta authorization server returns an access or ID token to a client, two claims are of particular note:
+
+ - Scopes (`scp`) - A list of accessible data points about the user - name, groups, etc. - and the client's API access rights as that user.
+ - Audience (`aud`) - A list of parties the token should be sent to and parsed by. In the access token, the audience is the Okta Authorization Server's Issuer URI requesting Okta API access or the customer's API URI requesting customer API access. In the id token, however, it's the client ID. Working with Okta, only one server is being targeted, so the list should only contain one item.
+
+For more information, see the https://developer.okta.com/docs/reference/api/oidc/#scopes[Scopes] and https://developer.okta.com/docs/reference/api/oidc/#tokens-and-claims[Tokens and Claims] sections of https://developer.okta.com/docs/reference/api/oidc/[Okta's OIDC API reference].
 
 === JWT Header
 
