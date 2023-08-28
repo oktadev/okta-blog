@@ -382,7 +382,7 @@ We'll need to set up a few things for Postman to authenticate and interact with 
 
 ### Add Bearer Token auth to secure the SCIM routes
 
-Disclaimer: We're showing examples with an API key for authorization, but we recommend using OAuth tokens (however, it requires building more infrastructure that is beyond this introductory workshop). Here is more info using [Okta as an Identity Provider for OAuth tokens](https://help.okta.com/en-us/Content/Topics/Apps/Apps_App_Integration_Wizard_SCIM.htm).
+Disclaimer: We're showing examples with an API key for authorization, but we recommend using OAuth tokens. However, building out the infrastructure to support OAuth tokens is beyond the scope of an introductory SCIM workshop. Here is more info using [Okta as an Identity Provider for OAuth tokens](https://help.okta.com/en-us/Content/Topics/Apps/Apps_App_Integration_Wizard_SCIM.htm).
 
 When testing our routes, Postman (acting as the SCIM client) will authenticate to the Todo app backend using a bearer token. To support token auth, first install the appropriate passport libraries. 
 
