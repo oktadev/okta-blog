@@ -122,7 +122,7 @@ Behinds the scenes the web app calls the server with credential request options,
 {% img blog/passwordless-authentication/webauthnme-register-consent.jpg alt:"webauthn.me site showing OS prompt to create a passkey via TouchID" width:"800" %}{: .center-image }
 
 
-The authenticator takes over, prompting the user for consent and biometric information. The authenticator generates a public/private key set for the website. The authenticator signs the public key with an attestation certificate for the device hardware. Signing the key with the attestation certificate proves the keyset is from a specific device. The authenticator returns the public key in the WebAuthn credential response.
+The authenticator takes over, prompting the user for consent and biometric information. The authenticator generates a public/private key pair for the website. The authenticator signs the public key with an attestation certificate for the device hardware. Signing the key with the attestation certificate proves the keyset is from a specific device. The authenticator returns the public key in the WebAuthn credential response.
 
 The web app calls the server with the public key and the user ID to store the user's credentials. The server verifies the key for completeness and integrity, such as ensuring the certificate's validity, the website origin is accurate, and that the challenge value matches the original response. Once verified, the server persists this info, matching your username with the public key so it has the information needed to authenticate you for the passkey later.
 
