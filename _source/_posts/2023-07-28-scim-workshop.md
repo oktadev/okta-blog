@@ -14,10 +14,11 @@ image: blog/scim-workshop/social.jpg
 type: awareness
 changelog:
 - 2023-08-21: Added a Supplemental section at the end
+- 2023-08-28: Corrected hyperlink to OIDC Workshop blog, provided more clarity in accessing the Prisma web interface.
 
 ---
 
-Hello SaaS developers! You sell your software to technologically mature enterprises, and they expect it to interface seamlessly with all their other tools. In our [Enterprise-Ready Workshop on OpenID Connect](/blog/2023-07-28-oidc_workshop), you learned how to solve part of this problem, by creating user accounts in your application for your customers' employees whenever they log in. 
+Hello SaaS developers! You sell your software to technologically mature enterprises, and they expect it to interface seamlessly with all their other tools. In our [Enterprise-Ready Workshop on OpenID Connect](/blog/2023/07/28/oidc_workshop), you learned how to solve part of this problem, by creating user accounts in your application for your customers' employees whenever they log in. 
 
 |Posts in the on-demand workshop series|
 | --- |
@@ -104,8 +105,6 @@ Speaking of attributes, the SCIM core user schema requires only three attributes
 
 These are described in section 8.1 of the [SCIM spec](https://datatracker.ietf.org/doc/html/rfc7643#section-8.1). 
 
-Note: We'll be using a basic autoincrement for the user's id to lessen the complexity of this project. However, for production, we recommend using a unique id generator such as [xid](https://www.npmjs.com/package/xid-js). 
-
 Update the user model in `prisma/schema.prisma`: 
 
 ```
@@ -182,7 +181,7 @@ main()
 
 Now we are ready to seed the database. If you already added records to the database, you can run `npx prisma migrate reset` to remove them. Once your database is empty, seed it by running `npm run init-db`.
 
-A neat feature with Prisma is the option to view the user table locally. To do this, go to the root of this workshop folder, and run `npx prisma studio`. Your browser should open to a web page where you can see all the tables you've created. 
+A neat feature with Prisma is the option to view the user table locally. To do this, using your terminal, go to the root of this workshop folder, and run `npx prisma studio`. Your browser should open to a web page where you can see all the tables you've created. 
 
 
 ## Add a SCIM file and create a scimRoute
@@ -560,7 +559,7 @@ Now we are ready to test with Postman with our local server. You can also make c
 
 ### Test the POST request to add users
 
-Try sending the following request to `http://localhost:3333/scim/v2/Users`:
+Try sending the following POST request to `http://localhost:3333/scim/v2/Users`:
 
 ```json
 {
@@ -632,6 +631,7 @@ If you send the same POST request again, re-creating an existing user, what shou
   "status": 409
 }
 ```
+Remember you have the option using Prisma to view the user table locally. To do this, in your terminal, go to the root of this workshop folder, and run `npx prisma studio`. Your browser should open to a web page where you can see all the users you've created. 
 
 You can repeat this testing process for each SCIM route that you implement! 
 
@@ -1095,6 +1095,8 @@ What response do you expect? You should get an HTTP 200 with a body like this:
   "active": true
 }
 ```
+
+Remember you have the option using Prisma to view the user table locally. To do this, in your terminal, go to the root of this workshop folder, and run `npx prisma studio`. Your browser should open to a web page where you can see the changes you've made to the user. 
 ## Support deleting users
 
 Section 3.6 of the  [SCIM spec](https://www.rfc-editor.org/rfc/rfc7644#section-3.6), tells us that service providers may choose to permanently delete users with a 204 (No Content). If no user with the specified ID is found, the server returns a 404 (Not found).
@@ -1122,7 +1124,7 @@ scimRoute.delete('/Users/:userId', passport.authenticate('bearer'), async (req, 
 
 Test out the delete function by making a DELETE request with an empty body to `http://localhost:3333/scim/v2/Users/3`.
 
-What response do you expect? You should get an HTTP 204 with no body in response.
+What response do you expect? You should get an HTTP 204 with no body in response. You can also confirm the user has been deleted in the user table by using Prisma built in commands. In your terminal, go to the root of this workshop folder, and run `npx prisma studio`. Your browser should open to a web page where you can see the user you've just deleted. 
 
 ### Test soft deleting or "deprovisioning" a user
 
@@ -1167,7 +1169,7 @@ Try sending a PATCH request with an empty body to `http://localhost:3333/scim/v2
 }
 ```
 
-Just like the delete request, you should expect to receive a 204 response; this is in line with [Okta's docs](https://developer.okta.com/docs/reference/scim/scim-20/#update-a-specific-user-patch).
+Just like the delete request, you should expect to receive a 204 response; this is in line with [Okta's docs](https://developer.okta.com/docs/reference/scim/scim-20/#update-a-specific-user-patch). Double check that the user's active attribute is set to false in the user table using Prisma's built in commands. In your terminal, go to the root of this workshop folder, and run `npx prisma studio`.  
 
 ## Connecting with an Identity Provider
 
@@ -1235,13 +1237,15 @@ You can now go back to your SCIM Application in the Applications list under Appl
 
 In your Todo App's server logs, you'll see that a POST request immediately appeared from Okta to create Tom Anderson's account on the Todo server. 
 
+Remember you have the option using Prisma to view the user table locally. To do this, in your terminal, go to the root of this workshop folder, and run `npx prisma studio`. Your browser should open to a web page where you can see all the users added from Okta. 
+
 ### Deprovision a user
 
 Let's say Tom decides to leave Portal, so we need to deprovision him from the application. 
 
 In the Assignments tab of the Okta SCIM application, use the blue X next to Tom's entry to unassign him from the app. This unassignment makes Okta send the Todo App PATCH request, setting the unassigned user's `active` attribute to `false`. This indicates that a user's account has been suspended. 
 
-We can confirm that Tom's `active` attribute is now `false` in the Todo app's database through the Prisma web interface.
+We can confirm that Tom's `active` attribute is now `false` in the Todo app's database through the Prisma web interface. To do this, in your terminal, go to the root of this workshop folder, and run `npx prisma studio`. Your browser should open to a web page where you can see all the users you've created. 
 
 ### Reprovision a user
 
@@ -1249,7 +1253,7 @@ Let's say Tom later decides to return to Portal and needs access to this Todo ap
 
 To reactivate Tom's account, we will repeat the steps for assigning his Okta account to the application.  Re-activating Tom causes Okta to send a PATCH request to our app, setting his  `active` attribute to `true`. 
 
-Again, we can confirm that Tom's account is now `active`  through our Prisma database web interface.
+Again, we can confirm that Tom's account is now `active`  through our Prisma database web interface. To do this, in your terminal, go to the root of this workshop folder, and run `npx prisma studio`. Your browser should open to a web page where you can see all the users you've created. 
 
 ### Change a user's info in Okta
 
@@ -1257,7 +1261,7 @@ Let's look at one more scenario. Let's say not only has Tom returned, but he has
 
 In the Directory tab of the Okta admin console sidebar, navigate to People, and click on Tom's name in the user list to edit his settings. Under Profile, click "Edit" in the Attributes pane. Change the `firstName` field to Leo, and update his `login` and `email` to `leo.anderson@portal.example`. Use the blue Save button at the bottom of the page to save your changes. 
 
-In your Todo app logs, what request do you expect to see from Okta when a user's information is updated? You should see the PUT request to your `/scim/v2/Users/4` endpoint shortly after saving Leo's new name. 
+In your Todo app logs, what request do you expect to see from Okta when a user's information is updated? You should see the PUT request to your `/scim/v2/Users/4` endpoint shortly after saving Leo's new name. Again you can use Prisma's web interface to confirm. To do this, in your terminal, go to the root of this workshop folder, and run `npx prisma studio`. Your browser should open to a web page where you can see the change you have made.  
 
 
 ## Tool recommendations for development 
