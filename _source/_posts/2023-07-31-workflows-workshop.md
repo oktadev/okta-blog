@@ -675,6 +675,3 @@ More resources to help you learn more about Okta Workflows.
 - [Documentation](https://help.okta.com/wf/en-us/Content/Topics/Workflows/workflows-main.htm)
 - [Slack community](http://macadmins.org) (join the #okta-workflows channel)
 - Get help from support ([forum](https://support.okta.com/help/s/group/0F91Y000000PueUSAS/workflows?language=en_US), [questions](https://support.okta.com/help/s/global-search/%40uri?language=en_US#t=All&f:ProductFacet=[Workflows]&f:ContentTypeFacet=[Discussions]))
-
-
-[def]: https://developer.okta.com/blog/2023/07/28/oidc_workshop
