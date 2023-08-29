@@ -36,7 +36,7 @@ The email report looks like this:
 | 2. [Enterprise-Ready Workshop: Authenticate with OpenID Connect](/blog/2023/07/28/oidc_workshop) |
 | 3. [Enterprise-Ready Workshop: Manage Users with SCIM](/blog/2023/07/28/scim-workshop) |
 | 4. [Enterprise-Ready Workshop: Terraform](/blog/2023/07/028/terraform-workshop) |
-| 5. **Enter-Ready Workshop: Automate with no-code Okta Workflows** |
+| 5. **Enterprise-Ready Workshop: Automate with no-code Okta Workflows** |
 
 In a later section, you will learn how to get the Todo application. For now, you will learn about Okta Workflows. 
 
