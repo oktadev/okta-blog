@@ -14,11 +14,17 @@ type: awareness
 
 This tutorial is part of the enterprise-ready workshop series. In this workshop, you'll enhance the base Todo application by creating an automated report using Okta's no-code Workflows platform.
 
+## Introduction
+
 You built the following Todo application: 
 
-{% img blog/workflows-workshop/Workflows_todoapp.jpg alt:"The Todo application you built showing tasks to try workflows, watch a workflows video, build your first animation, and read the workflows docs" width:"800" %}{: .center-image }
+{% img blog/workflows-workshop/Workflows_todoapp.jpg alt:"The Todo application showing five tasks" width:"800" %}{: .center-image }
 
-You need to add one additional enterprise capability. You need to add a todo report that summarizes all the todo items for your organization and automatically emails the report once a week. 
+The application allows entering todo items and marking them completed when done. 
+
+But it's missing an important enterprise capability. 
+
+You need to add a report that summarizes all the todo items for your organization and automatically emails the report once a week. 
 
 The email report looks like this: 
 
@@ -32,28 +38,39 @@ The email report looks like this:
 | 4. [Enterprise-Ready Workshop: Terraform](/blog/2023/07/028/terraform-workshop) |
 | 5. **Enter-Ready Workshop: Automate with no-code Okta Workflows** |
 
-## What you need to complete the workshop 
-
-You need access to the following resources to complete this workshop. 
-
-- The completed Todo application. There are two ways to get the Todo application:
-  1. You completed the [Authenticate with OpenID Connect](/blog/2023/07/28/oidc_workshop) workshop
-  2. ([Download](https://github.com/oktadev/okta-enterprise-ready-workshops/tree/oidc-workshop-completed)) the completed Todo application
-- Access to Okta Workflows. You will learn how to gain access to Workflows in a later section
+In a later section, you will learn how to get the Todo application. For now, you will learn about Okta Workflows. 
 
 
 ## What is Okta Workflows?
-[Okta Workflows](https://www.okta.com/platform/workflows/) is a no-code platform that allows building automation to help with identity processes. For example, you can build the following workflows without asking IT or developers for help:
+[Okta Workflows](https://www.okta.com/platform/workflows/) is a no-code platform that allows building automations to help with identity processes. 
 
-- Reset password end user sessions when suspicious activity is detected
-- Give or remove user access to applications
-- Send notifications (Slack, email, and others) when a user is activated or suspended (this tutorial)
-- Create basic reports
+The following are use cases where you can use Workflows. 
+
+### Provision and deprovision app accounts
+When an employee joins your company, Workflows simplifies the task of provisioning their account.
+
+* Automatically create their identity in your apps
+* Set user and group entitlements
+* Assign shared folder
+* Send a message to their manager or a welcome message to the team Slack channel
+
+Similarly, when an employee leaves the company, Workflows can deactivate the user account, transfer their digital assets to a manager, and then deactivate the user account three days later.
+
+### Sequence actions with logic and timing
+Workflows can create non-activated accounts in all apps one week before a new employee's start date and then activate them on their first day.
+
+If an employee leaves your company, Workflows can deactivate the user account, remove their access to all apps except payroll, and then delete the account after a year.
+
+#### Send notifications for lifecycle events
+For a lifecycle event such as an app assignment or user suspension, Workflows can notify your IT team through email or Slack.
+
+#### Log and share lifecycle events
+Workflows can query Okta APIs and System Log events, run logic, and even compile data into a CSV file. Then, Workflows can email that file to your teams.
 
 This is a short list of what is possible.
 
 ### Workflows flows
-In Workflows, you will be building flows. A flow is a sequence of steps to complete a goal. It's similar to a  script where every code line is a step to complete a goal. In Workflows, you will build the flow visually without writing any code. 
+In Workflows, you will create flows. A flow is a sequence of steps to complete a goal. It's similar to a script where every code line is a step to complete a goal. In Workflows, you will build the flow visually without writing any code. 
 
 You will learn about the Workflows building blocks in a few minutes. First, let's create your first flow. 
 
@@ -63,12 +80,11 @@ There are two ways to access Workflows.
 1. You might be entitled to Workflows if you already use some Okta products
 2. Access to Workflows as part of WIC (Workforce Identity Cloud) trial
 
-
 ### Workflows when using other Okta products
-If you have Okta SSO or Okta UD you might be entitled to Workflows. Check if you can access Workflows by going to **Okta organization > Admin > Workflows > Workflows console**. If you use these products but don't have access to Workflows, please contact your CSM
+If you have Okta SSO or Okta UD you might be entitled to Workflows. Check if you can access Workflows by going to **Okta organization > Admin > Workflows > Workflows console**. If you use these products but don't have access to Workflows, please contact your account manager. 
 
 ### Workflows as part of WIC trial
-To sign up for a WIC trial:
+To sign up for a Workforce Identity Cloud trial:
 
 1. Go to the [Okta Workforce trial page](https://www.okta.com/free-trial/workforce-identity/)
 2. Register for a trial to access Workflows
@@ -81,15 +97,14 @@ To access Workflows:
 
 You will see the Workflows home page:
 
-
 {% img blog/workflows-workshop/Workflows_console_main.jpg alt:"Workflows home page" %}{: .center-image }
 
-## Steps to build your automated email report using Okta Workflows
+## Steps to build automated email report using Okta Workflows
 In this workshop, you will learn how to build an automated email report in Okta Workflows. You will learn and complete the following steps to build the automated report: 
 
 - Build your first Workflows flow
 - Set up the flow to run on schedule
-- Call the application API service to retrieve todo items
+- Call the application API to retrieve the todo items
 - Create a todo summary and email the summary
 - Test the flow
 
@@ -98,20 +113,20 @@ In this workshop, you will learn how to build an automated email report in Okta 
 This workshop uses a locally deployed application and its API.
 
 > The workshop uses a local application to make it straightforward to connect to its API without needing to deploy the application in the cloud. 
-
+>
 > The local setup is for demonstration purposes only. In the real world, the application would be deployed in the cloud.
 
 ## Creating a new flow
 To start, you will create a new flow. 
 
 1. In the Workflows console, click **Flows** in the top navigation menu
-2. In the **Folders** panel, use the **+** to create a new folder
+2. In the **Folders** panel on the right, use the **+** to create a new folder
 3. For the folder name, enter **Enterprise workshop**. Click the **Save** button to create a new folder
-4. Inside the folder, Click **+ New Flow** to create a new flow
+4. Inside the folder, Click the **+ New Flow** to create a new flow
 5. Click **Unnamed** (upper left corner)
 6. For the name, enter **Todo Report**
 7. It is also a good idea to enter a description **This flow sends automated todo report email** 
-8. Check the **Save all data that passes through the Flow?** checkbox. You will be using this capability at the end of this tutorial
+8. Check the **Save all data that passes through the Flow?** checkbox. You will be using this capability later in this tutorial
 9. Click **Save** to save the flow name and description
 
 {% img blog/workflows-workshop/Workflows_create_new_flow.jpg alt:"Creating new flow" %}{: .center-image }
@@ -156,17 +171,20 @@ Here is again what you are going to build:
 Before building the flow, you need to get the Todo application.  
 
 ## Getting the Todo application
-In this section, you will: 
+In this section, you will complete the following steps:  
 
-1. Download Todo application
+1. Get the Todo application
 2. Launch the application
 3. Populate the application with todo items
 
 
-### Downloading the Todo application
-In this step, you will download the Todo application.
+### Getting the Todo application
+In this step, you will get the Todo application.
 
-1. [Download](https://github.com/oktadev/okta-enterprise-ready-workshops/tree/oidc-workshop-completed) the Todo application
+There are two ways to get the Todo application: 
+
+  1. Clone the [Todo application](https://github.com/oktadev/okta-enterprise-ready-workshops/) that already has OIDC support implemented. Run the following command `git checkout oidc-workshop-complete`
+  2. [Download](https://github.com/oktadev/okta-enterprise-ready-workshops/tree/oidc-workshop-completed) the completed Todo application in a zip file
 
 ### Launching the Todo application
 
@@ -177,9 +195,9 @@ You will complete the following steps to launch the application:
 
 #### Installing application dependencies
 
-1. Navigate to a folder where you downloaded the application zip file
-2. Unzip the application zip file
-3. Run the following commands to install application dependencies:
+1. Navigate to the folder where you cloned or downloaded the Todo application
+    * If you downloaded the zip file, unzip the application file
+2. Run the following commands to install application dependencies:
 ```
 npm ci
 npm install passport-http-bearer
@@ -197,11 +215,6 @@ The users are
 - User: trinity@whiterabbit.fake, password: Zion
 - User: bob@tables.fake, password: correct horse battery staple
 
-If you need to peek into the database, run the following command:
-```
-npx prisma studio
-```
-
 #### Starting the application
 
 To start both the front end and the API back end, run the following command:
@@ -210,7 +223,60 @@ To start both the front end and the API back end, run the following command:
 npm start
 ```
 
-#### Accessing application API with a tunnel
+### Populating the todo items
+
+In this step, you will create several todo items. 
+
+1. In a browser, go to http://localhost:3000
+2. Sign in to the application. You can use one of the following users:
+    - User: trinity@whiterabbit.fake, password: Zion
+    - User: bob@tables.fake, password: correct horse battery staple
+3. Enter several todo items
+
+{% img blog/workflows-workshop/Workflows_todoapp.jpg alt:"Todo application with several items" %}{: .center-image }
+
+## Upgrading the Todo application with new capabilites
+
+You need to add a new reporting capability to the Todo application. To do that, you need to make two upgrades to the application: 
+
+1. Add an organziation to the Todo application. The report will show all the todo items that belong to an organziation
+2. Add a new API to get all the todo items for an organziation
+
+### Adding an organziation to the Todo application
+
+You will set up the organization in the application database. 
+
+To view the database, run the following command from the application folder:
+
+```
+npx prisma studio
+```
+
+You will see the following message
+```
+Prisma Studio is up on http://localhost:5555
+```
+
+In a new browser window, go to http://localhost:5555 to view the database. The screenshot below shows the application has four todo items and two users. 
+
+{% img blog/workflows-workshop/Workflows_prisma_db.jpg alt:"Application database" %}{: .center-image }
+
+To create a new organiziation: 
+
+1. Click on the **Org** model
+2. Click **Add record** to add a new record
+3. In the **domain** column, enter **matrix.fake**
+4. In the **apikey** column, enter **131313** (you might need to scroll to the right to see this column)
+5. Click **Save 1 change** button to save the new organization and its API key
+
+The organzition record should look like this (some columns are filtered/hidden to show both the domain and API key columns)
+
+{% img blog/workflows-workshop/Workflows_prisma_db_org_record.jpg alt:"Database with new organization" %}{: .center-image }
+
+### Adding a new API to get all the todo items
+todo
+
+## Accessing application API with a tunnel
 
 Workflows run on the cloud, and this application runs locally on your computer. For Workflows to be able to call the API on your local machine, you need to create a tunnel. 
 
@@ -234,20 +300,7 @@ your url is: https://curvy-clowns-show.loca.lt
 
 **Note**: 
 
-> You will be using this URL later. If you relaunch the tunnel, a new URL will be created that you need to use in Workflows. 
-
-### Populating the todo items
-
-
-In this step, you will create several todo items. 
-
-1. In a browser, go to http://localhost:3000
-2. Sign in to the application. You can use one of the following users:
-    - User: trinity@whiterabbit.fake, password: Zion
-    - User: bob@tables.fake, password: correct horse battery staple
-3. Enter several todo items
-
-{% img blog/workflows-workshop/Workflows_todoapp.jpg alt:"Todo application with several items" %}{: .center-image }
+> You will be using this URL later. If you restart the tunnel, a new URL will be created that you need to use in Workflows. 
 
 ## Building the Todo Report flow
 In this section, you will build a flow that does the following: 
