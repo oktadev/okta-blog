@@ -521,7 +521,6 @@ import org.springframework.boot.test.autoconfigure.graphql.GraphQlTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.graphql.test.tester.GraphQlTester;
 import reactor.core.publisher.Flux;
-import reactor.core.publisher.Mono;
 
 import java.time.LocalDate;
 
@@ -553,7 +552,7 @@ public class CompanyControllerTests {
 
         this.graphQlTester
                 .documentName("companyList")
-                .variable("page", 1)
+                .variable("page", 0)
                 .execute()
                 .path("companyList")
                 .matchesJson("""
@@ -770,7 +769,7 @@ services:
 
 Create the file `src/main/docker/.env` with the following content:
 
-.\.env
+..env
 [source, shell]
 ----
 NEO4J_PASSWORD=verysecret
@@ -792,8 +791,7 @@ Go to the project root folder and start the application with:
 
 [source, shell]
 ----
-source .env
-./gradlew bootRun
+source .env && ./gradlew bootRun
 ----
 
 Wait for the logs to inform the seed data migrations have run (it might take a while):
@@ -855,13 +853,13 @@ Answer the questions as follows:
 ✔ Would you like to customize the default import alias? ... No
 ----
 
-Then add the the MUI Datagrid dependency:
+Then add the the MUI Datagrid dependencies and custom hooks from Vercel:
 
 [source, shell]
 ----
 cd react-graphql && \
   npm install @mui/x-data-grid && \
-  npm install @mui/material @emotion/react @emotion/styled && \
+  npm install @mui/material@5.14.5 @emotion/react @emotion/styled && \
   npm install react-use-custom-hooks
 ----
 
@@ -1105,8 +1103,6 @@ const CompanyTableContainer = (props: CompanyTableProperties) => {
     router.push(pathName + "?" + params.toString());
   };
 
-  console.log(dataList);
-
   return (
     <>
       {loadingList && <Loader/>}
@@ -1165,7 +1161,7 @@ export default HomePage;
 {% endraw %}
 ----
 
-Update the contents of `src/app/page.tsx` and set:
+Replace the contents of `src/app/page.tsx` and set:
 
 .app/page.tsx
 [source, tsx]
