@@ -170,7 +170,7 @@ Here is again what you are going to build:
 
 Before building the flow, you need to get the Todo application.  
 
-## Getting the Todo application
+## Setting up the Todo application
 In this section, you will complete the following steps:  
 
 1. Get the Todo application
@@ -186,14 +186,8 @@ There are two ways to get the Todo application:
   1. Clone the [Todo application](https://github.com/oktadev/okta-enterprise-ready-workshops/) that already has OIDC support implemented. Run the following command `git checkout oidc-workshop-complete`
   2. [Download](https://github.com/oktadev/okta-enterprise-ready-workshops/tree/oidc-workshop-completed) the completed Todo application in a zip file
 
-### Launching the Todo application
 
-You will complete the following steps to launch the application: 
-- Installing application dependencies
-- Creating the database
-- Starting the application
-
-#### Installing application dependencies
+### Installing application dependencies
 
 1. Navigate to the folder where you cloned or downloaded the Todo application
     * If you downloaded the zip file, unzip the application file
@@ -204,7 +198,7 @@ npm install passport-http-bearer
 npm install @types/passport-http-bearer -D
 ```
 
-#### Creating the database
+### Creating the database
 
 Run the following command to generate a database and seed it with two users.  The user's name and password will write to the console.
 ```
@@ -215,36 +209,15 @@ The users are
 - User: trinity@whiterabbit.fake, password: Zion
 - User: bob@tables.fake, password: correct horse battery staple
 
-#### Starting the application
 
-To start both the front end and the API back end, run the following command:
 
-```
-npm start
-```
+### Adding an organziation to the application
 
-### Populating the todo items
+In a later step, you will enhance the application with a new API service to get all the todo items.
 
-In this step, you will create several todo items. 
+The new API retrieves all the todo items belonging to an organization. 
 
-1. In a browser, go to http://localhost:3000
-2. Sign in to the application. You can use one of the following users:
-    - User: trinity@whiterabbit.fake, password: Zion
-    - User: bob@tables.fake, password: correct horse battery staple
-3. Enter several todo items
-
-{% img blog/workflows-workshop/Workflows_todoapp.jpg alt:"Todo application with several items" %}{: .center-image }
-
-## Upgrading the Todo application with new capabilites
-
-You need to add a new reporting capability to the Todo application. To do that, you need to make two upgrades to the application: 
-
-1. Add an organziation to the Todo application. The report will show all the todo items that belong to an organziation
-2. Add a new API to get all the todo items for an organziation
-
-### Adding an organziation to the Todo application
-
-You will set up the organization in the application database. 
+In this step, you will set up an organization in the application database. 
 
 To view the database, run the following command from the application folder:
 
@@ -267,11 +240,37 @@ To create a new organiziation:
 2. Click **Add record** to add a new record
 3. In the **domain** column, enter **matrix.fake**
 4. In the **apikey** column, enter **131313** (you might need to scroll to the right to see this column)
+5. In the **User** column, click on **0 User** and select both users to add to this organziation (click outside the list to close it)
 5. Click **Save 1 change** button to save the new organization and its API key
 
-The organzition record should look like this (some columns are filtered/hidden to show both the domain and API key columns)
+The organziation record should look like this (some columns are filtered/hidden to show domain, API, and User columns)
 
 {% img blog/workflows-workshop/Workflows_prisma_db_org_record.jpg alt:"Database with new organization" %}{: .center-image }
+
+
+You are ready to start the application and create the todo items. 
+
+### Starting the application
+
+To start both the front end and the API back end, run the following command:
+
+```
+npm start
+```
+
+### Populating the todo items
+
+In this step, you will create several todo items. 
+
+1. In a browser, go to http://localhost:3000
+2. Sign in to the application. You can use one of the following users:
+    - User: trinity@whiterabbit.fake, password: Zion
+    - User: bob@tables.fake, password: correct horse battery staple
+3. Enter several todo items
+
+{% img blog/workflows-workshop/Workflows_todoapp.jpg alt:"Todo application with several items" %}{: .center-image }
+
+
 
 ### Adding a new API to get all the todo items
 todo
