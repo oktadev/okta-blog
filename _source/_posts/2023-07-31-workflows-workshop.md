@@ -12,6 +12,9 @@ image: blog/workflows-workshop/social.jpg
 type: awareness
 ---
 
+
+{% include toc.md %}
+
 This tutorial is part of the enterprise-ready workshop series. In this workshop, you'll enhance the base Todo application by creating an automated report using Okta's no-code Workflows platform.
 
 ## Introduction
@@ -250,17 +253,15 @@ The organziation record should look like this (some columns are filtered/hidden 
 
 You are ready to start the application and create the todo items. 
 
-### Starting the application
+### Running the application
 
-To start both the front end and the API back end, run the following command:
+To start the Todo application, run the following command:
 
 ```
 npm start
 ```
 
-### Populating the todo items
-
-In this step, you will create several todo items. 
+The create serveral todo items (and populate the database):
 
 1. In a browser, go to http://localhost:3000
 2. Sign in to the application. You can use one of the following users:
@@ -271,8 +272,7 @@ In this step, you will create several todo items.
 {% img blog/workflows-workshop/Workflows_todoapp.jpg alt:"Todo application with several items" %}{: .center-image }
 
 
-
-### Adding a new API to get all the todo items
+## Enhancing the application with a new API
 todo
 
 ## Accessing application API with a tunnel
@@ -300,6 +300,8 @@ your url is: https://curvy-clowns-show.loca.lt
 **Note**: 
 
 > You will be using this URL later. If you restart the tunnel, a new URL will be created that you need to use in Workflows. 
+
+You are ready to build the automation! 
 
 ## Building the Todo Report flow
 In this section, you will build a flow that does the following: 
