@@ -111,7 +111,7 @@ Before we authenticate, we need an account with compliant credentials, so let's 
 
 There are a couple of components at play. From the user's perspective, they interact with a website and a device like their phone. From a technology perspective, there's WebAuthn and CTAP2. I'll show screenshots of each step, discuss the interaction between the web app and server of the relying party, and describe the hand-off between WebAuthn and CTAP2.
 
-## Registering a user for passkeys
+### Registering a user for passkeys
 
 The user opens their favorite site in the browser. In the FIDO2 world, the site that makes the WebAuthn calls is the _Relying Party_, and the browser is the _Client_. If your site uses a single-page application frontend, the relying party includes both the frontend and backend server. 
 
@@ -134,7 +134,7 @@ The web app calls the server with the public key and the user ID to store the us
 
 The user is now registered to use FIDO2 authentication mechanisms in the future. Before diving into user authentication, let's relook at registration. The above scenario demonstrates a user registration process for a new user account. But you can extend the method to pre-existing accounts on your favorite site. Let's say you already have an existing account on your favorite e-commerce site. You open the site and log in with your username and password. After authenticating, the web app recognizes the browser as FIDO2 capable and asks if you want to convert your authentication experience away from passwords. Of course, you'll want to say, "Yes, passkeys, please!" The rest of the steps are the same.
 
-## Authenticating a user with passkeys
+### Authenticating a user with passkeys
 
 We can see what user authentication looks like with an account for the site set up and the initial passkey created.
 
