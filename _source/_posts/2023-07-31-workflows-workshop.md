@@ -19,7 +19,7 @@ This tutorial is part of the enterprise-ready workshop series. In this workshop,
 
 ## Introduction
 
-You built the following Todo application: 
+You built a SaaS (Software as a Service) Todo application: 
 
 {% img blog/workflows-workshop/Workflows_todoapp.jpg alt:"The Todo application showing five tasks" width:"800" %}{: .center-image }
 
@@ -64,10 +64,10 @@ Workflows can create non-activated accounts in all apps one week before a new em
 
 If an employee leaves your company, Workflows can deactivate the user account, remove their access to all apps except payroll, and then delete the account after a year.
 
-#### Send notifications for lifecycle events
+### Send notifications for lifecycle events
 For a lifecycle event such as an app assignment or user suspension, Workflows can notify your IT team through email or Slack.
 
-#### Log and share lifecycle events
+### Log and share lifecycle events
 Workflows can query Okta APIs and System Log events, run logic, and even compile data into a CSV file. Then, Workflows can email that file to your teams.
 
 This is a short list of what is possible.
@@ -176,9 +176,11 @@ Before building the flow, you need to get the Todo application.
 ## Setting up the Todo application
 In this section, you will complete the following steps:  
 
-1. Get the Todo application
-2. Launch the application
-3. Populate the application with todo items
+1. Getting the Todo application
+2. Installing application dependencies
+3. Creating the database
+4. Adding an organziation to the application
+5. Running the application
 
 
 ### Getting the Todo application
@@ -261,7 +263,7 @@ To start the Todo application, run the following command:
 npm start
 ```
 
-The create serveral todo items (and populate the database):
+The create serveral todo items:
 
 1. In a browser, go to http://localhost:3000
 2. Sign in to the application. You can use one of the following users:
@@ -271,11 +273,61 @@ The create serveral todo items (and populate the database):
 
 {% img blog/workflows-workshop/Workflows_todoapp.jpg alt:"Todo application with several items" %}{: .center-image }
 
+You can also use Prisma Studio to view the todo items in the database. 
+
 
 ## Enhancing the application with a new API
-todo
 
-## Accessing application API with a tunnel
+In this step, you will add an API service to get all the items belonging to an organization. 
+
+The automation you will create later in this workshop will use this API service to generate the report. 
+
+To add the API service: 
+
+1. In the application folder, open the file `apps/api/src/main.ts` in your favorite editor
+2. Go to line 6 add the following import:
+```
+import passportBearer from 'passport-http-bearer';
+```
+3. Go to line 52 to add the following code snippet: 
+```
+const BearerStrategy = passportBearer.Strategy;
+
+passport.use(new BearerStrategy(
+  async (apikey, done) => {
+    const org = await prisma.org.findFirst({
+      where: {
+        apikey: apikey
+      }
+    });
+
+    return done(null, org);
+  }
+));
+
+app.get('/api/org/todos',
+  passport.authenticate('bearer'),
+  async (req, res) => {
+    const todos = await prisma.todo.findMany({
+      where: {
+        orgId: req.user['id']
+      }
+    });
+    res.json({todos});
+});
+```
+The above code snippet adds support for authentication and the API endpoint to get all the todo items. 
+
+4. Save all the changes. 
+
+**Note:**
+> If you look in the terminal where you started the application, you will see a message that the application detected changes and restarting.
+
+
+There is one last step before you start building the automation. In the next section, you will launch an API tunnel. 
+
+
+## Launching an API tunnel
 
 Workflows run on the cloud, and this application runs locally on your computer. For Workflows to be able to call the API on your local machine, you need to create a tunnel. 
 
@@ -299,7 +351,7 @@ your url is: https://curvy-clowns-show.loca.lt
 
 **Note**: 
 
-> You will be using this URL later. If you restart the tunnel, a new URL will be created that you need to use in Workflows. 
+> You will be using this URL later. If you restart the tunnel, a new URL will be created that you need to use in your flow. 
 
 You are ready to build the automation! 
 
@@ -309,7 +361,7 @@ In this section, you will build a flow that does the following:
 1. Calls an API service
 2. Creates a message
 3. Sends the message via email
-4. Update the flow to run on schedule
+4. Set up the flow to run on schedule
 
 ### Calling the API service
 
@@ -426,7 +478,7 @@ The email is not formatted yet. But it's neat that you can call an API, create a
 
 There is one last step left before we make the message look pretty. The step is to make this flow run automatically. 
 
-### Running the flow on schedule
+### Set up the flow to run on schedule
 
 You need this flow to run on schedule. For example, you want to run this flow every Friday at 9 am local time. 
 
