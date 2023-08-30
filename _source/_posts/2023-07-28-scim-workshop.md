@@ -455,7 +455,7 @@ scimRoute.post('/Users', passport.authenticate('bearer'), async (req, res)
 
 You'll also need to install [body-parser](https://www.npmjs.com/package/body-parser) for Express.js to accept `content-type application/scim+json`, because Okta sends this in the request headers instead of `content-type application/json`. We'll need this to read the request body from Okta. Note: This specific content-type header is required by [the SCIM spec](https://datatracker.ietf.org/doc/html/rfc7644#section-3.1)
 
-On the command line, `npm install passport-http-bearer` to add the library to your project.
+On the command line, run `npm install body-parser` to add the library to your project.
 
 In `apps/api/src/main.ts`, import `body-parser` at the top of the file. It should look like this:
 
