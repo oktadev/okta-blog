@@ -1858,4 +1858,4 @@ Check out some other fun tutorials for Spring Boot and React:
 - https://auth0.com/blog/simple-crud-react-and-spring-boot/[Use React and Spring Boot to Build a Simple CRUD App]
 - https://auth0.com/blog/full-stack-java-with-react-spring-boot-and-jhipster/[Full Stack Java with React, Spring Boot, and JHipster]
 
-Keep in touch! If you have questions about this post, please ask them in the comments below. And follow us! We're https://twitter.com/oktadev[@oktadev on Twitter], https://youtube.com/c/oktadev[@oktadev on YouTube], and frequently post to our https://www.linkedin.com/company/oktadev/[LinkedIn page]. You can also sign up for our   https://a0.to/nl-signup/java[newsletter] to stay updated on everything Identity and Security.
+Keep in touch! If you have questions about this post, please ask them in the comments below. And follow us! We're https://twitter.com/oktadev[@oktadev on Twitter], https://youtube.com/c/oktadev[@oktadev on YouTube], and frequently post to our https://www.linkedin.com/company/oktadev/[LinkedIn page]. You can also sign up for our https://a0.to/nl-signup/java[newsletter] to stay updated on everything Identity and Security.
