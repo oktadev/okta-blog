@@ -15,7 +15,7 @@ type: awareness
 changelog:
 - 2023-08-21: Added a Supplemental section at the end
 - 2023-08-28: Corrected hyperlink to OIDC Workshop blog, provided more clarity in accessing the Prisma web interface. Added a disclaimer for using API tokens. 
-
+- 2023-08-30: Improved instructions for bearer auth check.
 ---
 
 Hello SaaS developers! You sell your software to technologically mature enterprises, and they expect it to interface seamlessly with all their other tools. In our [Enterprise-Ready Workshop on OpenID Connect](/blog/2023/07/28/oidc_workshop), you learned how to solve part of this problem, by creating user accounts in your application for your customers' employees whenever they log in. 
@@ -350,8 +350,7 @@ scimRoute.post('/Users', async (req, res) => {
       }
     });
     console.log('Account Created ID: ', user.id);
-    userResponse = {
-      ..defaultUserSchema,
+    userResponse = { ...defaultUserSchema,
       id: `${user.id}`,
       userName: user.email,
       name: {
@@ -405,7 +404,31 @@ import session from 'express-session';
 import passportBearer from 'passport-http-bearer';
 ```
 
-In addition, also create a token auth strategy in `apps/api/src/main.ts`. Add it to your SCIM related code, which would look like this:
+In addition, create a token auth strategy called `BearerStrategy` in `apps/api/src/main.ts`. List it at the top of `apps/api/src/main.ts` with the other token auth strategies.
+
+```ts
+import express from 'express';
+import { PrismaClient, Todo, User } from '@prisma/client';
+import passportLocal from 'passport-local';
+import passportOIDC from 'passport-openidconnect';
+import passport from 'passport';
+import session from 'express-session';
+import passportBearer from 'passport-http-bearer';
+
+// Import the scimRoute from the scim.ts file
+import { scimRoute } from './scim';
+
+interface IUser {
+  id: number;
+}
+
+const prisma = new PrismaClient();
+const LocalStrategy = passportLocal.Strategy;
+const OpenIDConnectStrategy = passportOIDC.Strategy;
+const BearerStrategy = passportBearer.Strategy;
+```
+
+Lastly, to use the token auth strategy, add it to your SCIM related code, which would look like this:
 
 ```ts
 ///////////////////////////////////////////////////////
@@ -472,12 +495,27 @@ import passportBearer from 'passport-http-bearer';
 // https://www.npmjs.com/package/body-parser
 // RFC Notes: https://datatracker.ietf.org/doc/html/rfc7644#section-3.1
 import bodyParser from 'body-parser';
+
+// Import the scimRoute from the scim.ts file
+import { scimRoute } from './scim';
 ```
+
 And instruct the app to use `bodyParser` for the relevant content types below. Be sure to add this to your SCIM related code section in `apps/api/src/main.ts` as well. It should look like the following:  
 
 ```ts
 ///////////////////////////////////////////////////////
 // SCIM-related routes
+passport.use(new BearerStrategy(
+  async (apikey, done) => {
+    const org = await prisma.org.findFirst({
+      where: {
+        apikey: apikey
+      }
+    });
+
+    return done(null, org);
+  }
+));
 
 app.use(bodyParser.json({ type: 'application/scim+json' }));
 
@@ -513,7 +551,7 @@ import passportBearer from 'passport-http-bearer';
 // RFC Notes: https://datatracker.ietf.org/doc/html/rfc7644#section-3.1
 import bodyParser from 'body-parser';
 
-// For logging http requests
+// For logging http requests - https://github.com/expressjs/morgan
 import morgan from 'morgan';
 
 // Import the scimRoute from the scim.ts file
@@ -539,7 +577,6 @@ passport.use(new BearerStrategy(
  
 app.use(bodyParser.json({ type: 'application/scim+json' }));
 
-// https://github.com/expressjs/morgan
 app.use(morgan('combined'))
 
 // '/scim/v2' path appends to every SCIM Endpoints 
@@ -561,7 +598,7 @@ Now we are ready to test with Postman with our local server. You can also make c
 
 ### Test the POST request to add users
 
-Try sending the following POST request to `http://localhost:3333/scim/v2/Users`:
+Next, to send a request in Postman, go to the Body tab and click the radio button `raw` to send a JSON request. Try sending the following POST request to `http://localhost:3333/scim/v2/Users`:
 
 ```json
 {
