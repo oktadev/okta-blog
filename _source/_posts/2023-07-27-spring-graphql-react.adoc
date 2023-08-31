@@ -18,7 +18,9 @@ type: awareness
 :experimental:
 
 
-GraphQL is a query language for APIs and a runtime that allows the API consumer to get exactly the required information instead of the server exclusively controlling the contents of the response. While some REST API implementations require loading the references of a resource from multiple URLs, GraphQL APIs can follow references between related objects and return them in a single request. This step-by-step guide demonstrates how to build a GraphQL API with Spring Boot and Spring for GraphQL, for querying a sample dataset of related companies, persons, and properties, seeded to a Neo4j database. It also demonstrates how to build a React client with Next.js and MUI Datagrid to consume the API. Both the client and the server are secured with Auth0 authentication using Okta Spring Boot Starter for the server and Auth0 React SDK for the client.
+GraphQL is a query language for APIs and a runtime that allows the API consumer to get exactly the required information instead of the server exclusively controlling the contents of the response. While some REST API implementations require loading the references of a resource from multiple URLs, GraphQL APIs can follow references between related objects and return them in a single request.
+
+This step-by-step guide demonstrates how to build a GraphQL API with Spring Boot and Spring for GraphQL, for querying a sample dataset of related companies, persons, and properties, seeded to a Neo4j database. It also demonstrates how to build a React client with Next.js and MUI Datagrid to consume the API. Both the client and the server are secured with Auth0 authentication using Okta Spring Boot Starter for the server and Auth0 React SDK for the client.
 
 image::{% asset_path blog/spring-graphql-react/logos.png %}[alt=Spring, GraphQL and React,width=700,align=center]
 
@@ -443,9 +445,9 @@ class GraphQLConfig {
 }
 ----
 
-Create the configuration class `SpringBootGraphQLApiConfig` in the root package as well, defining a reactive transaction manager required for reactive Neo4j:
+Create the configuration class `SpringBootGraphQlApiConfig` in the root package as well, defining a reactive transaction manager required for reactive Neo4j:
 
-.SpringBootGraphQLApiConfig.java
+.SpringBootGraphQlApiConfig.java
 [source, java]
 ----
 package com.okta.developer.demo;
@@ -459,7 +461,7 @@ import org.springframework.data.neo4j.repository.config.ReactiveNeo4jRepositoryC
 import org.springframework.transaction.ReactiveTransactionManager;
 
 @Configuration
-public class SpringBootGraphQLApiConfig {
+public class SpringBootGraphQlApiConfig {
 
     @Bean(ReactiveNeo4jRepositoryConfigurationExtension.DEFAULT_TRANSACTION_MANAGER_BEAN_NAME) //Required for neo4j
     public ReactiveTransactionManager reactiveTransactionManager(
@@ -538,7 +540,6 @@ public class CompanyControllerTests {
     @Test
     void shouldGetCompanies() {
 
-
         when(this.companyRepository.findAll())
                 .thenReturn(Flux.just(new Company(
                         "1234",
@@ -608,14 +609,14 @@ Run the test with:
 ----
 ./gradlew clean test
 ----
-You should see logs for the successful tests:
 
+You should see logs for the successful tests:
 
 ----
 ...
-SpringBootHraphQlApiApplicationTests > contextLoads() PASSED
+SpringBootGraphQlApiApplicationTests > contextLoads() PASSED
 
-CompanyControllerTests > shouldGetCompany() PASSED
+CompanyControllerTests > shouldGetCompanies() PASSED
 ...
 ----
 
@@ -629,7 +630,7 @@ Let's add Neo4j migrations dependency for the seed data insertion. Edit the file
 ----
 dependencies {
   ...
-  implementation 'eu.michael-simons.neo4j:neo4j-migrations-spring-boot-starter:2.4.0'
+  implementation 'eu.michael-simons.neo4j:neo4j-migrations-spring-boot-starter:2.5.3'
 }
 ----
 
@@ -664,7 +665,6 @@ LOAD CSV WITH HEADERS FROM "file:///PSCAmericans.csv" AS row
 MERGE (p:Person {name: row.`data.name`, birthYear: row.`data.date_of_birth.year`, birthMonth: row.`data.date_of_birth.month`})
   ON CREATE SET p.nationality = row.`data.nationality`,
   p.countryOfResidence = row.`data.country_of_residence`
-// TODO: Address
 RETURN COUNT(*);
 {% endraw %}
 ----
@@ -1353,9 +1353,9 @@ Add the client secret to the `.env` file:
 export OKTA_OAUTH2_CLIENT_SECRET={clientSecret}
 ----
 
-Add the following factory method to the class `SpringBootGraphQLApiConfig`, for requiring a bearer token for all requests:
+Add the following factory method to the class `SpringBootGraphQlApiConfig`, for requiring a bearer token for all requests:
 
-.SpringBootGraphQLApiConfig.java
+.SpringBootGraphQlApiConfig.java
 [source, java]
 ----
     ...
@@ -1564,7 +1564,7 @@ export default Page;
 {% endraw %}
 ----
 
-=== Call the API server with an accessToken
+=== Call the API server with an access token
 
 Add the file `src/services/auth.tsx` with the following code:
 
@@ -1666,19 +1666,16 @@ export const useAsyncWithToken = <T, P, E = string>(
 };
 ----
 
-
 Update the calls in the `CompanyTableContainer` component to use the `useAsyncWithToken` hook:
 
 .CompanyTableContainer.tsx
 [source, tsx]
 ----
-  ...
-  const { data: dataList, loading: loadingList, error: errorList } = useAsyncWithToken(() => CompanyApi.getCompanyList({ page: page - 1 }), [page]);
-  const { data: dataCount } = useAsyncWithToken(() => CompanyApi.getCompanyCount(), []);
-  ...
-
+...
+const { data: dataList, loading: loadingList, error: errorList } = useAsyncWithToken(() => CompanyApi.getCompanyList({ page: page - 1 }), [page]);
+const { data: dataCount } = useAsyncWithToken(() => CompanyApi.getCompanyCount(), []);
+...
 ----
-
 
 Run the application with:
 
@@ -1851,7 +1848,14 @@ export default CompanyTableContainer;
 
 Give it a try, and notice how simple was the update.
 
-== Learn More
+== Learn More About Spring Boot and React
 
-I hope you enjoyed this tutorial, and found this example useful. As you can see, not much work would be required to consume more company data from the GraphQL server, just a query update in the client. Also, the Auth0 Universal Login and Auth0 React SDK provide an efficient way to secure your React applications, following security best practices. Check the Auth0 documentation for adding https://developer.auth0.com/resources/guides/spa/react/basic-authentication#add-user-sign-up-to-react[sign-up] and https://developer.auth0.com/resources/guides/spa/react/basic-authentication#add-user-logout-to-react[logout] functionality to your React application. You can find all the code for this example in the https://github.com/indiepopart/spring-graphql-react[Github repository].
-Keep in touch! If you have questions about this post, please ask them in the comments below. And follow us! We're https://twitter.com/oktadev[@oktadev on Twitter], https://youtube.com/c/oktadev[@oktadev on YouTube], and frequently post to our https://www.linkedin.com/company/oktadev/[LinkedIn page].
+I hope you enjoyed this tutorial, and found this example useful. As you can see, not much work would be required to consume more company data from the GraphQL server, just a query update in the client. Also, the Auth0 Universal Login and Auth0 React SDK provide an efficient way to secure your React applications, following security best practices. You can find all the code for this example in the https://github.com/indiepopart/spring-graphql-react[Github repository]. Check the Auth0 documentation for adding https://developer.auth0.com/resources/guides/spa/react/basic-authentication#add-user-sign-up-to-react[sign-up] and https://developer.auth0.com/resources/guides/spa/react/basic-authentication#add-user-logout-to-react[logout] functionality to your React application.
+
+Check out some other fun tutorials for Spring Boot and React:
+
+- https://auth0.com/blog/build-crud-spring-and-vue/[Build a Simple CRUD App with Spring Boot and Vue.js]
+- https://auth0.com/blog/simple-crud-react-and-spring-boot/[Use React and Spring Boot to Build a Simple CRUD App]
+- https://auth0.com/blog/full-stack-java-with-react-spring-boot-and-jhipster/[Full Stack Java with React, Spring Boot, and JHipster]
+
+Keep in touch! If you have questions about this post, please ask them in the comments below. And follow us! We're https://twitter.com/oktadev[@oktadev on Twitter], https://youtube.com/c/oktadev[@oktadev on YouTube], and frequently post to our https://www.linkedin.com/company/oktadev/[LinkedIn page]. You can also sign up for our   https://a0.to/nl-signup/java[newsletter] to stay updated on everything Identity and Security.
