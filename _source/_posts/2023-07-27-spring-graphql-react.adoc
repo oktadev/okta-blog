@@ -629,8 +629,8 @@ Let's add Neo4j migrations dependency for the seed data insertion. Edit the file
 [source, groovy]
 ----
 dependencies {
-  ...
-  implementation 'eu.michael-simons.neo4j:neo4j-migrations-spring-boot-starter:2.5.3'
+    ...
+    implementation 'eu.michael-simons.neo4j:neo4j-migrations-spring-boot-starter:2.5.3'
 }
 ----
 
@@ -1327,10 +1327,13 @@ Once the app is created, you will see the OIDC app's configuration:
 ----
 
 Add the `okta-spring-boot-starter` dependency to the `build.gradle` file:
+
+.build.gradle
+[source, groovy]
 ----
 dependencies {
     ...
-  implementation 'com.okta.spring:okta-spring-boot-starter:3.0.5'
+    implementation 'com.okta.spring:okta-spring-boot-starter:3.0.5'
     ...
 }
 ----
@@ -1850,9 +1853,9 @@ Give it a try, and notice how simple was the update.
 
 == Learn More About Spring Boot and React
 
-I hope you enjoyed this tutorial, and found this example useful. As you can see, not much work would be required to consume more company data from the GraphQL server, just a query update in the client. Also, the Auth0 Universal Login and Auth0 React SDK provide an efficient way to secure your React applications, following security best practices. You can find all the code for this example in the https://github.com/indiepopart/spring-graphql-react[Github repository]. Check the Auth0 documentation for adding https://developer.auth0.com/resources/guides/spa/react/basic-authentication#add-user-sign-up-to-react[sign-up] and https://developer.auth0.com/resources/guides/spa/react/basic-authentication#add-user-logout-to-react[logout] functionality to your React application.
+I hope you enjoyed this tutorial, and found this example useful. As you can see, not much work would be required to consume more company data from the GraphQL server, just a query update in the client. Also, the Auth0 Universal Login and Auth0 React SDK provide an efficient way to secure your React applications, following security best practices. You can find all the code for this example in the https://github.com/indiepopart/spring-graphql-react[Github repository].
 
-Check out some other fun tutorials for Spring Boot and React:
+Check out the Auth0 documentation for adding https://developer.auth0.com/resources/guides/spa/react/basic-authentication#add-user-sign-up-to-react[sign-up] and https://developer.auth0.com/resources/guides/spa/react/basic-authentication#add-user-logout-to-react[logout] functionality to your React application. And for more fun tutorials about Spring Boot and React, you can visit the following links:
 
 - https://auth0.com/blog/build-crud-spring-and-vue/[Build a Simple CRUD App with Spring Boot and Vue.js]
 - https://auth0.com/blog/simple-crud-react-and-spring-boot/[Use React and Spring Boot to Build a Simple CRUD App]
