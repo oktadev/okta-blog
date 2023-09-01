@@ -594,12 +594,12 @@ Update the test configuration in `build.gradle` file, so passed tests are logged
 [source, groovy]
 ----
 tasks.named('test') {
-  useJUnitPlatform()
+    useJUnitPlatform()
 
-  testLogging {
-    // set options for log level LIFECYCLE
-    events "failed", "passed"
-  }
+    testLogging {
+        // set options for log level LIFECYCLE
+        events "failed", "passed"
+    }
 }
 ----
 
