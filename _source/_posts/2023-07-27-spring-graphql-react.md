@@ -13,40 +13,32 @@ tweets:
 image:
 type: awareness
 ---
-:page-liquid:
-:toc: macro
-:experimental:
-
 
 GraphQL is a query language for APIs and a runtime that allows the API consumer to get exactly the required information instead of the server exclusively controlling the contents of the response. While some REST API implementations require loading the references of a resource from multiple URLs, GraphQL APIs can follow references between related objects and return them in a single request.
 
 This step-by-step guide demonstrates how to build a GraphQL API with Spring Boot and Spring for GraphQL, for querying a sample dataset of related companies, persons, and properties, seeded to a Neo4j database. It also demonstrates how to build a React client with Next.js and MUI Datagrid to consume the API. Both the client and the server are secured with Auth0 authentication using Okta Spring Boot Starter for the server and Auth0 React SDK for the client.
 
-image::{% asset_path blog/spring-graphql-react/logos.png %}[alt=Spring, GraphQL and React,width=700,align=center]
+{% img blog/spring-graphql-react/logos.png alt:"Spring, GraphQL and React" width:"700" %}{: .center-image }
 
-[NOTE]
-====
-.This example was created with the following tools and services:
-- https://docs.npmjs.com/downloading-and-installing-node-js-and-npm[Node.js v18.16.1]
-- https://docs.npmjs.com/downloading-and-installing-node-js-and-npm[npm 9.5.1]
-- https://jdk.java.net/java-se-ri/17[Java OpenJDK 17]
-- https://docs.docker.com/desktop/[Docker 24.0.2]
-- https://auth0.com/signup[Auth0 account]
-- https://github.com/auth0/auth0-cli#installation[Auth0 CLI 1.0.0]
-- https://httpie.io/[HTTPie 3.2.2]
-- https://nextjs.org/[Next.js 13.4.19]
-====
+> This example was created with the following tools and services:
+> - [Node.js v18.16.1](https://docs.npmjs.com/downloading-and-installing-node-js-and-npm)
+> - [npm 9.5.1](https://docs.npmjs.com/downloading-and-installing-node-js-and-npm)
+> - [Java OpenJDK 17](https://jdk.java.net/java-se-ri/17)
+> - [Docker 24.0.2](https://docs.docker.com/desktop/)
+> - [Auth0 account](https://auth0.com/signup)
+> - [Auth0 CLI 1.0.0](https://github.com/auth0/auth0-cli#installation)
+> - [HTTPie 3.2.2](https://httpie.io/)
+> - [Next.js 13.4.19](https://nextjs.org/)
 
-toc::[]
+{% include toc.md %}
 
-== Build a GraphQL API with Spring for GraphQL
+## Build a GraphQL API with Spring for GraphQL
 
-The resource server is a Spring Boot web application that exposes a GraphQL API with Spring for GraphQL. The API allows querying a Neo4j database containing information about companies and their related owners and properties, using Spring Data Neo4j. The data was obtained from a Neo4j https://neo4j.com/graphgists/35a813ba-ea10-4165-9065-84f8802cbae8/[use case example].
+The resource server is a Spring Boot web application that exposes a GraphQL API with Spring for GraphQL. The API allows querying a Neo4j database containing information about companies and their related owners and properties, using Spring Data Neo4j. The data was obtained from a Neo4j [use case example](https://neo4j.com/graphgists/35a813ba-ea10-4165-9065-84f8802cbae8/).
 
 Create the application with Spring Initializr and HTTPie:
 
-[source,shell]
-----
+```shell
 https start.spring.io/starter.zip \
   bootVersion==3.1.3 \
   language==java \
@@ -59,13 +51,12 @@ https start.spring.io/starter.zip \
   name=="Spring Boot GraphQL API Application" \
   description=="Demo project of a Spring Boot GraphQL API" \
   packageName==com.okta.developer.demo > spring-graphql-api.zip
-----
+```
 
 Unzip the file and start editing the project. Define the GraphQL API with a schema file named `schema.graphqls` in the `src/main/resources/graphql` directory:
 
-.schema.graphqls
-[source, graphql]
-----
+__schema.graphqls__
+```graphql
 type Query {
     companyList(page: Int): [Company!]!
     companyCount: Int
@@ -102,15 +93,14 @@ type Property {
     district: String
     titleNumber: String
 }
-----
+```
 
 As you can see the schema defines the object types `Company`, `Person` and `Property` and the query types `companyList` and `companyCount`.
 
 Start adding classes for the domain. Create the package `com.okta.developer.demo.domain` under `src/main/java`. Add the classes `Person`, `Property` and `Company`.
 
-.Person.java
-[source, java]
-----
+__Person.java__
+```java
 package com.okta.developer.demo.domain;
 
 import org.springframework.data.neo4j.core.schema.GeneratedValue;
@@ -192,11 +182,10 @@ public class Person {
         return this.id;
     }
 }
-----
+```
 
-.Property.java
-[source, java]
-----
+__Property.java__
+```java
 package com.okta.developer.demo.domain;
 
 import org.springframework.data.neo4j.core.schema.GeneratedValue;
@@ -263,11 +252,10 @@ public class Property {
         this.titleNumber = titleNumber;
     }
 }
-----
+```
 
-.Company.java
-[source, java]
-----
+__Company.java__
+```java
 package com.okta.developer.demo.domain;
 
 import org.springframework.data.neo4j.core.schema.GeneratedValue;
@@ -387,13 +375,12 @@ public class Company {
     }
 
 }
-----
+```
 
 Create the package `com.okta.developer.demo.repository` and the class `CompanyRepository`:
 
-.CompanyRepository.java
-[source, java]
-----
+__CompanyRepository.java__
+```java
 package com.okta.developer.demo.repository;
 
 
@@ -403,13 +390,12 @@ import org.springframework.data.neo4j.repository.ReactiveNeo4jRepository;
 public interface CompanyRepository extends ReactiveNeo4jRepository<Company, Long> {
 
 }
-----
+```
 
 Create the configuration class `GraphQLConfig` under the root package. This class will enable CORS from the React client and log the GraphQL schema mappings:
 
-.GraphQLConfig.java
-[source, java]
-----
+__GraphQLConfig.java__
+```java
 package com.okta.developer.demo;
 
 import org.slf4j.Logger;
@@ -443,13 +429,12 @@ class GraphQLConfig {
         };
     }
 }
-----
+```
 
 Create the configuration class `SpringBootGraphQlApiConfig` in the root package as well, defining a reactive transaction manager required for reactive Neo4j:
 
-.SpringBootGraphQlApiConfig.java
-[source, java]
-----
+__SpringBootGraphQlApiConfig.java__
+```java
 package com.okta.developer.demo;
 
 import org.neo4j.driver.Driver;
@@ -471,13 +456,12 @@ public class SpringBootGraphQlApiConfig {
     }
 
 }
-----
+```
 
 Create the package `com.okta.developer.demo.controller` and the class `CompanyController` implementing the query endpoints matching the queries defined in the graphql schema:
 
-.CompanyController.java
-[source, java]
-----
+__CompanyController.java__
+```java
 package com.okta.developer.demo.controller;
 
 import com.okta.developer.demo.domain.Company;
@@ -506,13 +490,12 @@ public class CompanyController {
     }
 
 }
-----
+```
 
 Create a `CompanyControllerTests` for the web layer in the folder `src/main/test/java` under the package `com.okta.developer.demo.controller`:
 
-.CompanyControllerTests.java
-[source, java]
-----
+__CompanyControllerTests.java__
+```java
 package com.okta.developer.demo.controller;
 
 import com.okta.developer.demo.domain.Company;
@@ -569,13 +552,12 @@ public class CompanyControllerTests {
                 """);
     }
 }
-----
+```
 
 Create the document file `companyList.graphql` containing the query definition for the test, in the folder `src/main/test/resources/graphql-test`:
 
-.companyList.graphql
-[source, graphql]
-----
+__companyList.graphql__
+```graphql
 query companyList($page: Int) {
     companyList(page: $page) {
         id
@@ -587,12 +569,12 @@ query companyList($page: Int) {
         countryOfOrigin
     }
 }
-----
+```
+
 Update the test configuration in `build.gradle` file, so passed tests are logged:
 
-.build.gradle
-[source, groovy]
-----
+__build.gradle__
+```groovy
 tasks.named('test') {
     useJUnitPlatform()
 
@@ -601,91 +583,76 @@ tasks.named('test') {
         events "failed", "passed"
     }
 }
-----
+```
 
 Run the test with:
 
-[source, shell]
-----
+```shell
 ./gradlew clean test
-----
+```
 
 You should see logs for the successful tests:
 
-----
+```
 ...
 SpringBootGraphQlApiApplicationTests > contextLoads() PASSED
 
 CompanyControllerTests > shouldGetCompanies() PASSED
 ...
-----
+```
 
 
-=== Add Neo4j seed data
+### Add Neo4j seed data
 
 Let's add Neo4j migrations dependency for the seed data insertion. Edit the file `build.gradle` and add:
 
-.build.gradle
-[source, groovy]
-----
+__build.gradle__
+```groovy
 dependencies {
     ...
     implementation 'eu.michael-simons.neo4j:neo4j-migrations-spring-boot-starter:2.5.3'
 }
-----
+```
 
 Create the folder `src/main/resources/neo4j/migrations` and the following migration files:
 
-.V001__Constraint.cypher
-[source, cypher]
-----
 {% raw %}
+__V001__Constraint.cypher__
+```cypher
 CREATE CONSTRAINT FOR (c:Company) REQUIRE c.companyNumber IS UNIQUE;
 //Constraint for a node key is a Neo4j Enterprise feature only - run on an instance with enterprise
 //CREATE CONSTRAINT ON (p:Person) ASSERT (p.birthMonth, p.birthYear, p.name) IS NODE KEY
 CREATE CONSTRAINT FOR (p:Property) REQUIRE p.titleNumber IS UNIQUE;
-{% endraw %}
-----
+```
 
-.V002__Company.cypher
-[source, cypher]
-----
-{% raw %}
+__V002__Company.cypher__
+```cypher
 LOAD CSV WITH HEADERS FROM "file:///PSCAmericans.csv" AS row
 MERGE (c:Company {companyNumber: row.company_number})
 RETURN COUNT(*);
-{% endraw %}
-----
+```
 
-.V003__Person.cypher
-[source, cypher]
-----
-{% raw %}
+__V003__Person.cypher__
+```cypher
 LOAD CSV WITH HEADERS FROM "file:///PSCAmericans.csv" AS row
 MERGE (p:Person {name: row.`data.name`, birthYear: row.`data.date_of_birth.year`, birthMonth: row.`data.date_of_birth.month`})
   ON CREATE SET p.nationality = row.`data.nationality`,
   p.countryOfResidence = row.`data.country_of_residence`
 RETURN COUNT(*);
-{% endraw %}
-----
+```
 
-.V004__PersonCompany.cypher
-[source, cypher]
-----
-{% raw %}
+__V004__PersonCompany.cypher__
+```cypher
 LOAD CSV WITH HEADERS FROM "file:///PSCAmericans.csv" AS row
 MATCH (c:Company {companyNumber: row.company_number})
 MATCH (p:Person {name: row.`data.name`, birthYear: row.`data.date_of_birth.year`, birthMonth: row.`data.date_of_birth.month`})
 MERGE (p)-[r:HAS_CONTROL]->(c)
 SET r.nature = split(replace(replace(replace(row.`data.natures_of_control`, "[",""),"]",""),  '"', ""), ",")
 RETURN COUNT(*);
-{% endraw %}
-----
+```
 
-.V005__CompanyData.cypher
-[source, cypher]
-----
-{% raw %}
+__V005__CompanyData.cypher__
+```cypher
 LOAD CSV WITH HEADERS FROM "file:///CompanyDataAmericans.csv" AS row
 MATCH (c:Company {companyNumber: row.` CompanyNumber`})
 SET c.name = row.CompanyName,
@@ -695,13 +662,10 @@ c.SIC = row.`SICCode.SicText_1`,
 c.countryOfOrigin = row.CountryOfOrigin,
 c.status = row.CompanyStatus,
 c.category = row.CompanyCategory;
-{% endraw %}
-----
+```
 
-.V006__Land.cypher
-[source, cypher]
-----
-{% raw %}
+__V006__Land.cypher__
+```cypher
 LOAD CSV WITH HEADERS FROM "file:///LandOwnershipAmericans.csv" AS row
 MATCH (c:Company {companyNumber: row.`Company Registration No. (1)`})
 MERGE (p:Property {titleNumber: row.`Title Number`})
@@ -713,38 +677,38 @@ MERGE (c)-[r:OWNS]->(p)
 WITH row, c,r,p WHERE row.`Date Proprietor Added` IS NOT NULL
 SET r.date = Date(Datetime({epochSeconds: apoc.date.parse(row.`Date Proprietor Added`,'s','dd-MM-yyyy')}));
 CREATE INDEX FOR (c:Company) ON c.incorporationDate;
+```
 {% endraw %}
-----
 
 Update `application.properties` and add the following properties:
 
-[source, properties]
-----
+__application.properties__
+```properties
+...
 spring.graphql.graphiql.enabled=true
 spring.graphql.schema.introspection.enabled=true
 org.neo4j.migrations.transaction-mode=PER_STATEMENT
 spring.neo4j.uri=bolt://localhost:7687
 spring.neo4j.authentication.username=neo4j
-----
+```
 
 Create a `.env` file in the project root to store the Neo4j credentials:
 
-[source,shell]
-----
+__.env__
+```shell
 export SPRING_NEO4J_AUTHENTICATION_PASSWORD=verysecret
-----
+```
 
 Download the following seed files to some folder:
 
-- https://guides.neo4j.com/ukcompanies/data/CompanyDataAmericans.csv[CompanyDataAmericans]
-- https://guides.neo4j.com/ukcompanies/data/LandOwnershipAmericans.csv[LandOwnershipAmericans]
-- https://guides.neo4j.com/ukcompanies/data/PSCAmericans.csv[PSCAmericans.csv]
+- [CompanyDataAmericans](https://guides.neo4j.com/ukcompanies/data/CompanyDataAmericans.csv)
+- [LandOwnershipAmericans](https://guides.neo4j.com/ukcompanies/data/LandOwnershipAmericans.csv)
+- [PSCAmericans.csv](https://guides.neo4j.com/ukcompanies/data/PSCAmericans.csv)
 
 Create the folder `src/main/docker` and create a file `neo4j.yml` there, with the following content:
 
-.neo4j.yml
-[source, yaml]
-----
+__neo4j.yml__
+```yml
 # This configuration is intended for development purpose, it's **your** responsibility to harden it for production
 name: companies
 services:
@@ -765,50 +729,46 @@ services:
       interval: 5s
       timeout: 5s
       retries: 10
-----
+```
 
 Create the file `src/main/docker/.env` with the following content:
 
-..env
-[source, shell]
-----
+__.env__
+```shell
 NEO4J_PASSWORD=verysecret
-----
+```
 
 As you can see the compose file will mount `<csv-folder>` to a `/var/lib/neo4j/import` volume, making the content accessible from the running neo4j container.
 Replace `<csv-folder>` with the path to the CSV files downloaded before.
 
 In a terminal, go to the `docker` folder and run:
 
-[source, shell]
-----
+```shell
 docker compose -f neo4j.yml up
-----
+```
 
-=== Run the API server
+### Run the API server
 
 Go to the project root folder and start the application with:
 
-[source, shell]
-----
+```shell
 source .env && ./gradlew bootRun
-----
+```
 
 Wait for the logs to inform the seed data migrations have run (it might take a while):
 
-----
+```
 2023-08-02T13:06:14.386-03:00  INFO 28673 --- [           main] a.s.neo4j.migrations.core.Migrations     : Applied migration 001 ("Constraint").
 2023-08-02T13:06:23.379-03:00  INFO 28673 --- [           main] a.s.neo4j.migrations.core.Migrations     : Applied migration 002 ("Company").
 2023-08-02T13:11:23.693-03:00  INFO 28673 --- [           main] a.s.neo4j.migrations.core.Migrations     : Applied migration 003 ("Person").
 2023-08-02T13:21:03.680-03:00  INFO 28673 --- [           main] a.s.neo4j.migrations.core.Migrations     : Applied migration 004 ("PersonCompany").
 2023-08-02T13:21:06.519-03:00  INFO 28673 --- [           main] a.s.neo4j.migrations.core.Migrations     : Applied migration 005 ("CompanyData").
 2023-08-02T13:21:06.551-03:00  INFO 28673 --- [           main] a.s.neo4j.migrations.core.Migrations     : Applied migration 006 ("Land").
-----
+```
 
-Test the API with GraphiQL at http://localhost:8080/graphiql. In the query box on the left, paste the following query
+Test the API with GraphiQL at **http://localhost:8080/graphiql**. In the query box on the left, paste the following query
 
-[source, graphql]
-----
+```graphql
 {
     companyList(page: 20) {
         id
@@ -820,30 +780,30 @@ Test the API with GraphiQL at http://localhost:8080/graphiql. In the query box o
         countryOfOrigin
     }
 }
-----
+```
 
 You should see the query output in the box on the right:
 
-image::{% asset_path blog/spring-graphql-react/graphiql-test.png %}[alt=GraphiQL example,width=900,align=center]
+{% img blog/spring-graphql-react/graphiql-test.png alt:"GraphiQL example" width:"900" %}{: .center-image }
 
-[NOTE]
-====
-If you see a warning message in the server logs, that reads _The query used a deprecated function: id_, you can ignore it, Spring Data Neo4j still https://github.com/spring-projects/spring-data-neo4j/issues/2716[behaves correctly].
-====
 
-== Build a React client
+> __NOTE:__
+> If you see a warning message in the server logs, that reads _The query used a deprecated function: id_, you can ignore it, Spring Data Neo4j still [behaves correctly](https://github.com/spring-projects/spring-data-neo4j/issues/2716).
 
-Now let's create a Single Page Application (SPA) to consume the GraphQL API with React and Next.js. The list of companies will display in a https://mui.com/material-ui/getting-started/[MUI] https://mui.com/x/react-data-grid/[Datagrid] component. The application will use Next.js `app` router. The `src/app` folder will contain routing files only, and the UI components and application code will be located in other folders.
+
+## Build a React client
+
+Now let's create a Single Page Application (SPA) to consume the GraphQL API with React and Next.js. The list of companies will display in a [MUI](https://mui.com/material-ui/getting-started/) [Datagrid](https://mui.com/x/react-data-grid/) component. The application will use Next.js `app` router. The `src/app` folder will contain routing files only, and the UI components and application code will be located in other folders.
 
 Install Node and in a terminal run:
 
-[source, shell]
-----
+```shell
 npx create-next-app@13.4.19
-----
+```
 
 Answer the questions as follows:
-----
+
+```
 ✔ What is your project named? ... react-graphql
 ✔ Would you like to use TypeScript? ... Yes
 ✔ Would you like to use ESLint? ... Yes
@@ -851,37 +811,34 @@ Answer the questions as follows:
 ✔ Would you like to use `src/` directory? ... Yes
 ✔ Would you like to use App Router? (recommended) ... Yes
 ✔ Would you like to customize the default import alias? ... No
-----
+```
 
 Then add the the MUI Datagrid dependencies and custom hooks from Vercel:
 
-[source, shell]
-----
+```shell
 cd react-graphql && \
   npm install @mui/x-data-grid && \
   npm install @mui/material@5.14.5 @emotion/react @emotion/styled && \
   npm install react-use-custom-hooks
-----
+```
 
 Test run the application with:
 
-[source, shell]
-----
+```shell
 npm run dev
-----
+```
 
 Navigate to http://localhost:3000 and you should see the default Next.js page:
 
-image::{% asset_path blog/spring-graphql-react/nextjs-default.png %}[alt=Next.js default page,width=800,align=center]
+{% img blog/spring-graphql-react/nextjs-default.png alt:"Next.js default page" width:"800" %}{: .center-image }
 
-=== Create the API client
+### Create the API client
 
 Create the folder `src/services` and add the file `base.tsx` with the following code:
 
-.base.tsx
-[source, tsx]
-----
 {% raw %}
+__base.tsx__
+```tsx
 import axios from "axios";
 
 export const backendAPI = axios.create({
@@ -889,15 +846,14 @@ export const backendAPI = axios.create({
 });
 
 export default backendAPI;
+```
 {% endraw %}
-----
 
 Add the file `src/services/companies.tsx` with the following content:
 
-.companies.tsx
-[source, tsx]
-----
 {% raw %}
+__companies.tsx__
+```tsx
 import { AxiosError } from "axios";
 import { backendAPI } from "./base";
 
@@ -962,24 +918,22 @@ export const CompanyApi = {
   },
 
 };
+```
 {% endraw %}
-----
 
 Add a file `.env.example` and `.env.local` in the root folder, both with the following content:
 
-[source, shell]
-----
+```shell
 NEXT_PUBLIC_API_SERVER_URL=http://localhost:8080
-----
+```
 
-=== Create a companies home page
+### Create a companies home page
 
 Create the folder `src/components/company` and add the file `CompanyTable.tsx` with the following content:
 
-.CompanyTable.tsx
-[source, tsx]
-----
 {% raw %}
+__CompanyTable.tsx__
+```tsx
 import { DataGrid, GridColDef, GridEventListener, GridPaginationModel } from "@mui/x-data-grid";
 
 
@@ -1029,15 +983,14 @@ const CompanyTable = (props: CompanyTableProps) => {
 };
 
 export default CompanyTable;
+```
 {% endraw %}
-----
 
 Create a `Loader.tsx` component in the folder `src/components/loader` with the following code:
 
-.Loader.tsx
-[source, tsx]
-----
 {% raw %}
+__Loader.tsx__
+```tsx
 import { Box, CircularProgress, Skeleton } from "@mui/material";
 
 const Loader = () => {
@@ -1049,15 +1002,14 @@ const Loader = () => {
 }
 
 export default Loader;
+```
 {% endraw %}
-----
 
 Add the file `src/components/company/CompanyTableContainer.tsx`:
 
-.CompanyTableContainer.tsx
-[source, tsx]
-----
 {% raw %}
+__CompanyTableContainer.tsx__
+```tsx
 import {
   GridColDef,
   GridPaginationModel,
@@ -1084,8 +1036,6 @@ const columns: GridColDef[] = [
   { field: "category", headerName: "Category", width: 200, sortable: false },
   { field: "SIC", headerName: "SIC", width: 400, sortable: false },
 ];
-
-
 
 const CompanyTableContainer = (props: CompanyTableProperties) => {
   const router = useRouter();
@@ -1122,15 +1072,14 @@ const CompanyTableContainer = (props: CompanyTableProperties) => {
 };
 
 export default CompanyTableContainer;
+```
 {% endraw %}
-----
 
 Add `src/app/HomePage.tsx` for the homepage:
 
-.HomePage.tsx
-[source, tsx]
-----
 {% raw %}
+__HomePage.tsx__
+```tsx
 "use client";
 
 import CompanyTableContainer from "@/components/company/CompanyTableContainer";
@@ -1158,15 +1107,14 @@ const HomePage = () => {
 };
 
 export default HomePage;
+```
 {% endraw %}
-----
 
 Replace the contents of `src/app/page.tsx` and change it to render the `HomePage` component:
 
-.app/page.tsx
-[source, tsx]
-----
 {% raw %}
+__app/page.tsx__
+```tsx
 import HomePage from "./HomePage";
 
 const Page = () => {
@@ -1176,15 +1124,14 @@ const Page = () => {
 }
 
 export default Page;
+```
 {% endraw %}
-----
 
 Add a component defining the page width, for using it in the root layout. Create `src/layout/WideLayout.tsx` with the following content:
 
-.WideLayout.tsx
-[source, tsx]
-----
 {% raw %}
+__WideLayout.tsx__
+```tsx
 "use client";
 
 import { Container, ThemeProvider, createTheme } from "@mui/material";
@@ -1206,16 +1153,15 @@ const WideLayout = (props: { children: React.ReactNode }) => {
 };
 
 export default WideLayout;
+```
 {% endraw %}
-----
 
 With the implementation above, the page content will be wrapped in a `ThemeProvider` component, so https://github.com/vercel/next.js/discussions/45433[MUI child components inherit the font family] from the root layout.
 Update the contents of `src/app/layout.tsx` to be:
 
-.app/layout.tsx
-[source, tsx]
-----
 {% raw %}
+__app/layout.tsx__
+```tsx
 import WideLayout from "@/layout/WideLayout";
 import { Ubuntu} from "next/font/google";
 
@@ -1242,40 +1188,39 @@ export default function RootLayout({
     </html>
   );
 }
+```
 {% endraw %}
-----
 
 Also, remove `src/app/global.css` and `src/app/page.module.css`. Then run the client application with:
 
-[source, shell]
-----
+```shell
 npm run dev
-----
+```
 
 Navigate to http://localhost:3000 and you should see the companies list:
 
-image::{% asset_path blog/spring-graphql-react/react-datagrid.png %}[alt=Home page companies datagrid,width=900,align=center]
+{% img blog/spring-graphql-react/react-datagrid.png alt:"Home page companies datagrid" width:"900" %}{: .center-image }
 
-== Add security with Auth0
+## Add security with Auth0
 
-For securing both the server and client, the Auth0 platform provides the best customer experience, and with a few simple configuration steps, you can add authentication to your applications. Sign up at https://auth0.com/signup[Auth0] and install the https://github.com/auth0/auth0-cli[Auth0 CLI] that will help you create the tenant and the client applications.
+For securing both the server and client, the Auth0 platform provides the best customer experience, and with a few simple configuration steps, you can add authentication to your applications. Sign up at [Auth0](https://auth0.com/signup) and install the [Auth0 CLI](https://github.com/auth0/auth0-cli) that will help you create the tenant and the client applications.
 
-=== Add resource server security to the GraphQL API server
+### Add resource server security to the GraphQL API server
 
 In the command line login to Auth0 with the CLI:
 
-[source, shell]
-----
+```shell
 auth0 login
-----
+```
 
 The command output will display a device confirmation code and open a browser session to activate the device.
 
-**NOTE**: My browser was not displaying anything, so I had to manually activate the device by opening the URL `https://auth0.auth0.com/activate?user_code={deviceCode}`.
+> __NOTE:__
+> My browser was not displaying anything, so I had to manually activate the device by opening the URL `https://auth0.auth0.com/activate?user_code={deviceCode}`.
 
 On successful login, you will see the tenant, which you will use as the issuer later:
 
-----
+```
 ✪ Welcome to the Auth0 CLI 🎊
 
 If you don't have an account, please create one here: https://auth0.com/signup.
@@ -1289,12 +1234,11 @@ Waiting for the login to complete in the browser... done
 
  ▸    Successfully logged in.
  ▸    Tenant: dev-avup2laz.us.auth0.com
-----
+```
 
 The next step is to create a client app, which you can do in one command:
 
-[source, shell]
-----
+```shell
 auth0 apps create \
   --name "GraphQL Server" \
   --description "Spring Boot GraphQL Resource Server" \
@@ -1302,11 +1246,11 @@ auth0 apps create \
   --callbacks http://localhost:8080/login/oauth2/code/okta \
   --logout-urls http://localhost:8080 \
   --reveal-secrets
-----
+```
 
 Once the app is created, you will see the OIDC app's configuration:
 
-----
+```
 === dev-avup2laz.us.auth0.com application created
 
   CLIENT ID            ***
@@ -1324,43 +1268,39 @@ Once the app is created, you will see the OIDC app's configuration:
  ▸    Quickstarts: https://auth0.com/docs/quickstart/webapp
  ▸    Hint: Emulate this app's login flow by running `auth0 test login ***`
  ▸    Hint: Consider running `auth0 quickstarts download ***`
-----
+```
 
 Add the `okta-spring-boot-starter` dependency to the `build.gradle` file:
 
-.build.gradle
-[source, groovy]
-----
+__build.gradle__
+```groovy
 dependencies {
     ...
     implementation 'com.okta.spring:okta-spring-boot-starter:3.0.5'
     ...
 }
-----
+```
 
 Set the clientId, issuer, and audience for OAuth2 in the `application.properties` file:
 
-.application.properties
-[source, properties]
-----
+__application.properties__
+```properties
 okta.oauth2.issuer=https://{yourAuth0Domain}/
 okta.oauth2.client-id={clientId}
 okta.oauth2.audience=https://{yourAuth0Domain}/api/v2/
-----
+```
 
 Add the client secret to the `.env` file:
 
-..env
-[source, shell]
-----
+__.env__
+```shell
 export OKTA_OAUTH2_CLIENT_SECRET={clientSecret}
-----
+```
 
 Add the following factory method to the class `SpringBootGraphQlApiConfig`, for requiring a bearer token for all requests:
 
-.SpringBootGraphQlApiConfig.java
-[source, java]
-----
+__SpringBootGraphQlApiConfig.java__
+```java
     ...
     @Bean
     public SecurityFilterChain configure(HttpSecurity http) throws Exception {
@@ -1368,39 +1308,33 @@ Add the following factory method to the class `SpringBootGraphQlApiConfig`, for 
         return http.build();
     }
     ...
-----
+```
 
 Again, in the root folder, run the API server with:
-[source, shell]
-----
+
+```shell
 source .env && ./gradlew bootRun
-----
+```
 
 With HTTPie, send a request to the API server using a bearer access token:
 
-[source, shell]
-----
+```shell
 ACCESS_TOKEN={auth0AccessToken}
-----
+```
 
-[source, shell]
-----
+```shell
 echo -E '{"query":"{\n    companyList(page: 20) {\n        id\n        SIC\n        name\n        status\n        category\n        companyNumber\n        countryOfOrigin\n    }\n}"}' | \
   http -A bearer -a $ACCESS_TOKEN POST http://localhost:8080/graphql
-----
+```
 
-[NOTE]
-====
-Follow https://auth0.com/docs/secure/tokens/access-tokens/get-management-api-access-tokens-for-testing[these instructions] to get an access token for the Auth0 Management API, which can be used for testing the server API.
-====
+> __NOTE:__
+> Follow [these instructions](https://auth0.com/docs/secure/tokens/access-tokens/get-management-api-access-tokens-for-testing) to get an access token for the Auth0 Management API, which can be used for testing the server API.
 
-
-=== Add Auth0 Login to the React client
+### Add Auth0 Login to the React client
 
 When using Auth0 as the identity provider, you can configure the Universal Login Page for a quick integration without having to build the login forms. First, create a SPA application using the Auth0 CLI:
 
-[source, shell]
-----
+```shell
 auth0 apps create \
   --name "React client for GraphQL" \
   --description "SPA React client for a Spring GraphQL API" \
@@ -1408,24 +1342,22 @@ auth0 apps create \
   --callbacks http://localhost:3000/callback \
   --logout-urls http://localhost:3000 \
   --reveal-secrets
-----
+```
 
-Copy the Auth0 domain and the client ID, and update the `src/.env.local` with the following properties (add the new variables to the example file, too):
+Copy the Auth0 domain and the client ID, and update the `src/.env.local` adding the following properties (add the new variables to the example file, too):
 
-.env.local
-[source, shell]
-----
+__.env.local__
+```shell
 NEXT_PUBLIC_AUTH0_DOMAIN={yourAuth0Domain}
 NEXT_PUBLIC_AUTH0_CLIENT_ID={clientId}
 NEXT_PUBLIC_AUTH0_CALLBACK_URL=http://localhost:3000/callback
 NEXT_PUBLIC_AUTH0_AUDIENCE=https://{yourAuth0Domain}/api/v2/
-----
+```
 
 For handling the Auth0 post-login behavior, you need to add the page `src/app/callback/page.tsx` with the following content.
 
-.callback/page.tsx
-[source, tsx]
-----
+__callback/page.tsx__
+```tsx
 import Loader from "@/components/loader/Loader";
 
 const Page = () => {
@@ -1433,23 +1365,21 @@ const Page = () => {
 };
 
 export default Page;
-----
+```
 
 For this example, the callback page will render empty.
 
 Add the `@auth0/auth0-react` dependency to the project:
 
-[source, shell]
-----
+```shell
 npm install @auth0/auth0-react
-----
+```
 
 Create the component `Auth0ProviderWithNavigate` in the folder `src/components/authentication` with the following content:
 
-.Auth0ProviderWithNavigate.tsx
-[source, tsx]
-----
 {% raw %}
+__Auth0ProviderWithNavigate.tsx__
+```tsx
 import { AppState, Auth0Provider } from "@auth0/auth0-react";
 import { useRouter } from "next/navigation";
 import React from "react";
@@ -1488,16 +1418,15 @@ const Auth0ProviderWithNavigate = (props: { children: React.ReactNode }) => {
 };
 
 export default Auth0ProviderWithNavigate;
+```
 {% endraw %}
-----
 
 The component `Auth0ProviderWithNavigate` wraps the children component with `Auth0Provider`, the provider of the Auth0 context, remembering the requested URL for redirection after login.
 Use the component in the `WideLayout` component:
 
-.WideLayout.tsx
-[source, tsx]
-----
 {% raw %}
+__WideLayout.tsx__
+```tsx
 const WideLayout = (props: { children: React.ReactNode }) => {
   return (
     <ThemeProvider theme={theme}>
@@ -1509,14 +1438,13 @@ const WideLayout = (props: { children: React.ReactNode }) => {
     </ThemeProvider>
   );
 };
+```
 {% endraw %}
-----
 
 Add the file `src/components/authentication/AuthenticationGuard.tsx` with the following content:
 
-.AuthenticationGuard.tsx
-[source, tsx]
-----
+__AuthenticationGuard.tsx__
+```tsx
 'use client'
 
 import { useAuth0 } from "@auth0/auth0-react";
@@ -1544,14 +1472,13 @@ const AuthenticationGuard = (props: { children: React.ReactNode }) => {
 };
 
 export default AuthenticationGuard;
-----
+```
 
 The `AuthenticationGuard` component will be used to protect pages that require authentication, redirecting to the Auth0 universal login. Protect the index page by wrapping its content in the `AuthenticationGuard` component:
 
-.app/page.tsx
-[source, tsx]
-----
 {% raw %}
+__app/page.tsx__
+```tsx
 import AuthenticationGuard from "@/components/authentication/AuthenticationGuard";
 import HomePage from "./HomePage";
 
@@ -1564,16 +1491,15 @@ const Page = () => {
 };
 
 export default Page;
+```
 {% endraw %}
-----
 
-=== Call the API server with an access token
+### Call the API server with an access token
 
 Add the file `src/services/auth.tsx` with the following code:
 
-.auth.tsx
-[source, tsx]
-----
+__auth.tsx__
+```tsx
 import backendAPI from "./base";
 
 let requestInterceptor: number;
@@ -1605,13 +1531,12 @@ export const setInterceptors = (accessToken: String) => {
     }
   );
 };
-----
+```
 
 Add the file `src/hooks/useAccessToken.tsx` with the following content:
 
-.useAccessToken.tsx
-[source, tsx]
-----
+__useAccessToken.tsx__
+```tsx
 import { setInterceptors } from "@/services/auth";
 import { useAuth0 } from "@auth0/auth0-react";
 import { useCallback, useState } from "react";
@@ -1639,14 +1564,13 @@ export const useAccessToken = () => {
     saveAccessToken,
   };
 };
-----
+```
 
 The hook will call Auth0 `getAccessTokenSilently()` and will trigger a token refresh if the access token is expired. Then it will update axios interceptors to set the updated bearer token value in the request headers.
 Create the `useAsyncWithToken` hook:
 
-.useAsyncWithToken.tsx
-[source, tsx]
-----
+__useAsyncWithToken.tsx__
+```tsx
 import { useAccessToken } from "./useAccessToken";
 import { useAsync } from "react-use-custom-hooks";
 
@@ -1667,45 +1591,42 @@ export const useAsyncWithToken = <T, P, E = string>(
     error
   };
 };
-----
+```
 
 Update the calls in the `CompanyTableContainer` component to use the `useAsyncWithToken` hook:
 
-.CompanyTableContainer.tsx
-[source, tsx]
-----
+__CompanyTableContainer.tsx__
+```tsx
 ...
 const { data: dataList, loading: loadingList, error: errorList } = useAsyncWithToken(() => CompanyApi.getCompanyList({ page: page - 1 }), [page]);
 const { data: dataCount } = useAsyncWithToken(() => CompanyApi.getCompanyCount(), []);
 ...
-----
+```
 
 Run the application with:
 
-[source, shell]
-----
+```shell
 npm run dev
-----
+```
 
 Go to http://localhost:3000 and you should be redirected to the Auth0 universal login page. After login in, you should see the companies list again.
 
-image::{% asset_path blog/spring-graphql-react/auth0-universal-login.png %}[alt=Auth0 universal login form,width=400,align=center]
+{% img blog/spring-graphql-react/auth0-universal-login.png alt:"Auth0 universal login form" width:"400" %}{: .center-image }
 
-image::{% asset_path blog/spring-graphql-react/auth0-authorize-app.png %}[alt=Auth0 authorize application form,width=400,align=center]
+{% img blog/spring-graphql-react/auth0-authorize-app.png alt:"Auth0 authorize application form" width:"400" %}{: .center-image }
 
 Once the companies load, you can inspect the network requests and see the bearer token is sent in the request headers. It will look like the example below:
 
-----
+```
 Authorization: Bearer eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCIsImtpZCI6IlJzZHNsM211SjNYU2ZVT0tDOEMxSiJ9.eyJodHRwczovL3d3dy5qaGlwc3Rlci50ZWNoL3JvbGVzIjpbIlJPTEVfQURNSU4iLCJST0xFX1VTRVIiXSwiaXNzIjoiaHR0cHM6Ly9kZXYtYXZ1cDJsYXoudXMuYXV0aDAuY29tLyIsInN1YiI6ImF1dGgwfDY0MzQxOTkxNTJmYjc2N2Y3ZWFlZDU2NyIsImF1ZCI6WyJhcGktc2VydmVyIiwiaHR0cHM6Ly9kZXYtYXZ1cDJsYXoudXMuYXV0aDAuY29tL3VzZXJpbmZvIl0sImlhdCI6MTY5MTU5NDE3NCwiZXhwIjoxNjkxNTk0Mjk0LCJhenAiOiI1WW5QeEJiTjRoYXFyd2JNaXRpZFBRVTBjb0l2YUI3SCIsInNjb3BlIjoib3BlbmlkIHByb2ZpbGUgZW1haWwgb2ZmbGluZV9hY2Nlc3MifQ.oRMJNIwSeO9dfHi6Q2tr_B51YetEPZqjcVEEIBe3ky9tEe50tTB5ssMTbVaR78_1qXA663Cn4EMPEYTLlb_wiOHEqnKpZnpq0O07G2MGszkrgv5giaQBOXvr9UT_Kc3pFPK-xMVmOsicLoF_mz8iyOzReG1Gcw0UbS1fZsJthdtC9svLiPGC1rn-dwPJxPpKy118vWLbEgO3NsdVfaiPxbucv0TL_B8Msd-wBD8N4M_yej9jl7w2JT0ltLza_-Glbxr1aQBKd19O2QT8ovgyE325BYqeYiUOaV7efwMgqHUm7z4LngaPLRNhMLP2BExG7bUQD2JjH2Mh19LFYNM-Gw
-----
+```
 
-== Update the GraphQL query in the client
+## Update the GraphQL query in the client
 
 The GraphQL query in the React client application can be easily updated to request more data from the server. For example, add the `status` and information about who controls the company. First, update the API client:
 
-.companies.tsx
-[source, tsx]
-----
+__companies.tsx__
+```tsx
 ...
   getCompanyList: async (params?: CompaniesQuery) => {
 
@@ -1737,13 +1658,12 @@ The GraphQL query in the React client application can be easily updated to reque
     }
   },
 ...
-----
+```
 
 Then update the `CompanyData` interface in the `CompanyTable.tsx` component:
 
-.CompanyTable.tsx
-[source, tsx]
-----
+__CompanyTable.tsx__
+```tsx
 export interface CompanyData {
   id: string,
   name: string,
@@ -1753,14 +1673,13 @@ export interface CompanyData {
   status: string,
   owner: string
 }
-----
+```
 
 Finally, update the `CompanyTableContainer` column definitions, and data formatting. The final code should look like below:
 
-.CompanyTableContainer.tsx
-[source, tsx]
-----
 {% raw %}
+__CompanyTableContainer.tsx__
+```tsx
 import { GridColDef, GridPaginationModel } from "@mui/x-data-grid";
 import CompanyTable from "./CompanyTable";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
@@ -1846,19 +1765,19 @@ const CompanyTableContainer = (props: CompanyTableProperties) => {
 };
 
 export default CompanyTableContainer;
+```
 {% endraw %}
-----
 
 Give it a try, and notice how simple was the update.
 
-== Learn More About Spring Boot and React
+## Learn More About Spring Boot and React
 
-I hope you enjoyed this tutorial, and found this example useful. As you can see, not much work would be required to consume more company data from the GraphQL server, just a query update in the client. Also, the Auth0 Universal Login and Auth0 React SDK provide an efficient way to secure your React applications, following security best practices. You can find all the code for this example in the https://github.com/indiepopart/spring-graphql-react[Github repository].
+I hope you enjoyed this tutorial, and found this example useful. As you can see, not much work would be required to consume more company data from the GraphQL server, just a query update in the client. Also, the Auth0 Universal Login and Auth0 React SDK provide an efficient way to secure your React applications, following security best practices. You can find all the code for this example in the [Github repository](https://github.com/indiepopart/spring-graphql-react).
 
-Check out the Auth0 documentation for adding https://developer.auth0.com/resources/guides/spa/react/basic-authentication#add-user-sign-up-to-react[sign-up] and https://developer.auth0.com/resources/guides/spa/react/basic-authentication#add-user-logout-to-react[logout] functionality to your React application. And for more fun tutorials about Spring Boot and React, you can visit the following links:
+Check out the Auth0 documentation for adding [sign-up](https://developer.auth0.com/resources/guides/spa/react/basic-authentication#add-user-sign-up-to-react) and [logout](https://developer.auth0.com/resources/guides/spa/react/basic-authentication#add-user-logout-to-reactfunctionality) to your React application. And for more fun tutorials about Spring Boot and React, you can visit the following links:
 
-- https://auth0.com/blog/build-crud-spring-and-vue/[Build a Simple CRUD App with Spring Boot and Vue.js]
-- https://auth0.com/blog/simple-crud-react-and-spring-boot/[Use React and Spring Boot to Build a Simple CRUD App]
-- https://auth0.com/blog/full-stack-java-with-react-spring-boot-and-jhipster/[Full Stack Java with React, Spring Boot, and JHipster]
+- [Build a Simple CRUD App with Spring Boot and Vue.js](https://auth0.com/blog/build-crud-spring-and-vue/)
+- [Use React and Spring Boot to Build a Simple CRUD App](https://auth0.com/blog/simple-crud-react-and-spring-boot/)
+- [Full Stack Java with React, Spring Boot, and JHipster](https://auth0.com/blog/full-stack-java-with-react-spring-boot-and-jhipster/)
 
-Keep in touch! If you have questions about this post, please ask them in the comments below. And follow us! We're https://twitter.com/oktadev[@oktadev on Twitter], https://youtube.com/c/oktadev[@oktadev on YouTube], and frequently post to our https://www.linkedin.com/company/oktadev/[LinkedIn page]. You can also sign up for our https://a0.to/nl-signup/java[newsletter] to stay updated on everything Identity and Security.
+Keep in touch! If you have questions about this post, please ask them in the comments below. And follow us! We're [@oktadev on Twitter](https://twitter.com/oktadev), [@oktadev on YouTube](https://youtube.com/c/oktadev), and frequently post to our [LinkedIn page](https://www.linkedin.com/company/oktadev/). You can also sign up for our [newsletter](https://a0.to/nl-signup/java) to stay updated on everything Identity and Security.
