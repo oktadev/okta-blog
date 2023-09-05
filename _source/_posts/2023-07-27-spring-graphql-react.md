@@ -62,7 +62,6 @@ type Query {
     companyCount: Int
 }
 
-
 type Company {
     id: ID
     SIC: String
@@ -138,6 +137,7 @@ public class Person {
             return newObject;
         }
     }
+
     public String getBirthMonth() {
         return birthMonth;
     }
@@ -287,7 +287,6 @@ public class Company {
     @Relationship(type = "HAS_CONTROL", direction = Relationship.Direction.INCOMING)
     private List<Person> controlledBy = new ArrayList<>();
 
-
     public Company(String SIC, String category, String companyNumber, String countryOfOrigin, LocalDate incorporationDate, Integer mortgagesOutstanding, String name, String status) {
         this.id = null;
         this.SIC = SIC;
@@ -373,7 +372,6 @@ public class Company {
     public void setStatus(String status) {
         this.status = status;
     }
-
 }
 ```
 
@@ -382,7 +380,6 @@ Create the package `com.okta.developer.demo.repository` and the class `CompanyRe
 __CompanyRepository.java__
 ```java
 package com.okta.developer.demo.repository;
-
 
 import com.okta.developer.demo.domain.Company;
 import org.springframework.data.neo4j.repository.ReactiveNeo4jRepository;
@@ -454,7 +451,6 @@ public class SpringBootGraphQlApiConfig {
             ReactiveDatabaseSelectionProvider databaseNameProvider) {
         return new ReactiveNeo4jTransactionManager(driver, databaseNameProvider);
     }
-
 }
 ```
 
@@ -488,7 +484,6 @@ public class CompanyController {
     public Mono<Long> companyCount() {
         return companyRepository.count();
     }
-
 }
 ```
 
@@ -891,7 +886,6 @@ export const CompanyApi = {
     }
   },
 
-
   getCompanyList: async (params?: CompaniesQuery) => {
     try {
       const response = await backendAPI.post("/graphql", {
@@ -935,7 +929,6 @@ Create the folder `src/components/company` and add the file `CompanyTable.tsx` w
 __CompanyTable.tsx__
 ```tsx
 import { DataGrid, GridColDef, GridEventListener, GridPaginationModel } from "@mui/x-data-grid";
-
 
 export interface CompanyData {
   id: string,
@@ -1384,7 +1377,6 @@ import { AppState, Auth0Provider } from "@auth0/auth0-react";
 import { useRouter } from "next/navigation";
 import React from "react";
 
-
 const Auth0ProviderWithNavigate = (props: { children: React.ReactNode }) => {
   const router = useRouter();
 
@@ -1578,8 +1570,6 @@ export const useAsyncWithToken = <T, P, E = string>(
   asyncOperation: () => Promise<T>, deps: any[]
 ) => {
   const { saveAccessToken } = useAccessToken();
-
-  // Add saveAccessToken to the dependency list
   const [ data, loading, error ] = useAsync(async () => {
     await saveAccessToken();
     return asyncOperation();
@@ -1732,7 +1722,6 @@ const CompanyTableContainer = (props: CompanyTableProperties) => {
     params.set("page", page.toString());
     router.push(pathName + "?" + params.toString());
   };
-
 
   const companyData = dataList?.map((company: CompanyDTO) => {
     return {
