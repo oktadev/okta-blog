@@ -1003,10 +1003,7 @@ Add the file `src/components/company/CompanyTableContainer.tsx`:
 {% raw %}
 __CompanyTableContainer.tsx__
 ```tsx
-import {
-  GridColDef,
-  GridPaginationModel,
-} from "@mui/x-data-grid";
+import { GridColDef, GridPaginationModel } from "@mui/x-data-grid";
 import CompanyTable from "./CompanyTable";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import { CompanyApi } from "@/services/companies";
@@ -1036,8 +1033,12 @@ const CompanyTableContainer = (props: CompanyTableProperties) => {
   const pathName = usePathname();
   const page = props.page ? props.page : 1;
 
-  const [ dataList, loadingList, errorList ] = useAsync(() => CompanyApi.getCompanyList({ page: page - 1 }), {}, [page]);
-  const [ dataCount ] = useAsync(() => CompanyApi.getCompanyCount(), {}, []);
+  const [dataList, loadingList, errorList] = useAsync(
+    () => CompanyApi.getCompanyList({ page: page - 1 }),
+    {},
+    [page]
+  );
+  const [dataCount] = useAsync(() => CompanyApi.getCompanyCount(), {}, []);
 
   const onPageChange = (pagination: GridPaginationModel) => {
     const params = new URLSearchParams(searchParams.toString());
@@ -1048,7 +1049,7 @@ const CompanyTableContainer = (props: CompanyTableProperties) => {
 
   return (
     <>
-      {loadingList && <Loader/>}
+      {loadingList && <Loader />}
       {errorList && <div>Error</div>}
 
       {!loadingList && dataList && (
@@ -1588,8 +1589,19 @@ Update the calls in the `CompanyTableContainer` component to use the `useAsyncWi
 __CompanyTableContainer.tsx__
 ```tsx
 ...
-const { data: dataList, loading: loadingList, error: errorList } = useAsyncWithToken(() => CompanyApi.getCompanyList({ page: page - 1 }), [page]);
-const { data: dataCount } = useAsyncWithToken(() => CompanyApi.getCompanyCount(), []);
+const {
+  data: dataList,
+  loading: loadingList,
+  error: errorList,
+} = useAsyncWithToken(
+  () => CompanyApi.getCompanyList({ page: page - 1}),
+  [props.page]
+);
+
+const { data: dataCount } = useAsyncWithToken(
+  () => CompanyApi.getCompanyCount(),
+  []
+);
 ...
 ```
 
