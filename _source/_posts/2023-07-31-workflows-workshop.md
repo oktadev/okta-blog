@@ -189,9 +189,11 @@ In this step, you will get the Todo application.
 
 There are two ways to get the Todo application: 
 
-  1. Clone the [Todo application](https://github.com/oktadev/okta-enterprise-ready-workshops/) that already has OIDC support implemented. Run the following command `git checkout oidc-workshop-complete`
-  2. [Download](https://github.com/oktadev/okta-enterprise-ready-workshops/tree/oidc-workshop-completed) the completed Todo application in a zip file
-
+  1. Option 1: clone
+      * Clone the [Todo application](https://github.com/oktadev/okta-enterprise-ready-workshops/) that already has OIDC support implemented. Run the following command `git checkout oidc-workshop-complete`
+  1. Option 2: download
+      * Go to the [okta-enterprise-ready-workshops](https://github.com/oktadev/okta-enterprise-ready-workshops/tree/oidc-workshop-complete) GitHub page
+      * Open the menu for the green **<> Code** button and select **Download Zip**
 
 ### Installing application dependencies
 
