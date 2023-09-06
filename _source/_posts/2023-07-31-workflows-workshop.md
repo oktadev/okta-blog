@@ -96,7 +96,10 @@ To sign up for a Workforce Identity Cloud trial:
 
 To access Workflows:
 
-1. Go to **Okta organization > Admin > Workflows > Workflows**
+1. Sign-in into your Okta admin dashboard
+    * If you are using a trial account, the admin dashboard link will be in the following format: `https://trial-xxxxxxxx-admin.okta.com/admin/dashboard`
+2. On the right-hand side menu, click **Workflows > Workflows console** to open Workflows
+
 
 You will see the Workflows home page:
 
