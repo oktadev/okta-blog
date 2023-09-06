@@ -27,7 +27,7 @@ The application allows entering todo items and marking them completed when done.
 
 But it's missing an important enterprise capability. 
 
-You need to add a report that summarizes all the todo items for your organization and automatically emails the report once a week. 
+You need to add a report that summarizes all the Todo items for your organization and automatically emails the report once a week. 
 
 The email report looks like this: 
 
@@ -126,14 +126,12 @@ This workshop uses a locally deployed application and its API.
 To start, you will create a new flow. 
 
 1. In the Workflows console, click **Flows** in the top navigation menu
-2. In the **Folders** panel on the right, use the **+** to create a new folder
-3. For the folder name, enter **Enterprise workshop**. Click the **Save** button to create a new folder
-4. Inside the folder, Click the **+ New Flow** to create a new flow
-5. Click **Unnamed** (upper left corner)
-6. For the name, enter **Todo Report**
-7. It is also a good idea to enter a description **This flow sends automated todo report email** 
-8. Check the **Save all data that passes through the Flow?** checkbox. You will be using this capability later in this tutorial
-9. Click **Save** to save the flow name and description
+1. Inside the **Default Folder**, click the **+ New Flow** to create a new flow
+1. Click **Unnamed** (upper left corner)
+1. For the name, enter **Todo Report**
+1. It is also a good idea to enter a description **This flow sends automated Todo report email.** 
+1. Check the **Save all data that passes through the Flow?** checkbox. You will be using this capability later in this tutorial
+1. Click **Save** to save the flow name and description
 
 {% img blog/workflows-workshop/Workflows_create_new_flow.jpg alt:"Creating new flow" %}{: .center-image }
 
@@ -289,10 +287,14 @@ To add the API service:
 
 1. In the application folder, open the file `apps/api/src/main.ts` in your favorite editor
 2. Go to line 6 add the following import:
+
+
 ```
 import passportBearer from 'passport-http-bearer';
 ```
-3. Go to line 52 to add the following code snippet: 
+
+3. Go to line 52 to add the following code: 
+
 ```
 const BearerStrategy = passportBearer.Strategy;
 
@@ -319,6 +321,7 @@ app.get('/api/org/todos',
     res.json({todos});
 });
 ```
+
 The above code snippet adds support for authentication and the API endpoint to get all the todo items. 
 
 4. Save all the changes. 
@@ -418,7 +421,7 @@ In this step, you will create a text message to send via email. Later, you will 
 Todos Items
 ```
 
-Your card should look like this: 
+Your card will look like this: 
 
 
 {% img blog/workflows-workshop/Workflows_Compose_card.jpg alt:"The Compose card" %}{: .center-image }
@@ -515,7 +518,7 @@ In this section, you will update the flow to send a pretty message. You will com
 ### Understanding the JSON returned from the API service
 The response from the API service looks like this:
 
-```json
+```
 {
   "todos": [
     {
