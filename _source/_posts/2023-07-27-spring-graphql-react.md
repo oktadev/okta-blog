@@ -400,8 +400,6 @@ import org.slf4j.LoggerFactory;
 import org.springframework.boot.autoconfigure.graphql.GraphQlSourceBuilderCustomizer;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.web.servlet.config.annotation.CorsRegistry;
-import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 @Configuration(proxyBeanMethods = false)
 class GraphQLConfig {
@@ -414,16 +412,6 @@ class GraphQLConfig {
                 builder.inspectSchemaMappings(report -> {
                     logger.debug(report.toString());
                 });
-    }
-
-    @Bean
-    public WebMvcConfigurer corsConfigurer() {
-        return new WebMvcConfigurer() {
-            @Override
-            public void addCorsMappings(CorsRegistry registry) {
-                registry.addMapping("/graphql").allowedOrigins("http://localhost:3000");
-            }
-        };
     }
 }
 ```
@@ -685,6 +673,8 @@ spring.graphql.schema.introspection.enabled=true
 org.neo4j.migrations.transaction-mode=PER_STATEMENT
 spring.neo4j.uri=bolt://localhost:7687
 spring.neo4j.authentication.username=neo4j
+
+spring.graphql.cors.allowed-origins=http://localhost:3000
 ```
 
 Create a `.env` file in the project root to store the Neo4j credentials:
@@ -1304,6 +1294,9 @@ __SpringBootGraphQlApiConfig.java__
     ...
 ```
 
+> __NOTE:__
+> The Okta Spring Boot starter provides the security auto-configuration out of the box, and the resource server configuration would not be necessary. For some reason, the Spring for GraphQL cors allowed origins configuration does not take effect without the customization above.
+
 Again, in the root folder, run the API server with:
 
 ```shell
@@ -1630,6 +1623,23 @@ The GraphQL query in the React client application can be easily updated to reque
 __companies.tsx__
 ```tsx
 ...
+
+export type PersonDTO = {
+  name: string;
+}
+
+export type CompanyDTO = {
+  name: string;
+  SIC: string;
+  id: string;
+  companyNumber: string;
+  category: string;
+  status: string;
+  controlledBy: PersonDTO[]
+};
+
+...
+
   getCompanyList: async (params?: CompaniesQuery) => {
 
     try {
