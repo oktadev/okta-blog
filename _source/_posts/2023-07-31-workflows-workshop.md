@@ -360,7 +360,7 @@ your url is: https://some-name.loca.lt
 For example:
 
 ```
-your url is: https://curvy-clowns-show.loca.lt
+your url is: https://good-seas-search.loca.lt
 ```
 
 **Note**: 
@@ -408,7 +408,7 @@ In this step, you will set the service URL.
 For example: 
 
 ```
-https://curvy-clowns-show.loca.lt/api/org/todos
+https://good-seas-search.loca.lt/api/org/todos
 ```
 
 **Note:** 
@@ -416,6 +416,8 @@ https://curvy-clowns-show.loca.lt/api/org/todos
 
 
 Click the **Save** button to save changes.
+
+The **API Connector - Get** card looks like this: 
 
 
 {% img blog/workflows-workshop/Workflows_Get_card.jpg alt:"The API Connector - Get card" %}{: .center-image }
