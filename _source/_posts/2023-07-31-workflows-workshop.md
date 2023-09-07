@@ -451,7 +451,7 @@ In this step, you will create a text message to send via email. Later, you will 
 2. In the **Compose** card, enter the following text:
 
 ```
-Todos Items
+Todo Items
 ```
 
 > Function cards are steps to interact with, change, or control the data in a flow
@@ -464,7 +464,8 @@ You can test the **Compose** card. Click the ▶️ button at the bottom of the 
 
 Now, let's take the output from the **API Connector - Get** card and pass it to the **Compose** card. The output is not formatted-friendly, but we will fix it later. 
 
-1. Take the **Body** field from the **Get** card and pass it over to the **Compose** card, placing it under the current text (click enter once to create more space between lines)
+1. Take the **Body** field from the **Get** card and pass it over to the **Compose** card, placing it under the current text
+    * Place the cursor after **Todo Items** and press enter to create more space between the lines if needed
 
 
 {% img blog/workflows-workshop/workflows_get_connect_compose.gif alt:"Passing data to the Compose card" %}{: .center-image }
@@ -632,7 +633,7 @@ The reduce function takes a list of values and reduces the list to a single valu
 ### Creating the helper flow
 In this step, you will create the helper flow. 
 
-1. Click on the **Default Folder** to go back to the flows listing
+1. Click on the **Default Folder** to go back to the folder
 2. Click **+ New Flow** to create a new flow
 3. Click **Unnamed** (upper left corner)
 4. For the name, enter **Todo Report_Helper**
@@ -693,9 +694,9 @@ The **Compose** card should look like this:
 
 ### Returning the message to the main flow
 
-You must return the message to the main flow to complete this flow. 
+You need to return the message to the **Todo Report** flow using the **Return** card. 
 
-1. To add the **Return** card, click **Add function > Flow Control (category) > Return**
+1. Click **Add function > Flow Control (category) > Return**
 2. Take the **Output** from the **Compose** card and connect it to the **Return** card
 
 The flow should look like this:
@@ -706,18 +707,21 @@ Next, you will update the main flow to call this helper flow.
 
 ### Adding the Reduce card
 
-In this step, you will update the main flow to call the helper flow. 
+In this step, you will update the **Todo Report** flow to call the **Todo Report_Helper** flow.  
 
 1. Open the **Todo Report** flow
-2. You will add the **List - Reduce** card. Click the **+** between the **Get** card and the **Compose** card, select the **calculator icon > List (category) > Reduce** card. Your flow should look like this:
-{% img blog/workflows-workshop/Workflows_add_Reduce_card.jpg alt:"Adding the Reduce card" %}{: .center-image }3. On the **Get** card, add **todos** field under the **Body** field. Set the field type to **Object**
+1. Click the **+** between the **Get** card and the **Compose** card
+1. Select the **calculator icon > List (category) > Reduce** card. Your flow should look like this:
+{% img blog/workflows-workshop/Workflows_add_Reduce_card.jpg alt:"Adding the Reduce card" %}{: .center-image }3. On the **API Connector - Get** card, add a **todos** field under the **Body** field. Set the field type to **Object**
 {% img blog/workflows-workshop/Workflows_Get_card_adding_todos.jpg alt:"Adding the todos field on the Get card" %}{: .center-image }4. Take the **todos** field and connect it to the list field on the **Reduce** card
 5. For **Helper Flow**, click the **Choose Flow** button and select the **Todo Report_Helper** flow
 6. For the **memo** field, change its type to **Text** and enter **Todo Items**
 7. For the **Item** field, click the arrow on the right side of the field and select **Item** from the list
 {% img blog/workflows-workshop/Workflows_Reduce_card_helperflow_input1.jpg alt:"Selecting the data to send to the helper flow" %}{: .center-image }8. For the item in the output section of the card, set its type to **Text**. The **Reduce** card should look like this:
 {% img blog/workflows-workshop/Workflows_Reduce_card_final.jpg alt:"The Reduce card" %}{: .center-image }9. Delete the **Compose** card
-10. Connect the **item** field from the **Reduce** card to the **Body** field on the **Send Email** card. The final flow should look like this:
+10. Connect the **item** field from the **Reduce** card to the **Body** field on the **Send Email** card. 
+
+The final flow should look like this:
 
 {% img blog/workflows-workshop/Workflows_Todo_flow_final_with_Reduce.jpg alt:"The Completed Todo Report flow" %}{: .center-image }
 
