@@ -114,7 +114,6 @@ In this workshop, you will learn how to build an automated email report in Okta 
 - Create a todo summary and email the summary
 - Test the flow
 
-**Note:**
 > 
 This workshop uses a locally deployed application and its API.
 
@@ -334,7 +333,6 @@ The above code adds support for authentication and the API endpoint to get all t
 
 4. Save the changes
 
-**Note:**
 > If you look in the terminal where you started the application, you will see a message that the application detected changes and restarting.
 
 
@@ -362,8 +360,6 @@ For example:
 ```
 your url is: https://good-seas-search.loca.lt
 ```
-
-**Note**: 
 
 > You will be using this URL later. If you restart the tunnel, a new URL will be created that you need to use in your flow. 
 
@@ -411,7 +407,6 @@ For example:
 https://good-seas-search.loca.lt/api/org/todos
 ```
 
-**Note:** 
 > The tunnel URL will change whenever you restart the tunnel.
 
 
@@ -424,7 +419,7 @@ The **API Connector - Get** card looks like this:
 
 #### Testing the card
 
-You can test the **API Connector - Get** card:
+To test the **API Connector - Get** card:
 
 1. Click the ▶️ button at the bottom of the card
 2. Press **Test** to test the card and the API service
@@ -433,12 +428,14 @@ You can test the **API Connector - Get** card:
 
 {% img blog/workflows-workshop/Workflows_Get_card_testing.jpg alt:"Testing the Get card" %}{: .center-image }
 
-You can also test the flow: 
+To test the  flow: 
 
-1. Click the **Close** button to go back to flow editing
-1. Click the **Test** button to test the flow
+1. Click the **Close** button to go back to the
+1. Click the **Run** button in the toolbar to run and test the flow
 
-The **Flow History** page shows data passed from card to card for each card flow. 
+{% img blog/workflows-workshop/Workflows_Run_button.jpg alt:"Workflows Run button to run and test a flow" %}{: .center-image }
+
+The **Execution History** page shows data passed from card to card for each card flow. 
 
 {% img blog/workflows-workshop/Workflows_Get_card_testing_history.jpg alt:"Testing the flow" %}{: .center-image }
 
