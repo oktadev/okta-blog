@@ -688,7 +688,7 @@ You will use the **Compose** card to create the message in this step.
 5. Take the **task** field and pass it to the **Compose** card as shown in the screenshot
 6. Enter **( )** and inside place the **completed** field
 
-The **Compose** card should look like this: 
+The **Compose** card looks like this: 
 
 {% img blog/workflows-workshop/Workflows_Compose_card_helper_flow.jpg alt:"The Compose card" %}{: .center-image }
 
@@ -705,23 +705,50 @@ The flow should look like this:
 
 Next, you will update the main flow to call this helper flow. 
 
-### Adding the Reduce card
+### Using the Reduce card
 
 In this step, you will update the **Todo Report** flow to call the **Todo Report_Helper** flow.  
 
+#### Adding the Reduce card
+
 1. Open the **Todo Report** flow
 1. Click the **+** between the **Get** card and the **Compose** card
-1. Select the **calculator icon > List (category) > Reduce** card. Your flow should look like this:
-{% img blog/workflows-workshop/Workflows_add_Reduce_card.jpg alt:"Adding the Reduce card" %}{: .center-image }3. On the **API Connector - Get** card, add a **todos** field under the **Body** field. Set the field type to **Object**
-{% img blog/workflows-workshop/Workflows_Get_card_adding_todos.jpg alt:"Adding the todos field on the Get card" %}{: .center-image }4. Take the **todos** field and connect it to the list field on the **Reduce** card
-5. For **Helper Flow**, click the **Choose Flow** button and select the **Todo Report_Helper** flow
-6. For the **memo** field, change its type to **Text** and enter **Todo Items**
-7. For the **Item** field, click the arrow on the right side of the field and select **Item** from the list
-{% img blog/workflows-workshop/Workflows_Reduce_card_helperflow_input1.jpg alt:"Selecting the data to send to the helper flow" %}{: .center-image }8. For the item in the output section of the card, set its type to **Text**. The **Reduce** card should look like this:
-{% img blog/workflows-workshop/Workflows_Reduce_card_final.jpg alt:"The Reduce card" %}{: .center-image }9. Delete the **Compose** card
-10. Connect the **item** field from the **Reduce** card to the **Body** field on the **Send Email** card. 
+1. Select the **calculator icon > List (category) > Reduce** card. 
 
-The final flow should look like this:
+The flo will look like this:
+
+{% img blog/workflows-workshop/Workflows_add_Reduce_card.jpg alt:"Adding the Reduce card" %}{: .center-image }
+
+#### Updating the Get card
+
+The **Reduce** card expects a list as input.  To pass a todo list from the **Get** card:
+
+1. On the **API Connector - Get** card, add a **todos** field under the **Body** field. 
+1. Set the field type to **Object** and also check the **List** option
+
+The new field looks like this: 
+
+{% img blog/workflows-workshop/Workflows_Get_card_adding_todos.jpg alt:"Adding the todos field on the Get card" %}{: .center-image }
+
+#### Passing to the Reduce card
+
+To send the todo list to the **Reduce** card: 
+
+1. Take the **todos** field and connect it to the list field on the **Reduce** card
+1. For **Helper Flow**, click the **Choose Flow** button and select the **Todo Report_Helper** flow
+1. For the **memo** field, change its type to **Text** and enter **Todo Items**
+1. For the **Item** field, click the arrow on the right side of the field and select **Item** from the list
+{% img blog/workflows-workshop/Workflows_Reduce_card_helperflow_input1.jpg alt:"Selecting the data to send to the helper flow" %}{: .center-image }1. For the item in the output section of the card, set its type to **Text**. The **Reduce** card should look like this:
+{% img blog/workflows-workshop/Workflows_Reduce_card_final.jpg alt:"The Reduce card" %}{: .center-image } 
+
+#### Passing to the Gmail card card
+
+To send the list to the **Gmail** card: 
+
+1. Delete the **Compose** card
+1. Connect the **item** field from the **Reduce** card to the **Body** field on the **Send Email** card. 
+
+The final flow looks like this:
 
 {% img blog/workflows-workshop/Workflows_Todo_flow_final_with_Reduce.jpg alt:"The Completed Todo Report flow" %}{: .center-image }
 
