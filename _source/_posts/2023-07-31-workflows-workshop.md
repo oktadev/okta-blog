@@ -295,7 +295,7 @@ To add the API service:
 1. In the application folder, open the file `apps/api/src/main.ts` in your favorite editor
 2. Go to line 7, add the following code:
 
-```
+``` ts
 import passportBearer from 'passport-http-bearer';
 ```
 
@@ -341,7 +341,7 @@ The above code adds support for authentication and the API endpoint to get all t
 There is one last step before you start building the automation. In the next section, you will launch an API tunnel. 
 
 
-## Launching an API tunnel
+## Launching the API tunnel
 
 Workflows run on the cloud, and this application runs locally on your computer. For Workflows to be able to call the API on your local machine, you need to create a tunnel. 
 
@@ -370,16 +370,16 @@ your url is: https://curvy-clowns-show.loca.lt
 You are ready to build the automation! 
 
 ## Building the Todo Report flow
-In this section, you will build a flow that does the following: 
+In this section, you will complete the following steps:  
 
-1. Calls an API service
-2. Creates a message
-3. Sends the message via email
-4. Set up the flow to run on schedule
+1. Calling the API service
+2. Creating the message
+3. Sending the message via email
+4. Setting up the flow to run on schedule
 
 ### Calling the API service
 
-In this step, you will add a card to call the application API endpoint to retrieve all the todo items.
+In this step, you will add a card to call the API to retrieve all the todo items. 
 
 #### Creating a connection to the API service
 
@@ -393,6 +393,11 @@ In this step, you will create a connection to the API service.
     * For **Header Name**, enter **Authorization**
     * For **Header Value**, enter **Bearer 131313**
 1. Click **Create** to create a connection
+
+The card API connection is shown at the top: 
+
+{% img blog/workflows-workshop/Workflows_Get_card_connection.jpg alt:"Card connection" %}{: .center-image }
+
 
 #### Setting the service URL
 
@@ -415,9 +420,9 @@ Click the **Save** button to save changes.
 
 {% img blog/workflows-workshop/Workflows_Get_card.jpg alt:"The API Connector - Get card" %}{: .center-image }
 
-#### Testing the service
+#### Testing the card
 
-You can test the **Get** card:
+You can test the **API Connector - Get** card:
 
 1. Click the ▶️ button at the bottom of the card
 2. Press **Test** to test the card and the API service
