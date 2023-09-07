@@ -859,9 +859,21 @@ Todo Items
 
 Since all the items were processed, the **Reduce** card is done and the flow execution moves on to the next card, the **Send Email** card. 
 
+## The completed automation
+
+Congratulations! You built an automation using no-code. 
+
+This is the final **Todo Report** flow: 
+
 {% img blog/workflows-workshop/Workflows_Todo_flow_final_with_Reduce.jpg alt:"The flow continues after the Reduce card processes all the items" %}{: .center-image }
 
-## Testing the flow
+This is the final **Todo Report_Helper** flow: 
+
+{% img blog/workflows-workshop/Workflows_helper_flow_inputs_final.jpg alt:"Helper flow with inputs" %}{: .center-image }
+
+You are ready to test the automation.
+
+## Testing the automation
 
 To test the flow: 
 
