@@ -464,7 +464,9 @@ Now, let's take the output from the **API Connector - Get** card and pass it to 
 
 1. Take the **Body** field from the **Get** card and pass it over to the **Compose** card, placing it under the current text (click enter once to create more space between lines)
 
+<!--
 {% img blog/workflows-workshop/Workflows_get_connect_compose.gif alt:"Passing data to the Compose card" %}{: .center-image }
+-->
 
 Click the **Test** button at the top of the flow to test it. 
 
