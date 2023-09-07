@@ -735,13 +735,14 @@ The new field looks like this:
 To send the todo list to the **Reduce** card: 
 
 1. Take the **todos** field and connect it to the **list** field on the **Reduce** card
-1. For **Helper Flow**, click the **Choose Flow** button and select the **Todo Report_Helper** flow
-1. For the **memo** field, change its type to **Text** and enter **Todo Items**
+1. For **Helper Flow**, click the **Choose Flow** button 
+1. Click on the **Default Folder**, select the **Todo Report_Helper** flow and click **Choose**
+1. For the **memo** field, change its type to **Text** and enter **Todo Items** (delete the quotes)
 1. For the **Item** field, click the arrow on the right side of the field and select **Item** from the list
 {% img blog/workflows-workshop/Workflows_Reduce_card_helperflow_input1.jpg alt:"Selecting the data to send to the helper flow" %}{: .center-image }
-1. For the item in the output section of the card, set its type to **Text**. 
+1. For the **item** in the output section of the card, set its type to **Text**. 
 
-The **Reduce** card should looks like this:
+The **Reduce** card looks like this:
 
 {% img blog/workflows-workshop/Workflows_Reduce_card_final.jpg alt:"The Reduce card" %}{: .center-image } 
 
