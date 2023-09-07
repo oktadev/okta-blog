@@ -392,8 +392,7 @@ In this step, you will create a connection to the API service.
 
 In this step, you will set the service URL. 
 
-1. For the **URL** field, enter the tunnel URL from step **Opening application API with a tunnel** and append the 
-`/api/org/todos` endpoint. 
+1. For the **URL** field, enter the tunnel URL from step **Opening application API with a tunnel** and append the `/api/org/todos` endpoint. 
 
 For example: 
 
@@ -401,12 +400,11 @@ For example:
 https://curvy-clowns-show.loca.lt/api/org/todos
 ```
 
-
 **Note:** 
-> The tunnel URL will change whenever you restart the tunnel
+> The tunnel URL will change whenever you restart the tunnel.
 
 
-Click the **Save** button to save changes
+Click the **Save** button to save changes.
 
 
 {% img blog/workflows-workshop/Workflows_Get_card.jpg alt:"The API Connector - Get card" %}{: .center-image }
