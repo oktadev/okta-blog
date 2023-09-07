@@ -484,6 +484,8 @@ Next, let's work on emailing the message.
 
 In this step, you will add a card to send the message you created in the previous step. 
 
+#### Adding the Gmail card
+
 To email the message, you will use the **Gmail** card. 
 
 1. Click **Add app** action
@@ -499,21 +501,34 @@ The card looks like this:
 
 {% img blog/workflows-workshop/Workflows_Gmail_Send_card.jpg alt:"The Gmail - Send Email card" %}{: .center-image }
 
+
 Next, you need to set fields on the **Send Email** card. 
+
+#### Setting up the Gmail card
 
 1. For the **Email** field, enter your email (or any other email you can check)
 2. For the **Subject** field, enter **Todo Report**
 3. For the **Body** field, connect the output field from the **Compose** card to the **Body** field in **Send Email** card
 4. All other fields are optional
-5. Let's test the **Send Email** card. Click the ▶️ button on the card. You only need to enter the **Body** field. All other fields will carry the information you entered. Enter any text and click the **Test** button. Now check your email.
+
+#### Testing the Gmail card
+
+To the **Send Email** card: 
+
+1. Click the ▶️ button on the card. You only need to enter the **Body** field
+    * All other fields will carry the information you entered. 
+1. Enter any text, and click the **Test** button
+1. Check your email
+
+#### Testing the flow
  
-The flow should look like this: 
+The flow looks like this: 
 
 {% img blog/workflows-workshop/Workflows_Todo_report_flow.jpg alt:"The Todo Report flow" %}{: .center-image }
 
-Go ahead and test the flow. Click the **Test** button and check that you received the email. 
+To test the flow, click the **Run** button and check that you received the email. 
 
-You should receive an email that looks like this: 
+The email looks like this: 
 
 {% img blog/workflows-workshop/Workflows_email_report_not_formatted.jpg alt:"An email with the todo report" %}{: .center-image }
 
