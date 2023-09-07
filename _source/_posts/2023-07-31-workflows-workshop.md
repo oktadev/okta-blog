@@ -730,18 +730,22 @@ The new field looks like this:
 
 {% img blog/workflows-workshop/Workflows_Get_card_adding_todos.jpg alt:"Adding the todos field on the Get card" %}{: .center-image }
 
-#### Passing to the Reduce card
+#### Passing data to the Reduce card
 
 To send the todo list to the **Reduce** card: 
 
-1. Take the **todos** field and connect it to the list field on the **Reduce** card
+1. Take the **todos** field and connect it to the **list** field on the **Reduce** card
 1. For **Helper Flow**, click the **Choose Flow** button and select the **Todo Report_Helper** flow
 1. For the **memo** field, change its type to **Text** and enter **Todo Items**
 1. For the **Item** field, click the arrow on the right side of the field and select **Item** from the list
-{% img blog/workflows-workshop/Workflows_Reduce_card_helperflow_input1.jpg alt:"Selecting the data to send to the helper flow" %}{: .center-image }1. For the item in the output section of the card, set its type to **Text**. The **Reduce** card should look like this:
+{% img blog/workflows-workshop/Workflows_Reduce_card_helperflow_input1.jpg alt:"Selecting the data to send to the helper flow" %}{: .center-image }
+1. For the item in the output section of the card, set its type to **Text**. 
+
+The **Reduce** card should looks like this:
+
 {% img blog/workflows-workshop/Workflows_Reduce_card_final.jpg alt:"The Reduce card" %}{: .center-image } 
 
-#### Passing to the Gmail card card
+#### Passing data to the Gmail card card
 
 To send the list to the **Gmail** card: 
 
