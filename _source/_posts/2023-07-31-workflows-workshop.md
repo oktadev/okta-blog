@@ -490,7 +490,10 @@ To email the message, you will use the **Gmail** card.
 4. Click **+ New Connection** and follow the steps to authenticate your Gmail account
     - You need to have access to a Google Workspace account to use this card (not a personal Gmail account)
 
-The card should look like this when added:
+
+> App action cards are steps that control other applications or web services. For example, Gmail, Slack, and Jira.
+
+The card looks like this:
 
 {% img blog/workflows-workshop/Workflows_Gmail_Send_card.jpg alt:"The Gmail - Send Email card" %}{: .center-image }
 
