@@ -699,7 +699,7 @@ You need to return the message to the **Todo Report** flow using the **Return** 
 1. Click **Add function > Flow Control (category) > Return**
 2. Take the **Output** from the **Compose** card and connect it to the **Return** card
 
-The flow should look like this:
+The helper flow looks like this: 
 
 {% img blog/workflows-workshop/Workflows_helper_flow_final.jpg alt:"Completed helper flow" %}{: .center-image }
 
@@ -869,7 +869,7 @@ This is the final **Todo Report** flow:
 
 This is the final **Todo Report_Helper** flow: 
 
-{% img blog/workflows-workshop/Workflows_helper_flow_inputs_final.jpg alt:"Helper flow with inputs" %}{: .center-image }
+{% img blog/workflows-workshop/Workflows_helper_flow_final.jpg alt:"Completed helper flow" %}{: .center-image }
 
 You are ready to test the automation.
 
