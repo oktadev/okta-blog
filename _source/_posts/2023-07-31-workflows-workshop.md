@@ -730,9 +730,9 @@ The new field looks like this:
 
 {% img blog/workflows-workshop/Workflows_Get_card_adding_todos.jpg alt:"Adding the todos field on the Get card" %}{: .center-image }
 
-#### Passing data to the Reduce card
+#### Setting up the Reduce card
 
-To send the todo list to the **Reduce** card: 
+In this stept, you will pass data and configure the **Reduce** card. 
 
 1. Take the **todos** field and connect it to the **list** field on the **Reduce** card
 1. For **Helper Flow**, click the **Choose Flow** button 
@@ -859,7 +859,7 @@ Todo Items
 
 Since all the items were processed, the **Reduce** card is done and the flow execution moves on to the next card, the **Send Email** card. 
 
-## The completed automation
+## The complete automation
 
 Congratulations! You built an automation using no-code. 
 
@@ -887,13 +887,13 @@ You will receive an email like this:
 {% img blog/workflows-workshop/Workflows_email_report.jpg alt:"Todo email report" %}{: .center-image }
 
 ## What you learned
-In this tutorial, you built and learned the following:
+In this workshop, you learned the following:
 
-- Built your first Workflows flow
-- Scheduled the flow to run periodically
-- Called an API service to retrieve todos items from an application
-- Created a todo summary and sent the summary via email
-- Tested the flow
+- Building your first Workflows flow and automation
+- Scheduling the flow to run periodically
+- Calling an API service to retrieve todos items from an application
+- Creating a todo summary and sending the summary via email
+- Testing the flow
 
 
 ## Workflows resources
