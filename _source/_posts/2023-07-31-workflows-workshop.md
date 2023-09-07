@@ -452,18 +452,19 @@ In this step, you will create a text message to send via email. Later, you will 
 Todos Items
 ```
 
-Your card will look like this: 
+> Function cards are steps to interact with, change, or control the data in a flow
 
+The **Compose** card looks like this: 
 
 {% img blog/workflows-workshop/Workflows_Compose_card.jpg alt:"The Compose card" %}{: .center-image }
 
-If you want, you can test the **Compose** card. Click the ▶️ button at the bottom of the card. 
+You can test the **Compose** card. Click the ▶️ button at the bottom of the card. 
 
 Now, let's take the output from the **API Connector - Get** card and pass it to the **Compose** card. The output is not formatted-friendly, but we will fix it later. 
 
-1. Take the **Body** field from the **Get** card and pass it over to the **Compose** card, placing it under the current text
+1. Take the **Body** field from the **Get** card and pass it over to the **Compose** card, placing it under the current text (click enter once to create more space between lines)
 
-{% img blog/workflows-workshop/workflows_get_connect_compose.gif alt:"Passing data to the Compose card" %}{: .center-image }
+{% img blog/workflows-workshop/Workflows_get_connect_compose.gif alt:"Passing data to the Compose card" %}{: .center-image }
 
 Click the **Test** button at the top of the flow to test it. 
 
