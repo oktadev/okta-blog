@@ -291,10 +291,13 @@ To add the API service:
 
 1. In the application folder, open the file `apps/api/src/main.ts` in your favorite editor
 2. Go to line 7, add the following code:
+
 ```
 import passportBearer from 'passport-http-bearer';
 ```
+
 3. Go to line 58, add the following code: 
+
 ```
 // New API endpoint start
 const BearerStrategy = passportBearer.Strategy;
@@ -326,7 +329,7 @@ app.get('/api/org/todos',
 
 The above code adds support for authentication and the API endpoint to get all the todo items. 
 
-4. Save all the changes. 
+4. Save the changes
 
 **Note:**
 > If you look in the terminal where you started the application, you will see a message that the application detected changes and restarting.
@@ -423,7 +426,7 @@ You can test the **Get** card:
 You can also test the flow: 
 
 1. Click the **Close** button to go back to flow editing
-1. Click the **Test** button to test the flow. 
+1. Click the **Test** button to test the flow
 
 The **Flow History** page shows data passed from card to card for each card flow. 
 
