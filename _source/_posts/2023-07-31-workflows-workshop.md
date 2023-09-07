@@ -563,13 +563,15 @@ To see when the flow runs next:
 
 {% img blog/workflows-workshop/Workflows_flow_off.jpg alt:"The flow is off" %}{: .center-image }
 
-When the flow is on, you will see a time count down until its next run:
+When the flow is on, you will see a time countdown until its next run:
 
 {% img blog/workflows-workshop/Workflows_flow_on.jpg alt:"The flow is on" %}{: .center-image }
 
 Your flow should look like this: 
 
 {% img blog/workflows-workshop/Workflows_Todo_flow_final_1.jpg alt:"A flow to get the todo summary and send it via email" %}{: .center-image }
+
+> You can turn off the flow while you build it. You can also remove and re-add the **Flow Schedule** card later.
 
 ## Updating the flow to send a pretty message
 In this section, you will update the flow to send a pretty message. You will complete the following: 
@@ -630,12 +632,12 @@ The reduce function takes a list of values and reduces the list to a single valu
 ### Creating the helper flow
 In this step, you will create the helper flow. 
 
-1. Click on the Flows at the top navigation bar to exit back to the folder
-2. Click + New Flow to create a new flow
-3. Click Unnamed (upper left corner)
-4. For the name, enter Todo Report_Helper
-5. Check the Save all data that passes through the Flow? Checkbox
-6. Click the Save button to save all the changes
+1. Click on the **Default Folder** to go back to the flows listing
+2. Click **+ New Flow** to create a new flow
+3. Click **Unnamed** (upper left corner)
+4. For the name, enter **Todo Report_Helper**
+5. Check the **Save all data that passes through the Flow?** checkbox
+6. Click the **Save** to save changes
 
 You created another flow. 
 
@@ -649,12 +651,12 @@ Your flow should look like this:
 
 In the next step, you will set up the flow inputs. 
 
-### Setting up helper flow inputs
+#### Setting up helper flow inputs
 In this step, you will define inputs the main flow will pass to the helper flow. 
 
 1. To add a flow input field, click inside the **Click or drag and create** box and enter **Item**
 2. Move the mouse over the field type indicated by **Aa**, open the list, and select **Object** from the list
-{% img blog/workflows-workshop/workflows_create_helper_flow_inputs.gif alt:"Creating helper flow inputs" %}{: .center-image }3. Under the **Item**, create the following two fields:
+{% img blog/workflows-workshop/workflows_create_helper_flow_inputs.gif alt:"Creating helper flow inputs" %}{: .center-image }3. Under the **Item** field, create two fields:
     - Name: **task**, type: **Text**
     - Name: **completed**, type: **Text**
 
@@ -662,7 +664,7 @@ The **Helper Flow** card should look like this:
 
 {% img blog/workflows-workshop/Workflows_helper_flow_inputs.jpg alt:"Helper flow inputs" %}{: .center-image }
 
-You need to create one more input field. This will be a new field, not part of the Item object.
+You need to create one more input field. This will be a new field, not part of the **Item** object.
 
 1. Click inside the **Click or drag to create** box and create the **memo** field. Set its type to **Text** 
 
@@ -670,7 +672,9 @@ The final **Helper Flow** card looks like this:
 
 {% img blog/workflows-workshop/Workflows_helper_flow_inputs_final.jpg alt:"Helper flow with inputs" %}{: .center-image }
 
-Your helper flow is set up to accept two inputs. A JSON object with two fields: **task** and **completed** and a text field (**memo**). Next, you are going to create a pretty message. 
+Your helper flow is set up to accept two inputs. A JSON object with two fields: **task** and **completed** and a text field (**memo**). 
+
+Next, you are going to create a pretty message. 
 
 ### Building the message
 
