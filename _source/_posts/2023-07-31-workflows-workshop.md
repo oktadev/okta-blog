@@ -202,6 +202,7 @@ There are two ways to get the Todo application:
 1. Navigate to the folder where you cloned or downloaded the Todo application
     * If you downloaded the zip file, unzip the application file
 2. Run the following commands to install application dependencies:
+
 ```
 npm ci
 npm install passport-http-bearer
@@ -211,6 +212,7 @@ npm install @types/passport-http-bearer -D
 ### Creating the database
 
 Run the following command to generate a database and seed it with two users.  The user's name and password will write to the console.
+
 ```
 npm run init-db
 ```
@@ -236,6 +238,7 @@ npx prisma studio
 ```
 
 You will see the following message
+
 ```
 Prisma Studio is up on http://localhost:5555
 ```
@@ -298,7 +301,7 @@ import passportBearer from 'passport-http-bearer';
 
 3. Go to line 58, add the following code: 
 
-```
+``` ts
 // New API endpoint start
 const BearerStrategy = passportBearer.Strategy;
 
