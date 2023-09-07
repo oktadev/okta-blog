@@ -216,20 +216,20 @@ npm run init-db
 ```
 
 The users are 
-- User: trinity@whiterabbit.fake, password: Zion
-- User: bob@tables.fake, password: correct horse battery staple
+- User: _trinity@whiterabbit.fake_, password: _Zion_
+- User: _bob@tables.fake_, password: _correct horse battery staple_
 
 
 
 ### Adding an organziation to the application
 
-In a later step, you will enhance the application with a new API service to get all the todo items.
-
-The new API retrieves all the todo items belonging to an organization. 
+In a later step, you will enhance the application with a new API service to get all the todo items. The new API retrieves all the todo items belonging to an organization. 
 
 In this step, you will set up an organization in the application database. 
 
-To view the database, run the following command from the application folder:
+To launch the database viewer: 
+
+1. In a new terminal tab or window, run the following command from the application folder:
 
 ```
 npx prisma studio
@@ -240,11 +240,11 @@ You will see the following message
 Prisma Studio is up on http://localhost:5555
 ```
 
-In a new browser window, go to http://localhost:5555 to view the database. The screenshot below shows the application has four todo items and two users. 
+In a new browser window, go to http://localhost:5555 to view the database. The screenshot below shows the application database. The database has two users. 
 
 {% img blog/workflows-workshop/Workflows_prisma_db.jpg alt:"Application database" %}{: .center-image }
 
-To create a new organiziation: 
+To create a new organiziation in the application database: 
 
 1. Click on the **Org** model
 2. Click **Add record** to add a new record
@@ -262,7 +262,7 @@ You are ready to start the application and create the todo items.
 
 ### Running the application
 
-To start the Todo application, run the following command:
+To start the Todo application, run the following command from the application folder: 
 
 ```
 npm start
@@ -271,9 +271,9 @@ npm start
 The create serveral todo items:
 
 1. In a browser, go to http://localhost:3000
-2. Sign in to the application. You can use one of the following users:
-    - User: trinity@whiterabbit.fake, password: Zion
-    - User: bob@tables.fake, password: correct horse battery staple
+2. Sign in to the application. Uuse one of the following users:
+    - User: _trinity@whiterabbit.fake_, password: _Zion_
+    - User: _bob@tables.fake_, password: _correct horse battery staple_
 3. Enter several todo items
 
 {% img blog/workflows-workshop/Workflows_todoapp.jpg alt:"Todo application with several items" %}{: .center-image }
@@ -290,16 +290,13 @@ The automation you will create later in this workshop will use this API service 
 To add the API service: 
 
 1. In the application folder, open the file `apps/api/src/main.ts` in your favorite editor
-2. Go to line 6 add the following import:
-
-
+2. Go to line 7, add the following code:
 ```
 import passportBearer from 'passport-http-bearer';
 ```
-
-3. Go to line 52 to add the following code: 
-
+3. Go to line 58, add the following code: 
 ```
+// New API endpoint start
 const BearerStrategy = passportBearer.Strategy;
 
 passport.use(new BearerStrategy(
@@ -324,9 +321,10 @@ app.get('/api/org/todos',
     });
     res.json({todos});
 });
+// API endpoint end
 ```
 
-The above code snippet adds support for authentication and the API endpoint to get all the todo items. 
+The above code adds support for authentication and the API endpoint to get all the todo items. 
 
 4. Save all the changes. 
 
@@ -347,7 +345,7 @@ In a new terminal window (or tab), run the following command to start the tunnel
 npx localtunnel --port 3333
 ```
 
-The command output will be: 
+The command output will be a random URL in the following format:  
 
 ```
 your url is: https://some-name.loca.lt
@@ -376,37 +374,58 @@ In this section, you will build a flow that does the following:
 ### Calling the API service
 
 In this step, you will add a card to call the application API endpoint to retrieve all the todo items.
- 
+
+#### Creating a connection to the API service
+
+In this step, you will create a connection to the API service. 
 
 1. Return to the flow you created
 2. Click **Add function** > find the **API Connector (HTTP)** section > select the **Get** card
-3. For the **URL** field, enter the tunnel URL from step **Opening application API with a tunnel** and append the 
+1. Click **+ New Connection** to create a connection to the API
+1. For **Connection Nickname**, enter **Todo API Connector**
+1. For **Auth Type**, select **Custom**
+    * For **Header Name**, enter **Authorization**
+    * For **Header Value**, enter **Bearer 131313**
+1. Click **Create** to create a connection
+
+#### Setting the service URL
+
+In this step, you will set the service URL. 
+
+1. For the **URL** field, enter the tunnel URL from step **Opening application API with a tunnel** and append the 
 `/api/org/todos` endpoint. 
-    - For example `https://curvy-clowns-show.loca.lt/api/org/todos`
-    - **Note:** the tunnel URL will change whenever you restart the tunnel
-4. For the **Headers** field, enter the authorization token: 
+
+For example: 
 
 ```
-{
-   "Authorization": "Bearer 131313"
-}
+https://curvy-clowns-show.loca.lt/api/org/todos
 ```
+
+
+**Note:** 
+> The tunnel URL will change whenever you restart the tunnel
+
 
 Click the **Save** button to save changes
 
 
 {% img blog/workflows-workshop/Workflows_Get_card.jpg alt:"The API Connector - Get card" %}{: .center-image }
 
-You can test the **Get** card. 
+#### Testing the service
+
+You can test the **Get** card:
 
 1. Click the ▶️ button at the bottom of the card
-2. Press Test to test the card and the API service
-3. Expand the Body field to see the tasks from the application
+2. Press **Test** to test the card and the API service
+3. Expand the **Body** field to see the tasks from the application
 
 
 {% img blog/workflows-workshop/Workflows_Get_card_testing.jpg alt:"Testing the Get card" %}{: .center-image }
 
-You can also test the flow. Click the **Close** button to go back to flow editing. Click the **Test** button to test the flow. 
+You can also test the flow: 
+
+1. Click the **Close** button to go back to flow editing
+1. Click the **Test** button to test the flow. 
 
 The **Flow History** page shows data passed from card to card for each card flow. 
 
