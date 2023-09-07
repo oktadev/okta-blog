@@ -363,6 +363,8 @@ your url is: https://good-seas-search.loca.lt
 
 > You will be using this URL later. If you restart the tunnel, a new URL will be created that you need to use in your flow. 
 
+> You might see different tunnel URLs used in images in this workshop. 
+
 You are ready to build the automation! 
 
 ## Building the Todo Report flow
@@ -513,7 +515,7 @@ Next, you need to set fields on the **Send Email** card.
 
 #### Testing the Gmail card
 
-To the **Send Email** card: 
+To test the **Send Email** card: 
 
 1. Click the ▶️ button on the card. You only need to enter the **Body** field
     * All other fields will carry the information you entered. 
@@ -541,11 +543,24 @@ There is one last step left before we make the message look pretty. The step is 
 You need this flow to run on schedule. For example, you want to run this flow every Friday at 9 am local time. 
 
 1. In the flow editor, move to the beginning of the flow, to the area before the **API Connector - Get** card
-2. In the box where it says **When this happens**, click the **Add event** button
-{% img blog/workflows-workshop/Workflows_add_Schedule_card.jpg alt:"Adding the Schedule card" %}{: .center-image }3. You will right away see a Flow Schedule dialog where you can set when to run the flow
-{% img blog/workflows-workshop/Workflows_flow_schedule_settings.jpg alt:"Flow schedule" %}{: .center-image }4. Update the flow to run every **Friday at 9 am local time**. Feel free to set a schedule that works for you. To test the flow, you don't need to wait for the schedule. You can always use the **Test** button
-{% img blog/workflows-workshop/Workflows_flow_schedule_settings2.jpg alt:"Running the flow every Friday at 9 am" %}{: .center-image }5. Click the **Save** button to save the schedule
-6. To see when the flow runs next, toggle the **Flow is OFF**
+1. In the box where it says **When this happens**, click the **Add event** button
+
+{% img blog/workflows-workshop/Workflows_add_Schedule_card.jpg alt:"Adding the Schedule card" %}{: .center-image }
+
+3. You will see the **Flow Schedule** dialog where you set when to run the flow
+
+{% img blog/workflows-workshop/Workflows_flow_schedule_settings.jpg alt:"Flow schedule" %}{: .center-image }
+
+4. Update the flow to run every **Friday at 9 am local time**. Feel free to set a schedule that works for you. To test the flow, you don't need to wait for the schedule. You can always use the **Run** button
+
+{% img blog/workflows-workshop/Workflows_flow_schedule_settings2.jpg alt:"Running the flow every Friday at 9 am" %}{: .center-image }
+
+5. Click the **Save** to save the schedule
+
+To see when the flow runs next: 
+
+1. Open the **Flow is OFF** button menu
+1. Toggle **Flow is OFF** to **Flow is ON**
 
 {% img blog/workflows-workshop/Workflows_flow_off.jpg alt:"The flow is off" %}{: .center-image }
 
