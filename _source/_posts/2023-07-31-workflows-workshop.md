@@ -540,19 +540,18 @@ There is one last step left before we make the message look pretty. The step is 
 
 ### Set up the flow to run on schedule
 
-You need this flow to run on schedule. For example, you want to run this flow every Friday at 9 am local time. 
+In this step, you will configure the flow to run on schedule. 
 
 1. In the flow editor, move to the beginning of the flow, to the area before the **API Connector - Get** card
 1. In the box where it says **When this happens**, click the **Add event** button
-
 {% img blog/workflows-workshop/Workflows_add_Schedule_card.jpg alt:"Adding the Schedule card" %}{: .center-image }
 
 3. You will see the **Flow Schedule** dialog where you set when to run the flow
-
 {% img blog/workflows-workshop/Workflows_flow_schedule_settings.jpg alt:"Flow schedule" %}{: .center-image }
 
-4. Update the flow to run every **Friday at 9 am local time**. Feel free to set a schedule that works for you. To test the flow, you don't need to wait for the schedule. You can always use the **Run** button
-
+4. Update the flow to run every **Friday at 9 am local time**
+    * You can set a schedule that works for you
+    * To test the flow, you don't need to wait for the schedule. You can always use the **Run** button
 {% img blog/workflows-workshop/Workflows_flow_schedule_settings2.jpg alt:"Running the flow every Friday at 9 am" %}{: .center-image }
 
 5. Click the **Save** to save the schedule
@@ -564,7 +563,7 @@ To see when the flow runs next:
 
 {% img blog/workflows-workshop/Workflows_flow_off.jpg alt:"The flow is off" %}{: .center-image }
 
-When the flow is on, you will see the next time it runs: 
+When the flow is on, you will see a time count down until its next run:
 
 {% img blog/workflows-workshop/Workflows_flow_on.jpg alt:"The flow is on" %}{: .center-image }
 
