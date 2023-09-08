@@ -12,12 +12,10 @@ image: blog/workflows-workshop/social.jpg
 type: awareness
 ---
 
+This tutorial is part of the enterprise-ready workshop series. In this workshop, you'll enhance the base Todo application by creating an automated report using Okta's no-code Workflows platform.
 
 {% include toc.md %}
 
-This tutorial is part of the enterprise-ready workshop series. In this workshop, you'll enhance the base Todo application by creating an automated report using Okta's no-code Workflows platform.
-
-## Introduction
 
 You built a SaaS (Software as a Service) Todo application: 
 
@@ -35,13 +33,14 @@ The email report looks like this:
 
 |Posts in the enterprise-ready workshop series|
 | --- |
-| 1. [How to get Going with the Enterprise-Ready Identity for SaaS Apps Workshops](/blog/2023/07/27/enterprise-ready-getting-started) |
+| 1. [How to Get Going with the On-Demand SaaS Apps Workshops](/blog/2023/07/27/enterprise-ready-getting-started) |
 | 2. [Enterprise-Ready Workshop: Authenticate with OpenID Connect](/blog/2023/07/28/oidc_workshop) |
 | 3. [Enterprise-Ready Workshop: Manage Users with SCIM](/blog/2023/07/28/scim-workshop) |
 | 4. [Enterprise-Ready Workshop: Terraform](/blog/2023/07/028/terraform-workshop) |
 | 5. **Enterprise-Ready Workshop: Automate with no-code Okta Workflows** |
 
 In a later section, you will learn how to get the Todo application. For now, you will learn about Okta Workflows. 
+
 
 
 ## What is Okta Workflows?
@@ -72,12 +71,12 @@ Workflows can query Okta APIs and System Log events, run logic, and even compile
 
 This is a short list of what is possible.
 
-### Workflows flows
+### Okta Workflows flows
 In Workflows, you will create flows. A flow is a sequence of steps to complete a goal. It's similar to a script where every code line is a step to complete a goal. In Workflows, you will build the flow visually without writing any code. 
 
 You will learn about the Workflows building blocks in a few minutes. First, let's create your first flow. 
 
-## Getting access to Workflows
+## Getting access to Okta Workflows
 There are two ways to access Workflows. 
 
 1. You might be entitled to Workflows if you already use some Okta products
@@ -86,13 +85,13 @@ There are two ways to access Workflows.
 ### Workflows when using other Okta products
 If you have Okta SSO or Okta UD you might be entitled to Workflows. Check if you can access Workflows by going to **Okta organization > Admin > Workflows > Workflows console**. If you use these products but don't have access to Workflows, please contact your account manager. 
 
-### Workflows as part of WIC trial
+### Okta Workflows as part of WIC (Workforce Identity Cloud) trial
 To sign up for a Workforce Identity Cloud trial:
 
 1. Go to the [Okta Workforce trial page](https://www.okta.com/free-trial/workforce-identity/)
 2. Register for a trial to access Workflows
 
-### Opening the Workflows console
+### Opening the Okta Workflows console
 
 To access Workflows:
 
@@ -117,9 +116,6 @@ You will learn and complete the following steps:
 - Creating a todo summary and sending the summary via email
 - Testing the flow
 
-> 
-This workshop uses a locally deployed application and its API.
-
 > The workshop uses a local application to make it straightforward to connect to its API without needing to deploy the application in the cloud. 
 >
 > The local setup is for demonstration purposes only. In the real world, the application would be deployed in the cloud.
@@ -141,7 +137,7 @@ Congratulations, you created a Workflows flow.
 
 {% img blog/workflows-workshop/Workflows_new_flow_created.jpg alt:"A new Workflows flow" %}{: .center-image }
 
-## Workflows building blocks
+## Okta Workflows building blocks
 Before building the flow, you should learn about Workflows building blocks. 
 
 Each card represents one step in a flow. 
@@ -189,6 +185,8 @@ In this section, you will complete the following steps:
 ### Getting the Todo application
 In this step, you will get the Todo application.
 
+> Read about the tools required for this application in [How to Get Going with the On-Demand SaaS Apps Workshops](https://developer.okta.com/blog/2023/07/27/enterprise-ready-getting-started)
+
 There are two ways to get the Todo application: 
 
   _Option 1: Clone the repository_
@@ -213,15 +211,13 @@ npm install @types/passport-http-bearer -D
 
 ### Creating the database
 
-Run the following command to generate a database and seed it with two users.  The user's name and password will write to the console.
+Run the following command to generate a database and seed it with two users.  
 
 ```
 npm run init-db
 ```
 
-The users are 
-- User: _trinity@whiterabbit.fake_, password: _Zion_
-- User: _bob@tables.fake_, password: _correct horse battery staple_
+> The command will write the application user names and passwords to the console. 
 
 
 
@@ -276,10 +272,9 @@ npm start
 The create serveral todo items:
 
 1. In a browser, go to http://localhost:3000
-2. Sign in to the application. Uuse one of the following users:
-    - User: _trinity@whiterabbit.fake_, password: _Zion_
-    - User: _bob@tables.fake_, password: _correct horse battery staple_
-3. Enter several todo items
+1. Sign in to the application
+    - Use one of the users written to the console in step **Creating the database**
+1. Enter several todo items
 
 {% img blog/workflows-workshop/Workflows_todoapp.jpg alt:"Todo application with several items" %}{: .center-image }
 
@@ -355,9 +350,9 @@ Save the changes.
 There is one last step before you start building the automation. In the next section, you will launch an API tunnel. 
 
 
-## Launching the API tunnel
+## Launching the API in a local tunnel
 
-Workflows run on the cloud, and this application runs locally on your computer. For Workflows to be able to call the API on your local machine, you need to create a tunnel. 
+Workflows runs on the cloud, and this application runs locally on your computer. For Workflows to call the API on your local machine, you need to create a tunnel. 
 
 In a new terminal window (or tab), run the following command to start the tunnel: 
 
@@ -919,16 +914,15 @@ Now that you can run the application locally, you are ready to start on a worksh
 
 |Posts in the enterprise-ready workshop series|
 | --- |
-| 1. [How to get Going with the Enterprise-Ready Identity for SaaS Apps Workshops](/blog/2023/07/27/enterprise-ready-getting-started) |
+| 1. [How to Get Going with the On-Demand SaaS Apps Workshops](/blog/2023/07/27/enterprise-ready-getting-started) |
 | 2. [Enterprise-Ready Workshop: Authenticate with OpenID Connect](/blog/2023/07/28/oidc_workshop) |
 | 3. [Enterprise-Ready Workshop: Manage Users with SCIM](/blog/2023/07/28/scim-workshop) |
 | 4. [Enterprise-Ready Workshop: Terraform](/blog/2023/07/028/terraform-workshop) |
 | 5. **Enterprise-Ready Workshop: Automate with no-code Okta Workflows** |
 
-
 Ready to become enterprise-ready? Follow us on [Twitter](https://twitter.com/oktadev) and subscribe to our [YouTube](https://www.youtube.com/c/oktadev) channel to get notified about new workshops. If you have any questions or want to share what workshops/base application tech stacks you'd like to see next, please comment below!
 
-## Workflows resources
+## Okta Workflows resources
 More resources to help you learn more about Okta Workflows:
 
 - [Videos](https://youtube.com/playlist?list=PLIid085fSVdvyK8F4xuk49EchBPmAVNHG)
