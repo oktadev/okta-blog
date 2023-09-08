@@ -908,7 +908,7 @@ In this workshop, you learned the following:
 - Testing the flow
 
 
-## Next steps on your journey for enterprise-ready identity maturity
+## Next steps
 
 Now that you can run the application locally, you are ready to start on a workshop of your choice! Find the workshops you want to participate in:
 
