@@ -288,23 +288,26 @@ You can also use Prisma Studio to view the todo items in the database.
 
 ## Enhancing the application with a new API
 
-In this step, you will add an API service to get all the items belonging to an organization. 
+In this step, you will add an API service to get all the items belonging to an organization. You will also add authentiation to the API service. 
 
-The automation you will create later in this workshop will use this API service to generate the report. 
+The automation you will create later in this workshop will use this API service to retrieve the todo items and generate a report. 
 
-To add the API service: 
+1. In the application folder, open the file `apps/api/src/main.ts` in your favorite editor or IDE
 
-1. In the application folder, open the file `apps/api/src/main.ts` in your favorite editor
+### Importing the library for API authentication
+
 1. Go to line 7, add the following code:
 
 ``` ts
 import passportBearer from 'passport-http-bearer';
 ```
 
-3. Go to line 58, add the following code: 
+### Setting up bearer token authentication strategy
+
+1. Go to line 59, add the following code: 
 
 ``` ts
-// New API endpoint start
+// Workshop code start
 const BearerStrategy = passportBearer.Strategy;
 
 passport.use(new BearerStrategy(
@@ -318,7 +321,13 @@ passport.use(new BearerStrategy(
     return done(null, org);
   }
 ));
+```
 
+### Adding the API endpoint for retrieving todo items
+
+1. Right after the code above, add the following code to retrieve all the todo items
+
+``` ts
 app.get('/api/org/todos',
   passport.authenticate('bearer'),
   async (req, res) => {
@@ -329,12 +338,10 @@ app.get('/api/org/todos',
     });
     res.json({todos});
 });
-// API endpoint end
+// Workshop code end
 ```
 
-The above code adds support for authentication and the API endpoint to get all the todo items. 
-
-4. Save the changes
+Save the changes.
 
 > If you look in the terminal where you started the application, you will see a message that the application detected changes and restarting. 
 
