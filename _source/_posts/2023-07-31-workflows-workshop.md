@@ -302,6 +302,9 @@ The automation you will create later in this workshop will use this API service 
 import passportBearer from 'passport-http-bearer';
 ```
 
+This module allows authenticating HTTP requests using bearer tokens. 
+
+
 ### Setting up bearer token authentication strategy
 
 1. Go to line 59, add the following code: 
@@ -323,9 +326,11 @@ passport.use(new BearerStrategy(
 ));
 ```
 
+This code sets up an authentication strategy using an HTTP bearer token. 
+
 ### Adding the API endpoint for retrieving todo items
 
-1. Right after the code above, add the following code to retrieve all the todo items
+1. Right after the code above, add the following code:
 
 ``` ts
 app.get('/api/org/todos',
@@ -341,6 +346,7 @@ app.get('/api/org/todos',
 // Workshop code end
 ```
 
+This code retrieves all the todo items belonging to an organization. 
 Save the changes.
 
 > If you look in the terminal where you started the application, you will see a message that the application detected changes and restarting. 
