@@ -295,11 +295,14 @@ The automation you will create later in this workshop will use this API service 
 To add the API service: 
 
 1. In the application folder, open the file `apps/api/src/main.ts` in your favorite editor
-2. Go to line 7, add the following code:
+1. Go to line 7, add the following code:
+
 ``` ts
 import passportBearer from 'passport-http-bearer';
 ```
+
 3. Go to line 58, add the following code: 
+
 ``` ts
 // New API endpoint start
 const BearerStrategy = passportBearer.Strategy;
@@ -333,8 +336,7 @@ The above code adds support for authentication and the API endpoint to get all t
 
 4. Save the changes
 
-> If you look in the terminal where you started the application, you will see a message that the application detected changes and restarting.
-
+> If you look in the terminal where you started the application, you will see a message that the application detected changes and restarting. 
 
 There is one last step before you start building the automation. In the next section, you will launch an API tunnel. 
 
