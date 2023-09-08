@@ -145,7 +145,7 @@ Pretty cool, eh? 😎
 
 ## My Developer Story: How I Created These Microservices
 
-A few years ago, I created a [similar example](https://developer.okta.com/blog/2019/05/22/java-microservices-spring-boot-spring-cloud) to this one with Spring Boot 2.2. It used Feign for remote connectivity, Zuul for routing, Hystrix for failover, and Spring Security for OAuth. 
+A few years ago, I created a [similar example](http://developer.okta.com/blog/2019/05/22/java-microservices-spring-boot-spring-cloud) to this one with Spring Boot 2.2. It used Feign for remote connectivity, Zuul for routing, Hystrix for failover, and Spring Security for OAuth. 
 
 The latest version of Spring Cloud has [Spring Cloud OpenFeign](https://spring.io/projects/spring-cloud-openfeign) for remote connectivity, [Spring Cloud Gateway](https://spring.io/projects/spring-cloud-gateway) for routing, and [Resilience4j](https://resilience4j.readme.io/) for fault tolerance. 
 
@@ -501,7 +501,7 @@ class HomeController {
 }
 ```
 
-Using jwt.io, I was able to verify that it wasn't a valid JWT. I thought about trying to implement Spring Security's [opaque token support](https://developer.okta.com/blog/2020/08/07/spring-boot-remote-vs-local-tokens), but discovered Auth0 [doesn't have an `/instropection` endpoint](https://community.auth0.com/t/introspection-endpoint-for-opaque-tokens-or-more-flexible-rules-to-get-clear-jwt-access-token/63866). This makes it impossible to use opaque tokens with Auth0.
+Using jwt.io, I was able to verify that it wasn't a valid JWT. I thought about trying to implement Spring Security's [opaque token support](http://developer.okta.com/blog/2020/08/07/spring-boot-remote-vs-local-tokens), but discovered Auth0 [doesn't have an `/instropection` endpoint](https://community.auth0.com/t/introspection-endpoint-for-opaque-tokens-or-more-flexible-rules-to-get-clear-jwt-access-token/63866). This makes it impossible to use opaque tokens with Auth0.
 
 The good news is I figured out a workaround! If you pass a valid `audience` parameter to Auth0, you'll get a JWT for the access token. I logged an [issue for the Okta Spring Boot starter](https://github.com/okta/okta-spring-boot/issues/596) and added a `SecurityConfiguration` class to solve the problem in the meantime.
 
