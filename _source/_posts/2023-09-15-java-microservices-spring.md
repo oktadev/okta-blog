@@ -1,0 +1,677 @@
+---
+layout: blog_post
+title: "Java Microservices with Spring Boot and Spring Cloud"
+author: matt-raible
+by: advocate
+communities: java
+description: "This tutorial shows you how to build a microservices architecture with Spring Boot and Spring Cloud."
+tags: [java, microservices, spring-boot, spring-cloud, spring-cloud-config, jhipster]
+image: blog/java-microservices/java-microservices.png
+type: conversion
+github: https://github.com/oktadev/auth0-java-microservices-examples/tree/main/spring-boot-gateway-webflux
+---
+
+<!-- For Auth0: 
+
+path: java-microservices-spring-boot-spring-cloud
+layout: 'post'
+title: Java Microservices with Spring Boot and Spring Cloud
+description: This tutorial shows you how to build a microservices architecture with Spring Boot and Spring Cloud.
+metaTitle: Java Microservices with Spring Boot and Spring Cloud
+metaDescription: This tutorial shows you how to build a microservices architecture with Spring Boot and Spring Cloud.
+heroImage: https://developer.okta.com/assets-jekyll/blog/java-microservices/java-microservices-01568db38a22ed4c956c02810fb88f859e486ea9b46b2339325db6588d888089.png
+dateCreated: '2023-08-17T00:00'
+authors:
+  - path: "matt-raible"
+    name: "Matt Raible"
+    avatar: https://images.ctfassets.net/23aumh6u8s0i/1ciaQDb4CM5f7DxRX8gqUG/9d23ca769683d021a01d4702a2e4ffad/matt-raible.jpeg
+    jobTitle: "Developer Advocate"
+type: Core Team Member
+category:
+  - Developers
+  - Tutorial
+  - Java
+  - Spring Boot
+  - Microservices
+tags:
+  - java
+  - spring-boot
+  - spring-cloud
+  - microservices
+postsRelated:
+  - terraform-eks-java-microservices
+  - micro-frontends-for-java-microservices
+  - jimenas-post-on-keycloak
+-->
+
+// todo: rewrite intro
+
+Java is a great language to use when developing a https://www.okta.com/blog/2021/02/microservices/[microservice] architecture. In fact, some of the biggest names in our industry use it. Have you ever heard of Netflix, Amazon, or Google? What about eBay, Twitter, and LinkedIn? Yes, major companies handling incredible traffic are doing it with Java.
+
+Implementing a microservices architecture in Java isn't for everyone. For that matter, implementing microservices, in general, isn't often needed. Most companies do it to scale their people, not their systems. If you're going to scale your people, hiring Java developers is one of the best ways to do it. After all, there are more developers fluent in Java than most other languages - though JavaScript seems to be catching up quickly!
+
+The Java ecosystem has some well-established patterns for developing microservice architectures. If you're familiar with Spring, you'll feel right at home developing with Spring Boot and Spring Cloud. Since that's one of the quickest ways to get started, I figured I'd walk you through a quick tutorial.
+
+**Table of Contents**{: .hide }
+* Table of Contents
+{:toc}
+
+## Create Java Microservices with Spring Boot and Spring Cloud
+
+I like to show developers how you how to build everything from scratch. Today I'm going to take a different approach. First, I'll show you how to get the completed example working. Then, I'll explain how I created everything and the trials and tribulations I encountered along the way.
+
+You can start by cloning the [@oktadev/auth0-java-microservices-examples](https://github.com/oktadev/auth0-java-microservices-examples) repository.
+
+```shell
+git clone https://github.com/oktadev/auth0-java-microservices-examples.git
+cd java-microservices-examples/spring-boot-gateway-webflux
+```
+
+In the `spring-boot-gateway-webflux` directory, there are three projects:
+
+* **discovery-service**: a Netflix Eureka server, used for service discovery.
+* **car-service**: a simple Car Service that uses Spring Data REST to serve up a REST API of cars.
+* **api-gateway**: an API gateway that has a `/cool-cars` endpoint that talks to the `car-service` and filters out cars that aren't cool (in my opinion, of course).
+
+### Run a Spring Boot Microservices Architecture
+
+To run the example, you'll need to [install the Auth0 CLI](https://github.com/auth0/auth0-cli#installation) and create an Auth0 account. If you don't have an Auth0 account, [sign up for free](https://auth0.com/signup). I recommend using [SDKMAN!](https://sdkman.io) to install Java 17+.
+
+First, start the discovery service:
+
+```shell
+cd discovery-service
+./gradlew bootRun
+```
+
+You'll need to configure the API gateway to use your Auth0 account before it'll start. 
+
+Open a terminal and run `auth0 login` to configure the Auth0 CLI to get an API key for your tenant. Then, run `auth0 apps create` to register an OpenID Connect (OIDC) app with the appropriate URLs:
+
+```shell
+auth0 apps create \
+  --name "Kick-Ass Cars" \
+  --description "Microservices for Cool Cars" \
+  --type regular \
+  --callbacks http://localhost:8080/login/oauth2/code/okta \
+  --logout-urls http://localhost:8080 \
+  --reveal-secrets
+```
+
+Copy `api-gateway/.env.example` to `.env` and edit to contain the values from the command above.
+
+```dotenv
+OKTA_OAUTH2_ISSUER=https://<your-auth0-domain>/
+OKTA_OAUTH2_CLIENT_ID=
+OKTA_OAUTH2_CLIENT_SECRET=
+OKTA_OAUTH2_AUDIENCE=https://<your-auth0-domain>/api/v2/
+```
+
+These properties will be read using [spring-dotenv](https://github.com/paulschwarz/spring-dotenv) at startup. 
+
+Run `./gradlew bootRun` to start the API gateway, or use your IDE to run it.
+
+Copy `car-service/.env.example` to `.env` and update its values.
+
+```dotenv
+OKTA_OAUTH2_ISSUER=https://<your-auth0-domain>/
+OKTA_OAUTH2_AUDIENCE=https://<your-auth0-domain>/api/v2/
+```
+
+Start it with `./gradlew bootRun`.
+
+Now, open `http://localhost:8080` in your favorite browser. 
+
+[Auth0 login image]
+
+You'll be redirected to Auth0 to log in. After authenticating, you'll see your name in lights! ✨
+
+[Hello, name]
+
+You can navigate to the following URLs in your browser for different results:
+
+- `http://localhost:8080/print-token`: prints access token to the console
+- `http://localhost:8080/cool-cars`: returns a list of cool cars
+- `http://localhost:8080/home`: proxies request to car service and shows JWT values
+
+You can see what your access token contains by copy/pasting it into [jwt.io](https://jwt.io). You can also access the car service directly using it.
+
+```shell
+TOKEN=<access-token>
+http :8090/cars Authorization:"Bearer $TOKEN"
+```
+
+Pretty cool, eh? 😎
+
+## My Developer Story: How I Created These Microservices
+
+A few years ago, I created a [similar example](https://developer.okta.com/blog/2019/05/22/java-microservices-spring-boot-spring-cloud) to this one with Spring Boot 2.2. It used Feign for remote connectivity, Zuul for routing, Hystrix for failover, and Spring Security for OAuth. 
+
+The latest version of Spring Cloud has [Spring Cloud OpenFeign](https://spring.io/projects/spring-cloud-openfeign) for remote connectivity, [Spring Cloud Gateway](https://spring.io/projects/spring-cloud-gateway) for routing, and [Resilience4j](https://resilience4j.readme.io/) for fault tolerance. 
+
+We also have an [Okta Spring Boot starter](https://github.com/okta/okta-spring-boot) now that simplifies configuration and makes it easy to secure your apps with OAuth 2.0 and OIDC. It's a thin wrapper around Spring Security's resource server, OAuth client, and OIDC features. Not only that, but it works with Okta Workforce Identity, Okta Customer Identity (aka Auth0), and even Keycloak.
+
+I created all of these applications using [start.spring.io](https://start.spring.io)'s REST API and [HTTPie](https://httpie.org).
+
+```shell
+https start.spring.io/starter.zip bootVersion==3.1.3 \
+  artifactId==discovery-service name==eureka-service \
+  dependencies==cloud-eureka-server baseDir==discovery-service | tar -xzvf -
+
+https start.spring.io/starter.zip bootVersion==3.1.3 \
+  artifactId==car-service name==car-service baseDir==car-service \
+  dependencies==actuator,cloud-eureka,data-jpa,data-rest,postgresql,web,validation,devtools,docker-compose,okta | tar -xzvf -
+
+https start.spring.io/starter.zip bootVersion==3.1.3 \
+  artifactId==api-gateway name==api-gateway baseDir==api-gateway \
+  dependencies==cloud-eureka,cloud-feign,data-rest,web,okta | tar -xzvf -
+```` 
+
+You might notice the `api-gateway` project doesn't have `cloud-gateway` as a dependency. That's because I started without it and didn't add it until I need to proxy requests by path. 
+
+After creating these three projects, I ran `chmod +x gradlew` in each project to make the Gradle wrapper executable. 
+
+## Service Discovery with Netflix Eureka
+
+The `discovery-service` is configured the same as you would most Eureka servers. It has an `@EnableEurekaServer` annotation on its main class and properties that set its port and turn off discovery.
+
+```properties
+server.port=8761
+eureka.client.register-with-eureka=false
+```
+
+The `car-service` and `api-gateway` projects are configured in a similar fashion. Both have a unique name defined and `car-service` is configured to run on port `8090` so it doesn't conflict with `8080`.
+
+`.car-service/src/main/resources/application.properties`
+```properties
+server.port=8090
+spring.application.name=car-service
+```
+
+`.api-gateway/src/main/resources/application.properties`
+```properties
+spring.application.name=api-gateway
+```
+
+The main class in both projects is annotated with `@EnableDiscoveryClient`.
+
+## Build a Java Microservice with Spring Data REST
+
+The `car-service` provides a REST API that lets you CRUD (Create, Read, Update, and Delete) cars. It creates a default set of cars when the application loads using an `ApplicationRunner` bean.
+
+`.car-service/src/main/java/com/example/carservice/CarServiceApplication.java`
+```java
+package com.example.carservice;
+
+import com.example.carservice.data.Car;
+import com.example.carservice.data.CarRepository;
+import org.springframework.boot.ApplicationRunner;
+import org.springframework.boot.SpringApplication;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
+import org.springframework.context.annotation.Bean;
+
+import java.util.stream.Stream;
+
+@EnableDiscoveryClient
+@SpringBootApplication
+public class CarServiceApplication {
+
+    public static void main(String[] args) {
+        SpringApplication.run(CarServiceApplication.class, args);
+    }
+
+    @Bean
+    ApplicationRunner init(CarRepository repository) {
+        repository.deleteAll();
+        return args -> {
+            Stream.of("Ferrari", "Jaguar", "Porsche", "Lamborghini", "Bugatti",
+                "AMC Gremlin", "Triumph Stag", "Ford Pinto", "Yugo GV").forEach(name -> {
+                repository.save(new Car(name));
+            });
+            repository.findAll().forEach(System.out::println);
+        };
+    }
+}
+```
+
+The `CarRepository` interface makes it easy to persist and fetch cars from the database.
+
+```java
+package com.example.carservice.data;
+
+import org.springframework.data.jpa.repository.JpaRepository;
+
+public interface CarRepository extends JpaRepository<Car, Long> {
+}
+```
+
+The `Car` class is a simple JPA entity with an `id` and `name` property. This project is configured to use PostgreSQL, and a `docker-compose.yml` exists in the root directory to start it.
+
+```yaml
+version: '3.1'
+services:
+  postgresql:
+    image: postgres:15
+    environment:
+      - POSTGRES_USER=oktadev
+      - POSTGRES_PASSWORD=auth0
+      - POSTGRES_HOST_AUTH_METHOD=trust
+    healthcheck:
+      test: ['CMD-SHELL', 'pg_isready -U $${POSTGRES_USER}']
+      interval: 5s
+      timeout: 5s
+      retries: 10
+    # If you want to expose these ports outside your dev PC,
+    # remove the "127.0.0.1:" prefix
+    ports:
+      - 127.0.0.1:5432:5432
+```
+
+Spring Boot added [Docker Compose support](https://spring.io/blog/2023/06/21/docker-compose-support-in-spring-boot-3-1) in version 3.1. This means that if you add the following dependency to your `build.gradle`, it'll look for a `docker-compose.yml` (or `compose.yml`) file in the root directory and start it when you run `./gradlew bootRun`.
+
+```groovy
+developmentOnly 'org.springframework.boot:spring-boot-docker-compose'
+```
+
+Finally, the `application.properties` has a configuration to create the database automatically.
+
+```properties
+spring.jpa.hibernate.ddl-auto=update
+```
+// todo: verify it's not `create-update`
+
+## Connecting to Java Microservice with Spring Cloud OpenFeign
+
+Before I tried to proxy requests to the car service from the API gateway, I configured Feign to connect to the car service and its `/cars` endpoint. Then, I mapped a `Car` record to the JSON that's returned. I exposed it as a `/cool-cars` endpoint.
+
+```java 
+package com.example.apigateway;
+
+import com.netflix.hystrix.contrib.javanica.annotation.HystrixCommand;
+import org.springframework.boot.SpringApplication;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.cloud.client.circuitbreaker.EnableCircuitBreaker;
+import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
+import org.springframework.cloud.openfeign.EnableFeignClients;
+import org.springframework.cloud.openfeign.FeignClient;
+import org.springframework.hateoas.CollectionModel;
+import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RestController;
+
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.stream.Collectors;
+
+@EnableFeignClients
+@EnableCircuitBreaker
+@EnableDiscoveryClient
+@SpringBootApplication
+public class ApiGatewayApplication {
+
+    public static void main(String[] args) {
+        SpringApplication.run(ApiGatewayApplication.class, args);
+    }
+}
+
+record Car(String name) {
+}
+
+@FeignClient("car-service")
+interface CarClient {
+
+    @GetMapping("/cars")
+    @CrossOrigin
+    CollectionModel<Car> readCars();
+}
+
+@RestController
+class CoolCarController {
+
+    private final CarClient carClient;
+
+    public CoolCarController(CarClient carClient) {
+        this.carClient = carClient;
+    }
+
+    private Collection<Car> fallback() {
+        return new ArrayList<>();
+    }
+
+    @GetMapping("/cool-cars")
+    @CrossOrigin
+    @HystrixCommand(fallbackMethod = "fallback")
+    public Collection<Car> goodCars() {
+        return carClient.readCars()
+                .getContent()
+                .stream()
+                .filter(this::isCool)
+                .collect(Collectors.toList());
+    }
+
+    private boolean isCool(Car car) {
+        return !car.getName().equals("AMC Gremlin") &&
+                !car.getName().equals("Triumph Stag") &&
+                !car.getName().equals("Ford Pinto") &&
+                !car.getName().equals("Yugo GV");
+    }
+}
+```
+
+This worked great, but I still wanted to proxy `/home` to the downstream car service.
+
+### Build an API Gateway with Spring Cloud Gateway
+
+I immediately discovered that adding `spring-cloud-gateway` as a dependency caused issues. First of all, I had Spring MVC in my classpath and Spring Cloud Gateway uses WebFlux. WebFlux recommends using WebClient over Feign and Resilience4J over Hystrix. I decided to switch to WebClient and Resilience4J.
+
+I had to remove the following dependencies from my original `api-gateway` project.
+
+```groovy
+implementation 'org.springframework.boot:spring-boot-starter-data-rest'
+implementation 'org.springframework.boot:spring-boot-starter-web'
+implementation 'org.springframework.cloud:spring-cloud-starter-openfeign'
+```
+
+And add Spring Cloud Gateway with Resilience4j dependencies:
+
+```groovy
+implementation 'org.springframework.cloud:spring-cloud-starter-circuitbreaker-reactor-resilience4j'
+implementation 'org.springframework.cloud:spring-cloud-starter-gateway'
+```
+
+Then, I moved `CoolCarController` to its own class and re-implemented it with WebClient.
+
+```java
+package com.example.apigateway.web;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.cloud.client.circuitbreaker.ReactiveCircuitBreaker;
+import org.springframework.cloud.client.circuitbreaker.ReactiveCircuitBreakerFactory;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.reactive.function.client.WebClient;
+import reactor.core.publisher.Flux;
+
+@RestController
+class CoolCarController {
+
+    Logger log = LoggerFactory.getLogger(CoolCarController.class);
+
+    private final WebClient.Builder webClientBuilder;
+    private final ReactiveCircuitBreaker circuitBreaker;
+
+    public CoolCarController(WebClient.Builder webClientBuilder,
+                             ReactiveCircuitBreakerFactory circuitBreakerFactory) {
+        this.webClientBuilder = webClientBuilder;
+        this.circuitBreaker = circuitBreakerFactory.create("circuit-breaker");
+    }
+
+    record Car(String name) {
+    }
+
+    @GetMapping("/cool-cars")
+    public Flux<Car> goodCars() {
+        return circuitBreaker.run(
+            webClientBuilder.build()
+                .get().uri("http://car-service/cars")
+                .retrieve().bodyToFlux(Car.class)
+                .filter(this::isCool),
+            throwable -> {
+                log.warn("Error making request to car service", throwable);
+                return Flux.empty();
+            });
+    }
+
+    private boolean isCool(Car car) {
+        return !car.name().equals("AMC Gremlin") &&
+            !car.name().equals("Triumph Stag") &&
+            !car.name().equals("Ford Pinto") &&
+            !car.name().equals("Yugo GV");
+    }
+}
+```
+
+To proxy `/home` to the downstream microservice, I added a `src/main/resources/application.yml` that contains the following configuration. This enables service discovery with Eureka and proxies requests to the car service.
+
+```yaml
+spring:
+  cloud:
+    gateway:
+      discovery:
+        locator:
+          enabled: true
+      routes:
+        - id: car-service
+          uri: lb://car-service
+          predicates:
+            - Path=/home/**
+```
+
+## Secure Java Microservices with OAuth 2.0 and OIDC
+
+To configure the Okta Spring Boot starter, there are a few properties in the `api-gateway` project's `application.properties` file.
+
+```properties
+okta.oauth2.issuer=${OKTA_OAUTH2_ISSUER}
+okta.oauth2.client-id=${OKTA_OAUTH2_CLIENT_ID}
+okta.oauth2.client-secret=${OKTA_OAUTH2_CLIENT_SECRET}
+okta.oauth2.audience=${OKTA_OAUTH2_AUDIENCE}
+```
+
+The values are read from the `.env` file in the root directory. 
+
+### Get an Access Token as a JWT
+
+When I first got things working, I was able to log in to the gateway, but when I tried to connect to the downstream microservice, it said the JWT was invalid. For this reason, I added a `/print-token` endpoint to the gateway that prints the access token to the console. 
+
+```java
+package com.example.apigateway.web;
+
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.security.oauth2.client.OAuth2AuthorizedClient;
+import org.springframework.security.oauth2.client.annotation.RegisteredOAuth2AuthorizedClient;
+import org.springframework.security.oauth2.core.OAuth2AccessToken;
+import org.springframework.security.oauth2.core.oidc.user.OidcUser;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RestController;
+
+@RestController
+class HomeController {
+
+    @GetMapping("/")
+    public String howdy(@AuthenticationPrincipal OidcUser user) {
+        return "Hello, " + user.getFullName();
+    }
+
+
+    @GetMapping("/print-token")
+    public String printAccessToken(@RegisteredOAuth2AuthorizedClient("okta")
+                                   OAuth2AuthorizedClient authorizedClient) {
+
+        OAuth2AccessToken accessToken = authorizedClient.getAccessToken();
+
+        System.out.println("Access Token Value: " + accessToken.getTokenValue());
+        System.out.println("Token Type: " + accessToken.getTokenType().getValue());
+        System.out.println("Expires At: " + accessToken.getExpiresAt());
+
+        return "Access token printed";
+    }
+}
+```
+
+Using jwt.io, I was able to verify that it wasn't a valid JWT. I thought about trying to implement Spring Security's [opaque token support](https://developer.okta.com/blog/2020/08/07/spring-boot-remote-vs-local-tokens), but discovered Auth0 [doesn't have an `/instropection` endpoint](https://community.auth0.com/t/introspection-endpoint-for-opaque-tokens-or-more-flexible-rules-to-get-clear-jwt-access-token/63866). This makes it impossible to use opaque tokens with Auth0.
+
+The good news is I figured out a workaround! If you pass a valid `audience` parameter to Auth0, you'll get a JWT for the access token. I logged an [issue for the Okta Spring Boot starter](https://github.com/okta/okta-spring-boot/issues/596) and added a `SecurityConfiguration` class to solve the problem in the meantime.
+
+```java
+package com.example.apigateway.config;
+
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
+import org.springframework.security.config.web.server.ServerHttpSecurity;
+import org.springframework.security.oauth2.client.registration.ReactiveClientRegistrationRepository;
+import org.springframework.security.oauth2.client.web.server.DefaultServerOAuth2AuthorizationRequestResolver;
+import org.springframework.security.oauth2.client.web.server.ServerOAuth2AuthorizationRequestResolver;
+import org.springframework.security.oauth2.core.endpoint.OAuth2AuthorizationRequest;
+import org.springframework.security.web.server.SecurityWebFilterChain;
+
+import java.util.function.Consumer;
+
+@Configuration
+public class SecurityConfiguration {
+
+    @Value("${okta.oauth2.audience:}")
+    private String audience;
+
+    private final ReactiveClientRegistrationRepository clientRegistrationRepository;
+
+    public SecurityConfiguration(ReactiveClientRegistrationRepository clientRegistrationRepository) {
+        this.clientRegistrationRepository = clientRegistrationRepository;
+    }
+
+    @Bean
+    public SecurityWebFilterChain filterChain(ServerHttpSecurity http) throws Exception {
+        http
+            .authorizeExchange(authz -> authz
+                .anyExchange().authenticated()
+            )
+            .oauth2Login(oauth2 -> oauth2
+                .authorizationRequestResolver(
+                    authorizationRequestResolver(this.clientRegistrationRepository)
+                )
+            );
+        return http.build();
+    }
+
+    private ServerOAuth2AuthorizationRequestResolver authorizationRequestResolver(
+        ReactiveClientRegistrationRepository clientRegistrationRepository) {
+
+        DefaultServerOAuth2AuthorizationRequestResolver authorizationRequestResolver =
+            new DefaultServerOAuth2AuthorizationRequestResolver(
+                clientRegistrationRepository);
+        authorizationRequestResolver.setAuthorizationRequestCustomizer(
+            authorizationRequestCustomizer());
+
+        return authorizationRequestResolver;
+    }
+
+    private Consumer<OAuth2AuthorizationRequest.Builder> authorizationRequestCustomizer() {
+        return customizer -> customizer
+            .additionalParameters(params -> params.put("audience", audience));
+    }
+}
+```
+
+Then, I was able to get the Feign client to work by adding a couple of properties:
+
+```properties
+spring.cloud.openfeign.oauth2.enabled=true
+spring.cloud.openfeign.oauth2.clientRegistrationId=okta
+```
+
+To make it so Spring Cloud Gateway passes the access token downstream, I added `TokenRelay` to its default filters in `application.yml`.
+
+```yaml
+spring:
+  cloud:
+    gateway:
+      discovery:
+        locator:
+          enabled: true
+      default-filters:
+        - TokenRelay
+      routes: ...
+```
+
+And I added a `WebClientConfiguration` to configure `WebClient` to pass the access token downstream.
+
+```java
+package com.example.apigateway.config;
+
+import org.springframework.cloud.client.loadbalancer.LoadBalanced;
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
+import org.springframework.security.oauth2.client.registration.ReactiveClientRegistrationRepository;
+import org.springframework.security.oauth2.client.web.reactive.function.client.ServerOAuth2AuthorizedClientExchangeFilterFunction;
+import org.springframework.security.oauth2.client.web.server.ServerOAuth2AuthorizedClientRepository;
+import org.springframework.web.reactive.function.client.WebClient;
+
+@Configuration
+public class WebClientConfiguration {
+
+    @Bean
+    @LoadBalanced
+    public WebClient.Builder webClientBuilder(ReactiveClientRegistrationRepository clientRegistrations,
+                                              ServerOAuth2AuthorizedClientRepository authorizedClients) {
+        var oauth = new ServerOAuth2AuthorizedClientExchangeFilterFunction(clientRegistrations, authorizedClients);
+        oauth.setDefaultClientRegistrationId("okta");
+        return WebClient
+            .builder()
+            .filter(oauth);
+    }
+
+}
+```
+
+## Spring Boot Microservices and Refresh Tokens
+
+In my previous example, I wasn't able to get refresh tokens to work. I was able to get them to work this time! I changed the default scopes in `api-gateway` to request a refresh token using the `offline_access` scope.
+
+```dotenv
+OKTA_OAUTH2_SCOPES=openid,profile,email,offline_access
+OKTA_OAUTH2_AUDIENCE=http://fast-expiring-api
+```
+
+Then, create an API in Auth0 called `fast-expiring-api` and set the TTL to 30 seconds.
+
+<!-- todo: add instructions for creating an API with the Auth0 CLI -->
+
+Restart the API gateway and go to `http://localhost:8080/print-token` to see your access token. You can copy the expired time to [timestamp-converter.com](https://www.timestamp-converter.com/) to see when it expires in your local timezone. Wait 30 seconds and refresh the page. You'll see a request to get a new token and an updated expires timestamp in your terminal.
+
+## The Okta Spring Boot starter and Keycloak
+
+If you find yourself in a situation where you don't have an internet connection, it can be handy to run Keycloak locally in a Docker container. Since the Okta Spring Boot starter is a thin wrapper around Spring Security, it works with Keycloak too. It does validate the issuer to make sure it's an Okta URL, so you have to use Spring Security's properties instead of the `okta.oauth2.*` properties.
+
+An easy way to get a pre-configured Keycloak instance is to use a sample [JHipster](https://www.jhipster.tech) application. You can clone one with the following command:
+
+```shell
+git clone https://github.com/jhipster/jhipster-sample-app-oauth2.git --depth=1
+cd jhipster-sample-app-oauth2
+```
+
+Then, start Keycloak with `docker-compose -f src/main/docker/keycloak.yml up -d`. 
+
+You can configure the `api-gateway` to use Keycloak by removing the `okta.oauth2.*` properties and adding the following:
+
+```properties
+spring.security.oauth2.client.provider.okta.issuer-uri=http://localhost:9080/realms/jhipster
+spring.security.oauth2.client.registration.okta.client-id=web_app
+spring.security.oauth2.client.registration.okta.client-secret=web_app
+spring.security.oauth2.client.registration.okta.scope=openid,profile,email
+```
+
+The `car-service` requires similar changes in its `application.properties` file:
+
+```properties
+spring.security.oauth2.resourceserver.jwt.issuer-uri=http://localhost:9080/realms/jhipster
+spring.security.oauth2.resourceserver.jwt.audiences=account
+```
+
+Restart both apps, open `http://localhost:8080`, and you'll be able to log in with Keycloak. 
+
+[Keycloak login screenshot]
+
+Use `admin`/`admin` for credentials and you'll be able to access `http://localhost:8080/cool-cars` as you did before.
+
+## Have Fun with Spring Boot, Spring Cloud, and Microservices
+
+I hope you liked this tour of how to build Java microservice architectures with Spring Boot and Spring Cloud. You learned how to build everything with minimal code, then configure it to be secure with Spring Security, OAuth 2.0, and Auth0 by Okta.
+
+You can find all the code shown in this tutorial [on GitHub](https://github.com/oktadev/auth0-java-microservices-examples/tree/main/spring-boot-gateway-webflux).
+
+Please follow us [on Twitter @oktadev](https://twitter.com/oktadev) and subscribe to [our YouTube channel](https://www.youtube.com/oktadev) for more Spring Boot and microservices knowledge.
+
+You can also sign up for our [newsletter](https://a0.to/nl-signup/java) to stay updated on everything Identity and Security.
