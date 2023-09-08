@@ -347,6 +347,7 @@ app.get('/api/org/todos',
 ```
 
 This code retrieves all the todo items belonging to an organization. 
+
 Save the changes.
 
 > If you look in the terminal where you started the application, you will see a message that the application detected changes and restarting. 
