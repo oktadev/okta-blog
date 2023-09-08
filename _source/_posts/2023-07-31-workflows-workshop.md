@@ -296,13 +296,10 @@ To add the API service:
 
 1. In the application folder, open the file `apps/api/src/main.ts` in your favorite editor
 2. Go to line 7, add the following code:
-
 ``` ts
 import passportBearer from 'passport-http-bearer';
 ```
-
 3. Go to line 58, add the following code: 
-
 ``` ts
 // New API endpoint start
 const BearerStrategy = passportBearer.Strategy;
@@ -422,7 +419,7 @@ The **API Connector - Get** card looks like this:
 
 {% img blog/workflows-workshop/Workflows_Get_card.jpg alt:"The API Connector - Get card" %}{: .center-image }
 
-#### Testing the card
+#### Testing the API Connector - Get card
 
 To test the **API Connector - Get** card:
 
