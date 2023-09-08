@@ -902,11 +902,12 @@ In this workshop, you learned the following:
 
 ## Next steps on your journey for enterprise-ready identity maturity
 
-Now that you can run the application locally, you’re ready to start on a workshop of your choice! Find the workshops you want to participate in:
+Now that you can run the application locally, you are ready to start on a workshop of your choice! Find the workshops you want to participate in:
 
 
 
-Ready to become enterprise-ready? Follow us on Twitter and subscribe to our YouTube channel to get notified about new workshops. If you have any questions or want to share what workshops/base application tech stacks you’d like to see next, please comment below!
+
+Ready to become enterprise-ready? Follow us on Twitter and subscribe to our YouTube channel to get notified about new workshops. If you have any questions or want to share what workshops/base application tech stacks you'd like to see next, please comment below!
 
 ## Workflows resources
 More resources to help you learn more about Okta Workflows.
