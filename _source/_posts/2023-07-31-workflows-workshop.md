@@ -106,13 +106,16 @@ You will see the Workflows home page:
 {% img blog/workflows-workshop/Workflows_console_main.jpg alt:"Workflows home page" %}{: .center-image }
 
 ## Steps to build automated email report using Okta Workflows
-In this workshop, you will learn how to build an automated email report in Okta Workflows. You will learn and complete the following steps to build the automated report: 
+In this workshop, you will learn how to build an automated email report in Okta Workflows. 
 
-- Build your first Workflows flow
-- Set up the flow to run on schedule
-- Call the application API to retrieve the todo items
-- Create a todo summary and email the summary
-- Test the flow
+You will learn and complete the following steps: 
+
+- Building an Okta Workflows flow and automation
+- Scheduling the flow to run periodically
+- Enhancing an application with a new API service
+- Calling the API service to retrieve todos items from an application
+- Creating a todo summary and sending the summary via email
+- Testing the flow
 
 > 
 This workshop uses a locally deployed application and its API.
@@ -889,12 +892,28 @@ You will receive an email like this:
 ## What you learned
 In this workshop, you learned the following:
 
-- Building your first Workflows flow and automation
+- Building an Okta Workflows flow and automation
 - Scheduling the flow to run periodically
-- Calling an API service to retrieve todos items from an application
+- Enhancing an application with a new API service
+- Calling the API service to retrieve todos items from an application
 - Creating a todo summary and sending the summary via email
 - Testing the flow
 
+
+## Next steps on your journey for enterprise-ready identity maturity
+
+Now that you can run the application locally, you’re ready to start on a workshop of your choice! Find the workshops you want to participate in:
+
+|Posts in the enterprise-ready workshop series|
+| --- |
+| 1. [How to get Going with the Enterprise-Ready Identity for SaaS Apps Workshops](/blog/2023/07/27/enterprise-ready-getting-started) |
+| 2. [Enterprise-Ready Workshop: Authenticate with OpenID Connect](/blog/2023/07/28/oidc_workshop) |
+| 3. [Enterprise-Ready Workshop: Manage Users with SCIM](/blog/2023/07/28/scim-workshop) |
+| 4. [Enterprise-Ready Workshop: Terraform](/blog/2023/07/028/terraform-workshop) |
+| 5. **Enterprise-Ready Workshop: Automate with no-code Okta Workflows** |
+
+
+Ready to become enterprise-ready? Follow us on Twitter and subscribe to our YouTube channel to get notified about new workshops. If you have any questions or want to share what workshops/base application tech stacks you’d like to see next, please comment below!
 
 ## Workflows resources
 More resources to help you learn more about Okta Workflows.
