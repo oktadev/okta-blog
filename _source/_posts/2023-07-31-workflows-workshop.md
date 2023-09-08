@@ -185,7 +185,7 @@ In this section, you will complete the following steps:
 ### Getting the Todo application
 In this step, you will get the Todo application.
 
-> Read about the tools required for this application in [How to Get Going with the On-Demand SaaS Apps Workshops](https://developer.okta.com/blog/2023/07/27/enterprise-ready-getting-started)
+> Read about the tools required for this application in [How to Get Going with the On-Demand SaaS Apps Workshops](/blog/2023/07/27/enterprise-ready-getting-started)
 
 There are two ways to get the Todo application: 
 
@@ -235,7 +235,7 @@ To launch the database viewer:
 npx prisma studio
 ```
 
-You will see the following message
+You will see the following message:
 
 ```
 Prisma Studio is up on http://localhost:5555
