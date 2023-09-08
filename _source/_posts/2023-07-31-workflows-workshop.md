@@ -291,7 +291,7 @@ The automation you will create later in this workshop will use this API service 
 
 ### Importing the library for API authentication
 
-1. Go to line 7, add the following code:
+1. At the very top of the file, you will see several import statments. After the last statment, add the following code: 
 
 ``` ts
 import passportBearer from 'passport-http-bearer';
@@ -299,10 +299,9 @@ import passportBearer from 'passport-http-bearer';
 
 This module allows authenticating HTTP requests using bearer tokens. 
 
-
 ### Setting up bearer token authentication strategy
 
-1. Go to line 59, add the following code: 
+1. Go to the end of `main.ts` file and add the following code: 
 
 ``` ts
 // Workshop code start
