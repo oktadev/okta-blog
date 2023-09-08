@@ -907,10 +907,10 @@ Now that you can run the application locally, you are ready to start on a worksh
 
 
 
-Ready to become enterprise-ready? Follow us on Twitter and subscribe to our YouTube channel to get notified about new workshops. If you have any questions or want to share what workshops/base application tech stacks you'd like to see next, please comment below!
+Ready to become enterprise-ready? Follow us on [Twitter](https://twitter.com/oktadev) and subscribe to our [YouTube](https://www.youtube.com/c/oktadev) channel to get notified about new workshops. If you have any questions or want to share what workshops/base application tech stacks you'd like to see next, please comment below!
 
 ## Workflows resources
-More resources to help you learn more about Okta Workflows.
+More resources to help you learn more about Okta Workflows:
 
 - [Videos](https://youtube.com/playlist?list=PLIid085fSVdvyK8F4xuk49EchBPmAVNHG)
 - [Office Hours](https://calendly.com/oktaworkflows/group-office-hours-okta-workflows)
