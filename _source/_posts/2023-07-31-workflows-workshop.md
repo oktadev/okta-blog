@@ -904,13 +904,6 @@ In this workshop, you learned the following:
 
 Now that you can run the application locally, you’re ready to start on a workshop of your choice! Find the workshops you want to participate in:
 
-|Posts in the enterprise-ready workshop series|
-| --- |
-| 1. [How to get Going with the Enterprise-Ready Identity for SaaS Apps Workshops](/blog/2023/07/27/enterprise-ready-getting-started) |
-| 2. [Enterprise-Ready Workshop: Authenticate with OpenID Connect](/blog/2023/07/28/oidc_workshop) |
-| 3. [Enterprise-Ready Workshop: Manage Users with SCIM](/blog/2023/07/28/scim-workshop) |
-| 4. [Enterprise-Ready Workshop: Terraform](/blog/2023/07/028/terraform-workshop) |
-| 5. **Enterprise-Ready Workshop: Automate with no-code Okta Workflows** |
 
 
 Ready to become enterprise-ready? Follow us on Twitter and subscribe to our YouTube channel to get notified about new workshops. If you have any questions or want to share what workshops/base application tech stacks you’d like to see next, please comment below!
