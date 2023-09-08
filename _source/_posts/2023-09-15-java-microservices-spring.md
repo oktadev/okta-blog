@@ -118,13 +118,11 @@ OKTA_OAUTH2_ISSUER=https://<your-auth0-domain>/
 OKTA_OAUTH2_AUDIENCE=https://<your-auth0-domain>/api/v2/
 ```
 
-Start it with `./gradlew bootRun`.
-
-Now, open `http://localhost:8080` in your favorite browser. 
+Start it with `./gradlew bootRun` and open `http://localhost:8080` in your favorite browser. You'll be redirected to Auth0 to log in.
 
 [Auth0 login image]
-
-You'll be redirected to Auth0 to log in. After authenticating, you'll see your name in lights! ✨
+ 
+After authenticating, you'll see your name in lights! ✨
 
 [Hello, name]
 
@@ -132,9 +130,9 @@ You can navigate to the following URLs in your browser for different results:
 
 - `http://localhost:8080/print-token`: prints access token to the console
 - `http://localhost:8080/cool-cars`: returns a list of cool cars
-- `http://localhost:8080/home`: proxies request to car service and shows JWT values
+- `http://localhost:8080/home`: proxies request to car service and shows JWT claims
 
-You can see what your access token contains by copy/pasting it into [jwt.io](https://jwt.io). You can also access the car service directly using it.
+You can see what the access token contains by copy/pasting it into [jwt.io](https://jwt.io). You can also access the car service directly using it.
 
 ```shell
 TOKEN=<access-token>
@@ -167,9 +165,9 @@ https start.spring.io/starter.zip bootVersion==3.1.3 \
   dependencies==cloud-eureka,cloud-feign,data-rest,web,okta | tar -xzvf -
 ```` 
 
-You might notice the `api-gateway` project doesn't have `cloud-gateway` as a dependency. That's because I started without it and didn't add it until I need to proxy requests by path. 
+You might notice the `api-gateway` project doesn't have `cloud-gateway` as a dependency. That's because I started without it and didn't add it until I needed to proxy requests by path. 
 
-After creating these three projects, I ran `chmod +x gradlew` in each project to make the Gradle wrapper executable. 
+After creating these three projects, I ran `chmod +x gradlew` in each directory to make the Gradle wrapper executable. 
 
 ## Service Discovery with Netflix Eureka
 
@@ -246,7 +244,7 @@ public interface CarRepository extends JpaRepository<Car, Long> {
 }
 ```
 
-The `Car` class is a simple JPA entity with an `id` and `name` property. This project is configured to use PostgreSQL, and a `docker-compose.yml` exists in the root directory to start it.
+The `Car` class is a simple JPA entity with an `id` and `name` property. Spring Boot will see PostgreSQL on its classpath and autoconfigure connectivity. A `docker-compose.yml` file exists in the root directory to start a PostgreSQL instance.
 
 ```yaml
 version: '3.1'
@@ -363,7 +361,7 @@ This worked great, but I still wanted to proxy `/home` to the downstream car ser
 
 ### Build an API Gateway with Spring Cloud Gateway
 
-I immediately discovered that adding `spring-cloud-gateway` as a dependency caused issues. First of all, I had Spring MVC in my classpath and Spring Cloud Gateway uses WebFlux. WebFlux recommends using WebClient over Feign and Resilience4J over Hystrix. I decided to switch to WebClient and Resilience4J.
+I immediately discovered that adding `spring-cloud-starter-gateway` as a dependency caused issues. First of all, I had Spring MVC in my classpath and Spring Cloud Gateway uses WebFlux. WebFlux recommends using WebClient over Feign and Resilience4J over Hystrix. I decided to switch to WebClient and Resilience4J.
 
 I had to remove the following dependencies from my original `api-gateway` project.
 
@@ -485,7 +483,6 @@ class HomeController {
         return "Hello, " + user.getFullName();
     }
 
-
     @GetMapping("/print-token")
     public String printAccessToken(@RegisteredOAuth2AuthorizedClient("okta")
                                    OAuth2AuthorizedClient authorizedClient) {
@@ -572,7 +569,7 @@ spring.cloud.openfeign.oauth2.enabled=true
 spring.cloud.openfeign.oauth2.clientRegistrationId=okta
 ```
 
-To make it so Spring Cloud Gateway passes the access token downstream, I added `TokenRelay` to its default filters in `application.yml`.
+To make Spring Cloud Gateway pass the access token downstream, I added `TokenRelay` to its default filters in `application.yml`:
 
 ```yaml
 spring:
@@ -586,7 +583,7 @@ spring:
       routes: ...
 ```
 
-And I added a `WebClientConfiguration` to configure `WebClient` to pass the access token downstream.
+And, I added a `WebClientConfiguration` class to configure `WebClient` to include the access token with its requests.
 
 ```java
 package com.example.apigateway.config;
@@ -625,9 +622,14 @@ OKTA_OAUTH2_SCOPES=openid,profile,email,offline_access
 OKTA_OAUTH2_AUDIENCE=http://fast-expiring-api
 ```
 
-Then, create an API in Auth0 called `fast-expiring-api` and set the TTL to 30 seconds.
+Then, I created an API in Auth0 called `fast-expiring-api` and set the TTL to 30 seconds.
 
-<!-- todo: add instructions for creating an API with the Auth0 CLI -->
+```shell
+auth0 apis create --name fast-expiring --identifier http://fast-expiring-api \
+  --token-lifetime 30
+```
+
+// todo: why does it prompt for scopes and offline access
 
 Restart the API gateway and go to `http://localhost:8080/print-token` to see your access token. You can copy the expired time to [timestamp-converter.com](https://www.timestamp-converter.com/) to see when it expires in your local timezone. Wait 30 seconds and refresh the page. You'll see a request to get a new token and an updated expires timestamp in your terminal.
 
@@ -635,7 +637,7 @@ Restart the API gateway and go to `http://localhost:8080/print-token` to see you
 
 If you find yourself in a situation where you don't have an internet connection, it can be handy to run Keycloak locally in a Docker container. Since the Okta Spring Boot starter is a thin wrapper around Spring Security, it works with Keycloak too. It does validate the issuer to make sure it's an Okta URL, so you have to use Spring Security's properties instead of the `okta.oauth2.*` properties.
 
-An easy way to get a pre-configured Keycloak instance is to use a sample [JHipster](https://www.jhipster.tech) application. You can clone one with the following command:
+An easy way to get a pre-configured Keycloak instance is to use a [JHipster](https://www.jhipster.tech)'s `jhipster-sample-app-oauth2` application. It gets updated with every JHipster release. You can clone it with the following command:
 
 ```shell
 git clone https://github.com/jhipster/jhipster-sample-app-oauth2.git --depth=1
@@ -650,7 +652,7 @@ You can configure the `api-gateway` to use Keycloak by removing the `okta.oauth2
 spring.security.oauth2.client.provider.okta.issuer-uri=http://localhost:9080/realms/jhipster
 spring.security.oauth2.client.registration.okta.client-id=web_app
 spring.security.oauth2.client.registration.okta.client-secret=web_app
-spring.security.oauth2.client.registration.okta.scope=openid,profile,email
+spring.security.oauth2.client.registration.okta.scope=openid,profile,email,offline_access
 ```
 
 The `car-service` requires similar changes in its `application.properties` file:
@@ -666,7 +668,7 @@ Restart both apps, open `http://localhost:8080`, and you'll be able to log in wi
 
 Use `admin`/`admin` for credentials and you'll be able to access `http://localhost:8080/cool-cars` as you did before.
 
-## Have Fun with Spring Boot, Spring Cloud, and Microservices
+## Have fun with Spring Boot and Spring Cloud!
 
 I hope you liked this tour of how to build Java microservice architectures with Spring Boot and Spring Cloud. You learned how to build everything with minimal code, then configure it to be secure with Spring Security, OAuth 2.0, and Auth0 by Okta.
 
