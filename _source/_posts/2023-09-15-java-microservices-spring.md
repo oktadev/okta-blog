@@ -50,7 +50,13 @@ Java is a great language to use when developing a https://www.okta.com/blog/2021
 
 Implementing a microservices architecture in Java isn't for everyone. For that matter, implementing microservices, in general, isn't often needed. Most companies do it to scale their people, not their systems. If you're going to scale your people, hiring Java developers is one of the best ways to do it. After all, there are more developers fluent in Java than most other languages - though JavaScript seems to be catching up quickly!
 
-The Java ecosystem has some well-established patterns for developing microservice architectures. If you're familiar with Spring, you'll feel right at home developing with Spring Boot and Spring Cloud. Since that's one of the quickest ways to get started, I figured I'd walk you through a quick tutorial.
+The Java ecosystem has some well-established patterns for developing microservice architectures. If you're familiar with Spring, you'll feel right at home developing with Spring Boot and Spring Cloud. Since that's one of the quickest ways to get started, I figured I'd walk you through a quick example.
+
+This example contains a microservice with a REST API that returns a list of cool cars. It uses Netflix Eureka for service discovery, WebClient for remote communication, and Spring Cloud Gateway to route requests to the microservice. It integrates Spring Security and OAuth 2.0 so only authenticated users can access the API gateway and microservice. 
+
+// todo: update image so it's not VW and requests /cool-cars
+
+{% img blog/spring-cloud-gateway/spring-cloud-gateway-oauth2.png alt:"Spring Boot Microservices" width:"800" %}{: .center-image }
 
 **Table of Contents**{: .hide }
 * Table of Contents
@@ -73,7 +79,7 @@ In the `spring-boot-gateway-webflux` directory, there are three projects:
 * **car-service**: a simple Car Service that uses Spring Data REST to serve up a REST API of cars.
 * **api-gateway**: an API gateway that has a `/cool-cars` endpoint that talks to the `car-service` and filters out cars that aren't cool (in my opinion, of course).
 
-### Run a Spring Boot Microservices Architecture
+### Run a Secure Spring Boot Microservice Architecture
 
 To run the example, you'll need to [install the Auth0 CLI](https://github.com/auth0/auth0-cli#installation) and create an Auth0 account. If you don't have an Auth0 account, [sign up for free](https://auth0.com/signup). I recommend using [SDKMAN!](https://sdkman.io) to install Java 17+.
 
@@ -141,7 +147,7 @@ http :8090/cars Authorization:"Bearer $TOKEN"
 
 Pretty cool, eh? 😎
 
-## My Developer Story: How I Created These Microservices
+## My Developer Story with Spring Boot and Spring Cloud
 
 A few years ago, I created a [similar example](http://developer.okta.com/blog/2019/05/22/java-microservices-spring-boot-spring-cloud) to this one with Spring Boot 2.2. It used Feign for remote connectivity, Zuul for routing, Hystrix for failover, and Spring Security for OAuth. 
 
@@ -279,9 +285,9 @@ spring.jpa.hibernate.ddl-auto=update
 ```
 // todo: verify it's not `create-update`
 
-## Connecting to Java Microservice with Spring Cloud OpenFeign
+## Connect to Java Microservices with Spring Cloud OpenFeign
 
-Before I tried to proxy requests to the car service from the API gateway, I configured Feign to connect to the car service and its `/cars` endpoint. Then, I mapped a `Car` record to the JSON that's returned. I exposed it as a `/cool-cars` endpoint.
+Next, I configured OpenFeign in the `api-gateway` project to connect to the car service and its `/cars` endpoint. Then, I mapped a `Car` record to the JSON that's returned. I exposed it as a `/cool-cars` endpoint.
 
 ```java 
 package com.example.apigateway;
@@ -359,7 +365,7 @@ class CoolCarController {
 
 This worked great, but I still wanted to proxy `/home` to the downstream car service.
 
-### Build an API Gateway with Spring Cloud Gateway
+## Add Routing with Spring Cloud Gateway
 
 I immediately discovered that adding `spring-cloud-starter-gateway` as a dependency caused issues. First of all, I had Spring MVC in my classpath and Spring Cloud Gateway uses WebFlux. WebFlux recommends using WebClient over Feign and Resilience4J over Hystrix. I decided to switch to WebClient and Resilience4J.
 
