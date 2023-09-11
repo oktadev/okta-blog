@@ -649,21 +649,25 @@ public class WebClientConfiguration {
 
 In my previous example, I couldn't get refresh tokens to work. I was able to get them to work this time! I changed the default scopes in `api-gateway` to request a refresh token using the `offline_access` scope.
 
+`.env`
 ```dotenv
+OKTA_OAUTH2_AUDIENCE=https://fast-expiring-api
 OKTA_OAUTH2_SCOPES=openid,profile,email,offline_access
-OKTA_OAUTH2_AUDIENCE=http://fast-expiring-api
+```
+
+`src/main/resources/application.properties`
+```properties
+okta.oauth2.scopes=${OKTA_OAUTH2_SCOPES}
 ```
 
 Then, I created an API in Auth0 called `fast-expiring-api` and set the TTL to 30 seconds.
 
 ```shell
-auth0 apis create --name fast-expiring --identifier http://fast-expiring-api \
-  --token-lifetime 30
+auth0 apis create --name fast-expiring --identifier https://fast-expiring-api \
+  --token-lifetime 30 --offline-access --no-input
 ```
 
-// todo: why does it prompt for scopes and offline access
-
-If you do the same, you can restart the API gateway and go to `http://localhost:8080/print-token` to see your access token. You can copy the expired time to [timestamp-converter.com](https://www.timestamp-converter.com/) to see when it expires in your local timezone. Wait 30 seconds and refresh the page. You'll see a request for a new token and an updated expires timestamp in your terminal.
+If you do the same, you can restart the API gateway and go to `http://localhost:8080/print-token` to see your access token. You can copy the expired time to [timestamp-converter.com](https://www.timestamp-converter.com/) to see when it expires in your local timezone. Wait 30 seconds and refresh the page. You'll see a request for a new token and an updated `Expires At` timestamp in your terminal.
 
 ## The Okta Spring Boot starter and Keycloak
 
@@ -712,7 +716,7 @@ Use `admin`/`admin` for credentials, and you can access `http://localhost:8080/c
 
 I hope you liked this tour of how to build Java microservice architectures with Spring Boot and Spring Cloud. You learned how to build everything with minimal code and then configure it to be secure with Spring Security, OAuth 2.0, and Auth0 by Okta.
 
-You can find all the code shown in this tutorial on GitHub in the [@oktadev/auth0-java-microservices-examples repository](https://github.com/oktadev/auth0-java-microservices-examples/tree/main/spring-boot-gateway-webflux).
+You can find all the code shown in this tutorial on GitHub in the [@oktadev/auth0-java-microservices-examples repository](https://github.com/oktadev/auth0-java-microservices-examples/tree/main/spring-boot-gateway-webflux). The OpenFeign example with Spring MVC is in the `mvc` branch and the Keycloak example is in the `keycloak` branch.
 
 If you liked this post, you might enjoy these related posts:
 
