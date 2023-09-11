@@ -12,16 +12,20 @@ tweets:
 - ""
 image: blog/scim-workshop/social.jpg
 type: awareness
+changelog:
+- 2023-08-21: Added a Supplemental section at the end
+- 2023-08-28: Corrected hyperlink to OIDC Workshop blog, provided more clarity in accessing the Prisma web interface. Added a disclaimer for using API tokens. 
+- 2023-08-30: Improved instructions for bearer auth check.
 ---
 
-Hello SaaS developers! You sell your software to technologically mature enterprises, and they expect it to interface seamlessly with all their other tools. In our [Enterprise-Ready Workshop on OpenID Connect](/blog/2023-07-28-oidc_workshop), you learned how to solve part of this problem, by creating user accounts in your application for your customers' employees whenever they log in. 
+Hello SaaS developers! You sell your software to technologically mature enterprises, and they expect it to interface seamlessly with all their other tools. In our [Enterprise-Ready Workshop on OpenID Connect](/blog/2023/07/28/oidc_workshop), you learned how to solve part of this problem, by creating user accounts in your application for your customers' employees whenever they log in. 
 
-|Posts in the enterprise-ready workshop series|
+|Posts in the on-demand workshop series|
 | --- |
-| 1. [How to get Going with the Enterprise-Ready Identity for SaaS Apps Workshops](/blog/2023/07/27/enterprise-ready-getting-started) |
+| 1. [How to Get Going with the On-Demand SaaS Apps Workshops](/blog/2023/07/27/enterprise-ready-getting-started) |
 | 2. [Enterprise-Ready Workshop: Authenticate with OpenID Connect](/blog/2023/07/28/oidc_workshop) |
 | 3. **Enterprise-Ready Workshop: Manage Users with SCIM** |
-| 4. [Enterprise-Ready Workshop: Terraform](/blog/2023/07/28/terraform-workshop) |
+| 4. [Enterprise Maturity Workshop: Terraform](/blog/2023/07/28/terraform-workshop) |
 
 But creating accounts when users log in is only one of your customers' many expectations! Your app is also expected to know about users who haven't logged in yet, and remove the accounts of employees who are removed from your customer's identity provider. 
 
@@ -101,9 +105,7 @@ Speaking of attributes, the SCIM core user schema requires only three attributes
 
 These are described in section 8.1 of the [SCIM spec](https://datatracker.ietf.org/doc/html/rfc7643#section-8.1). 
 
-Note: We'll be using a basic autoincrement for the user's id to lessen the complexity of this project. However, for production, we recommend using a unique id generator such as [xid](https://www.npmjs.com/package/xid-js). 
-
-Update the user model in `schema.prisma`: 
+Update the user model in `prisma/schema.prisma`: 
 
 ```
 model User {
@@ -120,15 +122,19 @@ model User {
 }
 ```
 
-Now that we have the user table with the necessary fields, we'll need to edit the `seed_script.ts` file. In this workshop, we'll design our SCIM server code to be extensible for supporting multiple separate organizations. Provisioning multiple separate orgs accommodates your customers who may be using different identity providers with different SCIM clients. By giving each organization its own endpoint and API token, we ensure that no org can accidentally update or overwrite another org's users.
+Now that we have the user table with the necessary fields, we'll need to edit the `prisma/seed_script.ts` file. In this workshop, we'll design our SCIM server code to be extensible for supporting multiple separate organizations. Provisioning multiple separate orgs accommodates your customers who may be using different identity providers with different SCIM clients. By giving each organization its own endpoint and API token, we ensure that no org can accidentally update or overwrite another org's users.
 
-Let's update the users in `seed.ts`. We'll also need to hardcode `externalId` and `active` for both users. Note that `externalId`  is a unique identifier issued by the provisioning client, and must be stored in the SCIM server. The `externalId` is also considered stable because a user's name and email address can change, but its identifier in the SCIM client cannot. Along with the `active` attribute, `externalId` is not a SCIM protocol core attribute, but Okta's scim implementation expects it. The [Okta SCIM Docs](https://developer.okta.com/docs/guides/scim-provisioning-integration-prepare/main/#basic-user-schema) tell us that this unique identifier is the user's global id (GUID).
+Let's update the users in `prisma/seed_script.ts`. We'll also need to hardcode `externalId` and `active` for both users. Note that `externalId`  is a unique identifier issued by the provisioning client, and must be stored in the SCIM server. The `externalId` is also considered stable because a user's name and email address can change, but its identifier in the SCIM client cannot. Along with the `active` attribute, `externalId` is not a SCIM protocol core attribute, but Okta's scim implementation expects it. The [Okta SCIM Docs](https://developer.okta.com/docs/guides/scim-provisioning-integration-prepare/main/#basic-user-schema) tell us that this unique identifier is the user's global id (GUID).
 
 We'll also give each org an `apikey` set to a random string. Using a different key for each org helps our code ensure that no client can accidentally view or edit users belonging to another. 
 
-After those changes, here's how `seed.ts` will look:
+Keeping the original imports in `prisma/seed_script.ts` and after making the above changes, this is how the file should look:
 
 ```ts
+import { PrismaClient } from '@prisma/client'
+
+const prisma = new PrismaClient()
+
 async function main() {
   const org = await prisma.org.create({
     data: {
@@ -175,23 +181,48 @@ main()
 
 Now we are ready to seed the database. If you already added records to the database, you can run `npx prisma migrate reset` to remove them. Once your database is empty, seed it by running `npm run init-db`.
 
-A neat feature with Prisma is the option to view the user table locally. To do this, go to the root of this workshop folder, and run `npx prisma studio`. Your browser should open to a web page where you can see all the tables you've created. 
+A neat feature with Prisma is the option to view the user table locally. To do this, using your terminal, go to the root of this workshop folder, and run `npx prisma studio`. Your browser should open to a web page where you can see all the tables you've created. 
 
 
 ## Add a SCIM file and create a scimRoute
 
-For maintainability, we should keep our SCIM implementation code in one place. Let's create a SCIM file, `scim.ts`, in`apps/src/assets`, and import it in `main.ts`. As a result, your `scim.ts` file will look like this: 
+For maintainability, we'll aim to keep our SCIM implementation code in one place. Let's create a SCIM file, scim.ts, in `apps/api/src`, and import it in `main.ts`. At the top of `apps/api/src/scim.ts`, you'll need to import Router to create a scimRoute to export to `apps/api/src/main.ts`. Copy paste the following code to the top of your apps/api/src/scim.ts file:
 
 ```ts
 import { Router } from 'express';
 export const scimRoute = Router();
 ```
 
-And you'll import the routes in `main.ts` like this:
+And you'll then import the scimRoute in `apps/api/src/main.ts` and after `import session from 'express-session';` as shown below:
 
 ```ts
+import express from 'express';
+import { PrismaClient, Todo, User } from '@prisma/client';
+import passportLocal from 'passport-local';
+import passportOIDC from 'passport-openidconnect';
+import passport from 'passport';
+import session from 'express-session';
+
+// Import the scimRoute from the apps/api/src/scim.ts file
 import { scimRoute } from './scim';
+```
+
+Additionally, I recommend adding a section for SCIM related routes; comment out a line as I have done below to mark the starting of your SCIM related code. To make use of the scim routes you've created in the `apps/api/src/scim.ts`, you'll need to add the line `app.use('/scim/v2', scimRoute);` I recommend adding this just below the marker for your SCIM-related routes and before the block of code where we connect the server to localhost port 3333 as shown below: 
+
+```ts
+///////////////////////////////////////////////////////
+// SCIM-related routes
+
+
+// '/scim/v2' path appends to every SCIM Endpoints 
+// Okta recommended url - https://developer.okta.com/docs/guides/scim-provisioning-integration-prepare/main/#base-url
 app.use('/scim/v2', scimRoute);
+
+const port = process.env.PORT || 3333;
+const server = app.listen(port, () => {
+  console.log(`Listening at http://localhost:${port}/api`);
+});
+server.on('error', console.error);
 ```
 
 Note: `/scim/v2` will append to every SCIM route. You can change this static path as needed, as there isn't a specific URL path explicitly required by the SCIM spec. However, [Okta's SCIM Docs](https://developer.okta.com/docs/guides/scim-provisioning-integration-prepare/main/#base-url) recommend using `/scim/v2` unless unusual factors in your environment necessitate a different URL. 
@@ -200,14 +231,14 @@ Note: `/scim/v2` will append to every SCIM route. You can change this static pat
 
 We'll need to build each CRUD endpoint required by the SCIM spec and format the responses in JSON. After that, we'll test our functions with Postman to see that they provide the responses required by the spec. 
 
-We'll need to use express and Prisma in `scim.ts`, so import them:
+We'll need to use express and Prisma in `apps/api/src/scim.ts`, so import them at the top of the file as shown below:
 
 ```ts
 import express from 'express';
 import { Prisma, PrismaClient } from '@prisma/client';
 ```
 
-Some SCIM endpoints in `scim.ts` will return user information from the Todo app's database. To easily retrieve this information from the SCIM endpoints, implement an `IUserSchema` interface and instantiate it as the defaultUserSchema. The information in the `IUserSchema` matches the SCIM spec, as you'll see soon.  
+Some SCIM endpoints in `apps/api/src/scim.ts` will return user information from the Todo app's database. To easily retrieve this information from the SCIM endpoints, implement an `IUserSchema` interface and instantiate it as the defaultUserSchema. The information in the `IUserSchema` matches the SCIM spec, as you'll see soon.  
 
 To simplify the example code, we'll support one org at first, by hardcoding the org ID as 1. When you're ready to support multiple SCIM clients, you can easily replace this constant value with a function to look up the correct org ID based on based on the context of the request. In addition, when an IdP instructs our SCIM server to create a user, the user's org ID will be hardcoded to 1 when they are created in the database. An update to support multiple organizations would also need to update the user creation code to associate them with the correct organization, as well. 
 
@@ -254,13 +285,15 @@ Finally, we are ready to get started! Let's work on our first CRUD endpoint.
 
 Let's refer to the [SCIM spec](https://datatracker.ietf.org/doc/html/rfc7644#section-3.3) on creating a user. The spec says the IdP sends a POST request containing a "User" to the `/Users` endpoint to create a user. In response to the POST, the server signals a successful creation with an HTTP status code 201 (Created) and returns a representation of the user created. If the server determines that the creation of the requested user conflicts with existing users (e.g., a "User" resource with a duplicate "userName"), the server MUST return HTTP status code 409 (Conflict) with a "scimType" error code of "uniqueness," as per Section 3.12.
 
-Our `/Users` endpoint can fulfill those requirements with the following code: 
+Our SCIM Server will define a user's uniqueness by their externalId and orgId. You can see how this is done below when we check for a duplicate user. 
+
+Our `/Users` endpoint can fulfill those requirements with the following code. Go ahead and copy/paste the following code to your `apps/api/src/scim.ts` file: 
 
 ```ts
 // Create User Function
 // POST /scim/v2/Users
 // RFC Notes on Creating Users: https://www.rfc-editor.org/rfc/rfc7644#section-3.3
-scimRoute.post('/Users', passport.authenticate('bearer'), async (req, res) => {
+scimRoute.post('/Users', async (req, res) => {
   // console.log('POST: /Users');
   // Format to SCIM standard
   const newUser: IUserSchema = req.body;
@@ -280,6 +313,7 @@ scimRoute.post('/Users', passport.authenticate('bearer'), async (req, res) => {
   // Set displayName to name
   const name = displayName;
   // Check if the User exists in the database
+  // externalId + orgId = user uniqueness per SCIM RFC Section 3.3 
   const duplicateUser = await prisma.user.findFirst({
     select: {
       id: true,
@@ -287,7 +321,7 @@ scimRoute.post('/Users', passport.authenticate('bearer'), async (req, res) => {
       name: true,
     },
     where: {
-      id,
+      externalId,
       org: { id: ORG_ID }
     }
   });
@@ -316,8 +350,7 @@ scimRoute.post('/Users', passport.authenticate('bearer'), async (req, res) => {
       }
     });
     console.log('Account Created ID: ', user.id);
-    userResponse = {
-      ..defaultUserSchema,
+    userResponse = { ...defaultUserSchema,
       id: `${user.id}`,
       userName: user.email,
       name: {
@@ -338,15 +371,17 @@ scimRoute.post('/Users', passport.authenticate('bearer'), async (req, res) => {
 });
 ```
 
-With that code saved in `scim.ts`, we have the first endpoint we can interact with. Now is the best time to test our code to ensure we are on the right track. 
+With that code saved in `apps/api/src/scim.ts`, we have the first endpoint we can interact with. Now is the best time to test our code to ensure we are on the right track. 
 
-To test our code, we'll be using [Postman](https://www.postman.com/) to make requests to our SCIM server. I'll also be adding an external tool, [Morgan](https://github.com/expressjs/morgan), that will help log HTTP requests; by doing so, we'll be able to confirm whether requests are reaching our server. 
+To test our code, we'll be using [Postman](https://www.postman.com/) to make requests to our SCIM server. 
 
 ## Test routes using Postman
 
 We'll need to set up a few things for Postman to authenticate and interact with our local server. 
 
 ### Add Bearer Token auth to secure the SCIM routes
+
+Disclaimer: We're showing examples with an API key for authorization, but we recommend using OAuth tokens. However, building out the infrastructure to support OAuth tokens is beyond the scope of an introductory SCIM workshop. Here is more info using [Okta as an Identity Provider for OAuth tokens](https://help.okta.com/en-us/Content/Topics/Apps/Apps_App_Integration_Wizard_SCIM.htm).
 
 When testing our routes, Postman (acting as the SCIM client) will authenticate to the Todo app backend using a bearer token. To support token auth, first install the appropriate passport libraries. 
 
@@ -357,11 +392,47 @@ npm install passport-http-bearer
 npm install @types/passport-http-bearer -D
 ```
 
-Then import `passportBearer` and create a token auth strategy in `main.ts`: 
+Then import `passportBearer` at the top of `apps/api/src/main.ts`. It should look like this: 
 
 ```ts
+import express from 'express';
+import { PrismaClient, Todo, User } from '@prisma/client';
+import passportLocal from 'passport-local';
+import passportOIDC from 'passport-openidconnect';
+import passport from 'passport';
+import session from 'express-session';
 import passportBearer from 'passport-http-bearer';
+```
+
+In addition, create a token auth strategy called `BearerStrategy` in `apps/api/src/main.ts`. List it at the top of `apps/api/src/main.ts` with the other token auth strategies.
+
+```ts
+import express from 'express';
+import { PrismaClient, Todo, User } from '@prisma/client';
+import passportLocal from 'passport-local';
+import passportOIDC from 'passport-openidconnect';
+import passport from 'passport';
+import session from 'express-session';
+import passportBearer from 'passport-http-bearer';
+
+// Import the scimRoute from the scim.ts file
+import { scimRoute } from './scim';
+
+interface IUser {
+  id: number;
+}
+
+const prisma = new PrismaClient();
+const LocalStrategy = passportLocal.Strategy;
+const OpenIDConnectStrategy = passportOIDC.Strategy;
 const BearerStrategy = passportBearer.Strategy;
+```
+
+Lastly, to use the token auth strategy, add it to your SCIM related code, which would look like this:
+
+```ts
+///////////////////////////////////////////////////////
+// SCIM-related routes
 
 passport.use(new BearerStrategy(
   async (apikey, done) => {
@@ -374,46 +445,160 @@ passport.use(new BearerStrategy(
     return done(null, org);
   }
 ));
+ 
+
+// '/scim/v2' path appends to every SCIM Endpoints 
+// Okta recommended url - https://developer.okta.com/docs/guides/scim-provisioning-integration-prepare/main/#base-url
+app.use('/scim/v2', scimRoute);
+
+const port = process.env.PORT || 3333;
+const server = app.listen(port, () => {
+  console.log(`Listening at http://localhost:${port}/api`);
+});
+server.on('error', console.error);
 ```
 
-In `scim.ts`, import Passport:
+In `apps/api/src/scim.ts`, import Passport at the top of the file like this:
 
 ```ts
+import { Router } from 'express';
+export const scimRoute = Router();
+import express from 'express';
+import { Prisma, PrismaClient } from '@prisma/client';
 import passport from 'passport';
 ```
 
-And add passport's bearer token auth to each SCIM route in `scim.ts`. For example,
+And add passport's bearer token auth to each SCIM route in `apps/api/src/scim.ts`. For example in the Post endpoint, it will look like this:
 
 ```ts
 scimRoute.post('/Users', passport.authenticate('bearer'), async (req, res)
 ```
 
-### Support Okta's SCIM content-type headers
+### Support SCIM's content-type headers requirement
 
 You'll also need to install [body-parser](https://www.npmjs.com/package/body-parser) for Express.js to accept `content-type application/scim+json`, because Okta sends this in the request headers instead of `content-type application/json`. We'll need this to read the request body from Okta. Note: This specific content-type header is required by [the SCIM spec](https://datatracker.ietf.org/doc/html/rfc7644#section-3.1)
 
-On the command line, `npm install passport-http-bearer` to add the library to your project.
+On the command line, run `npm install body-parser` to add the library to your project.
 
-In `scim.ts`, import `body-parser`:
+In `apps/api/src/main.ts`, import `body-parser` at the top of the file. It should look like this:
 
 ```ts
+import express from 'express';
+import { PrismaClient, Todo, User } from '@prisma/client';
+import passportLocal from 'passport-local';
+import passportOIDC from 'passport-openidconnect';
+import passport from 'passport';
+import session from 'express-session';
+import passportBearer from 'passport-http-bearer';
+
+// body-parser is required to accept the header content-type application/scim+json from Okta
+// https://www.npmjs.com/package/body-parser
+// RFC Notes: https://datatracker.ietf.org/doc/html/rfc7644#section-3.1
 import bodyParser from 'body-parser';
+
+// Import the scimRoute from the scim.ts file
+import { scimRoute } from './scim';
 ```
-And instruct the app to use `bodyParser` for the relevant content types: 
+
+And instruct the app to use `bodyParser` for the relevant content types below. Be sure to add this to your SCIM related code section in `apps/api/src/main.ts` as well. It should look like the following:  
 
 ```ts
-app.use(bodyParser.json({ type: ['application/scim+json'] }));
+///////////////////////////////////////////////////////
+// SCIM-related routes
+passport.use(new BearerStrategy(
+  async (apikey, done) => {
+    const org = await prisma.org.findFirst({
+      where: {
+        apikey: apikey
+      }
+    });
+
+    return done(null, org);
+  }
+));
+
+app.use(bodyParser.json({ type: 'application/scim+json' }));
+
+// '/scim/v2' path appends to every SCIM Endpoints 
+// Okta recommended url - https://developer.okta.com/docs/guides/scim-provisioning-integration-prepare/main/#base-url
+app.use('/scim/v2', scimRoute);
+
+const port = process.env.PORT || 3333;
+const server = app.listen(port, () => {
+  console.log(`Listening at http://localhost:${port}/api`);
+});
+server.on('error', console.error);
+```
+
+### Add HTTP Logging
+Lastly, I'll also be adding an external tool, [Morgan](https://github.com/expressjs/morgan), that will help log HTTP requests; by doing so, we'll be able to confirm whether requests are reaching our server. 
+
+On the command line, `npm install morgan` to add the library to your project.
+
+In `apps/api/src/main.ts`, import `morgan` at the top of the file. It should look like this:
+
+```ts
+import express from 'express';
+import { PrismaClient, Todo, User } from '@prisma/client';
+import passportLocal from 'passport-local';
+import passportOIDC from 'passport-openidconnect';
+import passport from 'passport';
+import session from 'express-session';
+import passportBearer from 'passport-http-bearer';
+
+// body-parser is required to accept the header content-type application/scim+json from Okta
+// https://www.npmjs.com/package/body-parser
+// RFC Notes: https://datatracker.ietf.org/doc/html/rfc7644#section-3.1
+import bodyParser from 'body-parser';
+
+// For logging http requests - https://github.com/expressjs/morgan
+import morgan from 'morgan';
+
+// Import the scimRoute from the scim.ts file
+import { scimRoute } from './scim';
+```
+And instruct the app to use `morgan` as shown below. Again, be sure to add this to your SCIM related code section in `apps/api/src/main.ts` as well. It should look like the following:  
+
+```ts
+///////////////////////////////////////////////////////
+// SCIM-related routes
+
+passport.use(new BearerStrategy(
+  async (apikey, done) => {
+    const org = await prisma.org.findFirst({
+      where: {
+        apikey: apikey
+      }
+    });
+
+    return done(null, org);
+  }
+));
+ 
+app.use(bodyParser.json({ type: 'application/scim+json' }));
+
+app.use(morgan('combined'))
+
+// '/scim/v2' path appends to every SCIM Endpoints 
+// Okta recommended url - https://developer.okta.com/docs/guides/scim-provisioning-integration-prepare/main/#base-url
+app.use('/scim/v2', scimRoute);
+
+const port = process.env.PORT || 3333;
+const server = app.listen(port, () => {
+  console.log(`Listening at http://localhost:${port}/api`);
+});
+server.on('error', console.error);
 ```
 
 Sign up for [Postman](https://identity.getpostman.com/login) or sign in to your account, and configure it to communicate with your local instance of the Todo app. 
 
-In Postman, the request URL will be`http://localhost:3333/scim/v2/Users` if you're running the Todo app locally. In the Headers tab, add the key `Content-Type` and set its value to `application/scim+json`, and then add an additional key, `Authorization`, and set it to `Bearer 131313`.This bearer token value comes from the `apikey` variable set earlier in `seed.ts`. 
+In Postman, the request URL will be`http://localhost:3333/scim/v2/Users` if you're running the Todo app locally. In the Headers tab, add the key `Content-Type` and set its value to `application/scim+json`, and then add an additional key, `Authorization`, and set it to `Bearer 131313`.This bearer token value comes from the `apikey` variable set earlier in `prisma/seed_script.ts`. 
 
 Now we are ready to test with Postman with our local server. You can also make cURL requests directly from the terminal if you prefer. 
 
 ### Test the POST request to add users
 
-Try sending the following request to `http://localhost:3333/scim/v2/Users`:
+Next, to send a request in Postman, go to the Body tab and click the radio button `raw` to send a JSON request. Try sending the following POST request to `http://localhost:3333/scim/v2/Users`:
 
 ```json
 {
@@ -485,6 +670,7 @@ If you send the same POST request again, re-creating an existing user, what shou
   "status": 409
 }
 ```
+Remember you have the option using Prisma to view the user table locally. To do this, in your terminal, go to the root of this workshop folder, and run `npx prisma studio`. Your browser should open to a web page where you can see all the users you've created. 
 
 You can repeat this testing process for each SCIM route that you implement! 
 
@@ -496,7 +682,7 @@ In addition, filtering by username is an OPTIONAL parameter for SCIM service pro
 
 Why would a SCIM client, in this case the identity provider, ever want to ask our app's SCIM server what users it knows about? Okta keeps track of what identifiers each SCIM integration is using for each user, and stores those as the user's "externalId" Okta uses this endpoint to test whether a user exists and find out what ID the SCIM server uses for that individual, so that it can send the correct request type with the correct ID: PUT to update an existing user, or POST to create a new account for a user that wasn't previously known to the SCIM server. 
 
-To fulfill these requirements, the sample app's backend can handle GET requests to the `/Users` endpoint in `scim.ts` like this: 
+To fulfill these requirements, the sample app's backend can handle GET requests to the `/Users` endpoint in `apps/api/src/scim.ts` with the following code below. Go ahead and copy/paste the following code to your `apps/api/src/scim.ts` file: : 
 
 ```ts
 // Retrieve Users
@@ -588,7 +774,7 @@ scimRoute.get('/Users', passport.authenticate('bearer'), async (req, res) => {
 
 What will this code do if it finds the user? What if it gets a request to look up a user who doesn't exist?
 
-### Test the GET /Users endpoint
+### Test retrieving a user
 
 Try using Postman to send a GET request with no body to `http://localhost:3333/scim/v2/Users`. What result would you expect? 
 If you seeded your database using the provided script, the result will look like this: 
@@ -687,7 +873,7 @@ The result lists all users in the database.
 
 Let's look up whether any users in the Todo app have the email address `trinity@portal.example`. Try sending a GET request with no body to `http://localhost:3333/scim/v2/Users?filter=userName eq "trinity@portal.example"&startIndex=1&count=100` What result do you expect? 
 
-If you seeded your database with `seed.ts`, the result will look like this. 
+If you seeded your database with `prisma/seed_script.ts`, the result will look like this. 
 
 ```json
 {
@@ -728,7 +914,7 @@ If you seeded your database with `seed.ts`, the result will look like this.
 ```
 ### Get a user by ID
 
-According to the [SCIM spec](https://datatracker.ietf.org/doc/html/rfc7644#section-3.4.1), the endpoint `/Users/[id]` can retrieve details about one particular user. If a user with the specified ID exists, the server responds with HTTP status code 200 (OK) and includes the user's information in the body of the response. It should return a 404 if no user was found with the requested identifier.  How can `scim.ts` fulfill the spec's requirements to look up users by their IDs? 
+According to the [SCIM spec](https://datatracker.ietf.org/doc/html/rfc7644#section-3.4.1), the endpoint `/Users/[id]` can retrieve details about one particular user. If a user with the specified ID exists, the server responds with HTTP status code 200 (OK) and includes the user's information in the body of the response. It should return a 404 if no user was found with the requested identifier.  How can the SCIM server fulfill the spec's requirements to look up users by their IDs? Go ahead and copy/paste the following code to your `apps/api/src/scim.ts` file to see what happens:
 
 ```ts
 // Retrieve a specific User by ID
@@ -819,7 +1005,7 @@ A GET request to `http://localhost:3333/scim/v2/Users/1` will look up the approp
 
 Section 3.5.1 of the  [SCIM spec](https://www.rfc-editor.org/rfc/rfc7644#section-3.5.1), tells us how to update a user's information if we know their ID. Users are updated by a PUT to the `/Users/[id]` endpoint. if the user exists, the server updates its records for the user and responds with HTTP status code 200 (OK), including the user's latest information in the body of the response. If no user with the specified ID is found, the server returns a 404.
 
-Can you implement this behavior in the Todo app's backend? One way to do it would be to add this code to `scim.ts`: 
+Can you implement this behavior in the Todo app's backend? One way to do it would be to add this code to `apps/api/src/scim.ts`: 
 
 ```ts
 // Update a specific User (PUT)
@@ -948,6 +1134,8 @@ What response do you expect? You should get an HTTP 200 with a body like this:
   "active": true
 }
 ```
+
+Remember you have the option using Prisma to view the user table locally. To do this, in your terminal, go to the root of this workshop folder, and run `npx prisma studio`. Your browser should open to a web page where you can see the changes you've made to the user. 
 ## Support deleting users
 
 Section 3.6 of the  [SCIM spec](https://www.rfc-editor.org/rfc/rfc7644#section-3.6), tells us that service providers may choose to permanently delete users with a 204 (No Content). If no user with the specified ID is found, the server returns a 404 (Not found).
@@ -956,7 +1144,7 @@ When a user leaves an organization, some identity providers will delete that use
 
 Deleting accounts of removed users can help your application comply with data retention regulations. And over time, storing and backing up information every user who has ever used your app, instead of only tracking active accounts, can get expensive in both storage costs and backup/restore process duration. 
 
-Here's how you can implement user deletion in `scim.ts`:
+Here's how you can implement user deletion. Go ahead and copy/paste the following code to your `apps/api/src/scim.ts` file: 
 
 ```ts
 // Delete Users
@@ -975,11 +1163,11 @@ scimRoute.delete('/Users/:userId', passport.authenticate('bearer'), async (req, 
 
 Test out the delete function by making a DELETE request with an empty body to `http://localhost:3333/scim/v2/Users/3`.
 
-What response do you expect? You should get an HTTP 204 with no body in response.
+What response do you expect? You should get an HTTP 204 with no body in response. You can also confirm the user has been deleted in the user table by using Prisma built in commands. In your terminal, go to the root of this workshop folder, and run `npx prisma studio`. Your browser should open to a web page where you can see the user you've just deleted. 
 
-### Test soft deleting/"deprovisioning" a user
+### Test soft deleting or "deprovisioning" a user
 
-Okta implements a [soft delete aka deprovision](https://developer.okta.com/docs/reference/scim/scim-20/#delete-users) via PUT or PATCH. This will cover the scenarios such as users reassignment from services and potentially auditing purposes. Add the following code to `scim.ts` to support what the spec calls a partial delete:
+Okta implements a [soft delete aka deprovision](https://developer.okta.com/docs/reference/scim/scim-20/#delete-users) via PUT or PATCH. This will cover the scenarios such as users reassignment from services and potentially auditing purposes. Add the following code to `apps/api/src/scim.ts` to support what the spec calls a partial delete:
 
 ```ts
 // Soft Delete Users
@@ -1020,7 +1208,7 @@ Try sending a PATCH request with an empty body to `http://localhost:3333/scim/v2
 }
 ```
 
-Just like the delete request, you should expect to receive a 204 response; this is in line with [Okta's docs](https://developer.okta.com/docs/reference/scim/scim-20/#update-a-specific-user-patch)
+Just like the delete request, you should expect to receive a 204 response; this is in line with [Okta's docs](https://developer.okta.com/docs/reference/scim/scim-20/#update-a-specific-user-patch). Double check that the user's active attribute is set to false in the user table using Prisma's built in commands. In your terminal, go to the root of this workshop folder, and run `npx prisma studio`.  
 
 ## Connecting with an Identity Provider
 
@@ -1032,13 +1220,13 @@ We'll need to set up a few things for Okta to authenticate and interact with our
 
 One way to give your app a public URL or IP would be to host it on a cloud instance with DNS that you control. For development purposes, you can use Ngrok or Localtunnel to provide a public address to the app running on your own computer.
 
-Since some firewalls restrict Ngrok traffic, we'll use [Localtunnel](https://localtunnel.me) in this demonstration. To run the tunnel, you'll start the api with the following command:
+Since some firewalls restrict Ngrok traffic, we'll use [Localtunnel](https://localtunnel.me) in this demonstration. To run the tunnel, you'll start the api with the following command on your terminal:
 
 ```
 npm run serve-api
 ```
 
-In another terminal, start the tunnel using:
+In another terminal, start the tunnel using the following command:
 
 ```
 npx localtunnel --port 3333
@@ -1060,7 +1248,7 @@ In the Sign-On Options tab of the SCIM Test App, give the app a helpful name in 
 
 In the Sign-On Options dialogue, keep the default settings, as these won't be used by our app. Click the blue "Done" button at the bottom of the page. 
 
-In the Provisioning tab of the application, click the Configure API Integration button, check the Enable API Integration box. Provide the Base URL, which is the localtunnel URL with `/scim/v2` appended to the end. The API Token is `Bearer 131313` if you're using the values seeded by `seed.ts`. Save these settings.
+In the Provisioning tab of the application, click the Configure API Integration button, check the Enable API Integration box. Provide the Base URL, which is the localtunnel URL with `/scim/v2` appended to the end. The API Token is `Bearer 131313` if you're using the values seeded by `prisma/seed_script.ts`. Save these settings.
 
  When you save these settings or use the "Test API Credentials" button, Okta will make a `GET /Users` request with the API token you've provided in order to establish a connection with your SCIM server. 
 
@@ -1088,13 +1276,15 @@ You can now go back to your SCIM Application in the Applications list under Appl
 
 In your Todo App's server logs, you'll see that a POST request immediately appeared from Okta to create Tom Anderson's account on the Todo server. 
 
+Remember you have the option using Prisma to view the user table locally. To do this, in your terminal, go to the root of this workshop folder, and run `npx prisma studio`. Your browser should open to a web page where you can see all the users added from Okta. 
+
 ### Deprovision a user
 
 Let's say Tom decides to leave Portal, so we need to deprovision him from the application. 
 
 In the Assignments tab of the Okta SCIM application, use the blue X next to Tom's entry to unassign him from the app. This unassignment makes Okta send the Todo App PATCH request, setting the unassigned user's `active` attribute to `false`. This indicates that a user's account has been suspended. 
 
-We can confirm that Tom's `active` attribute is now `false` in the Todo app's database through the Prisma web interface.
+We can confirm that Tom's `active` attribute is now `false` in the Todo app's database through the Prisma web interface. To do this, in your terminal, go to the root of this workshop folder, and run `npx prisma studio`. Your browser should open to a web page where you can see all the users you've created. 
 
 ### Reprovision a user
 
@@ -1102,7 +1292,7 @@ Let's say Tom later decides to return to Portal and needs access to this Todo ap
 
 To reactivate Tom's account, we will repeat the steps for assigning his Okta account to the application.  Re-activating Tom causes Okta to send a PATCH request to our app, setting his  `active` attribute to `true`. 
 
-Again, we can confirm that Tom's account is now `active`  through our Prisma database web interface.
+Again, we can confirm that Tom's account is now `active`  through our Prisma database web interface. To do this, in your terminal, go to the root of this workshop folder, and run `npx prisma studio`. Your browser should open to a web page where you can see all the users you've created. 
 
 ### Change a user's info in Okta
 
@@ -1110,7 +1300,7 @@ Let's look at one more scenario. Let's say not only has Tom returned, but he has
 
 In the Directory tab of the Okta admin console sidebar, navigate to People, and click on Tom's name in the user list to edit his settings. Under Profile, click "Edit" in the Attributes pane. Change the `firstName` field to Leo, and update his `login` and `email` to `leo.anderson@portal.example`. Use the blue Save button at the bottom of the page to save your changes. 
 
-In your Todo app logs, what request do you expect to see from Okta when a user's information is updated? You should see the PUT request to your `/scim/v2/Users/4` endpoint shortly after saving Leo's new name. 
+In your Todo app logs, what request do you expect to see from Okta when a user's information is updated? You should see the PUT request to your `/scim/v2/Users/4` endpoint shortly after saving Leo's new name. Again you can use Prisma's web interface to confirm. To do this, in your terminal, go to the root of this workshop folder, and run `npx prisma studio`. Your browser should open to a web page where you can see the change you have made.  
 
 
 ## Tool recommendations for development 
@@ -1170,6 +1360,38 @@ module.exports = composePlugins(withNx(), (config) => {
 });
 ```
 
+## Scale your SCIM server to support multitenancy
+
+Enhance the scalability of your SCIM implementation with the following recommendations:
+
+<strong>Improve security by replacing auto-increment</strong>
+
+In the OIDC and SCIM video, it was recommended to have a better way to assign the id attribute. And in both workshops, we used basic autoincrement for the user's id to lessen the complexity of the projects. However, for production, we recommend using a unique id generator such as [uuid](https://www.npmjs.com/package/uuid). I know I mentioned using xid in my accompanying video, but when considering which to use, keep in mind and as secure best practice whether or not the library is frequently maintained. 
+
+
+<strong>Enhance efficiency in managing multitenancy</strong> 
+
+As mentioned, to simplify the example code, I demoed supporting one org at first by hardcoding the org ID as 1. 
+
+```ts
+// To funnel users into their designated orgs
+const ORG_ID = 1;
+```
+
+When you're ready to support multiple SCIM clients, you can retrieve the api string from the request headers sent from the IdP. Then do an org look-up with the findFirst SQL function and select the org id where the api key matches that of the one you extracted from the request headers. Doing so will automatically generate a user for the correct organization.
+
+```ts
+// Create the User in the database
+const user = await prisma.user.create({
+  data: {
+    org: { connect: { id: ORG_ID } },
+    name,
+    email,
+    externalId,
+    active
+  }
+```
+
 ## Adding SCIM support to SaaS applications
 
 Congratulations, you've added SCIM support to an OIDC application! Not only have you supported SCIM for a single Okta organization, but the implementation choices made throughout this workshop prioritize scalability so that the Todo app can integrate with as many additional identity providers as necessary! By giving every integration its own unique SCIM endpoint and API token, you prepare your application to seamlessly integrate with as many customers as you want. Keep in mind, IdPs that support SCIM may implement SCIM differently, so you will need to reference the specific IdP's implementation docs.
@@ -1178,7 +1400,7 @@ If you have followed along with the workshops so far, you now have a Todo applic
 
 |Posts in the enterprise-ready workshop series|
 | --- |
-| 1. [How to get Going with the Enterprise-Ready Identity for SaaS Apps Workshops](/blog/2023/07/27/enterprise-ready-getting-started) |
+| 1. [How to Get Going with the Enterprise-Ready SaaS Apps Workshops](/blog/2023/07/27/enterprise-ready-getting-started) |
 | 2. [Enterprise-Ready Workshop: Authenticate with OpenID Connect](/blog/2023/07/28/oidc_workshop) |
 | 3. **Enterprise-Ready Workshop: Manage Users with SCIM** |
 | 4. [Enterprise-Ready Workshop: Terraform](/blog/2023/07/28/terraform-workshop) |
