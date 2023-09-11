@@ -44,9 +44,9 @@ postsRelated:
   - jimenas-post-on-keycloak
 -->
 
-Adopting a microservices architecture provides unique opportunities to add failover and resiliency to your systems, so your components can handle load spikes and errors gracefully. Microservices make change less expensive, too. They can also be a good idea when you have a large team working on a single product. You can break up your project into components that can function independently. Once components can function independently, they can be built, tested, and deployed independently. This gives an organization and its teams the agility to develop and deploy quickly.
+Adopting a microservices architecture provides unique opportunities to add failover and resiliency to your systems so your components can gracefully handle load spikes and errors. Microservices make change less expensive, too. They can also be a good idea when you have a large team working on a single product. You can break up your project into components that can function independently. Once components can operate independently, they can be built, tested, and deployed separately. This gives an organization and its teams the agility to develop and deploy quickly.
 
-Java is a great language with a vast open source ecosystem to use when developing a microservice architecture. In fact, some of the biggest names in our industry use Java and contribute to its ecosystem. Have you ever heard of Netflix, Amazon, or Google? What about eBay, Twitter, and LinkedIn? Yes, major companies handling incredible traffic are doing it with Java.
+Java is an excellent language with a vast open source ecosystem for developing a microservice architecture. In fact, some of the biggest names in our industry use Java and contribute to its ecosystem. Have you ever heard of Netflix, Amazon, or Google? What about eBay, Twitter, and LinkedIn? Yes, web-scale companies handling incredible traffic are doing it with Java.
 
 Implementing a microservices architecture in Java isn't for everyone. For that matter, implementing microservices, in general, isn't often needed. Most companies do it to scale their people, not their systems. Even Martin Fowler's original blog post on [Microservices](https://martinfowler.com/articles/microservices.html) recommends against it:
 
@@ -54,17 +54,17 @@ Implementing a microservices architecture in Java isn't for everyone. For that m
 
 The Java ecosystem has some well-established patterns for developing microservice architectures. If you're familiar with Spring, you'll feel right at home developing with Spring Boot and Spring Cloud. Since that's one of the quickest ways to get started, I figured I'd walk you through a quick example.
 
-This example contains a microservice with a REST API that returns a list of cool cars. It uses Netflix Eureka for service discovery, WebClient for remote communication, and Spring Cloud Gateway to route requests to the microservice. It integrates Spring Security and OAuth 2.0 so only authenticated users can access the API gateway and microservice. It also uses Resilience4j to add fault tolerance to the gateway.
+This example contains a microservice with a REST API that returns a list of cool cars. It uses Netflix Eureka for service discovery, WebClient for remote communication, and Spring Cloud Gateway to route requests to the microservice. It integrates Spring Security and OAuth 2.0, so only authenticated users can access the API gateway and microservice. It also uses Resilience4j to add fault tolerance to the gateway.
 
 {% img blog/spring-boot-microservices/spring-cloud-gateway-with-cars.png alt:"Spring Boot Microservices" %}{: .center-image }
 
 **Table of Contents**{: .hide }
 * Table of Contents
-{:toc}
+  {:toc}
 
 ## Create Java Microservices with Spring Boot and Spring Cloud
 
-I like to show developers how you how to build everything from scratch. Today I'm going to take a different approach. First, I'll show you how to get the completed example working. Then, I'll explain how I created everything and the trials and tribulations I encountered along the way.
+I like to show developers how to build everything from scratch. Today, I'm going to take a different approach. First, I'll show you how to get the completed example working. Then, I'll explain how I created everything and the trials and tribulations I encountered along the way.
 
 You can start by cloning the [@oktadev/auth0-java-microservices-examples](https://github.com/oktadev/auth0-java-microservices-examples) repository.
 
@@ -75,13 +75,13 @@ cd java-microservices-examples/spring-boot-gateway-webflux
 
 In the `spring-boot-gateway-webflux` directory, there are three projects:
 
-* **discovery-service**: a Netflix Eureka server, used for service discovery.
+* **discovery-service**: a Netflix Eureka server used for service discovery.
 * **car-service**: a simple Car Service that uses Spring Data REST to serve up a REST API of cars.
-* **api-gateway**: an API gateway that has a `/cool-cars` endpoint that talks to the `car-service` and filters out cars that aren't cool (in my opinion, of course).
+* **api-gateway**: an API gateway with a `/cool-cars` endpoint that talks to the car service and filters out cars that aren't cool (in my opinion, of course).
 
 ### Run a Secure Spring Boot Microservice Architecture
 
-To run the example, you'll need to [install the Auth0 CLI](https://github.com/auth0/auth0-cli#installation) and create an Auth0 account. If you don't have an Auth0 account, [sign up for free](https://auth0.com/signup). I recommend using [SDKMAN!](https://sdkman.io) to install Java 17+.
+To run the example, you must [install the Auth0 CLI](https://github.com/auth0/auth0-cli#installation) and create an Auth0 account. If you don't have an Auth0 account, [sign up for free](https://auth0.com/signup). I recommend using [SDKMAN!](https://sdkman.io) to install Java 17+.
 
 First, start the discovery service:
 
@@ -90,7 +90,7 @@ cd discovery-service
 ./gradlew bootRun
 ```
 
-You'll need to configure the API gateway to use your Auth0 account before it'll start. 
+Before it starts, you'll need to configure the API gateway to use your Auth0 account.
 
 Open a terminal and run `auth0 login` to configure the Auth0 CLI to get an API key for your tenant. Then, run `auth0 apps create` to register an OpenID Connect (OIDC) app with the appropriate URLs:
 
@@ -113,7 +113,7 @@ OKTA_OAUTH2_CLIENT_SECRET=
 OKTA_OAUTH2_AUDIENCE=https://<your-auth0-domain>/api/v2/
 ```
 
-These properties will be read using [spring-dotenv](https://github.com/paulschwarz/spring-dotenv) at startup. 
+At startup, these properties will be read using [spring-dotenv](https://github.com/paulschwarz/spring-dotenv).
 
 Run `./gradlew bootRun` to start the API gateway, or use your IDE to run it.
 
@@ -127,7 +127,7 @@ OKTA_OAUTH2_AUDIENCE=https://<your-auth0-domain>/api/v2/
 Start it with `./gradlew bootRun` and open `http://localhost:8080` in your favorite browser. You'll be redirected to Auth0 to log in.
 
 [Auth0 login image]
- 
+
 After authenticating, you'll see your name in lights! ✨
 
 [Hello, name]
@@ -136,9 +136,9 @@ You can navigate to the following URLs in your browser for different results:
 
 - `http://localhost:8080/print-token`: prints access token to the console
 - `http://localhost:8080/cool-cars`: returns a list of cool cars
-- `http://localhost:8080/home`: proxies request to car service and shows JWT claims
+- `http://localhost:8080/home`: proxies request to the car service and shows JWT claims
 
-You can see what the access token contains by copy/pasting it into [jwt.io](https://jwt.io). You can also access the car service directly using it.
+You can see the access token's contents by copying/pasting it into [jwt.io](https://jwt.io). You can also access the car service directly using it.
 
 ```shell
 TOKEN=<access-token>
@@ -151,9 +151,9 @@ Pretty cool, eh? 😎
 
 ## My Developer Story with Spring Boot and Spring Cloud
 
-A few years ago, I created an [example similar to this one](http://developer.okta.com/blog/2019/05/22/java-microservices-spring-boot-spring-cloud) with Spring Boot 2.2. It used Feign for remote connectivity, Zuul for routing, Hystrix for failover, and Spring Security for OAuth. The September 2023 version of Spring Cloud has [Spring Cloud OpenFeign](https://spring.io/projects/spring-cloud-openfeign) for remote connectivity, [Spring Cloud Gateway](https://spring.io/projects/spring-cloud-gateway) for routing, and [Resilience4j](https://resilience4j.readme.io/) for fault tolerance. 
+A few years ago, I created an [example similar to this one](http://developer.okta.com/blog/2019/05/22/java-microservices-spring-boot-spring-cloud) with Spring Boot 2.2. It used Feign for remote connectivity, Zuul for routing, Hystrix for failover, and Spring Security for OAuth. The September 2023 version of Spring Cloud has [Spring Cloud OpenFeign](https://spring.io/projects/spring-cloud-openfeign) for remote connectivity, [Spring Cloud Gateway](https://spring.io/projects/spring-cloud-gateway) for routing, and [Resilience4j](https://resilience4j.readme.io/) for fault tolerance.
 
-Okta also has an [Okta Spring Boot starter](https://github.com/okta/okta-spring-boot) now. I didn't use it in my first experiment, but I'm big fan of it after the last few years! It greatly simplifies configuration and makes it easy to secure your apps with OAuth 2.0 and OIDC. It's a thin wrapper around Spring Security's resource server, OAuth client, and OIDC features. Not only that, but it works with Okta Workforce Identity, Okta Customer Identity (aka Auth0), and even Keycloak.
+Okta also now has an [Okta Spring Boot starter](https://github.com/okta/okta-spring-boot). I didn't use it in my first experiment, but I'm a big fan of it after the last few years! It dramatically simplifies configuration and makes securing your apps with OAuth 2.0 and OIDC easy. It's a thin wrapper around Spring Security's resource server, OAuth client, and OIDC features. Not only that, but it works with Okta Workforce Identity, Okta Customer Identity (aka Auth0), and even Keycloak.
 
 I created all of these applications using [start.spring.io](https://start.spring.io)'s REST API and [HTTPie](https://httpie.org).
 
@@ -171,9 +171,9 @@ https start.spring.io/starter.zip bootVersion==3.1.3 \
   dependencies==cloud-eureka,cloud-feign,data-rest,web,okta | tar -xzvf -
 ```` 
 
-You might notice the `api-gateway` project doesn't have `cloud-gateway` as a dependency. That's because I started without it and didn't add it until I needed to proxy requests by path. 
+You might notice the `api-gateway` project doesn't have `cloud-gateway` as a dependency. That's because I started without it and didn't add it until I needed to proxy requests by path.
 
-After creating these three projects, I ran `chmod +x gradlew` in each directory to make the Gradle wrapper executable. 
+After creating these three projects, I ran `chmod +x gradlew` in each directory to make the Gradle wrapper executable.
 
 ## Service Discovery with Netflix Eureka
 
@@ -184,7 +184,7 @@ server.port=8761
 eureka.client.register-with-eureka=false
 ```
 
-The `car-service` and `api-gateway` projects are configured in a similar fashion. Both have a unique name defined and `car-service` is configured to run on port `8090` so it doesn't conflict with `8080`.
+The `car-service` and `api-gateway` projects are configured similarly. Both have a unique name defined, and `car-service` is configured to run on port `8090` so it doesn't conflict with `8080`.
 
 `.car-service/src/main/resources/application.properties`
 ```properties
@@ -197,7 +197,7 @@ spring.application.name=car-service
 spring.application.name=api-gateway
 ```
 
-The main class in both projects is annotated with `@EnableDiscoveryClient`.
+`@EnableDiscoveryClient` annotates the main class in both projects.
 
 ## Build a Java Microservice with Spring Data REST
 
@@ -239,7 +239,7 @@ public class CarServiceApplication {
 }
 ```
 
-The `CarRepository` interface makes it easy to persist and fetch cars from the database.
+The `CarRepository` interface makes persisting and fetching cars from the database easy.
 
 ```java
 package com.example.carservice.data;
@@ -364,7 +364,7 @@ This worked great, but I still wanted to proxy `/home` to the downstream car ser
 
 ## Add Routing with Spring Cloud Gateway
 
-I immediately discovered that adding `spring-cloud-starter-gateway` as a dependency caused issues. First of all, I had Spring MVC in my classpath and Spring Cloud Gateway uses WebFlux. WebFlux recommends using WebClient over Feign and Resilience4J over Hystrix. I decided to switch to WebClient and Resilience4J.
+I immediately discovered that adding `spring-cloud-starter-gateway` as a dependency caused issues. First, I had Spring MVC in my classpath, and Spring Cloud Gateway uses WebFlux. WebFlux recommends using WebClient over Feign and Resilience4J over Hystrix. I decided to switch to WebClient and Resilience4J.
 
 I had to remove the following dependencies from my original `api-gateway` project.
 
@@ -478,7 +478,7 @@ spring:
             - Path=/home/**
 ```
 
-At this point, I was able to access the car service directly at `http://localhost:8090/cars` and through the gateway at `http://localhost:8080/home`.
+At this point, I could access the car service directly at `http://localhost:8090/cars` and through the gateway at `http://localhost:8080/home`.
 
 ## Secure Spring Boot Microservices with OAuth 2.0 and OIDC
 
@@ -491,11 +491,11 @@ okta.oauth2.client-secret=${OKTA_OAUTH2_CLIENT_SECRET}
 okta.oauth2.audience=${OKTA_OAUTH2_AUDIENCE}
 ```
 
-The variables are read from the `.env` file in the root directory. 
+The variables are read from the `.env` file in the project's root directory.
 
 ### Fetch an Access Token as a JWT
 
-When I first got things working, I was able to log in to the gateway, but when I tried to connect to the downstream microservice, it said the JWT was invalid. For this reason, I added a `/print-token` endpoint to the gateway that prints the access token to the console. 
+When I first got things working, I was able to log in to the gateway, but when I tried to connect to the downstream microservice, it said the JWT was invalid. For this reason, I added a `/print-token` endpoint to the gateway that prints the access token to the console.
 
 ```java
 package com.example.apigateway.web;
@@ -531,7 +531,7 @@ class HomeController {
 }
 ```
 
-Using jwt.io, I was able to verify that it wasn't a valid JWT. I thought about trying to implement Spring Security's [opaque token support](http://developer.okta.com/blog/2020/08/07/spring-boot-remote-vs-local-tokens), but discovered Auth0 [doesn't have an `/instropection` endpoint](https://community.auth0.com/t/introspection-endpoint-for-opaque-tokens-or-more-flexible-rules-to-get-clear-jwt-access-token/63866). This makes it impossible to use opaque tokens with Auth0.
+Using jwt.io, I verified that it wasn't a valid JWT. I thought about trying to implement Spring Security's [opaque token support](http://developer.okta.com/blog/2020/08/07/spring-boot-remote-vs-local-tokens), but discovered Auth0 [doesn't have an `/instropection` endpoint](https://community.auth0.com/t/introspection-endpoint-for-opaque-tokens-or-more-flexible-rules-to-get-clear-jwt-access-token/63866). This makes it impossible to use opaque tokens with Auth0.
 
 The good news is I figured out a workaround! If you pass a valid `audience` parameter to Auth0, you'll get a JWT for the access token. I logged an [issue for the Okta Spring Boot starter](https://github.com/okta/okta-spring-boot/issues/596) and added a `SecurityConfiguration` class to solve the problem in the meantime.
 
@@ -616,7 +616,7 @@ spring:
       routes: ...
 ```
 
-And, I added a `WebClientConfiguration` class to configure `WebClient` to include the access token with its requests.
+I added a `WebClientConfiguration` class to configure `WebClient` to include the access token with its requests.
 
 ```java
 package com.example.apigateway.config;
@@ -648,7 +648,7 @@ public class WebClientConfiguration {
 
 ## Spring Boot Microservices and Refresh Tokens
 
-In my previous example, I wasn't able to get refresh tokens to work. I was able to get them to work this time! I changed the default scopes in `api-gateway` to request a refresh token using the `offline_access` scope.
+In my previous example, I couldn't get refresh tokens to work. I was able to get them to work this time! I changed the default scopes in `api-gateway` to request a refresh token using the `offline_access` scope.
 
 ```dotenv
 OKTA_OAUTH2_SCOPES=openid,profile,email,offline_access
@@ -664,13 +664,13 @@ auth0 apis create --name fast-expiring --identifier http://fast-expiring-api \
 
 // todo: why does it prompt for scopes and offline access
 
-If you do the same, you can restart the API gateway and go to `http://localhost:8080/print-token` to see your access token. You can copy the expired time to [timestamp-converter.com](https://www.timestamp-converter.com/) to see when it expires in your local timezone. Wait 30 seconds and refresh the page. You'll see a request to get a new token and an updated expires timestamp in your terminal.
+If you do the same, you can restart the API gateway and go to `http://localhost:8080/print-token` to see your access token. You can copy the expired time to [timestamp-converter.com](https://www.timestamp-converter.com/) to see when it expires in your local timezone. Wait 30 seconds and refresh the page. You'll see a request for a new token and an updated expires timestamp in your terminal.
 
 ## The Okta Spring Boot starter and Keycloak
 
-If you find yourself in a situation where you don't have an internet connection, it can be handy to run Keycloak locally in a Docker container. Since the Okta Spring Boot starter is a thin wrapper around Spring Security, it works with Keycloak too. 
+If you find yourself in a situation where you don't have an internet connection, it can be handy to run Keycloak locally in a Docker container. Since the Okta Spring Boot starter is a thin wrapper around Spring Security, it works with Keycloak, too.
 
-In my experience, Spring Security's OAuth support works with any OAuth 2.0-compliant server. The Okta Spring Boot starter does validate the issuer to make sure it's an Okta URL, so you have to use Spring Security's properties instead of the `okta.oauth2.*` properties when using Keycloak.
+In my experience, Spring Security's OAuth support works with any OAuth 2.0-compliant server. The Okta Spring Boot starter does validate the issuer to ensure it's an Okta URL, so you must use Spring Security's properties instead of the `okta.oauth2.*` properties when using Keycloak.
 
 An easy way to get a pre-configured Keycloak instance is to use [JHipster](https://www.jhipster.tech)'s `jhipster-sample-app-oauth2` application. It gets updated with every JHipster release. You can clone it with the following command:
 
@@ -701,15 +701,15 @@ spring.security.oauth2.resourceserver.jwt.issuer-uri=http://localhost:9080/realm
 spring.security.oauth2.resourceserver.jwt.audiences=account
 ```
 
-Restart both apps, open `http://localhost:8080`, and you'll be able to log in with Keycloak. 
+Restart both apps, open `http://localhost:8080`, and you'll be able to log in with Keycloak.
 
 [Keycloak login screenshot]
 
-Use `admin`/`admin` for credentials, and you'll be able to access `http://localhost:8080/cool-cars` as you did before.
+Use `admin`/`admin` for credentials, and you can access `http://localhost:8080/cool-cars` as you did before.
 
 ## Have fun with Spring Boot and Spring Cloud!
 
-I hope you liked this tour of how to build Java microservice architectures with Spring Boot and Spring Cloud. You learned how to build everything with minimal code, then configure it to be secure with Spring Security, OAuth 2.0, and Auth0 by Okta.
+I hope you liked this tour of how to build Java microservice architectures with Spring Boot and Spring Cloud. You learned how to build everything with minimal code and then configure it to be secure with Spring Security, OAuth 2.0, and Auth0 by Okta.
 
 You can find all the code shown in this tutorial on GitHub in the [@oktadev/auth0-java-microservices-examples repository](https://github.com/oktadev/auth0-java-microservices-examples/tree/main/spring-boot-gateway-webflux).
 
@@ -722,4 +722,4 @@ If you liked this post, you might enjoy these related posts:
 
 Please follow us [on Twitter @oktadev](https://twitter.com/oktadev) and subscribe to [our YouTube channel](https://www.youtube.com/oktadev) for more Spring Boot and microservices knowledge.
 
-You can also sign up for our [newsletter](https://a0.to/nl-signup/java) to stay updated on everything Identity and Security.
+You can also sign up for our [developer newsletter](https://a0.to/nl-signup/java) to stay updated on everything Identity and Security.
