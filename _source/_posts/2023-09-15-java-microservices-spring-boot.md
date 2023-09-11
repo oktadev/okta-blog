@@ -476,6 +476,8 @@ spring:
             - Path=/home/**
 ```
 
+At this point, I was able to access the car service directly at `http://localhost:8090/cars` and through the gateway at `http://localhost:8080/home`.
+
 ## Secure Java Microservices with OAuth 2.0 and OIDC
 
 To configure the Okta Spring Boot starter, there are a few properties in the `api-gateway` project's `application.properties` file.
@@ -487,7 +489,7 @@ okta.oauth2.client-secret=${OKTA_OAUTH2_CLIENT_SECRET}
 okta.oauth2.audience=${OKTA_OAUTH2_AUDIENCE}
 ```
 
-The values are read from the `.env` file in the root directory. 
+The variables are read from the `.env` file in the root directory. 
 
 ### Get an Access Token as a JWT
 
@@ -591,7 +593,7 @@ public class SecurityConfiguration {
 }
 ```
 
-Then, I was able to get the OpenFeign client to work by adding a couple of properties to enable OAuth:
+I was able to get the OpenFeign client to work by adding a couple of properties to enable OAuth:
 
 ```properties
 spring.cloud.openfeign.oauth2.enabled=true
@@ -666,16 +668,20 @@ Restart the API gateway and go to `http://localhost:8080/print-token` to see you
 
 If you find yourself in a situation where you don't have an internet connection, it can be handy to run Keycloak locally in a Docker container. Since the Okta Spring Boot starter is a thin wrapper around Spring Security, it works with Keycloak too. It does validate the issuer to make sure it's an Okta URL, so you have to use Spring Security's properties instead of the `okta.oauth2.*` properties.
 
-An easy way to get a pre-configured Keycloak instance is to use a [JHipster](https://www.jhipster.tech)'s `jhipster-sample-app-oauth2` application. It gets updated with every JHipster release. You can clone it with the following command:
+An easy way to get a pre-configured Keycloak instance is to use [JHipster](https://www.jhipster.tech)'s `jhipster-sample-app-oauth2` application. It gets updated with every JHipster release. You can clone it with the following command:
 
 ```shell
 git clone https://github.com/jhipster/jhipster-sample-app-oauth2.git --depth=1
 cd jhipster-sample-app-oauth2
 ```
 
-Then, start Keycloak with `docker-compose -f src/main/docker/keycloak.yml up -d`. 
+Then, open and navigate to the project in a terminal. Start Keycloak:
 
-You can configure the `api-gateway` to use Keycloak by removing the `okta.oauth2.*` properties and adding the following:
+```shell
+docker-compose -f src/main/docker/keycloak.yml up -d
+```
+
+You can configure the `api-gateway` to use Keycloak by removing the `okta.oauth2.*` properties and using Spring Security's:
 
 ```properties
 spring.security.oauth2.client.provider.okta.issuer-uri=http://localhost:9080/realms/jhipster
@@ -695,13 +701,20 @@ Restart both apps, open `http://localhost:8080`, and you'll be able to log in wi
 
 [Keycloak login screenshot]
 
-Use `admin`/`admin` for credentials and you'll be able to access `http://localhost:8080/cool-cars` as you did before.
+Use `admin`/`admin` for credentials, and you'll be able to access `http://localhost:8080/cool-cars` as you did before.
 
 ## Have fun with Spring Boot and Spring Cloud!
 
 I hope you liked this tour of how to build Java microservice architectures with Spring Boot and Spring Cloud. You learned how to build everything with minimal code, then configure it to be secure with Spring Security, OAuth 2.0, and Auth0 by Okta.
 
-You can find all the code shown in this tutorial [on GitHub](https://github.com/oktadev/auth0-java-microservices-examples/tree/main/spring-boot-gateway-webflux).
+You can find all the code shown in this tutorial on GitHub in the [@oktadev/auth0-java-microservices-examples repository](https://github.com/oktadev/auth0-java-microservices-examples/tree/main/spring-boot-gateway-webflux).
+
+If you liked this post, you might enjoy these related posts:
+
+- [Deploy Secure Spring Boot Microservices on Amazon EKS Using Terraform and Kubernetes](https://auth0.com/blog/terraform-eks-java-microservices/)
+- [Get started with Spring Boot and Auth0](https://auth0.com/blog/get-started-with-okta-spring-boot-starter/)
+- [Build a Beautiful CRUD App with Spring Boot and Angular](https://auth0.com/blog/spring-boot-angular-crud/)
+- [Get Started with Jetty, Java, and OAuth](https://auth0.com/blog/java-jetty-oauth/)
 
 Please follow us [on Twitter @oktadev](https://twitter.com/oktadev) and subscribe to [our YouTube channel](https://www.youtube.com/oktadev) for more Spring Boot and microservices knowledge.
 
