@@ -145,6 +145,8 @@ TOKEN=<access-token>
 http :8090/cars Authorization:"Bearer $TOKEN"
 ```
 
+[screenshot of terminal]
+
 Pretty cool, eh? 😎
 
 ## My Developer Story with Spring Boot and Spring Cloud
@@ -460,7 +462,7 @@ class CarController {
 }
 ```
 
-To proxy `/home` to the downstream microservice, I added a `src/main/resources/application.yml` and configured Spring Cloud Gateway to enable service discovery with Eureka and proxy requests to the car microservice.
+To proxy `/home` to the downstream microservice, I added a `src/main/resources/application.yml` and configured Spring Cloud Gateway to enable service discovery with Eureka and proxy `/home` requests to the car microservice.
 
 ```yaml
 spring:
@@ -478,7 +480,7 @@ spring:
 
 At this point, I was able to access the car service directly at `http://localhost:8090/cars` and through the gateway at `http://localhost:8080/home`.
 
-## Secure Java Microservices with OAuth 2.0 and OIDC
+## Secure Spring Boot Microservices with OAuth 2.0 and OIDC
 
 To configure the Okta Spring Boot starter, there are a few properties in the `api-gateway` project's `application.properties` file.
 
@@ -491,7 +493,7 @@ okta.oauth2.audience=${OKTA_OAUTH2_AUDIENCE}
 
 The variables are read from the `.env` file in the root directory. 
 
-### Get an Access Token as a JWT
+### Fetch an Access Token as a JWT
 
 When I first got things working, I was able to log in to the gateway, but when I tried to connect to the downstream microservice, it said the JWT was invalid. For this reason, I added a `/print-token` endpoint to the gateway that prints the access token to the console. 
 
@@ -662,11 +664,13 @@ auth0 apis create --name fast-expiring --identifier http://fast-expiring-api \
 
 // todo: why does it prompt for scopes and offline access
 
-Restart the API gateway and go to `http://localhost:8080/print-token` to see your access token. You can copy the expired time to [timestamp-converter.com](https://www.timestamp-converter.com/) to see when it expires in your local timezone. Wait 30 seconds and refresh the page. You'll see a request to get a new token and an updated expires timestamp in your terminal.
+If you do the same, you can restart the API gateway and go to `http://localhost:8080/print-token` to see your access token. You can copy the expired time to [timestamp-converter.com](https://www.timestamp-converter.com/) to see when it expires in your local timezone. Wait 30 seconds and refresh the page. You'll see a request to get a new token and an updated expires timestamp in your terminal.
 
 ## The Okta Spring Boot starter and Keycloak
 
-If you find yourself in a situation where you don't have an internet connection, it can be handy to run Keycloak locally in a Docker container. Since the Okta Spring Boot starter is a thin wrapper around Spring Security, it works with Keycloak too. It does validate the issuer to make sure it's an Okta URL, so you have to use Spring Security's properties instead of the `okta.oauth2.*` properties.
+If you find yourself in a situation where you don't have an internet connection, it can be handy to run Keycloak locally in a Docker container. Since the Okta Spring Boot starter is a thin wrapper around Spring Security, it works with Keycloak too. 
+
+In my experience, Spring Security's OAuth support works with any OAuth 2.0-compliant server. The Okta Spring Boot starter does validate the issuer to make sure it's an Okta URL, so you have to use Spring Security's properties instead of the `okta.oauth2.*` properties when using Keycloak.
 
 An easy way to get a pre-configured Keycloak instance is to use [JHipster](https://www.jhipster.tech)'s `jhipster-sample-app-oauth2` application. It gets updated with every JHipster release. You can clone it with the following command:
 
@@ -675,7 +679,7 @@ git clone https://github.com/jhipster/jhipster-sample-app-oauth2.git --depth=1
 cd jhipster-sample-app-oauth2
 ```
 
-Then, open and navigate to the project in a terminal. Start Keycloak:
+Then, open and navigate to the project in a terminal. Start its Keycloak instance:
 
 ```shell
 docker-compose -f src/main/docker/keycloak.yml up -d
