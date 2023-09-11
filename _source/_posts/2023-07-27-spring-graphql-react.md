@@ -12,6 +12,7 @@ tweets:
 - ""
 image:
 type: awareness
+github: https://github.com/oktadev/auth0-spring-graphql-react-example
 ---
 
 GraphQL is a query language for APIs and a runtime that allows the API consumer to get exactly the required information instead of the server exclusively controlling the contents of the response. While some REST API implementations require loading the references of a resource from multiple URLs, GraphQL APIs can follow references between related objects and return them in a single request.
@@ -416,7 +417,7 @@ class GraphQLConfig {
 }
 ```
 
-Create the configuration class `SpringBootGraphQlApiConfig` in the root package as well, defining a reactive transaction manager required for reactive Neo4j:
+Create a configuration class named `SpringBootGraphQlApiConfig` in the root package as well, defining a reactive transaction manager required for reactive Neo4j:
 
 __SpringBootGraphQlApiConfig.java__
 ```java
@@ -571,7 +572,7 @@ tasks.named('test') {
 Run the test with:
 
 ```shell
-./gradlew clean test
+./gradlew test
 ```
 
 You should see logs for the successful tests:
@@ -587,13 +588,14 @@ CompanyControllerTests > shouldGetCompanies() PASSED
 
 ### Add Neo4j seed data
 
-Let's add Neo4j migrations dependency for the seed data insertion. Edit the file `build.gradle` and add:
+Let's add Neo4j migrations dependency for the seed data insertion. Edit the `build.gradle` file and add:
 
 __build.gradle__
 ```groovy
 dependencies {
     ...
     implementation 'eu.michael-simons.neo4j:neo4j-migrations-spring-boot-starter:2.5.3'
+    ...
 }
 ```
 
@@ -719,7 +721,7 @@ services:
 Create the file `src/main/docker/.env` with the following content:
 
 __.env__
-```shell
+```dotenv
 NEO4J_PASSWORD=verysecret
 ```
 
@@ -751,7 +753,7 @@ Wait for the logs to inform the seed data migrations have run (it might take a w
 2023-08-02T13:21:06.551-03:00  INFO 28673 --- [           main] a.s.neo4j.migrations.core.Migrations     : Applied migration 006 ("Land").
 ```
 
-Test the API with GraphiQL at **http://localhost:8080/graphiql**. In the query box on the left, paste the following query
+Test the API with GraphiQL at `http://localhost:8080/graphiql`. In the query box on the left, paste the following query:
 
 ```graphql
 {
@@ -778,7 +780,7 @@ You should see the query output in the box on the right:
 
 ## Build a React client
 
-Now let's create a Single Page Application (SPA) to consume the GraphQL API with React and Next.js. The list of companies will display in a [MUI](https://mui.com/material-ui/getting-started/) [Datagrid](https://mui.com/x/react-data-grid/) component. The application will use Next.js `app` router. The `src/app` folder will contain routing files only, and the UI components and application code will be located in other folders.
+Now let's create a Single Page Application (SPA) to consume the GraphQL API with React and Next.js. The list of companies will display in a [MUI](https://mui.com/material-ui/getting-started/) [Data Grid](https://mui.com/x/react-data-grid/) component. The application will use Next.js' `app` router. The `src/app` folder will only contain routing files, and the UI components and application code will be in other folders.
 
 Install Node and in a terminal run:
 
@@ -807,13 +809,13 @@ cd react-graphql && \
   npm install react-use-custom-hooks
 ```
 
-Test run the application with:
+Run the application with:
 
 ```shell
 npm run dev
 ```
 
-Navigate to http://localhost:3000 and you should see the default Next.js page:
+Navigate to `http://localhost:3000` and you should see the default Next.js page:
 
 {% img blog/spring-graphql-react/nextjs-default.png alt:"Next.js default page" width:"800" %}{: .center-image }
 
@@ -1140,7 +1142,7 @@ export default WideLayout;
 ```
 {% endraw %}
 
-With the implementation above, the page content will be wrapped in a `ThemeProvider` component, so https://github.com/vercel/next.js/discussions/45433[MUI child components inherit the font family] from the root layout.
+With the implementation above, the page content will be wrapped in a `ThemeProvider` component, so [MUI child components inherit the font family](https://github.com/vercel/next.js/discussions/45433) from the root layout.
 Update the contents of `src/app/layout.tsx` to be:
 
 {% raw %}
@@ -1175,13 +1177,13 @@ export default function RootLayout({
 ```
 {% endraw %}
 
-Also, remove `src/app/global.css` and `src/app/page.module.css`. Then run the client application with:
+Also, remove `src/app/globals.css` and `src/app/page.module.css`. Then run the client application with:
 
 ```shell
 npm run dev
 ```
 
-Navigate to http://localhost:3000 and you should see the companies list:
+Navigate to `http://localhost:3000` and you should see the companies list:
 
 {% img blog/spring-graphql-react/react-datagrid.png alt:"Home page companies datagrid" width:"900" %}{: .center-image }
 
@@ -1254,7 +1256,7 @@ Once the app is created, you will see the OIDC app's configuration:
  ▸    Hint: Consider running `auth0 quickstarts download ***`
 ```
 
-Add the `okta-spring-boot-starter` dependency to the `build.gradle` file:
+Add the `okta-spring-boot-starter` dependency to the `build.gradle` file in the spring-graphql-api project:
 
 __build.gradle__
 ```groovy
@@ -1265,13 +1267,13 @@ dependencies {
 }
 ```
 
-Set the clientId, issuer, and audience for OAuth2 in the `application.properties` file:
+Set the client ID, issuer, and audience for OAuth 2.0 in the `application.properties` file:
 
 __application.properties__
 ```properties
 okta.oauth2.issuer=https://{yourAuth0Domain}/
 okta.oauth2.client-id={clientId}
-okta.oauth2.audience=https://{yourAuth0Domain}/api/v2/
+okta.oauth2.audience=${okta.oauth2.issuer}api/v2/
 ```
 
 Add the client secret to the `.env` file:
@@ -1295,7 +1297,7 @@ __SpringBootGraphQlApiConfig.java__
 ```
 
 > __NOTE:__
-> The Okta Spring Boot starter provides the security auto-configuration out of the box, and the resource server configuration would not be necessary. For some reason, the Spring for GraphQL cors allowed origins configuration does not take effect without the customization above.
+> The Okta Spring Boot starter provides the security auto-configuration out of the box, and the resource server configuration should not be necessary. For some reason, the Spring for GraphQL cors allowed origins configuration does not take effect without the customization above.
 
 Again, in the root folder, run the API server with:
 
@@ -1319,7 +1321,7 @@ echo -E '{"query":"{\n    companyList(page: 20) {\n        id\n        SIC\n    
 
 ### Add Auth0 Login to the React client
 
-When using Auth0 as the identity provider, you can configure the Universal Login Page for a quick integration without having to build the login forms. First, create a SPA application using the Auth0 CLI:
+When using Auth0 as the identity provider, you can configure the Universal Login Page for a quick integration without having to build the login forms. First, register a SPA OIDC application using the Auth0 CLI:
 
 ```shell
 auth0 apps create \
@@ -1552,7 +1554,7 @@ export const useAccessToken = () => {
 };
 ```
 
-The hook will call Auth0 `getAccessTokenSilently()` and will trigger a token refresh if the access token is expired. Then it will update axios interceptors to set the updated bearer token value in the request headers.
+The hook will call Auth0's `getAccessTokenSilently()` and trigger a token refresh if the access token expires. Then, it will update Axios interceptors to set the updated bearer token value in the request headers.
 Create the `useAsyncWithToken` hook:
 
 __useAsyncWithToken.tsx__
@@ -1604,7 +1606,7 @@ Run the application with:
 npm run dev
 ```
 
-Go to http://localhost:3000 and you should be redirected to the Auth0 universal login page. After login in, you should see the companies list again.
+Go to `http://localhost:3000` and you should be redirected to the Auth0 universal login page. After logging in, you should see the companies list again.
 
 {% img blog/spring-graphql-react/auth0-universal-login.png alt:"Auth0 universal login form" width:"400" %}{: .center-image }
 
@@ -1783,7 +1785,7 @@ Give it a try, and notice how simple was the update.
 
 ## Learn More About Spring Boot and React
 
-I hope you enjoyed this tutorial, and found this example useful. As you can see, not much work would be required to consume more company data from the GraphQL server, just a query update in the client. Also, the Auth0 Universal Login and Auth0 React SDK provide an efficient way to secure your React applications, following security best practices. You can find all the code for this example in the [Github repository](https://github.com/indiepopart/spring-graphql-react).
+I hope you enjoyed this tutorial, and found this example useful. As you can see, not much work would be required to consume more company data from the GraphQL server, just a query update in the client. Also, the Auth0 Universal Login and Auth0 React SDK provide an efficient way to secure your React applications, following security best practices. You can find all the code for this example in the [GitHub repository](https://github.com/oktadev/auth0-spring-graphql-react-example).
 
 Check out the Auth0 documentation for adding [sign-up](https://developer.auth0.com/resources/guides/spa/react/basic-authentication#add-user-sign-up-to-react) and [logout](https://developer.auth0.com/resources/guides/spa/react/basic-authentication#add-user-logout-to-reactfunctionality) to your React application. And for more fun tutorials about Spring Boot and React, you can visit the following links:
 
