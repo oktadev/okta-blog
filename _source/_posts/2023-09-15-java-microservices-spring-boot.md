@@ -647,7 +647,7 @@ public class WebClientConfiguration {
 
 ## Spring Boot Microservices and Refresh Tokens
 
-In my previous example, I couldn't get refresh tokens to work. I was able to get them to work this time! I changed the default scopes in `api-gateway` to request a refresh token using the `offline_access` scope.
+In my previous Spring Boot 2.2 example, I couldn't get refresh tokens to work. I was able to get them to work this time! I changed the default scopes in `api-gateway` to request a refresh token using the `offline_access` scope.
 
 `.env`
 ```dotenv
@@ -655,12 +655,14 @@ OKTA_OAUTH2_AUDIENCE=https://fast-expiring-api
 OKTA_OAUTH2_SCOPES=openid,profile,email,offline_access
 ```
 
+And added a property to `application.properties` to read it.
+
 `src/main/resources/application.properties`
 ```properties
 okta.oauth2.scopes=${OKTA_OAUTH2_SCOPES}
 ```
 
-Then, I created an API in Auth0 called `fast-expiring-api` and set the TTL to 30 seconds.
+Then, I created an API in Auth0 called `fast-expiring-api` and set it to expire in 30 seconds.
 
 ```shell
 auth0 apis create --name fast-expiring --identifier https://fast-expiring-api \
@@ -714,7 +716,7 @@ Use `admin`/`admin` for credentials, and you can access `http://localhost:8080/c
 
 ## Have fun with Spring Boot and Spring Cloud!
 
-I hope you liked this tour of how to build Java microservice architectures with Spring Boot and Spring Cloud. You learned how to build everything with minimal code and then configure it to be secure with Spring Security, OAuth 2.0, and Auth0 by Okta.
+I hope you liked this tour of how to build Java microservice architectures with Spring Boot and Spring Cloud. You learned how to build everything with minimal code and then configure it to be secure with Spring Security, OAuth 2.0, OIDC, and Auth0 by Okta.
 
 You can find all the code shown in this tutorial on GitHub in the [@oktadev/auth0-java-microservices-examples repository](https://github.com/oktadev/auth0-java-microservices-examples/tree/main/spring-boot-gateway-webflux). The OpenFeign example with Spring MVC is in the `mvc` branch and the Keycloak example is in the `keycloak` branch.
 
