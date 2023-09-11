@@ -44,19 +44,19 @@ postsRelated:
   - jimenas-post-on-keycloak
 -->
 
-// todo: rewrite intro
+Adopting a microservices architecture provides unique opportunities to add failover and resiliency to your systems, so your components can handle load spikes and errors gracefully. Microservices make change less expensive, too. They can also be a good idea when you have a large team working on a single product. You can break up your project into components that can function independently. Once components can function independently, they can be built, tested, and deployed independently. This gives an organization and its teams the agility to develop and deploy quickly.
 
-Java is a great language to use when developing a https://www.okta.com/blog/2021/02/microservices/[microservice] architecture. In fact, some of the biggest names in our industry use it. Have you ever heard of Netflix, Amazon, or Google? What about eBay, Twitter, and LinkedIn? Yes, major companies handling incredible traffic are doing it with Java.
+Java is a great language with a vast open source ecosystem to use when developing a microservice architecture. In fact, some of the biggest names in our industry use Java and contribute to its ecosystem. Have you ever heard of Netflix, Amazon, or Google? What about eBay, Twitter, and LinkedIn? Yes, major companies handling incredible traffic are doing it with Java.
 
-Implementing a microservices architecture in Java isn't for everyone. For that matter, implementing microservices, in general, isn't often needed. Most companies do it to scale their people, not their systems. If you're going to scale your people, hiring Java developers is one of the best ways to do it. After all, there are more developers fluent in Java than most other languages - though JavaScript seems to be catching up quickly!
+Implementing a microservices architecture in Java isn't for everyone. For that matter, implementing microservices, in general, isn't often needed. Most companies do it to scale their people, not their systems. Even Martin Fowler's original blog post on [Microservices](https://martinfowler.com/articles/microservices.html) recommends against it:
+
+> One reasonable argument we've heard is that you shouldn't start with a microservices architecture. Instead begin with a monolith, keep it modular, and split it into microservices once the monolith becomes a problem.
 
 The Java ecosystem has some well-established patterns for developing microservice architectures. If you're familiar with Spring, you'll feel right at home developing with Spring Boot and Spring Cloud. Since that's one of the quickest ways to get started, I figured I'd walk you through a quick example.
 
-This example contains a microservice with a REST API that returns a list of cool cars. It uses Netflix Eureka for service discovery, WebClient for remote communication, and Spring Cloud Gateway to route requests to the microservice. It integrates Spring Security and OAuth 2.0 so only authenticated users can access the API gateway and microservice. 
+This example contains a microservice with a REST API that returns a list of cool cars. It uses Netflix Eureka for service discovery, WebClient for remote communication, and Spring Cloud Gateway to route requests to the microservice. It integrates Spring Security and OAuth 2.0 so only authenticated users can access the API gateway and microservice. It also uses Resilience4j to add fault tolerance to the gateway.
 
-// todo: update image so it's not VW and requests /cool-cars
-
-{% img blog/spring-cloud-gateway/spring-cloud-gateway-oauth2.png alt:"Spring Boot Microservices" width:"800" %}{: .center-image }
+{% img blog/spring-boot-microservices/spring-cloud-gateway-with-cars.png alt:"Spring Boot Microservices" width:"800" %}{: .center-image }
 
 **Table of Contents**{: .hide }
 * Table of Contents
@@ -149,11 +149,9 @@ Pretty cool, eh? 😎
 
 ## My Developer Story with Spring Boot and Spring Cloud
 
-A few years ago, I created a [similar example](http://developer.okta.com/blog/2019/05/22/java-microservices-spring-boot-spring-cloud) to this one with Spring Boot 2.2. It used Feign for remote connectivity, Zuul for routing, Hystrix for failover, and Spring Security for OAuth. 
+A few years ago, I created an [example similar to this one](http://developer.okta.com/blog/2019/05/22/java-microservices-spring-boot-spring-cloud) with Spring Boot 2.2. It used Feign for remote connectivity, Zuul for routing, Hystrix for failover, and Spring Security for OAuth. The September 2023 version of Spring Cloud has [Spring Cloud OpenFeign](https://spring.io/projects/spring-cloud-openfeign) for remote connectivity, [Spring Cloud Gateway](https://spring.io/projects/spring-cloud-gateway) for routing, and [Resilience4j](https://resilience4j.readme.io/) for fault tolerance. 
 
-The latest version of Spring Cloud has [Spring Cloud OpenFeign](https://spring.io/projects/spring-cloud-openfeign) for remote connectivity, [Spring Cloud Gateway](https://spring.io/projects/spring-cloud-gateway) for routing, and [Resilience4j](https://resilience4j.readme.io/) for fault tolerance. 
-
-We also have an [Okta Spring Boot starter](https://github.com/okta/okta-spring-boot) now that simplifies configuration and makes it easy to secure your apps with OAuth 2.0 and OIDC. It's a thin wrapper around Spring Security's resource server, OAuth client, and OIDC features. Not only that, but it works with Okta Workforce Identity, Okta Customer Identity (aka Auth0), and even Keycloak.
+Okta also has an [Okta Spring Boot starter](https://github.com/okta/okta-spring-boot) now. I didn't use it in my first experiment, but I'm big fan of it after the last few years! It greatly simplifies configuration and makes it easy to secure your apps with OAuth 2.0 and OIDC. It's a thin wrapper around Spring Security's resource server, OAuth client, and OIDC features. Not only that, but it works with Okta Workforce Identity, Okta Customer Identity (aka Auth0), and even Keycloak.
 
 I created all of these applications using [start.spring.io](https://start.spring.io)'s REST API and [HTTPie](https://httpie.org).
 
@@ -245,7 +243,9 @@ The `CarRepository` interface makes it easy to persist and fetch cars from the d
 package com.example.carservice.data;
 
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.rest.core.annotation.RepositoryRestResource;
 
+@RepositoryRestResource
 public interface CarRepository extends JpaRepository<Car, Long> {
 }
 ```
@@ -283,7 +283,6 @@ Finally, the `application.properties` has a configuration to create the database
 ```properties
 spring.jpa.hibernate.ddl-auto=update
 ```
-// todo: verify it's not `create-update`
 
 ## Connect to Java Microservices with Spring Cloud OpenFeign
 
@@ -292,10 +291,8 @@ Next, I configured OpenFeign in the `api-gateway` project to connect to the car 
 ```java 
 package com.example.apigateway;
 
-import com.netflix.hystrix.contrib.javanica.annotation.HystrixCommand;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.cloud.client.circuitbreaker.EnableCircuitBreaker;
 import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
 import org.springframework.cloud.openfeign.EnableFeignClients;
 import org.springframework.cloud.openfeign.FeignClient;
@@ -309,7 +306,6 @@ import java.util.Collection;
 import java.util.stream.Collectors;
 
 @EnableFeignClients
-@EnableCircuitBreaker
 @EnableDiscoveryClient
 @SpringBootApplication
 public class ApiGatewayApplication {
@@ -345,20 +341,19 @@ class CoolCarController {
 
     @GetMapping("/cool-cars")
     @CrossOrigin
-    @HystrixCommand(fallbackMethod = "fallback")
     public Collection<Car> goodCars() {
         return carClient.readCars()
-                .getContent()
-                .stream()
-                .filter(this::isCool)
-                .collect(Collectors.toList());
+            .getContent()
+            .stream()
+            .filter(this::isCool)
+            .collect(Collectors.toList());
     }
 
     private boolean isCool(Car car) {
-        return !car.getName().equals("AMC Gremlin") &&
-                !car.getName().equals("Triumph Stag") &&
-                !car.getName().equals("Ford Pinto") &&
-                !car.getName().equals("Yugo GV");
+        return !car.name().equals("AMC Gremlin") &&
+            !car.name().equals("Triumph Stag") &&
+            !car.name().equals("Ford Pinto") &&
+            !car.name().equals("Yugo GV");
     }
 }
 ```
@@ -437,7 +432,35 @@ class CoolCarController {
 }
 ```
 
-To proxy `/home` to the downstream microservice, I added a `src/main/resources/application.yml` that contains the following configuration. This enables service discovery with Eureka and proxies requests to the car service.
+In the `car-service` project, I had to switch from using Spring Data REST to handling it with a `@RestController` and `@GetMapping` annotation. I removed the `@RepositoryRestResource` annotation from `CarRepository` and added a `CarController` class.
+
+```java
+package com.example.carservice.web;
+
+import com.example.carservice.data.Car;
+import com.example.carservice.data.CarRepository;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RestController;
+
+import java.util.List;
+
+@RestController
+class CarController {
+
+    private final CarRepository repository;
+
+    public CarController(CarRepository repository) {
+        this.repository = repository;
+    }
+
+    @GetMapping("/cars")
+    public List<Car> getCars() {
+        return repository.findAll();
+    }
+}
+```
+
+To proxy `/home` to the downstream microservice, I added a `src/main/resources/application.yml` and configured Spring Cloud Gateway to enable service discovery with Eureka and proxy requests to the car microservice.
 
 ```yaml
 spring:
@@ -568,7 +591,7 @@ public class SecurityConfiguration {
 }
 ```
 
-Then, I was able to get the Feign client to work by adding a couple of properties:
+Then, I was able to get the OpenFeign client to work by adding a couple of properties to enable OAuth:
 
 ```properties
 spring.cloud.openfeign.oauth2.enabled=true
