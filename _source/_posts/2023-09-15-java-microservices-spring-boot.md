@@ -56,7 +56,7 @@ The Java ecosystem has some well-established patterns for developing microservic
 
 This example contains a microservice with a REST API that returns a list of cool cars. It uses Netflix Eureka for service discovery, WebClient for remote communication, and Spring Cloud Gateway to route requests to the microservice. It integrates Spring Security and OAuth 2.0 so only authenticated users can access the API gateway and microservice. It also uses Resilience4j to add fault tolerance to the gateway.
 
-{% img blog/spring-boot-microservices/spring-cloud-gateway-with-cars.png alt:"Spring Boot Microservices" width:"800" %}{: .center-image }
+{% img blog/spring-boot-microservices/spring-cloud-gateway-with-cars.png alt:"Spring Boot Microservices" %}{: .center-image }
 
 **Table of Contents**{: .hide }
 * Table of Contents
