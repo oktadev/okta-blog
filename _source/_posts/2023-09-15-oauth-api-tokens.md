@@ -14,7 +14,7 @@ image: blog/oauth-api-tokens/social.jpg
 type: awareness
 ---
 
-In the past, people used static API tokens to call internal endpoints and external APIs, such as those belonging to third parties and vendors, to access resources for their software systems. Static API tokens may have been the standard previously, but a better alternative exists. As the technology evolves, [OAuth 2.0](https://developer.okta.com/docs/concepts/oauth-openid/) offers more robust security, flexibility, and a better developer experience. Let's explore the advantages of moving away from static tokens in favor of OAuth 2.0.
+Static API tokens have long been used to call external APIs and access the resources of third parties such as software vendors. As API standards have evolved, [OAuth 2.0](https://developer.okta.com/docs/concepts/oauth-openid/) emerged as the option offering more robust security, flexibility, and a better developer experience. Let's explore the advantages of moving away from static tokens in favor of OAuth 2.0.
 
 {% include toc.md %}
 
@@ -168,7 +168,7 @@ You can read more about Device Code flow for command lines in [Authenticate from
 
 ### User access through a web application
 
-The last use case ensures the user's authorization applies to API access when using a web application. OAuth 2.0 supports limiting an application's actions to a subset of what the user can do and the data they see. In this flow, you have the user context to apply for resource authorization, plus having the user context makes auditing and tracing calls by individual users more straightforward. The OAuth 2.0 flow for this use case combines a standard flow, **Authorization Code** flow, along with an extension for an extra layer of security called **Proof Key for Code Exchange** (PKCE).
+The last use case ensures the user's authorization applies to API access when using a web application. OAuth 2.0 supports limiting an application's actions to a subset of what the user can do and the data they see. In this flow, you have the user context to apply for resource authorization, plus having the user context makes auditing and tracing calls by individual users more straightforward. The OAuth 2.0 flow for this use case combines a standard flow, **Authorization Code** flow, and an extension for an extra layer of security called **Proof Key for Code Exchange** (PKCE).
 
 Authorization Code flow with PKCE requires multiple steps to retrieve an access token and involves user interaction through consent and verification, which allows multi-factor authentication. In this flow, you'll redirect the user to an authorization server for the authorization code before requesting an access token. 
 
@@ -197,7 +197,7 @@ Read more about the authorization code flow in [How Authentication and Authoriza
 
 Software migrations take time and planning, and having a good game plan helps. Consider transitioning to OAuth 2.0 in small, incremental steps.
 
-The first step in migrating from static API tokens is ensuring the APIs you use support OAuth 2.0. Check with your vendor if you're calling third-party APIs. If your API is internal, you'll want to add OAuth support. Once you verify the APIs you're calling support OAuth, you'll need the client ID for the OAuth application and to enable access measures such as scopes.
+The first step in migrating from static API tokens is ensuring the APIs you use support OAuth 2.0. Check with your vendor if you're calling third-party APIs. If your API is internal, you'll want to add OAuth support. Once you verify the APIs you're calling support OAuth, you'll need the client ID for the OAuth application and enable access measures such as scopes.
 
 Let's focus on the use case of an automated service-to-service call. Incorporating OAuth 2.0 within your APIs all in one shot is daunting, so let's examine how to achieve this incrementally. Before making any code changes, you can try the steps locally by hand and use your favorite HTTP client to request a token and call an API using OAuth 2.0. This case uses Client Credentials flow with a private key JWT. The steps are:
 
@@ -247,7 +247,6 @@ Immediately transitioning away from static tokens isn't always feasible, especia
    * Don't use personal accounts to establish service accounts.
    * Use a custom admin role for service accounts, granting only the essential permissions.
    * Use Groups and Global Session Policies to prevent interactive logins for service accounts.
-
 
 ## Secure API calls with OAuth 2.0
 
