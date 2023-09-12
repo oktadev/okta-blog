@@ -5,7 +5,7 @@ author: max-katz
 by: advocate
 communities: [no-code,javascript]
 description: "Add automated reporting with no-code Okta Workflows. Enhance customer satisfaction by enabling custom automation."
-tags: [enterprise-ready-workshops, workflows, no-code, low-code]
+tags: [enterprise-ready-workshops, react, express, oidc, workflows, automation, no-code, low-code]
 tweets:
 - ""
 image: blog/workflows-workshop/social.jpg
