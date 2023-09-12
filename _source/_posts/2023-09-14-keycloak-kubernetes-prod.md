@@ -17,7 +17,7 @@ Keycloak is an open-source identity and access management solution that allows y
 
 Keycloak is the default OAuth 2.0 and OpenID Connect (OIDC) server configured with JHipster. This is because Keycloak can be run in a local Docker container, and pre-populated with users and client registrations. Yes, you can [switch to Auth0](https://www.jhipster.tech/security/#auth0), but it requires a bit of configuration.
 
-We've written a [couple](https://auth0.com/blog/full-stack-java-with-react-spring-boot-and-jhipster/) of [tutorials](https://auth0.com/blog/micro-frontends-for-java-microservices/) showing how to switch a JHipster project from Keycloak to Auth0. We figured it'd be fun to show you how to chain Keycloak and Auth0 together this time. This might be useful for those folks whose companies have mandated Keycloak, and you want to use Auth0 for more advanced features.
+We've written a [couple](https://auth0.com/blog/full-stack-java-with-react-spring-boot-and-jhipster/) of [tutorials](https://auth0.com/blog/micro-frontends-for-java-microservices/) showing how to migrate a JHipster project from Keycloak to Auth0. We figured it'd be fun to show you how to chain Keycloak and Auth0 together this time. This architecture might be useful for those folks whose companies have mandated Keycloak, and you want to use Auth0 for more advanced features.
 
 Using OAuth 2.0 with JHipster is an excellent way to ensure that your web applications are secure and well-protected from unauthorized access. By integrating OAuth and OIDC to your applications, you can easily implement authorization and authentication, manage user identities, and provide secure access to resources.
 
