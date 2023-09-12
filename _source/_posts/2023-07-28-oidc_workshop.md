@@ -17,12 +17,12 @@ This workshop is part of our Enterprise Readiness Workshop series.
 
 In this workshop, you will be wearing the hat of a SaaS developer who will up-level his/her app to allow users (from your big enterprise customers) to log on using their own company credentials without providing a password directly to your app. When any enterprise customer considers buying your software to enhance their employees' productivity, their IT and security teams want to make sure employees can access your app securely. As a developer, you'd prefer not to rebuild large portions of your authentication flow for every new customer. Fortunately, the OpenID Connect standard solves both of these problems! By adding OpenID Connect (OIDC) support to your app, you can meet the identity security needs of every enterprise organization that uses an OIDC-compatible identity provider. 
 
-|Posts in the enterprise-ready workshop series|
+|Posts in the on-demand workshop series|
 | --- |
-| 1. [How to Get Going with the Enterprise-Ready SaaS Apps Workshops](/blog/2023/07/27/enterprise-ready-getting-started) |
+| 1. [How to Get Going with the On-Demand SaaS Apps Workshops](/blog/2023/07/27/enterprise-ready-getting-started) |
 | 2. **Enterprise-Ready Workshop: Authenticate with OpenID Connect** |
 | 3. [Enterprise-Ready Workshop: Manage Users with SCIM](/blog/2023/07/28/scim-workshop) |
-| 4. [Enterprise-Ready Workshop: Terraform](/blog/2023/07/28/terraform-workshop) |
+| 4. [Enterprise Maturity Workshop: Terraform](/blog/2023/07/28/terraform-workshop) |
 
 Today, we'll walk through adding OIDC to our Todo sample application. 
 

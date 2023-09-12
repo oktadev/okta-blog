@@ -1,6 +1,6 @@
 ---
 layout: blog_post
-title: "How to Get Going with the Enterprise-Ready SaaS Apps Workshops"
+title: "How to Get Going with the On-Demand SaaS Apps Workshops"
 author: alisa-duncan
 by: advocate
 communities: [devops,security,.net,java,javascript,php,python]
@@ -11,7 +11,7 @@ type: awareness
 github: https://github.com/oktadev/okta-enterprise-ready-workshops
 ---
 
-Having an enterprise-ready SaaS application means your application supports authentication best practices, can scale across multiple customers and users, has automated means to re-create environments, and can securely add enhancements and value-adds your customers expect. Join this free virtual workshop series where we take your SaaS application on a journey of enterprise-ready identity— you'll wear the hat of a SaaS developer preparing your Todo application to support enterprise-level customers who want to use your Todo app within their organizations.
+Having an enterprise-ready SaaS application means your application supports authentication best practices, can scale across multiple customers and users, has automated means to re-create environments, and can securely add enhancements and value-adds your customers expect. Join this free virtual workshop series where we take your SaaS application on a journey of enterprise-ready identity — you'll wear the hat of a SaaS developer preparing your Todo application to support enterprise-level customers who want to use your Todo app within their organizations.
 
 In this post you'll install the necessary tools to build and run the Todo application locally.
 
@@ -21,12 +21,12 @@ The base application is a minimal "to-do list" built as a B2C application. You'l
 
 You can pick which workshop to participate in and the order in which you participate. Choose the workshops that best address your next most pressing need.
 
-|Posts in the enterprise-ready workshop series|
+|Posts in the on-demand workshop series|
 | --- |
-| 1. **How to Get Going with the Enterprise-Ready SaaS Apps Workshops** |
+| 1. **How to Get Going with the On-Demand SaaS Apps Workshops** |
 | 2. [Enterprise-Ready Workshop: Authenticate with OpenID Connect](/blog/2023/07/28/oidc_workshop) |
 | 3. [Enterprise-Ready Workshop: Manage Users with SCIM](/blog/2023/07/28/scim-workshop) |
-| 4. [Enterprise-Ready Workshop: Terraform](/blog/2023/07/28/terraform-workshop) |
+| 4. [Enterprise Maturity Workshop: Terraform](/blog/2023/07/28/terraform-workshop) |
 
 > We want to ensure you can follow the workshops and focus on understanding how to enhance the application for enterprise use cases, so don't use this base application as a template expecting a production-quality B2C or B2B application - it has some obvious intentional security shortcomings!
 
