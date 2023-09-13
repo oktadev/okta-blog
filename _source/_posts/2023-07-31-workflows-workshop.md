@@ -329,6 +329,8 @@ passport.use(new BearerStrategy(
 
 This code sets up an authentication strategy using an HTTP bearer token. 
 
+We are using the keys to look up the associated orgs. The way this is set up, it supports scaling across customers.
+
 ### Adding the API endpoint for retrieving todo items
 
 1. Right after the code above, add the following code:
