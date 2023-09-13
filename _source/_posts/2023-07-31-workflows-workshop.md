@@ -55,9 +55,6 @@ You will complete the following steps:
 | 4. [Enterprise-Ready Workshop: Terraform](/blog/2023/07/028/terraform-workshop) |
 | 5. **Enterprise-Ready Workshop: Automate with no-code Okta Workflows** |
 
-In a later section, you will learn how to get the Todo application. For now, you will learn about Okta Workflows. 
-
-
 
 ## What is Okta Workflows?
 [Okta Workflows](https://www.okta.com/platform/workflows/) is a no-code platform that allows building automations to help with identity processes. 
@@ -288,7 +285,7 @@ The create serveral todo items:
 You can also use Prisma Studio to view the todo items in the database. 
 
 
-## Enhancing the application with a new API
+## Enhancing the Todo application with a new API
 
 In this step, you will add an API service to get all the items belonging to an organization. You will also add authentiation to the API service. 
 
