@@ -184,7 +184,7 @@ In this section, you will complete the following steps:
 5. Running the application
 
  
- > If you would like to skip **Setting up the Todo application** and **Enhancing the application with a new API** steps and jump to the Workflows part, [check out the fully built project on GitHub](https://github.com/oktadev/okta-enterprise-ready-workshops/tree/workflows-workshop-completed). 
+ > If you would like to skip the **Setting up the Todo application** and **Enhancing the application with a new API** steps and jump to the Workflows part, [check out the fully built project on GitHub](https://github.com/oktadev/okta-enterprise-ready-workshops/tree/workflows-workshop-completed). 
 
 
 ### Getting the Todo application
