@@ -12,7 +12,7 @@ image: blog/workflows-workshop/social.jpg
 type: awareness
 ---
 
-This tutorial is part of the enterprise-ready workshop series. In this workshop, you'll enhance the base Todo application by creating an automated report using Okta's no-code Workflows platform.
+This tutorial is part of the on-demand workshop series. In this workshop, you'll enhance the base Todo application by creating an automated report using Okta's no-code Workflows platform.
 
 {% include toc.md %}
 
@@ -95,9 +95,11 @@ To sign up for a Workforce Identity Cloud trial:
 
 To access Workflows:
 
-1. Sign-in into your Okta admin dashboard
-    * If you are using a trial account, the admin dashboard link will be in the following format: `https://trial-xxxxxxxx-admin.okta.com/admin/dashboard`
-2. On the right-hand side menu, click **Workflows > Workflows console** to open Workflows
+1. Sign in to your Okta org
+    * If you are using a trial, your org URL can be found in an email with the **Activate your Okta account** subject
+    * It has the following format: `https://trial-<ID>.okta.com`. For example `https://trial-6093533.okta.com`
+1. Click **Admin** (upper right) to access the Admin console
+1. On the right-hand side menu, click **Workflows > Workflows console** to open Workflows
 
 
 You will see the Workflows home page:
@@ -181,6 +183,9 @@ In this section, you will complete the following steps:
 4. Adding an organziation to the application
 5. Running the application
 
+ 
+ > If you would like to skip **Setting up the Todo application** and **Enhancing the application with a new API** steps and jump to the Workflows part, [check out the fully built project on GitHub](https://github.com/oktadev/okta-enterprise-ready-workshops/tree/workflows-workshop-completed). 
+
 
 ### Getting the Todo application
 In this step, you will get the Todo application.
@@ -196,6 +201,8 @@ There are two ways to get the Todo application:
   _Option 2: Download the application_
   1. Go to the [okta-enterprise-ready-workshops](https://github.com/oktadev/okta-enterprise-ready-workshops/tree/oidc-workshop-complete) GitHub page
   2. Open the menu for the green **<> Code** button and select **Download Zip**
+
+
 
 ### Installing application dependencies
 
