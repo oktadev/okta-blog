@@ -122,7 +122,7 @@ You will see the Workflows home page:
 
 {% img blog/workflows-workshop/Workflows_console_main.jpg alt:"Workflows home page" %}{: .center-image }
 
-## Creating a new flow
+## Creating a flow
 To start, you will create a new flow. 
 
 1. In the Workflows console, click **Flows** in the top navigation menu
