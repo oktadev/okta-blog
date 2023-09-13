@@ -15,19 +15,19 @@ type: awareness
 ---
 Keycloak is an open-source identity and access management solution that allows you to secure your applications and services with ease. JHipster, on the other hand, is a powerful development platform that provides developers with the tools they need to create modern, scalable, and robust web applications using Spring Boot.
 
-Keycloak is the default OAuth 2.0 and OpenID Connect (OIDC) server configured with JHipster. This is because Keycloak can be run in a local Docker container, and pre-populated with users and client registrations. Yes, you can [switch to Auth0](https://www.jhipster.tech/security/#auth0), but it requires a bit of configuration.
+Keycloak is the default OAuth 2.0 and OpenID Connect (OIDC) server configured with JHipster. This is because Keycloak can be run in a local Docker container and pre-populated with users and client registrations. Of course, you can also [use JHipster with Auth0](https://www.jhipster.tech/security/#auth0)!
 
-We've written a [couple](https://auth0.com/blog/full-stack-java-with-react-spring-boot-and-jhipster/) of [tutorials](https://auth0.com/blog/micro-frontends-for-java-microservices/) showing how to migrate a JHipster project from Keycloak to Auth0. We figured it'd be fun to show you how to chain Keycloak and Auth0 together this time. This architecture might be useful for those folks whose companies have mandated Keycloak, and you want to use Auth0 for more advanced features.
+We've written a [couple](https://auth0.com/blog/full-stack-java-with-react-spring-boot-and-jhipster/) of [tutorials](https://auth0.com/blog/micro-frontends-for-java-microservices/) showing how to migrate a JHipster project from Keycloak to Auth0. This time, we figured it'd be fun to show you how to chain Keycloak and Auth0 together. This architecture might be useful for those folks whose companies have mandated Keycloak and want to use Auth0 for more advanced features.
 
-Using OAuth 2.0 with JHipster is an excellent way to ensure that your web applications are secure and well-protected from unauthorized access. By integrating OAuth and OIDC to your applications, you can easily implement authorization and authentication, manage user identities, and provide secure access to resources.
+Using OAuth 2.0 with JHipster is an excellent way to ensure your web applications are secure and well-protected from unauthorized access. Integrating OAuth and OIDC into your applications allows you to easily implement authorization and authentication, manage user identities, and provide secure access to resources.
 
-> **Why the heck is there a Keycloak post on the Auth0 blog?** 
-> 
-> Here at Auth0, we believe in open source and supporting the developer community. By publishing this tutorial about Keycloak and Kubernetes, we hope to help developers learn more about identity, especially in production! 
-> 
-> In this tutorial, we'll show you how you can configure Keycloak to use Auth0 as an upstream provider. This will set up for success because you can our advanced identity features, like [actions](https://auth0.com/docs/customize/actions) and [passkeys](https://auth0.com/blog/our-take-on-passkeys/), to delight your customers. It's all pretty slick! 😃
+> **Why the heck is there a Keycloak post on the Auth0 blog?**
+>
+> Here at Auth0, we believe in open source and supporting the developer community. By publishing this tutorial about Keycloak and Kubernetes, we hope to help developers learn more about identity, especially in production!
+>
+> In this tutorial, we'll show you how you can configure Keycloak to use Auth0 as an upstream provider. This will set you up for success because you can use our advanced identity features, like [actions](https://auth0.com/docs/customize/actions) and [passkeys](https://auth0.com/blog/our-take-on-passkeys/), to delight your customers. It's all pretty slick! 😃
 
-The JHipster Kubernetes generator creates all the necessary Kubernetes resources, such as deployments, services, and ingresses, based on the configuration of the JHipster application. This includes setting up the database, configuring security, and setting up any necessary environment variables. Since JHipster 8, the Kubernetes sub-generator supports Keycloak for Ingress GKE deployment. In this post, I'll walk you through the generation of a demo Spring Boot microservices application with Keycloak integration using JHipster, and its deployment to Google Kubernetes Engine (GKE).
+The JHipster Kubernetes generator creates all the necessary Kubernetes resources, such as deployments, services, and ingresses, based on the configuration of the JHipster application. This includes setting up the database, configuring security, and setting up any necessary environment variables. Since JHipster 8, the Kubernetes sub-generator supports Keycloak for Ingress GKE deployment. In this post, I'll walk you through the generation of a demo Spring Boot microservices application with Keycloak integration using JHipster and its deployment to Google Kubernetes Engine (GKE).
 
 {% img blog/keycloak-kubernetes-prod/keycloak-gke.png alt:"Keycloak, JHipster, GKE logos" width:"500" %}{: .center-image }
 
