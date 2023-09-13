@@ -31,6 +31,22 @@ The email report looks like this:
 
 {% img blog/workflows-workshop/Workflows_email_report.jpg alt:"Todo email report showing each todo item from the Todo application with a boolean indicating completed state" width:"800" %}{: .center-image }
 
+
+In this workshop, you'll enhance the SaaS Todo application by creating an automated report using Okta's no-code Workflows platform. 
+
+You will complete the following steps: 
+
+- Building an Okta Workflows flow and automation
+- Scheduling the flow to run periodically
+- Enhancing an SaaS Todo application with a new API service
+- Calling the API service to retrieve todos items from an application
+- Creating a todo summary and sending the summary via email
+- Testing the flow
+
+> The workshop uses a local application to make it straightforward to connect to its API without needing to deploy the application in the cloud. 
+>
+> The local setup is for demonstration purposes only. In the real world, the application would be deployed in the cloud.
+
 |Posts in the enterprise-ready workshop series|
 | --- |
 | 1. [How to Get Going with the On-Demand SaaS Apps Workshops](/blog/2023/07/27/enterprise-ready-getting-started) |
@@ -105,22 +121,6 @@ To access Workflows:
 You will see the Workflows home page:
 
 {% img blog/workflows-workshop/Workflows_console_main.jpg alt:"Workflows home page" %}{: .center-image }
-
-## Steps to build automated email report using Okta Workflows
-In this workshop, you will learn how to build an automated email report in Okta Workflows. 
-
-You will learn and complete the following steps: 
-
-- Building an Okta Workflows flow and automation
-- Scheduling the flow to run periodically
-- Enhancing an application with a new API service
-- Calling the API service to retrieve todos items from an application
-- Creating a todo summary and sending the summary via email
-- Testing the flow
-
-> The workshop uses a local application to make it straightforward to connect to its API without needing to deploy the application in the cloud. 
->
-> The local setup is for demonstration purposes only. In the real world, the application would be deployed in the cloud.
 
 ## Creating a new flow
 To start, you will create a new flow. 
