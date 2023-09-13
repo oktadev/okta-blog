@@ -390,7 +390,7 @@ public interface CompanyRepository extends ReactiveNeo4jRepository<Company, Long
 }
 ```
 
-Create the configuration class `GraphQLConfig` under the root package. This class will enable CORS from the React client and log the GraphQL schema mappings:
+Create the configuration class `GraphQLConfig` under the root package:
 
 __GraphQLConfig.java__
 ```java
@@ -607,6 +607,7 @@ __V001__Constraint.cypher__
 CREATE CONSTRAINT FOR (c:Company) REQUIRE c.companyNumber IS UNIQUE;
 //Constraint for a node key is a Neo4j Enterprise feature only - run on an instance with enterprise
 //CREATE CONSTRAINT ON (p:Person) ASSERT (p.birthMonth, p.birthYear, p.name) IS NODE KEY
+CREATE CONSTRAINT FOR (p:Person) REQUIRE (p.birthMonth, p.birthYear, p.name) IS UNIQUE;
 CREATE CONSTRAINT FOR (p:Property) REQUIRE p.titleNumber IS UNIQUE;
 ```
 
@@ -669,7 +670,6 @@ Update `application.properties` and add the following properties:
 
 __application.properties__
 ```properties
-...
 spring.graphql.graphiql.enabled=true
 spring.graphql.schema.introspection.enabled=true
 org.neo4j.migrations.transaction-mode=PER_STATEMENT
@@ -679,6 +679,8 @@ spring.neo4j.authentication.username=neo4j
 spring.graphql.cors.allowed-origins=http://localhost:3000
 ```
 
+The property `spring.graphql.cors.allowed-origins` will eventually enable cors for the client application.
+
 Create a `.env` file in the project root to store the Neo4j credentials:
 
 __.env__
@@ -686,17 +688,16 @@ __.env__
 export SPRING_NEO4J_AUTHENTICATION_PASSWORD=verysecret
 ```
 
-Download the following seed files to some folder:
+Download the following seed files to an empty folder, as it will be mounted to the Neo4j container:
 
-- [CompanyDataAmericans](https://guides.neo4j.com/ukcompanies/data/CompanyDataAmericans.csv)
-- [LandOwnershipAmericans](https://guides.neo4j.com/ukcompanies/data/LandOwnershipAmericans.csv)
+- [CompanyDataAmericans.csv](https://guides.neo4j.com/ukcompanies/data/CompanyDataAmericans.csv)
+- [LandOwnershipAmericans.csv](https://guides.neo4j.com/ukcompanies/data/LandOwnershipAmericans.csv)
 - [PSCAmericans.csv](https://guides.neo4j.com/ukcompanies/data/PSCAmericans.csv)
 
 Create the folder `src/main/docker` and create a file `neo4j.yml` there, with the following content:
 
 __neo4j.yml__
 ```yml
-# This configuration is intended for development purpose, it's **your** responsibility to harden it for production
 name: companies
 services:
   neo4j:
@@ -742,15 +743,15 @@ Go to the project root folder and start the application with:
 source .env && ./gradlew bootRun
 ```
 
-Wait for the logs to inform the seed data migrations have run (it might take a while):
+Wait for the logs to inform the seed data migrations have run:
 
 ```
-2023-08-02T13:06:14.386-03:00  INFO 28673 --- [           main] a.s.neo4j.migrations.core.Migrations     : Applied migration 001 ("Constraint").
-2023-08-02T13:06:23.379-03:00  INFO 28673 --- [           main] a.s.neo4j.migrations.core.Migrations     : Applied migration 002 ("Company").
-2023-08-02T13:11:23.693-03:00  INFO 28673 --- [           main] a.s.neo4j.migrations.core.Migrations     : Applied migration 003 ("Person").
-2023-08-02T13:21:03.680-03:00  INFO 28673 --- [           main] a.s.neo4j.migrations.core.Migrations     : Applied migration 004 ("PersonCompany").
-2023-08-02T13:21:06.519-03:00  INFO 28673 --- [           main] a.s.neo4j.migrations.core.Migrations     : Applied migration 005 ("CompanyData").
-2023-08-02T13:21:06.551-03:00  INFO 28673 --- [           main] a.s.neo4j.migrations.core.Migrations     : Applied migration 006 ("Land").
+2023-09-13T11:52:08.041-03:00  ... Applied migration 001 ("Constraint").
+2023-09-13T11:52:12.121-03:00  ... Applied migration 002 ("Company").
+2023-09-13T11:52:16.508-03:00  ... Applied migration 003 ("Person").
+2023-09-13T11:52:22.635-03:00  ... Applied migration 004 ("PersonCompany").
+2023-09-13T11:52:25.979-03:00  ... Applied migration 005 ("CompanyData").
+2023-09-13T11:52:27.703-03:00  ... Applied migration 006 ("Land").
 ```
 
 Test the API with GraphiQL at `http://localhost:8080/graphiql`. In the query box on the left, paste the following query:
@@ -782,7 +783,7 @@ You should see the query output in the box on the right:
 
 Now let's create a Single Page Application (SPA) to consume the GraphQL API with React and Next.js. The list of companies will display in a [MUI](https://mui.com/material-ui/getting-started/) [Data Grid](https://mui.com/x/react-data-grid/) component. The application will use Next.js' `app` router. The `src/app` folder will only contain routing files, and the UI components and application code will be in other folders.
 
-Install Node and in a terminal run:
+Install Node and in a terminal run the `create-next-app` command, at the parent directory of the Spring Boot application. It will create a project folder for the client application at the same level as the server application folder:
 
 ```shell
 npx create-next-app@13.4.19
