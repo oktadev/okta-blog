@@ -801,13 +801,14 @@ Answer the questions as follows:
 ✔ Would you like to customize the default import alias? ... No
 ```
 
-Then add the the MUI Datagrid dependencies and custom hooks from Vercel:
+Then add the the MUI Datagrid dependencies, custom hooks from Vercel and Axios:
 
 ```shell
 cd react-graphql && \
   npm install @mui/x-data-grid && \
   npm install @mui/material@5.14.5 @emotion/react @emotion/styled && \
-  npm install react-use-custom-hooks
+  npm install react-use-custom-hooks && \
+  npm install axios
 ```
 
 Run the application with:
@@ -913,6 +914,9 @@ Add a file `.env.example` and `.env.local` in the root folder, both with the fol
 ```shell
 NEXT_PUBLIC_API_SERVER_URL=http://localhost:8080
 ```
+
+> __NOTE:__
+> The `.env.local` is ignored in the repository, and the `.env.example` is pushed as a reference on what environment variables are required for running the application.
 
 ### Create a companies home page
 
@@ -1306,6 +1310,12 @@ Again, in the root folder, run the API server with:
 source .env && ./gradlew bootRun
 ```
 
+Get an access token using the Auth0 cli with the `test token` command:
+
+```shell
+auth0 test token -a https://<yourAuth0Domain>/api/v2/
+```
+
 With HTTPie, send a request to the API server using a bearer access token:
 
 ```shell
@@ -1318,7 +1328,7 @@ echo -E '{"query":"{\n    companyList(page: 20) {\n        id\n        SIC\n    
 ```
 
 > __NOTE:__
-> Follow [these instructions](https://auth0.com/docs/secure/tokens/access-tokens/get-management-api-access-tokens-for-testing) to get an access token for the Auth0 Management API, which can be used for testing the server API.
+> You can also follow [these instructions](https://auth0.com/docs/secure/tokens/access-tokens/get-management-api-access-tokens-for-testing) for creating a test access token.
 
 ### Add Auth0 Login to the React client
 
@@ -1331,7 +1341,8 @@ auth0 apps create \
   --type spa \
   --callbacks http://localhost:3000/callback \
   --logout-urls http://localhost:3000 \
-  --reveal-secrets
+  --origins http://localhost:3000 \
+  --web-origins http://localhost:3000
 ```
 
 Copy the Auth0 domain and the client ID, and update the `src/.env.local` adding the following properties (add the new variables to the example file, too):
@@ -1616,7 +1627,7 @@ Go to `http://localhost:3000` and you should be redirected to the Auth0 universa
 Once the companies load, you can inspect the network requests and see the bearer token is sent in the request headers. It will look like the example below:
 
 ```
-Authorization: Bearer eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCIsImtpZCI6IlJzZHNsM211SjNYU2ZVT0tDOEMxSiJ9.eyJodHRwczovL3d3dy5qaGlwc3Rlci50ZWNoL3JvbGVzIjpbIlJPTEVfQURNSU4iLCJST0xFX1VTRVIiXSwiaXNzIjoiaHR0cHM6Ly9kZXYtYXZ1cDJsYXoudXMuYXV0aDAuY29tLyIsInN1YiI6ImF1dGgwfDY0MzQxOTkxNTJmYjc2N2Y3ZWFlZDU2NyIsImF1ZCI6WyJhcGktc2VydmVyIiwiaHR0cHM6Ly9kZXYtYXZ1cDJsYXoudXMuYXV0aDAuY29tL3VzZXJpbmZvIl0sImlhdCI6MTY5MTU5NDE3NCwiZXhwIjoxNjkxNTk0Mjk0LCJhenAiOiI1WW5QeEJiTjRoYXFyd2JNaXRpZFBRVTBjb0l2YUI3SCIsInNjb3BlIjoib3BlbmlkIHByb2ZpbGUgZW1haWwgb2ZmbGluZV9hY2Nlc3MifQ.oRMJNIwSeO9dfHi6Q2tr_B51YetEPZqjcVEEIBe3ky9tEe50tTB5ssMTbVaR78_1qXA663Cn4EMPEYTLlb_wiOHEqnKpZnpq0O07G2MGszkrgv5giaQBOXvr9UT_Kc3pFPK-xMVmOsicLoF_mz8iyOzReG1Gcw0UbS1fZsJthdtC9svLiPGC1rn-dwPJxPpKy118vWLbEgO3NsdVfaiPxbucv0TL_B8Msd-wBD8N4M_yej9jl7w2JT0ltLza_-Glbxr1aQBKd19O2QT8ovgyE325BYqeYiUOaV7efwMgqHUm7z4LngaPLRNhMLP2BExG7bUQD2JjH2Mh19LFYNM-Gw
+Authorization: Bearer eyJhbGciOiJSU...
 ```
 
 ## Update the GraphQL query in the client
@@ -1782,7 +1793,7 @@ export default CompanyTableContainer;
 ```
 {% endraw %}
 
-Give it a try, and notice how simple was the update.
+Give it a try. It's pretty neat how GraphQL allows you to get more data just by changing the client!
 
 ## Learn More About Spring Boot and React
 
