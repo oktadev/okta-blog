@@ -1,6 +1,6 @@
 ---
 layout: blog_post
-title: "Enterprise Ready Workshop: Automate with with no-code Okta Workflows"
+title: "Enterprise Ready Workshop: Automate with no-code Okta Workflows"
 author: max-katz
 by: advocate
 communities: [no-code,javascript]
@@ -435,7 +435,7 @@ The **API Connector - Get** card looks like this:
 
 {% img blog/workflows-workshop/Workflows_Get_card.jpg alt:"The API Connector - Get card" %}{: .center-image }
 
-#### Testing the API Connector - Get card
+#### Testing the card
 
 To test the **API Connector - Get** card:
 
