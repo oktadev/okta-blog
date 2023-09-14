@@ -35,15 +35,13 @@ The caller of the API (aka the client) adds the token value to the call. Dependi
 
 ## Shift from static API tokens to OAuth 2.0 for better security
 
-As with many technologies, this ease of use increased exposure to risk. Static tokens introduce multiple security concerns that could leave APIs vulnerable. 
+As with many technologies, this ease of use comes with a corresponding increase in exposure to risk. Unlike short-lived OAuth 2.0 tokens, static tokens typically have a long life. API tokens set in query parameters are particularly dangerous. Browsers save URLs in history, and logging systems may record the entire URL, exposing the token more readily than when using HTTP headers. 
 
-Unlike the short-lived OAuth 2.0 tokens, static tokens typically have a long life, setting the stage for risk. API tokens in query parameters are particularly dangerous. Browsers save URLs in history, and logging systems may record the entire URL, exposing the token more readily than when using HTTP headers. 
-
-Let's better understand the security concerns associated with API tokens and dive into the concerns they present.
+To better understand the security concerns associated with static API tokens, let's dive into some of their characteristics in detail, and compare and contrast to OAuth 2.0 as an alternative.
 
 **Access risks when using static API tokens**
 
-Static tokens can fall into the wrong hands, leading to unauthorized access. For example, inadvertently checking them into source control systems happens, and front-end web applications can't maintain confidentiality by exposing network requests, including adding API tokens, to all application users. Since static tokens are long-lived, this risk is particularly concerning as the outcome of a stolen token is impactful — a stolen static token remains active until manually inactivated or when it finally expires, allowing unauthorized access.
+Static tokens can fall into the wrong hands, leading to unauthorized access. For example, static tokens can inadvertently get checked into source control systems, exposing the token inadvertently to repository viewers and the source control history. Since static tokens are long-lived, the risk of exposing tokens is particularly concerning as the outcome of a stolen token is impactful — a stolen static token remains active until manually inactivated or when it finally expires, allowing unauthorized access.
 
 **Token rotation troubles**
 
@@ -51,11 +49,11 @@ Rotating static tokens can be a challenging task. Because token values persist w
 
 **Limiting scope is difficult**
 
-Assigning limited scopes to static tokens isn't straightforward. Static tokens usually grant access to the API called in its entirety—an all-or-nothing access level. Defining access for a limited scope, such as read access only vs. write access, depends on the API's vendor offering. Modifying only a subset of properties of a resource and other fine-grained access control measures may not be available or difficult to manage through static API tokens.
+Assigning limited scopes to static tokens isn't straightforward. Static tokens usually grant access to the API called in its entirety—an all-or-nothing access level. Defining access for a limited scope, such as read access only vs. write access, and other fine-grained access control measures may not be available or difficult to manage through static API tokens.
 
 **Inherited permissions in user-generated tokens**
 
-User-generated access tokens usually adopt the user account permissions that generated them. If an admin generates the token, it has full access to all the resources and actions the admin can perform. Yikes! That's a very powerful token! To alleviate this concern, sometimes organizations set up service accounts with limited scopes to generate the token. However, doing so leads to user management overhead and potentially taking a seat within a license.
+User-generated access tokens usually adopt the user account permissions that generated them. If an admin generates the token, it has full access to all the resources and actions the admin can perform. To alleviate this concern, sometimes organizations set up service accounts with limited scopes to generate the token. However, doing so leads to user management overhead and potentially taking a seat within a license.
 
 **Auditing challenges**
 
@@ -65,11 +63,11 @@ It's tricky to trace static token utilization. A core need for auditing is traci
 
 Tokens linked to user accounts become invalid when the user exits the organization. Some organizations use service accounts to counteract this measure, which opens up access risks and management overhead.
 
-There's a better, more secure way to access APIs that mitigate the risks associated with static API tokens.
+There's a better, more secure way to access APIs that mitigate the risks associated with static API tokens: using industry-standard OAuth 2.0 flows.
 
 ## Embrace OAuth 2.0 to improve security
 
-OAuth 2.0 caters to almost any scenario in place of static tokens like Okta's SSWS tokens. But unlike static tokens, the OAuth specs include definitions and secure practices for necessities such as token rotation, basic authorization decisions, and more for everyday use cases like:
+OAuth 2.0 caters to almost any scenario in place of static tokens like Okta's SSWS tokens. But unlike static tokens, the OAuth specs include definitions and secure practices for necessities such as token rotation, basic authorization decisions, and more for everyday use cases like
 
   * Automated service-to-service interaction for handling behind-the-scenes API calls without user context
   * Task-based automation through your command line operations
@@ -96,7 +94,7 @@ Accept: application/json
 Host: dev-1234567.okta.com
   ```
 
-There's a lot to OAuth 2.0, so check out the resources at the end of this post for a deeper dive. We won't dive in too deep in this post but will tailor the information specific to the use cases mentioned and the need-to-knows for each.
+There's a lot to OAuth 2.0, so check out the resources at the end of this post for a deeper dive. We won't dive into all the details in this post but will tailor the information specific to the use cases mentioned and provide a high-level summary for each.
 
 Let's look at each use case to see how OAuth 2.0 supports it.
 
@@ -108,13 +106,13 @@ You may have backend processes that call other APIs to get data or perform actio
 
 Using OAuth 2.0 for service-to-service interaction has huge advantages over static API keys, especially regarding access levels called scopes. In OAuth 2.0, you identify the scopes your access token gets as part of the configuration properties in a call to retrieve your token. You'll want to ensure the API you're calling supports scope-based access and that you've granted access to the scopes you need. For example, Okta APIs have defined multiple scopes for resource APIs, such as `okta.users.read` and `okta.users.write`. You can grant access to one or both of those scopes.
 
-Client credentials flow is not the same as using service accounts for the API authorization. OAuth 2.0 supports machine-to-machine interaction in a standard format without taking up a user seat to emulate an automation user. Notice when you define scopes, you'll do so in the configuration of the service application and within the authorization server, not at a user level. The advantage is you control resource access for the entire service application, not via a user within the application. You no longer have concerns about managing service user accounts and have confidence that the application cannot access more scopes than you've allowed, unlike what can happen in a user scenario.   
+Client credentials flow is not the same as using service accounts for the API authorization. OAuth 2.0 supports machine-to-machine interaction in a standard format without taking up a user seat to emulate an automation user. Notice when you define scopes, you'll do so in the configuration of the service application and within the authorization server, not at a user level. The advantage is you control resource access for the entire service application, not via a user within the application. You no longer have concerns about managing service accounts and can have confidence that the application cannot access more scopes than you've allowed.   
 
 **Retrieve an access token using client credentials**
 
 To retrieve an access token for this flow, you'll send properties specifying the type of authorization flow, the credentials, and the scopes the access token has. The OAuth 2.0 term for defining the authorization flow is called a `grant_type`; for the client credentials flow, you'll pass in the value `client_credentials`. 
 
-The credentials are a cryptographically secure JSON Web Token (JWT) signed with the client's private key. The Client Credentials flow also allows passing a secret value generated from your authorization server instead of using a private key JWT. However, a private key JWT is more secure, and you won't risk exposing a secret value that accidentally creates similar access concerns as a static API token. You'll generate a public/private key pair and register the public key in a JSON Web Key Set (JWKS) or upload it to the authorization server so that the authorization server has the public key to validate the JWT signature. Read more about this process in [Implement OAuth for Okta with a service app](​​https://developer.okta.com/docs/guides/implement-oauth-for-okta-serviceapp/-/main/#get-an-access-token) documentation.
+The credentials can either be a cryptographically secure JSON Web Token (JWT) signed with the client's private key or a secret value generated from your authorization server.  A private key JWT is more secure, as you won't risk exposing the secret value that accidentally creates similar access concerns as a static API token. You'll generate a public/private key pair and register the public key in a JSON Web Key Set (JWKS) or upload it to the authorization server so that the authorization server has the public key to validate the JWT signature. Read more about this process in [Implement OAuth for Okta with a service app](​​https://developer.okta.com/docs/guides/implement-oauth-for-okta-serviceapp/-/main/#get-an-access-token) documentation.
 
 An example HTTP call to retrieve the access token may look like this:
 
@@ -136,9 +134,9 @@ Read more about service-to-service API calls using .NET and creating private JWT
 
 ### Task-based automation
 
-Command line terminals, like Bash and PowerShell, are browserless processes to run individual commands or scripts within your terminal window. Unlike the previous service-to-service interaction, you have user context. You want to run the command line operations with your authorization context, which means you'll only have access to the API resources you're supposed to have. OAuth 2.0 supports this use case with a flow called **Device Flow**. 
+Command line terminals, like Bash and PowerShell, are browserless processes to run individual commands or scripts within your terminal window. Unlike the previous service-to-service interaction, this flow involves user context. You want to run the command line operations with your authorization context, which means you'll only have access to the API resources you're supposed to have. OAuth 2.0 supports this use case with a flow called **Device Flow**. 
 
-Getting access tokens is a multi-step process with this flow. Before requesting the access token directly like the service-to-service use case, you first obtain unique verification codes by sending the client ID to a special endpoint on your authorization server:
+Obtaining access tokens is a multi-step process with this flow. Before requesting the access token directly like the service-to-service use case, you first obtain unique verification codes by sending the client ID to a special endpoint on your authorization server:
 
 ```http
 POST  /device/authorize HTTP/1.1
