@@ -21,6 +21,9 @@ This step-by-step guide demonstrates how to build a GraphQL API with Spring Boot
 
 {% img blog/spring-graphql-react/logos.png alt:"Spring, GraphQL and React" width:"700" %}{: .center-image }
 
+> __NOTE:__
+> If you prefer skipping the step-by-step building process and rather run this example and inspect the final code, you can follow the README instructions in the [GitHub repository](https://github.com/oktadev/auth0-spring-graphql-react-example).
+
 > This example was created with the following tools and services:
 > - [Node.js v18.16.1](https://docs.npmjs.com/downloading-and-installing-node-js-and-npm)
 > - [npm 9.5.1](https://docs.npmjs.com/downloading-and-installing-node-js-and-npm)
@@ -49,7 +52,7 @@ https start.spring.io/starter.zip \
   dependencies==data-neo4j,graphql,web \
   groupId==com.okta.developer \
   artifactId==spring-graphql  \
-  name=="Spring Boot GraphQL API Application" \
+  name=="Spring Boot API" \
   description=="Demo project of a Spring Boot GraphQL API" \
   packageName==com.okta.developer.demo > spring-graphql-api.zip
 ```
@@ -417,9 +420,9 @@ class GraphQLConfig {
 }
 ```
 
-Create a configuration class named `SpringBootGraphQlApiConfig` in the root package as well, defining a reactive transaction manager required for reactive Neo4j:
+Create a configuration class named `SpringBootApiConfig` in the root package as well, defining a reactive transaction manager required for reactive Neo4j:
 
-__SpringBootGraphQlApiConfig.java__
+__SpringBootApiConfig.java__
 ```java
 package com.okta.developer.demo;
 
@@ -432,7 +435,7 @@ import org.springframework.data.neo4j.repository.config.ReactiveNeo4jRepositoryC
 import org.springframework.transaction.ReactiveTransactionManager;
 
 @Configuration
-public class SpringBootGraphQlApiConfig {
+public class SpringBootApiConfig {
 
     @Bean(ReactiveNeo4jRepositoryConfigurationExtension.DEFAULT_TRANSACTION_MANAGER_BEAN_NAME) //Required for neo4j
     public ReactiveTransactionManager reactiveTransactionManager(
@@ -476,7 +479,7 @@ public class CompanyController {
 }
 ```
 
-Create a `CompanyControllerTests` for the web layer in the folder `src/main/test/java` under the package `com.okta.developer.demo.controller`:
+Create a `CompanyControllerTests` for the web layer in the directory `src/main/test/java` under the package `com.okta.developer.demo.controller`:
 
 __CompanyControllerTests.java__
 ```java
@@ -538,7 +541,7 @@ public class CompanyControllerTests {
 }
 ```
 
-Create the document file `companyList.graphql` containing the query definition for the test, in the folder `src/main/test/resources/graphql-test`:
+Create the document file `companyList.graphql` containing the query definition for the test, in the directory `src/main/test/resources/graphql-test`:
 
 __companyList.graphql__
 ```graphql
@@ -579,7 +582,7 @@ You should see logs for the successful tests:
 
 ```
 ...
-SpringBootGraphQlApiApplicationTests > contextLoads() PASSED
+SpringBootApiApplicationTests > contextLoads() PASSED
 
 CompanyControllerTests > shouldGetCompanies() PASSED
 ...
@@ -599,7 +602,7 @@ dependencies {
 }
 ```
 
-Create the folder `src/main/resources/neo4j/migrations` and the following migration files:
+Create the directory `src/main/resources/neo4j/migrations` and the following migration files:
 
 {% raw %}
 __V001__Constraint.cypher__
@@ -688,13 +691,13 @@ __.env__
 export SPRING_NEO4J_AUTHENTICATION_PASSWORD=verysecret
 ```
 
-Download the following seed files to an empty folder, as it will be mounted to the Neo4j container:
+Download the following seed files to an empty directory, as it will be mounted to the Neo4j container:
 
 - [CompanyDataAmericans.csv](https://guides.neo4j.com/ukcompanies/data/CompanyDataAmericans.csv)
 - [LandOwnershipAmericans.csv](https://guides.neo4j.com/ukcompanies/data/LandOwnershipAmericans.csv)
 - [PSCAmericans.csv](https://guides.neo4j.com/ukcompanies/data/PSCAmericans.csv)
 
-Create the folder `src/main/docker` and create a file `neo4j.yml` there, with the following content:
+Create the directory `src/main/docker` and create a file `neo4j.yml` there, with the following content:
 
 __neo4j.yml__
 ```yml
@@ -703,7 +706,7 @@ services:
   neo4j:
     image: neo4j:5
     volumes:
-      - <csv-folder>:/var/lib/neo4j/import
+      - <csv-dir>:/var/lib/neo4j/import
     environment:
       - NEO4J_AUTH=neo4j/${NEO4J_PASSWORD}
       - NEO4JLABS_PLUGINS=["apoc"]
@@ -726,10 +729,10 @@ __.env__
 NEO4J_PASSWORD=verysecret
 ```
 
-As you can see the compose file will mount `<csv-folder>` to a `/var/lib/neo4j/import` volume, making the content accessible from the running neo4j container.
-Replace `<csv-folder>` with the path to the CSV files downloaded before.
+As you can see the compose file will mount `<csv-dir>` to a `/var/lib/neo4j/import` volume, making the content accessible from the running neo4j container.
+Replace `<csv-dir>` with the path to the CSV files downloaded before.
 
-In a terminal, go to the `docker` folder and run:
+In a terminal, go to the `docker` directory and run:
 
 ```shell
 docker compose -f neo4j.yml up
@@ -737,7 +740,7 @@ docker compose -f neo4j.yml up
 
 ### Run the API server
 
-Go to the project root folder and start the application with:
+Go to the project root directory and start the application with:
 
 ```shell
 source .env && ./gradlew bootRun
@@ -781,9 +784,9 @@ You should see the query output in the box on the right:
 
 ## Build a React client
 
-Now let's create a Single Page Application (SPA) to consume the GraphQL API with React and Next.js. The list of companies will display in a [MUI](https://mui.com/material-ui/getting-started/) [Data Grid](https://mui.com/x/react-data-grid/) component. The application will use Next.js' `app` router. The `src/app` folder will only contain routing files, and the UI components and application code will be in other folders.
+Now let's create a Single Page Application (SPA) to consume the GraphQL API with React and Next.js. The list of companies will display in a [MUI](https://mui.com/material-ui/getting-started/) [Data Grid](https://mui.com/x/react-data-grid/) component. The application will use Next.js' `app` router. The `src/app` directory will only contain routing files, and the UI components and application code will be in other directories.
 
-Install Node and in a terminal run the `create-next-app` command, at the parent directory of the Spring Boot application. It will create a project folder for the client application at the same level as the server application folder:
+Install Node and in a terminal run the `create-next-app` command, at the parent directory of the Spring Boot application. It will create a project directory for the client application at the same level as the server application directory:
 
 ```shell
 npx create-next-app@13.4.19
@@ -823,12 +826,12 @@ Navigate to `http://localhost:3000` and you should see the default Next.js page:
 
 ### Create the API client
 
-Create the folder `src/services` and add the file `base.tsx` with the following code:
+Create the directory `src/services` and add the file `base.tsx` with the following code:
 
 {% raw %}
 __base.tsx__
 ```tsx
-import axios from "axios";
+import axios from 'axios';
 
 export const backendAPI = axios.create({
   baseURL: process.env.NEXT_PUBLIC_API_SERVER_URL
@@ -843,8 +846,8 @@ Add the file `src/services/companies.tsx` with the following content:
 {% raw %}
 __companies.tsx__
 ```tsx
-import { AxiosError } from "axios";
-import { backendAPI } from "./base";
+import { AxiosError } from 'axios';
+import { backendAPI } from './base';
 
 export type CompaniesQuery = {
   page: number;
@@ -909,7 +912,7 @@ export const CompanyApi = {
 ```
 {% endraw %}
 
-Add a file `.env.example` and `.env.local` in the root folder, both with the following content:
+Add a file `.env.example` and `.env.local` in the root directory, both with the following content:
 
 ```shell
 NEXT_PUBLIC_API_SERVER_URL=http://localhost:8080
@@ -920,12 +923,12 @@ NEXT_PUBLIC_API_SERVER_URL=http://localhost:8080
 
 ### Create a companies home page
 
-Create the folder `src/components/company` and add the file `CompanyTable.tsx` with the following content:
+Create the directory `src/components/company` and add the file `CompanyTable.tsx` with the following content:
 
 {% raw %}
 __CompanyTable.tsx__
 ```tsx
-import { DataGrid, GridColDef, GridEventListener, GridPaginationModel } from "@mui/x-data-grid";
+import { DataGrid, GridColDef, GridEventListener, GridPaginationModel } from '@mui/x-data-grid';
 
 export interface CompanyData {
   id: string,
@@ -976,12 +979,12 @@ export default CompanyTable;
 ```
 {% endraw %}
 
-Create a `Loader.tsx` component in the folder `src/components/loader` with the following code:
+Create a `Loader.tsx` component in the directory `src/components/loader` with the following code:
 
 {% raw %}
 __Loader.tsx__
 ```tsx
-import { Box, CircularProgress, Skeleton } from "@mui/material";
+import { Box, CircularProgress, Skeleton } from '@mui/material';
 
 const Loader = () => {
   return (
@@ -1000,28 +1003,28 @@ Add the file `src/components/company/CompanyTableContainer.tsx`:
 {% raw %}
 __CompanyTableContainer.tsx__
 ```tsx
-import { GridColDef, GridPaginationModel } from "@mui/x-data-grid";
-import CompanyTable from "./CompanyTable";
-import { usePathname, useRouter, useSearchParams } from "next/navigation";
-import { CompanyApi } from "@/services/companies";
-import Loader from "../loader/Loader";
-import { useAsync } from "react-use-custom-hooks";
+import { GridColDef, GridPaginationModel } from '@mui/x-data-grid';
+import CompanyTable from './CompanyTable';
+import { usePathname, useRouter, useSearchParams } from 'next/navigation';
+import { CompanyApi } from '@/services/companies';
+import Loader from '../loader/Loader';
+import { useAsync } from 'react-use-custom-hooks';
 
 interface CompanyTableProperties {
   page?: number;
 }
 
 const columns: GridColDef[] = [
-  { field: "id", headerName: "ID", width: 70 },
+  { field: 'id', headerName: 'ID', width: 70 },
   {
-    field: "companyNumber",
-    headerName: "Company #",
+    field: 'companyNumber',
+    headerName: 'Company #',
     width: 100,
     sortable: false,
   },
-  { field: "name", headerName: "Company Name", width: 350, sortable: false },
-  { field: "category", headerName: "Category", width: 200, sortable: false },
-  { field: "SIC", headerName: "SIC", width: 400, sortable: false },
+  { field: 'name', headerName: 'Company Name', width: 350, sortable: false },
+  { field: 'category', headerName: 'Category', width: 200, sortable: false },
+  { field: 'SIC', headerName: 'SIC', width: 400, sortable: false },
 ];
 
 const CompanyTableContainer = (props: CompanyTableProperties) => {
@@ -1071,11 +1074,11 @@ Add `src/app/HomePage.tsx` for the homepage:
 {% raw %}
 __HomePage.tsx__
 ```tsx
-"use client";
+'use client';
 
-import CompanyTableContainer from "@/components/company/CompanyTableContainer";
-import { Box, Typography } from "@mui/material";
-import { useSearchParams } from "next/navigation";
+import CompanyTableContainer from '@/components/company/CompanyTableContainer';
+import { Box, Typography } from '@mui/material';
+import { useSearchParams } from 'next/navigation';
 
 const HomePage = () => {
   const searchParams = useSearchParams();
@@ -1106,11 +1109,11 @@ Replace the contents of `src/app/page.tsx` and change it to render the `HomePage
 {% raw %}
 __app/page.tsx__
 ```tsx
-import HomePage from "./HomePage";
+import HomePage from './HomePage';
 
 const Page = () => {
   return (
-    <HomePage></HomePage>
+    <HomePage/>
   );
 }
 
@@ -1123,13 +1126,13 @@ Add a component defining the page width, for using it in the root layout. Create
 {% raw %}
 __WideLayout.tsx__
 ```tsx
-"use client";
+'use client';
 
-import { Container, ThemeProvider, createTheme } from "@mui/material";
+import { Container, ThemeProvider, createTheme } from '@mui/material';
 
 const theme = createTheme({
   typography: {
-    fontFamily: "inherit",
+    fontFamily: 'inherit',
   },
 });
 
@@ -1153,8 +1156,8 @@ Update the contents of `src/app/layout.tsx` to be:
 {% raw %}
 __app/layout.tsx__
 ```tsx
-import WideLayout from "@/layout/WideLayout";
-import { Ubuntu} from "next/font/google";
+import WideLayout from '@/layout/WideLayout';
+import { Ubuntu} from 'next/font/google';
 
 const font = Ubuntu({
   subsets: ['latin'],
@@ -1276,8 +1279,8 @@ Set the client ID, issuer, and audience for OAuth 2.0 in the `application.proper
 
 __application.properties__
 ```properties
-okta.oauth2.issuer=https://{yourAuth0Domain}/
-okta.oauth2.client-id={clientId}
+okta.oauth2.issuer=https://<your-auth0-domain>/
+okta.oauth2.client-id=<client-id>
 okta.oauth2.audience=${okta.oauth2.issuer}api/v2/
 ```
 
@@ -1285,12 +1288,12 @@ Add the client secret to the `.env` file:
 
 __.env__
 ```shell
-export OKTA_OAUTH2_CLIENT_SECRET={clientSecret}
+export OKTA_OAUTH2_CLIENT_SECRET=<client-secret>
 ```
 
-Add the following factory method to the class `SpringBootGraphQlApiConfig`, for requiring a bearer token for all requests:
+Add the following factory method to the class `SpringBootApiConfig`, for requiring a bearer token for all requests:
 
-__SpringBootGraphQlApiConfig.java__
+__SpringBootApiConfig.java__
 ```java
     ...
     @Bean
@@ -1304,7 +1307,7 @@ __SpringBootGraphQlApiConfig.java__
 > __NOTE:__
 > The Okta Spring Boot starter provides the security auto-configuration out of the box, and the resource server configuration should not be necessary. For some reason, the Spring for GraphQL cors allowed origins configuration does not take effect without the customization above.
 
-Again, in the root folder, run the API server with:
+Again, in the root directory, run the API server with:
 
 ```shell
 source .env && ./gradlew bootRun
@@ -1313,13 +1316,13 @@ source .env && ./gradlew bootRun
 Get an access token using the Auth0 CLI with the `auth0 test token` command:
 
 ```shell
-auth0 test token -a https://<yourAuth0Domain>/api/v2/
+auth0 test token -a https://<your-auth0-domain>/api/v2/
 ```
 
 With HTTPie, send a request to the API server using a bearer access token:
 
 ```shell
-ACCESS_TOKEN={auth0AccessToken}
+ACCESS_TOKEN=<auth0-access-token>
 ```
 
 ```shell
@@ -1349,17 +1352,17 @@ Copy the Auth0 domain and the client ID, and update the `src/.env.local` adding 
 
 __.env.local__
 ```shell
-NEXT_PUBLIC_AUTH0_DOMAIN={yourAuth0Domain}
-NEXT_PUBLIC_AUTH0_CLIENT_ID={clientId}
+NEXT_PUBLIC_AUTH0_DOMAIN=<your-auth0-domain>
+NEXT_PUBLIC_AUTH0_CLIENT_ID=<client-id>
 NEXT_PUBLIC_AUTH0_CALLBACK_URL=http://localhost:3000/callback
-NEXT_PUBLIC_AUTH0_AUDIENCE=https://{yourAuth0Domain}/api/v2/
+NEXT_PUBLIC_AUTH0_AUDIENCE=https://<your-auth0-domain>/api/v2/
 ```
 
 For handling the Auth0 post-login behavior, you need to add the page `src/app/callback/page.tsx` with the following content.
 
 __callback/page.tsx__
 ```tsx
-import Loader from "@/components/loader/Loader";
+import Loader from '@/components/loader/Loader';
 
 const Page = () => {
   return <Loader/>
@@ -1376,14 +1379,14 @@ Add the `@auth0/auth0-react` dependency to the project:
 npm install @auth0/auth0-react
 ```
 
-Create the component `Auth0ProviderWithNavigate` in the folder `src/components/authentication` with the following content:
+Create the component `Auth0ProviderWithNavigate` in the directory `src/components/authentication` with the following content:
 
 {% raw %}
 __Auth0ProviderWithNavigate.tsx__
 ```tsx
-import { AppState, Auth0Provider } from "@auth0/auth0-react";
-import { useRouter } from "next/navigation";
-import React from "react";
+import { AppState, Auth0Provider } from '@auth0/auth0-react';
+import { useRouter } from 'next/navigation';
+import React from 'react';
 
 const Auth0ProviderWithNavigate = (props: { children: React.ReactNode }) => {
   const router = useRouter();
@@ -1422,11 +1425,22 @@ export default Auth0ProviderWithNavigate;
 {% endraw %}
 
 The component `Auth0ProviderWithNavigate` wraps the children component with `Auth0Provider`, the provider of the Auth0 context, remembering the requested URL for redirection after login.
-Use the component in the `WideLayout` component:
+Use the component in the `WideLayout` component, the final code must look like:
 
 {% raw %}
 __WideLayout.tsx__
 ```tsx
+'use client';
+
+import Auth0ProviderWithNavigate from '@/components/authentication/Auth0ProviderWithNavigate';
+import { Container, ThemeProvider, createTheme } from '@mui/material';
+
+const theme = createTheme({
+  typography: {
+    fontFamily: 'inherit',
+  },
+});
+
 const WideLayout = (props: { children: React.ReactNode }) => {
   return (
     <ThemeProvider theme={theme}>
@@ -1438,6 +1452,8 @@ const WideLayout = (props: { children: React.ReactNode }) => {
     </ThemeProvider>
   );
 };
+
+export default WideLayout;
 ```
 {% endraw %}
 
@@ -1447,9 +1463,9 @@ __AuthenticationGuard.tsx__
 ```tsx
 'use client'
 
-import { useAuth0 } from "@auth0/auth0-react";
-import { useEffect } from "react";
-import Loader from "../loader/Loader";
+import { useAuth0 } from '@auth0/auth0-react';
+import { useEffect } from 'react';
+import Loader from '../loader/Loader';
 
 const AuthenticationGuard = (props: { children: React.ReactNode }) => {
   const { isLoading, isAuthenticated, error, loginWithRedirect } = useAuth0();
@@ -1479,13 +1495,13 @@ The `AuthenticationGuard` component will be used to protect pages that require a
 {% raw %}
 __app/page.tsx__
 ```tsx
-import AuthenticationGuard from "@/components/authentication/AuthenticationGuard";
-import HomePage from "./HomePage";
+import AuthenticationGuard from '@/components/authentication/AuthenticationGuard';
+import HomePage from './HomePage';
 
 const Page = () => {
   return (
     <AuthenticationGuard>
-      <HomePage></HomePage>
+      <HomePage/>
     </AuthenticationGuard>
   );
 };
@@ -1500,7 +1516,7 @@ Add the file `src/services/auth.tsx` with the following code:
 
 __auth.tsx__
 ```tsx
-import backendAPI from "./base";
+import backendAPI from './base';
 
 let requestInterceptor: number;
 let responseInterceptor: number;
@@ -1537,9 +1553,9 @@ Add the file `src/hooks/useAccessToken.tsx` with the following content:
 
 __useAccessToken.tsx__
 ```tsx
-import { setInterceptors } from "@/services/auth";
-import { useAuth0 } from "@auth0/auth0-react";
-import { useCallback, useState } from "react";
+import { setInterceptors } from '@/services/auth';
+import { useAuth0 } from '@auth0/auth0-react';
+import { useCallback, useState } from 'react';
 
 export const useAccessToken = () => {
   const { isAuthenticated, getAccessTokenSilently } = useAuth0();
@@ -1571,8 +1587,8 @@ Create the `useAsyncWithToken` hook:
 
 __useAsyncWithToken.tsx__
 ```tsx
-import { useAccessToken } from "./useAccessToken";
-import { useAsync } from "react-use-custom-hooks";
+import { useAccessToken } from './useAccessToken';
+import { useAsync } from 'react-use-custom-hooks';
 
 export const useAsyncWithToken = <T, P, E = string>(
   asyncOperation: () => Promise<T>, deps: any[]
@@ -1591,24 +1607,33 @@ export const useAsyncWithToken = <T, P, E = string>(
 };
 ```
 
-Update the calls in the `CompanyTableContainer` component to use the `useAsyncWithToken` hook:
+Update the calls in the `CompanyTableContainer` component to use the `useAsyncWithToken` hook intead of `useAsync`:
 
 __CompanyTableContainer.tsx__
-```tsx
-...
-const {
-  data: dataList,
-  loading: loadingList,
-  error: errorList,
-} = useAsyncWithToken(
-  () => CompanyApi.getCompanyList({ page: page - 1}),
-  [props.page]
-);
+```diff
+- import { useAsync } from 'react-use-custom-hooks';
++ import { useAsyncWithToken } from '@/app/hooks/useAsyncWithToken';
 
-const { data: dataCount } = useAsyncWithToken(
-  () => CompanyApi.getCompanyCount(),
-  []
-);
+...
+- const [dataList, loadingList, errorList] = useAsync(
+-   () => CompanyApi.getCompanyList({ page: page - 1 }),
+-   {},
+-   [page]
+-  );
+- const [dataCount] = useAsync(() => CompanyApi.getCompanyCount(), {}, []);
++ const {
++   data: dataList,
++   loading: loadingList,
++   error: errorList,
++ } = useAsyncWithToken(
++   () => CompanyApi.getCompanyList({ page: page - 1}),
++   [props.page]
++ );
++
++ const { data: dataCount } = useAsyncWithToken(
++   () => CompanyApi.getCompanyCount(),
++   []
++ );
 ...
 ```
 
@@ -1706,12 +1731,12 @@ Finally, update the `CompanyTableContainer` column definitions, and data formatt
 {% raw %}
 __CompanyTableContainer.tsx__
 ```tsx
-import { GridColDef, GridPaginationModel } from "@mui/x-data-grid";
-import CompanyTable from "./CompanyTable";
-import { usePathname, useRouter, useSearchParams } from "next/navigation";
-import { CompanyApi, CompanyDTO } from "@/services/companies";
-import Loader from "../loader/Loader";
-import { useAsyncWithToken } from "@/app/hooks/useAsyncWithToken";
+import { GridColDef, GridPaginationModel } from '@mui/x-data-grid';
+import CompanyTable from './CompanyTable';
+import { usePathname, useRouter, useSearchParams } from 'next/navigation';
+import { CompanyApi, CompanyDTO } from '@/services/companies';
+import Loader from '../loader/Loader';
+import { useAsyncWithToken } from '@/app/hooks/useAsyncWithToken';
 
 interface CompanyTableProperties {
   page?: number;
