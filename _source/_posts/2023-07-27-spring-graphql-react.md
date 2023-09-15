@@ -801,7 +801,7 @@ Answer the questions as follows:
 ✔ Would you like to customize the default import alias? ... No
 ```
 
-Then add the the MUI Datagrid dependencies, custom hooks from Vercel and Axios:
+Then add the the MUI Datagrid dependencies, custom hooks from Vercel, and Axios:
 
 ```shell
 cd react-graphql && \
@@ -1310,7 +1310,7 @@ Again, in the root folder, run the API server with:
 source .env && ./gradlew bootRun
 ```
 
-Get an access token using the Auth0 cli with the `test token` command:
+Get an access token using the Auth0 CLI with the `auth0 test token` command:
 
 ```shell
 auth0 test token -a https://<yourAuth0Domain>/api/v2/
