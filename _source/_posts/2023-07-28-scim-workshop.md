@@ -111,15 +111,15 @@ Update the user model in `prisma/schema.prisma`:
 ```
 model User {
   id       Int    @id @default(autoincrement())
-  orgId    Int?
-  externalId String?
   email    String
   password String?
-  name     String
+  name String
   Todo     Todo[]
-  org      Org?    @relation(fields: [orgId],  references: [id])
-  active   Boolean?
- @@unique([orgId, externalId])
+  org       Org?    @relation(fields: [orgId], references: [id])
+  orgId     Int?
+  externalId String?
+  active Boolean?
+  @@unique([orgId, externalId])
 }
 ```
 
@@ -129,7 +129,7 @@ Let's update the users in `prisma/seed_script.ts`. We'll also need to hardcode `
 
 We'll also give each org an `apikey` set to a random string. Using a different key for each org helps our code ensure that no client can accidentally view or edit users belonging to another. 
 
-Keeping the original imports in `prisma/seed_script.ts` and after making the above changes, this is how the file should look:
+This is how `prisma/seed_script.ts` looks after making the above changes:
 
 ```ts
 import { PrismaClient } from '@prisma/client'
@@ -187,14 +187,14 @@ A neat feature with Prisma is the option to view the user table locally. To do t
 
 ## Add a SCIM file and create a scimRoute
 
-For maintainability, we'll aim to keep our SCIM implementation code in one place. Let's create a SCIM file, scim.ts, in `apps/api/src`, and import it in `main.ts`. At the top of `apps/api/src/scim.ts`, you'll need to import Router to create a scimRoute to export to `apps/api/src/main.ts`. Copy paste the following code to the top of your apps/api/src/scim.ts file:
+For maintainability, we'll aim to keep our SCIM implementation code in one place. Let's create a SCIM file, scim.ts, in `apps/api/src`, and import it in `main.ts`. At the top of `apps/api/src/scim.ts`, import Router and create a scimRoute to export to `apps/api/src/main.ts`. Copy paste the following code to the top of your `apps/api/src/scim.ts`` file:
 
 ```ts
 import { Router } from 'express';
 export const scimRoute = Router();
 ```
 
-And you'll then import the scimRoute in `apps/api/src/main.ts` and after `import session from 'express-session';` as shown below:
+You'll then import the scimRoute in `apps/api/src/main.ts` and after `import session from 'express-session';` as shown below:
 
 ```ts
 import express from 'express';
@@ -226,22 +226,22 @@ const server = app.listen(port, () => {
 server.on('error', console.error);
 ```
 
-Note: `/scim/v2` will append to every SCIM route. You can change this static path as needed, as there isn't a specific URL path explicitly required by the SCIM spec. However, [Okta's SCIM Docs](https://developer.okta.com/docs/guides/scim-provisioning-integration-prepare/main/#base-url) recommend using `/scim/v2` unless unusual factors in your environment necessitate a different URL. 
+Note: `/scim/v2` will append to every SCIM route. You can change this static path as needed, as there isn't a specific URL path explicitly required by the SCIM spec. However, [Okta's SCIM Docs](https://developer.okta.com/docs/guides/scim-provisioning-integration-prepare/main/#base-url) recommend using `/scim/v2`. 
 
 ## Build the SCIM interface
 
 We'll need to build each CRUD endpoint required by the SCIM spec and format the responses in JSON. After that, we'll test our functions with Postman to see that they provide the responses required by the spec. 
 
-We'll need to use express and Prisma in `apps/api/src/scim.ts`, so import them at the top of the file as shown below:
+We'll need to use express and Prisma in `apps/api/src/scim.ts`, so add them at the top of the file as shown below, replacing the existing import statement for Router:
 
 ```ts
-import express from 'express';
+import express, { Router } from 'express';
 import { Prisma, PrismaClient } from '@prisma/client';
 ```
 
 Some SCIM endpoints in `apps/api/src/scim.ts` will return user information from the Todo app's database. To easily retrieve this information from the SCIM endpoints, implement an `IUserSchema` interface and instantiate it as the defaultUserSchema. The information in the `IUserSchema` matches the SCIM spec, as you'll see soon.  
 
-To simplify the example code, we'll support one org at first, by hardcoding the org ID as 1. When you're ready to support multiple SCIM clients, you can easily replace this constant value with a function to look up the correct org ID based on based on the context of the request. In addition, when an IdP instructs our SCIM server to create a user, the user's org ID will be hardcoded to 1 when they are created in the database. An update to support multiple organizations would also need to update the user creation code to associate them with the correct organization, as well. 
+To simplify the example code, we'll support one org at first, by hardcoding the org ID as 1. When you're ready to support multiple SCIM clients, you can replace this constant value with a function to look up the correct org ID based on based on the context of the request. The request context drives the associated organization allowing your SCIM server to scale for multiple organizations. For now, you'll use the org ID to create a user in the database with the hardcoded value when the IdP calls the SCIM This hardcoded org ID. Add the following code to `apps/api/src/scim.ts` below the existing code in the file:
 
 ```ts
 const prisma = new PrismaClient();
@@ -459,25 +459,17 @@ const server = app.listen(port, () => {
 server.on('error', console.error);
 ```
 
-In `apps/api/src/scim.ts`, import Passport at the top of the file like this:
+Apply passport's bearer token auth to each SCIM route by adding the check as part of the `scimRoute` in `apps/api/src/main.ts`:
 
 ```ts
-import { Router } from 'express';
-export const scimRoute = Router();
-import express from 'express';
-import { Prisma, PrismaClient } from '@prisma/client';
-import passport from 'passport';
-```
-
-And add passport's bearer token auth to each SCIM route in `apps/api/src/scim.ts`. For example in the Post endpoint, it will look like this:
-
-```ts
-scimRoute.post('/Users', passport.authenticate('bearer'), async (req, res)
+// '/scim/v2' path appends to every SCIM Endpoints 
+// Okta recommended url - https://developer.okta.com/docs/guides/scim-provisioning-integration-prepare/main/#base-url
+app.use('/scim/v2', scimRoute, passport.authenticate('bearer'));
 ```
 
 ### Support SCIM's content-type headers requirement
 
-You'll also need to install [body-parser](https://www.npmjs.com/package/body-parser) for Express.js to accept `content-type application/scim+json`, because Okta sends this in the request headers instead of `content-type application/json`. We'll need this to read the request body from Okta. Note: This specific content-type header is required by [the SCIM spec](https://datatracker.ietf.org/doc/html/rfc7644#section-3.1)
+You'll also need to install [body-parser](https://www.npmjs.com/package/body-parser) for Express.js to accept `Content-Type: application/scim+json`, because Okta sends this in the request headers instead of `Content-Type: application/json`. We'll need this to read the request body from Okta. Note: This specific content-type header is required by [the SCIM spec](https://datatracker.ietf.org/doc/html/rfc7644#section-3.1)
 
 On the command line, run `npm install body-parser` to add the library to your project.
 
@@ -522,7 +514,7 @@ app.use(bodyParser.json({ type: 'application/scim+json' }));
 
 // '/scim/v2' path appends to every SCIM Endpoints 
 // Okta recommended url - https://developer.okta.com/docs/guides/scim-provisioning-integration-prepare/main/#base-url
-app.use('/scim/v2', scimRoute);
+app.use('/scim/v2', scimRoute, passport.authenticate('bearer'));
 
 const port = process.env.PORT || 3333;
 const server = app.listen(port, () => {
@@ -578,11 +570,11 @@ passport.use(new BearerStrategy(
  
 app.use(bodyParser.json({ type: 'application/scim+json' }));
 
-app.use(morgan('combined'))
+app.use(morgan('combined'));
 
 // '/scim/v2' path appends to every SCIM Endpoints 
 // Okta recommended url - https://developer.okta.com/docs/guides/scim-provisioning-integration-prepare/main/#base-url
-app.use('/scim/v2', scimRoute);
+app.use('/scim/v2', scimRoute, passport.authenticate('bearer'));
 
 const port = process.env.PORT || 3333;
 const server = app.listen(port, () => {
@@ -591,9 +583,15 @@ const server = app.listen(port, () => {
 server.on('error', console.error);
 ```
 
+Now you're ready to start testing! Start the API by running the following terminal command:
+
+```console
+npm run serve-api
+```
+
 Sign up for [Postman](https://identity.getpostman.com/login) or sign in to your account, and configure it to communicate with your local instance of the Todo app. 
 
-In Postman, the request URL will be`http://localhost:3333/scim/v2/Users` if you're running the Todo app locally. In the Headers tab, add the key `Content-Type` and set its value to `application/scim+json`, and then add an additional key, `Authorization`, and set it to `Bearer 131313`.This bearer token value comes from the `apikey` variable set earlier in `prisma/seed_script.ts`. 
+In Postman, the request URL will be`http://localhost:3333/scim/v2/Users` if you're running the Todo app locally. In the Headers tab, add the key `Content-Type` and set its value to `application/scim+json`, and then add an additional key, `Authorization`, and set it to `Bearer 131313`.This bearer token value comes from the `apikey` variable you set earlier in the `prisma/seed_script.ts` . 
 
 Now we are ready to test with Postman with our local server. You can also make cURL requests directly from the terminal if you prefer. 
 
