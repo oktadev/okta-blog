@@ -104,7 +104,7 @@ auth0 apps create \
   --reveal-secrets
 ```
 
-Copy `api-gateway/.env.example` to `.env` and edit to contain the values from the command above.
+Copy `api-gateway/.env.example` to `.env` and edit it to contain the values from the command above.
 
 ```dotenv
 OKTA_OAUTH2_ISSUER=https://<your-auth0-domain>/
@@ -252,29 +252,21 @@ public interface CarRepository extends JpaRepository<Car, Long> {
 }
 ```
 
-The `Car` class is a simple JPA entity with an `id` and `name` property. Spring Boot will see PostgreSQL on its classpath and autoconfigure connectivity. A `docker-compose.yml` file exists in the root directory to start a PostgreSQL instance.
+The `Car` class is a simple JPA entity with an `id` and `name` property. Spring Boot will see PostgreSQL on its classpath and autoconfigure connectivity. A `compose.yml` file exists in the root directory to start a PostgreSQL instance using Docker Compose.
 
 ```yaml
-version: '3.1'
 services:
-  postgresql:
-    image: postgres:15
+  postgres:
+    image: 'postgres:latest'
     environment:
-      - POSTGRES_USER=oktadev
-      - POSTGRES_PASSWORD=auth0
-      - POSTGRES_HOST_AUTH_METHOD=trust
-    healthcheck:
-      test: ['CMD-SHELL', 'pg_isready -U $${POSTGRES_USER}']
-      interval: 5s
-      timeout: 5s
-      retries: 10
-    # If you want to expose these ports outside your dev PC,
-    # remove the "127.0.0.1:" prefix
+      - 'POSTGRES_DB=mydatabase'
+      - 'POSTGRES_PASSWORD=secret'
+      - 'POSTGRES_USER=myuser'
     ports:
-      - 127.0.0.1:5432:5432
+      - '5432'
 ```
 
-Spring Boot added [Docker Compose support](https://spring.io/blog/2023/06/21/docker-compose-support-in-spring-boot-3-1) in version 3.1. This means that if you add the following dependency to your `build.gradle`, it'll look for a `docker-compose.yml` (or `compose.yml`) file in the root directory and start it when you run `./gradlew bootRun`.
+Spring Boot added [Docker Compose support](https://spring.io/blog/2023/06/21/docker-compose-support-in-spring-boot-3-1) in version 3.1. This means that if you add the following dependency to your `build.gradle`, it'll look for a `compose.yml` (or `docker-compose.yml`) file in the root directory and start it when you run `./gradlew bootRun`.
 
 ```groovy
 developmentOnly 'org.springframework.boot:spring-boot-docker-compose'
@@ -502,7 +494,6 @@ package com.example.apigateway.web;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.oauth2.client.OAuth2AuthorizedClient;
 import org.springframework.security.oauth2.client.annotation.RegisteredOAuth2AuthorizedClient;
-import org.springframework.security.oauth2.core.OAuth2AccessToken;
 import org.springframework.security.oauth2.core.oidc.user.OidcUser;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -519,7 +510,7 @@ class HomeController {
     public String printAccessToken(@RegisteredOAuth2AuthorizedClient("okta")
                                    OAuth2AuthorizedClient authorizedClient) {
 
-        OAuth2AccessToken accessToken = authorizedClient.getAccessToken();
+        var accessToken = authorizedClient.getAccessToken();
 
         System.out.println("Access Token Value: " + accessToken.getTokenValue());
         System.out.println("Token Type: " + accessToken.getTokenType().getValue());
@@ -578,9 +569,8 @@ public class SecurityConfiguration {
     private ServerOAuth2AuthorizationRequestResolver authorizationRequestResolver(
         ReactiveClientRegistrationRepository clientRegistrationRepository) {
 
-        DefaultServerOAuth2AuthorizationRequestResolver authorizationRequestResolver =
-            new DefaultServerOAuth2AuthorizationRequestResolver(
-                clientRegistrationRepository);
+        var authorizationRequestResolver =
+            new DefaultServerOAuth2AuthorizationRequestResolver(clientRegistrationRepository);
         authorizationRequestResolver.setAuthorizationRequestCustomizer(
             authorizationRequestCustomizer());
 
@@ -687,7 +677,7 @@ cd jhipster-sample-app-oauth2
 Then, start its Keycloak instance:
 
 ```shell
-docker-compose -f src/main/docker/keycloak.yml up -d
+docker compose -f src/main/docker/keycloak.yml up -d
 ```
 
 You can configure the `api-gateway` to use Keycloak by removing the `okta.oauth2.*` properties and using Spring Security's in `application.properties`:
