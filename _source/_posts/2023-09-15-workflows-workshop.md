@@ -59,7 +59,7 @@ You will complete the following steps:
 ## What is Okta Workflows?
 [Okta Workflows](https://www.okta.com/platform/workflows/) is a no-code platform that allows building automations to help with identity processes. 
 
-The following are use cases where you can use Workflows. 
+The following are use cases for using Workflows. 
 
 ### Provision and deprovision app accounts
 When an employee joins your company, Workflows simplifies the task of provisioning their account.
