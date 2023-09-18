@@ -593,7 +593,7 @@ Sign up for [Postman](https://identity.getpostman.com/login) or sign in to your 
 
 In Postman, the request URL will be`http://localhost:3333/scim/v2/Users` if you're running the Todo app locally. In the Headers tab, add the key `Content-Type` and set its value to `application/scim+json`, and then add an additional key, `Authorization`, and set it to `Bearer 131313`.This bearer token value comes from the `apikey` variable you set earlier in the `prisma/seed_script.ts` . 
 
-Now we are ready to test with Postman with our local server. You can also make cURL requests directly from the terminal if you prefer. 
+Now we are ready to test with Postman with our local server. You can also make cURL requests directly from the terminal if you prefer. You can leave the server running for the remaining steps to build the SCIM server. The local API serve command automatically reloads upon any API code changes.
 
 ### Test the POST request to add users
 
@@ -675,11 +675,11 @@ You can repeat this testing process for each SCIM route that you implement!
 
 ## Create the route to GET users 
 
-According to [the SCIM spec](https://www.rfc-editor.org/rfc/rfc7644#section-3.4.2.4), a SCIM server may return users paginated. [Okta requests users paginated]( https://developer.okta.com/docs/reference/scim/scim-20/#retrieve-users) with a Start Index set to 1 and a count set to 100 per page. 
+According to [the SCIM spec](https://www.rfc-editor.org/rfc/rfc7644#section-3.4.2.4), a SCIM server may paginate users in the response for a GET request. [Okta requests paginated users]( https://developer.okta.com/docs/reference/scim/scim-20/#retrieve-users) with a start index set to 1 and a count set to 100 per page. 
 
-In addition, filtering by username is an OPTIONAL parameter for SCIM service providers refer to this section of [the SCIM spec](https://datatracker.ietf.org/doc/html/rfc7644#section-3.4.2.2). However, Okta requires username filtering support as it checks to see if the user exists by username first before creating them. This behavior is described in more detail in the [Okta Docs](https://developer.okta.com/docs/reference/scim/scim-20/#create-users).
+In addition, filtering by username is an OPTIONAL parameter for SCIM service providers (refer to this section of [the SCIM spec](https://datatracker.ietf.org/doc/html/rfc7644#section-3.4.2.2)) However, Okta requires username filtering support as it checks to see if the user exists by username first before creating them. This behavior is described in more detail in the [Okta Docs](https://developer.okta.com/docs/reference/scim/scim-20/#create-users).
 
-Why would a SCIM client, in this case the identity provider, ever want to ask our app's SCIM server what users it knows about? Okta keeps track of what identifiers each SCIM integration is using for each user, and stores those as the user's "externalId" Okta uses this endpoint to test whether a user exists and find out what ID the SCIM server uses for that individual, so that it can send the correct request type with the correct ID: PUT to update an existing user, or POST to create a new account for a user that wasn't previously known to the SCIM server. 
+Why would a SCIM client, in this case the identity provider, ever want to ask our app's SCIM server what users it knows about? Okta keeps track of the identifiers every SCIM integration uses for each user, and stores those as the user's "externalId". Okta uses this endpoint to test whether a user exists and find out what ID the SCIM server uses for that individual, so that it can send the correct request type with the correct ID: PUT to update an existing user, or POST to create a new account for a user in the SCIM server. 
 
 To fulfill these requirements, the sample app's backend can handle GET requests to the `/Users` endpoint in `apps/api/src/scim.ts` with the following code below. Go ahead and copy/paste the following code to your `apps/api/src/scim.ts` file: : 
 
@@ -687,7 +687,7 @@ To fulfill these requirements, the sample app's backend can handle GET requests 
 // Retrieve Users
 // GET /scim/v2/Users
 // RFC Notes on Retrieving Users: https://www.rfc-editor.org/rfc/rfc7644#section-3.4.1
-scimRoute.get('/Users', passport.authenticate('bearer'), async (req, res) => {
+scimRoute.get('/Users', async (req, res) => {
   // RFC Notes on Pagination: https://www.rfc-editor.org/rfc/rfc7644#section-3.4.2.4
   const DEFAULT_START_INDEX = '1';
   const DEFAULT_RECORD_LIMIT = '100';
@@ -913,13 +913,13 @@ If you seeded your database with `prisma/seed_script.ts`, the result will look l
 ```
 ### Get a user by ID
 
-According to the [SCIM spec](https://datatracker.ietf.org/doc/html/rfc7644#section-3.4.1), the endpoint `/Users/[id]` can retrieve details about one particular user. If a user with the specified ID exists, the server responds with HTTP status code 200 (OK) and includes the user's information in the body of the response. It should return a 404 if no user was found with the requested identifier.  How can the SCIM server fulfill the spec's requirements to look up users by their IDs? Go ahead and copy/paste the following code to your `apps/api/src/scim.ts` file to see what happens:
+According to the [SCIM spec](https://datatracker.ietf.org/doc/html/rfc7644#section-3.4.1), the endpoint `/Users/[id]` can retrieve details about a user. If a user with the specified ID exists, the server responds with HTTP status code 200 (OK) and includes the user's information in the body of the response. It should return a 404 if no user was found with the requested identifier.  How can the SCIM server fulfill the spec's requirements to look up users by their IDs? Go ahead and copy/paste the following code to your `apps/api/src/scim.ts` file to see what happens:
 
 ```ts
 // Retrieve a specific User by ID
 // GET /scim/v2/Users/{userId}
 // RFC Notes on Retrieving Users by ID: https://www.rfc-editor.org/rfc/rfc7644#section-3.4.1
-scimRoute.get('/Users/:userId', passport.authenticate('bearer'), async (req, res) => {
+scimRoute.get('/Users/:userId', async (req, res) => {
   console.log('GET: /users/:userId');
   const id = parseInt(req.params.userId);
   const user = await prisma.user.findFirst({
@@ -1010,7 +1010,7 @@ Can you implement this behavior in the Todo app's backend? One way to do it woul
 // Update a specific User (PUT)
 // PUT /scim/v2/Users/{userId}
 // RFC Notes on Updating a User: https://www.rfc-editor.org/rfc/rfc7644#section-3.5.1
-scimRoute.put('/Users/:userId', passport.authenticate('bearer'), async (req, res) => {
+scimRoute.put('/Users/:userId', async (req, res) => {
   console.log(req.body);
 
   const id = parseInt(req.params.userId);
@@ -1173,7 +1173,7 @@ Okta implements a [soft delete aka deprovision](https://developer.okta.com/docs/
 // PATCH: /Users/:userId
 // RFC Notes on Partial Update: https://www.rfc-editor.org/rfc/rfc7644#section-3.5.2 
 // Note: this does not a true "delete"; this will update the active flag to false (this is an Okta best practice)
-scimRoute.patch('/Users/:userId', passport.authenticate('bearer'), async (req, res) => {
+scimRoute.patch('/Users/:userId', async (req, res) => {
   console.log(req.body);
   
   const id  = parseInt(req.params.userId);
