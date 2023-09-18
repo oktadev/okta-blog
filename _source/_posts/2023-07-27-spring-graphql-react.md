@@ -691,6 +691,8 @@ __.env__
 export SPRING_NEO4J_AUTHENTICATION_PASSWORD=verysecret
 ```
 
+If using git, don't forget to add the `.env` to the ignored files.
+
 Download the following seed files to an empty directory, as it will be mounted to the Neo4j container:
 
 - [CompanyDataAmericans.csv](https://guides.neo4j.com/ukcompanies/data/CompanyDataAmericans.csv)
@@ -1348,7 +1350,7 @@ auth0 apps create \
   --web-origins http://localhost:3000
 ```
 
-Copy the Auth0 domain and the client ID, and update the `src/.env.local` adding the following properties (add the new variables to the example file, too):
+Copy the Auth0 domain and the client ID, and update the `src/.env.local` adding the following properties:
 
 __.env.local__
 ```shell
@@ -1357,6 +1359,8 @@ NEXT_PUBLIC_AUTH0_CLIENT_ID=<client-id>
 NEXT_PUBLIC_AUTH0_CALLBACK_URL=http://localhost:3000/callback
 NEXT_PUBLIC_AUTH0_AUDIENCE=https://<your-auth0-domain>/api/v2/
 ```
+
+Add the new variables to the file `.env.example` too, but not the values, for documenting the required configuration.
 
 For handling the Auth0 post-login behavior, you need to add the page `src/app/callback/page.tsx` with the following content.
 
@@ -1612,7 +1616,7 @@ Update the calls in the `CompanyTableContainer` component to use the `useAsyncWi
 __CompanyTableContainer.tsx__
 ```diff
 - import { useAsync } from 'react-use-custom-hooks';
-+ import { useAsyncWithToken } from '@/app/hooks/useAsyncWithToken';
++ import { useAsyncWithToken } from '@/hooks/useAsyncWithToken';
 
 ...
 - const [dataList, loadingList, errorList] = useAsync(
