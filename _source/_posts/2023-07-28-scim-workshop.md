@@ -1239,19 +1239,19 @@ Log in to your [Okta developer account](https://developer.okta.com/login/), or s
 
 In this step, you will create an app integration in Okta. Although there are several ways to create apps, we will demonstrate the workflow you would use for an app that will eventually be published to customers on the Okta Integration Network. Don't worry, we won't submit the sample app to the integration network! 
 
-Log in to your Okta Developer Account. Make sure you're in the admin console -- when you're in the admin console, the URL will be "dev-youraccountid-admin.okta.com". Under Applications in the sidebar, click **Applications**, and click the blue "Browse App Catalog" button on the Applications page. 
+Log in to your Okta Developer Account. Make sure you're in the Admin Console — when you're in the Admin Console, the URL will be "dev-youraccountid-admin.okta.com". In the sidebar, select **Applications** > **Applications**, and press the **Browse App Catalog** button. 
 
-Use the search box to look up "SCIM 2.0 Test App". Select the Test App with Header Auth, and hit the blue "Add Integration" for the "SCIM 2.0 Test App (Header Auth)". 
+Enter "**SCIM 2.0 Test App**" in the search box. Select the "**SCIM 2.0 Test App (Header Auth)**", and press the **+ Add Integration** button to confirm creating an integration using "SCIM 2.0 Test App (Header Auth)". 
 
-In the Sign-On Options tab of the SCIM Test App, give the app a helpful name in the Application Label field. You can keep the default or change it to SCIM Workshop. Leave the "automatically log in when a user lands on login page" box checked, and click Next. 
+You'll see configuration options. Leave the **General Settings** tab as is and navigate to the **Sign-On Options** tab. Give the app a helpful name in the **Application label** field. For example, you can keep the default or change it to "SCIM Workshop". Leave the **Automatically log in when a user lands on login page** checked, and click **Next**. 
 
-In the Sign-On Options dialogue, keep the default settings, as these won't be used by our app. Click the blue "Done" button at the bottom of the page. 
+In the **Sign-On Options** dialog, keep the default settings, as these aren't used by our app. Click the **Done** button at the bottom of the page. 
 
-In the Provisioning tab of the application, click the Configure API Integration button, check the Enable API Integration box. Provide the Base URL, which is the localtunnel URL with `/scim/v2` appended to the end. The API Token is `Bearer 131313` if you're using the values seeded by `prisma/seed_script.ts`. Save these settings.
+In the **Provisioning** tab of the application, press the **Configure API Integration** button, check the **Enable API Integration** checkbox. Provide the **Base URL**, which is the localtunnel URL with `/scim/v2` appended to the end. The **API Token** is `Bearer 131313` if you're using the values seeded by `prisma/seed_script.ts`. Press **Save** to save the settings.
 
- When you save these settings or use the "Test API Credentials" button, Okta will make a `GET /Users` request with the API token you've provided in order to establish a connection with your SCIM server. 
+ When you save these settings or use the **Test API Credentials** button, Okta will make a `GET /Users` request with the API token you provided to verify a connection with your SCIM server. 
 
-Finally, under the Provisioning tab, click the "To App" heading in the left sidebar.In the Provisioning To App settings, check the boxes to enable`Create Users`, `Update User Attributes`, and `Deactivate Users`.  Leave the Sync Passwords setting disabled, with its box un-checked, for now.
+Finally, under the **Provisioning** tab, click the **To App** heading in the left sidebar.In the **Provisioning To App** settings, press the **Edit** button. Enable **Create Users**, **Update User Attributes**, and **Deactivate Users**.  Leave the **Sync Passwords** setting unchecked for now. Press **Save**. Remain on this screen for the next steps.
 
 ## Test common user lifecycle operations
 
@@ -1261,17 +1261,17 @@ We are now ready to test common user lifecycle requests using the Okta SCIM serv
 
 As you know, we have two users: `somnus@portal.example` and `trinity@portal.example`, in our SCIM server. Let's sync them over to Okta so that we have visibility of all users. We can also designate Okta as the source of truth for info about users assigned to this app or organization. 
 
-In the Import tab of the SCIM Test App in Okta, click the Import Now button. This will give an error telling you that only users with last names can be synchronized with Okta. How can you fix this error? 
+In the **Import** tab of the SCIM Test App in Okta, click the **Import Now** button. You'll see a dialog confirming Okta scanned your users and found new users. You'll then have a screen to confirm assignments. When you try to confirm the assignments, you'll get an error telling you that users must have a `lastName` field. How can you fix this error? 
 
-One solution would be to directly add surnames in the database with Prisma, but you could also use SCIM! Try using Postman to update each user in the Todo app and give them surnames. 
+One solution would be to directly add surnames in the database with Prisma, but you could also use SCIM! Try using Postman to update each user in the Todo app and give them family names. 
 
-Once all users in your Todo app have their first and last names set, try the Import Now button again.  When the import succeeds, Okta will make a request to get all users and confirm those already not recorded. In the list of users to import, check the boxes by those you want to sync to Okta, and click Confirm Assignments. Then go to the Assignments tab and watch as the imported users appear. 
+Once all users in your Todo app have their first and last names set, clear out unconfirmed users and try the **Import Now** button again. When the import succeeds, Okta will make a request to get all users and confirm those already not recorded. In the list of users to import, check the boxes by those you want to sync to Okta, and click **Confirm Assignments**. Then go to the **Assignments** tab and watch as the imported users appear. 
 
 ### Sync from Okta to the Todo app
 
-In order to sync a user that exists in Okta but not our app, we'll first need to create a user in Okta. In the Directory tab of the Okta Admin Console sidebar, click People, and use the Add Person button on the People page. Add a person with the default User type `User`, Tom Anderson,  `tom.anderson@portal.example`, and Save.  
+To sync a user who exists in Okta but not our app, we'll first need to create a user in Okta. From within the Okta Admin Console sidebar, navigate to **Directory** > **People**. Press the **Add Person** button and add a person with the default **User type** of "User" with a **First name** of "Tom", **Last name** of "Anderson", **Username** of "tom.anderson@portal.example", and press **Save**.  
 
-You can now go back to your SCIM Application in the Applications list under Applications in the sidebar. In the Assignments tab of your app, click the blue Assign button and select Assign to People in the dropdown menu. Click Assign next to Tom Anderson in the user list, and click "Save and Go Back" to accept the defaults if prompted for a User Name.  Use the blue Done button to save your changes. 
+You can now go back to your SCIM Application. Navigate to **Applications** > **Applications** in the sidebar. Find your SCIM app and press on the list item to edit it. In the **Assignments** tab, click the **Assign v** button and select **Assign to People** in the dropdown menu. Click the **Assign** button next to "Tom Anderson" in the user list, and press **Save and Go Back** to accept the default values.  Press the **Done** button to save your changes. 
 
 In your Todo App's server logs, you'll see that a POST request immediately appeared from Okta to create Tom Anderson's account on the Todo server. 
 
@@ -1279,34 +1279,34 @@ Remember you have the option using Prisma to view the user table locally. To do 
 
 ### Deprovision a user
 
-Let's say Tom decides to leave Portal, so we need to deprovision him from the application. 
+Let's say Tom decides to leave Portal, so we need to deprovision them from the application. 
 
-In the Assignments tab of the Okta SCIM application, use the blue X next to Tom's entry to unassign him from the app. This unassignment makes Okta send the Todo App PATCH request, setting the unassigned user's `active` attribute to `false`. This indicates that a user's account has been suspended. 
+In the **Assignments** tab of the Okta SCIM application, find "Tom Anderson" and press the **X** button next to Tom's entry to unassign them from the app. This unassignment makes Okta send the Todo App PATCH request, setting the unassigned user's `active` attribute to `false`. This indicates that a user's account is suspended. 
 
-We can confirm that Tom's `active` attribute is now `false` in the Todo app's database through the Prisma web interface. To do this, in your terminal, go to the root of this workshop folder, and run `npx prisma studio`. Your browser should open to a web page where you can see all the users you've created. 
+We can confirm that Tom's `active` attribute is now `false` in the Todo app's database through the Prisma Studio web interface. To do this, in your terminal, go to the root of this workshop folder, and run `npx prisma studio`. Your browser should open to a web page where you can see all the users you've created. 
 
 ### Reprovision a user
 
 Let's say Tom later decides to return to Portal and needs access to this Todo app again. 
 
-To reactivate Tom's account, we will repeat the steps for assigning his Okta account to the application.  Re-activating Tom causes Okta to send a PATCH request to our app, setting his  `active` attribute to `true`. 
+To reactivate Tom's account, we will repeat the steps for assigning his Okta account to the application.  Re-activating Tom causes Okta to send a PATCH request to our app, setting their `active` attribute to `true`. 
 
-Again, we can confirm that Tom's account is now `active`  through our Prisma database web interface. To do this, in your terminal, go to the root of this workshop folder, and run `npx prisma studio`. Your browser should open to a web page where you can see all the users you've created. 
+Again, we can confirm that Tom's account is now `active` through our Prisma Studio database web interface. To do this, in your terminal, go to the root of this workshop folder, and run `npx prisma studio`. Your browser should open to a web page where you can see all the users you've created. 
 
 ### Change a user's info in Okta
 
-Let's look at one more scenario. Let's say not only has Tom returned, but he has also changed his name! Worry not, as our SCIM connection will automatically propagate this profile update. Let's change Tom's name to Leo and watch how Okta sends the new name to the SCIM server built into our Todo app. 
+Let's look at one more scenario. Let's say not only has Tom returned, but they also changed their name! Worry not, as our SCIM connection will automatically propagate this profile update. Let's change Tom's name to Leo and watch how Okta sends the new name to the SCIM server built into our Todo app. 
 
-In the Directory tab of the Okta admin console sidebar, navigate to People, and click on Tom's name in the user list to edit his settings. Under Profile, click "Edit" in the Attributes pane. Change the `firstName` field to Leo, and update his `login` and `email` to `leo.anderson@portal.example`. Use the blue Save button at the bottom of the page to save your changes. 
+In Okta Admin Console sidebar, navigate to **Directory** > **People**, and click on Tom's name in the user list to edit their settings. In the **Profile** tab, click **Edit** in the **Attributes** pane. Change the `firstName` field to "Leo", and update their `login` and `email` to `leo.anderson@portal.example`. Use the **Save** button at the bottom of the page to save your changes. 
 
-In your Todo app logs, what request do you expect to see from Okta when a user's information is updated? You should see the PUT request to your `/scim/v2/Users/4` endpoint shortly after saving Leo's new name. Again you can use Prisma's web interface to confirm. To do this, in your terminal, go to the root of this workshop folder, and run `npx prisma studio`. Your browser should open to a web page where you can see the change you have made.  
+In your Todo app logs, what request do you expect to see from Okta when a user's information updates? You should see the PUT request to your `/scim/v2/Users/4` endpoint automatically after saving Leo's new name. Again you can use Prisma Studio's web interface to confirm. To do this, in your terminal, go to the root of this workshop folder, and run `npx prisma studio`. Your browser should open to a web page where you can see the change you have made.  
 
 
 ## Tool recommendations for development 
 
 While troubleshooting and developing an application, it can be helpful to use tools that let you inspect your code's behavior closely, including the way it handles secrets. These tools helped me as I developed the sample code used in the workshop, and might help you as you build your own projects. 
 
-The features that make these tools excellent for testing also make them terrible for use in production. In a production context, security is essential. For troubleshooting production services, integrate your application with your team's secure logging and secrets management infrastructure. 
+The features that make these tools helpful for testing also make them terrible for production use. In a production context, security is essential. For troubleshooting production services, integrate your application with your team's secure logging and secrets management infrastructure. 
 
 ### Public URLs for local apps
 
@@ -1326,7 +1326,7 @@ The features that make these tools excellent for testing also make them terrible
 
 If you are using Visual Studio Code as your IDE, I recommend enabling your built-in debugger tool. This will allow you to inspect the request body by adding breakpoints as needed. 
 
-Follow [Visual Studio Code's docs](https://code.visualstudio.com/docs/editor/debugging) to find the Run And Debug view. I used the following `launch.json` configuration for Visual Studio when working on this app:
+Follow [Visual Studio Code's docs](https://code.visualstudio.com/docs/editor/debugging) to find the **Run And Debug** view. I used the following `launch.json` configuration for Visual Studio when working on this app:
 
 ```json
 {
@@ -1363,14 +1363,14 @@ module.exports = composePlugins(withNx(), (config) => {
 
 Enhance the scalability of your SCIM implementation with the following recommendations:
 
-<strong>Improve security by replacing auto-increment</strong>
+**Improve security by replacing auto-increment**
 
-In the OIDC and SCIM video, it was recommended to have a better way to assign the id attribute. And in both workshops, we used basic autoincrement for the user's id to lessen the complexity of the projects. However, for production, we recommend using a unique id generator such as [uuid](https://www.npmjs.com/package/uuid). I know I mentioned using xid in my accompanying video, but when considering which to use, keep in mind and as secure best practice whether or not the library is frequently maintained. 
+In the OIDC and SCIM video, I recommended to have a better way to assign the id attribute. And in both workshops, we used basic auto-increment for the user's id to lessen the complexity of the projects. However, for production, we recommend using a unique id generator such as [uuid](https://www.npmjs.com/package/uuid). I know I mentioned using xid library in my accompanying video, but when considering which to use, keep in mind library use and frequency of maintenance as security best practices. 
 
 
-<strong>Enhance efficiency in managing multitenancy</strong> 
+**Enhance efficiency in managing multitenancy**
 
-As mentioned, to simplify the example code, I demoed supporting one org at first by hardcoding the org ID as 1. 
+As mentioned, to simplify the example code, I demonstrated supporting one org at first by hardcoding the org ID as 1. 
 
 ```ts
 // To funnel users into their designated orgs
@@ -1390,6 +1390,8 @@ const user = await prisma.user.create({
     active
   }
 ```
+
+You'll make a similar change to all the SCIM endpoints.
 
 ## Adding SCIM support to SaaS applications
 
