@@ -25,7 +25,7 @@ The JHipster Kubernetes generator creates all the necessary Kubernetes resources
 
 In this post, I'll walk you through the generation of a demo Spring Boot microservices application with Keycloak integration using JHipster and its deployment to Google Kubernetes Engine (GKE). You'll also learn how to add Auth0 as an upstream provider to give you the best of both worlds (open source Keycloak + Auth0 for advanced features).
 
-{% img blog/spring-boot-keycloak-kubernetes/keycloak-auth0-gke.png alt:"JHipster, Keycloak, Auth0, and GKE logos" width:"500" %}{: .center-image }
+{% img blog/spring-boot-keycloak-kubernetes/keycloak-auth0-gke.png alt:"JHipster, Keycloak, Auth0, and GKE logos" width:"700" %}{: .center-image }
 
 > **This tutorial was created with the following tools and services**:
 > - [Node.js v18.16.1](https://docs.npmjs.com/downloading-and-installing-node-js-and-npm)
