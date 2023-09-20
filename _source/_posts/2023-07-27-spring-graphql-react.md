@@ -1383,6 +1383,9 @@ Add the `@auth0/auth0-react` dependency to the project:
 npm install @auth0/auth0-react
 ```
 
+> __NOTE:__
+> You might wonder why I'm using the Auth0 React SDK instead of the Auth0 Next.js SDK? I'm only using the front-end features of Next.js. If this example used a Next.js backend, the Auth0 Next.js SDK would make more sense.
+
 Create the component `Auth0ProviderWithNavigate` in the directory `src/components/authentication` with the following content:
 
 {% raw %}
