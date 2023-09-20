@@ -1,6 +1,6 @@
 ---
 layout: blog_post
-title: "How to build a GraphQL API with Spring for GraphQL"
+title: "How to Build a GraphQL API with Spring Boot"
 author: jimena-garbarino
 by: contractor
 communities: [security,java,javascript]
@@ -740,7 +740,7 @@ In a terminal, go to the `docker` directory and run:
 docker compose -f neo4j.yml up
 ```
 
-### Run the API server
+### Run the Spring Boot API server
 
 Go to the project root directory and start the application with:
 
@@ -1824,14 +1824,16 @@ export default CompanyTableContainer;
 
 Give it a try. It's pretty neat how GraphQL allows you to get more data just by changing the client!
 
-## Learn More About Spring Boot and React
+## Learn More About Spring Boot, GraphQL, and React
 
 I hope you enjoyed this tutorial, and found this example useful. As you can see, not much work would be required to consume more company data from the GraphQL server, just a query update in the client. Also, the Auth0 Universal Login and Auth0 React SDK provide an efficient way to secure your React applications, following security best practices. You can find all the code for this example in the [GitHub repository](https://github.com/oktadev/auth0-spring-graphql-react-example).
 
-Check out the Auth0 documentation for adding [sign-up](https://developer.auth0.com/resources/guides/spa/react/basic-authentication#add-user-sign-up-to-react) and [logout](https://developer.auth0.com/resources/guides/spa/react/basic-authentication#add-user-logout-to-reactfunctionality) to your React application. And for more fun tutorials about Spring Boot and React, you can visit the following links:
+Check out the Auth0 documentation for adding [sign-up](https://developer.auth0.com/resources/guides/spa/react/basic-authentication#add-user-sign-up-to-react) and [logout](https://developer.auth0.com/resources/guides/spa/react/basic-authentication#add-user-logout-to-reactfunctionality) to your React application. And for more fun tutorials about Spring Boot, GraphQL, and React, you can visit the following links:
 
 - [Build a Simple CRUD App with Spring Boot and Vue.js](https://auth0.com/blog/build-crud-spring-and-vue/)
 - [Use React and Spring Boot to Build a Simple CRUD App](https://auth0.com/blog/simple-crud-react-and-spring-boot/)
+- [The Complete Guide to React User Authentication with Auth0](https://auth0.com/blog/complete-guide-to-react-user-authentication/)
+- [Build and Secure a GraphQL Server with Node.js](https://auth0.com/blog/build-and-secure-a-graphql-server-with-node-js/)
 - [Full Stack Java with React, Spring Boot, and JHipster](https://auth0.com/blog/full-stack-java-with-react-spring-boot-and-jhipster/)
 
 Keep in touch! If you have questions about this post, please ask them in the comments below. And follow us! We're [@oktadev on Twitter](https://twitter.com/oktadev), [@oktadev on YouTube](https://youtube.com/c/oktadev), and frequently post to our [LinkedIn page](https://www.linkedin.com/company/oktadev/). You can also sign up for our [newsletter](https://a0.to/nl-signup/java) to stay updated on everything Identity and Security.
