@@ -791,7 +791,7 @@ Now let's create a Single Page Application (SPA) to consume the GraphQL API with
 Install Node and in a terminal run the `create-next-app` command, at the parent directory of the Spring Boot application. It will create a project directory for the client application at the same level as the server application directory:
 
 ```shell
-npx create-next-app@13.4.19
+npx create-next-app
 ```
 
 Answer the questions as follows:
