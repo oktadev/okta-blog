@@ -1,6 +1,6 @@
 ---
 layout: blog_post
-title: "Enterprise-Ready Workshop: Terraform"
+title: "Enterprise Maturity Workshop: Terraform"
 author: edunham 
 by: advocate
 communities: [devops,go]
@@ -14,12 +14,12 @@ type: awareness
 
 This workshop is part of our Enterprise-Ready Workshop series. Follow along to get familiar with managing identity as code using Okta's Terraform provider, so you can assist enterprise customers and simplify any identity setup steps that your product might require. In this workshop, you'll use Terraform to manage users and groups in an Okta Organization, while practicing beginner and intermediate Terraform skills.
 
-|Posts in the enterprise-ready workshop series|
+|Posts in the on-demand workshop series|
 | --- |
-| 1. [How to Get Going with the Enterprise-Ready SaaS Apps Workshops](/blog/2023/07/27/enterprise-ready-getting-started) |
+| 1. [How to Get Going with the On-Demand SaaS Apps Workshops](/blog/2023/07/27/enterprise-ready-getting-started) |
 | 2. [Enterprise-Ready Workshop: Authenticate with OpenID Connect](/blog/2023/07/28/oidc_workshop) |
 | 3. [Enterprise-Ready Workshop: Manage Users with SCIM](/blog/2023/07/28/scim-workshop) |
-| 4. **Enterprise-Ready Workshop: Terraform** |
+| 4. **Enterprise Maturity Workshop: Terraform** |
 
 The steps in this workshop are also demonstrated in the accompanying video, so that you can follow along in whatever medium is the best fit for your current learning needs.  
 
