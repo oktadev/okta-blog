@@ -25,7 +25,7 @@ The JHipster Kubernetes generator creates all the necessary Kubernetes resources
 
 In this post, I'll walk you through the generation of a demo Spring Boot microservices application with Keycloak integration using JHipster and its deployment to Google Kubernetes Engine (GKE). You'll also learn how to add Auth0 as an upstream provider to give you the best of both worlds (open source Keycloak + Auth0 for advanced features).
 
-{% img blog/keycloak-kubernetes-prod/keycloak-auth0-gke.png alt:"JHipster, Keycloak, Auth0, and GKE logos" width:"500" %}{: .center-image }
+{% img blog/spring-boot-keycloak-kubernetes/keycloak-auth0-gke.png alt:"JHipster, Keycloak, Auth0, and GKE logos" width:"500" %}{: .center-image }
 
 > **This tutorial was created with the following tools and services**:
 > - [Node.js v18.16.1](https://docs.npmjs.com/downloading-and-installing-node-js-and-npm)
@@ -312,17 +312,17 @@ Events:
 ```
 Once the cluster is healthy, you can test the deployment by navigating to **http://gateway.demo.\<public-ip\>.nip.io** :
 
-{% img blog/keycloak-kubernetes-prod/gateway-home.png alt:"Gateway homepage" width:"800" %}{: .center-image }
+{% img blog/spring-boot-keycloak-kubernetes/gateway-home.png alt:"Gateway homepage" width:"800" %}{: .center-image }
 
 **Note**: If you see a _Server Error_ it might be because the `gateway` is not in Running status yet. You can check the pod status with `kubectl get pod -n demo`.
 
 If you click on **Sign in** you will be redirected to the Keycloak sign-in page. As the certificate for TLS was issued by the Let's Encrypt _staging_ environment, the browser won't trust it by default. Accept the certificate and you will be able to sign in with admin/admin or user/user. If you inspect the certificate, you will find the certificate hierarchy.
 
-{% img blog/keycloak-kubernetes-prod/firefox-warning.png alt:"Firefox browser warning" width:"700" %}{: .center-image }
+{% img blog/spring-boot-keycloak-kubernetes/firefox-warning.png alt:"Firefox browser warning" width:"700" %}{: .center-image }
 
-{% img blog/keycloak-kubernetes-prod/firefox-advanced.png alt:"Firefox advanced information on warning" width:"700" %}{: .center-image }
+{% img blog/spring-boot-keycloak-kubernetes/firefox-advanced.png alt:"Firefox advanced information on warning" width:"700" %}{: .center-image }
 
-{% img blog/keycloak-kubernetes-prod/certificate-info.png alt:"Certificate information" width:"700" %}{: .center-image }
+{% img blog/spring-boot-keycloak-kubernetes/certificate-info.png alt:"Certificate information" width:"700" %}{: .center-image }
 
 **Note**: Let's Encrypt production environment issues [browser-trusted certificates](https://letsencrypt.org/how-it-works/), but it does not work with nip.io domains due to rate limits per domain.
 
@@ -359,7 +359,7 @@ Also, you should force HTTPS in the gateway as explained in the [JHipster Securi
 
 You can update admin password by signing in to Keycloak at **https://keycloak.demo.\<public-ip\>.nip.io** with admin/admin, and then choosing **jhipster** realm on the top left drop down options. Then choose **Users** on the left menu, select the **admin** user, and select the **Credentials** tab. There you can click **Reset password** and set a new password for the user.
 
-{% img blog/keycloak-kubernetes-prod/reset-password.png alt:"Reset password form" width:"900" %}{: .center-image }
+{% img blog/spring-boot-keycloak-kubernetes/reset-password.png alt:"Reset password form" width:"900" %}{: .center-image }
 
 
 ## About cert-manager and Let's Encrypt Certificates
@@ -650,7 +650,7 @@ auth0 api patch "actions/triggers/post-login/bindings" \
 
 You cans visualize the flow in the Auth0 dashboard. Sign in and on the left menu you choose **Actions**, then in the **Flows** screen, choose **Login**.
 
-{% img blog/keycloak-kubernetes-prod/login-flow.png alt:"Custom Auth0 Login Action" width:"600" %}{: .center-image }
+{% img blog/spring-boot-keycloak-kubernetes/login-flow.png alt:"Custom Auth0 Login Action" width:"600" %}{: .center-image }
 
 Now that all is set on the identity provider side, let's configure Keycloak as an identity broker delegating authentication to Auth0.
 
@@ -671,7 +671,7 @@ Click on **Add** to continue the configuration. Click on **Show Metadata** and s
 
 On the left menu, choose **Authentication**. In the flows table, choose **browser**. In the _Identity Provider Redirector_ step, click the **gear** icon. Set an alias for the configuration, and set **auth0** as the default identity provider. This configuration will skip the Keycloak sign-in form, and display the Auth0 sign-in form directly.
 
-{% img blog/keycloak-kubernetes-prod/auth0-redirector.png alt:"Identity provider redirector to Auth0" width:"450" %}{: .center-image }
+{% img blog/spring-boot-keycloak-kubernetes/auth0-redirector.png alt:"Identity provider redirector to Auth0" width:"450" %}{: .center-image }
 
 Go back to **Authentication**, and choose the **first broker login** flow. Disable the _Review Profile_ step.
 
@@ -688,13 +688,13 @@ The users that sign in through Auth0 are imported to Keycloak. The role assigned
 
 Repeat the process for mapping ROLE_ADMIN.
 
-{% img blog/keycloak-kubernetes-prod/role-mapper.png alt:"Add mapper form" width:"800" %}{: .center-image }
+{% img blog/spring-boot-keycloak-kubernetes/role-mapper.png alt:"Add mapper form" width:"800" %}{: .center-image }
 
 ### Test Keycloak as an identity broker
 
 Navigate to **http://gateway.demo.\<public-ip\>.nip.io**. The gateway homepage should display. Click on **sign in** and you should be redirected to the Auth0 sign-in form:
 
-{% img blog/keycloak-kubernetes-prod/auth0-login.png alt:"Add mapper form" width:"350" %}{: .center-image }
+{% img blog/spring-boot-keycloak-kubernetes/auth0-login.png alt:"Add mapper form" width:"350" %}{: .center-image }
 
 After signing in, the gateway home page will display the username (email). If roles were mapped correctly, the user should be able to create entities (granted by ROLE_USER), and the Administration menu will also display (granted by ROLE_ADMIN).
 
