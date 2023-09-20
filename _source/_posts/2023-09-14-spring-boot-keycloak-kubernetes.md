@@ -1,10 +1,10 @@
 ---
 layout: blog_post
-title: "Keycloak in Production with Spring Boot and JHipster"
+title: "Identity in Spring Boot with Kubernetes, Keycloak, and Auth0"
 author: jimena-garbarino
 by: contractor
 communities: [devops,security,java]
-description: "A walk-through of building a microservices architecture with JHipster, Keycloak for OAuth 2.0, and Google Kubernetes Engine (GKE) deployment."
+description: "A walk-through of building a microservices architecture with JHipster, Keycloak, Auth0, and Google Kubernetes Engine (GKE) deployment."
 tags: [keycloak, kubernetes, java, jhipster, security, oauth2]
 tweets:
 - ""
@@ -13,13 +13,19 @@ tweets:
 image:
 type: awareness
 ---
-Keycloak is an open-source identity and access management solution that allows you to secure your applications and services with ease. JHipster, on the other hand, is a powerful development platform that provides developers with the tools they need to create modern, scalable, and robust web applications using Spring Boot.
+JHipster is a powerful development platform that provides developers with the tools they need to create modern, scalable, and robust web applications using Spring Boot. Using OAuth 2.0 with JHipster is an excellent way to ensure your web applications are secure and well-protected from unauthorized access. Integrating OAuth and OpenID Connect (OIDC) into your applications allows you to easily implement authorization and authentication, manage user identities, and provide secure access to resources.
 
-Keycloak is the default OpenID Connect server configured with JHipster. Using Keycloak with JHipster is an excellent way to ensure that your web applications are secure and well-protected from unauthorized access. By integrating Keycloak to your applications, you can easily implement authentication and authorization, manage user identities, and provide secure access to resources.
+By default, the OAuth 2.0 and OIDC server configured with JHipster is Keycloak, an open source identity and access management solution. This is because Keycloak can be run in a local Docker container and pre-populated with users and client registrations. And while you can also [use JHipster with Auth0 directly](https://www.jhipster.tech/security/#auth0), and we've written a [couple](https://auth0.com/blog/full-stack-java-with-react-spring-boot-and-jhipster/) of [tutorials](https://auth0.com/blog/micro-frontends-for-java-microservices/) to help you migrate a JHipster project to Auth0.
 
-The JHipster Kubernetes generator creates all the necessary Kubernetes resources, such as deployments, services, and ingresses, based on the configuration of the JHipster application. This includes setting up the database, configuring security, and setting up any necessary environment variables. Since JHipster 8, the Kubernetes sub-generator supports Keycloak for Ingress GKE deployment. In this post, I'll walk you through the generation of a demo Spring Boot microservices application with Keycloak integration using JHipster, and its deployment to Google Kubernetes Engine (GKE).
+This time, we figured it'd be fun to explore how to chain Keycloak and Auth0 together. This architecture might be useful for those folks who are already using Keycloak in production or companies that have mandated Keycloak, but still want to use the more advanced features available in Auth0. If you level-up by using Auth0 for your identity provider, you can go beyond the basic capabilities offered by the open source offering.
 
-{% img blog/keycloak-kubernetes-prod/keycloak-gke.png alt:"Keycloak, JHipster, GKE logos" width:"500" %}{: .center-image }
+In this tutorial, we'll show you how you can configure Keycloak to use Auth0 as an upstream provider. This will set you up for success because you can use Auth0's advanced identity features, like [actions](https://auth0.com/docs/customize/actions) and [passkeys](https://auth0.com/blog/our-take-on-passkeys/), to delight your customers. It's all pretty slick! 😃
+
+The JHipster Kubernetes generator creates all the necessary Kubernetes resources, such as deployments, services, and ingresses, based on the configuration of the JHipster application. This includes setting up the database, configuring security, and setting up any necessary environment variables. In JHipster 8, the Kubernetes sub-generator supports Keycloak for Ingress GKE deployment!
+
+In this post, I'll walk you through the generation of a demo Spring Boot microservices application with Keycloak integration using JHipster and its deployment to Google Kubernetes Engine (GKE). You'll also learn how to add Auth0 as an upstream provider to give you the best of both worlds (open source Keycloak + Auth0 for advanced features).
+
+{% img blog/spring-boot-keycloak-kubernetes/keycloak-auth0-gke.png alt:"JHipster, Keycloak, Auth0, and GKE logos" width:"500" %}{: .center-image }
 
 > **This tutorial was created with the following tools and services**:
 > - [Node.js v18.16.1](https://docs.npmjs.com/downloading-and-installing-node-js-and-npm)
@@ -31,7 +37,6 @@ The JHipster Kubernetes generator creates all the necessary Kubernetes resources
 > - [Kubectl v1.26.3](https://kubernetes.io/docs/tasks/tools/)
 > - [Auth0 account](https://auth0.com/signup)
 > - [Auth0 CLI 1.0.0](https://github.com/auth0/auth0-cli#installation)
-
 
 {% include toc.md %}
 
@@ -307,17 +312,17 @@ Events:
 ```
 Once the cluster is healthy, you can test the deployment by navigating to **http://gateway.demo.\<public-ip\>.nip.io** :
 
-{% img blog/keycloak-kubernetes-prod/gateway-home.png alt:"Gateway homepage" width:"800" %}{: .center-image }
+{% img blog/spring-boot-keycloak-kubernetes/gateway-home.png alt:"Gateway homepage" width:"800" %}{: .center-image }
 
 **Note**: If you see a _Server Error_ it might be because the `gateway` is not in Running status yet. You can check the pod status with `kubectl get pod -n demo`.
 
 If you click on **Sign in** you will be redirected to the Keycloak sign-in page. As the certificate for TLS was issued by the Let's Encrypt _staging_ environment, the browser won't trust it by default. Accept the certificate and you will be able to sign in with admin/admin or user/user. If you inspect the certificate, you will find the certificate hierarchy.
 
-{% img blog/keycloak-kubernetes-prod/firefox-warning.png alt:"Firefox browser warning" width:"700" %}{: .center-image }
+{% img blog/spring-boot-keycloak-kubernetes/firefox-warning.png alt:"Firefox browser warning" width:"700" %}{: .center-image }
 
-{% img blog/keycloak-kubernetes-prod/firefox-advanced.png alt:"Firefox advanced information on warning" width:"700" %}{: .center-image }
+{% img blog/spring-boot-keycloak-kubernetes/firefox-advanced.png alt:"Firefox advanced information on warning" width:"700" %}{: .center-image }
 
-{% img blog/keycloak-kubernetes-prod/certificate-info.png alt:"Certificate information" width:"700" %}{: .center-image }
+{% img blog/spring-boot-keycloak-kubernetes/certificate-info.png alt:"Certificate information" width:"700" %}{: .center-image }
 
 **Note**: Let's Encrypt production environment issues [browser-trusted certificates](https://letsencrypt.org/how-it-works/), but it does not work with nip.io domains due to rate limits per domain.
 
@@ -354,7 +359,7 @@ Also, you should force HTTPS in the gateway as explained in the [JHipster Securi
 
 You can update admin password by signing in to Keycloak at **https://keycloak.demo.\<public-ip\>.nip.io** with admin/admin, and then choosing **jhipster** realm on the top left drop down options. Then choose **Users** on the left menu, select the **admin** user, and select the **Credentials** tab. There you can click **Reset password** and set a new password for the user.
 
-{% img blog/keycloak-kubernetes-prod/reset-password.png alt:"Reset password form" width:"900" %}{: .center-image }
+{% img blog/spring-boot-keycloak-kubernetes/reset-password.png alt:"Reset password form" width:"900" %}{: .center-image }
 
 
 ## About cert-manager and Let's Encrypt Certificates
@@ -645,7 +650,7 @@ auth0 api patch "actions/triggers/post-login/bindings" \
 
 You cans visualize the flow in the Auth0 dashboard. Sign in and on the left menu you choose **Actions**, then in the **Flows** screen, choose **Login**.
 
-{% img blog/keycloak-kubernetes-prod/login-flow.png alt:"Custom Auth0 Login Action" width:"600" %}{: .center-image }
+{% img blog/spring-boot-keycloak-kubernetes/login-flow.png alt:"Custom Auth0 Login Action" width:"600" %}{: .center-image }
 
 Now that all is set on the identity provider side, let's configure Keycloak as an identity broker delegating authentication to Auth0.
 
@@ -666,7 +671,7 @@ Click on **Add** to continue the configuration. Click on **Show Metadata** and s
 
 On the left menu, choose **Authentication**. In the flows table, choose **browser**. In the _Identity Provider Redirector_ step, click the **gear** icon. Set an alias for the configuration, and set **auth0** as the default identity provider. This configuration will skip the Keycloak sign-in form, and display the Auth0 sign-in form directly.
 
-{% img blog/keycloak-kubernetes-prod/auth0-redirector.png alt:"Identity provider redirector to Auth0" width:"450" %}{: .center-image }
+{% img blog/spring-boot-keycloak-kubernetes/auth0-redirector.png alt:"Identity provider redirector to Auth0" width:"450" %}{: .center-image }
 
 Go back to **Authentication**, and choose the **first broker login** flow. Disable the _Review Profile_ step.
 
@@ -683,13 +688,13 @@ The users that sign in through Auth0 are imported to Keycloak. The role assigned
 
 Repeat the process for mapping ROLE_ADMIN.
 
-{% img blog/keycloak-kubernetes-prod/role-mapper.png alt:"Add mapper form" width:"800" %}{: .center-image }
+{% img blog/spring-boot-keycloak-kubernetes/role-mapper.png alt:"Add mapper form" width:"800" %}{: .center-image }
 
 ### Test Keycloak as an identity broker
 
 Navigate to **http://gateway.demo.\<public-ip\>.nip.io**. The gateway homepage should display. Click on **sign in** and you should be redirected to the Auth0 sign-in form:
 
-{% img blog/keycloak-kubernetes-prod/auth0-login.png alt:"Add mapper form" width:"350" %}{: .center-image }
+{% img blog/spring-boot-keycloak-kubernetes/auth0-login.png alt:"Add mapper form" width:"350" %}{: .center-image }
 
 After signing in, the gateway home page will display the username (email). If roles were mapped correctly, the user should be able to create entities (granted by ROLE_USER), and the Administration menu will also display (granted by ROLE_ADMIN).
 
