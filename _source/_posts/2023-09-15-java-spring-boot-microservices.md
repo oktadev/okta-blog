@@ -158,15 +158,15 @@ Okta also now has an [Okta Spring Boot starter](https://github.com/okta/okta-spr
 I created all of these applications using [start.spring.io](https://start.spring.io)'s REST API and [HTTPie](https://httpie.org).
 
 ```shell
-https start.spring.io/starter.zip bootVersion==3.1.3 \
+https start.spring.io/starter.zip bootVersion==3.1.4 \
   artifactId==discovery-service name==eureka-service \
   dependencies==cloud-eureka-server baseDir==discovery-service | tar -xzvf -
 
-https start.spring.io/starter.zip bootVersion==3.1.3 \
+https start.spring.io/starter.zip bootVersion==3.1.4 \
   artifactId==car-service name==car-service baseDir==car-service \
   dependencies==actuator,cloud-eureka,data-jpa,data-rest,postgresql,web,validation,devtools,docker-compose,okta | tar -xzvf -
 
-https start.spring.io/starter.zip bootVersion==3.1.3 \
+https start.spring.io/starter.zip bootVersion==3.1.4 \
   artifactId==api-gateway name==api-gateway baseDir==api-gateway \
   dependencies==cloud-eureka,cloud-feign,data-rest,web,okta | tar -xzvf -
 ```` 
