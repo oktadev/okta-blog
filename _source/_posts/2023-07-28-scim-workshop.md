@@ -18,6 +18,7 @@ changelog:
 - 2023-08-30: Improved instructions for bearer auth check
 - 2023-09-15: Corrected url typos on SCIM diagram
 - 2023-09-19: Clarified instructions and changed the Bearer auth handling to the SCIM route definition
+- 2023-09-21: Removed auth0 logo as they don't support SCIM at this time
 ---
 
 Hello SaaS developers! You sell your software to technologically mature enterprises, and they expect it to interface seamlessly with all their other tools. In our [Enterprise-Ready Workshop on OpenID Connect](/blog/2023/07/28/oidc_workshop), you learned how to solve part of this problem, by creating user accounts in your application for your customers' employees whenever they log in. 
