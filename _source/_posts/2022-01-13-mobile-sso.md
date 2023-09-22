@@ -8,7 +8,6 @@ description: "Understanding platform-level constraints is a prerequisite for dev
 tags: [ios, sso, mobile-sso, mobile]
 tweets:
 - "A brief history of the iOS SSO experience"
-image: blog/mobile-sso/mobile-sso-social.jpeg
 type: awareness
 ---
 
