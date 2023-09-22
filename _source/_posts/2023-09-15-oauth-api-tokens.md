@@ -197,6 +197,8 @@ Software migrations take time and planning, and having a good game plan helps. C
 
 The first step in migrating from static API tokens is ensuring the APIs you use support OAuth 2.0. Check with your vendor if you're calling third-party APIs. If your API is internal, you'll want to add OAuth support. Once you verify the APIs you're calling support OAuth, you'll need the client ID for the OAuth application and enable access measures such as scopes.
 
+By signing in to your Okta Admin Console as an administrator, you can determine whether you use static API tokens in an Okta environment. In the sidebar, navigate to **Security** > **API** and select the **Tokens** tab to see all the tokens created for the Okta organization. This view gives insight into the API token usage, use cases, and access level (for example, a Super Admin-created token has full access). You'll want to assess each and convert them to use OAuth.
+
 Let's focus on the use case of an automated service-to-service call. Incorporating OAuth 2.0 within your APIs all in one shot is daunting, so let's examine how to achieve this incrementally. Before making any code changes, you can try the steps locally by hand and use your favorite HTTP client to request a token and call an API using OAuth 2.0. This case uses Client Credentials flow with a private key JWT. The steps are:
 
 1. Generate the public/private key pair
