@@ -7,9 +7,7 @@ communities: [security,.net,java,javascript,go,php,python,ruby]
 description: "Improve your security posture and transition from static API tokens to OAuth 2.0. Learn why and how in this post."
 tags: ["api", "oauth", "tokens"]
 tweets:
-- ""
-- ""
-- ""
+- "It's time to transition from static API keys to OAuth to improve your security posture!"
 image: blog/oauth-api-tokens/social.jpg
 type: awareness
 ---
