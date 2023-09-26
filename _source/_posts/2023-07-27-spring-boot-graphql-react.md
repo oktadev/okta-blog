@@ -4,7 +4,7 @@ title: "How to Build a GraphQL API with Spring Boot"
 author: jimena-garbarino
 by: contractor
 communities: [security,java,javascript]
-description: "A step-by-step guide for building a secured GraphQL API with Spring Boot and Auth0 authentication on React"
+description: "A step-by-step guide to building a secure GraphQL API with Spring Boot, React, and Auth0."
 tags: [java, javascript]
 tweets:
 - ""
