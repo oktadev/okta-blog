@@ -158,22 +158,20 @@ Okta also now has an [Okta Spring Boot starter](https://github.com/okta/okta-spr
 I created all of these applications using [start.spring.io](https://start.spring.io)'s REST API and [HTTPie](https://httpie.org).
 
 ```shell
-https start.spring.io/starter.zip bootVersion==3.1.4 \
+https start.spring.io/starter.tgz bootVersion==3.1.4 \
   artifactId==discovery-service name==eureka-service \
   dependencies==cloud-eureka-server baseDir==discovery-service | tar -xzvf -
 
-https start.spring.io/starter.zip bootVersion==3.1.4 \
+https start.spring.io/starter.tgz bootVersion==3.1.4 \
   artifactId==car-service name==car-service baseDir==car-service \
   dependencies==actuator,cloud-eureka,data-jpa,data-rest,postgresql,web,validation,devtools,docker-compose,okta | tar -xzvf -
 
-https start.spring.io/starter.zip bootVersion==3.1.4 \
+https start.spring.io/starter.tgz bootVersion==3.1.4 \
   artifactId==api-gateway name==api-gateway baseDir==api-gateway \
   dependencies==cloud-eureka,cloud-feign,data-rest,web,okta | tar -xzvf -
 ```` 
 
 You might notice the `api-gateway` project doesn't have `cloud-gateway` as a dependency. That's because I started without it and didn't add it until I needed to proxy requests by path.
-
-After creating these three projects, I ran `chmod +x gradlew` in each directory to make the Gradle wrapper executable.
 
 ## Service Discovery with Netflix Eureka
 
@@ -419,6 +417,27 @@ class CoolCarController {
 }
 ```
 
+In order to inject the `WebClient.Builder`, I had to create a `WebClientConfiguration` class.
+
+```java
+package com.example.apigateway.config;
+
+import org.springframework.cloud.client.loadbalancer.LoadBalanced;
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
+import org.springframework.web.reactive.function.client.WebClient;
+
+@Configuration
+public class WebClientConfiguration {
+
+    @Bean
+    @LoadBalanced
+    public WebClient.Builder webClientBuilder() {
+        return WebClient.builder();
+    }
+}
+```
+
 In the `car-service` project, I had to switch from using Spring Data REST to handling it with a `@RestController` and `@GetMapping` annotation. I removed the `@RepositoryRestResource` annotation from `CarRepository` and added a `CarController` class.
 
 ```java
@@ -587,12 +606,14 @@ public class SecurityConfiguration {
 }
 ```
 
+<!--
 I was able to get the OpenFeign client to work by adding a couple of properties to enable OAuth:
 
 ```properties
 spring.cloud.openfeign.oauth2.enabled=true
 spring.cloud.openfeign.oauth2.clientRegistrationId=okta
 ```
+-->
 
 To make Spring Cloud Gateway pass the access token downstream, I added `TokenRelay` to its default filters in `application.yml`:
 
