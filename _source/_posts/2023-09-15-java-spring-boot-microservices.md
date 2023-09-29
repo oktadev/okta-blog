@@ -81,7 +81,7 @@ In the `spring-boot-gateway-webflux` directory, there are three projects:
 
 ### Run a Secure Spring Boot Microservice Architecture
 
-To run the example, you must [install the Auth0 CLI](https://github.com/auth0/auth0-cli#installation) and create an Auth0 account. If you don't have an Auth0 account, [sign up for free](https://auth0.com/signup). I recommend using [SDKMAN!](https://sdkman.io) to install Java 17+.
+To run the example, you must [install the Auth0 CLI](https://github.com/auth0/auth0-cli#installation) and create an Auth0 account. If you don't have an Auth0 account, [sign up for free](https://auth0.com/signup). I recommend using [SDKMAN!](https://sdkman.io) to install Java 17+ and [HTTPie](https://httpie.io/download) for making HTTP requests.
 
 First, start the discovery service:
 
@@ -90,7 +90,7 @@ cd discovery-service
 ./gradlew bootRun
 ```
 
-Before it starts, you'll need to configure the API gateway to use your Auth0 account.
+Before you can start the API gateway project, you'll need to configure the API gateway to use your Auth0 account.
 
 Open a terminal and run `auth0 login` to configure the Auth0 CLI to get an API key for your tenant. Then, run `auth0 apps create` to register an OpenID Connect (OIDC) app with the appropriate URLs:
 
@@ -134,9 +134,9 @@ After authenticating, you'll see your name in lights! ✨
 
 You can navigate to the following URLs in your browser for different results:
 
-- `http://localhost:8080/print-token`: prints access token to the console
+- `http://localhost:8080/print-token`: prints access token to the terminal
 - `http://localhost:8080/cool-cars`: returns a list of cool cars
-- `http://localhost:8080/home`: proxies request to the car service and prints JWT claims to the console
+- `http://localhost:8080/home`: proxies request to the car service and prints JWT claims in this application's terminal
 
 You can see the access token's contents by copying/pasting it into [jwt.io](https://jwt.io). You can also access the car service directly using it.
 
@@ -182,6 +182,7 @@ The `discovery-service` is configured the same as you would most Eureka servers.
 ```properties
 server.port=8761
 eureka.client.register-with-eureka=false
+eureka.client.fetch-registry=false
 ```
 
 The `car-service` and `api-gateway` projects are configured similarly. Both have a unique name defined, and `car-service` is configured to run on port `8090` so it doesn't conflict with `8080`.
@@ -197,7 +198,7 @@ spring.application.name=car-service
 spring.application.name=api-gateway
 ```
 
-`@EnableDiscoveryClient` annotates the main class in both projects.
+`@EnableDiscoveryClient` annotates the main class in both car service and API gateway.
 
 ## Build a Java Microservice with Spring Data REST
 
@@ -446,6 +447,8 @@ class CarController {
 }
 ```
 
+**NOTE**: I did try to use Spring HATEOAS but [ran into an issue](https://github.com/okta/okta-spring-boot/issues/607) when using it with the Okta Spring Boot starter. 
+
 To proxy `/home` to the downstream microservice, I added a `api-gateway/src/main/resources/application.yml` file to configure Spring Cloud Gateway to enable service discovery and specify routes.
 
 ```yaml
@@ -605,7 +608,7 @@ spring:
       routes: ...
 ```
 
-I added a `WebClientConfiguration` class to configure `WebClient` to include the access token with its requests.
+I updated the `WebClientConfiguration` class to configure `WebClient` to include the access token with its requests.
 
 ```java
 package com.example.apigateway.config;
