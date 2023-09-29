@@ -728,7 +728,7 @@ Use `admin`/`admin` for credentials, and you can access `http://localhost:8080/c
 
 {% img blog/spring-boot-microservices/cool-cars.png alt:"Results from /cool-cars endpoint" %}{: .center-image }
 
-## Have fun with Spring Boot and Spring Cloud!
+## Stay secure with Spring Boot and Spring Cloud!
 
 I hope you liked this tour of how to build Java microservice architectures with Spring Boot and Spring Cloud. You learned how to build everything with minimal code and then configure it to be secure with Spring Security, OAuth 2.0, OIDC, and Auth0 by Okta.
 
@@ -740,6 +740,13 @@ If you liked this post, you might enjoy these related posts:
 - [Get started with Spring Boot and Auth0](https://auth0.com/blog/get-started-with-okta-spring-boot-starter/)
 - [Build a Beautiful CRUD App with Spring Boot and Angular](https://auth0.com/blog/spring-boot-angular-crud/)
 - [Get Started with Jetty, Java, and OAuth](https://auth0.com/blog/java-jetty-oauth/)
+
+We've also published some labs about securing Spring Boot in our Developer Center. They're great if you like to learn by doing!
+
+- [Authorization in Spring Boot](https://developer.auth0.com/resources/labs/authorization/spring-resource-server)
+- [Authentication in Spring Boot](https://developer.auth0.com/resources/labs/authentication/spring)
+- [Role Based Access Control in Spring Boot](https://developer.auth0.com/resources/labs/authorization/rbac-in-spring-boot)
+- [Build and Secure Spring Boot Microservices](https://developer.auth0.com/resources/labs/authorization/securing-spring-boot-microservices)
 
 Please follow us [on Twitter @oktadev](https://twitter.com/oktadev) and subscribe to [our YouTube channel](https://www.youtube.com/oktadev) for more Spring Boot and microservices knowledge.
 
