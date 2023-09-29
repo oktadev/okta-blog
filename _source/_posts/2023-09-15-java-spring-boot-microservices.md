@@ -741,7 +741,7 @@ If you liked this post, you might enjoy these related posts:
 - [Build a Beautiful CRUD App with Spring Boot and Angular](https://auth0.com/blog/spring-boot-angular-crud/)
 - [Get Started with Jetty, Java, and OAuth](https://auth0.com/blog/java-jetty-oauth/)
 
-We've also published some labs about securing Spring Boot in our Developer Center. They're great if you like to learn by doing!
+We've also published some new labs about securing Spring Boot in our Developer Center. They're great if you like to learn by doing!
 
 - [Authorization in Spring Boot](https://developer.auth0.com/resources/labs/authorization/spring-resource-server)
 - [Authentication in Spring Boot](https://developer.auth0.com/resources/labs/authentication/spring)
