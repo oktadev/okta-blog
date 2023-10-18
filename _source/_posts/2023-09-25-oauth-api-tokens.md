@@ -12,13 +12,13 @@ image: blog/oauth-api-tokens/social.jpg
 type: awareness
 ---
 
-Static API tokens have long been used to call external APIs and access the resources of third parties such as software vendors. As API standards have evolved, [OAuth 2.0](https://developer.okta.com/docs/concepts/oauth-openid/) emerged as the option offering more robust security, flexibility, and a better developer experience. Let's explore the advantages of moving away from static tokens in favor of OAuth 2.0.
+Static API tokens have long been used to call external APIs and access the resources of third parties such as software vendors. As API standards have evolved, [OAuth 2.0](https://developer.okta.com/docs/concepts/oauth-openid/) emerged as the option offering more robust security, greater flexibility, and a better developer experience. Let's explore the advantages of moving away from static tokens in favor of OAuth 2.0.
 
 {% include toc.md %}
 
 ## Static API token landscape
 
-In a secure software system, all calls that allow read or modify access to resources must be authorized. When you call a protected API, the API needs some way to validate authorization. Static API tokens are a way to provide authorization information to the API using a remembered value without user context. As a result, they provided a straightforward (but limited) approach for developers to grant API access to another app: generate a token, store it once, and proceed with the task. 
+In a secure software system, all calls that allow read or modify access to resources must be authorized. When you call a protected API, the API needs some way to validate authorization. Static API tokens are a way to provide authorization information to the API using a remembered value without user context. As a result, they provided a straightforward (but limited) approach for developers to grant API access to another app: Generate a token, store it once, and proceed with the task. 
 
 If we look at an example HTTP call to Okta, a request with a static API token may look something like this:
 
@@ -35,7 +35,7 @@ The caller of the API (aka the client) adds the token value to the call. Dependi
 
 As with many technologies, this ease of use comes with a corresponding increase in exposure to risk. Unlike short-lived OAuth 2.0 tokens, static tokens typically have a long life. API tokens set in query parameters are particularly dangerous. Browsers save URLs in history, and logging systems may record the entire URL, exposing the token more readily than when using HTTP headers. 
 
-To better understand the security concerns associated with static API tokens, let's dive into some of their characteristics in detail, and compare and contrast to OAuth 2.0 as an alternative.
+To better understand the security concerns associated with static API tokens, let's dive into some of their characteristics in detail, and compare and contrast with OAuth 2.0 as an alternative.
 
 **Access risks when using static API tokens**
 
@@ -254,7 +254,7 @@ Remember, as technology progresses, staying updated and adapting to better pract
 
 ## Next steps with OAuth 2.0
 
-If you found this post interesting, you may enjoy these posts.
+If you find this post interesting, you may enjoy these posts.
  * [Selecting the Best Authorization for Your API Integrations](/blog/2023/04/24/api-integrations)
  * [Step-up Authentication in Modern Applications](/blog/2023/03/08/setup-up-auth)
  * [Add Auth to Any App with OAuth2 Proxy](/blog/2022/07/14/add-auth-to-any-app-with-oauth2-proxy)
