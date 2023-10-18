@@ -49,7 +49,7 @@ In this walkthrough, you will build a microservices architecture example from JH
 Install JHipster, you can do the classical local installation with npm.
 
 ```bash
-npm install -g generator-jhipster@8.0.0-beta.2
+npm i -g generator-jhipster@8.0.0-rc.1
 ```
 
 Generate the microservices architecture from a JDL (JHipster Domain Language) descriptor file. Create a folder for the project and add the file `microservices.jdl` with the following content:
@@ -262,7 +262,7 @@ gcloud container clusters get-credentials jhipster-cluster --zone southamerica-e
 Install [cert-manager](https://cert-manager.io/docs/tutorials/getting-started-with-cert-manager-on-google-kubernetes-engine-using-lets-encrypt-for-ingress-ssl/) in your cluster:
 
 ```shell
-kubectl apply -f https://github.com/cert-manager/cert-manager/releases/download/v1.12.2/cert-manager.yaml
+kubectl apply -f https://github.com/cert-manager/cert-manager/releases/download/v1.13.1/cert-manager.yaml
 ```
 
 **Note**: If you see a `kubectl` error _The gcp auth plugin has been removed._, see [Here's what to know about changes to kubectl authentication coming in GKE v1.26](https://cloud.google.com/blog/products/containers-kubernetes/kubectl-auth-changes-in-gke) for details on how to fix it.
@@ -334,7 +334,7 @@ gcloud container clusters delete <cluster-name> \
   --zone <cluster-zone>
 ```
 
-```shell  
+```shell
 gcloud compute addresses delete <public-ip> --global
 ```
 
@@ -469,16 +469,16 @@ Once the app is created, you will see the OIDC app's configuration:
 === dev-avup2laz.us.auth0.com application created
 
   CLIENT ID            ***
-  NAME                 Spring Boot + Keycloak                                             
-  DESCRIPTION          JHipster + Spring Boot + Keycloak = 🤠                             
-  TYPE                 Regular Web Application                                            
+  NAME                 Spring Boot + Keycloak
+  DESCRIPTION          JHipster + Spring Boot + Keycloak = 🤠
+  TYPE                 Regular Web Application
   CLIENT SECRET        ***
   CALLBACKS            ***
   ALLOWED LOGOUT URLS  ***
-  ALLOWED ORIGINS                                                                         
-  ALLOWED WEB ORIGINS                                                                     
-  TOKEN ENDPOINT AUTH                                                                     
-  GRANTS               implicit, authorization_code, refresh_token, client_credentials    
+  ALLOWED ORIGINS
+  ALLOWED WEB ORIGINS
+  TOKEN ENDPOINT AUTH
+  GRANTS               implicit, authorization_code, refresh_token, client_credentials
 
  ▸    Quickstarts: https://auth0.com/docs/quickstart/webapp
  ▸    Hint: Emulate this app's login flow by running `auth0 test login ***`
@@ -503,9 +503,9 @@ Connection Name: Username-Password-Authentication
 
 === dev-avup2laz.us.auth0.com user created
 
-  ID          auth0|643ec0e1e671c7c9c5916ed6    
-  EMAIL       patrick@email.com                 
-  CONNECTION  Username-Password-Authentication  
+  ID          auth0|643ec0e1e671c7c9c5916ed6
+  EMAIL       patrick@email.com
+  CONNECTION  Username-Password-Authentication
 ```
 
 Save the ID for later.
@@ -524,9 +524,9 @@ Description: A user
 
 === dev-avup2laz.us.auth0.com role created
 
- ID           rol_175cvyWy20sxohgo  
- NAME         ROLE_USER             
- DESCRIPTION  A user     
+ ID           rol_175cvyWy20sxohgo
+ NAME         ROLE_USER
+ DESCRIPTION  A user
 ```
 
 Assign the roles to the users you created:
@@ -543,9 +543,9 @@ User ID: auth0|643ec0e1e671c7c9c5916ed6
 
 === dev-avup2laz.us.auth0.com roles assigned to user (2)
 
-  ID                    NAME        DESCRIPTION       
-  rol_24d61Zxpvuas66tF  ROLE_ADMIN  An administrator  
-  rol_175cvyWy20sxohgo  ROLE_USER   A user            
+  ID                    NAME        DESCRIPTION
+  rol_24d61Zxpvuas66tF  ROLE_ADMIN  An administrator
+  rol_175cvyWy20sxohgo  ROLE_USER   A user
 ```
 
 ### Configure a Login Action
@@ -585,39 +585,39 @@ Name: jhipster
 
 === dev-avup2laz.us.auth0.com action created
 
-  ID             083009b5-651e-43d3-8c1e-0053309da2ac                                                                     
-  NAME           jhipster                                                                                                 
-  TYPE           post-login                                                                                               
-  STATUS         pending                                                                                                  
-  DEPLOYED       ✗                                                                                                        
-  LAST DEPLOYED                                                                                                           
-  LAST UPDATED   0 seconds ago                                                                                            
-  CREATED        0 seconds ago                                                                                            
-  CODE           /**                                                                                                      
-                  * Handler that will be called during the execution of a PostLogin flow.                                 
-                  *                                                                                                       
-                  * @param {Event} event - Details about the user and the context in which they are logging in.           
-                  * @param {PostLoginAPI} api - Interface whose methods can be used to change the behavior of the login.  
-                  */                                                                                                      
-                 exports.onExecutePostLogin = async (event, api) => {                                                     
-                   const namespace = 'https://www.jhipster.tech';                                                         
-                   if (event.authorization) {                                                                             
-                     api.idToken.setCustomClaim('preferred_username', event.user.email);                                  
-                     api.idToken.setCustomClaim(`${namespace}/roles`, event.authorization.roles);                         
-                     api.accessToken.setCustomClaim(`${namespace}/roles`, event.authorization.roles);                     
-                   }                                                                                                      
-                 };                                                                                                       
+  ID             083009b5-651e-43d3-8c1e-0053309da2ac
+  NAME           jhipster
+  TYPE           post-login
+  STATUS         pending
+  DEPLOYED       ✗
+  LAST DEPLOYED
+  LAST UPDATED   0 seconds ago
+  CREATED        0 seconds ago
+  CODE           /**
+                  * Handler that will be called during the execution of a PostLogin flow.
+                  *
+                  * @param {Event} event - Details about the user and the context in which they are logging in.
+                  * @param {PostLoginAPI} api - Interface whose methods can be used to change the behavior of the login.
+                  */
+                 exports.onExecutePostLogin = async (event, api) => {
+                   const namespace = 'https://www.jhipster.tech';
+                   if (event.authorization) {
+                     api.idToken.setCustomClaim('preferred_username', event.user.email);
+                     api.idToken.setCustomClaim(`${namespace}/roles`, event.authorization.roles);
+                     api.accessToken.setCustomClaim(`${namespace}/roles`, event.authorization.roles);
+                   }
+                 };
 
 
-                 /**                                                                                                      
-                  * Handler that will be invoked when this action is resuming after an external redirect. If your         
-                  * onExecutePostLogin function does not perform a redirect, this function can be safely ignored.         
-                  *                                                                                                       
-                  * @param {Event} event - Details about the user and the context in which they are logging in.           
-                  * @param {PostLoginAPI} api - Interface whose methods can be used to change the behavior of the login.  
-                  */                                                                                                      
-                 // exports.onContinuePostLogin = async (event, api) => {                                                 
-                 // };                                                                                                    
+                 /**
+                  * Handler that will be invoked when this action is resuming after an external redirect. If your
+                  * onExecutePostLogin function does not perform a redirect, this function can be safely ignored.
+                  *
+                  * @param {Event} event - Details about the user and the context in which they are logging in.
+                  * @param {PostLoginAPI} api - Interface whose methods can be used to change the behavior of the login.
+                  */
+                 // exports.onContinuePostLogin = async (event, api) => {
+                 // };
 
 ```
 
@@ -631,8 +631,8 @@ The output will show the deployment status of each action:
 ```text
 === dev-avup2laz.us.auth0.com actions
 
-  ID                                    NAME      TYPE        STATUS  DEPLOYED  
-  ee0ea308-0e50-4be3-893b-74f9ccbb3703  jhipster  post-login  built   ✗         
+  ID                                    NAME      TYPE        STATUS  DEPLOYED
+  ee0ea308-0e50-4be3-893b-74f9ccbb3703  jhipster  post-login  built   ✗
 ```
 
 Note the `DEPLOYED` status is `x`. Go ahead and deploy it using the action ID:
