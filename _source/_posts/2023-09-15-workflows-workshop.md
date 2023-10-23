@@ -17,7 +17,7 @@ This tutorial is part of the on-demand workshop series. In this workshop, you'll
 {% include toc.md %}
 
 
-You built a SaaS (Software as a Service) Todo application: 
+You built a SaaS Todo application: 
 
 {% img blog/workflows-workshop/Workflows_todoapp.jpg alt:"The Todo application showing five tasks" width:"800" %}{: .center-image }
 
