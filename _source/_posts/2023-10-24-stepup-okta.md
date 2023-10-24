@@ -165,7 +165,7 @@ Typically, the user id is available from the ID token issued during authenticati
 curl -v -X GET \
 -H "Accept: application/json" \
 -H "Content-Type: application/json" \
--H "Authorization: SSWS ${api_token}" \
+-H "Authorization: Bearer ${api_token}" \
 "https://${yourOktaDomain}/api/v1/users?search=profile.login+eq+%22login%40example.com%22"
 ``` 
 
@@ -177,7 +177,7 @@ The Factor ID is available from the [factor management API](https://developer.ok
 curl -v -X GET \
 -H "Accept: application/json" \
 -H "Content-Type: application/json" \
--H "Authorization: SSWS ${api_token}" \
+-H "Authorization: Bearer ${api_token}" \
 "https://${yourOktaDomain}/api/v1/users/00u15s1KDETTQMQYABRL/factors"
 ``` 
 
@@ -187,7 +187,7 @@ curl -v -X GET \
 curl -v -X POST \
 -H "Accept: application/json" \
 -H "Content-Type: application/json" \
--H "Authorization: SSWS ${api_token}" \
+-H "Authorization: Bearer ${api_token}" \
 -d '{
 }' "https://${yourOktaDomain}/api/v1/users/00u15s1KDETTQMQYABRL/factors/smsszf1YNUtGWTx4j0g3/verify"
 ```
@@ -198,7 +198,7 @@ curl -v -X POST \
 curl -v -X POST \
 -H "Accept: application/json" \
 -H "Content-Type: application/json" \
--H "Authorization: SSWS ${api_token}" \
+-H "Authorization: Bearer ${api_token}" \
 -d '{
   "passCode": "123456"
 }' "https://${yourOktaDomain}/api/v1/users/00u15s1KDETTQMQYABRL/factors/smsszf1YNUtGWTx4j0g3/verify"
