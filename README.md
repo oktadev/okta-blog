@@ -309,6 +309,8 @@ You can use `npm run optimize-images` to optimize all images in the `_source/_as
 
 If a file has to be ignored for some reason, like pre-existing social images, it can be added to `scripts/image-validation-ignore.json`.
 
+Social images should be 1600x900, which can be created with the "twitter ad" template on Canva. 
+
 ### Custom Jekyll tags
 
 We have the following custom Jekyll plugins that can be used in a blog post
@@ -342,7 +344,7 @@ Use the tweet ID from the Tweets URL
 
 ```bash
 # width and height are optional (in px)
-{% youtube <VIDEO-ID> [width? height?]%}
+{% youtube VIDEO-ID [width? height?]%}
 
 # example from https://www.youtube.com/watch?v=8vY-9tXlCW4
 {% youtube 8vY-9tXlCW4 %} # default width and height of 700 x 394

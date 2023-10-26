@@ -1,41 +1,26 @@
 ---
 layout: blog_post
-title: How to Create a Seamless Mobile SSO (Single Sign-On) Experience in iOS
+title: A History of the Mobile SSO (Single Sign-On) Experience in iOS
 author: huan-liu
 by: internal-contributor
 communities: [mobile]
 description: "Understanding platform-level constraints is a prerequisite for developing great mobile experiences. This article explores browser options available on iOS, how they've evolved, and their cookie-sharing behaviors."
 tags: [ios, sso, mobile-sso, mobile]
 tweets:
-- "Everything you need to know to create a seamless SSO experience on iOS. Plus a brief history of iOS authentication 📲 "
-- "A brief history of the iOS SSO experience and two solutions to reduce UX confusion"
-image: blog/mobile-sso/mobile-sso-social.jpeg
+- "A brief history of the iOS SSO experience"
 type: awareness
 ---
 
-On an iPhone, when we log in to an app, we click a login button, and a website pops up to verify our credentials. Once verified, the website then redirects back to the app, and you are logged in. This familiar Single Sign-On (SSO) pattern is frequently referred to as the *redirect flow* for authentication. The use of a web browser for auth in this example is considered [a "Best Current Practice"](https://www.rfc-editor.org/rfc/rfc8252.txt) for security and usability reasons.
+On an iPhone, when we log in to an app, we click a login button, and a website pops up to verify our credentials. Once verified, the website then redirects back to the app, and you are logged in. This familiar Single Sign-On (SSO) pattern is frequently referred to as the *redirect flow* for authentication. The use of a web browser for auth in this example is considered [a "Best Current Practice"](https://oauth.net/2/native-apps/) for security and usability reasons.
 
 However, in 2017, a new prompt appeared in the login flow, before you were taken to the website. The following screenshot came from an iOS app preparing to log you in with Facebook. The interface prompt informs you that a specific app, the Yelp app in this example, wants to use a specific website to sign you in, and it warns you about information sharing. 
 
 {% img blog/mobile-sso/ASWebAuthenticationSession-prompt-from-yelp.jpeg alt:"app login prompt when authenticating with ASWebAuthenticationSession" width:"300" %}{: .center-image }
 
-There are a couple of problems with this prompt:
+The main reason this prompt was added was to provide users more context about why a third-party website is about to appear, as well as surface the website domain to the user in a system-level prompt that can't be faked by the app. Without the prompt, the user would immediately be taken to the Facebook login screen. A malicious app might open a fake website that mimics the Facebook login screen and try to steal the user's credentials. With this prompt in place, the user will first see the domain the app is launching, in this case "facebook.com", and would provide the user with an opportunity to recognize a phishing attempt before seeing the login page.
 
-* **Problem One** (*Where did this prompt come from?* ) : Many people consider this a bad user experience because the prompt looks out of place, and the wording is confusing and might alarm end users. 
+In this article, I'll go into more detail on why this prompt is shown and a bit of the history of why this prompt ended up being added in iOS.
 
-* **Problem Two** (*Ambiguous UI message*): If you implement logout functionality through the same flow, the prompt still says **Sign In**, even though the user may have already clicked a **Logout** button. This too is confusing to the end user, as shown in the following screenshot. This problem is reported as [a bug on the AppAuth library](https://github.com/openid/AppAuth-iOS/issues/255), although it was designed as a security and privacy feature.
-
-
-{% img blog/mobile-sso/ASWebAuthenticationSession-on-logout.jpeg alt:"permission prompt when logging out with ASWebAuthenticationSession" width:"300" %}{: .center-image }
-
-
-In this article, I'll go into more detail on aspects of the iOS platform limitations. I'll explain why this prompt is shown and how to get around it to build a more seamless user experience. 
-
-Specifically, this article will:
-
-* explain the evolution of iOS over time, and how and why this prompt was introduced. 
-* describe various ways you can invoke a standalone or embedded browser on iOS, and explain the cookie-sharing behaviors.
-* discuss several ways to eliminate the confusing user experience issues we've identified above.
 
 ## A brief history of iOS evolution
 
@@ -47,7 +32,7 @@ Before the release of iOS 9 in 2015,  there were only two ways to authenticate t
 
 * **`UIWebView`**. This approach shows web content in a `UIView`. The mobile app can intercept interactions with the `UIView`,  hence it is not secure.
 
-* **Redirect to an external browser**. The mobile app can open a webpage in a separate browser app, and the browser app can redirect back to the mobile app after authentication. However, app switching is not a good experience for mobile users. In addition, the redirect back can fail if another app has registered the same URL scheme first.
+* **Redirect to an external browser**. The mobile app can open a webpage in a separate browser app, and the browser app can redirect back to the mobile app after authentication. However, app switching is not a good experience for mobile users. In addition, the redirect back can fail if another app has registered the same custom URL scheme first.
 
 ### Authentication in iOS 9 (2015)
 
@@ -55,13 +40,13 @@ In 2015, Apple introduced [`SFSafariViewController`](https://developer.apple.com
 
 This solution was groundbreaking, because it is secure (the native app can neither peek into the embedded browser, nor alter its state) and it provides a better user experience by avoiding app switching. 
 
-`SFSafariViewController` shares cookies with the standalone Safari browser. This gives developers a way to implementSSO (Single Sign-On) with shared cookies..
+`SFSafariViewController` shares cookies with the standalone Safari browser. This gives developers a way to implementSSO (Single Sign-On) with shared cookies.
 
 ### iOS 11 changes (2017)
 
 Apple changed `SFSafariViewController` behavior to address privacy concerns with the release of iOS 11 in 2017. `SFSafariViewController` no longer shares cookies with the standalone Safari browser. Thus, a website can no longer determine that the user on `SFSafariViewController` is the same user on Safari, even though the view controller and the browser are open on the same device. 
 
-Apple understood that  the `SFSafariViewController` behavior change would break SSO, since single sign-on relies on the ability to share cookies. Instead, Apple had to introduce `SFAuthenticationSession` as a workaround, where `SFAuthenticationSession` would share a persistent cookie with Safari. 
+Apple understood that the `SFSafariViewController` behavior change would break SSO, since single sign-on relies on the ability to share cookies. Instead, Apple had to introduce `SFAuthenticationSession` as a workaround, where `SFAuthenticationSession` would share a persistent cookie with Safari. 
 
 ### Iterative changes in iOS 12 (2018)
 
@@ -71,11 +56,12 @@ Both `SFAuthenticationSession` and `ASWebAuthenticationSession` are designed spe
 
 {% img blog/mobile-sso/ASWebAuthenticationSession-prompt.jpeg alt:"permission prompt about information sharing" width:"500" %}{: .center-image }
 
-Apple does not know whether an `ASWebAuthenticationSession` is invoked  for sign in, sign out, or general web browsing. This is why the prompt text is generic. It only states that your app is trying to **Sign In**, regardless of the actual use case, which results in the ambiguity described earlier in  **Problem 2**. 
+Apple does not know whether an `ASWebAuthenticationSession` is invoked for sign in, sign out, or general web browsing. This is why the prompt text is generic. It only states that your app is trying to **Sign In**, regardless of the actual use case.
 
 ### iOS 13 changes (2019)
 
 In 2019, Apple introduced `prefersEphemeralWebBrowserSession` as an option for `ASWebAuthenticationSession`. If this option is set to true, `ASWebAuthenticationSession` does not show the prompt above, and as a consequence, it does not share cookies with Safari. This gives developers a choice. Either they gain  a better user experience with no confusing prompt and no SSO, or they get  SSO, along with the annoying prompt. 
+
 ## `SFAuthenticationSession` or `ASWebAuthenticationSession` behavior
 The various browser options offer differing levels of cookie sharing in order to limit websites'  ability to track a user. 
 
@@ -102,72 +88,10 @@ In the following iOS cookie behavior demo video, you can see how the session coo
 It is worth noting that in iOS 14 and later you can specify another browser, such as Chrome, as the default. This does not affect the sharing behavior. `SFSafariViewController` and `ASWebAuthenticationSession` always use Safari under the hood, so they will never share cookies with browsers other than Safari, even if they are set as the default. The term *system browser*, often used in online articles, is synonymous with Safari. 
 
 
-## Solution: how to remove the extra prompt
-
-Now that we've reviewed the evolution of iOS browser behavior, and explored the rationale for the changes, let's look at solutions to improve the user experience. 
-
-### Solution to problem two
-
-Solving problem two only – eliminating the ambiguity of the prompt message – is straightforward: Use the browser for sign-in only; do not use the browser to sign out. You can sign out of your application directly by revoking the access token and the refresh token. Okta provides a [revoke API](https://developer.okta.com/docs/guides/revoke-tokens/main/) that you can call directly. 
-
-Revoking a token works as a solution if you are okay with signing the user out of the native app only. The user may still have a login session in the browser, and if the native app wants to log in again, the browser will not ask the user for credentials before granting an access token. 
-
-This is the recommended approach if your web session may be supporting many different native apps. For example, [FB logout](https://developers.facebook.com/docs/unity/reference/current/FB.Logout/) specifically recommends not to log out of the web session. 
-
-However, if you require a stronger privacy and security posture, for instance for a banking app, keeping the web session alive may not be an option. 
-
-### Solutions to problem one
-
-There are two potential approaches to solve problem one.  Both solutions use browser components that do not show a prompt. Both have the drawback that no cookie can be shared, so SSO will not work. If your app requires SSO, you'll have to find a new way to share login sessions. Fortunately, Okta recently introduced [Native SSO](https://developer.okta.com/docs/guides/configure-native-sso/main/), which allows native apps to implement single sign-on without cookies. See our [blog post on SSO between mobile and desktop apps](/blog/2021/11/12/native-sso) for a full example. The following code shows how to remove the prompt, and it assumes your app either does not require SSO or uses Native SSO. 
-
-First, you can use the `prefersEphemeralWebBrowserSession` option for `ASWebAuthenticationSession`. If you are using the [Okta OIDC iOS](https://github.com/okta/okta-oidc-ios) library, you can configure the `noSSO` option as follows:
-
-```swift
-let configuration = OktaOidcConfig(with: {YourOidcConfiguration})
-if #available(iOS 13.0, *) {
-    configuration?.noSSO = true
-}
-```
-
-Under the hood, the `noSSO` option sets the `prefersEphemeralWebBrowserSession` flag. Note that this flag is only available in iOS 13 and above. 
-
-Second, if you desire to support older iOS versions, you could use `SFSafariViewController` as the browser to present the login session. The following demonstrates how to launch `SFSafariViewController` if you are using the [AppAuth iOS](https://github.com/openid/AppAuth-iOS) library. 
-
-AppAuth iOS supports a concept of *external user agent*, where you can use any browser to present the sign-in webpage. Normally, you invoke the following method to bring up a browser:
-
-```
-OIDAuthState.authStateByPresentingAuthorizationRequest:presentingViewController:callback:
-```
-
-This method will invoke a default user agent. Alternatively, you can use the following method, which gives you an option to plug in any external user agent, as long as it conforms to the `OIDExternalUserAgent` protocol. 
-
-```
-OIDAuthState.authStateByPresentingAuthorizationRequest:presentingViewController:callback:
-```
-
-There is already an implementation of using [`SFSafariViewController` as an external agent](https://gist.github.com/ugenlik/2a543f351e9b9425800b48266760dc85). You can download it and plug it into your project. The following code snippet shows how to create and pass in an external user agent `OIDExternalUserAgentIOSSafariViewController`. 
-
-```swift
-let appDelegate = UIApplication.shared.delegate as! AppDelegate
-let externalAgent = OIDExternalUserAgentIOSSafariViewController(presentingViewController: self)
-
-appDelegate.currentAuthorizationFlow =
-        OIDAuthState.authState(byPresenting: request, externalUserAgent: externalAgent) { authState, error in
-    if let authState = authState {
-        self.authState = authState
-        print("Got authorization tokens. Access token: " +
-              "\(authState.lastTokenResponse?.accessToken ?? "nil")")
-    } else {
-        print("Authorization error: \(error?.localizedDescription ?? "Unknown error")")
-        self.authState = nil
-    }
-}
-```
-
 ## Summary 
 
 Understanding iOS and Android platform-level constraints is a prerequisite for developing great mobile experiences. I hope this article will help you understand the browser options available on iOS and their cookie sharing behaviors. 
 
-At Okta, we are adamant about optimizing end-user experience. Every extra click needs to be eliminated if possible, and every extraneous prompt should be avoided. We develop solutions such as Native SSO to help you overcome mobile constraints. I hope our solution helps you improve the experiences you are building for your end users. We'd love to hear more about your needs and how we can build solutions together. Feel free to add your questions and suggestions about this solution or future topics in the comments below.
+Feel free to add your questions and suggestions about this solution or future topics in the comments below.
 
 If you enjoyed reading this article, you can keep up with our content for developers by following us on [Twitter](https://twitter.com/oktadev) and subscribing to our [YouTube](https://www.youtube.com/c/oktadev) channel. 
