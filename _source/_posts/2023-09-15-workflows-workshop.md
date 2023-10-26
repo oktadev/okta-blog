@@ -501,7 +501,9 @@ You will see the output in the **Compose** card. It's not formatted (plain JSON 
 
 Now that you have two cards on a flow, using the **Flow History**, you can see how data is passed from card to card. 
 
-For now, you build a flow that calls an external API service and displays the output. Next, you are going to add a step to email the result. 
+For now, you build a flow that calls an external API service and displays the output. 
+
+Next, you are going to add a step to email the result. 
 
 {% img blog/workflows-workshop/Workflows_flow_history.jpg alt:"Flow history" %}{: .center-image }
 
@@ -742,7 +744,7 @@ _Adding the Reduce card_
 1. Click the **+** between the **Get** card and the **Compose** card
 1. Select the **calculator icon > List (category) > Reduce** card. 
 
-The flo will look like this:
+The flow will look like this:
 
 {% img blog/workflows-workshop/Workflows_add_Reduce_card.jpg alt:"Adding the Reduce card" %}{: .center-image }
 
