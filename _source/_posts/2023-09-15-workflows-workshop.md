@@ -382,7 +382,7 @@ your url is: https://some-name.loca.lt
 For example:
 
 ```
-your url is: https://good-seas-search.loca.lt
+your url is: https://swift-waves-hammer.loca.lt
 ```
 
 > You will be using this URL later. If you restart the tunnel, a new URL will be created that you need to use in your flow. 
@@ -430,7 +430,7 @@ In this step, you will set the service URL.
 For example: 
 
 ```
-https://good-seas-search.loca.lt/api/org/todos
+https://swift-waves-hammer.loca.lt/api/org/todos
 ```
 
 > The tunnel URL will change whenever you restart the tunnel.
