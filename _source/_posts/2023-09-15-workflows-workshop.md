@@ -17,7 +17,7 @@ This tutorial is part of the on-demand workshop series. In this workshop, you'll
 {% include toc.md %}
 
 
-You built a SaaS (Software as a Service) Todo application: 
+You built a software as a service (SaaS) Todo application: 
 
 {% img blog/workflows-workshop/Workflows_todoapp.jpg alt:"The Todo application showing five tasks" width:"800" %}{: .center-image }
 
@@ -61,7 +61,8 @@ You will complete the following steps:
 
 The following are use cases where you can use Workflows. 
 
-### Provision and deprovision app accounts
+**Provision and deprovision app accounts**
+
 When an employee joins your company, Workflows simplifies the task of provisioning their account.
 
 * Automatically create their identity in your apps
@@ -71,20 +72,24 @@ When an employee joins your company, Workflows simplifies the task of provisioni
 
 Similarly, when an employee leaves the company, Workflows can deactivate the user account, transfer their digital assets to a manager, and then deactivate the user account three days later.
 
-### Sequence actions with logic and timing
+**Sequence actions with logic and timing**
+
 Workflows can create non-activated accounts in all apps one week before a new employee's start date and then activate them on their first day.
 
 If an employee leaves your company, Workflows can deactivate the user account, remove their access to all apps except payroll, and then delete the account after a year.
 
-### Send notifications for lifecycle events
+**Send notifications for lifecycle events**
+
 For a lifecycle event such as an app assignment or user suspension, Workflows can notify your IT team through email or Slack.
 
-### Log and share lifecycle events
-Workflows can query Okta APIs and System Log events, run logic, and even compile data into a CSV file. Then, Workflows can email that file to your teams.
+**Log and share lifecycle events**
+
+\Workflows can query Okta APIs and System Log events, run logic, and even compile data into a CSV file. Then, Workflows can email that file to your teams.
 
 This is a short list of what is possible.
 
-### Okta Workflows flows
+**Okta Workflows flows**
+
 In Workflows, you will create flows. A flow is a sequence of steps to complete a goal. It's similar to a script where every code line is a step to complete a goal. In Workflows, you will build the flow visually without writing any code. 
 
 You will learn about the Workflows building blocks in a few minutes. First, let's create your first flow. 
@@ -95,16 +100,18 @@ There are two ways to access Workflows.
 1. You might be entitled to Workflows if you already use some Okta products
 2. Access to Workflows as part of WIC (Workforce Identity Cloud) trial
 
-### Workflows when using other Okta products
+**Workflows when using other Okta products**
+
 If you have Okta SSO or Okta UD you might be entitled to Workflows. Check if you can access Workflows by going to **Okta organization > Admin > Workflows > Workflows console**. If you use these products but don't have access to Workflows, please contact your account manager. 
 
-### Okta Workflows as part of WIC (Workforce Identity Cloud) trial
+**Okta Workflows as part of WIC (Workforce Identity Cloud) trial**
+
 To sign up for a Workforce Identity Cloud trial:
 
 1. Go to the [Okta Workforce trial page](https://www.okta.com/free-trial/workforce-identity/)
 2. Register for a trial to access Workflows
 
-### Opening the Okta Workflows console
+**Opening the Okta Workflows console**
 
 To access Workflows:
 
@@ -184,7 +191,8 @@ In this section, you will complete the following steps:
  > If you would like to skip the **Setting up the Todo application** and **Enhancing the application with a new API** steps and jump to the Workflows part, [check out the fully built project on GitHub](https://github.com/oktadev/okta-enterprise-ready-workshops/tree/workflows-workshop-completed). 
 
 
-### Getting the Todo application
+**Getting the Todo application**
+
 In this step, you will get the Todo application.
 
 > Read about the tools required for this application in [How to Get Going with the On-Demand SaaS Apps Workshops](/blog/2023/07/27/enterprise-ready-getting-started)
@@ -201,7 +209,7 @@ There are two ways to get the Todo application:
 
 
 
-### Installing application dependencies
+**Installing application dependencies**
 
 1. Navigate to the folder where you cloned or downloaded the Todo application
     * If you downloaded the zip file, unzip the application file
@@ -213,7 +221,7 @@ npm install passport-http-bearer
 npm install @types/passport-http-bearer -D
 ```
 
-### Creating the database
+**Creating the database**
 
 Run the following command to generate a database and seed it with two users.  
 
@@ -225,7 +233,7 @@ npm run init-db
 
 
 
-### Adding an organziation to the application
+**Adding an organziation to the application**
 
 In a later step, you will enhance the application with a new API service to get all the todo items. The new API retrieves all the todo items belonging to an organization. 
 
@@ -265,7 +273,7 @@ The organziation record should look like this (some columns are filtered/hidden 
 
 You are ready to start the application and create the todo items. 
 
-### Running the application
+**Running the application**
 
 To start the Todo application, run the following command from the application folder: 
 
@@ -293,7 +301,7 @@ The automation you will create later in this workshop will use this API service 
 
 1. In the application folder, open the file `apps/api/src/main.ts` in your favorite editor or IDE
 
-### Importing the library for API authentication
+**Importing the library for API authentication**
 
 1. At the very top of the file, you will see several import statments. After the last statment, add the following code: 
 
@@ -303,7 +311,7 @@ import passportBearer from 'passport-http-bearer';
 
 This module allows authenticating HTTP requests using bearer tokens. 
 
-### Setting up bearer token authentication strategy
+**Setting up bearer token authentication strategy**
 
 1. Go to the end of `main.ts` file and add the following code: 
 
@@ -328,7 +336,7 @@ This code sets up an authentication strategy using an HTTP bearer token.
 
 We are using the keys to look up the associated orgs. The way this is set up, it supports scaling across customers.
 
-### Adding the API endpoint for retrieving todo items
+**Adding the API endpoint for retrieving todo items**
 
 1. Right after the code above, add the following code:
 
@@ -374,7 +382,7 @@ your url is: https://some-name.loca.lt
 For example:
 
 ```
-your url is: https://good-seas-search.loca.lt
+your url is: https://swift-waves-hammer.loca.lt
 ```
 
 > You will be using this URL later. If you restart the tunnel, a new URL will be created that you need to use in your flow. 
@@ -391,11 +399,11 @@ In this section, you will complete the following steps:
 3. Sending the message via email
 4. Setting up the flow to run on schedule
 
-### Calling the API service
+**Calling the API service**
 
 In this step, you will add a card to call the API to retrieve all the todo items. 
 
-#### Creating a connection to the API service
+_Creating a connection to the API service_
 
 In this step, you will create a connection to the API service. 
 
@@ -413,7 +421,7 @@ The card API connection is shown at the top:
 {% img blog/workflows-workshop/Workflows_Get_card_connection.jpg alt:"Card connection" %}{: .center-image }
 
 
-#### Setting the service URL
+_Setting the service URL_
 
 In this step, you will set the service URL. 
 
@@ -422,7 +430,7 @@ In this step, you will set the service URL.
 For example: 
 
 ```
-https://good-seas-search.loca.lt/api/org/todos
+https://swift-waves-hammer.loca.lt/api/org/todos
 ```
 
 > The tunnel URL will change whenever you restart the tunnel.
@@ -435,7 +443,7 @@ The **API Connector - Get** card looks like this:
 
 {% img blog/workflows-workshop/Workflows_Get_card.jpg alt:"The API Connector - Get card" %}{: .center-image }
 
-#### Testing the card
+_Testing the card_
 
 To test the **API Connector - Get** card:
 
@@ -459,7 +467,7 @@ The **Execution History** page shows data passed from card to card for each card
 
 In the next section, you will create the text message. 
 
-### Creating the message
+**Creating the message**
 
 In this step, you will create a text message to send via email. Later, you will modify the message to include a list of all the todos. 
 
@@ -493,17 +501,19 @@ You will see the output in the **Compose** card. It's not formatted (plain JSON 
 
 Now that you have two cards on a flow, using the **Flow History**, you can see how data is passed from card to card. 
 
-For now, you build a flow that calls an external API service and displays the output. Next, you are going to add a step to email the result. 
+For now, you build a flow that calls an external API service and displays the output. 
+
+Next, you are going to add a step to email the result. 
 
 {% img blog/workflows-workshop/Workflows_flow_history.jpg alt:"Flow history" %}{: .center-image }
 
 Next, let's work on emailing the message. 
 
-### Sending the message via email
+**Sending the message via email**
 
 In this step, you will add a card to send the message you created in the previous step. 
 
-#### Adding the Gmail card
+_Adding the Gmail card_
 
 To email the message, you will use the **Gmail** card. 
 
@@ -523,14 +533,14 @@ The card looks like this:
 
 Next, you need to set fields on the **Send Email** card. 
 
-#### Setting up the Gmail card
+_Setting up the Gmail card_
 
 1. For the **Email** field, enter your email (or any other email you can check)
 2. For the **Subject** field, enter **Todo Report**
 3. For the **Body** field, connect the output field from the **Compose** card to the **Body** field in **Send Email** card
 4. All other fields are optional
 
-#### Testing the Gmail card
+_Testing the Gmail card_
 
 To test the **Send Email** card: 
 
@@ -539,7 +549,7 @@ To test the **Send Email** card:
 1. Enter any text, and click the **Test** button
 1. Check your email
 
-#### Testing the flow
+_Testing the flow_
  
 The flow looks like this: 
 
@@ -555,7 +565,7 @@ The email is not formatted yet. But it's neat that you can call an API, create a
 
 There is one last step left before we make the message look pretty. The step is to make this flow run automatically. 
 
-### Set up the flow to run on schedule
+**Set up the flow to run on schedule**
 
 In this step, you will configure the flow to run on schedule. 
 
@@ -600,7 +610,8 @@ In this section, you will update the flow to send a pretty message. You will com
 5. Returning the message to the main flow
 6. Adding the Reduce card to the main flow
 
-### Understanding the JSON returned from the API service
+**Understanding the JSON returned from the API service**
+
 The response from the API service looks like this:
 
 ```
@@ -646,7 +657,8 @@ You will also use the **Reduce** card in Workflows to create a message. The Redu
 
 The reduce function takes a list of values and reduces the list to a single value. You have a list of todo items and must reduce them (and their status) into a single value (message). This message will then be sent via email.
 
-### Creating the helper flow
+**Creating the helper flow**
+
 In this step, you will create the helper flow. 
 
 1. Click on the **Default Folder** to go back to the folder
@@ -668,7 +680,8 @@ Your flow should look like this:
 
 In the next step, you will set up the flow inputs. 
 
-#### Setting up helper flow inputs
+**Setting up helper flow inputs**
+
 In this step, you will define inputs the main flow will pass to the helper flow. 
 
 1. To add a flow input field, click inside the **Click or drag and create** box and enter **Item**
@@ -693,7 +706,7 @@ Your helper flow is set up to accept two inputs. A JSON object with two fields: 
 
 Next, you are going to create a pretty message. 
 
-### Building the message
+**Building the message**
 
 You will use the **Compose** card to create the message in this step. 
 
@@ -708,7 +721,7 @@ The **Compose** card looks like this:
 
 {% img blog/workflows-workshop/Workflows_Compose_card_helper_flow.jpg alt:"The Compose card" %}{: .center-image }
 
-### Returning the message to the main flow
+**Returning the message to the main flow**
 
 You need to return the message to the **Todo Report** flow using the **Return** card. 
 
@@ -721,21 +734,21 @@ The helper flow looks like this:
 
 Next, you will update the main flow to call this helper flow. 
 
-### Using the Reduce card
+**Using the Reduce card**
 
 In this step, you will update the **Todo Report** flow to call the **Todo Report_Helper** flow.  
 
-#### Adding the Reduce card
+_Adding the Reduce card_
 
 1. Open the **Todo Report** flow
 1. Click the **+** between the **Get** card and the **Compose** card
 1. Select the **calculator icon > List (category) > Reduce** card. 
 
-The flo will look like this:
+The flow will look like this:
 
 {% img blog/workflows-workshop/Workflows_add_Reduce_card.jpg alt:"Adding the Reduce card" %}{: .center-image }
 
-#### Updating the Get card
+_Updating the Get card_
 
 The **Reduce** card expects a list as input.  To pass a todo list from the **Get** card:
 
@@ -746,7 +759,7 @@ The new field looks like this:
 
 {% img blog/workflows-workshop/Workflows_Get_card_adding_todos.jpg alt:"Adding the todos field on the Get card" %}{: .center-image }
 
-#### Setting up the Reduce card
+_Setting up the Reduce card_
 
 In this stept, you will pass data and configure the **Reduce** card. 
 
@@ -762,7 +775,7 @@ The **Reduce** card looks like this:
 
 {% img blog/workflows-workshop/Workflows_Reduce_card_final.jpg alt:"The Reduce card" %}{: .center-image } 
 
-#### Passing data to the Gmail card card
+_Passing data to the Gmail card card_
 
 To send the list to the **Gmail** card: 
 
@@ -773,13 +786,13 @@ The final flow looks like this:
 
 {% img blog/workflows-workshop/Workflows_Todo_flow_final_with_Reduce.jpg alt:"The Completed Todo Report flow" %}{: .center-image }
 
-### How does the Reduce card work
+**How does the Reduce card work**
 
 A good way to learn how the **Reduce** card works is to look at the **Todo Report_Helper** flow history. Reduce is a way to reduce a list to a single value. In this example, you take a list of todo items and reduce them to a single text message. 
 
 The helper flow will run four times (the number of todo items in the Todo application). 
 
-#### First run
+_First run_
 
 On the first run, the **memo** field is set to:
 ```
@@ -797,7 +810,8 @@ Todo Items
 
 {% img blog/workflows-workshop/Workflows_Reduce_flowhistory_test1.jpg alt:"Helper flow first run" %}{: .center-image }
 
-#### Second run
+_Second run_
+
 The **memo** field is now set to what was returned after the first run:
 
 ```
@@ -817,7 +831,7 @@ Todo Item
 ```
 {% img blog/workflows-workshop/Workflows_Reduce_flowhistory_test2.jpg alt:"Helper flow second run" %}{: .center-image }
 
-#### Third run
+_Third run_
 
 The **memo** field is now set to what was returned after the second run:
 
@@ -843,7 +857,7 @@ Todo Items
 
 {% img blog/workflows-workshop/Workflows_Reduce_flowhistory_test3.jpg alt:"Helper flow third run" %}{: .center-image }
 
-#### Fourth run
+_Fourth run_
 
 The **memo** field is now set to what was returned after the third run:
 
