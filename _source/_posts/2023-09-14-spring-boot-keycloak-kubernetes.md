@@ -723,6 +723,6 @@ I hope you enjoyed this post and learned about some best practices for deploying
 - [Integrate React Native and Spring Boot Securely](https://auth0.com/blog/integrate-react-native-and-spring-boot-securely/)
 - [Build Secure Ionic Apps with Angular and JHipster](https://auth0.com/blog/ionic-angular-jhipster/)
 
-If you're interested in staying informed about Auth0, [subscribe to our Zero Index Newsletter](https://a0.to/nl-signup/java)!
+Our [Zero Index Developer Newsletter](https://developer.auth0.com/newsletter) will keep you informed about the latest happenings in the Java security space. [Subscribe today](https://a0.to/nl-signup/java)!
 
 For more tutorials like this one, follow [@oktadev](https://twitter.com/oktadev) on Twitter. We also have a [YouTube channel](https://youtube.com/oktadev) you might like. If you have any questions, please leave a comment below!
