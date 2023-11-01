@@ -239,28 +239,28 @@ spec:
 
 ### Deploy to Google Kubernetes Engine (GKE)
 
-Create a Kubernetes cluster on Google Cloud:
-
-```shell
-gcloud container clusters create jhipster-cluster \
-  --zone southamerica-east1-a \
-  --machine-type n1-standard-4 \
-  --enable-autorepair \
-  --enable-autoupgrade
-```
-
-**Note**: you can choose a different zone and machine type.
-
-Install the [gke-gcloud-auth-plugin](https://cloud.google.com/blog/products/containers-kubernetes/kubectl-auth-changes-in-gke):
+If you haven't already, install the [gke-gcloud-auth-plugin](https://cloud.google.com/blog/products/containers-kubernetes/kubectl-auth-changes-in-gke):
 
 ```shell
 gcloud components install gke-gcloud-auth-plugin
 ```
 
+Create a Kubernetes cluster on Google Cloud:
+
+```shell
+gcloud container clusters create jhipster-cluster \
+  --zone us-central1-a \
+  --machine-type n1-standard-4 \
+  --enable-autorepair \
+  --enable-autoupgrade
+```
+
+**TIP**: Run `gcloud compute zones list` to see the available zones. You should choose one near you.
+
 Then, fetch the cluster credentials with:
 
 ```shell
-gcloud container clusters get-credentials jhipster-cluster --zone southamerica-east1-a
+gcloud container clusters get-credentials jhipster-cluster --zone us-central1-a
 ```
 
 `get-credentials` will update a `kubeconfig` file with appropriate credentials and endpoint information to point `kubectl` at a specific cluster in Google Kubernetes Engine.
@@ -268,7 +268,7 @@ gcloud container clusters get-credentials jhipster-cluster --zone southamerica-e
 Install [cert-manager](https://cert-manager.io/docs/tutorials/getting-started-with-cert-manager-on-google-kubernetes-engine-using-lets-encrypt-for-ingress-ssl/) in your cluster:
 
 ```shell
-kubectl apply -f https://github.com/cert-manager/cert-manager/releases/download/v1.13.1/cert-manager.yaml
+kubectl apply -f https://github.com/cert-manager/cert-manager/releases/download/v1.13.2/cert-manager.yaml
 ```
 
 Apply the deployment descriptors, from the `kubernetes` folder:
@@ -334,8 +334,7 @@ If you click on **Sign in** you will be redirected to the Keycloak sign-in page.
 **Important Note**: You can delete the cluster and public IP in between sessions to save costs with the following `gcloud` commands:
 
 ```shell
-gcloud container clusters delete <cluster-name> \
-  --zone <cluster-zone>
+gcloud container clusters delete jhipster-cluster --zone us-central1-a
 ```
 
 ```shell
