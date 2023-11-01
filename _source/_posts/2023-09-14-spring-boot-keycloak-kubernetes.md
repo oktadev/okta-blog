@@ -19,7 +19,7 @@ By default, the OAuth 2.0 and OIDC server configured with JHipster is Keycloak, 
 
 This time, we figured it'd be fun to explore how to chain Keycloak and Auth0 together. This architecture might be useful for those folks who are already using Keycloak in production or companies that have mandated Keycloak, but still want to use the more advanced features available in Auth0. If you level-up by using Auth0 for your identity provider, you can go beyond the basic capabilities offered by the open source offering.
 
-In this tutorial, we'll show you how you can configure Keycloak to use Auth0 as an upstream provider. This will set you up for success because you can use Auth0's advanced identity features, like [actions](https://auth0.com/docs/customize/actions) and [passkeys](https://auth0.com/blog/our-take-on-passkeys/), to delight your customers. It's all pretty slick! 😃
+In this tutorial, we'll show you how you can configure Keycloak to use Auth0 as an upstream provider. This will set you up for success because you can use Auth0's advanced identity features, like [actions](https://auth0.com/docs/customize/actions) and [passkeys](https://auth0.com/blog/activate-passkeys-let-users-log-in-without-password/), to delight your customers. It's all pretty slick! 😃
 
 The JHipster Kubernetes generator creates all the necessary Kubernetes resources, such as deployments, services, and ingresses, based on the configuration of the JHipster application. This includes setting up the database, configuring security, and setting up any necessary environment variables. In JHipster 8, the Kubernetes sub-generator supports Keycloak for Ingress GKE deployment!
 
@@ -44,7 +44,7 @@ In this post, I'll walk you through the generation of a demo Spring Boot microse
 
 In this walkthrough, you will build a microservices architecture example from JHipster, consisting of a `gateway` application based on Spring Gateway and two Spring Boot microservices `blog` and `store`. The `gateway` will act as the entrance to your microservices, providing HTTP routing and load balancing, quality of service, security and API documentation for all microservices. With the help of the JHipster Kubernetes sub-generator, you can deploy the application and its required services (Consul for service discovery, and Keycloak for OpenID Connect) to Google Kubernetes Engine (GKE).
 
-### Build the Spring Boot microservices architecture
+### Build a Spring Boot microservices architecture
 
 Install JHipster, you can do the classical local installation with npm.
 
@@ -418,7 +418,7 @@ metadata:
     cert-manager.io/issue-temporary-certificate: "true" # A temporary certificate will be set on the secret until the final certificate has been returned. used for keeping compatibility with the `ingress-gce` component
 ```
 
-## Delegate authentication to Auth0
+## Delegate Authentication to Auth0
 
 Keycloak supports identity provider federation, meaning it can be configured to delegate authentication to one or more Identity Providers. An example of IDP federation is social login via Facebook or Google. Authentication can be delegated to any IDP supporting OpenID Connect or SAML 2.0. Auth0 uses the OpenID Connect protocol to authenticate users and allows adding custom logic to the login and identity flows via Auth0 Actions.
 
@@ -701,7 +701,7 @@ Navigate to **http://gateway.demo.\<public-ip\>.nip.io**. The gateway homepage s
 
 After signing in, the gateway home page will display the username (email). If roles were mapped correctly, the user should be able to create entities (granted by ROLE_USER), and the Administration menu will also display (granted by ROLE_ADMIN).
 
-## Summary of recommended practices for Keycloak in production
+## Recommended Practices for Keycloak in Production
 
 When running Keycloak in a container, it can be started in development mode with the `start-dev` command or production mode with the `start` command, both available in the default container image. Production mode follows a _secure by default_ principle and expects _hostname_ and _HTTPS/TLS_ configuration to be set, otherwise, Keycloak won't start and will display an error. Also, in production mode HTTP is disabled by default.
 
@@ -713,16 +713,16 @@ Keycloak documentation provides some [key guidelines](https://www.keycloak.org/s
 - **Production grade database**: The database plays a crucial role in the performance and Keycloak supports several production-grade databases, including PostgreSQL.
 - **High Availability**: Choose multi-mode clustered deployment. In production mode, distributed caching of realm and session data is enabled and all nodes in the network are discovered.
 
-## Learn More about Keycloak in production
+## Learn More about Keycloak in Production
 
-I hope you enjoyed this post and learned about some best practices for deploying Keycloak to production when doing JHipster development. Keep learning about Keycloak and Spring Boot! Check out the following links:
+I hope you enjoyed this post and learned about some best practices for deploying Keycloak to production when developing with JHipster. Keep learning about Keycloak and Spring Boot! Check out the following links:
 
-- [Integrate React Native and Spring Boot Securely](/blog/2022/10/12/integrate-react-native-and-spring-boot-securely)
 - [Full Stack Java with React, Spring Boot, and JHipster](https://auth0.com/blog/full-stack-java-with-react-spring-boot-and-jhipster/)
+- [Micro Frontends for Java Microservices](https://auth0.com/blog/micro-frontends-for-java-microservices/)
 - [Build a Beautiful CRUD App with Spring Boot and Angular](https://auth0.com/blog/spring-boot-angular-crud/)
-- [Get Started with Jetty, Java, and OAuth](https://auth0.com/blog/java-jetty-oauth/)
+- [Integrate React Native and Spring Boot Securely](https://auth0.com/blog/integrate-react-native-and-spring-boot-securely/)
+- [Build Secure Ionic Apps with Angular and JHipster](https://auth0.com/blog/ionic-angular-jhipster/)
 
-
-If you're interested in getting staying informed about Auth0 every month, [subscribe to our Zero Index Newsletter](https://a0.to/nl-signup/java)!
+If you're interested in staying informed about Auth0, [subscribe to our Zero Index Newsletter](https://a0.to/nl-signup/java)!
 
 For more tutorials like this one, follow [@oktadev](https://twitter.com/oktadev) on Twitter. We also have a [YouTube channel](https://youtube.com/oktadev) you might like. If you have any questions, please leave a comment below!
