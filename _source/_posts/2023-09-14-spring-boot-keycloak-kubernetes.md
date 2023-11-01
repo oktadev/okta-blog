@@ -250,11 +250,14 @@ gcloud container clusters create jhipster-cluster \
 ```
 
 **Note**: you can choose a different zone and machine type.
+
 If prompted, install the [gke-gcloud-auth-plugin](https://cloud.google.com/blog/products/containers-kubernetes/kubectl-auth-changes-in-gke):
 
 ```shell
 gcloud components install gke-gcloud-auth-plugin
-Then fetch the cluster credentials with:
+```
+
+Then, fetch the cluster credentials with:
 
 ```shell
 gcloud container clusters get-credentials jhipster-cluster --zone southamerica-east1-a
