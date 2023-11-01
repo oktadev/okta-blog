@@ -228,7 +228,7 @@ Choose the following options when prompted:
 
 ### Customize the configuration
 
-The generated Kubernetes descriptors will create a certificates issuer in the cluster, pointing to Let's Encrypt staging environment. The Let's Encrypt issuer requires an email address to remind you to renew the certificate after 30 days before expiry. You will only receive this email if something goes wrong when renewing the certificate with cert-manager. Set the email address in the issuer yaml descriptor `kubernetes/cert-manager/letsencrypt-staging-issuer.yml`:
+The generated Kubernetes descriptors will create a certificate issuer in the cluster, pointing to Let's Encrypt staging environment. The Let's Encrypt issuer requires an email address to remind you to renew the certificate after 30 days before expiry. You will only receive this email if something goes wrong when renewing the certificate with cert-manager. Set the email address in the issuer descriptor `kubernetes/cert-manager/letsencrypt-staging-issuer.yml`:
 
 ```yml
 spec:
