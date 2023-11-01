@@ -101,25 +101,25 @@ application {
 }
 
 entity Blog {
-  id String required
+  @Id id String
   name String required minlength(3)
   handle String required minlength(2)
 }
 
 entity Post {
-  id String required
+  @Id id String
   title String required
   content TextBlob required
   date Instant required
 }
 
 entity Tag {
-  id String required
+  @Id id String
   name String required minlength(2)
 }
 
 entity Product {
-  id String required
+  @Id id String
   title String required
   price BigDecimal required min(0)
   image ImageBlob
