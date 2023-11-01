@@ -251,7 +251,7 @@ gcloud container clusters create jhipster-cluster \
 
 **Note**: you can choose a different zone and machine type.
 
-If prompted, install the [gke-gcloud-auth-plugin](https://cloud.google.com/blog/products/containers-kubernetes/kubectl-auth-changes-in-gke):
+Install the [gke-gcloud-auth-plugin](https://cloud.google.com/blog/products/containers-kubernetes/kubectl-auth-changes-in-gke):
 
 ```shell
 gcloud components install gke-gcloud-auth-plugin
@@ -271,8 +271,6 @@ Install [cert-manager](https://cert-manager.io/docs/tutorials/getting-started-wi
 kubectl apply -f https://github.com/cert-manager/cert-manager/releases/download/v1.13.1/cert-manager.yaml
 ```
 
-**Note**: If you see a `kubectl` error _The gcp auth plugin has been removed._, see [Here's what to know about changes to kubectl authentication coming in GKE v1.26](https://cloud.google.com/blog/products/containers-kubernetes/kubectl-auth-changes-in-gke) for details on how to fix it.
-
 Apply the deployment descriptors, from the `kubernetes` folder:
 
 ```shell
@@ -281,7 +279,7 @@ Apply the deployment descriptors, from the `kubernetes` folder:
 
 **Important note**: Keycloak client applications (a monolith or microservices) will fail to start until Let's Encrypt has issued the certificate and it has synchronized inside the cluster. In the following section, the issuance process is explained in more detail.
 
-The certificate might take some minutes to be ready, you can check the status by inspecting the object events:
+The certificate might take several minutes to be ready, you can check the status by inspecting the object events:
 
 ```shell
 kubectl describe certificate keycloak-ssl -n demo
@@ -316,7 +314,7 @@ Events:
   Normal   Sync               66s (x9 over 9m6s)   loadbalancer-controller    Scheduled for sync
   Normal   Sync               25s                  loadbalancer-controller    TargetProxy "k8s2-ts-ag6evarw-demo-gateway-gijhgcnp" certs updated
 ```
-Once the cluster is healthy, you can test the deployment by navigating to **http://gateway.demo.\<public-ip\>.nip.io** :
+Once the cluster is healthy, you can test the deployment by navigating to **http://gateway.demo.\<public-ip\>.nip.io**:
 
 {% img blog/spring-boot-keycloak-kubernetes/gateway-home.png alt:"Gateway homepage" width:"800" %}{: .center-image }
 
@@ -341,7 +339,7 @@ gcloud container clusters delete <cluster-name> \
 ```
 
 ```shell
-gcloud compute addresses delete <public-ip> --global
+gcloud compute addresses delete gateway-ip --global
 ```
 
 ### Add HTTPS to the Gateway
