@@ -14,7 +14,7 @@ type: awareness
 github: https://github.com/oktadev/webauthn-java-example
 ---
 
-The [Web Authentication (WebAuthn)](https://webauthn.io/) specification, given [official approval](https://www.w3.org/2019/03/pressrelease-webauthn-rec.html) by the World Wide Web Consortium (W3C) and the FIDO Alliance in 2019, aims to strengthen online security by allowing users to sign in to sites with elements like biometrics and FIDO security keys. The WebAuthn API can replace or supplement less-secure passwords, which may be weak and are often shared.
+The [Web Authentication (WebAuthn)](https://a0.to/webauthnme-okta-blog) specification, given [official approval](https://www.w3.org/2019/03/pressrelease-webauthn-rec.html) by the World Wide Web Consortium (W3C) and the FIDO Alliance in 2019, aims to strengthen online security by allowing users to sign in to sites with elements like biometrics and FIDO security keys. The WebAuthn API can replace or supplement less-secure passwords, which may be weak and are often shared.
 
 WebAuthn is supported by default in Firefox and Chrome browsers and can be used in Edge browsers on recent Windows systems. As support for the new standard is built into more devices, more websites will offer this easier, more secure method of authentication.
 
@@ -731,6 +731,8 @@ Walking through this sample is a great way to learn how WebAuthn works in Java, 
 ## Why WebAuthn is the future
 
 Associating devices with sign-ins provides a powerful tool to make many of the challenges, failures, and abuses of passwords a thing of the past. Once initial development is complete, user registration is simpler, more secure, and more sustainable. Using the WebAuthn specification, developers can create passwordless applications with an increasingly broad and accessible range of hardware authenticators.
+
+You can learn more about WebAuthn by testing out our tool [webauthn.me](https://a0.to/webauthnme-okta-blog)
 
 Check out these posts for more information about WebAuthn:
 
