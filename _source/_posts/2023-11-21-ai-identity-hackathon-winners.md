@@ -1,10 +1,10 @@
 ---
 layout: blog_post
-title: "Winners of the \"AI & Identity\" Okta Hackathon 2023"
+title: "Winners of the AI and Identity Okta Hackathon 2023"
 author: michael-palermo
 by: advocate
 communities: [devops,security,mobile,.net,java,javascript,go,php,python,ruby]
-description: "Winners of the \"AI & Identity\" Okta Hackathon 2023 are announced along with awards to supporting community members."
+description: "Winners of the AI and Identity Okta Hackathon 2023 are announced along with awards to supporting community members."
 tags: [hackathon, ai, identity, announcements]
 tweets:
 - ""
@@ -14,7 +14,7 @@ image: blog/ai-identity-hackathon-winners/social.jpg
 type: awareness
 ---
 
-In late September, in partnership with [DevPost](https://devpost.com/), we announced the [AI & Identity - Okta Hackathon 2023](https://oktahackathon2023.devpost.com/), and invited developers across the globe to "_build an app that integrates identity standards with a flair of AI._"
+In late September, in partnership with [DevPost](https://devpost.com/), we announced the [AI and Identity - Okta Hackathon 2023](https://oktahackathon2023.devpost.com/), and invited developers across the globe to "_build an app that integrates identity standards with a flair of AI._"
 
 We were excited to see how participants would respond to the challenge, and we were not disappointed! Consider these key numbers:
 
@@ -32,7 +32,7 @@ All were in competition for the following awards:
 <tr>
     <td>1st Place:</td>
     <td markdown="span">
-      $10,000 USD & <br/>
+      $10,000 USD plus<br/>
       Future guest appearance on [Okta Dev Advocacy Podcast](https://youtube.com/playlist?list=PLshTZo9V1-aGjk3fYBzBfOvskvHROJSDy&feature=shared)
     </td>
 </tr>
@@ -87,7 +87,7 @@ Who are the winners? Let's get right to it starting with our first place winner!
 **Prize**: $3,000 USD<br/>
 **Description**: AI-powered learning for your team
 
-> "Great job implementing OIDC & SCIM! An interesting approach to learning with AI."
+> "Great job implementing OIDC and SCIM! An interesting approach to learning with AI."
 >
 > – <cite>Comments by the judging panel</cite>
 
