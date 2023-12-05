@@ -2,7 +2,7 @@
 layout: blog_post
 title: "A Developer's Journey in Building an Okta Documentation Chatbot"
 author: tanish-kumar
-by: Tanish Kumar, Developer Support Intern at Okta
+by: internal-contributor
 communities: [python]
 description: ""
 tags: []
