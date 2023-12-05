@@ -11,7 +11,7 @@ tweets:
 - ""
 - ""
 image: blog/okta-documentation-chatbot/oktanaut.jpeg
-type: awareness|conversion
+type: 
 ---
 
 In today's fast-paced world of technology, developer support is essential to ensure a seamless experience for users navigating intricate platforms and APIs. As a Developer Support Intern at Okta, I embarked on a challenging yet rewarding endeavor to create a solution that would streamline accessing and comprehending the Okta developer documentation. The result of my efforts is ✨Oktanaut✨, a versatile chatbot built in Python, designed to assist users in harnessing the power of Okta's developer documentation, available at developer.okta.com. 
