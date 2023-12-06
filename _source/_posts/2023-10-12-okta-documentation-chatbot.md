@@ -101,7 +101,7 @@ The code above found in the [main/GPTChatbot.ipynb](https://github.com/tanishkum
 Here's a step-by-step walkthrough of how the code works and how to use it:
 1. Library installation: The script begins with installing the required Python packages: [OpenAI](https://pypi.org/project/openai/), [Panel](https://panel.holoviz.org/getting_started/installation.html), and [LlamaIndex](https://pypi.org/project/llama-index/). These packages work with the GPT-3.5 model, create the web interface, and manage the chatbot's conversation.
 
-2. Get an OpenAI API key by creating an account and following the instructions at https://help.openai.com/en/articles/4936850-where-do-i-find-my-api-key. Replace the API Key code snippet with your API Key. 
+2. Get an OpenAI API key by creating an account and following the [instructions](https://help.openai.com/en/articles/4936850-where-do-i-find-my-api-key). Replace the API Key code snippet with your API Key. 
 
 {% img blog/okta-documentation-chatbot/openai-api-key.jpeg alt:"openai-api-key" height:"400" %}{: .center-image }
 
