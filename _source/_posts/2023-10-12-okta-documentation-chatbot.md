@@ -105,7 +105,7 @@ Here's a step-by-step walkthrough of how the code works and how to use it:
 
 {% img blog/okta-documentation-chatbot/openai-api-key.jpeg alt:"openai-api-key" height:"400" %}{: .center-image }
 
-3. Download the files from my shared Google Drive folder [here](https://drive.google.com/drive/folders/11W-cjmkTztmnGgJCsJRtE395Iji6JX53?usp=share_link) and make sure the files are saved in a 
+3. Download the Okta documentation files from my shared Google Drive folder [here](https://drive.google.com/drive/folders/11W-cjmkTztmnGgJCsJRtE395Iji6JX53?usp=share_link) and make sure the files are saved in a 
  separate folder on your drive (not within any folders) and you are mounting the files from your Google account. Make sure the name of the folder is 'oktanaut'.
 
 4. continue_conversation: This function takes a list of messages as input and continues the conversation with the GPT-3.5 Turbo model. It sends the messages to the model and receives a response.
