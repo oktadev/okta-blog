@@ -1,6 +1,6 @@
 ---
 layout: blog_post
-title: "A Developer's Journey in Building an Okta Documentation Chatbot"
+title: "How to Build an Okta Documentation Chatbot in Python"
 author: tanish-kumar
 by: internal-contributor
 communities: [python]
@@ -14,7 +14,7 @@ image: blog/okta-documentation-chatbot/oktanaut.jpeg
 type: 
 ---
 
-In today's fast-paced world of technology, developer support is essential to ensure a seamless experience for users navigating intricate platforms and APIs. As a Developer Support Intern at Okta, I embarked on a challenging yet rewarding endeavor to create a solution that would streamline accessing and comprehending the Okta developer documentation. The result of my efforts is ✨Oktanaut✨, a versatile chatbot built in Python, designed to assist users in harnessing the power of Okta's developer documentation, available at developer.okta.com. 
+In today's fast-paced world of technology, developer support is essential to ensure a seamless experience for users navigating intricate platforms and APIs. As a Developer Support Intern at Okta, I embarked on a challenging yet rewarding endeavor to create a solution that would streamline accessing and comprehending the Okta developer documentation. The result of my efforts is ✨Oktanaut✨, a versatile Python chatbot designed to assist users in harnessing the power of Okta's developer documentation, available at developer.okta.com. 
 
 {% img blog/okta-documentation-chatbot/oktadevforumsdk.jpeg alt:"oktadevforumsdk" height:"400" %}{: .center-image } 
 – Image source: <cite>[Okta Developer GitHub](https://raw.githubusercontent.com/oktadev/.github/main/images/okta-dev-header.png)</cite> 
@@ -22,8 +22,8 @@ In today's fast-paced world of technology, developer support is essential to ens
 ## Navigating Uncharted Waters
 Learning to build a chatbot was a formidable challenge. I spent hours scouring Medium articles, sifting through Coursera courses, and experimenting with various libraries and APIs. Determined, I delved into the world of chatbot development, driven by a desire to create a valuable tool for the Okta community.
 
-## Evolution of Oktanaut
-My journey led me to develop two distinct versions of Oktanaut. The first version harnessed the capabilities of the GPT-3.5 API, allowing it to generate responses based on a broad spectrum of user inquiries. This version could handle various questions, providing a dynamic interaction experience.
+## Evolution of a Python Chatbot
+My journey led me to develop two distinct versions of Oktanaut a Python chatbot. The first version harnessed the capabilities of the GPT-3.5 API, allowing it to generate responses based on a broad spectrum of user inquiries. This version could handle various questions, providing a dynamic interaction experience.
 
 {% img blog/okta-documentation-chatbot/api.jpeg alt:"api-image" height:"400" %}{: .center-image }
 – Image source: <cite>[OpenAI APIs with Python — Complete Guide](https://medium.com/@marc.bolle/openai-apis-with-python-complete-guide-d933fb770f95)</cite>
@@ -96,12 +96,13 @@ dashboard = pn.Column(
 
 dashboard
 ```
-The code above found in the [main/GPTChatbot.ipynb](https://github.com/tanishkumar02/oktanaut/blob/main/GPTChatbot.ipynb) file is a Python script for the chatbot "Oktanaut" that can answer questions about Okta and OAuth developer documentation. The chatbot is built using the GPT-3.5 Turbo model from OpenAI and displayed in a web interface created with the Python panel library.
+The code above found in the [main/GPTChatbot.ipynb](https://github.com/tanishkumar02/oktanaut/blob/main/GPTChatbot.ipynb) file is a script for a Python chatbot "Oktanaut" that can answer questions about Okta and OAuth developer documentation. The chatbot is built using the GPT-3.5 Turbo model from OpenAI and displayed in a web interface created with the Python panel library.
 
 Here's a step-by-step walkthrough of how the code works and how to use it:
-1. Library installation: The script begins with installing the required Python packages: [OpenAI](https://pypi.org/project/openai/), [Panel](https://panel.holoviz.org/getting_started/installation.html), and [LlamaIndex](https://pypi.org/project/llama-index/). These packages work with the GPT-3.5 model, create the web interface, and manage the chatbot's conversation.
+1. With a Google account, ensure you have access to [Colab](https://colab.google/); this will be the environment we will use to run the Python scripts. 
+2. Library installation: The script begins with installing the required Python packages: [OpenAI](https://pypi.org/project/openai/), [Panel](https://panel.holoviz.org/getting_started/installation.html), and [LlamaIndex](https://pypi.org/project/llama-index/). These packages work with the GPT-3.5 model, create the web interface, and manage the chatbot's conversation.
 
-2. Get an OpenAI API key by creating an account and following the [instructions](https://help.openai.com/en/articles/4936850-where-do-i-find-my-api-key). Replace the API Key code snippet with your API Key. 
+3. Get an OpenAI API key by creating an account and following the [instructions](https://help.openai.com/en/articles/4936850-where-do-i-find-my-api-key). Replace the API Key code snippet with your API Key. 
 
 {% img blog/okta-documentation-chatbot/openai-api-key.jpeg alt:"openai-api-key" height:"400" %}{: .center-image }
 
@@ -140,13 +141,13 @@ Here's a step-by-step walkthrough of how the code works and how to use it:
 
 Now, here's how to use the code:
 
-1. Run the Python script in your development environment.
+1. Run the Python script in your Colab development environment.
 
 2. After running the script, a web interface will be displayed, including an input field and a "Chat with Oktanaut!" button.
 
 3. Enter your questions or prompts in the input field. For example, you can ask about Okta or OAuth developer documentation.
 
-4. Click the "Chat with Oktanaut!" button to submit your question.
+4. To submit your question, click the "Chat with Oktanaut!" button.
 
 5. Oktanaut will respond to your question with a chatbot-generated answer.
 
