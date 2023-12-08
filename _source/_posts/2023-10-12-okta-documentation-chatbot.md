@@ -5,7 +5,7 @@ author: tanish-kumar
 by: internal-contributor
 communities: [python]
 description: "Build a Python chatbot to quickly access information from Okta's developer documentation."
-tags: [python-chatbot, python, okta documentation, ai, automation]
+tags: [python-chatbot, python, okta-documentation, ai, automation]
 tweets:
 - ""
 image: blog/okta-documentation-chatbot/oktanaut.jpeg
