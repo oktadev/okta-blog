@@ -107,7 +107,7 @@ So how does this work? At a high level, your FIDO2 authentication flow utilizes 
 2. Something you have, the authenticator device, which may be a security key or a capable phone
 3. Something you are, biometric data such as fingerprint or facial recognition
 
-Before we authenticate, we need an account with compliant credentials, so let's start with the registration process. We'll use a public demo site demonstrating how passkeys work as we step through what's going on in the registration and authentication process. Follow along at Auth0's [webauthn.me](https://webauthn.me/).
+Before we authenticate, we need an account with compliant credentials, so let's start with the registration process. We'll use a public demo site demonstrating how passkeys work as we step through what's going on in the registration and authentication process. Follow along at Auth0's [webauthn.me](https://a0.to/webauthnme-okta-blog).
 
 There are a couple of components at play. From the user's perspective, they interact with a website and a device like their phone. From a technology perspective, there's WebAuthn and CTAP2. I'll show screenshots of each step, discuss the interaction between the web app and server of the relying party, and describe the hand-off between WebAuthn and CTAP2.
 
@@ -138,7 +138,7 @@ The user is now registered to use FIDO2 authentication mechanisms in the future.
 
 We can see what user authentication looks like with an account for the site set up and the initial passkey created.
 
-The user opens their favorite website (the Relying Party) in their browser (the Client) and initiates signing in by entering their username. In the [webauthn.me](https://webauthn.me) site we're using, the user authenticates immediately after registering as the next step demonstrating the process. 
+The user opens their favorite website (the Relying Party) in their browser (the Client) and initiates signing in by entering their username. In the [webauthn.me](https://a0.to/webauthnme-okta-blog) site we're using, the user authenticates immediately after registering as the next step demonstrating the process. 
 
 {% img blog/passwordless-authentication/webauthnme-authn.jpg alt:"webauthn.io site authenticate user prompt from the browser" width:"800" %}{: .center-image }
 
