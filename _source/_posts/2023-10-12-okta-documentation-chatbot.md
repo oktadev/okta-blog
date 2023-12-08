@@ -10,7 +10,7 @@ tweets:
 - ""
 image: blog/okta-documentation-chatbot/oktanaut.jpeg
 type: awareness
-github: https://github.com/oktadev/oktanaut
+github: https://github.com/oktadev/okta-python-chatbot-example
 ---
 
 In today's fast-paced world of technology, developer support is essential to ensure a seamless experience for users navigating intricate platforms and APIs. As a Developer Support Intern at Okta, I embarked on a challenging yet rewarding endeavor to create a solution that would streamline accessing and comprehending the Okta developer documentation. The result of my efforts is ✨Oktanaut✨, a versatile Python chatbot designed to assist users in harnessing the power of Okta's developer documentation, available at [developer.okta.com](https://developer.okta.com). 
@@ -40,7 +40,7 @@ Introducing context information at the beginning of conversations allowed Oktana
 Python's Panels library proved to be a wise choice for creating the front end of Oktanaut. Its seamless integration with Python made the development process smoother. The synergy between Oktanaut's Python-based backend and the Panels-powered frontend ensured a cohesive and user-friendly experience.
 
 ## Demonstrating Oktanaut's AI Chat Potential
-The completed chatbot script can be found [here](https://github.com/tanishkumar02/oktanaut/).  
+The completed chatbot script can be found [here](https://github.com/oktadev/okta-python-chatbot-example).  
 
 ```py
 def continue_conversation(messages, temperature=0):
@@ -92,7 +92,8 @@ dashboard = pn.Column(
 
 dashboard
 ```
-The code above found in the [main/GPTChatbot.ipynb](https://github.com/tanishkumar02/oktanaut/blob/main/GPTChatbot.ipynb) file is a script for a Python chatbot "Oktanaut" that can answer questions about Okta and OAuth developer documentation. The chatbot is built using the GPT-3.5 Turbo model from OpenAI and displayed in a web interface created with the Python panel library.
+The code above found in the [okta-python-chatbot-example
+/GPTChatbot.ipynb](https://github.com/oktadev/okta-python-chatbot-example/blob/main/GPTChatbot.ipynb) file is a script for a Python chatbot "Oktanaut" that can answer questions about Okta and OAuth developer documentation. The chatbot is built using the GPT-3.5 Turbo model from OpenAI and displayed in a web interface created with the Python panel library.
 
 Here's a step-by-step walkthrough of how the code works and how to use it:
 1. With a Google account, ensure you have access to [Colab](https://colab.google/); this will be the environment we will use to run the Python scripts. 
