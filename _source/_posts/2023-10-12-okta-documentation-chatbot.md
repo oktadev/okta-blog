@@ -35,7 +35,7 @@ Additionally, by storing historical interactions, I transformed Oktanaut into a 
 ## Personalizing the Chatbot AI Conversational Experience
 Introducing context information at the beginning of conversations allowed Oktanaut to greet users with an understanding of its name, functionality, and purpose. It also added a personal touch and minimized any initial confusion users might have had.
 
-## The Power of Panels: Crafting the Chatbot's User Interface
+## Building the Chatbot's User Interface
 Python's Panels library proved to be a wise choice for creating the front end of Oktanaut. Its seamless integration with Python made the development process smoother. The synergy between Oktanaut's Python-based backend and the Panels-powered frontend ensured a cohesive and user-friendly experience.
 
 ## Demonstrating Oktanaut's AI Chat Potential
