@@ -19,7 +19,7 @@ In today's fast-paced world of technology, developer support is essential to ens
 – Image source: <cite>[Okta Developer GitHub](https://raw.githubusercontent.com/oktadev/.github/main/images/okta-dev-header.png)</cite> 
 
 ## Evolution of a Python Chatbot
-My journey led me to develop two distinct versions of Oktanaut a Python chatbot. The first version harnessed the capabilities of the GPT-3.5 API, allowing it to generate responses based on a broad spectrum of user inquiries. This version could handle various questions, providing a dynamic interaction experience.
+My journey led me to develop two distinct versions of "Oktanaut," a Python chatbot. The first version harnessed the capabilities of the GPT-3.5 API, allowing it to generate responses based on a broad spectrum of user inquiries. This version could handle various questions, providing a dynamic interaction experience.
 
 {% img blog/okta-documentation-chatbot/api.jpeg alt:"OpenAI logo on a colorful background" height:"400" %}{: .center-image }
 – Image source: <cite>[OpenAI APIs with Python — Complete Guide](https://medium.com/@marc.bolle/openai-apis-with-python-complete-guide-d933fb770f95)</cite>
