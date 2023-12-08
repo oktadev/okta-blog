@@ -4,7 +4,7 @@ title: "How to Build an Okta Documentation Chatbot in Python"
 author: tanish-kumar
 by: internal-contributor
 communities: [python]
-description: "Build a Python chatbot to quickly access information from Okta's documentation."
+description: "Build a Python chatbot to quickly access information from Okta's developer documentation."
 tags: [python-chatbot, python, okta documentation, ai, automation]
 tweets:
 - ""
@@ -17,31 +17,28 @@ In today's fast-paced world of technology, developer support is essential to ens
 {% img blog/okta-documentation-chatbot/oktadevforumsdk.jpeg alt:"OktaDev Forum and SDK logo" height:"400" %}{: .center-image } 
 – Image source: <cite>[Okta Developer GitHub](https://raw.githubusercontent.com/oktadev/.github/main/images/okta-dev-header.png)</cite> 
 
-## Navigating Uncharted Waters
-Learning to build a chatbot was a formidable challenge. I spent hours scouring Medium articles, sifting through Coursera courses, and experimenting with various libraries and APIs. Determined, I delved into the world of chatbot development, driven by a desire to create a valuable tool for the Okta community.
-
 ## Evolution of a Python Chatbot
 My journey led me to develop two distinct versions of Oktanaut a Python chatbot. The first version harnessed the capabilities of the GPT-3.5 API, allowing it to generate responses based on a broad spectrum of user inquiries. This version could handle various questions, providing a dynamic interaction experience.
 
-{% img blog/okta-documentation-chatbot/api.jpeg alt:"api-image" height:"400" %}{: .center-image }
+{% img blog/okta-documentation-chatbot/api.jpeg alt:"OpenAI logo on a colorful background" height:"400" %}{: .center-image }
 – Image source: <cite>[OpenAI APIs with Python — Complete Guide](https://medium.com/@marc.bolle/openai-apis-with-python-complete-guide-d933fb770f95)</cite>
 
-The second version took a different approach. Using LLamaIndex, I crafted a custom chatbot exclusively trained on the Okta developer documentation. While this version's responses were more accurate due to its focused training, it needed to be more comprehensive in handling a diverse range of questions compared to the GPT-3.5-powered counterpart.
+The second version took a different approach. Using [LlamaIndex](https://pypi.org/project/llama-index/), I crafted a custom chatbot exclusively trained on the Okta developer documentation. While this version's responses were more accurate due to its focused training, it needed to be more comprehensive in handling a diverse range of questions compared to the GPT-3.5-powered counterpart.
 
-## Precision vs. Versatility
+## Precision vs. Versatility 
 The trade-off between precision and versatility became evident when comparing the two versions. The GPT-3.5-powered Oktanaut could generate responses to a broader set of questions, but the LLamaIndex-based version excelled in accuracy. Both played a crucial role in catering to different user needs.
 
-## Meticulous Training for Enhanced Performance
+## Meticulous Training for Enhanced Performance on Okta's Developer Documentation
 For both versions, meticulous training was the cornerstone of success. I diligently fed the chatbots with carefully curated sample questions, answers, and information provided by developer support engineers. Doing so enabled Oktanaut to connect users seamlessly to human engineers in cases where its responses fell short of expectations.
 Additionally, by storing historical interactions, I transformed Oktanaut into a self-learning entity. This self-improvement mechanism allowed the chatbot to utilize context information from past conversations to provide more informed responses.
 
-## Personalizing the Experience
+## Personalizing the Chatbot AI Conversational Experience
 Introducing context information at the beginning of conversations allowed Oktanaut to greet users with an understanding of its name, functionality, and purpose. It also added a personal touch and minimized any initial confusion users might have had.
 
-## The Power of Panels: Crafting the User Interface
+## The Power of Panels: Crafting the Chatbot's User Interface
 Python's Panels library proved to be a wise choice for creating the front end of Oktanaut. Its seamless integration with Python made the development process smoother. The synergy between Oktanaut's Python-based backend and the Panels-powered frontend ensured a cohesive and user-friendly experience.
 
-## Demonstrating Oktanaut's Potential
+## Demonstrating Oktanaut's AI Chat Potential
 The completed chatbot script can be found [here](https://github.com/tanishkumar02/oktanaut/).  
 
 ```py
@@ -102,7 +99,7 @@ Here's a step-by-step walkthrough of how the code works and how to use it:
 
 3. Get an OpenAI API key by creating an account and following these [instructions](https://help.openai.com/en/articles/4936850-where-do-i-find-my-api-key). Replace the API Key code snippet with your API Key. 
 
-{% img blog/okta-documentation-chatbot/openai-api-key.jpeg alt:"openai-api-key" height:"400" %}{: .center-image }
+{% img blog/okta-documentation-chatbot/openai-api-key.jpeg alt:"Image with an arrow pointing to where the OpenAI API key should be added in the code." height:"400" %}{: .center-image }
 
 3. Download the Okta documentation files from my shared Google Drive folder [here](https://drive.google.com/drive/folders/11W-cjmkTztmnGgJCsJRtE395Iji6JX53?usp=share_link) and make sure the files are saved in a 
  separate folder on your drive (not within any folders) and you are mounting the files from your Google account. Make sure the name of the folder is 'oktanaut'.
@@ -159,7 +156,7 @@ Note: The conversation and responses will appear on the web interface in real-ti
 
 The web interface allows you to have interactive conversations with Oktanaut and receive answers to your questions about Okta and OAuth developer documentation. Feel free to try it out and have a conversation with Oktanaut!
 
-{% img blog/okta-documentation-chatbot/openai-oidc.jpeg alt:"openai-oidc" height:"400" %}{: .center-image }
+{% img blog/okta-documentation-chatbot/openai-oidc.jpeg alt:"Image of Oktanaut's answer to, 'What is OIDC?'" height:"400" %}{: .center-image }
 
 ## Expanding Horizons
 My journey with Oktanaut further continues! I am enthusiastic about enhancing its capabilities by integrating data from the Okta Dev Forum and addressing issues from Okta's GitHub SDK. Collaborating with the Developer Documentation team to discuss potential implementations is also on the horizon, ensuring Oktanaut evolves into an indispensable asset for Okta developers.
