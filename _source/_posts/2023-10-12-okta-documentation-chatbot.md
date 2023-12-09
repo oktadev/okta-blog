@@ -13,16 +13,13 @@ type: awareness
 github: https://github.com/oktadev/okta-python-chatbot-example
 ---
 
-In today's fast-paced world of technology, developer support is essential to ensure a seamless experience for users navigating intricate platforms and APIs. As a Developer Support Intern at Okta, I embarked on a challenging yet rewarding endeavor to create a solution that would streamline accessing and comprehending the Okta Developer Documentation. The result of my efforts is ✨Oktanaut✨, a versatile Python chatbot designed to assist users in harnessing the power of Okta's developer documentation, available at [developer.okta.com](https://developer.okta.com). 
+In today's fast-paced world of technology, developer support is essential to ensure a seamless experience for users navigating intricate platforms and APIs. As a Developer Support Intern at Okta, I embarked on a challenging yet rewarding endeavor to create a solution that would streamline accessing and comprehending the Okta Developer Documentation. The result of my efforts is a versatile Python chatbot called ✨Oktanaut✨, designed to assist developers in harnessing the power of Okta's Developer Documentation, available at [developer.okta.com](https://developer.okta.com). 
 
 {% img blog/okta-documentation-chatbot/oktadevforumsdk.jpeg alt:"OktaDev Forum and SDK logo" height:"400" %}{: .center-image } 
 – Image source: <cite>[Okta Developer GitHub](https://raw.githubusercontent.com/oktadev/.github/main/images/okta-dev-header.png)</cite> 
 
 ## Evolution of a Python Chatbot
 My journey led me to develop two distinct versions of "Oktanaut," a Python chatbot. The first version harnessed the capabilities of the GPT-3.5 API, allowing it to generate responses based on a broad spectrum of user inquiries. This version could handle various questions, providing a dynamic interaction experience.
-
-{% img blog/okta-documentation-chatbot/api.jpeg alt:"OpenAI logo on a colorful background" height:"400" %}{: .center-image }
-– Image source: <cite>[OpenAI APIs with Python — Complete Guide](https://medium.com/@marc.bolle/openai-apis-with-python-complete-guide-d933fb770f95)</cite>
 
 The second version took a different approach. Using [LlamaIndex](https://pypi.org/project/llama-index/), I crafted a custom chatbot exclusively trained on the Okta Developer Documentation. While this version's responses were more accurate due to its focused training, it needed to be more comprehensive in handling a diverse range of questions compared to the GPT-3.5-powered counterpart.
 
