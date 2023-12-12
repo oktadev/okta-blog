@@ -15,7 +15,7 @@ github: https://github.com/oktadev/auth0-micro-frontends-jhipster-example
 image: blog/micro-frontends-java/micro-frontends.jpg
 canonical: https://auth0.com/blog/micro-frontends-for-java-microservices/
 changelog:
-- 2023-12-11: Updated to use JHipster 8.1.0. You can see the changes in this post in [okta-blog#1472](https://github.com/oktadev/okta-blog/pull/1472) and the example app changes in [auth0-micro-frontends-jhipster-example#2](https://github.com/oktadev/auth0-micro-frontends-jhipster-example/pull/2).
+- 2023-12-12: Updated to use JHipster 8.1.0. You can see the changes in this post in [okta-blog#1472](https://github.com/oktadev/okta-blog/pull/1472) and the example app changes in [auth0-micro-frontends-jhipster-example#2](https://github.com/oktadev/auth0-micro-frontends-jhipster-example/pull/2).
 ---
 :page-liquid:
 :toc: macro
