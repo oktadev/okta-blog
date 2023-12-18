@@ -48,6 +48,6 @@
     "recursive-readdir": "2.2.3",
     "simple-git": "^3.20.0",
     "yargs": "^17.7.2",
-    "sharp": "^0.32.6"
+    "sharp": "^0.33.1"
   }
 }
