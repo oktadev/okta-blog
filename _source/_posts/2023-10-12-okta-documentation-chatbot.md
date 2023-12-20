@@ -19,7 +19,7 @@ In today's fast-paced world of technology, developers must navigate through deta
 – Image source: <cite>[Okta Developer GitHub](https://raw.githubusercontent.com/oktadev/.github/main/images/okta-dev-header.png)</cite> 
 
 ## Evolution of Oktanaut, a Python Chatbot 
-I developed two versions of Oktanaut. The first version was a specific approach, offering greater precision rather than general knowledge. It built this chatbot using LlamaIndex and trained it on the Okta Developer Documentation. While this version generated more accurate responses due to its focused training, it could not handle diverse questions.
+I developed two versions of Oktanaut. The first version was a specific approach, offering greater precision rather than general knowledge. I built the prototype chatbot using LlamaIndex and trained it on the Okta Developer Documentation. While this version generated accurate responses due to its focused training, it could not handle diverse questions.
 
 The second version, a versatile approach, utilized the capabilities of the [OpenAI GPT-3.5 API](https://chat.openai.com/auth/login); it generated responses based on a broader sample of user inquiries. This version handled various questions, providing a dynamic, self-learning, and interactive experience.
 
