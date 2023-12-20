@@ -14,6 +14,8 @@ type: conversion
 github: https://github.com/oktadev/auth0-micro-frontends-jhipster-example
 image: blog/micro-frontends-java/micro-frontends.jpg
 canonical: https://auth0.com/blog/micro-frontends-for-java-microservices/
+changelog:
+- 2023-12-12: Updated to use JHipster 8.1.0. You can see the changes in this post in [okta-blog#1472](https://github.com/oktadev/okta-blog/pull/1472) and the example app changes in [auth0-micro-frontends-jhipster-example#2](https://github.com/oktadev/auth0-micro-frontends-jhipster-example/pull/2).
 ---
 :page-liquid:
 :toc: macro
@@ -31,18 +33,20 @@ This tutorial is also available https://youtu.be/haTQ1xJKQQ8[as a screencast].
 {% youtube haTQ1xJKQQ8 %}
 ++++
 
+NOTE: This video uses JHipster 7.9.3. All the steps will still work with JHipster 8.1.0, but you have to use Java 17 and Node 18.
+
 **Prerequisites:**
 
-- https://sdkman.io/[Java] 11+
-- https://nodejs.com/[Node.js] 16+
+- https://sdkman.io/[Java] 17+
+- https://nodejs.com/[Node.js] 18+
 - https://www.docker.com/products/docker-desktop/[Docker Desktop]
-- https://www.jhipster.tech/installation/[JHipster] 7.9.3
+- https://www.jhipster.tech/installation/[JHipster] 8.1.0
 
 You can install JHipster with npm:
 
 [source,shell]
 ----
-npm i -g generator-jhipster@7.9.3
+npm i -g generator-jhipster@8
 ----
 
 toc::[]
@@ -143,14 +147,12 @@ jhipster jdl reactive-mf.jdl --monorepository --workspaces
 
 The last two arguments are optional, but I expect you to use them for this tutorial. Without the `monorepository` flag, the gateway and microservices would have their own Git repos. The `workspaces` flag enables https://docs.npmjs.com/cli/v8/using-npm/workspaces[npm workspaces], which are kinda like having an aggregator `pom.xml` that allows you to execute commands across projects. It also makes it so there's only one `node_modules` in the root directory. To learn more, I recommend egghead's https://egghead.io/courses/introduction-to-monorepos-with-npm-workspaces-c03f500b[Introduction to Monorepos with NPM Workspaces].
 
-If you want to use Angular, append `--client-framework angularX` to the command above to override the JDL value:
+If you want to use Angular, append `--client-framework angular` to the command above to override the JDL value:
 
 [source,shell]
 ----
---client-framework angularX
+--client-framework angular
 ----
-
-IMPORTANT: `angularX` is a legacy JDL value from back when JHipster supported AngularJS and Angular 2. We will change it to `angular` in v8.
 
 If you'd rather try out Vue, use the following:
 
@@ -161,13 +163,14 @@ If you'd rather try out Vue, use the following:
 
 === Run your reactive Spring Boot microservices
 
-When the process is complete, cd into the `gateway` directory and start Keycloak and Consul using Docker Compose.
+When the process is complete, cd into the `gateway` directory and start Consul, Keycloak, and PostgreSQL using Docker Compose.
 
 [source,shell]
 ----
 cd gateway
-docker compose -f src/main/docker/keycloak.yml up -d
 docker compose -f src/main/docker/consul.yml up -d
+docker compose -f src/main/docker/keycloak.yml up -d
+docker compose -f src/main/docker/postgresql.yml up -d
 ----
 
 Then, run `./gradlew` (or `npm run app:start` if you prefer npm commands). When the startup process completes, open your favorite browser to `\http://localhost:8080`, and log in with the credentials displayed on the page.
@@ -204,13 +207,13 @@ At this point, I've only shown you how to run the Spring Boot backends with thei
 
 In the gateway app, run `npm start`. This command will run the UI on a web server, open a browser window to `\http://localhost:9000`, and use https://browsersync.io/[Browsersync] to keep your browser in sync with your code.
 
-Modify the code in `gateway/src/main/webapp/app/modules/home/home.tsx` to make a quick change. For example, add the following HTML below the `<h2>`.
+Modify the code in `gateway/src/main/webapp/app/modules/home/home.tsx` to make a quick change. For example, add the following HTML below the `<h1>`.
 
 [source,html]
 ----
-<h3 className="text-primary">
+<h2 className="text-primary">
   Hi, I'm a quick edit!
-</h3>
+</h2>
 ----
 
 You'll see this change immediately appear within your browser.
@@ -236,7 +239,7 @@ The backend has quick turnaround abilities too, thanks to https://docs.spring.io
 
 When you're learning concepts like micro frontends, it's often helpful to look at the code that makes things work.
 
-The gateway's `webpack.microfrontend.js` handles setting up the `@blog` and `@store` remotes and specifying the shared dependencies and components between apps.
+The gateway's `webpack.microfrontend.js` handles specifying the shared dependencies and components between apps. The `src/main/webapp/app/shared/layout/menus/entities.tsx` file contains the menu items for each micro frontend.
 
 .`gateway/webpack/webpack.microfrontend.js`
 [%collapsible]
@@ -246,7 +249,18 @@ The gateway's `webpack.microfrontend.js` handles setting up the `@blog` and `@st
 const ModuleFederationPlugin = require('webpack/lib/container/ModuleFederationPlugin');
 
 const packageJson = require('../package.json');
-const appVersion = packageJson.version;
+// Microfrontend api, should match across gateway and microservices.
+const apiVersion = '0.0.1';
+
+const sharedDefaults = { singleton: true, strictVersion: true, requiredVersion: apiVersion };
+const shareMappings = (...mappings) => Object.fromEntries(mappings.map(map => [map, { ...sharedDefaults, version: apiVersion }]));
+
+const shareDependencies = ({ skipList = [] } = {}) =>
+  Object.fromEntries(
+    Object.entries(packageJson.dependencies)
+      .filter(([dependency]) => !skipList.includes(dependency))
+      .map(([dependency, version]) => [dependency, { ...sharedDefaults, version, requiredVersion: version }]),
+  );
 
 module.exports = ({ serve }) => {
   return {
@@ -255,70 +269,24 @@ module.exports = ({ serve }) => {
       chunkIds: 'named',
       runtimeChunk: false,
     },
+
     plugins: [
       new ModuleFederationPlugin({
         shareScope: 'default',
-        remotes: {
-          '@blog': `blog@/services/blog/remoteEntry.js`,
-          '@store': `store@/services/store/remoteEntry.js`,
-        },
         shared: {
-          ...Object.fromEntries(
-            Object.entries(packageJson.dependencies).map(([module, version]) => [
-              module,
-              { requiredVersion: version, singleton: true, shareScope: 'default' },
-            ])
+          ...shareDependencies(),
+          ...shareMappings(
+            'app/config/constants',
+            'app/config/store',
+            'app/shared/error/error-boundary-routes',
+            'app/shared/layout/menus/menu-components',
+            'app/shared/layout/menus/menu-item',
+            'app/shared/reducers',
+            'app/shared/reducers/locale',
+            'app/shared/reducers/reducer.utils',
+            'app/shared/util/date-utils',
+            'app/shared/util/entity-utils',
           ),
-          'app/config/constants': {
-            singleton: true,
-            import: 'app/config/constants',
-            requiredVersion: appVersion,
-          },
-          'app/config/store': {
-            singleton: true,
-            import: 'app/config/store',
-            requiredVersion: appVersion,
-          },
-          'app/shared/error/error-boundary-routes': {
-            singleton: true,
-            import: 'app/shared/error/error-boundary-routes',
-            requiredVersion: appVersion,
-          },
-          'app/shared/layout/menus/menu-components': {
-            singleton: true,
-            import: 'app/shared/layout/menus/menu-components',
-            requiredVersion: appVersion,
-          },
-          'app/shared/layout/menus/menu-item': {
-            singleton: true,
-            import: 'app/shared/layout/menus/menu-item',
-            requiredVersion: appVersion,
-          },
-          'app/shared/reducers': {
-            singleton: true,
-            import: 'app/shared/reducers',
-            requiredVersion: appVersion,
-          },
-          'app/shared/reducers/locale': {
-            singleton: true,
-            import: 'app/shared/reducers/locale',
-            requiredVersion: appVersion,
-          },
-          'app/shared/reducers/reducer.utils': {
-            singleton: true,
-            import: 'app/shared/reducers/reducer.utils',
-            requiredVersion: appVersion,
-          },
-          'app/shared/util/date-utils': {
-            singleton: true,
-            import: 'app/shared/util/date-utils',
-            requiredVersion: appVersion,
-          },
-          'app/shared/util/entity-utils': {
-            singleton: true,
-            import: 'app/shared/util/entity-utils',
-            requiredVersion: appVersion,
-          },
         },
       }),
     ],
@@ -341,7 +309,18 @@ const ModuleFederationPlugin = require('webpack/lib/container/ModuleFederationPl
 const { DefinePlugin } = require('webpack');
 
 const packageJson = require('../package.json');
-const appVersion = packageJson.version;
+// Microfrontend api, should match across gateway and microservices.
+const apiVersion = '0.0.1';
+
+const sharedDefaults = { singleton: true, strictVersion: true, requiredVersion: apiVersion };
+const shareMappings = (...mappings) => Object.fromEntries(mappings.map(map => [map, { ...sharedDefaults, version: apiVersion }]));
+
+const shareDependencies = ({ skipList = [] } = {}) =>
+  Object.fromEntries(
+    Object.entries(packageJson.dependencies)
+      .filter(([dependency]) => !skipList.includes(dependency))
+      .map(([dependency, version]) => [dependency, { ...sharedDefaults, version, requiredVersion: version }]),
+  );
 
 module.exports = ({ serve }) => {
   return {
@@ -350,6 +329,7 @@ module.exports = ({ serve }) => {
       chunkIds: 'named',
       runtimeChunk: false,
     },
+
     plugins: [
       new ModuleFederationPlugin({
         name: 'blog',
@@ -360,62 +340,19 @@ module.exports = ({ serve }) => {
           './entities-routes': './src/main/webapp/app/entities/routes',
         },
         shared: {
-          ...Object.fromEntries(
-            Object.entries(packageJson.dependencies).map(([module, version]) => [
-              module,
-              { requiredVersion: version, singleton: true, shareScope: 'default' },
-            ])
+          ...shareDependencies(),
+          ...shareMappings(
+            'app/config/constants',
+            'app/config/store',
+            'app/shared/error/error-boundary-routes',
+            'app/shared/layout/menus/menu-components',
+            'app/shared/layout/menus/menu-item',
+            'app/shared/reducers',
+            'app/shared/reducers/locale',
+            'app/shared/reducers/reducer.utils',
+            'app/shared/util/date-utils',
+            'app/shared/util/entity-utils',
           ),
-          'app/config/constants': {
-            singleton: true,
-            import: 'app/config/constants',
-            requiredVersion: appVersion,
-          },
-          'app/config/store': {
-            singleton: true,
-            import: 'app/config/store',
-            requiredVersion: appVersion,
-          },
-          'app/shared/error/error-boundary-routes': {
-            singleton: true,
-            import: 'app/shared/error/error-boundary-routes',
-            requiredVersion: appVersion,
-          },
-          'app/shared/layout/menus/menu-components': {
-            singleton: true,
-            import: 'app/shared/layout/menus/menu-components',
-            requiredVersion: appVersion,
-          },
-          'app/shared/layout/menus/menu-item': {
-            singleton: true,
-            import: 'app/shared/layout/menus/menu-item',
-            requiredVersion: appVersion,
-          },
-          'app/shared/reducers': {
-            singleton: true,
-            import: 'app/shared/reducers',
-            requiredVersion: appVersion,
-          },
-          'app/shared/reducers/locale': {
-            singleton: true,
-            import: 'app/shared/reducers/locale',
-            requiredVersion: appVersion,
-          },
-          'app/shared/reducers/reducer.utils': {
-            singleton: true,
-            import: 'app/shared/reducers/reducer.utils',
-            requiredVersion: appVersion,
-          },
-          'app/shared/util/date-utils': {
-            singleton: true,
-            import: 'app/shared/util/date-utils',
-            requiredVersion: appVersion,
-          },
-          'app/shared/util/entity-utils': {
-            singleton: true,
-            import: 'app/shared/util/entity-utils',
-            requiredVersion: appVersion,
-          },
         },
       }),
       new DefinePlugin({
@@ -512,7 +449,6 @@ Edit `docker-compose/central-server-config/application.yml` and append the follo
 ----
 jhipster:
   security:
-    ...
     oauth2:
       audience: https://<your-auth0-domain>/api/v2/
 
