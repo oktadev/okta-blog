@@ -39,14 +39,14 @@ The completed code for the OpenAI version of the chatbot can be found [here](htt
 
 Key terms to note before diving into the Python code:
 
-- `model`: "gpt-3.5-turbo": Specifies the GPT-3.5 Turbo model used for conversation.
+- `model:"gpt-3.5-turbo"`: Specifies the GPT-3.5 Turbo model used for conversation.
 - `messages`: The list of messages that make up the conversation.
 - `temperature`: A parameter that controls the randomness of the model's responses.
 - `continue_conversation`: This function takes a list of messages as input and continues the conversation with the GPT-3.5 Turbo model. It sends the messages to the model and receives a response.  
 - `add_prompts_conversation`: This function adds prompts to the conversation and retrieves responses from the chatbot.
 - `client_prompt`: The user asks a question about Okta in this input field.
 - `role`: The user's input adds to the conversation with the role "user."
-- `continue_conversation`: Theis function retrieves the chatbot's response in string format.
+- `continue_conversation`: This function retrieves the chatbot's response in string format.
 - `assistant`: This role adds The chatbot's response to the conversation.
 - `context list`: This initializes the conversation with a system message that introduces Oktanaut, the chatbot. It provides information about the bot's purpose and capabilities.
 - `pn.extension()`: This line initializes the Panel library.
@@ -150,6 +150,6 @@ I am enthusiastic about enhancing Oktanaut's training by incorporating informati
 
 Have you thought about building your own chatbot with AI? Would you like to know more about how I built Oktanaut? Let me know in the comments below! Want to stay in touch? Follow our social channels @oktadev on [Twitter](https://twitter.com/oktadev) and subscribe to our [YouTube](https://www.youtube.com/c/oktadev) channel.
 
-Resources
+## Python Chatbot Resources
 - [Cheat Sheet: Mastering Temperature and Top_p in ChatGPT API (a few tips and tricks on controlling the creativity/deterministic output of prompt responses.)](https://community.openai.com/t/cheat-sheet-mastering-temperature-and-top-p-in-chatgpt-api-a-few-tips-and-tricks-on-controlling-the-creativity-deterministic-output-of-prompt-responses/172683/10)
 - [Understanding OpenAI's Temperature Parameter](https://www.coltsteele.com/tips/understanding-openai-s-temperature-parameter)
