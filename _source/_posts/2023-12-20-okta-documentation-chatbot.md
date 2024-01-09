@@ -13,7 +13,7 @@ type: awareness
 github: https://github.com/oktadev/okta-python-chatbot-example
 ---
 
-In today's fast-paced world of technology, developers must navigate through detailed API documentation to integrate with software solutions. As a Developer Support Intern at Okta, I noticed developers underutilizing [Okta's Developer Documentation] (developer.okta.com). To help them benefit from the wealth of information in these docs, I was inspired to build a tool using OpenAI. Leveraging ChatGPT, I built ✨Oktanaut✨, a versatile Python chatbot running on Jupyter Notebook that makes access to information on Okta's Developer Documentation simple and straightforward.
+In today's fast-paced world of technology, developers must navigate through detailed API documentation to integrate with software solutions. As a Developer Support Intern at Okta, I noticed developers underutilizing [Okta's Developer Documentation](developer.okta.com). To help them benefit from the wealth of information in these docs, I was inspired to build a tool using OpenAI. Leveraging ChatGPT, I built ✨Oktanaut✨, a versatile Python chatbot running on Jupyter Notebook that makes access to information on Okta's Developer Documentation simple and straightforward.
 
 {% img blog/okta-documentation-chatbot/oktadevforumsdk.jpeg alt:"OktaDev Forum and SDK logo" height:"400" %}{: .center-image } 
 – Image source: <cite>[Okta Developer GitHub](https://raw.githubusercontent.com/oktadev/.github/main/images/okta-dev-header.png)</cite> 
