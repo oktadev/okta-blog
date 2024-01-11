@@ -8,14 +8,14 @@ This step-by-step guide demonstrates how to build a GraphQL API with Spring Boot
 
 This example was created with the following tools and services:
 
-- [Node.js v18.16.1](https://docs.npmjs.com/downloading-and-installing-node-js-and-npm)
-- [npm 9.5.1](https://docs.npmjs.com/downloading-and-installing-node-js-and-npm)
+- [Node.js v20.10.0](https://docs.npmjs.com/downloading-and-installing-node-js-and-npm)
+- [npm 10.2.3](https://docs.npmjs.com/downloading-and-installing-node-js-and-npm)
 - [Java OpenJDK 17](https://jdk.java.net/java-se-ri/17)
-- [Docker 24.0.2](https://docs.docker.com/desktop/)
+- [Docker 24.0.7](https://docs.docker.com/desktop/)
 - <a href="https://a0.to/blog_signup"   data-amp-replace="CLIENT_ID"   data-amp-addparams="anonId=CLIENT_ID(cid-scope-cookie-fallback-name)">Auth0 account</a>
-- [Auth0 CLI 1.0.0](https://github.com/auth0/auth0-cli#installation)
+- [Auth0 CLI 1.3.0](https://github.com/auth0/auth0-cli#installation)
 - [HTTPie 3.2.2](https://httpie.io/)
-- [Next.js 13.4.19](https://nextjs.org/)
+- [Next.js 14.0.4](https://nextjs.org/)
 
 
 ## Build a GraphQL API with Spring for GraphQL
@@ -26,12 +26,12 @@ Create the application with Spring Initializr and HTTPie:
 
 ```shell
 https start.spring.io/starter.zip \
-  bootVersion==3.1.3 \
+  bootVersion==3.2.1 \
   language==java \
   packaging==jar \
   javaVersion==17 \
   type==gradle-project \
-  dependencies==data-neo4j,graphql,web \
+  dependencies==data-neo4j,graphql,docker-compose,web \
   groupId==com.okta.developer \
   artifactId==spring-graphql  \
   name=="Spring Boot API" \
@@ -585,7 +585,7 @@ Let's add Neo4j migrations dependency for the seed data insertion. Edit the `bui
 // build.gradle
 dependencies {
     ...
-    implementation 'eu.michael-simons.neo4j:neo4j-migrations-spring-boot-starter:2.5.3'
+    implementation 'eu.michael-simons.neo4j:neo4j-migrations-spring-boot-starter:2.8.2'
     ...
 }
 ```
@@ -678,19 +678,17 @@ Update `application.properties` and add the following properties:
 spring.graphql.graphiql.enabled=true
 spring.graphql.schema.introspection.enabled=true
 org.neo4j.migrations.transaction-mode=PER_STATEMENT
-spring.neo4j.uri=bolt://localhost:7687
-spring.neo4j.authentication.username=neo4j
 
 spring.graphql.cors.allowed-origins=http://localhost:3000
 ```
 
 The property `spring.graphql.cors.allowed-origins` will eventually enable CORS for the client application.
 
-Create a `.env` file in the project root to store the Neo4j credentials:
+Create a `.env` file in the server root to store the Neo4j credentials:
 
 ```shell
 # .env
-export SPRING_NEO4J_AUTHENTICATION_PASSWORD=verysecret
+export NEO4J_PASSWORD=verysecret
 ```
 
 If using git, don't forget to add the `.env` file to the ignored files.
@@ -701,11 +699,10 @@ Download the following seed files to an empty directory, as it will be mounted t
 - [LandOwnershipAmericans.csv](https://guides.neo4j.com/ukcompanies/data/LandOwnershipAmericans.csv)
 - [PSCAmericans.csv](https://guides.neo4j.com/ukcompanies/data/PSCAmericans.csv)
 
-Create the directory `src/main/docker` and create a file `neo4j.yml` there, with the following content:
+Spring Boot’s Docker Compose integration now supports Neo4j. Edit the file `compose.yml` and add a service for the Neo4j database.
 
 ```yml
-# src/main/docker/neo4j.yml
-name: companies
+# compose.yml
 services:
   neo4j:
     image: neo4j:5
@@ -726,28 +723,15 @@ services:
       retries: 10
 ```
 
-Create the file `src/main/docker/.env` with the following content:
-
-```dotenv
-# src/main/docker/.env
-NEO4J_PASSWORD=verysecret
-```
-
 As you can see the compose file will mount `<csv-dir>` to a `/var/lib/neo4j/import` volume, making the content accessible from the running Neo4j container.
 Replace `<csv-dir>` with the path to the CSV files downloaded before.
-
-In a terminal, go to the `docker` directory and run:
-
-```shell
-docker compose -f neo4j.yml up
-```
 
 ### Run the Spring Boot API server
 
 Go to the project root directory and start the application with:
 
 ```shell
-source .env && ./gradlew bootRun
+./gradlew bootRun
 ```
 
 Wait for the logs to inform the seed data migrations have run:
@@ -1236,7 +1220,7 @@ Add the `okta-spring-boot-starter` dependency to the `build.gradle` file in the 
 // build.gradle
 dependencies {
     ...
-    implementation 'com.okta.spring:okta-spring-boot-starter:3.0.5'
+    implementation 'com.okta.spring:okta-spring-boot-starter:3.0.6'
     ...
 }
 ```
@@ -1275,7 +1259,7 @@ Add the following factory method to the class `SpringBootApiConfig`, for requiri
 Again, in the root directory, run the API server with:
 
 ```shell
-source .env && ./gradlew bootRun
+./gradlew bootRun
 ```
 
 Get an access token using the Auth0 CLI with the `auth0 test token` command:
@@ -1283,6 +1267,8 @@ Get an access token using the Auth0 CLI with the `auth0 test token` command:
 ```shell
 auth0 test token -a https://<your-auth0-domain>/api/v2/
 ```
+
+Select the **CLI Login Testing** app or any available client when prompted, you don't need to select any scope. You will also be prompted to open a browser window and log in with a user credential.
 
 With HTTPie, send a request to the API server using a bearer access token:
 
@@ -1697,7 +1683,7 @@ import CompanyTable from './CompanyTable';
 import { usePathname, useRouter, useSearchParams } from 'next/navigation';
 import { CompanyApi, CompanyDTO } from '@/services/companies';
 import Loader from '../loader/Loader';
-import { useAsyncWithToken } from '@/app/hooks/useAsyncWithToken';
+import { useAsyncWithToken } from '@/hooks/useAsyncWithToken';
 
 interface CompanyTableProperties {
   page?: number;
