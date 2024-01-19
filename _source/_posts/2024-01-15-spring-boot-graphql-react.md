@@ -8,14 +8,14 @@ This step-by-step guide demonstrates how to build a GraphQL API with Spring Boot
 
 This example was created with the following tools and services:
 
-- [Node.js v18.16.1](https://docs.npmjs.com/downloading-and-installing-node-js-and-npm)
-- [npm 9.5.1](https://docs.npmjs.com/downloading-and-installing-node-js-and-npm)
+- [Node.js v20.10.0](https://docs.npmjs.com/downloading-and-installing-node-js-and-npm)
+- [npm 10.2.3](https://docs.npmjs.com/downloading-and-installing-node-js-and-npm)
 - [Java OpenJDK 17](https://jdk.java.net/java-se-ri/17)
-- [Docker 24.0.2](https://docs.docker.com/desktop/)
+- [Docker 24.0.7](https://docs.docker.com/desktop/)
 - <a href="https://a0.to/blog_signup"   data-amp-replace="CLIENT_ID"   data-amp-addparams="anonId=CLIENT_ID(cid-scope-cookie-fallback-name)">Auth0 account</a>
-- [Auth0 CLI 1.0.0](https://github.com/auth0/auth0-cli#installation)
+- [Auth0 CLI 1.3.0](https://github.com/auth0/auth0-cli#installation)
 - [HTTPie 3.2.2](https://httpie.io/)
-- [Next.js 13.4.19](https://nextjs.org/)
+- [Next.js 14.0.4](https://nextjs.org/)
 
 
 ## Build a GraphQL API with Spring for GraphQL
@@ -26,12 +26,12 @@ Create the application with Spring Initializr and HTTPie:
 
 ```shell
 https start.spring.io/starter.zip \
-  bootVersion==3.1.3 \
+  bootVersion==3.2.1 \
   language==java \
   packaging==jar \
   javaVersion==17 \
   type==gradle-project \
-  dependencies==data-neo4j,graphql,web \
+  dependencies==data-neo4j,graphql,docker-compose,web \
   groupId==com.okta.developer \
   artifactId==spring-graphql  \
   name=="Spring Boot API" \
@@ -585,7 +585,7 @@ Let's add Neo4j migrations dependency for the seed data insertion. Edit the `bui
 // build.gradle
 dependencies {
     ...
-    implementation 'eu.michael-simons.neo4j:neo4j-migrations-spring-boot-starter:2.5.3'
+    implementation 'eu.michael-simons.neo4j:neo4j-migrations-spring-boot-starter:2.8.2'
     ...
 }
 ```
@@ -674,23 +674,21 @@ CREATE INDEX FOR (c:Company) ON c.incorporationDate;
 Update `application.properties` and add the following properties:
 
 ```properties
-# application.properties
+# src/main/resources/application.properties
 spring.graphql.graphiql.enabled=true
 spring.graphql.schema.introspection.enabled=true
 org.neo4j.migrations.transaction-mode=PER_STATEMENT
-spring.neo4j.uri=bolt://localhost:7687
-spring.neo4j.authentication.username=neo4j
 
 spring.graphql.cors.allowed-origins=http://localhost:3000
 ```
 
 The property `spring.graphql.cors.allowed-origins` will eventually enable CORS for the client application.
 
-Create a `.env` file in the project root to store the Neo4j credentials:
+Create a `.env` file in the server root to store the Neo4j credentials:
 
 ```shell
 # .env
-export SPRING_NEO4J_AUTHENTICATION_PASSWORD=verysecret
+export NEO4J_PASSWORD=verysecret
 ```
 
 If using git, don't forget to add the `.env` file to the ignored files.
@@ -701,11 +699,10 @@ Download the following seed files to an empty directory, as it will be mounted t
 - [LandOwnershipAmericans.csv](https://guides.neo4j.com/ukcompanies/data/LandOwnershipAmericans.csv)
 - [PSCAmericans.csv](https://guides.neo4j.com/ukcompanies/data/PSCAmericans.csv)
 
-Create the directory `src/main/docker` and create a file `neo4j.yml` there, with the following content:
+Spring Boot's Docker Compose integration now supports Neo4j. Edit the `compose.yml` file and add a service for the Neo4j database.
 
 ```yml
-# src/main/docker/neo4j.yml
-name: companies
+# compose.yml
 services:
   neo4j:
     image: neo4j:5
@@ -726,28 +723,15 @@ services:
       retries: 10
 ```
 
-Create the file `src/main/docker/.env` with the following content:
-
-```dotenv
-# src/main/docker/.env
-NEO4J_PASSWORD=verysecret
-```
-
 As you can see the compose file will mount `<csv-dir>` to a `/var/lib/neo4j/import` volume, making the content accessible from the running Neo4j container.
 Replace `<csv-dir>` with the path to the CSV files downloaded before.
-
-In a terminal, go to the `docker` directory and run:
-
-```shell
-docker compose -f neo4j.yml up
-```
 
 ### Run the Spring Boot API server
 
 Go to the project root directory and start the application with:
 
 ```shell
-source .env && ./gradlew bootRun
+./gradlew bootRun
 ```
 
 Wait for the logs to inform the seed data migrations have run:
@@ -864,27 +848,27 @@ export const CompanyApi = {
 
   getCompanyCount: async () => {
     try {
-      const response = await backendAPI.post("/graphql", {
+      const response = await backendAPI.post('/graphql', {
         query: `{
         companyCount
       }`,
       });
       return response.data.data.companyCount as number;
     } catch (error) {
-      console.log("handle get company count error", error);
+      console.log('handle get company count error', error);
       if (error instanceof AxiosError) {
         let axiosError = error as AxiosError;
         if (axiosError.response?.data) {
           throw new Error(axiosError.response?.data as string);
         }
       }
-      throw new Error("Unknown error, please contact the administrator");
+      throw new Error('Unknown error, please contact the administrator');
     }
   },
 
   getCompanyList: async (params?: CompaniesQuery) => {
     try {
-      const response = await backendAPI.post("/graphql", {
+      const response = await backendAPI.post('/graphql', {
         query: `{
         companyList(page: ${params?.page || 0}) {
           name,
@@ -896,14 +880,14 @@ export const CompanyApi = {
       });
       return response.data.data.companyList as CompanyDTO[];
     } catch (error) {
-      console.log("handle get companies error", error);
+      console.log('handle get companies error', error);
       if (error instanceof AxiosError) {
         let axiosError = error as AxiosError;
         if (axiosError.response?.data) {
           throw new Error(axiosError.response?.data as string);
         }
       }
-      throw new Error("Unknown error, please contact the administrator");
+      throw new Error('Unknown error, please contact the administrator');
     }
   },
 
@@ -939,7 +923,7 @@ export interface CompanyTableProps {
   rows: CompanyData[],
   columns: GridColDef[],
   pagination: GridPaginationModel,
-  onRowClick?: GridEventListener<"rowClick">
+  onRowClick?: GridEventListener<'rowClick'>
   onPageChange?: (pagination: GridPaginationModel) => void,
 
 }
@@ -958,12 +942,12 @@ const CompanyTable = (props: CompanyTableProps) => {
             paginationModel: { page: props.pagination.page, pageSize: props.pagination.pageSize },
           },
         }}
-        density="compact"
+        density='compact'
         disableColumnMenu={true}
         disableRowSelectionOnClick={true}
         disableColumnFilter={true}
         disableDensitySelector={true}
-        paginationMode="server"
+        paginationMode='server'
         onRowClick={props.onRowClick}
         onPaginationModelChange={props.onPageChange}
       />
@@ -1035,8 +1019,8 @@ const CompanyTableContainer = (props: CompanyTableProperties) => {
   const onPageChange = (pagination: GridPaginationModel) => {
     const params = new URLSearchParams(searchParams.toString());
     const page = pagination.page + 1;
-    params.set("page", page.toString());
-    router.push(pathName + "?" + params.toString());
+    params.set('page', page.toString());
+    router.push(pathName + '?' + params.toString());
   };
 
   return (
@@ -1072,14 +1056,14 @@ import { useSearchParams } from 'next/navigation';
 
 const HomePage = () => {
   const searchParams = useSearchParams();
-  const page = searchParams.get("page")
-    ? parseInt(searchParams.get("page") as string)
+  const page = searchParams.get('page')
+    ? parseInt(searchParams.get('page') as string)
     : 1;
 
   return (
     <>
       <Box>
-        <Typography variant="h4" component="h1">
+        <Typography variant='h4' component='h1'>
           Companies
         </Typography>
       </Box>
@@ -1125,7 +1109,7 @@ const theme = createTheme({
 const WideLayout = (props: { children: React.ReactNode }) => {
   return (
     <ThemeProvider theme={theme}>
-      <Container maxWidth="lg" sx={{ mt: 4 }}>
+      <Container maxWidth='lg' sx={{ mt: 4 }}>
         {props.children}
       </Container>
     </ThemeProvider>
@@ -1149,8 +1133,8 @@ const font = Ubuntu({
 });
 
 export const metadata = {
-  title: "Create Next App",
-  description: "Generated by create next app",
+  title: 'Create Next App',
+  description: 'Generated by create next app',
 };
 
 export default function RootLayout({
@@ -1159,7 +1143,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en">
+    <html lang='en'>
       <body className={font.className}>
         <WideLayout>{children}</WideLayout>
       </body>
@@ -1236,7 +1220,7 @@ Add the `okta-spring-boot-starter` dependency to the `build.gradle` file in the 
 // build.gradle
 dependencies {
     ...
-    implementation 'com.okta.spring:okta-spring-boot-starter:3.0.5'
+    implementation 'com.okta.spring:okta-spring-boot-starter:3.0.6'
     ...
 }
 ```
@@ -1244,7 +1228,7 @@ dependencies {
 Set the client ID, issuer, and audience for OAuth 2.0 in the `application.properties` file:
 
 ```properties
-# application.properties
+# src/main/resources/application.properties
 okta.oauth2.issuer=https://<your-auth0-domain>/
 okta.oauth2.client-id=<client-id>
 okta.oauth2.audience=${okta.oauth2.issuer}api/v2/
@@ -1275,14 +1259,16 @@ Add the following factory method to the class `SpringBootApiConfig`, for requiri
 Again, in the root directory, run the API server with:
 
 ```shell
-source .env && ./gradlew bootRun
+./gradlew bootRun
 ```
 
 Get an access token using the Auth0 CLI with the `auth0 test token` command:
 
 ```shell
-auth0 test token -a https://<your-auth0-domain>/api/v2/
+auth0 test token -a https://<your-auth0-domain>/api/v2/ -s openid
 ```
+
+Select the **CLI Login Testing** app or any available client when prompted, you don't need to select any scope. You will also be prompted to open a browser window and log in with a user credential.
 
 With HTTPie, send a request to the API server using a bearer access token:
 
@@ -1312,14 +1298,14 @@ auth0 apps create \
   --web-origins http://localhost:3000
 ```
 
-Copy the Auth0 domain and the client ID, and update the `src/.env.local` adding the following properties:
+Copy the Auth0 domain and the client ID, and update the `.env.local` adding the following properties:
 
 ```shell
-# src/.env.local
+# .env.local
 NEXT_PUBLIC_AUTH0_DOMAIN=<your-auth0-domain>
 NEXT_PUBLIC_AUTH0_CLIENT_ID=<client-id>
 NEXT_PUBLIC_AUTH0_CALLBACK_URL=http://localhost:3000/callback
-NEXT_PUBLIC_AUTH0_AUDIENCE=https://<your-auth0-domain>/api/v2/
+NEXT_PUBLIC_AUTH0_AUDIENCE=https://$NEXT_PUBLIC_AUTH0_DOMAIN/api/v2/
 ```
 
 Add the new variables to the file `.env.example` too, but not the values, for documenting the required configuration.
@@ -1358,10 +1344,10 @@ import React from 'react';
 const Auth0ProviderWithNavigate = (props: { children: React.ReactNode }) => {
   const router = useRouter();
 
-  const domain = process.env.NEXT_PUBLIC_AUTH0_DOMAIN || "";
-  const clientId = process.env.NEXT_PUBLIC_AUTH0_CLIENT_ID || "";
-  const redirectUri = process.env.NEXT_PUBLIC_AUTH0_CALLBACK_URL || "";
-  const audience = process.env.NEXT_PUBLIC_AUTH0_AUDIENCE || "";
+  const domain = process.env.NEXT_PUBLIC_AUTH0_DOMAIN || '';
+  const clientId = process.env.NEXT_PUBLIC_AUTH0_CLIENT_ID || ''
+  const redirectUri = process.env.NEXT_PUBLIC_AUTH0_CALLBACK_URL || '';
+  const audience = process.env.NEXT_PUBLIC_AUTH0_AUDIENCE || '';
 
   const onRedirectCallback = (appState?: AppState) => {
     router.push(appState?.returnTo || window.location.pathname);
@@ -1410,7 +1396,7 @@ const WideLayout = (props: { children: React.ReactNode }) => {
   return (
     <ThemeProvider theme={theme}>
       <Auth0ProviderWithNavigate>
-        <Container maxWidth="lg" sx={{ mt: 4 }}>
+        <Container maxWidth='lg' sx={{ mt: 4 }}>
           {props.children}
         </Container>
       </Auth0ProviderWithNavigate>
@@ -1504,7 +1490,7 @@ export const setInterceptors = (accessToken: String) => {
       };
     },
     function (error) {
-      console.log("request interceptor error", error);
+      console.log('request interceptor error', error);
       return Promise.reject(error);
     }
   );
@@ -1521,7 +1507,7 @@ import { useCallback, useState } from 'react';
 
 export const useAccessToken = () => {
   const { isAuthenticated, getAccessTokenSilently } = useAuth0();
-  const [accessToken, setAccessToken] = useState("");
+  const [accessToken, setAccessToken] = useState('');
 
   const saveAccessToken = useCallback(async () => {
     if (isAuthenticated) {
@@ -1533,7 +1519,7 @@ export const useAccessToken = () => {
         }
       } catch (err) {
         // Inactivity timeout
-        console.log("getAccessTokenSilently error", err);
+        console.log('getAccessTokenSilently error', err);
       }
     }
   }, [getAccessTokenSilently, isAuthenticated, accessToken]);
@@ -1548,7 +1534,7 @@ The hook will call Auth0's `getAccessTokenSilently()` and trigger a token refres
 Create the `useAsyncWithToken` hook:
 
 ```typescript
-// useAsyncWithToken.tsx
+// src/hooks/useAsyncWithToken.tsx
 import { useAccessToken } from './useAccessToken';
 import { useAsync } from 'react-use-custom-hooks';
 
@@ -1572,7 +1558,7 @@ export const useAsyncWithToken = <T, P, E = string>(
 Update the calls in the `CompanyTableContainer` component to use the `useAsyncWithToken` hook instead of `useAsync`:
 
 ```diff
-// CompanyTableContainer.tsx
+// src/components/company/CompanyTableContainer.tsx
 - import { useAsync } from 'react-use-custom-hooks';
 + import { useAsyncWithToken } from '@/hooks/useAsyncWithToken';
 
@@ -1622,7 +1608,7 @@ Authorization: Bearer eyJhbGciOiJSU...
 The GraphQL query in the React client application can be easily updated to request more data from the server. For example, add the `status` and information about who controls the company. First, update the API client:
 
 ```typescript
-// companies.tsx
+// src/services/companies.tsx
 ...
 
 export type PersonDTO = {
@@ -1644,7 +1630,7 @@ export type CompanyDTO = {
   getCompanyList: async (params?: CompaniesQuery) => {
 
     try {
-      const response = await backendAPI.post("/graphql", {
+      const response = await backendAPI.post('/graphql', {
         query: `{
         companyList(page: ${params?.page || 0}) {
           name,
@@ -1660,14 +1646,14 @@ export type CompanyDTO = {
       });
       return response.data.data.companyList as CompanyDTO[];
     } catch (error) {
-      console.log("handle get companies error", error);
+      console.log('handle get companies error', error);
       if (error instanceof AxiosError) {
         let axiosError = error as AxiosError;
         if (axiosError.response?.data) {
           throw new Error(axiosError.response?.data as string);
         }
       }
-      throw new Error("Unknown error, please contact the administrator");
+      throw new Error('Unknown error, please contact the administrator');
     }
   },
 ...
@@ -1676,7 +1662,7 @@ export type CompanyDTO = {
 Then update the `CompanyData` interface in the `CompanyTable.tsx` component:
 
 ```typescript
-// CompanyTable.tsx
+// src/components/company/CompanyTable.tsx
 export interface CompanyData {
   id: string,
   name: string,
@@ -1691,31 +1677,31 @@ export interface CompanyData {
 Finally, update the `CompanyTableContainer` column definitions and data formatting. The final code should look like below:
 
 ```typescript
-// CompanyTableContainer.tsx
+// src/components/company/CompanyTableContainer.tsx
 import { GridColDef, GridPaginationModel } from '@mui/x-data-grid';
 import CompanyTable from './CompanyTable';
 import { usePathname, useRouter, useSearchParams } from 'next/navigation';
 import { CompanyApi, CompanyDTO } from '@/services/companies';
 import Loader from '../loader/Loader';
-import { useAsyncWithToken } from '@/app/hooks/useAsyncWithToken';
+import { useAsyncWithToken } from '@/hooks/useAsyncWithToken';
 
 interface CompanyTableProperties {
   page?: number;
 }
 
 const columns: GridColDef[] = [
-  { field: "id", headerName: "ID", width: 70 },
+  { field: 'id', headerName: 'ID', width: 70 },
   {
-    field: "companyNumber",
-    headerName: "Company #",
+    field: 'companyNumber',
+    headerName: 'Company #',
     width: 100,
     sortable: false,
   },
-  { field: "name", headerName: "Company Name", width: 250, sortable: false },
-  { field: "category", headerName: "Category", width: 200, sortable: false },
-  { field: "SIC", headerName: "SIC", width: 200, sortable: false },
-  { field: "status", headerName: "Status", width: 100, sortable: false },
-  { field: "owner", headerName: "Owner", width: 200, sortable: false },
+  { field: 'name', headerName: 'Company Name', width: 250, sortable: false },
+  { field: 'category', headerName: 'Category', width: 200, sortable: false },
+  { field: 'SIC', headerName: 'SIC', width: 200, sortable: false },
+  { field: 'status', headerName: 'Status', width: 100, sortable: false },
+  { field: 'owner', headerName: 'Owner', width: 200, sortable: false },
 ];
 
 const CompanyTableContainer = (props: CompanyTableProperties) => {
@@ -1741,8 +1727,8 @@ const CompanyTableContainer = (props: CompanyTableProperties) => {
   const onPageChange = (pagination: GridPaginationModel) => {
     const params = new URLSearchParams(searchParams.toString());
     const page = pagination.page + 1;
-    params.set("page", page.toString());
-    router.push(pathName + "?" + params.toString());
+    params.set('page', page.toString());
+    router.push(pathName + '?' + params.toString());
   };
 
   const companyData = dataList?.map((company: CompanyDTO) => {
@@ -1753,7 +1739,7 @@ const CompanyTableContainer = (props: CompanyTableProperties) => {
       companyNumber: company.companyNumber,
       SIC: company.SIC,
       status: company.status,
-      owner: company.controlledBy.map((person) => person.name).join(", "),
+      owner: company.controlledBy.map((person) => person.name).join(', '),
     }
   });
 
