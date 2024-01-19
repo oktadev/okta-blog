@@ -699,7 +699,7 @@ Download the following seed files to an empty directory, as it will be mounted t
 - [LandOwnershipAmericans.csv](https://guides.neo4j.com/ukcompanies/data/LandOwnershipAmericans.csv)
 - [PSCAmericans.csv](https://guides.neo4j.com/ukcompanies/data/PSCAmericans.csv)
 
-Spring Boot’s Docker Compose integration now supports Neo4j. Edit the file `compose.yml` and add a service for the Neo4j database.
+Spring Boot's Docker Compose integration now supports Neo4j. Edit the `compose.yml` file and add a service for the Neo4j database.
 
 ```yml
 # compose.yml
@@ -1265,7 +1265,7 @@ Again, in the root directory, run the API server with:
 Get an access token using the Auth0 CLI with the `auth0 test token` command:
 
 ```shell
-auth0 test token -a https://<your-auth0-domain>/api/v2/
+auth0 test token -a https://<your-auth0-domain>/api/v2/ -s openid
 ```
 
 Select the **CLI Login Testing** app or any available client when prompted, you don't need to select any scope. You will also be prompted to open a browser window and log in with a user credential.
