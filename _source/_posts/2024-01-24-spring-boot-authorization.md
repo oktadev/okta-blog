@@ -23,9 +23,112 @@ token concepts
 
 ## Authorization in a Spring Boot API
 
-token validation
+create auth0 account
+
 
 You don't need to create a client application for your API if not using opaque tokens.
+
+Register the API within your tenant, using Auth0 CLI:
+
+```shell
+auth0 apis create \
+  --name "Menu API" \
+  --identifier https://menu-api.okta.com \
+  --scopes "create:items,udpate:items,delete:items" \
+  --token-lifetime 86400 \
+  --offline-access=false \
+  --signing-alg "RS256"
+```
+Add the `okta-spring-boot-starter` dependency:
+
+```groovy
+// build.gradle
+dependencies {
+    ...
+    implementation 'com.okta.spring:okta-spring-boot-starter:3.0.6'
+    ...
+}
+```
+As the `menu-api` is configured as an OAuth resource server, add the following properties:
+
+```properties
+// application.properties
+okta.oauth2.issuer=${OKTA_OAUTH2_ISSUER}
+okta.oauth2.audience=${OKTA_OAUTH2_AUDIENCE}
+```
+
+Create a `.env` file in the API root with the following content:
+
+```shell
+# .env
+export OKTA_OAUTH2_ISSUER=https://<your-auth0-domain>/
+export OKTA_OAUTH2_AUDIENCE=https://menu-api.okta.com
+```
+
+Set the value of `your-auth0-domain` to the active tenant returned by the command:
+
+```shell
+auth0 tenants list
+```
+
+Test the API authorization with HTTPie:
+
+```shell
+http :8080/api/menu/items
+```
+You will get HTTP response code `401`, because the request requires bearer authentication. Using Auth0 CLI, get an access token:
+
+```shell
+auth0 test token -a https://<your-auth0-domain>/api/v2/ -s openid
+```
+Select the **CLI Login Testing** client. You will also be prompted to open a browser window and log in with a user credential.
+
+With HTTPie, send a request to the API server using a bearer access token:
+
+```shell
+ACCESS_TOKEN=<auth0-access-token>
+```
+
+```shell
+http :8080/api/menu/items Authorization:"Bearer $ACCESS_TOKEN"
+```
+The request will not be authorized yet, because _This aud claim is not equal to the configured audience_. If the audience is not specified in the token request, the default value is `https://dev-avup2laz.us.auth0.com/api/v2`, which is the Auth0Provider management API audience.
+
+Request a test token again, this time with the required audience:
+```shell
+auth0 test token -a https://<your-auth0-domain>/api/v2/ -s openid -a https://menu-api.okta.com
+```
+Try the API request again and you should get a JSON response listing the menu items:
+
+```
+[
+    {
+        "description": "Tasty",
+        "id": 1,
+        "imageUrl": "https://cdn.auth0.com/blog/whatabyte/burger-sm.png",
+        "name": "Burger",
+        "price": 599.0
+    },
+    {
+        "description": "Cheesy",
+        "id": 2,
+        "imageUrl": "https://cdn.auth0.com/blog/whatabyte/pizza-sm.png",
+        "name": "Pizza",
+        "price": 299.0
+    },
+    {
+        "description": "Informative",
+        "id": 3,
+        "imageUrl": "https://cdn.auth0.com/blog/whatabyte/tea-sm.png",
+        "name": "Tea",
+        "price": 199.0
+    }
+]
+```
+
+
+token validation
+audience is already validated
 
 
 ## Authentication from a Single-Page Application (SPA)
