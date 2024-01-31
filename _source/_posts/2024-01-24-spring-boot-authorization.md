@@ -92,7 +92,9 @@ ACCESS_TOKEN=<auth0-access-token>
 ```shell
 http :8080/api/menu/items Authorization:"Bearer $ACCESS_TOKEN"
 ```
-The request will not be authorized yet, because _This aud claim is not equal to the configured audience_. If the audience is not specified in the token request, the default value is `https://dev-avup2laz.us.auth0.com/api/v2`, which is the Auth0Provider management API audience.
+The request will not be authorized yet, because _This aud claim is not equal to the configured audience_. If the audience is not specified in the`auth0 test token` command, the default value is `https://dev-avup2laz.us.auth0.com/api/v2`, which is the Auth0Provider management API audience.
+
+> NOTE: The Okta Spring Boot Starter autoconfigures the issuer and audience validation from the resource server properties for JWT authorization.
 
 Request a test token again, this time with the required audience:
 ```shell
@@ -126,12 +128,23 @@ Try the API request again and you should get a JSON response listing the menu it
 ]
 ```
 
-
-token validation
-audience is already validated
-
-
 ## Authentication from a Single-Page Application (SPA)
+
+It would be so much fun testing the API with a client application. Good fortune is on your side, because you can use the [WHATABYTE Dashboard](https://dashboard.whatabyte.app/home), a live demo client where you can configure Auth0 authentication and send requests to your local API server.
+
+For the Auth0 authentication, you need to register the live client as a Single-Page Application to Auth0. You can do it with the Auth0 CLI:
+
+```shell
+auth0 apps create \
+  --name "WHATABYTE Demo Client" \
+  --description "Single-Page Application Dashboard for menu items CRUD" \
+  --type spa \
+  --callbacks https://dashboard.whatabyte.app/home \
+  --logout-urls https://dashboard.whatabyte.app/home \
+  --origins https://dashboard.whatabyte.app \
+  --web-origins https://dashboard.whatabyte.app
+```
+
 
 enable cors
 sign in
