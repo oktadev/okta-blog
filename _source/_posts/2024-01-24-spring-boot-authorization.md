@@ -145,8 +145,60 @@ auth0 apps create \
   --web-origins https://dashboard.whatabyte.app
 ```
 
+Go to the [WHATABYTE Dashboard](https://dashboard.whatabyte.app/home), and set _API Server Base URL_ to http://localhost:8080. Toggle on **Enable Authentication Features** and set the following values:
 
-enable cors
+- Auth0 Domain: <your-auth0-domain>
+- Auth0 Client ID: <client-id>
+- Auth0 Callback URL: https://dashboard.whatabyte.app/home
+- Auth0 API Audience: https://menu-api.okta.com
+
+Click **Save**.
+
+For the API server to accept requests from the dashboard, you must enable the dashboard URL as an allowed origin for requests.
+
+In the API project, add a `SecurityConfig` class at the root package:
+
+```java
+// src/main/java/com/example/menu/SecurityConfig.java
+package com.example.menu;
+
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpMethod;
+import org.springframework.security.config.annotation.web.builders.HttpSecurity;
+import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.web.cors.CorsConfiguration;
+import org.springframework.web.cors.CorsConfigurationSource;
+import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
+
+import java.util.Arrays;
+
+import static org.springframework.security.config.Customizer.withDefaults;
+
+@Configuration
+public class SecurityConfig {
+
+    @Bean
+    public SecurityFilterChain configure(HttpSecurity http) throws Exception {
+        return http
+                .cors(withDefaults())
+                .cors(cors -> cors.configurationSource(apiConfigurationSource()))
+                .oauth2ResourceServer(oauth2ResourceServer -> oauth2ResourceServer.jwt(withDefaults()))
+                .build();
+    }
+
+    CorsConfigurationSource apiConfigurationSource() {
+        CorsConfiguration configuration = new CorsConfiguration();
+        configuration.setAllowedOrigins(Arrays.asList("https://dashboard.whatabyte.app"));
+        configuration.setAllowedMethods(Arrays.asList("GET","POST","PUT", "DELETE"));
+        UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
+        source.registerCorsConfiguration("/**", configuration);
+        return source;
+    }
+
+}
+```
+
 sign in
 
 ## Role-Based Access Control (RBAC)
