@@ -16,6 +16,14 @@ type: awareness
 
 The recommended strategy is to design for security from the start. For learning purposes, let's assume you have built an API that must be secured, so only authorized users can perform requests to its endpoints.
 
+> **This tutorial was created with the following tools and services**:
+> - [Java OpenJDK 17](https://jdk.java.net/java-se-ri/17)
+> - [Kubectl v1.26.3](https://kubernetes.io/docs/tasks/tools/)
+> - [Auth0 account](https://auth0.com/signup)
+> - [Auth0 CLI 1.0.0](https://github.com/auth0/auth0-cli#installation)
+
+{% include toc.md %}
+
 ## Authentication and Authorization on the Web
 
 touch on applicatons, clients of the identity provider
@@ -196,13 +204,72 @@ public class ItemController {
 ...
 ```
 
-Restart the server API. In the dashboard, click the **Sign in** button. The client will redirect you to the [Auth0 Universal Login](https://auth0.com/docs/authenticate/login/auth0-universal-login) page. Sign in with the user you just created. In the left menu, choose **Menu**, and the menu items will display.
+Restart the server API. Before the sign in, you can create some test users with the Auth0 CLI. This step is optional, you can sign up later from the [Auth0 Universal Login](https://auth0.com/docs/authenticate/login/auth0-universal-login) form, or choose Google social login.
+
+```shell
+auth0 users create
+```
+
+Complete the required information, you will see an output like the lines below:
+
+```text
+Connection Name: Username-Password-Authentication
+ Name: Thomas
+ Email: thomas@email.com
+ Password: ********
+
+=== dev-avup2laz.us.auth0.com user created
+
+  ID          auth0|643ec0e1e671c7c9c5916ed6
+  EMAIL       thomas@email.com
+  CONNECTION  Username-Password-Authentication
+```
+Save the ID for later.
+
+In the dashboard, click the **Sign in** button. The client will redirect you to the [Auth0 Universal Login](https://auth0.com/docs/authenticate/login/auth0-universal-login) page. Sign in with the user you just created. In the left menu, choose **Menu**, and the menu items will display.
+
+{% img blog/spring-boot-authorization/whatabyte-ui.png alt:"WHATABYTE Dashboard" width:"800" %}{: .center-image }
 
 On the top right corner, click **Add Item**, and a pre-populated form will display. Click on **Save** and verify the user request is authorized in the server.
 
-
-
 ## Role-Based Access Control (RBAC)
+
+If you disable the authentication features in the WHATABYTE client, it will allow you to attempt CRUD operations from the UI, but your API server will reject item modifications as an unauthenticated user.
+
+{% img blog/spring-boot-authorization/whatabyte-unauth.png alt:"WHATABYTE Dashboard Unauthenticated" width:"800" %}{: .center-image }
+
+Re-enable the authentication features, and also enable RBAC. Set `menu-admin` in the _User Role_ text-box. Click on **Save**.
+
+The role must be defined in the Auth0 tenant as well. You can use the following Auth0 CLI command:
+
+```shell
+auth0 roles create
+```
+
+Assign the Menu API permissions to the `menu-admin` role:
+
+```shell
+auth0 roles permissions add
+```
+Follow the instructions, and make sure to select all the API permissions:
+- `create:items`
+- `delete:items`
+- `update:items`
+
+Assign the role to the user you created:
+
+```shell
+auth0 users roles assign
+```
+
+Follow the steps, you will see the output below:
+
+```text
+User ID: auth0|643ec0e1e671c7c9c5916ed6
+? Roles rol_24d61Zxpvuas66tF (Name: ROLE_ADMIN), rol_175cvyWy20sxohgo (Name: menu-admin)
+```
+
+Your user should now have the required permissions to request write operations to the Menu API.
 
 auth0 flows
 auth0 permissions, user management
