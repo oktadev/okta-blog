@@ -238,6 +238,8 @@ If you disable the authentication features in the WHATABYTE client, it will allo
 
 {% img blog/spring-boot-authorization/whatabyte-unauth.png alt:"WHATABYTE Dashboard Unauthenticated" width:"800" %}{: .center-image }
 
+### Create and assign roles
+
 Re-enable the authentication features, and also enable RBAC. Set `menu-admin` in the _User Role_ text-box. Click on **Save**.
 
 The role must be defined in the Auth0 tenant as well. You can use the following Auth0 CLI command:
@@ -268,6 +270,130 @@ Follow the steps, you will see the output below:
 User ID: auth0|643ec0e1e671c7c9c5916ed6
 ? Roles rol_24d61Zxpvuas66tF (Name: ROLE_ADMIN), rol_175cvyWy20sxohgo (Name: menu-admin)
 ```
+
+### Mapping the roles to token claims
+
+The role `menu-admin` and its permissions must be mapped to a claim in the accessToken, to make them available in the API for authorization. With Auth0 Actions you can customize the Login flow to map the user roles to a custom claim.
+
+First [configure your preferred editor](https://github.com/auth0/auth0-cli#customization) to use with the Auth0 CLI:
+
+```shell
+export EDITOR=nano
+```
+
+Then create the Login Action:
+
+```shell
+auth0 actions create
+```
+
+Select **post-login** for the Trigger. When the editor opens, set the following implementation for the `onExecutePostLogin` function.
+
+```javascript
+exports.onExecutePostLogin = async (event, api) => {
+  const namespace = 'https://menu-api.okta.com';
+  if (event.authorization) {
+    api.idToken.setCustomClaim('preferred_username', event.user.email);
+    api.idToken.setCustomClaim(`${namespace}/roles`, event.authorization.roles);
+    api.accessToken.setCustomClaim(`${namespace}/roles`, event.authorization.roles);
+  }
+}
+```
+
+Save the file. You should see the output below once the action was created.
+
+```text
+Name: Add Roles
+ Trigger: post-login
+
+=== dev-avup2laz.us.auth0.com action created
+
+  ID             da49ae42-b5e4-496a-8305-4fff437f813b                                                                     
+  NAME           Add Roles                                                                                                
+  TYPE           post-login                                                                                               
+  STATUS         pending                                                                                                  
+  DEPLOYED       ✗                                                                                                        
+  LAST DEPLOYED                                                                                                           
+  LAST UPDATED   0 seconds ago                                                                                            
+  CREATED        0 seconds ago                                                                                            
+  CODE           /**                                                                                                      
+                  * Handler that will be called during the execution of a PostLogin flow.                                 
+                  *                                                                                                       
+                  * @param {Event} event - Details about the user and the context in which they are logging in.           
+                  * @param {PostLoginAPI} api - Interface whose methods can be used to change the behavior of the login.  
+                  */                                                                                                      
+                 exports.onExecutePostLogin = async (event, api) => {                                                     
+                   const namespace = 'https://menu-api.okta.com';                                                         
+                   if (event.authorization) {                                                                             
+                     api.idToken.setCustomClaim('preferred_username', event.user.email);                                  
+                     api.idToken.setCustomClaim(`${namespace}/roles`, event.authorization.roles);                         
+                     api.accessToken.setCustomClaim(`${namespace}/roles`, event.authorization.roles);                     
+                   }                                                                                                      
+                 };                                                                                                       
+
+
+                 /**                                                                                                      
+                  * Handler that will be invoked when this action is resuming after an external redirect. If your         
+                  * onExecutePostLogin function does not perform a redirect, this function can be safely ignored.         
+                  *                                                                                                       
+                  * @param {Event} event - Details about the user and the context in which they are logging in.           
+                  * @param {PostLoginAPI} api - Interface whose methods can be used to change the behavior of the login.  
+                  */                                                                                                      
+                 // exports.onContinuePostLogin = async (event, api) => {                                                 
+                 // };                                                                    
+```
+
+You can list the available actions with the following command:
+
+```shell
+auth0 actions list
+```
+The output will show the deployment status of each action:
+
+```text
+=== dev-avup2laz.us.auth0.com actions
+
+  ID                                    NAME       TYPE        STATUS  DEPLOYED  
+  da49ae42-b5e4-496a-8305-4fff437f813b  Add Roles  post-login  built   ✗         
+```
+
+Note the `DEPLOYED` status is `x`. Go ahead and deploy it using the action ID:
+
+```shell
+auth0 actions deploy da49ae42-b5e4-496a-8305-4fff437f813b
+```
+
+Once the action is deployed, you must attach it to the login flow. You can do this with Auth0 [Management API for Actions](https://auth0.com/docs/api/management/v2#!/Actions/patch_bindings):
+
+```shell
+auth0 api patch "actions/triggers/post-login/bindings" \
+  --data '{"bindings":[{"ref":{"type":"action_id","value":"da49ae42-b5e4-496a-8305-4fff437f813b"},"display_name":"Add Roles"}]}'
+```
+
+You cans visualize the flow in the Auth0 dashboard. Sign in and on the left menu you choose **Actions**, then in the **Flows** screen, choose **Login**.
+
+{% img blog/spring-boot-authorization/login-flow.png alt:"Custom Auth0 Login Action" width:"600" %}{: .center-image }
+
+The next step is to enable RBAC for the API in Auth0. You can do it with the following Auth0 CLI commands:
+
+```shell
+auth0 apis list
+```
+
+Copy the Menu API ID and use it for the next command:
+
+```shell
+auth0 api patch "resource-servers/API_ID" \
+  --data '{ "enforce_policies": true, "token_dialect": "access_token_authz" }'
+```
+
+Finally, implement RBAC in the Spring Boot API.
+
+### Implement RBAC in the Spring Boot API
+
+
+
+
 
 Your user should now have the required permissions to request write operations to the Menu API.
 
