@@ -240,23 +240,15 @@ If you disable the authentication features in the WHATABYTE client, it will allo
 
 ### Create and assign roles
 
-Re-enable the authentication features, and also enable RBAC. Set `menu-admin` in the _User Role_ text-box. Click on **Save**.
+In the WHATABYTE client settings, re-enable the authentication features, and also enable RBAC. Set `menu-admin` in the _User Role_ text-box. Click on **Save**.
 
-The role must be defined in the Auth0 tenant as well. You can use the following Auth0 CLI command:
+Now if you sign in with the user you created, the UI will not display the links to perform write operations, as the role has not yet been assigned.
+
+First, the role must be defined in the Auth0 tenant as well. You can use the following Auth0 CLI command:
 
 ```shell
 auth0 roles create
 ```
-
-Assign the Menu API permissions to the `menu-admin` role:
-
-```shell
-auth0 roles permissions add
-```
-Follow the instructions, and make sure to select all the API permissions:
-- `create:items`
-- `delete:items`
-- `update:items`
 
 Assign the role to the user you created:
 
@@ -268,8 +260,10 @@ Follow the steps, you will see the output below:
 
 ```text
 User ID: auth0|643ec0e1e671c7c9c5916ed6
-? Roles rol_24d61Zxpvuas66tF (Name: ROLE_ADMIN), rol_175cvyWy20sxohgo (Name: menu-admin)
+? Roles rol_175cvyWy20sxohgo (Name: menu-admin)
 ```
+
+The UI will now display the links to perform write operations.
 
 ### Mapping the roles to token claims
 
@@ -370,7 +364,7 @@ auth0 api patch "actions/triggers/post-login/bindings" \
   --data '{"bindings":[{"ref":{"type":"action_id","value":"da49ae42-b5e4-496a-8305-4fff437f813b"},"display_name":"Add Roles"}]}'
 ```
 
-You cans visualize the flow in the Auth0 dashboard. Sign in and on the left menu you choose **Actions**, then in the **Flows** screen, choose **Login**.
+You can visualize the flow in the Auth0 dashboard. Sign in and on the left menu you choose **Actions**, then in the **Flows** screen, choose **Login**.
 
 {% img blog/spring-boot-authorization/login-flow.png alt:"Custom Auth0 Login Action" width:"600" %}{: .center-image }
 
@@ -387,17 +381,105 @@ auth0 api patch "resource-servers/API_ID" \
   --data '{ "enforce_policies": true, "token_dialect": "access_token_authz" }'
 ```
 
-Finally, implement RBAC in the Spring Boot API.
+The `token_dialect` value `access_token_authz` enables the permissions to be included in the access token, in a custom `permissions` claim.
+
+Assign the Menu API permissions to the `menu-admin` role:
+
+```shell
+auth0 roles permissions add
+```
+Follow the instructions, and make sure to select all the API permissions:
+- `create:items`
+- `delete:items`
+- `update:items`
+
+Next, implement RBAC in the Spring Boot API.
 
 ### Implement RBAC in the Spring Boot API
 
+The Okta Starter provides a simple way to specify the claim from which authorities must be extracted. In the `application.properties` file, add the following property:
+
+```property
+okta.oauth2.groupsClaim=permissions
+```
+With the `@PreAuthorize` annotation you define the required permission to perform the endpoint operation. The final controller implementataion should look like this:
+
+```java
+// src/main/java/com/example/menu/web/ItemController.java
+package com.example.menu.web;
+
+import com.example.menu.model.Item;
+import com.example.menu.model.ItemRepository;
+import jakarta.validation.Valid;
+import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.web.bind.annotation.*;
+
+import java.net.URI;
+import java.net.URISyntaxException;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.List;
+
+@RestController
+@RequestMapping("/api/menu/items")
+@CrossOrigin(origins = "https://dashboard.whatabyte.app")
+public class ItemController {
+
+    private ItemRepository itemRepository;
+
+    public ItemController(ItemRepository itemRepository) {
+        this.itemRepository = itemRepository;
+    }
+
+    @GetMapping
+    public Collection<Item> items(){
+        List<Item> list = new ArrayList<>();
+        this.itemRepository.findAll().forEach(list::add);
+        return list;
+    }
+
+    @GetMapping("/{id}")
+    public ResponseEntity<Item> item(@PathVariable Long id){
+        return this.itemRepository.findById(id)
+                .map(item -> ResponseEntity.ok().body(item))
+                .orElse(ResponseEntity.notFound().build());
+    }
+
+    @PutMapping("/{id}")
+    @PreAuthorize("hasAuthority('updates:items')")
+    public ResponseEntity<Item> updateItem(@Valid @RequestBody Item items, @PathVariable Long id){
+        return this.itemRepository.findById(id)
+                .map(item -> {
+                    item.setName(items.getName());
+                    item.setPrice(items.getPrice());
+                    item.setDescription(items.getDescription());
+                    item.setImage(items.getImage());
+                    Item result = this.itemRepository.save(item);
+                    return ResponseEntity.ok().body(result);
+                }).orElse(ResponseEntity.notFound().build());
+    }
+
+    @PostMapping
+    @PreAuthorize("hasAuthority('create:items')")
+    public ResponseEntity<Item> createItem(@Valid @RequestBody Item item) throws URISyntaxException {
+        Item result = this.itemRepository.save(item);
+        return ResponseEntity.created(new URI("/api/menu/items/" + result.getId())).body(result);
+
+    }
+
+    @DeleteMapping("/{id}")
+    @PreAuthorize("hasAuthority('delete:items')")
+    public ResponseEntity<?> deleteItem(@PathVariable Long id){
+        this.itemRepository.deleteById(id);
+        return ResponseEntity.ok().build();
+    }
 
 
+}
+```
 
 
 Your user should now have the required permissions to request write operations to the Menu API.
 
-auth0 flows
-auth0 permissions, user management
-server security
 test server security relaxing the client
