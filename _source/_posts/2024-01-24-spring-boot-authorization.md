@@ -26,27 +26,47 @@ The recommended strategy is to design for security from the start. For learning 
 
 ## Authentication and Authorization on the Web
 
-touch on applicatons, clients of the identity provider
-token concepts
+What is [authentication](https://auth0.com/intro-to-iam/what-is-authentication)? It is the process of proving a user's identity, proving she is who she claims to be. And what is [authorization](https://auth0.com/intro-to-iam/what-is-authorization)? It is the process of giving someone the ability to access a resource.
+
+In computer systems, authentication and authorization are part of a discipline called Identity and Access Management (IAM).
+
+brief authorization vs authentication
+brief web standards
+brief token types
+
 
 ## Authorization in a Spring Boot API
 
-create auth0 account
+After year 2020, in Buenos Aires, a QR code that translates to a public document containing the menu is a popular method for having an updated prices list. Prices change so often due to inflation, and updating physical restaurant menus seems tedious and costly. Still tables are managed with restaurant software, which includes a menu management module.
 
+You are now going to implement authorization in a Spring Boot API for menu items CRUD operations. Start by doing a checkout of the API repository, which already implements basic request handling:
 
-You don't need to create a client application for your API if not using opaque tokens.
+```shell
+git checkout https://github.com/indiepopart/spring-menu-api.git
+```
 
-Register the API within your tenant, using Auth0 CLI:
+The Menu API is a Gradle project, open it with your favorite IDE.
+
+Sign up at [Auth0](https://auth0.com/signup) and install the [Auth0 CLI](https://github.com/auth0/auth0-cli). Then in the command line run:
+
+```shell
+auth0 login
+```
+
+The command output will display a device confirmation code and open a browser session to activate the device.
+
+You don't need to create a client application for your API if not using opaque tokens. But you must register the API within your tenant, you can do it using Auth0 CLI:
 
 ```shell
 auth0 apis create \
   --name "Menu API" \
   --identifier https://menu-api.okta.com \
-  --scopes "create:items,udpate:items,delete:items" \
+  --scopes "create:items,update:items,delete:items" \
   --token-lifetime 86400 \
   --offline-access=false \
   --signing-alg "RS256"
 ```
+
 Add the `okta-spring-boot-starter` dependency:
 
 ```groovy
@@ -57,7 +77,7 @@ dependencies {
     ...
 }
 ```
-As the `menu-api` is configured as an OAuth resource server, add the following properties:
+As the `menu-api` is configured as an OAuth2 resource server, add the following properties:
 
 ```properties
 // application.properties
@@ -73,7 +93,7 @@ export OKTA_OAUTH2_ISSUER=https://<your-auth0-domain>/
 export OKTA_OAUTH2_AUDIENCE=https://menu-api.okta.com
 ```
 
-Set the value of `your-auth0-domain` to the active tenant returned by the command:
+At startup, these properties will be read using [spring-dotenv](https://github.com/paulschwarz/spring-dotenv), already included in the project dependencies. Set the value of `your-auth0-domain` to the active tenant returned by the command:
 
 ```shell
 auth0 tenants list
@@ -238,6 +258,8 @@ If you disable the authentication features in the WHATABYTE client, it will allo
 
 {% img blog/spring-boot-authorization/whatabyte-unauth.png alt:"WHATABYTE Dashboard Unauthenticated" width:"800" %}{: .center-image }
 
+Besides requiring a user to be authenticated, it is a standard practice to create roles for authorizing write operations.
+
 ### Create and assign roles
 
 In the WHATABYTE client settings, re-enable the authentication features, and also enable RBAC. Set `menu-admin` in the _User Role_ text-box. Click on **Save**.
@@ -259,11 +281,8 @@ auth0 users roles assign
 Follow the steps, you will see the output below:
 
 ```text
-User ID: auth0|643ec0e1e671c7c9c5916ed6
-? Roles rol_175cvyWy20sxohgo (Name: menu-admin)
+User ID: auth0|643ec0e1e671c7c9c5916ed6 ? Roles rol_175cvyWy20sxohgo (Name: menu-admin)
 ```
-
-The UI will now display the links to perform write operations.
 
 ### Mapping the roles to token claims
 
@@ -368,6 +387,10 @@ You can visualize the flow in the Auth0 dashboard. Sign in and on the left menu 
 
 {% img blog/spring-boot-authorization/login-flow.png alt:"Custom Auth0 Login Action" width:"600" %}{: .center-image }
 
+Now the role has been assigned and mapped to the id and access tokens, and the UI will display the links to perform write operations. Still the API server is not yet enforcing RBAC.
+
+### Enable RBAC in Auth0
+
 The next step is to enable RBAC for the API in Auth0. You can do it with the following Auth0 CLI commands:
 
 ```shell
@@ -402,7 +425,7 @@ The Okta Starter provides a simple way to specify the claim from which authoriti
 ```property
 okta.oauth2.groupsClaim=permissions
 ```
-With the `@PreAuthorize` annotation you define the required permission to perform the endpoint operation. The final controller implementataion should look like this:
+With the `@PreAuthorize` annotation you define the required permission to perform the endpoint operation. The final controller implementation should look like this:
 
 ```java
 // src/main/java/com/example/menu/web/ItemController.java
@@ -479,7 +502,11 @@ public class ItemController {
 }
 ```
 
-
 Your user should now have the required permissions to request write operations to the Menu API.
 
-test server security relaxing the client
+If you remove the permissions from the `menu-admin` role, the UI will display links for item modifications, but the API server will reject the operations as the required permissions will not be present in the access token.
+
+## Learn More about Spring Boot Authentication and Authorization
+
+touch on applicatons, clients of the identity provider
+token concepts
