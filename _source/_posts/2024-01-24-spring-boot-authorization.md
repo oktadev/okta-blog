@@ -14,11 +14,10 @@ image:
 type: awareness
 ---
 
-The recommended strategy is to design for security from the start. For learning purposes, let's assume you have built an API that must be secured, so only authorized users can perform requests to its endpoints.
+Learn how to use Spring Boot, Java, and Auth0 to secure a feature-complete API. Learn how to use Auth0 to implement authorization in Spring Boot.
 
 > **This tutorial was created with the following tools and services**:
 > - [Java OpenJDK 17](https://jdk.java.net/java-se-ri/17)
-> - [Kubectl v1.26.3](https://kubernetes.io/docs/tasks/tools/)
 > - [Auth0 account](https://auth0.com/signup)
 > - [Auth0 CLI 1.0.0](https://github.com/auth0/auth0-cli#installation)
 
@@ -28,24 +27,25 @@ The recommended strategy is to design for security from the start. For learning 
 
 What is [authentication](https://auth0.com/intro-to-iam/what-is-authentication)? It is the process of proving a user's identity, proving she is who she claims to be. And what is [authorization](https://auth0.com/intro-to-iam/what-is-authorization)? It is the process of giving someone the ability to access a resource.
 
-In computer systems, authentication and authorization are part of a discipline called Identity and Access Management (IAM).
+In computer systems, authentication and authorization are part of a discipline called Identity and Access Management (IAM). For web and mobile applications, an identity protocol was born in 2014, [OpenID Connect 1.0](https://openid.net/specs/openid-connect-core-1_0.html), now widely adopted as part of the IAM strategy of many identity providers and identity clients on the internet.
 
-brief authorization vs authentication
-brief web standards
-brief token types
+OpenID Connect 1.0 is a simple identity layer on top of [OAuth2 2.0](https://www.rfc-editor.org/rfc/rfc6749.html), a preceding standard designed to authorize a website or application to access resources hosted by third party services on behalf of a user.
 
+For authorizing the access to a protected resource, OAuth 2.0 uses Access Tokens, a piece of data, a string representing an authorization issued to the client, scopes and durations of the access, validated at the resource server. Briefly, the standard defines the roles of resource owner, resource server, client and authorization server, and a protocol flow for the client requesting access, through an authorization server, to resources controlled by the resource owner and hosted by the resource server.
+
+OpenID Connect provides authentication built on top fo OAuth 2.0, and information about the authentication performed is returned in an ID Token with JWT format (JSON Web Token). In abstract, the protocol defines a client role or Relying Party that sends a request to the OpenID Provider, which in turn authenticates the end-user and obtains authorization, returning and ID Token and Access Token to the Relying Party.
 
 ## Authorization in a Spring Boot API
 
-After year 2020, in Buenos Aires, a QR code that translates to a public document containing the menu is a popular method for having an updated prices list. Prices change so often due to inflation, and updating physical restaurant menus seems tedious and costly. Still tables are managed with restaurant software, which includes a menu management module.
+After year 2020, in Buenos Aires, many bars and restaurants implemented a digital menu with a QR code that translates to a public document, for having an updated prices list. Prices change so often due to inflation, and updating a physical menu seems tedious and costly. Still restaurant tables are managed with a software application, which includes a menu management module.
 
-You are now going to implement authorization in a Spring Boot API for menu items CRUD operations. Start by doing a checkout of the API repository, which already implements basic request handling:
+For learning purposes, let's assume you have built a Spring Boot menu API that must be secured, so only authorized users can perform requests to its endpoints. Now your are going to implement authorization for API with OAuth2 2.0 and Auth0. Start by doing a checkout of the API repository, which already implements basic request handling:
 
 ```shell
 git checkout https://github.com/indiepopart/spring-menu-api.git
 ```
 
-The Menu API is a Gradle project, open it with your favorite IDE.
+The menu API is a Gradle project, open it with your favorite IDE.
 
 Sign up at [Auth0](https://auth0.com/signup) and install the [Auth0 CLI](https://github.com/auth0/auth0-cli). Then in the command line run:
 
@@ -67,7 +67,7 @@ auth0 apis create \
   --signing-alg "RS256"
 ```
 
-Add the `okta-spring-boot-starter` dependency:
+The scopes `create:items`, `update:items`, `delete:items` will be required ahead in the tutorial. Add the `okta-spring-boot-starter` dependency:
 
 ```groovy
 // build.gradle
@@ -175,8 +175,8 @@ auth0 apps create \
 
 Go to the [WHATABYTE Dashboard](https://dashboard.whatabyte.app/home), and set _API Server Base URL_ to http://localhost:8080. Toggle on **Enable Authentication Features** and set the following values:
 
-- Auth0 Domain: <your-auth0-domain>
-- Auth0 Client ID: <client-id>
+- Auth0 Domain: \<your-auth0-domain\>
+- Auth0 Client ID: \<client-id\>
 - Auth0 Callback URL: https://dashboard.whatabyte.app/home
 - Auth0 API Audience: https://menu-api.okta.com
 
@@ -470,7 +470,7 @@ public class ItemController {
     }
 
     @PutMapping("/{id}")
-    @PreAuthorize("hasAuthority('updates:items')")
+    @PreAuthorize("hasAuthority('update:items')")
     public ResponseEntity<Item> updateItem(@Valid @RequestBody Item items, @PathVariable Long id){
         return this.itemRepository.findById(id)
                 .map(item -> {
@@ -508,5 +508,24 @@ If you remove the permissions from the `menu-admin` role, the UI will display li
 
 ## Learn More about Spring Boot Authentication and Authorization
 
-touch on applicatons, clients of the identity provider
-token concepts
+I hope you enjoyed this tutorial on how to secure a Spring Boot API with OAuth2 and Auth0. You learned how to configure a resource server with `okta-spring-boot-starter` and how to implement RBAC.
+
+You can find all the code shown in this tutorial on GitHub in the [spring-boot-authorization](https://github.com/indiepopart/spring-boot-authorization) repository.
+
+If you liked this post, you might enjoy these related posts:
+
+- [Deploy Secure Spring Boot Microservices on Amazon EKS Using Terraform and Kubernetes](https://auth0.com/blog/terraform-eks-java-microservices/)
+- [Get started with Spring Boot and Auth0](https://auth0.com/blog/get-started-with-okta-spring-boot-starter/)
+- [Build a Beautiful CRUD App with Spring Boot and Angular](https://auth0.com/blog/spring-boot-angular-crud/)
+- [Get Started with Jetty, Java, and OAuth](https://auth0.com/blog/java-jetty-oauth/)
+
+Check out the Spring Boot Security labs in our Developer Center:
+
+- [Authorization in Spring Boot](https://developer.auth0.com/resources/labs/authorization/spring-resource-server)
+- [Authentication in Spring Boot](https://developer.auth0.com/resources/labs/authentication/spring)
+- [Role Based Access Control in Spring Boot](https://developer.auth0.com/resources/labs/authorization/rbac-in-spring-boot)
+- [Build and Secure Spring Boot Microservices](https://developer.auth0.com/resources/labs/authorization/securing-spring-boot-microservices)
+
+Please follow us on Twitter [@oktadev](https://twitter.com/oktadev) and subscribe to our [YouTube channel](https://www.youtube.com/oktadev) for more Spring Boot and microservices knowledge.
+
+You can also sign up for our [developer newsletter](https://a0.to/nl-signup/java) to stay updated on everything Identity and Security.
