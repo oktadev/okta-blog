@@ -14,7 +14,7 @@ image:
 type: awareness
 ---
 
-Learn how to use Spring Boot, Java, and Auth0 to secure a feature-complete API. Learn how to use Auth0 to implement authorization in Spring Boot.
+Learn how to use Spring Boot, Java, and Auth0 to secure a feature-complete API, by implementing authorization in Spring Boot with Auth0.
 
 > **This tutorial was created with the following tools and services**:
 > - [Java OpenJDK 17](https://jdk.java.net/java-se-ri/17)
@@ -25,7 +25,7 @@ Learn how to use Spring Boot, Java, and Auth0 to secure a feature-complete API. 
 
 ## Authentication and Authorization on the Web
 
-What is [authentication](https://auth0.com/intro-to-iam/what-is-authentication)? It is the process of proving a user's identity, proving she is who she claims to be. And what is [authorization](https://auth0.com/intro-to-iam/what-is-authorization)? It is the process of giving someone the ability to access a resource.
+What is [authentication](https://auth0.com/intro-to-iam/what-is-authentication)? It is the process of proving a user's identity, proving she is who she or he claims to be. And what is [authorization](https://auth0.com/intro-to-iam/what-is-authorization)? It is the process of giving someone the ability to access a resource.
 
 In computer systems, authentication and authorization are part of a discipline called Identity and Access Management (IAM). For web and mobile applications, an identity protocol was born in 2014, [OpenID Connect 1.0](https://openid.net/specs/openid-connect-core-1_0.html), now widely adopted as part of the IAM strategy of many identity providers and identity clients on the internet.
 
@@ -39,10 +39,10 @@ OpenID Connect provides authentication built on top fo OAuth 2.0, and informatio
 
 After year 2020, in Buenos Aires, many bars and restaurants implemented a digital menu with a QR code that translates to a public document, for having an updated prices list. Prices change so often due to inflation, and updating a physical menu seems tedious and costly. Still restaurant tables are managed with a software application, which includes a menu management module.
 
-For learning purposes, let's assume you have built a Spring Boot menu API that must be secured, so only authorized users can perform requests to its endpoints. Now your are going to implement authorization for API with OAuth2 2.0 and Auth0. Start by doing a checkout of the API repository, which already implements basic request handling:
+For learning purposes, let's assume you have built a Spring Boot menu API that must be secured, so only authorized users can perform requests to its endpoints. Now your are going to implement authorization for the API with OAuth2 2.0 and Auth0. Start by doing a checkout of the API repository, which already implements basic request handling:
 
 ```shell
-git checkout https://github.com/indiepopart/spring-menu-api.git
+git clone https://github.com/indiepopart/spring-menu-api.git
 ```
 
 The menu API is a Gradle project, open it with your favorite IDE.
@@ -77,10 +77,10 @@ dependencies {
     ...
 }
 ```
-As the `menu-api` is configured as an OAuth2 resource server, add the following properties:
+As the `menu-api` must be configured as an OAuth2 resource server, add the following properties:
 
 ```properties
-// application.properties
+# application.properties
 okta.oauth2.issuer=${OKTA_OAUTH2_ISSUER}
 okta.oauth2.audience=${OKTA_OAUTH2_AUDIENCE}
 ```
@@ -89,14 +89,20 @@ Create a `.env` file in the API root with the following content:
 
 ```shell
 # .env
-export OKTA_OAUTH2_ISSUER=https://<your-auth0-domain>/
-export OKTA_OAUTH2_AUDIENCE=https://menu-api.okta.com
+OKTA_OAUTH2_ISSUER=https://<your-auth0-domain>/
+OKTA_OAUTH2_AUDIENCE=https://menu-api.okta.com
 ```
 
 At startup, these properties will be read using [spring-dotenv](https://github.com/paulschwarz/spring-dotenv), already included in the project dependencies. Set the value of `your-auth0-domain` to the active tenant returned by the command:
 
 ```shell
 auth0 tenants list
+```
+
+Run the API with:
+
+```shell
+./gradlew bootRun
 ```
 
 Test the API authorization with HTTPie:
@@ -278,15 +284,20 @@ Assign the role to the user you created:
 auth0 users roles assign
 ```
 
+> NOTE: You can find the user id with `auth0 users search --query email:<email>`
+
 Follow the steps, you will see the output below:
 
 ```text
-User ID: auth0|643ec0e1e671c7c9c5916ed6 ? Roles rol_175cvyWy20sxohgo (Name: menu-admin)
+=== dev-avup2laz.us.auth0.com user roles (1)
+
+  ID                    NAME           DESCRIPTION                                
+  rol_Nf2xmon4GzTbLU9T  menu-admin     Admin role for menu item write operations  
 ```
 
 ### Mapping the roles to token claims
 
-The role `menu-admin` and its permissions must be mapped to a claim in the accessToken, to make them available in the API for authorization. With Auth0 Actions you can customize the Login flow to map the user roles to a custom claim.
+The role `menu-admin` and its permissions must be mapped to a claim in the accessToken, to make them available in the API for authorization. With [Auth0 Actions](https://auth0.com/docs/customize/actions) you can customize the Login flow to map the user roles to a custom claim.
 
 First [configure your preferred editor](https://github.com/auth0/auth0-cli#customization) to use with the Auth0 CLI:
 
@@ -300,7 +311,7 @@ Then create the Login Action:
 auth0 actions create
 ```
 
-Select **post-login** for the Trigger. When the editor opens, set the following implementation for the `onExecutePostLogin` function.
+Set the name __Add Roles__, and select **post-login** for the Trigger. When the editor opens, set the following implementation for the `onExecutePostLogin` function.
 
 ```javascript
 exports.onExecutePostLogin = async (event, api) => {
@@ -373,14 +384,14 @@ The output will show the deployment status of each action:
 Note the `DEPLOYED` status is `x`. Go ahead and deploy it using the action ID:
 
 ```shell
-auth0 actions deploy da49ae42-b5e4-496a-8305-4fff437f813b
+auth0 actions deploy \<ACTION_ID\>
 ```
 
 Once the action is deployed, you must attach it to the login flow. You can do this with Auth0 [Management API for Actions](https://auth0.com/docs/api/management/v2#!/Actions/patch_bindings):
 
 ```shell
 auth0 api patch "actions/triggers/post-login/bindings" \
-  --data '{"bindings":[{"ref":{"type":"action_id","value":"da49ae42-b5e4-496a-8305-4fff437f813b"},"display_name":"Add Roles"}]}'
+  --data '{"bindings":[{"ref":{"type":"action_id","value":"\<ACTION_ID\>"},"display_name":"Add Roles"}]}'
 ```
 
 You can visualize the flow in the Auth0 dashboard. Sign in and on the left menu you choose **Actions**, then in the **Flows** screen, choose **Login**.
@@ -502,7 +513,33 @@ public class ItemController {
 }
 ```
 
-Your user should now have the required permissions to request write operations to the Menu API.
+For the `@PreAuthorize` rules to take effect, you must add the annotation `@EnableGlobalMethodSecurity` to the security configuration, the final code must looks like:
+
+```java
+// src/main/java/com/example/menu/SecurityConfig.java
+package com.example.menu;
+
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
+import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
+import org.springframework.security.config.annotation.web.builders.HttpSecurity;
+import org.springframework.security.web.SecurityFilterChain;
+
+import static org.springframework.security.config.Customizer.withDefaults;
+
+@Configuration
+@EnableGlobalMethodSecurity(prePostEnabled = true)
+public class SecurityConfig {
+
+    @Bean
+    public SecurityFilterChain configure(HttpSecurity http) throws Exception {
+        return http.oauth2ResourceServer(oauth2ResourceServer -> oauth2ResourceServer.jwt(withDefaults())).build();
+    }
+
+}
+```
+
+Restart the API and your user should now have the required permissions to request write operations to the Menu API.
 
 If you remove the permissions from the `menu-admin` role, the UI will display links for item modifications, but the API server will reject the operations as the required permissions will not be present in the access token.
 
