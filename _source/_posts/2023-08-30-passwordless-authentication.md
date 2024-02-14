@@ -182,6 +182,7 @@ This post laid out the landscape of the new passwordless world, why there was a 
 
 * [Phishing-Resistant Authenticators with Megha Rastogi: Okta Workforce Identity Developer Podcast](https://youtu.be/PiY5HDp0ABI)
 * [Building a WebAuthn Application with Java](/blog/2022/04/26/webauthn-java)
+* [Passkeys Playground](https://a0.to/passkeys_oktablog)
 * [Our Take on Passkeys blogpost by Auth0](https://auth0.com/blog/our-take-on-passkeys/)
 * [Web Authentication information from Auth0](https://webauthn.me/introduction)
 * [Passkeys in Action video by the FIDO Alliance](https://youtu.be/SWocv4BhCNg)
