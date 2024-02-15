@@ -4,8 +4,8 @@ title: "Add Security and Authorization to a Java Spring Boot API"
 author: jimena-garbarino
 by: contractor
 communities: [security,java]
-description: ""
-tags: []
+description: "Learn how to use Spring Boot, Java, and Auth0 to secure a feature-complete API, by implementing authorization in Spring Boot with Auth0."
+tags: [java, security, oauth2, oidc]
 tweets:
 - ""
 - ""
@@ -29,23 +29,23 @@ What is [authentication](https://auth0.com/intro-to-iam/what-is-authentication)?
 
 In computer systems, authentication and authorization are part of a discipline called Identity and Access Management (IAM). For web and mobile applications, an identity protocol was born in 2014, [OpenID Connect 1.0](https://openid.net/specs/openid-connect-core-1_0.html), now widely adopted as part of the IAM strategy of many identity providers and identity clients on the internet.
 
-OpenID Connect 1.0 is a simple identity layer on top of [OAuth2 2.0](https://www.rfc-editor.org/rfc/rfc6749.html), a preceding standard designed to authorize a website or application to access resources hosted by third party services on behalf of a user.
+OpenID Connect 1.0 is a simple identity layer on top of [OAuth2 2.0](https://www.rfc-editor.org/rfc/rfc6749.html), a preceding standard designed to authorize a website or application to access resources hosted by third-party services on behalf of a user.
 
-For authorizing the access to a protected resource, OAuth 2.0 uses Access Tokens, a piece of data, a string representing an authorization issued to the client, scopes and durations of the access, validated at the resource server. Briefly, the standard defines the roles of resource owner, resource server, client and authorization server, and a protocol flow for the client requesting access, through an authorization server, to resources controlled by the resource owner and hosted by the resource server.
+For authorizing access to a protected resource, OAuth 2.0 uses Access Tokens, a piece of data, a string representing an authorization issued to the client, scopes and durations of the access, validated at the resource server. Briefly, the standard defines the roles of resource owner, resource server, client, and authorization server, and a protocol flow for the client requesting access, through an authorization server, to resources controlled by the resource owner and hosted by the resource server.
 
-OpenID Connect provides authentication built on top fo OAuth 2.0, and information about the authentication performed is returned in an ID Token with JWT format (JSON Web Token). In abstract, the protocol defines a client role or Relying Party that sends a request to the OpenID Provider, which in turn authenticates the end-user and obtains authorization, returning and ID Token and Access Token to the Relying Party.
+OpenID Connect provides authentication built on top of OAuth 2.0, and information about the authentication performed is returned in an ID Token with JWT format (JSON Web Token). In abstract, the protocol defines a client role or Relying Party that sends a request to the OpenID Provider, which in turn authenticates the end-user and obtains authorization, returning an ID Token and Access Token to the Relying Party.
 
 ## Authorization in a Spring Boot API
 
-After year 2020, in Buenos Aires, many bars and restaurants implemented a digital menu with a QR code that translates to a public document, for having an updated prices list. Prices change so often due to inflation, and updating a physical menu seems tedious and costly. Still restaurant tables are managed with a software application, which includes a menu management module.
+After the year 2020, in Buenos Aires, many bars and restaurants implemented a digital menu with a QR code that translates to a public document, for having an updated prices list. Prices change so often due to inflation, and updating a physical menu seems tedious and costly. Still, restaurant tables are managed with a software application, which includes a menu management module.
 
-For learning purposes, let's assume you have built a Spring Boot menu API that must be secured, so only authorized users can perform requests to its endpoints. Now your are going to implement authorization for the API with OAuth2 2.0 and Auth0. Start by doing a checkout of the API repository, which already implements basic request handling:
+For learning purposes, let's assume you have built a Spring Boot menu API that must be secured, so only authorized users can perform requests to its endpoints. Now you are going to implement authorization for the API with OAuth2 2.0 and Auth0. Start by doing a checkout of the API repository, which already implements basic request handling:
 
 ```shell
 git clone https://github.com/indiepopart/spring-menu-api.git
 ```
 
-The menu API is a Gradle project, open it with your favorite IDE.
+The bare bones menu API is a Gradle project in the `start` folder, open it with your favorite IDE.
 
 Sign up at [Auth0](https://auth0.com/signup) and install the [Auth0 CLI](https://github.com/auth0/auth0-cli). Then in the command line run:
 
@@ -110,7 +110,7 @@ Test the API authorization with HTTPie:
 ```shell
 http :8080/api/menu/items
 ```
-You will get HTTP response code `401`, because the request requires bearer authentication. Using Auth0 CLI, get an access token:
+You will get HTTP response code `401` because the request requires bearer authentication. Using Auth0 CLI, get an access token:
 
 ```shell
 auth0 test token -a https://<your-auth0-domain>/api/v2/ -s openid
@@ -164,7 +164,7 @@ Try the API request again and you should get a JSON response listing the menu it
 
 ## Authentication from a Single-Page Application (SPA)
 
-It would be so much fun testing the API with a client application. Good fortune is on your side, because you can use the [WHATABYTE Dashboard](https://dashboard.whatabyte.app/home), a live demo client where you can configure Auth0 authentication and send requests to your local API server.
+It would be so much fun testing the API with a client application. Good fortune is on your side because you can use the [WHATABYTE Dashboard](https://dashboard.whatabyte.app/home), a live demo client where you can configure Auth0 authentication and send requests to your local API server.
 
 For the Auth0 authentication, you need to register the live client as a Single-Page Application to Auth0. You can do it with the Auth0 CLI:
 
@@ -216,7 +216,7 @@ public class SecurityConfig {
 }
 ```
 
-Modify `ItemController` adding the `@CrossOrigin` annotation:
+Modify `ItemController` by adding the `@CrossOrigin` annotation:
 
 ```java
 // src/main/java/com/example/menu/web/ItemController.java
@@ -268,7 +268,7 @@ Besides requiring a user to be authenticated, it is a standard practice to creat
 
 ### Create and assign roles
 
-In the WHATABYTE client settings, re-enable the authentication features, and also enable RBAC. Set `menu-admin` in the _User Role_ text-box. Click on **Save**.
+In the WHATABYTE client settings, re-enable the authentication features, and also enable RBAC. Set `menu-admin` in the _User Role_ text box. Click on **Save**.
 
 Now if you sign in with the user you created, the UI will not display the links to perform write operations, as the role has not yet been assigned.
 
@@ -324,7 +324,7 @@ exports.onExecutePostLogin = async (event, api) => {
 }
 ```
 
-Save the file. You should see the output below once the action was created.
+Save the file. You should see the output below once the action is created.
 
 ```text
 Name: Add Roles
@@ -398,7 +398,7 @@ You can visualize the flow in the Auth0 dashboard. Sign in and on the left menu 
 
 {% img blog/spring-boot-authorization/login-flow.png alt:"Custom Auth0 Login Action" width:"600" %}{: .center-image }
 
-Now the role has been assigned and mapped to the id and access tokens, and the UI will display the links to perform write operations. Still the API server is not yet enforcing RBAC.
+Now the role has been assigned and mapped to the ID and access tokens, and the UI will display the links to perform write operations. Still, the API server is not yet enforcing RBAC.
 
 ### Enable RBAC in Auth0
 
@@ -422,6 +422,7 @@ Assign the Menu API permissions to the `menu-admin` role:
 ```shell
 auth0 roles permissions add
 ```
+
 Follow the instructions, and make sure to select all the API permissions:
 - `create:items`
 - `delete:items`
@@ -513,7 +514,7 @@ public class ItemController {
 }
 ```
 
-For the `@PreAuthorize` rules to take effect, you must add the annotation `@EnableGlobalMethodSecurity` to the security configuration, the final code must looks like:
+For the `@PreAuthorize` rules to take effect, you must add the annotation `@EnableGlobalMethodSecurity` to the security configuration, the final code must look like this:
 
 ```java
 // src/main/java/com/example/menu/SecurityConfig.java
@@ -547,7 +548,7 @@ If you remove the permissions from the `menu-admin` role, the UI will display li
 
 I hope you enjoyed this tutorial on how to secure a Spring Boot API with OAuth2 and Auth0. You learned how to configure a resource server with `okta-spring-boot-starter` and how to implement RBAC.
 
-You can find all the code shown in this tutorial on GitHub in the [spring-boot-authorization](https://github.com/indiepopart/spring-boot-authorization) repository.
+You can find all the code shown in this tutorial on GitHub in the [spring-menu-api](https://github.com/indiepopart/spring-menu-api) repository.
 
 If you liked this post, you might enjoy these related posts:
 
