@@ -19,7 +19,7 @@ Learn how to use Spring Boot, Java, and Auth0 to secure a feature-complete API, 
 > **This tutorial was created with the following tools and services**:
 > - [Java OpenJDK 17](https://jdk.java.net/java-se-ri/17)
 > - [Auth0 account](https://auth0.com/signup)
-> - [Auth0 CLI 1.0.0](https://github.com/auth0/auth0-cli#installation)
+> - [Auth0 CLI 1.4.0](https://github.com/auth0/auth0-cli#installation)
 
 {% include toc.md %}
 
@@ -115,7 +115,7 @@ You will get HTTP response code `401` because the request requires bearer authen
 ```shell
 auth0 test token -a https://<your-auth0-domain>/api/v2/ -s openid
 ```
-Select the **CLI Login Testing** client. You will also be prompted to open a browser window and log in with a user credential.
+Select any available client when prompted. You also will be prompted to open a browser window and log in with a user credential. You can sign up as a new user using an email and password or using the Google social login.
 
 With HTTPie, send a request to the API server using a bearer access token:
 
@@ -325,48 +325,7 @@ exports.onExecutePostLogin = async (event, api) => {
 }
 ```
 
-Save the file. You should see the output below once the action is created.
-
-```text
-Name: Add Roles
- Trigger: post-login
-
-=== dev-avup2laz.us.auth0.com action created
-
-  ID             da49ae42-b5e4-496a-8305-4fff437f813b                                                                     
-  NAME           Add Roles                                                                                                
-  TYPE           post-login                                                                                               
-  STATUS         pending                                                                                                  
-  DEPLOYED       ✗                                                                                                        
-  LAST DEPLOYED                                                                                                           
-  LAST UPDATED   0 seconds ago                                                                                            
-  CREATED        0 seconds ago                                                                                            
-  CODE           /**                                                                                                      
-                  * Handler that will be called during the execution of a PostLogin flow.                                 
-                  *                                                                                                       
-                  * @param {Event} event - Details about the user and the context in which they are logging in.           
-                  * @param {PostLoginAPI} api - Interface whose methods can be used to change the behavior of the login.  
-                  */                                                                                                      
-                 exports.onExecutePostLogin = async (event, api) => {                                                     
-                   const namespace = 'https://menu-api.okta.com';                                                         
-                   if (event.authorization) {                                                                             
-                     api.idToken.setCustomClaim('preferred_username', event.user.email);                                  
-                     api.idToken.setCustomClaim(`${namespace}/roles`, event.authorization.roles);                         
-                     api.accessToken.setCustomClaim(`${namespace}/roles`, event.authorization.roles);                     
-                   }                                                                                                      
-                 };                                                                                                       
-
-
-                 /**                                                                                                      
-                  * Handler that will be invoked when this action is resuming after an external redirect. If your         
-                  * onExecutePostLogin function does not perform a redirect, this function can be safely ignored.         
-                  *                                                                                                       
-                  * @param {Event} event - Details about the user and the context in which they are logging in.           
-                  * @param {PostLoginAPI} api - Interface whose methods can be used to change the behavior of the login.  
-                  */                                                                                                      
-                 // exports.onContinuePostLogin = async (event, api) => {                                                 
-                 // };                                                                    
-```
+Save the file. You will see a detailed output once the action is created.
 
 You can list the available actions with the following command:
 
@@ -385,7 +344,7 @@ The output will show the deployment status of each action:
 Note the `DEPLOYED` status is `x`. Go ahead and deploy it using the action ID:
 
 ```shell
-auth0 actions deploy \<ACTION_ID\>
+auth0 actions deploy <ACTION_ID>
 ```
 
 Once the action is deployed, you must attach it to the login flow. You can do this with Auth0 [Management API for Actions](https://auth0.com/docs/api/management/v2#!/Actions/patch_bindings):
