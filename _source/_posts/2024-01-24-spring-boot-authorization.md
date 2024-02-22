@@ -45,7 +45,7 @@ For learning purposes, let's assume you have built a Spring Boot menu API that m
 git clone https://github.com/indiepopart/spring-menu-api.git
 ```
 
-The bare bones menu API is a Gradle project in the `start` folder, open it with your favorite IDE.
+The repository contains two project folders, `start` and `demo`. The bare bones menu API is a Gradle project in the `start` folder, open it with your favorite IDE. If you would rather skip the step-by-step security configuration and just run the final `demo` project, follow the instructions in the [README](https://github.com/indiepopart/spring-menu-api).
 
 Sign up at [Auth0](https://auth0.com/signup) and install the [Auth0 CLI](https://github.com/auth0/auth0-cli). Then in the command line run:
 
@@ -62,9 +62,7 @@ auth0 apis create \
   --name "Menu API" \
   --identifier https://menu-api.okta.com \
   --scopes "create:items,update:items,delete:items" \
-  --token-lifetime 86400 \
-  --offline-access=false \
-  --signing-alg "RS256"
+  --offline-access=false
 ```
 
 The scopes `create:items`, `update:items`, `delete:items` will be required ahead in the tutorial. Add the `okta-spring-boot-starter` dependency:
@@ -81,19 +79,9 @@ As the `menu-api` must be configured as an OAuth2 resource server, add the follo
 
 ```properties
 # application.properties
-okta.oauth2.issuer=${OKTA_OAUTH2_ISSUER}
-okta.oauth2.audience=${OKTA_OAUTH2_AUDIENCE}
+okta.oauth2.issuer=https://<your-auth0-domain>/
+okta.oauth2.audience=https://menu-api.okta.com
 ```
-
-Create a `.env` file in the API root with the following content:
-
-```shell
-# .env
-OKTA_OAUTH2_ISSUER=https://<your-auth0-domain>/
-OKTA_OAUTH2_AUDIENCE=https://menu-api.okta.com
-```
-
-At startup, these properties will be read using [spring-dotenv](https://github.com/paulschwarz/spring-dotenv), already included in the project dependencies. Set the value of `your-auth0-domain` to the active tenant returned by the command:
 
 ```shell
 auth0 tenants list
@@ -164,14 +152,14 @@ Try the API request again and you should get a JSON response listing the menu it
 
 ## Authentication from a Single-Page Application (SPA)
 
-It would be so much fun testing the API with a client application. Good fortune is on your side because you can use the [WHATABYTE Dashboard](https://dashboard.whatabyte.app/home), a live demo client where you can configure Auth0 authentication and send requests to your local API server.
+It would be so much fun testing the API with a client application. Good fortune is on your side because you can use the [WHATABYTE client](https://dashboard.whatabyte.app/home), a live demo application where you can configure Auth0 authentication and send requests to your local API server.
 
 For the Auth0 authentication, you need to register the live client as a Single-Page Application to Auth0. You can do it with the Auth0 CLI:
 
 ```shell
 auth0 apps create \
-  --name "WHATABYTE Demo Client" \
-  --description "Single-Page Application Dashboard for menu items CRUD" \
+  --name "WHATABYTE client" \
+  --description "Single-Page Application for menu items CRUD" \
   --type spa \
   --callbacks https://dashboard.whatabyte.app/home \
   --logout-urls https://dashboard.whatabyte.app/home \
@@ -179,7 +167,7 @@ auth0 apps create \
   --web-origins https://dashboard.whatabyte.app
 ```
 
-Go to the [WHATABYTE Dashboard](https://dashboard.whatabyte.app/home), and set _API Server Base URL_ to http://localhost:8080. Toggle on **Enable Authentication Features** and set the following values:
+Go to the [WHATABYTE client](https://dashboard.whatabyte.app/home), and set _API Server Base URL_ to http://localhost:8080. Toggle on **Enable Authentication Features** and set the following values:
 
 - Auth0 Domain: \<your-auth0-domain\>
 - Auth0 Client ID: \<client-id\>
@@ -188,20 +176,13 @@ Go to the [WHATABYTE Dashboard](https://dashboard.whatabyte.app/home), and set _
 
 Click **Save**.
 
-For the API server to accept requests from the dashboard, you must tweak the CORS configuration, enabling the dashboard URL as an allowed origin for requests.
+For the API server to accept requests from the WHATABYTE client, you must tweak the CORS configuration, enabling the WHATABYTE client URL as an allowed origin for requests.
 
 In the API project under the `start` folder, add a `SecurityConfig` class at the root package:
 
 ```java
 // src/main/java/com/example/menu/SecurityConfig.java
 package com.example.menu;
-
-import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.Configuration;
-import org.springframework.security.config.annotation.web.builders.HttpSecurity;
-import org.springframework.security.web.SecurityFilterChain;
-
-import static org.springframework.security.config.Customizer.withDefaults;
 
 @Configuration
 public class SecurityConfig {
@@ -252,9 +233,9 @@ Connection Name: Username-Password-Authentication
 ```
 Save the ID for later.
 
-In the dashboard, click the **Sign in** button. The client will redirect you to the [Auth0 Universal Login](https://auth0.com/docs/authenticate/login/auth0-universal-login) page. Sign in with the user you just created. In the left menu, choose **Menu**, and the menu items will display.
+In the WHATABYTE client, click the **Sign in** button. The client will redirect you to the [Auth0 Universal Login](https://auth0.com/docs/authenticate/login/auth0-universal-login) page. Sign in with the user you just created. In the left menu, choose **Menu**, and the menu items will display.
 
-{% img blog/spring-boot-authorization/whatabyte-ui.png alt:"WHATABYTE Dashboard" width:"800" %}{: .center-image }
+{% img blog/spring-boot-authorization/whatabyte-ui.png alt:"WHATABYTE client" width:"800" %}{: .center-image }
 
 On the top right corner, click **Add Item**, and a pre-populated form will display. Click on **Save** and verify that the user request is authorized in the server.
 
@@ -262,7 +243,7 @@ On the top right corner, click **Add Item**, and a pre-populated form will displ
 
 If you disable the authentication features in the WHATABYTE client, it will allow you to attempt CRUD operations from the UI, but your API server will reject item modifications as an unauthenticated user.
 
-{% img blog/spring-boot-authorization/whatabyte-unauth.png alt:"WHATABYTE Dashboard Unauthenticated" width:"800" %}{: .center-image }
+{% img blog/spring-boot-authorization/whatabyte-unauth.png alt:"WHATABYTE client Unauthenticated" width:"800" %}{: .center-image }
 
 Besides requiring a user to be authenticated, it is a standard practice to create roles for authorizing write operations.
 
@@ -351,7 +332,7 @@ Once the action is deployed, you must attach it to the login flow. You can do th
 
 ```shell
 auth0 api patch "actions/triggers/post-login/bindings" \
-  --data '{"bindings":[{"ref":{"type":"action_id","value":"\<ACTION_ID\>"},"display_name":"Add Roles"}]}'
+  --data '{"bindings":[{"ref":{"type":"action_id","value":"<ACTION_ID>"},"display_name":"Add Roles"}]}'
 ```
 
 You can visualize the flow in the Auth0 dashboard. Sign in and on the left menu you choose **Actions**, then in the **Flows** screen, choose **Login**.
@@ -371,7 +352,7 @@ auth0 apis list
 Copy the Menu API ID and use it for the next command:
 
 ```shell
-auth0 api patch "resource-servers/API_ID" \
+auth0 api patch "resource-servers/<API_ID>" \
   --data '{ "enforce_policies": true, "token_dialect": "access_token_authz" }'
 ```
 
@@ -388,8 +369,6 @@ Follow the instructions, and make sure to select all the API permissions:
 - `delete:items`
 - `update:items`
 
-Next, implement RBAC in the Spring Boot API.
-
 ### Implement RBAC in the Spring Boot API
 
 The Okta Starter provides a simple way to specify the claim from which authorities must be extracted. In the `application.properties` file, add the following property:
@@ -402,19 +381,6 @@ With the `@PreAuthorize` annotation you define the required permission to perfor
 ```java
 // src/main/java/com/example/menu/web/ItemController.java
 package com.example.menu.web;
-
-import com.example.menu.model.Item;
-import com.example.menu.model.ItemRepository;
-import jakarta.validation.Valid;
-import org.springframework.http.ResponseEntity;
-import org.springframework.security.access.prepost.PreAuthorize;
-import org.springframework.web.bind.annotation.*;
-
-import java.net.URI;
-import java.net.URISyntaxException;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.List;
 
 @RestController
 @RequestMapping("/api/menu/items")
@@ -479,14 +445,6 @@ For the `@PreAuthorize` rules to take effect, you must add the annotation `@Enab
 ```java
 // src/main/java/com/example/menu/SecurityConfig.java
 package com.example.menu;
-
-import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.Configuration;
-import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
-import org.springframework.security.config.annotation.web.builders.HttpSecurity;
-import org.springframework.security.web.SecurityFilterChain;
-
-import static org.springframework.security.config.Customizer.withDefaults;
 
 @Configuration
 @EnableGlobalMethodSecurity(prePostEnabled = true)
