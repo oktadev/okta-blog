@@ -25,9 +25,9 @@ Learn how to use Spring Boot, Java, and Auth0 to secure a feature-complete API, 
 
 ## Authentication and Authorization on the Web
 
-What is [authentication](https://auth0.com/intro-to-iam/what-is-authentication)? It is the process of proving a user's identity, proving she is who she or he claims to be. And what is [authorization](https://auth0.com/intro-to-iam/what-is-authorization)? It is the process of giving someone the ability to access a resource.
+[Authentication](https://auth0.com/intro-to-iam/what-is-authentication) is the process of proving a user's identity, proving they are who they claim to be. [Authorization](https://auth0.com/intro-to-iam/what-is-authorization) is the process of giving someone the ability to access a resource.
 
-In computer systems, authentication and authorization are part of a discipline called Identity and Access Management (IAM). For web and mobile applications, an identity protocol was born in 2014, [OpenID Connect 1.0](https://openid.net/specs/openid-connect-core-1_0.html), now widely adopted as part of the IAM strategy of many identity providers and identity clients on the internet.
+In computer systems, authentication and authorization are part of a discipline called Identity and Access Management (IAM). For web and mobile applications, an identity protocol was born in 2014, [OpenID Connect 1.0](https://openid.net/specs/openid-connect-core-1_0.html) (OIDC), now widely adopted as part of the IAM strategy of many identity providers and identity clients on the internet.
 
 OpenID Connect 1.0 is a simple identity layer on top of [OAuth2 2.0](https://www.rfc-editor.org/rfc/rfc6749.html), a preceding standard designed to authorize a website or application to access resources hosted by third-party services on behalf of a user.
 
@@ -190,7 +190,7 @@ Click **Save**.
 
 For the API server to accept requests from the dashboard, you must tweak the CORS configuration, enabling the dashboard URL as an allowed origin for requests.
 
-In the API project, add a `SecurityConfig` class at the root package:
+In the API project under the `start` folder, add a `SecurityConfig` class at the root package:
 
 ```java
 // src/main/java/com/example/menu/SecurityConfig.java
@@ -256,7 +256,7 @@ In the dashboard, click the **Sign in** button. The client will redirect you to 
 
 {% img blog/spring-boot-authorization/whatabyte-ui.png alt:"WHATABYTE Dashboard" width:"800" %}{: .center-image }
 
-On the top right corner, click **Add Item**, and a pre-populated form will display. Click on **Save** and verify the user request is authorized in the server.
+On the top right corner, click **Add Item**, and a pre-populated form will display. Click on **Save** and verify that the user request is authorized in the server.
 
 ## Role-Based Access Control (RBAC)
 
@@ -302,6 +302,7 @@ The role `menu-admin` and its permissions must be mapped to a claim in the acces
 First [configure your preferred editor](https://github.com/auth0/auth0-cli#customization) to use with the Auth0 CLI:
 
 ```shell
+# for example
 export EDITOR=nano
 ```
 
