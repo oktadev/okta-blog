@@ -93,10 +93,10 @@ Run the API with:
 ./gradlew bootRun
 ```
 
-Test the API authorization with HTTPie:
+Test the API authorization with curl:
 
 ```shell
-http :8080/api/menu/items
+curl localhost:8080/api/menu/items
 ```
 You will get HTTP response code `401` because the request requires bearer authentication. Using Auth0 CLI, get an access token:
 
@@ -105,14 +105,14 @@ auth0 test token -a https://<your-auth0-domain>/api/v2/ -s openid
 ```
 Select any available client when prompted. You also will be prompted to open a browser window and log in with a user credential. You can sign up as a new user using an email and password or using the Google social login.
 
-With HTTPie, send a request to the API server using a bearer access token:
+With curl, send a request to the API server using a bearer access token:
 
 ```shell
 ACCESS_TOKEN=<auth0-access-token>
 ```
 
 ```shell
-http :8080/api/menu/items Authorization:"Bearer $ACCESS_TOKEN"
+curl -v --header "Authorization: Bearer $ACCESS_TOKEN" localhost:8080/api/menu/items
 ```
 The request will not be authorized yet, because _This aud claim is not equal to the configured audience_. If the audience is not specified in the`auth0 test token` command, the default value is `https://dev-avup2laz.us.auth0.com/api/v2`, which is the Auth0Provider management API audience.
 
