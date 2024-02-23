@@ -27,9 +27,7 @@ Learn how to use Spring Boot, Java, and Auth0 to secure a feature-complete API, 
 
 [Authentication](https://auth0.com/intro-to-iam/what-is-authentication) is the process of proving a user's identity, proving they are who they claim to be. [Authorization](https://auth0.com/intro-to-iam/what-is-authorization) is the process of giving someone the ability to access a resource.
 
-In computer systems, authentication and authorization are part of a discipline called Identity and Access Management (IAM). For web and mobile applications, an identity protocol was born in 2014, [OpenID Connect 1.0](https://openid.net/specs/openid-connect-core-1_0.html) (OIDC), now widely adopted as part of the IAM strategy of many identity providers and identity clients on the internet.
-
-OpenID Connect 1.0 is a simple identity layer on top of [OAuth2 2.0](https://www.rfc-editor.org/rfc/rfc6749.html), a preceding standard designed to authorize a website or application to access resources hosted by third-party services on behalf of a user.
+In computer systems, authentication and authorization are part of a discipline called Identity and Access Management (IAM). [OAuth 2.0](https://www.rfc-editor.org/rfc/rfc6749.html) is a standard designed to authorize a website or application to access resources hosted by third-party services on behalf of a user. For web and mobile applications, an identity protocol was born in 2014, [OpenID Connect 1.0](https://openid.net/specs/openid-connect-core-1_0.html) (OIDC), a simple identity layer on top of OAuth 2.0, now widely adopted as part of the IAM strategy of many identity providers and identity clients on the internet.
 
 For authorizing access to a protected resource, OAuth 2.0 uses Access Tokens, a piece of data, a string representing an authorization issued to the client, scopes and durations of the access, validated at the resource server. Briefly, the standard defines the roles of resource owner, resource server, client, and authorization server, and a protocol flow for the client requesting access, through an authorization server, to resources controlled by the resource owner and hosted by the resource server.
 
