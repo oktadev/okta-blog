@@ -12,6 +12,7 @@ tweets:
 - ""
 image: blog/okta-authentication-angular/social.jpg
 type: conversion
+github: https://github.com/oktadev/okta-angular-standalone-runtime-config-example
 ---
 
 Are you ready to hear about the ultimate flexibility in configuring authentication properties in the Okta Angular SDK? You'll want to check out this excellent new feature and walk through the steps of adding authentication using Okta to Angular applications.
@@ -25,7 +26,7 @@ There are three main ways you can add configuration information to Angular appli
 
 💡 You can read more about these three ways, along with examples, in [Three Ways to Configure Modules in Your Angular App](/blog/2022/02/24/angular-async-config).
 
-The best way to experiment with loading authentication configuration at runtime is to try it out yourself. Pull out your machine and warm up your fingers! If you want to jump to the completed project, you can find it in the [okta-angular-standalone-config-example](https://github.com/oktadev/okta-angular-standalone-config-example) GitHub repository. Otherwise, let's get coding! 
+The best way to experiment with loading authentication configuration at runtime is to try it out yourself. Pull out your machine and warm up your fingers! If you want to jump to the completed project, you can find it in the [okta-angular-standalone-config-example](https://github.com/oktadev/okta-angular-standalone-runtime-config-example) GitHub repository. Otherwise, let's get coding! 
 
 **Prerequisites**
 
@@ -446,7 +447,7 @@ Check it out to verify you can sign in, greet yourself at the profile route, and
 
 ## Use OAuth 2.0, OpenID Connect, and the Okta Angular SDK for secure authentication
 
-In this post, you added runtime Okta configuration in an Angular app using standalone components. Whew! That was a lot of work, but I hope you found it fun and exciting. You can check out the completed application in the [okta-angular-standalone-runtime-config-example](https://github.com/oktadev/okta-angular-standalone-config-example) GitHub repository.
+In this post, you added runtime Okta configuration in an Angular app using standalone components. Whew! That was a lot of work, but I hope you found it fun and exciting. You can check out the completed application in the [okta-angular-standalone-runtime-config-example](https://github.com/oktadev/okta-angular-standalone-runtime-config-example) GitHub repository.
 
 Complete code projects include testing. I didn't walk through the steps of adding unit tests in this post, but you can inspect the completed code project to view and run the tests, too.
 
