@@ -67,7 +67,7 @@ export const PROTECTED_FEATURE_ROUTES: Route[] = [
 ];
 ```
 
-Open `app.routes.ts`. Add the following routes.
+Open `app.routes.ts`. Add the following routes:
 
 ```ts
 import { Routes } from '@angular/router';
@@ -89,7 +89,7 @@ You'll use Okta to securely handle authentication and authorization for your Ang
 
 Note the `Issuer` and the `Client ID`. You'll need those values for your authentication configuration coming up soon.
 
-We'll use the [Okta Angular](https://www.npmjs.com/package/@okta/okta-angular) and [Okta Auth JS](https://www.npmjs.com/package/@okta/okta-auth-js) libraries to connect our Angular application with Okta authentication. Add them to your project by running the following command.
+We'll use the [Okta Angular](https://www.npmjs.com/package/@okta/okta-angular) and [Okta Auth JS](https://www.npmjs.com/package/@okta/okta-auth-js) libraries to connect our Angular application with Okta authentication. Add them to your project by running the following command:
 
 ```shell
 npm install @okta/okta-angular@6.3 @okta/okta-auth-js@7.5
@@ -250,7 +250,7 @@ npm start
 > 
 > If you have app initialization errors, double-check your Okta configuration and replace the placeholders.
 
-You should see something like this when you start the application.
+You should see something like this when you start the application:
 
 <div style="border: 1px silver solid; display: flex; justify-content: center">
 {% img blog/okta-authentication-angular/app-start.jpg alt:"Screenshot of application start showing a sign in button and a link to the Okta Developer site" width:"800" %}
