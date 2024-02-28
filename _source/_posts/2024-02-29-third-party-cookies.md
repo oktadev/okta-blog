@@ -18,14 +18,16 @@ type: awareness
 
 Cookies are as old as the internet. Historically, cookies were among the only options for personalizing a user's online experience and carrying their preferences from page to page. First-party cookies are issued by the web site where they're used, and third-party cookies come from other domains. 
 
-Third-party cookies allow user behavior to be tracked across different sites. These cookies are now widely abused to collect and share uesrs' data. For the legitimate use cases which used to require third-party cookies, like federated logins and multi-brand identity providers, more secure options are actively being developed. 
+Third-party cookies allow user behavior to be tracked across different sites. These cookies are now widely abused to collect and share users' data. For the legitimate use cases which used to require third-party cookies, like federated logins and multi-brand identity providers, more secure options are actively being developed. 
 
-Today, the drawbacks to users' security and privacy from third-party cookie implementations outweigh their benefits so much that all major browsers are phasing them out. Safari has blocked thrd-party cookies for years, and Firefox retricts third-party cookies associated with trackers. Chrome is now [phasing out third-party cookies](https://developers.google.com/privacy-sandbox/3pcd) in 2024. 
+Today, the drawbacks to users' security and privacy from third-party cookie implementations outweigh their benefits so much that all major browsers are phasing them out. Safari has blocked third-party cookies for years, and Firefox retricts third-party cookies associated with trackers. Chrome is now [phasing out third-party cookies](https://developers.google.com/privacy-sandbox/3pcd) in 2024. 
 
-If your code uses Okta features that rely on third-party cookies, this means that you'll need to make some changes to keep the identity experience working as intended. 
+If a user has a cookie from okta.com in their browser, that cookie will count as first-party when accessed by the okta.com website, and it will count as third-party when accessed from a website on any other domain.
+
+When a user logs into their Okta account in a web browser, a [session cookie](https://developer.okta.com/docs/guides/session-cookie/main/#about-okta-session-cookies) stores state information about their login session. These cookies are usually first-party, but in some situations they can be third-party. If your code uses Okta features that rely on third-party cookies, this means that you'll need to make some changes to keep the identity experience working as intended. 
 
 
-## Does your application use third-party cookies? 
+## Does your Okta application use third-party cookies? 
 
 Okta's core features do not rely on third-party cookies. However, third-party cookies are used in several areas to enhance the login experience.  Here are the design patterns in which Okta uses third-party cookies. If your application is in one of these categories, please test its behavior with third-party cookie deprecation. 
 
@@ -35,7 +37,6 @@ Okta uses cookies to let applications introspect and extend user sessions. Cooki
 
 If an application hosted on your domain (`mycompanyapp.com`) redirects to your Okta subdomain (`mycompany.okta.com`) for login and then returns users to your own domain, third-party cookie restrictions will limit how your app can introspect or extend the Okta session. 
 
-
 ### Third-party cookie deprecation affects customer-hosted Okta Sign-In Widget and customer-built login applications
 
 If you're hosting your own sign-in experience on a separate top level domain from your main app, you may be using third-party cookies. You might be hosting your own sign-in experience by cloning the Okta Sign-In Widget from GitHub or installing it from NPM to embed in your application, or you might have built your own custom sign-in using Okta's APIs. 
@@ -43,6 +44,8 @@ If you're hosting your own sign-in experience on a separate top level domain fro
 If your sign-in experience is hosted on the same top-level domain as your application, third-party cookie deprecation won't affect its behavior. 
 
 If the sign-in experience and app are on different top-level domains, third-party cookie deprecation will break its ability to introspect and extend sessions, because these features use cookies. Authentication will still be possible, and tokens will still be returned, because these features do not rely on cookies. 
+
+If you're using a custom domain like `login.mycompany.com` in your sign-in widget configuration, cookies will be written to the domain which received the request. If your Sign-In Widget configuration sets `login.mycompany.com` as the `baseUrl` or `issuer`
 
 ### Third-party cookie deprecation affects "remember me" features
 
