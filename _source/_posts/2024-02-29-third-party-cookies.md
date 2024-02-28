@@ -4,7 +4,7 @@ title: "The End of Third-Party Cookies"
 author: edunham
 by: advocate
 communities: [devops,security,mobile,.net,java,javascript,go,php,python,ruby]
-description: ""
+description: "Google Chrome is deprecating all third-party cookies in 2024. How will this affect your Okta application, remember me features, and Okta Sign-In Widget?"
 tags: []
 tweets:
 - ""
