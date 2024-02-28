@@ -45,7 +45,9 @@ If your sign-in experience is hosted on the same top-level domain as your applic
 
 If the sign-in experience and app are on different top-level domains, third-party cookie deprecation will break its ability to introspect and extend sessions, because these features use cookies. Authentication will still be possible, and tokens will still be returned, because these features do not rely on cookies. 
 
-If you're using a custom domain like `login.mycompany.com` in your sign-in widget configuration, cookies will be written to the domain which received the request. If your Sign-In Widget configuration sets `login.mycompany.com` as the `baseUrl` or `issuer`
+If you're using a custom domain like `login.mycompany.com` in your sign-in widget configuration, cookies will be written to the domain which received the request. If your Sign-In Widget configuration sets `login.mycompany.com` as the `baseUrl` or `issuer`, cookies will be issued for `mycompany.com` when a user logs in, so those cookies are first-party to all `mycompany.com` web pages.
+
+If you have a self-hosted Sign-In Widget with `mycompany.okta.com` configured as the `baseUrl` or `issuer` in its settings, cookies will be issued for `okta.com` and will be first-party to `okta.com` but third-party to `mycompany.com`. 
 
 ### Third-party cookie deprecation affects "remember me" features
 
