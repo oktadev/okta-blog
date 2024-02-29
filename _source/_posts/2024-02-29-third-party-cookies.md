@@ -20,7 +20,7 @@ Cookies are as old as the internet. Historically, cookies were among the only op
 
 Third-party cookies allow user behavior to be tracked across different sites. These cookies are now widely abused to collect and share users' data. For the legitimate use cases which used to depend on third-party cookies, like federated logins and multi-brand identity providers, more secure options are actively being developed. 
 
-Today, the drawbacks to users' security and privacy from third-party cookie implementations outweigh their benefits so much that all major browsers are phasing them out. Safari has blocked third-party cookies for years, and Firefox retricts third-party cookies associated with trackers. Chrome is now [phasing out third-party cookies](https://developers.google.com/privacy-sandbox/3pcd) in 2024. 
+Today, the drawbacks to users' security and privacy from third-party cookie implementations outweigh their benefits so much that all major browsers are phasing them out. Safari has blocked third-party cookies for years, and Firefox restricts third-party cookies associated with trackers. Chrome is now [phasing out third-party cookies](https://developers.google.com/privacy-sandbox/3pcd) in 2024. 
 
 If a user has a cookie from okta.com in their browser, that cookie will count as first-party when accessed by the okta.com website, and it will count as third-party when accessed from a website on any other domain.
 
