@@ -5,7 +5,7 @@ author: edunham
 by: advocate
 communities: [devops,security,mobile,.net,java,javascript,go,php,python,ruby]
 description: "Google Chrome is deprecating all third-party cookies in 2024. How will this affect your Okta application, remember me features, and Okta Sign-In Widget?"
-tags: []
+tags: [third-party-cookies, okta-sign-in-widget]
 tweets:
 - ""
 - ""
