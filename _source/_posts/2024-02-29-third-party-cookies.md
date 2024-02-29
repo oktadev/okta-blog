@@ -29,7 +29,7 @@ When a user logs into their Okta account in a web browser, a [session cookie](ht
 
 ## Does your Okta application use third-party cookies? 
 
-Most of Okta's core auth flows do not rely on third-party cookies. However, a few older flows do. And a few more, may not depend on, but use third-party cookies to enhance the login experience.  Here are the design patterns in which Okta uses third-party cookies. If your application is in one of these categories, please test its behavior with third-party cookie deprecation. 
+Most of Okta's core auth flows do not rely on third-party cookies. When third-party cookies are used, they normally augment the basic login experience or add convenience features. The following sections outline all the design patterns in which Okta uses third-party cookies. If your application is in one of these categories, please test its behavior with third-party cookie deprecation. 
 
 Okta uses cookies to let applications introspect and extend user sessions. Cookies aren't required for basic login functionality. 
 
