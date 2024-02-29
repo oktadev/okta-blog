@@ -18,18 +18,18 @@ type: awareness
 
 Cookies are as old as the internet. Historically, cookies were among the only options for personalizing a user's online experience and carrying their preferences from page to page. First-party cookies are issued by the web site where they're used, and third-party cookies come from other domains. 
 
-Third-party cookies allow user behavior to be tracked across different sites. These cookies are now widely abused to collect and share users' data. For the legitimate use cases which used to require third-party cookies, like federated logins and multi-brand identity providers, more secure options are actively being developed. 
+Third-party cookies allow user behavior to be tracked across different sites. These cookies are now widely abused to collect and share users' data. For the legitimate use cases which used to depend on third-party cookies, like federated logins and multi-brand identity providers, more secure options are actively being developed. 
 
 Today, the drawbacks to users' security and privacy from third-party cookie implementations outweigh their benefits so much that all major browsers are phasing them out. Safari has blocked third-party cookies for years, and Firefox retricts third-party cookies associated with trackers. Chrome is now [phasing out third-party cookies](https://developers.google.com/privacy-sandbox/3pcd) in 2024. 
 
 If a user has a cookie from okta.com in their browser, that cookie will count as first-party when accessed by the okta.com website, and it will count as third-party when accessed from a website on any other domain.
 
-When a user logs into their Okta account in a web browser, a [session cookie](https://developer.okta.com/docs/guides/session-cookie/main/#about-okta-session-cookies) stores state information about their login session. These cookies are usually first-party, but in some situations they can be third-party. If your code uses Okta features that rely on third-party cookies, this means that you'll need to make some changes to keep the identity experience working as intended. 
+When a user logs into their Okta account in a web browser, a [session cookie](https://developer.okta.com/docs/guides/session-cookie/main/#about-okta-session-cookies) stores state information about their login session. These cookies are usually first-party, but in some situations they can be third-party. If your application uses cookies from domains other than the ones they were issued for, you'll need to make some changes to keep the identity experience working as intended. 
 
 
 ## Does your Okta application use third-party cookies? 
 
-Okta's core features do not rely on third-party cookies. However, third-party cookies are used in several areas to enhance the login experience.  Here are the design patterns in which Okta uses third-party cookies. If your application is in one of these categories, please test its behavior with third-party cookie deprecation. 
+Most of Okta's core auth flows do not rely on third-party cookies. However, a few older flows do. And a few more, may not depend on, but use third-party cookies to enhance the login experience.  Here are the design patterns in which Okta uses third-party cookies. If your application is in one of these categories, please test its behavior with third-party cookie deprecation. 
 
 Okta uses cookies to let applications introspect and extend user sessions. Cookies aren't required for basic login functionality. 
 
