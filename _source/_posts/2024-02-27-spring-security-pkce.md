@@ -14,6 +14,7 @@ image:
 type: awareness|conversion
 ---
 
+OAuth 2.0 and OpenID Connect are the authentication and authorization _de facto_ standards for online web applications. In this post you will learn how to enable the extension Proof Key for Code Exchange in a Spring Boot confidential client, adhering to the latest [Security Best Current Practice (BCP)](https://oauth.net/2/oauth-best-practice/)
 
 > **This tutorial was created with the following tools and services**:
 > - [Java OpenJDK 17](https://jdk.java.net/java-se-ri/17)
@@ -24,12 +25,44 @@ type: awareness|conversion
 
 ## Authorization Code Flow and PKCE
 
-- what is code flow
-- what is PKCE
+
+- what is OpenID Connect
 - what standard history
-- show code flow
-- show code flow with pkce
+
+The OpenID Connect core specification is built on top of OAuth 2.0 and defines the following roles:
+
+1. End-User: Human participant
+2. Authorization Server: The server issuing access tokens to the client after successfully authenticating the resource owner and obtaining authorization.
+3. Client: An application making protected resource requests on behalf of the resource owner (the end user) and with its authorization.
+
+- mention client authentication
+
+From the OpenID Connect specification, the authentication using Authorization Code Flow has the following steps:
+
+1. Client prepares an authentication request and sends the request to the Authorization Server.
+2. Authorization Server prompts for the End-User authentication and obtains End-User consent/authorization.
+3. The End-User authenticates and gives consent
+4. Authorization Server sends the End-User back to the Client with an Authorization Code.
+5. Client requests a response using the Authorization Code at the Token Endpoint.
+6. Client receives a response that contains an ID Token and Access Token in the response body.
+
+The diagram below is a simplified sequence of the Authorization Code Flow, where the User Agent (the browser) redirections are not shown.
+
+{% img blog/spring-security-pkce/auth0-authorization-code.png alt:"Authorization Code Grant" width:"800" %}{: .center-image }
+
+As browser and mobile applications cannot hold credentials securely and therefore cannot identify themselves using a client secret, PKCE was created for extending the OAuth 2.0 Authorization Code Flow, adding a dynamically created cryptographically random key called "code verifier". The flow is modified as follows:
+
+1. The Client creates and records a secret named the "code_verifier" and derives a transformed version referred to as the "code_challenge", which is sent in the OAuth 2.0 Authorization Request along with the transformation method.
+2. The Authorization Endpoint responds as usual but records the "code_challenge" and the transformation method.
+3. The Client then sends the authorization code in the Access Token Request as usual but includes the "code_verifier" secret generated in the first step.
+4. The Authorization Server transforms "code_verifier" and compares it to the recorded "code_challenge". Access is denied if they are not equal.
+
+{% img blog/spring-security-pkce/auth0-authorization-code-pkce.png alt:"Authorization Code Grant" width:"800" %}{: .center-image }
+
+
 - who is using it
+
+The latest [Security BCP](https://www.ietf.org/archive/id/draft-ietf-oauth-security-topics-24.html) states that PKCE should be enabled for all types of clients, public and confidential (browser based applications, mobile applications, native applications and secure server applications).
 
 
 ## Spring Security for Authorization Code Flow
