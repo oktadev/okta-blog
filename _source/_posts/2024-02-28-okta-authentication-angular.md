@@ -89,6 +89,8 @@ You'll use Okta to securely handle authentication and authorization for your Ang
 
 Note the `Issuer` and the `Client ID`. You'll need those values for your authentication configuration coming up soon.
 
+There's one manual change to make in the Okta Admin Console. Add the **Refresh Token** grant type to your Okta Application. Open a browser tab to sign in to your [Okta developer account](https://developer.okta.com/login/). Navigate to **Applications** > **Applications** and find the Okta Application you created. For Okta Applications using the default name, find the Application named "My SPA." Otherwise find the Application with your custom name. Select the name to edit the application. Find **General Settings** section and press the **Edit** button to add a Grant type. Activate the **Refresh Token** checkbox and press **Save**.
+
 We'll use the [Okta Angular](https://www.npmjs.com/package/@okta/okta-angular) and [Okta Auth JS](https://www.npmjs.com/package/@okta/okta-auth-js) libraries to connect our Angular application with Okta authentication. Add them to your project by running the following command:
 
 ```shell
@@ -110,7 +112,8 @@ export const appConfig: ApplicationConfig = {
         oktaAuth: new OktaAuth({
           issuer: 'https://{yourOktaDomain}/oauth2/default',
           clientId: '{yourClientId}',
-          redirectUri: `${window.location.origin}/login/callback`
+          redirectUri: `${window.location.origin}/login/callback`,
+          scopes: ['openid', 'offline_access', 'profile']
         })
       })
     ),
@@ -414,7 +417,13 @@ function configInitializer(httpBackend: HttpBackend, configService: OktaAuthConf
   new HttpClient(httpBackend)
   .get('api/config.json')
   .pipe(
-    tap((authConfig: any) => configService.setConfig({oktaAuth: new OktaAuth({...authConfig, redirectUri: `${window.location.origin}/login/callback`})})),
+    tap((authConfig: any) => configService.setConfig({
+      oktaAuth: new OktaAuth({
+        ...authConfig,
+        redirectUri: `${window.location.origin}/login/callback`,
+        scopes: ['openid', 'offline_access', 'profile']
+      })
+    })),
     take(1)
   );
 }
