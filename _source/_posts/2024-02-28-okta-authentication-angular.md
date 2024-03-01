@@ -4,7 +4,7 @@ title: "Flexible Authentication Configurations in Angular Applications Using Okt
 author: alisa-duncan
 by: advocate
 communities: [javascript]
-description: "Use the Okta Angular SDK to add flexible runtime configuration loading. Check out how to do so in a standalone angular application!"
+description: "Use the Okta Angular SDK to add flexible runtime configuration loading. Check out how to do so in a standalone Angular application!"
 tags: [angular, oidc, sdk, configuration]
 tweets:
 - ""
