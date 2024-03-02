@@ -67,20 +67,25 @@ The latest [Security BCP](https://www.ietf.org/archive/id/draft-ietf-oauth-secur
 
 ## Spring Security for Authorization Code Flow
 
-You can experiment on how to configure the authorization code flow configuration using the [Spring Web Application code sample](https://github.com/auth0-developer-hub/web-app_spring_java_hello-world) from Auth0 developer resources.
+You can experiment on how to configure the authorization code flow configuration by creating a simple Spring Boot web application, following the step-by-step guide in the following sections.
 
-Clone the repository and checkout the branch `basic-authentication`:
 
-```shell
-git clone https://github.com/auth0-developer-hub/web-app_spring_java_hello-world.git \
-  && cd web-app_spring_java_hello-world \
-  && git checkout basic-authentication
-```
+### Create a simple Spring Boot application
 
-Install the Spring MVC project dependencies using Gradle:
+With Spring Initializr and curl, create Spring Boot project:
 
 ```shell
-./gradlew dependencies --write-locks
+curl -v "https://start.spring.io/starter.zip?\
+bootVersion=3.2.3&\
+language=java&\
+packaging=jar&\
+javaVersion=17&\
+type=gradle-project&\
+dependencies=web,okta,thymeleaf&\
+groupId=com.example&\
+artifactId=spring-web&\
+packageName=com.example.demo" \
+--output spring-web.zip
 ```
 
 If you inspect the contents of `build.gradle`, you will find the Okta Spring Boot Starter dependency is included.
