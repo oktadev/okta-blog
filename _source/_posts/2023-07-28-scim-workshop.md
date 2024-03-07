@@ -12,6 +12,7 @@ tweets:
 - ""
 image: blog/scim-workshop/social.jpg
 type: awareness
+github: https://github.com/oktadev/okta-enterprise-ready-workshops/tree/scim-workshop-complete
 changelog:
 - 2023-08-21: Added a Supplemental section at the end
 - 2023-08-28: Corrected hyperlink to OIDC Workshop blog, provided more clarity in accessing the Prisma web interface. Added a disclaimer for using API tokens. 
@@ -19,6 +20,7 @@ changelog:
 - 2023-09-15: Corrected url typos on SCIM diagram
 - 2023-09-19: Clarified instructions and changed the Bearer auth handling to the SCIM route definition
 - 2023-09-21: Removed auth0 logo as they don't support SCIM at this time
+- 2024-03-07: Add completed GH branch to frontmatter
 ---
 
 Hello SaaS developers! You sell your software to technologically mature enterprises, and they expect it to interface seamlessly with all their other tools. In our [Enterprise-Ready Workshop on OpenID Connect](/blog/2023/07/28/oidc_workshop), you learned how to solve part of this problem, by creating user accounts in your application for your customers' employees whenever they log in. 
@@ -88,7 +90,7 @@ Have you seen these endpoints before? Are they familiar to you? Perhaps you've b
 
 Before we begin, please note that this implementation of SCIM is meant to be vendor agnostic, and I will be adding notes on how Okta implements this standard throughout the demo. More importantly, we'll refer to [the SCIM 2.0 spec](https://datatracker.ietf.org/doc/html/rfc7644) to build the server. 
 
-## Set Up the sample React and Express application
+## Set up the sample React and Express application
 
 Follow [these setup instructions](/blog/2023/07/27/enterprise-ready-getting-started) to install and run the Todo sample app. Run `node -v` and make sure you have Node version 18 or newer. 
 
