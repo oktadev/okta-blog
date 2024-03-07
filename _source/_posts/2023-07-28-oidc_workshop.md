@@ -14,7 +14,6 @@ image: blog/oidc_workshop/social.jpg
 type: awareness
 github: https://github.com/oktadev/okta-enterprise-ready-workshops/tree/oidc-workshop-complete
 changelog:
-- 2024-03-07: Add completed GH branch to frontmatter
 ---
 
 This workshop is part of our Enterprise Readiness Workshop series. 
