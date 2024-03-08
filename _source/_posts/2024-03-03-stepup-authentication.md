@@ -353,6 +353,15 @@ if (error === 'insufficient_user_authentication') {
 }
 ```
 
+Lastly, add the interceptor to the `ApplicationConfig`. Open `packages/frontend-angular/src/app/app.config.ts`. Add the `stepupInterceptor` to the providers array.
+
+```ts
+provideHttpClient(withInterceptors([
+  authInterceptor,
+  stepupInterceptor
+])
+```
+
 You can't redirect the user to authentication from an interceptor. You need to handle this new error format elsewhere, where you initiate redirecting the user to authentication with the required `acr_values` before re-requesting the resource.
 
 ### Handle step-up errors when making HTTP calls in Angular
