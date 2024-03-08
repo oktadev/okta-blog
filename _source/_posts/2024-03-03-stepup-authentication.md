@@ -136,11 +136,11 @@ It's clearer to see authentication strengths rather than calculate the recency o
 
 ## Set up authenticators
 
-You'll change the Okta Admin Console to support a different authentication mechanism. We'll change the email authenticator so it's both a recovery and an authentication factor. Sign in to [your Okta Developer Edition Account](https://developer.okta.com/login) and press the **Admin Console** button.
+You'll change the Okta Admin Console to support a different authentication mechanism. We'll change the email authenticator so it's both a recovery and an authentication factor. Sign in to [your Okta Developer Edition Account](https://developer.okta.com/login).
 
 Navigate to **Security** > **Authenticators**. Find **Email**, press on the **Actions** menu, and select **Edit**. Select the **Authentication and recovery** radio button under the **Used for** section. 
 
-Your Okta application should allow you to authenticate with a password or email.
+Your Okta application should allow you to authenticate with a password or email. Sign out of the Okta Admin Console so we can see the entire step-up authentication flow from end-to-end.
 
 > **Note**
 >
@@ -161,7 +161,9 @@ Back to coding! The Okta Angular SDK supports step-up authentication and has a b
 }
 ```
 
-Test this route out. Start the application by running `npm start`. Open the application in the browser and sign in using one factor, such as a password. Then, navigate to the "profile" route. You'll get redirected to authenticate with Okta using your email. Sign in with your email by entering a verification number. Success!
+Test this route out. Start the application by running `npm start` if it isn't still running. Open the application in the browser, and feel free to open network debugging capabilities so you can see the `acr_values` request. Sign in using one factor, such as a password. Then, navigate to the "profile" route. You'll be redirected to Okta to authenticate using your email. Sign in with your email by entering a verification number. Success!
+
+Sign out of the application.
 
 The Okta Angular SDK helps us out, so we don't have to write custom code. Under the covers, the SDK has an Angular guard that:
   1. Gets the `acr` claim value from the ID token
@@ -401,7 +403,9 @@ public messages$ = this.http.get<Message[]>('/api/messages').pipe(
   );
 ```
 
-This code sure looks similar to the same operations as what the step-up auth Angular guard does! 
+This code sure looks similar to the operations in the step-up auth Angular guard! 
+
+Try out your work. Ensure you sign out of the application first. Sign in with one factor, then navigate to the "messages" route. You'll redirect to sign in with a second factor. Success!
 
 ## Ensure authentication recency in step-up authentication
 
