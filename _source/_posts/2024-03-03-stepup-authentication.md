@@ -4,12 +4,13 @@ title: "Add Step-up Authentication Using Angular and NestJS"
 author: alisa-duncan
 by: advocate
 communities: [security,javascript]
-description: ""
+description: "Step up your authentication with the Step Up Authentication Challenge. Learn how to implement this in an Angular and NestJS project!"
 tags: [oidc, stepup-auth, authentication, angular, nestjs]
 tweets:
 - ""
-image:
+image: blog/stepup-authentication/social.jpg
 type: conversion
+github: https://github.com/oktadev/okta-angular-nestjs-stepup-auth-example
 ---
 
 The applications you work on expect good authentication as a secure foundation. In the past, we treated authentication as binary. You are either authenticated or not. You had to set the same authentication mechanism for access to your application without a standard way to change authentication mechanisms conditionally. Consider the case where sensitive actions warrant verification, such as making a large financial transaction or modifying top-secret data. Those actions require extra scrutiny!
@@ -18,7 +19,7 @@ The applications you work on expect good authentication as a secure foundation. 
 
 Enter the [OAuth 2.0 Step Up Authentication Challenge Protocol](https://datatracker.ietf.org/doc/rfc9470/). This standard, built upon OAuth 2.0, outlines a method to elevate authentication requirements within your application. The standard defines methods to identify authentication rules, including authentication mechanisms and authentication recency. We'll cover more details about this much-needed standard as we go along. If you want to read more about it before jumping into the hands-on coding project, check out [Step-up Authentication in Modern Applications](/blog/2023/03/08/step-up-auth).
 
-In this post, you'll add step-up authentication challenge standard to an Angular frontend and NestJS backend. If you want to jump to the completed project, you can find it in the `completed` branch of [okta-angular-nestjs-stepup-auth-example]() GitHub repository. Warm up your computer; here we go!
+In this post, you'll add step-up authentication challenge standard to an Angular frontend and NestJS backend. If you want to jump to the completed project, you can find it in the `completed` branch of [okta-angular-nestjs-stepup-auth-example](https://github.com/oktadev/okta-angular-nestjs-stepup-auth-example/tree/completed) GitHub repository. Warm up your computer; here we go!
 
 > **Note**
 >
@@ -386,7 +387,7 @@ We covered the authentication levels in this post because they are visually visi
 
 In this post, you walked through adding a step-up authentication challenge to protect resources. You added step-up authentication to protect Angular routes using the Okta Angular SDK, then added step-up authentication to protect resources from the NestJS API and within the Angular app.
 
-There's a lot more we can do, and in a demo, we can't get into all the production-level polish we'd like, but I hope this sparks your imagination about how you can protect resources within your application. You can check out the completed application in the `completed` branch of the [okta-angular-nestjs-stepup-auth-example](https://github.com/oktadev/okta-angular-stepup-auth-example) GitHub repository. The repository's README also includes instructions on how to scaffold the starting project.
+There's a lot more we can do, and in a demo, we can't get into all the production-level polish we'd like, but I hope this sparks your imagination about how you can protect resources within your application. You can check out the completed application in the `completed` branch of the [okta-angular-nestjs-stepup-auth-example](https://github.com/oktadev/okta-angular-nestjs-stepup-auth-example/tree/completed) GitHub repository. The repository's README also includes instructions on scaffolding the starting project.
 
 Ready to read other interesting posts? Check out the following links.
 
