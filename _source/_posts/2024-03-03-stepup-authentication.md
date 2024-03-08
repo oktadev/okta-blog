@@ -78,7 +78,7 @@ Sign in and notice the "profile" route shows your profile information with a war
 
 We now have a web app with basic authentication capabilities. Let's kick up authentication levels by adding step-up authentication!
 
-## Step Up Authentication mechanics at a glance
+## Step-up authentication mechanics at a glance
 
 Before we jump into Step Up Authentication, let's take a step back and cover how authentication works in an application. In most circumstances, you'd require authentication before allowing the user to navigate anywhere within the app. You can prevent them from entering a URL:
 
