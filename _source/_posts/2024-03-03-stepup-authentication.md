@@ -96,7 +96,7 @@ sequenceDiagram
 {% endcomment %}
 
 
-The Step Up Authentication Challenge idea builds upon OAuth 2.0 and OpenID Connect (OIDC) foundation. Your app enforces authentication assurances from the user for different actions. The specification supports defining authentication strength and recency and responds with a standard error `insufficient_user_authentication`. So, let's say the user now wants to make a new transaction. They're already authenticated, but creating a new transaction is a sensitive action and requires elevated authentication assurances: 
+The Step Up Authentication Challenge idea builds upon the foundation of OAuth 2.0 and OpenID Connect (OIDC). Your app enforces authentication assurances from the user for different actions. Authentication and identity assurance determine the certainty that the user is who they say they are. The specification supports defining authentication strength and recency and responds with a standard error `insufficient_user_authentication`. Let's say the authenticated user now wants to make a new transaction. Creating a new transaction is a sensitive action and requires elevated authentication assurances:
 
 {% img blog/stepup-authentication/elevated-flow.svg alt:"Sequence diagram where you want to make a new transaction, your app stops you because it requires elevated authentication, you're redirected to Okta to sign in with elevated authentication, Okta responds with your access and id tokens so you can make a new transactions." width:"800" %}{: .center-image }
 
@@ -185,7 +185,9 @@ This helps protect application routes, but what else can we do?
 
 ## Protect API resources with step-up authentication challenge
 
-You can also protect resources by adding step-up authentication handling to the resource server or the API serving resources to your app. The flow works like this:
+You can also protect resources by adding step-up authentication handling to the resource server or the API serving resources to your app. You want to do so as a security measure beyond guarding client routes. Good web application security practices must enforce authentication, identity, and access control in the SPA client and APIs. Someone can bypass the SPA and make direct API calls – always guard all entries into your application system.
+
+The flow works like this:
 
 {% img blog/stepup-authentication/api-response-flow.svg alt:"Sequence diagram where you make an API call to a resource server, the resource server checks the access token's acr claim and denies the resource because the action requires elevated acr value. The API returns the insufficient_user_authentication error. The app redirects you to Okta to sign in with elevated authentication by passing in the required authentication level using the acr_values property. Okta responds with new access and id tokens. The app re-requests the resource from the resource server using the new access token." width:"800" %}{: .center-image }
 
@@ -291,7 +293,13 @@ export class AppModule implements NestModule {
 }
 ```
 
-The resource server now handles step-up authentication for the "messages" route and returns the standard error when user authentication is insufficient, but the Angular frontend needs to respond to this error.
+> 💡 **Idea** 💡
+>
+>We hardcoded the required `acr_values` in the middleware and applied the middleware to all calls to the "messages" route for this demonstration, but NestJS does provide better mechanisms for scaling to larger projects and defining granular assurance requirements. One option might be to create a [NestJS guard](https://docs.nestjs.com/guards) to define which HTTP methods of an endpoint require step-up authentication. Furthermore, you can create a custom decorator for step-up authentication and pass in the required `acr_values` for the HTTP method. That way, a generic guard scales across your API, and you can define a GET call that requires two-factor authentication and a POST call requires phishing-resistant authentication assurance, for example.
+>
+> Let me know in the comments below if you want to see a tutorial about this! 📝
+
+The resource server now handles step-up authentication for the "messages" route. It returns the standard error when user authentication is insufficient, but the Angular frontend needs to respond to this error.
 
 ### Use an Angular interceptor to catch step-up HTTP error responses
 
