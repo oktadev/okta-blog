@@ -366,7 +366,14 @@ You can't redirect the user to authentication from an interceptor. You need to h
 
 ### Handle step-up errors when making HTTP calls in Angular
 
-You can handle catching the error, redirecting the user to authenticate, and re-request the resource within the call to the API, usually within an Angular service. I cheated a bit and wrote the API call directly in the component in this demonstration. Open `packages/frontend-angular/src/app/messages/messages.component.ts`
+You can handle catching the error, redirecting the user to authenticate, and re-request the resource within the call to the API, usually within an Angular service. I cheated a bit and wrote the API call directly in the component in this demonstration. Open `packages/frontend-angular/src/app/messages/messages.component.ts`.
+
+You need the Angular `Router` and `OKTA_AUTH` instances so you can save the existing URL then redirect the user to authenticate. Create properties and inject both types within the class.
+
+```ts
+  private oktaAuth = inject(OKTA_AUTH);
+  private router = inject(Router);
+```
 
 Change `messages$` to add a `catchError` operator. Within the `catchError` function, you'll ensure the error type is `insufficient_user_authentication`, set the redirect URI to navigate the user back to this component which will re-request the resource, and finally redirect the user to authenticate using the `acr_values`:
 
