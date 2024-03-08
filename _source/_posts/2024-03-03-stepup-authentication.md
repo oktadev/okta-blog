@@ -40,11 +40,11 @@ For this tutorial, you need the following tools:
 
 ## Prepare the Angular and NestJS web application
 
-You'll start by getting a local copy of the project. I opted to use a starter project instead of building it out within the tutorial because many steps and command line operations detract from the coolness of adding step-up authentication. Open a terminal window and run the following commands to get a local copy of the project in a directory called `stepup-auth-project` and install dependencies. Feel free to fork the repo so you can track your changes.
+You'll start by getting a local copy of the project. I opted to use a starter project instead of building it out within the tutorial because many steps and command line operations detract from the coolness of adding step-up authentication. Open a terminal window and run the following commands to get a local copy of the project in a directory called `okta-stepup-auth-project` and install dependencies. Feel free to fork the repo so you can track your changes.
 
 ```shell
-git clone https://github.com/oktadev/okta-angular-nestjs-stepup-auth-example.git stepup-auth-project
-cd stepup-auth-project
+git clone https://github.com/oktadev/okta-angular-nestjs-stepup-auth-example.git okta-stepup-auth-project
+cd okta-stepup-auth-project
 npm ci
 ```
 
