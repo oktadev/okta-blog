@@ -330,7 +330,7 @@ export const stepupInterceptor: HttpInterceptorFn = (req, next) => {
 };
 ```
 
-The error handler needs first to verify this is an error we want to handle. Is this HTTP error a step-up error from our resource server? We can check for this! In the `handleError` method, add the following code and change the return value.
+The error handler needs first to verify this is an error we want to handle. Is this HTTP error a step-up error from our resource server? We can check for this! In the `handleError` method, add the following code and change the return value:
 
 ```ts
 const handleError = (httpError: HttpErrorResponse) => {
