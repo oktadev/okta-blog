@@ -11,7 +11,7 @@ tweets:
 - ""
 - ""
 image:
-type: awareness|conversion
+type: awareness
 ---
 
 OAuth 2.0 and OpenID Connect are the authentication and authorization _de facto_ standards for online web applications. In this post you will learn how to enable the extension Proof Key for Code Exchange in a Spring Boot confidential client, adhering to the latest [Security Best Current Practice (BCP)](https://oauth.net/2/oauth-best-practice/)
@@ -88,9 +88,181 @@ packageName=com.example.demo" \
 --output spring-web.zip
 ```
 
-If you inspect the contents of `build.gradle`, you will find the Okta Spring Boot Starter dependency is included.
+If you inspect the contents of `build.gradle`, you will find the Okta Spring Boot Starter dependency is included. The Okta Spring Boot Starter simplifies the process of adding authentication into your Spring Boot application by auto-configuring the necessary classes and adhering to best practices, eliminating the need for you to do it manually. It leverages the OAuth 2.0 and OpenID Connect protocols for user authentication.
 
-The Okta Spring Boot Starter simplifies the process of adding authentication into your Spring Boot application by auto-configuring the necessary classes and adhering to best practices, eliminating the need for you to do it manually. It leverages the OAuth 2.0 and OpenID Connect protocols for user authentication.
+Add the following additional dependencies to `build.gradle`:
+
+```groovy
+// build.gradle
+dependencies {
+    ...
+    implementation 'me.paulschwarz:spring-dotenv:4.0.0'
+    ...
+}    
+```
+
+Create the `index.html` template at `src/main/resources/templates` with the following content:
+
+```html
+// src/main/resources/templates/index.html
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Bootstrap demo</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+<th:block th:replace="~{fragments/navigation.html}" />
+
+
+<div class="container my-5">
+    <h1>Hello, world!</h1>
+    <div class="col-lg-8 px-0">
+        <p class="fs-5">You've successfully loaded up the Bootstrap starter example. It includes <a href="https://getbootstrap.com/">Bootstrap 5</a> via the <a href="https://www.jsdelivr.com/package/npm/bootstrap">jsDelivr CDN</a> and includes an additional CSS and JS file for your own code.</p>
+        <p>Feel free to download or copy-and-paste any parts of this example.</p>
+
+        <hr class="col-1 my-4">
+
+        <a href="https://getbootstrap.com" class="btn btn-primary">Read the Bootstrap docs</a>
+        <a href="https://github.com/twbs/examples" class="btn btn-secondary">View on GitHub</a>
+    </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
+<script src="main.js"></script>
+</body>
+</html>
+```
+
+Create the fragment `navigation.html` at `stc/main/resources/templates/fragments`:
+
+```html
+// src/main/resources/templates/fragments/navigation.html
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <div class="container">
+        <a class="navbar-brand" href="#">Navbar</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                <li class="nav-item">
+                    <a class="nav-link active" aria-current="page" href="#">Home</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#">Link</a>
+                </li>
+            </ul>
+            <ul class="navbar-nav d-flex mb-2 mb-lg-0">
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                        [[${username}]]
+                    </a>
+                    <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                        <li><a class="dropdown-item" th:href="@{/profile}">Profile</a></li>
+                        <li>
+                            <form method="post" th:action="@{/logout}">
+                                <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}"/>
+                                <button id="logout" class="dropdown-item" type="submit">Logout</button>
+                            </form>
+                        </li>
+                    </ul>
+                </li>
+            </ul>
+        </div>
+    </div>
+</nav>
+```
+
+Create the `HomeController.java` in the `com.example.demo.web` package:
+
+```java
+// src/main/java/com/example/demo/web/HomeController.java
+package com.example.demo.web;
+
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.security.oauth2.core.oidc.user.OidcUser;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
+
+@Controller
+public class HomeController {
+
+    @GetMapping("/")
+    public String index(@AuthenticationPrincipal OidcUser oidcUser, Model model) {
+        model.addAttribute("username", oidcUser.getEmail());
+        return "index";
+    }
+}
+```
+
+Add a `profile.html` template:
+
+```html
+// src/main/resources/templates/profile.html
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Bootstrap demo</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+<th:block th:replace="~{fragments/navigation.html}" />
+
+
+<div class="container my-5">
+    <h1>[[${username}]]</h1>
+    <div class="col-lg-8 px-0">
+        <p class="fs-5">Here are your user's attributes:</p>
+        <table class="table table-striped">
+            <thead>
+            <tr>
+                <th>Claim</th>
+                <th>Value</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="item : ${claims}">
+                <td th:text="${item.key}">Key</td>
+                <td th:id="${'claim-' + item.key}" th:text="${item.value}">Value</td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
+<script src="main.js"></script>
+</body>
+</html>
+```
+
+Add the `/profile` handler in the `HomeController` class:
+
+```java
+// src/main/java/com/example/demo/web/HomeController.java
+...
+
+@GetMapping("/profile")
+public String profile(@AuthenticationPrincipal OidcUser oidcUser, Model model) {
+    model.addAttribute("username", oidcUser.getEmail());
+    model.addAttribute("claims", oidcUser.getClaims());
+    return "profile";
+}
+
+...
+```
+
+### Configure OpenID Connect with Auth0
 
 Sign up at [Auth0](https://auth0.com/signup) and install the [Auth0 CLI](https://github.com/auth0/auth0-cli). Then in the command line run:
 
@@ -123,8 +295,8 @@ Populate the `.env` with the following environment variables and values from the
 ```shell
 PORT=4040
 OKTA_OAUTH2_ISSUER=https://<your-auth0-domain>/
-OKTA_OAUTH2_CLIENT_ID=<auth0-client-id>
-OKTA_OAUTH2_CLIENT_SECRET=<auth0-client-secret>
+OKTA_OAUTH2_CLIENT_ID=<client-id>
+OKTA_OAUTH2_CLIENT_SECRET=<client-secret>
 ```
 
 The Okta Spring Boot Starter will detect the presence of the above properties and auto-configure the Spring Security filter chain for OpenID Connect authentication.
@@ -147,36 +319,21 @@ Run the application with:
 In your browser, open a private navigation window and go to http://localhost:4040/. Upon clicking the "Log In" button, Spring MVC redirects you to the Auth0 Universal Login page. If you check the application logs, you will see Spring Security redirects to your Auth0 '/authorize' endpoint:
 
 ```
-Redirecting to https://***.auth0.com/authorize?response_type=code&client_id=3SgEFDZfV2402hKmNhc0eIN10Z7tem1R&scope=profile%20email%20openid&state=cgnIgFiRk0leuILid3kKTaPgADtO3LcqFllYfbaeUN8%3D&redirect_uri=http://localhost:4040/login/oauth2/code/okta&nonce=rxNwGCoeUN-qephca3rREIP1J8Z0YKq4A5imajmsxMc
+Redirecting to https://dev-avup2laz.us.auth0.com/authorize?response_type=code&client_id=3SgEFDZfV2402hKmNhc0eIN10Z7tem1R&scope=profile%20email%20openid&state=qw8rMCn7N6hv7V4Wx8z5-ejsV8Av8Ypx9KBm5jL6tN4%3D&redirect_uri=http://localhost:4040/login/oauth2/code/okta&nonce=3aiFDmu7aOktibpACDUYuUh4HxLpBAMnVw79EcHDapk&code_challenge=andLN4-6Lu2mtHoPp1Pteu2v87oK_RmzmFLgPaHaY0s&code_challenge_method=S256
 ```
 
+As you can new last two query parameters in the request to `/authorize` endpoint are _code_challenge_ and _code_challenge_ method.
 
-## Enabling PKCE
+> [Spring Security](https://docs.spring.io/spring-security/reference/servlet/oauth2/client/authorization-grants.html#_obtaining_authorization) will automatically enable PKCE when `client-secret` is omitted or empty, and `client-authentication-method` is none, assuming the client is a public client.
 
-Enabling PKCE in a Spring Boot web application that has the Okta Starter as dependency is as simple as omitting the client secret in the starter configuration. Since version 2.1.6, the Okta Starter enables PKCE by default, and the underlying [Spring Security](https://docs.spring.io/spring-security/reference/servlet/oauth2/client/authorization-grants.html#_obtaining_authorization) integration will automatically enable PKCE when `client-secret` is omitted or empty, and `client-authentication-method` is none (which is set as default by the Okta Starter auto-configuration).
+> Since version 2.1.6, the Okta Starter enables PKCE by default for confidential clients. With the Okta Starter default auto-configuration, PKCE is enabled even if the client-secret is set. If the default security configuration is customized with `HttpSecurity.oauth2Login()`, you can re-enable PKCE for confidential clients with [`OAuth2AuthorizationRequestCustomizers.withPkce()`](https://docs.spring.io/spring-security/reference/servlet/oauth2/client/authorization-grants.html#_obtaining_authorization)`
 
-Edit the `application.yml` file, and adjust the starter configuration to this:
-
-```yml
-okta:
-  oauth2:
-    issuer: ${OKTA_OAUTH2_ISSUER}
-    client-id: ${OKTA_OAUTH2_CLIENT_ID}
-```    
-
-Restart the applications, and navigate again to go to http://localhost:4040/. Upon the login redirection to Auth0, you will see new URL parameters in the request logs:
-
- ```
- Redirecting to https://dev-avup2laz.us.auth0.com/authorize?response_type=code&client_id=3SgEFDZfV2402hKmNhc0eIN10Z7tem1R&scope=profile%20email%20openid&state=qw8rMCn7N6hv7V4Wx8z5-ejsV8Av8Ypx9KBm5jL6tN4%3D&redirect_uri=http://localhost:4040/login/oauth2/code/okta&nonce=3aiFDmu7aOktibpACDUYuUh4HxLpBAMnVw79EcHDapk&code_challenge=andLN4-6Lu2mtHoPp1Pteu2v87oK_RmzmFLgPaHaY0s&code_challenge_method=S256
- ```
-
- As you can new last two query parameters in the request to `/authorize` endpoint are _code_challenge_ and _code_challenge_ method.
 
 ## Learn more about PKCE and Spring Boot
 
 I hope this post helped you to gain a basic understanding on authentication with OpenID Connect Authorization Code Flow with PKCE, and how to enable the PKCE security best practice in Spring Boot applications using the Okta Spring Boot Starter.
 
-You can find the code shown in this tutorial on GitHub, in the [Auth0 Developer Hub](https://github.com/auth0-developer-hub/web-app_spring_java_hello-world) repository.
+You can find the code shown in this tutorial on [GitHub](https://github.com/indiepopart/spring-web-pkce).
 
 If you liked this post, you might enjoy these related posts:
 
