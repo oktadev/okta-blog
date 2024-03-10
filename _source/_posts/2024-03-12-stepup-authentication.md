@@ -187,7 +187,9 @@ This helps protect application routes, but what else can we do?
 
 ## Protect API resources with step-up authentication challenge
 
-You can also protect resources by adding step-up authentication handling to the resource server or the API serving resources to your app. You want to do so as a security measure beyond guarding client routes. Good web application security practices must enforce authentication, identity, and access control in the SPA client and APIs. Someone can bypass the SPA and make direct API calls – always guard all entries into your application system.
+You can also protect resources by adding step-up authentication handling to the resource server or the API serving resources to your app. You may have API endpoints that require elevated authentication assurances. Also, consider a user making a large financial transaction where some transaction threshold warrants extra scrutiny. Checking the transaction amount requires inspecting the payload before triggering step-up authentication. Both scenarios work with the step-up authentication challenge protocol.
+
+You may wonder why checking the `acr` claim in your API is necessary when you have already done so in the web app. Good web application security practices must enforce authentication, identity, and access control in the SPA client and APIs. Someone can bypass the SPA and make direct API calls – always guard all entries into your application system.
 
 The flow works like this:
 
