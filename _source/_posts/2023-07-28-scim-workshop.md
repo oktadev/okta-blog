@@ -12,6 +12,7 @@ tweets:
 - ""
 image: blog/scim-workshop/social.jpg
 type: awareness
+github: https://github.com/oktadev/okta-enterprise-ready-workshops/tree/scim-workshop-complete
 changelog:
 - 2023-08-21: Added a Supplemental section at the end
 - 2023-08-28: Corrected hyperlink to OIDC Workshop blog, provided more clarity in accessing the Prisma web interface. Added a disclaimer for using API tokens. 
@@ -42,7 +43,7 @@ In this workshop, we'll cover the following:
 
 {% include toc.md %}
 
-By following these steps, you will learn how to implement SCIM and support provisioning from multiple organizations/tenants. Although we'll integrate with Okta as an example, remember that almost every identity provider on the web has SCIM support! 
+By following these steps, you will learn how to implement SCIM and support provisioning from multiple organizations/tenants. Although we'll integrate with Okta as an example, remember that almost every identity provider on the web has SCIM support! If you want to jump to the completed project, you can find it in the [scim-workshop-complete](https://github.com/oktadev/okta-enterprise-ready-workshops/tree/scim-workshop-complete) GitHub repository.
 
 ## Managing users across systems at scale
 
@@ -86,9 +87,9 @@ SCIM uses the [JSON](https://www.json.org/json-en.html) format for requesting an
 
 Have you seen these endpoints before? Are they familiar to you? Perhaps you've built backend applications with these API endpoints. Let's build on that knowledge. 
 
-Before we begin, please note that this implementation of SCIM is meant to be vendor agnostic, and I will be adding notes on how Okta implements this standard throughout the demo. More importantly, we'll refer to [the SCIM 2.0 spec](https://datatracker.ietf.org/doc/html/rfc7644) to build the server. 
+Before we begin, please note that this implementation of SCIM is meant to be vendor-agnostic, and I will be adding notes on how Okta implements this standard throughout the demo. More importantly, we'll refer to [the SCIM 2.0 spec](https://datatracker.ietf.org/doc/html/rfc7644) to build the server. 
 
-## Set Up the sample React and Express application
+## Set up the sample React and Express application
 
 Follow [these setup instructions](/blog/2023/07/27/enterprise-ready-getting-started) to install and run the Todo sample app. Run `node -v` and make sure you have Node version 18 or newer. 
 
@@ -1397,9 +1398,9 @@ You'll make a similar change to all the SCIM endpoints.
 
 ## Adding SCIM support to SaaS applications
 
-Congratulations, you've added SCIM support to an OIDC application! Not only have you supported SCIM for a single Okta organization, but the implementation choices made throughout this workshop prioritize scalability so that the Todo app can integrate with as many additional identity providers as necessary! By giving every integration its own unique SCIM endpoint and API token, you prepare your application to seamlessly integrate with as many customers as you want. Keep in mind, IdPs that support SCIM may implement SCIM differently, so you will need to reference the specific IdP's implementation docs.
+Congratulations, you've added SCIM support to an OIDC application! Not only have you supported SCIM for a single Okta organization, but the implementation choices made throughout this workshop prioritize scalability so that the Todo app can integrate with as many additional identity providers as necessary! By giving every integration its own unique SCIM endpoint and API token, you prepare your application to seamlessly integrate with as many customers as you want. Keep in mind, IdPs that support SCIM may implement SCIM differently, so you will need to reference the specific IdP's implementation docs. 
 
-If you have followed along with the workshops so far, you now have a Todo application secured by OpenID Connect with SCIM provisioning. Your users can now authenticate securely with OIDC and make use of this application once they have been provisioned and assigned to the application from an Identity Provider such as Okta. 
+You can check out the completed SCIM server sample in the [scim-workshop-complete](https://github.com/oktadev/okta-enterprise-ready-workshops/tree/scim-workshop-complete) GitHub repository. And if you have followed along with the workshops so far, you now have a Todo application secured by OpenID Connect with SCIM provisioning. Your users can now authenticate securely with OIDC and make use of this application once they have been provisioned and assigned to the application from an Identity Provider such as Okta. 
 
 |Posts in the enterprise-ready workshop series|
 | --- |

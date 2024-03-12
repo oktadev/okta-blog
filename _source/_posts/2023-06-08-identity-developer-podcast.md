@@ -25,7 +25,7 @@ The audio version of the Workforce Identity Developer Podcast is available on [C
 
 ## WebAuthN and Passkeys
 
-In March, with product manager Megha Rastogi, we discussed what Workforce Identity means and reviewed some of the history of security that got us here. We dig into phishing-resistant MFA and compare the relative benefits and drawbacks of WebAuthN and Passkeys. 
+In March, with product manager Megha Rastogi, we discussed what Workforce Identity means and reviewed some of the history of security that got us here. We dig into phishing-resistant MFA and compare the relative benefits and drawbacks of WebAuthN and Passkeys. To learn more about passkeys, visit our [passkeys playground!](https://a0.to/passkeys_oktablog)
 
 {% youtube PiY5HDp0ABI %} 
 
