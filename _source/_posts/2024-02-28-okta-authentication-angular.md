@@ -28,6 +28,10 @@ There are three main ways you can add configuration information to Angular appli
 
 The best way to experiment with loading authentication configuration at runtime is to try it out yourself. Pull out your machine and warm up your fingers! If you want to jump to the completed project, you can find it in the [okta-angular-standalone-config-example](https://github.com/oktadev/okta-angular-standalone-runtime-config-example) GitHub repository. Otherwise, let's get coding! 
 
+> **Note**
+>
+> This post is best for developers familiar with Angular. If you are an Angular newbie, start by building [your first Angular app](https://angular.io/tutorial/first-app) using the tutorial created by the Angular team.
+
 **Prerequisites**
 
 For this tutorial, you will need the following tools:
