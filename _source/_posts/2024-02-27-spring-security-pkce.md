@@ -27,7 +27,7 @@ If you'd rather skip the step-by-step and prefer running a sample application, f
 
 ## Authorization Code Flow and PKCE
 
-OAuth 2.0](https://www.rfc-editor.org/rfc/rfc6749.html) is a standard designed to authorize a website or application to access resources hosted by third-party services on behalf of a user. For web and mobile applications, [OpenID Connect 1.0](https://openid.net/specs/openid-connect-core-1_0.html) (OIDC) was born in 2014, a simple identity layer on top of OAuth 2.0, now widely adopted as part of the Identity and Access Management strategy of many identity providers and identity clients on the internet.
+[OAuth 2.0](https://www.rfc-editor.org/rfc/rfc6749.html) is a standard designed to authorize a website or application to access resources hosted by third-party services on behalf of a user. For web and mobile applications, [OpenID Connect 1.0](https://openid.net/specs/openid-connect-core-1_0.html) (OIDC) was born in 2014, a simple identity layer on top of OAuth 2.0, now widely adopted as part of the Identity and Access Management strategy of many identity providers and identity clients on the internet.
 
 The OpenID Connect core specification defines the following roles:
 
