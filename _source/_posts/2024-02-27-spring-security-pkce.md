@@ -14,12 +14,14 @@ image:
 type: awareness
 ---
 
-OAuth 2.0 and OpenID Connect are the authentication and authorization _de facto_ standards for online web applications. In this post you will learn how to enable the extension Proof Key for Code Exchange in a Spring Boot confidential client, adhering to the latest [Security Best Current Practice (BCP)](https://oauth.net/2/oauth-best-practice/)
+OAuth 2.0 and OpenID Connect are the authentication and authorization _de facto_ standards for online web applications. In this post you will learn how to enable the extension Proof Key for Code Exchange in a Spring Boot confidential client, adhering to the latest [Security Best Current Practice (BCP)](https://oauth.net/2/oauth-best-practice/).
 
 > **This tutorial was created with the following tools and services**:
 > - [Java OpenJDK 17](https://jdk.java.net/java-se-ri/17)
 > - [Auth0 account](https://auth0.com/signup)
 > - [Auth0 CLI 1.4.0](https://github.com/auth0/auth0-cli#installation)
+
+If you'd rather skip the step-by-step and prefer running a sample application, follow the [README](https://github.com/indiepopart/spring-web-pkce) instructions in the Github repository.
 
 {% include toc.md %}
 
@@ -54,7 +56,7 @@ When calling the Token Endpoint, the client application must authenticate itself
 - `private_key_jwt`: The client has registered a public key and authenticates using a JWT signed with the private key.
 - `none`: The client does not authenticate itself a the Token Endpoint, because it is a public client.
 
-As browser and mobile applications _cannot_ hold credentials securely and therefore cannot identify themselves using a client secret, [PKCE](https://www.rfc-editor.org/rfc/rfc7636) was created for extending the OAuth 2.0 Authorization Code Flow, adding a dynamically created cryptographically random key called "code verifier". This extension was created for mitigating the authorization code interception attack.
+As browser and mobile applications _cannot_ hold credentials securely and therefore cannot identify themselves using a client secret, [PKCE](https://www.rfc-editor.org/rfc/rfc7636) was created for extending the OAuth 2.0 Authorization Code Flow, adding a dynamically created cryptographically random key called "code verifier". This extension was created for mitigating the [authorization code interception attack](https://www.rfc-editor.org/rfc/rfc7636#section-1).
 
 The modified flow has the following steps:
 
@@ -112,7 +114,7 @@ dependencies {
 Create the `index.html` template at `src/main/resources/templates` with the following content:
 
 ```html
-// src/main/resources/templates/index.html
+<!-- src/main/resources/templates/index.html -->
 <!doctype html>
 <html lang="en">
 <head>
@@ -149,7 +151,7 @@ Create the `index.html` template at `src/main/resources/templates` with the foll
 Create the fragment `navigation.html` at `stc/main/resources/templates/fragments`:
 
 ```html
-// src/main/resources/templates/fragments/navigation.html
+<!-- src/main/resources/templates/fragments/navigation.html -->
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
     <div class="container">
         <a class="navbar-brand" href="#">Navbar</a>
@@ -212,7 +214,7 @@ public class HomeController {
 Add a `profile.html` template:
 
 ```html
-// src/main/resources/templates/profile.html
+<!-- src/main/resources/templates/profile.html -->
 <!doctype html>
 <html lang="en">
 <head>
@@ -350,7 +352,7 @@ As you can new last two query parameters in the request to `/authorize` endpoint
 
 > [Spring Security](https://docs.spring.io/spring-security/reference/servlet/oauth2/client/authorization-grants.html#_obtaining_authorization) will automatically enable PKCE when `client-secret` is omitted or empty, and `client-authentication-method` is none. A client without a secret is  is assumed to be a public client.
 
-> Since version 2.1.6, the Okta Starter enables PKCE by default for confidential clients. With the Okta Starter default auto-configuration, PKCE is enabled even if the client-secret is set through the Okta Starter configuration properties.
+> Since version 2.1.6, the Okta Starter enables PKCE by default for confidential clients. With the Okta Starter default auto-configuration, PKCE is enabled automatically even if the client-secret is set through the Okta Starter configuration properties.
 
 In the browser window, continue with the sign in flow, and give consent to the application to access your user information:
 
@@ -380,7 +382,7 @@ Make sure [End Session Endpoint Discovery](https://auth0.com/docs/authenticate/l
 
 {% img blog/spring-security-pkce/auth0-end-session-discovery.png alt:"Auth0 End Session Endpoint Discovery toggle option" width:"600" %}{: .center-image }
 
-Now the **Logout** will end the session at Auth0, and the browser will redirect to the Universal Login page.
+Restart the application. Now the **Logout** link will end the session at Auth0, and the browser will redirect to the Universal Login page.
 
 ### Enable PKCE for confidential clients with custom HttpSecurity
 
