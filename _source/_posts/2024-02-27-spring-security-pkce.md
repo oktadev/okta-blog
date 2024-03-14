@@ -33,7 +33,7 @@ The OpenID Connect core specification defines the following roles:
 
 1. End-User: Human participant
 2. Authorization Server: The server issuing access tokens to the client after successfully authenticating the resource owner and obtaining authorization.
-3. Client: An application making protected resource requests on behalf of the resource owner (the end user) and with its authorization.
+3. Client: An application making protected resource requests on behalf of the resource owner (the end-user) and with its authorization.
 
 From the OpenID Connect specification, the authentication using Authorization Code Flow has the following steps:
 
@@ -54,9 +54,9 @@ When calling the Token Endpoint, the client application must authenticate itself
 - `client_secret_post`: The client was assigned a secret and authenticates by including the client credentials in the request body.
 - `client_secret_jwt`: The client was assigned a secret and authenticates using a JWT signed with part of the secret as a shared key.
 - `private_key_jwt`: The client has registered a public key and authenticates using a JWT signed with the private key.
-- `none`: The client does not authenticate itself a the Token Endpoint, because it is a public client.
+- `none`: The client does not authenticate itself at the Token Endpoint, because it is a public client.
 
-As browser and mobile applications _cannot_ hold credentials securely and therefore cannot identify themselves using a client secret, [PKCE](https://www.rfc-editor.org/rfc/rfc7636) was created for extending the OAuth 2.0 Authorization Code Flow, adding a dynamically created cryptographically random key called "code verifier". This extension was created for mitigating the [authorization code interception attack](https://www.rfc-editor.org/rfc/rfc7636#section-1).
+As browser and mobile applications _cannot_ hold credentials securely and therefore cannot identify themselves using a client secret, [PKCE](https://www.rfc-editor.org/rfc/rfc7636) was created for extending the OAuth 2.0 Authorization Code Flow, adding a dynamically created cryptographically random key called "code verifier". This extension was created to mitigate the [authorization code interception attack](https://www.rfc-editor.org/rfc/rfc7636#section-1).
 
 The modified flow has the following steps:
 
@@ -67,11 +67,11 @@ The modified flow has the following steps:
 3. The Client then sends the authorization code in the Access Token Request as usual but includes the "code_verifier" secret generated in the first step.
 4. The Authorization Server transforms "code_verifier" and compares it to the recorded "code_challenge". Access is denied if they are not equal.
 
-The latest [Security BCP](https://www.ietf.org/archive/id/draft-ietf-oauth-security-topics-24.html) states that PKCE should be enabled for all types of clients, public and confidential (browser based applications, mobile applications, native applications and secure server applications).
+The latest [Security BCP](https://www.ietf.org/archive/id/draft-ietf-oauth-security-topics-24.html) states that PKCE should be enabled for all types of clients, public and confidential (browser-based applications, mobile applications, native applications, and secure server applications).
 
 ## Spring Security for Authorization Code Flow
 
-You can experiment on how to configure the authorization code flow configuration by creating a simple Spring Boot web application, following the step-by-step guide in the following sections.
+You can experiment with how to configure the authorization code flow configuration by creating a simple Spring Boot web application, following the step-by-step guide in the following sections.
 
 
 ### Create a simple Spring Boot application
@@ -148,7 +148,7 @@ Create the `index.html` template at `src/main/resources/templates` with the foll
 </html>
 ```
 
-Create the fragment `navigation.html` at `stc/main/resources/templates/fragments`:
+Create the fragment `navigation.html` at `src/main/resources/templates/fragments`:
 
 ```html
 <!-- src/main/resources/templates/fragments/navigation.html -->
@@ -296,7 +296,7 @@ auth0 apps create \
   --reveal-secrets
 ```
 
-Notice the output contains your Auth0 domain, clientId and clientSecret.
+Notice the output contains your Auth0 domain, clientId, and clientSecret.
 
 Rename `application.properties` to `application.yml` and add the following values:
 
@@ -348,13 +348,13 @@ In your browser, open a private navigation window and go to [**http://localhost:
 Redirecting to https://dev-avup2laz.us.auth0.com/authorize?response_type=code&client_id=3SgEFDZfV2402hKmNhc0eIN10Z7tem1R&scope=profile%20email%20openid&state=qw8rMCn7N6hv7V4Wx8z5-ejsV8Av8Ypx9KBm5jL6tN4%3D&redirect_uri=http://localhost:4040/login/oauth2/code/okta&nonce=3aiFDmu7aOktibpACDUYuUh4HxLpBAMnVw79EcHDapk&code_challenge=andLN4-6Lu2mtHoPp1Pteu2v87oK_RmzmFLgPaHaY0s&code_challenge_method=S256
 ```
 
-As you can new last two query parameters in the request to `/authorize` endpoint are _code_challenge_ and _code_challenge_method_.
+As you can see, the last two query parameters in the request to `/authorize` endpoint are _code_challenge_ and _code_challenge_method_.
 
-> [Spring Security](https://docs.spring.io/spring-security/reference/servlet/oauth2/client/authorization-grants.html#_obtaining_authorization) will automatically enable PKCE when `client-secret` is omitted or empty, and `client-authentication-method` is none. A client without a secret is  is assumed to be a public client.
+> [Spring Security](https://docs.spring.io/spring-security/reference/servlet/oauth2/client/authorization-grants.html#_obtaining_authorization) will automatically enable PKCE when `client-secret` is omitted or empty, and `client-authentication-method` is none. A client without a secret is assumed to be a public client.
 
 > Since version 2.1.6, the Okta Starter enables PKCE by default for confidential clients. With the Okta Starter default auto-configuration, PKCE is enabled automatically even if the client-secret is set through the Okta Starter configuration properties.
 
-In the browser window, continue with the sign in flow, and give consent to the application to access your user information:
+In the browser window, continue with the sign-in flow, and give consent to the application to access your user information:
 
 {% img blog/spring-security-pkce/auth0-consent.png alt:"Auth0 Consent Page" width:"400" %}{: .center-image }
 
