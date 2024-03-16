@@ -29,7 +29,7 @@ Learn how to use Spring Boot, Java, and Auth0 to secure a feature-complete API, 
 
 In computer systems, authentication and authorization are part of a discipline called Identity and Access Management (IAM). [OAuth 2.0](https://www.rfc-editor.org/rfc/rfc6749.html) is a standard designed to authorize a website or application to access resources hosted by third-party services on behalf of a user. For web and mobile applications, an identity protocol was born in 2014, [OpenID Connect 1.0](https://openid.net/specs/openid-connect-core-1_0.html) (OIDC), a simple identity layer on top of OAuth 2.0, now widely adopted as part of the IAM strategy of many identity providers and identity clients on the internet.
 
-For authorizing access to a protected resource, OAuth 2.0 uses Access Tokens, a piece of data, a string representing an authorization issued to the client, scopes and durations of the access, validated at the resource server. Briefly, the standard defines the roles of resource owner, resource server, client, and authorization server, and a protocol flow for the client requesting access, through an authorization server, to resources controlled by the resource owner and hosted by the resource server.
+For authorizing access to a protected resource, OAuth 2.0 uses Access Tokens. An access token is a piece of data representing an authorization issued to the client. It may also include scopes and durations of the access. The token is validated at the resource server. Briefly, the standard defines the roles of resource owner, resource server, client, and authorization server, and a protocol flow for the client requesting access, through an authorization server, to resources controlled by the resource owner and hosted by the resource server.
 
 OpenID Connect provides authentication built on top of OAuth 2.0, and information about the authentication performed is returned in an ID Token with JWT format (JSON Web Token). In abstract, the protocol defines a client role or Relying Party that sends a request to the OpenID Provider, which in turn authenticates the end-user and obtains authorization, returning an ID Token and Access Token to the Relying Party.
 
@@ -37,7 +37,7 @@ OpenID Connect provides authentication built on top of OAuth 2.0, and informatio
 
 After the year 2020, in Buenos Aires, many bars and restaurants implemented a digital menu with a QR code that translates to a public document, for having an updated prices list. Prices change so often due to inflation, and updating a physical menu seems tedious and costly. Still, restaurant tables are managed with a software application, which includes a menu management module.
 
-For learning purposes, let's assume you have built a Spring Boot menu API that must be secured, so only authorized users can perform requests to its endpoints. Now you are going to implement authorization for the API with OAuth2 2.0 and Auth0. Start by doing a checkout of the API repository, which already implements basic request handling:
+For learning purposes, let's assume you have built a Spring Boot menu API that must be secured, so only authorized users can perform requests to its endpoints. Now you are going to implement authorization for the API with OAuth 2.0 and Auth0. Start by doing a checkout of the API repository, which already implements basic request handling:
 
 ```shell
 git clone https://github.com/indiepopart/spring-menu-api.git
@@ -45,7 +45,7 @@ git clone https://github.com/indiepopart/spring-menu-api.git
 
 The repository contains two project folders, `start` and `demo`. The bare bones menu API is a Gradle project in the `start` folder, open it with your favorite IDE. If you would rather skip the step-by-step security configuration and just run the final `demo` project, follow the instructions in the [README](https://github.com/indiepopart/spring-menu-api).
 
-Sign up at [Auth0](https://auth0.com/signup) and install the [Auth0 CLI](https://github.com/auth0/auth0-cli). Then in the command line run:
+Sign up at [Auth0](https://a0.to/blog_signup) and install the [Auth0 CLI](https://github.com/auth0/auth0-cli). Then in the command line run:
 
 ```shell
 auth0 login
@@ -53,7 +53,7 @@ auth0 login
 
 The command output will display a device confirmation code and open a browser session to activate the device.
 
-You don't need to create a client application for your API if not using opaque tokens. But you must register the API within your tenant, you can do it using Auth0 CLI:
+You need to create a client application for your API if you are using opaque tokens. Since this tutorial does not use opaque tokens, you only need to register the API within your tenant. You can do it using Auth0 CLI:
 
 ```shell
 auth0 apis create \
@@ -63,7 +63,9 @@ auth0 apis create \
   --offline-access=false
 ```
 
-The scopes `create:items`, `update:items`, `delete:items` will be required ahead in the tutorial. Add the `okta-spring-boot-starter` dependency:
+The scopes `create:items`, `update:items`, `delete:items` will be required ahead in the tutorial. 
+
+Next, add the `okta-spring-boot-starter` dependency:
 
 ```groovy
 // build.gradle
@@ -73,7 +75,7 @@ dependencies {
     ...
 }
 ```
-As the `menu-api` must be configured as an OAuth2 resource server, add the following properties:
+As the `menu-api` must be configured as an OAuth2 resource server, add the following properties to the `application.properties` file:
 
 ```properties
 # application.properties
@@ -94,7 +96,7 @@ Run the API with:
 Test the API authorization with curl:
 
 ```shell
-curl localhost:8080/api/menu/items
+curl -i localhost:8080/api/menu/items
 ```
 You will get HTTP response code `401` because the request requires bearer authentication. Using Auth0 CLI, get an access token:
 
@@ -110,9 +112,9 @@ ACCESS_TOKEN=<auth0-access-token>
 ```
 
 ```shell
-curl -v --header "Authorization: Bearer $ACCESS_TOKEN" localhost:8080/api/menu/items
+curl -i --header "Authorization: Bearer $ACCESS_TOKEN" localhost:8080/api/menu/items
 ```
-The request will not be authorized yet, because _This aud claim is not equal to the configured audience_. If the audience is not specified in the`auth0 test token` command, the default value is `https://dev-avup2laz.us.auth0.com/api/v2`, which is the Auth0Provider management API audience.
+The request will not be authorized yet, because _This aud claim is not equal to the configured audience_. If the audience is not specified in the`auth0 test token` command, the default value is `https://dev-avup2laz.us.auth0.com/api/v2`, which is the Auth0 Provider management API audience.
 
 > NOTE: The Okta Spring Boot Starter autoconfigures the issuer and audience validation from the resource server properties for JWT authorization.
 
@@ -209,7 +211,7 @@ public class ItemController {
 ...
 ```
 
-Restart the server API. Before the sign in, you can create some test users with the Auth0 CLI. This step is optional, you can sign up later from the [Auth0 Universal Login](https://auth0.com/docs/authenticate/login/auth0-universal-login) form, or choose Google social login.
+Restart the API server. Before the sign in, you can create some test users with the Auth0 CLI. This step is optional, you can sign up later from the [Auth0 Universal Login](https://auth0.com/docs/authenticate/login/auth0-universal-login) form, or choose Google social login.
 
 ```shell
 auth0 users create
@@ -251,7 +253,7 @@ In the WHATABYTE client settings, re-enable the authentication features, and als
 
 Now if you sign in with the user you created, the UI will not display the links to perform write operations, as the role has not yet been assigned.
 
-First, the role must be defined in the Auth0 tenant as well. You can use the following Auth0 CLI command:
+First, the `menu-admin` role must be defined in the Auth0 tenant as well. You can use the following Auth0 CLI command:
 
 ```shell
 auth0 roles create
@@ -276,7 +278,7 @@ Follow the steps, you will see the output below:
 
 ### Mapping the roles to token claims
 
-The role `menu-admin` and its permissions must be mapped to a claim in the accessToken, to make them available in the API for authorization. With [Auth0 Actions](https://auth0.com/docs/customize/actions) you can customize the Login flow to map the user roles to a custom claim.
+The role `menu-admin` and its permissions must be mapped to a claim in the access token, to make them available in the API for authorization. With [Auth0 Actions](https://auth0.com/docs/customize/actions) you can customize the Login flow to map the user roles to a custom claim.
 
 First [configure your preferred editor](https://github.com/auth0/auth0-cli#customization) to use with the Auth0 CLI:
 
