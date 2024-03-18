@@ -63,7 +63,7 @@ auth0 apis create \
   --offline-access=false
 ```
 
-The scopes `create:items`, `update:items`, `delete:items` will be required ahead in the tutorial. 
+The scopes `create:items`, `update:items`, `delete:items` will be required ahead in the tutorial.
 
 Next, add the `okta-spring-boot-starter` dependency:
 
@@ -82,6 +82,8 @@ As the `menu-api` must be configured as an OAuth2 resource server, add the follo
 okta.oauth2.issuer=https://<your-auth0-domain>/
 okta.oauth2.audience=https://menu-api.okta.com
 ```
+
+You can find your Auth0 domain with the following Auth0 CLI command:
 
 ```shell
 auth0 tenants list
@@ -108,17 +110,14 @@ Select any available client when prompted. You also will be prompted to open a b
 With curl, send a request to the API server using a bearer access token:
 
 ```shell
-ACCESS_TOKEN=<auth0-access-token>
+ACCESS_TOKEN=<auth0-access-token> &&\
+  curl -i --header "Authorization: Bearer $ACCESS_TOKEN" localhost:8080/api/menu/items
 ```
-
-```shell
-curl -i --header "Authorization: Bearer $ACCESS_TOKEN" localhost:8080/api/menu/items
-```
-The request will not be authorized yet, because _This aud claim is not equal to the configured audience_. If the audience is not specified in the`auth0 test token` command, the default value is `https://dev-avup2laz.us.auth0.com/api/v2`, which is the Auth0 Provider management API audience.
+The request will not be authorized yet, you will see the error message _This aud claim is not equal to the configured audience_. The error means that the audience contained in the `aud` claim of the access token does not match the expected audience, configured in the server properties. When requesting a token with the`auth0 test token` command, the default audience value is `https://<your-auth0-domain>/api/v2`, which is the Auth0 Provider management API audience.
 
 > NOTE: The Okta Spring Boot Starter autoconfigures the issuer and audience validation from the resource server properties for JWT authorization.
 
-Request a test token again, this time with the required audience:
+Request a test token again, this time with the expected audience:
 ```shell
 auth0 test token -a https://<your-auth0-domain>/api/v2/ -s openid -a https://menu-api.okta.com
 ```
