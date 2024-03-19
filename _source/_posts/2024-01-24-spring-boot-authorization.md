@@ -110,7 +110,7 @@ Select any available client when prompted. You also will be prompted to open a b
 With curl, send a request to the API server using a bearer access token:
 
 ```shell
-ACCESS_TOKEN=<auth0-access-token> &&\
+ACCESS_TOKEN=<auth0-access-token>
   curl -i --header "Authorization: Bearer $ACCESS_TOKEN" localhost:8080/api/menu/items
 ```
 The request will not be authorized yet, you will see the error message _This aud claim is not equal to the configured audience_. The error means that the audience contained in the `aud` claim of the access token does not match the expected audience, configured in the server properties. When requesting a token with the`auth0 test token` command, the default audience value is `https://<your-auth0-domain>/api/v2`, which is the Auth0 Provider management API audience.
