@@ -40,25 +40,21 @@ This application uses [React](https://react.dev/) for the frontend application a
 
 Do you want to see your framework of choice in a workshop? Let us know your preferred tech stack for an enterprise-ready SaaS application in the comments below!
 
-## Install Node.js and required tools
+## Install required tools
 
-Each tech stack has the required tooling to install on your machine. Depending on the specific workshop you're participating in, you may need some knowledge of JavaScript, REST concepts, and command line operations in addition to the installed tools.
-
-Next, you'll install the required tools, get a local copy of the project, and walk through the commands to start and stop the application.
-
-There's a [companion video for this post](https://youtu.be/FCSNMtLtwRg) that shows the installation process and running the application. 
+Each tech stack has the required tooling to install on your machine. While knowledge of JavaScript, REST concepts, and command line operations are helpful, we provided a [companion video](https://youtu.be/FCSNMtLtwRg) to walk you through the installation process and running the application.
 
 {% youtube FCSNMtLtwRg %}
 
-### Install Node, npm, and npx
+### Install Node.js
 
-You'll need [Node.js](https://nodejs.org/en) v18+. When you install Node.js, you'll automatically get npm, a command line tool to install, update, and manage dependencies. npm includes a command called npx, allowing you to run a npm package without installing it locally.
+You'll need [Node.js](https://nodejs.org/en) v18 or higher. When you install Node.js, you'll automatically get npm, a command line tool to install, update, and manage dependencies. npm includes a command called npx, allowing you to run a npm package without installing it locally.
 
 The application was built using Node v18.14.0, npm v9.3.1.
 
 ### Git and GitHub (optional)
 
-You can find the source code for the project on [GitHub](https://github.com/). If you want to use source control for your work as you participate in the workshops, you may want to use [Git](https://git-scm.com/) and create a GitHub account. If you do not want to use Git, you can also download the source code from GitHub as a zip file.
+You can find the source code for the project in the [okta-enterprise-ready-workshops](https://github.com/oktadev/okta-enterprise-ready-workshops) GitHub repository. If you want to use source control for your work as you participate in the workshops, you may want to use [Git](https://git-scm.com/) and create a [GitHub](https://github.com) account. If you do not want to use Git, you can also download the source code from the GitHub repository [as a zip file](https://github.com/oktadev/okta-enterprise-ready-workshops/archive/refs/heads/main.zip).
 
 ### Code editor/Integrated development environment (IDE)
 
@@ -93,7 +89,7 @@ npm run init-db
 
 Before you voice concerns about writing the passwords to the console and storing the passwords in plaintext in the database, don't fear! One of the upcoming workshops replaces the username/password local database password store scheme with an enterprise-ready authentication mechanism! 
 
-## Inspect the React and Express Nx TypeScript project
+## Inspect the React and Express project
 
 Open the project in your IDE. First, you'll see the README. The README has the npm commands we'll cover next in a quick reference format. 
 
@@ -116,6 +112,8 @@ The React frontend todo application serves on `localhost:3000`, so open it up in
 You will sign in using the email and password of one of the two users, which will navigate you to the Todo app where you can start adding, completing, and deleting todos.
 
 {% img blog/enterprise-ready-getting-started/todolist.jpg alt:"Screenshot of todo list" %}{: .center-image }
+
+This is a bare-bones implementation of a todo application, so you won't have the user experience niceties like error notifications for entering email and passwords incorrectly.
 
 Stop serving the application by entering `Ctrl+c` in the terminal.
 

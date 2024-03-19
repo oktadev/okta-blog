@@ -5,12 +5,14 @@ author: tanish-kumar
 by: internal-contributor
 communities: [python]
 description: "How I built a Python chatbot to quickly access information from Okta's Developer Documentation."
-tags: [python-chatbot, python, okta-documentation, ai, automation]
+tags: [chatbot, python, machine-learning, llm]
 tweets:
 - ""
 image: blog/okta-documentation-chatbot/oktanaut.jpeg
 type: awareness
 github: https://github.com/oktadev/okta-python-chatbot-example
+changelog:
+- 2024-02-23: Added additional tags
 ---
 
 In today's fast-paced world of technology, developers must navigate through detailed API documentation to integrate with software solutions. As a Developer Support Intern at Okta, I noticed developers underutilizing [Okta's Developer Documentation](https://developer.okta.com/). To help them benefit from the wealth of information in these docs, I was inspired to build a tool using OpenAI. Leveraging ChatGPT, I built ✨Oktanaut✨, a versatile Python chatbot running on Jupyter Notebook that makes access to information on Okta's Developer Documentation simple and straightforward.

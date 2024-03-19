@@ -12,7 +12,10 @@ tweets:
 - ""
 image: blog/oidc_workshop/social.jpg
 type: awareness
+github: https://github.com/oktadev/okta-enterprise-ready-workshops/tree/oidc-workshop-complete
+changelog:
 ---
+
 This workshop is part of our Enterprise Readiness Workshop series. 
 
 In this workshop, you will be wearing the hat of a SaaS developer who will up-level his/her app to allow users (from your big enterprise customers) to log on using their own company credentials without providing a password directly to your app. When any enterprise customer considers buying your software to enhance their employees' productivity, their IT and security teams want to make sure employees can access your app securely. As a developer, you'd prefer not to rebuild large portions of your authentication flow for every new customer. Fortunately, the OpenID Connect standard solves both of these problems! By adding OpenID Connect (OIDC) support to your app, you can meet the identity security needs of every enterprise organization that uses an OIDC-compatible identity provider. 
@@ -24,7 +27,7 @@ In this workshop, you will be wearing the hat of a SaaS developer who will up-le
 | 3. [Enterprise-Ready Workshop: Manage Users with SCIM](/blog/2023/07/28/scim-workshop) |
 | 4. [Enterprise Maturity Workshop: Terraform](/blog/2023/07/28/terraform-workshop) |
 
-Today, we'll walk through adding OIDC to our Todo sample application. 
+Today, we'll walk through adding OIDC to our Todo sample application. If you want to jump to the completed project, you can find it in the [oidc-workshop-complete](https://github.com/oktadev/okta-enterprise-ready-workshops/tree/oidc-workshop-complete) GitHub repository.
 
 For an in-depth walkthrough of developing and troubleshooting the code in this workshop, follow along on with the video: 
 {% youtube -gwgEAa4TkU %}
@@ -541,7 +544,7 @@ The first time an OIDC user logs into the app, their user record is created in t
 
 ## Learn more about enterprise ready identity SaaS apps 
 
-The OIDC support that you added to the sample app today allows information flow from customer identity providers into your application. You can explore the OpenID standards to learn more about what other information you can gather when someone logs into your app with OIDC. What app features might you be able to use that data for? 
+The OIDC support that you added to the sample app today allows information flow from customer identity providers into your application. You can check out the completed application in the [oidc-workshop-complete](https://github.com/oktadev/okta-enterprise-ready-workshops/tree/oidc-workshop-complete) GitHub repository. Also, you can explore the OpenID standards to learn more about what other information you can gather when someone logs into your app with OIDC. What app features might you be able to use that data for?
 
 OIDC offers a one-way stream of information: Your application can't change a user's records in the upstream identity provider. To support this two-way flow of information between your app and the IDP, you can use SCIM, the System for Cross-Domain Identity Management. Our SCIM workshop builds on the OIDC support implemented in this workshop! 
 
