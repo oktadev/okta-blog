@@ -60,7 +60,7 @@ As browser and mobile applications _cannot_ hold credentials securely and theref
 
 The modified flow has the following steps:
 
-{% img blog/spring-security-pkce/auth0-authorization-code-pkce.png alt:"Authorization Code Grant" width:"800" %}{: .center-image }
+{% img blog/spring-security-pkce/auth0-authorization-code-pkce.png alt:"Authorization Code Grant" width:"850" %}{: .center-image }
 
 1. The Client creates and records a secret named the "code_verifier" and derives a transformed version referred to as the "code_challenge", which is sent in the OAuth 2.0 Authorization Request along with the transformation method.
 2. The Authorization Endpoint responds as usual but records the "code_challenge" and the transformation method.
