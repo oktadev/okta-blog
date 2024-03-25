@@ -49,7 +49,7 @@ If you're using a custom domain like `login.mycompany.com` in your sign-in widge
 
 If you have a self-hosted Sign-In Widget with `mycompany.okta.com` configured as the `baseUrl` or `issuer` in its settings, cookies will be issued for `okta.com` and will be first-party to `okta.com` but third-party to `mycompany.com`. 
 
-If you have a self-hosted Sign-In Widget and use [agentless Desktop Signele Sign-on](https://help.okta.com/en-us/content/topics/directory/ad-dsso-test.htm), follow the steps in [this Knowledge Base article](https://support.okta.com/help/s/article/third-party-cookies-utilized-by-the-sign-in-widget?language=en_US) to embed a Trial token script. 
+If you have a self-hosted Sign-In Widget and use [agentless Desktop Single Sign-on](https://help.okta.com/en-us/content/topics/directory/ad-dsso-test.htm), follow the steps in [this Knowledge Base article](https://support.okta.com/help/s/article/third-party-cookies-utilized-by-the-sign-in-widget?language=en_US) to embed a Trial token script. 
 
 ### Third-party cookie deprecation affects "remember me" features
 
