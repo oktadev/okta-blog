@@ -31,7 +31,7 @@ When a user logs into their Okta account in a web browser, a [session cookie](ht
 
 Most of Okta's core auth flows do not rely on third-party cookies. When third-party cookies are used, they normally augment the basic login experience or add convenience features. The following sections outline all the design patterns in which Okta uses third-party cookies. If your application is in one of these categories, please test its behavior with third-party cookie deprecation. 
 
-Okta uses cookies to let applications introspect and extend user sessions. Cookies aren't required for basic login functionality. 
+Okta uses cookies to let applications introspect and extend user sessions. Cookies aren't required for basic login functionality. Without cookies, users can still log in, but some users might have to re-authenticate more often.
 
 ### Third-party cookie deprecation affects web applications that rely on the Okta session for user context
 
@@ -48,6 +48,8 @@ If the sign-in experience and app are on different top-level domains, third-part
 If you're using a custom domain like `login.mycompany.com` in your sign-in widget configuration, cookies will be written to the domain which received the request. If your Sign-In Widget configuration sets `login.mycompany.com` as the `baseUrl` or `issuer`, cookies will be issued for `mycompany.com` when a user logs in, so those cookies are first-party to all `mycompany.com` web pages.
 
 If you have a self-hosted Sign-In Widget with `mycompany.okta.com` configured as the `baseUrl` or `issuer` in its settings, cookies will be issued for `okta.com` and will be first-party to `okta.com` but third-party to `mycompany.com`. 
+
+If you have a self-hosted Sign-In Widget and use [agentless Desktop Single Sign-on](https://help.okta.com/en-us/content/topics/directory/ad-dsso-test.htm), follow the steps in [this Knowledge Base article](https://support.okta.com/help/s/article/third-party-cookies-utilized-by-the-sign-in-widget?language=en_US) to embed a Trial token script. 
 
 ### Third-party cookie deprecation affects "remember me" features
 
