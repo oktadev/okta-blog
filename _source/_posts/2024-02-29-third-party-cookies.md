@@ -49,7 +49,9 @@ If you're using a custom domain like `login.mycompany.com` in your sign-in widge
 
 If you have a self-hosted Sign-In Widget with `mycompany.okta.com` configured as the `baseUrl` or `issuer` in its settings, cookies will be issued for `okta.com` and will be first-party to `okta.com` but third-party to `mycompany.com`. 
 
-If you have a self-hosted Sign-In Widget and use [agentless Desktop Single Sign-on](https://help.okta.com/en-us/content/topics/directory/ad-dsso-test.htm), follow the steps in [this Knowledge Base article](https://support.okta.com/help/s/article/third-party-cookies-utilized-by-the-sign-in-widget?language=en_US) to embed a Trial token script. 
+### Third-party cookie deprecation when using Agentless Desktop Single Sign-on
+
+If you have a Custom Domain or Self-Hosted Sign-in Widget deployment model and use Agentless Desktop Single Sign-on (ADSSO), follow the steps in the [Third Party Cookies Utilized by the Sign-in Widget](https://support.okta.com/help/s/article/third-party-cookies-utilized-by-the-sign-in-widget) Knowledge Base article to enable `CookiesAllowedforURLs` in Chrome browsers. 
 
 ### Third-party cookie deprecation affects "remember me" features
 
@@ -69,4 +71,5 @@ Here on the Okta Developer Blog, we'll keep you updated about how to mitigate ea
 
 * Learn more about [how blocking third-party cookies affects Okta environments](https://support.okta.com/help/s/article/FAQ-How-Blocking-Third-Party-Cookies-Can-Potentially-Impact-Your-Okta-Environment?language=en_US).
 * See the [Okta session cookies guide](https://developer.okta.com/docs/guides/session-cookie/main/) for more on how cookies are used.
-* [Use Chrome's feature flags](https://support.okta.com/help/s/article/deprecation-of-3rd-party-cookies-in-google-chrome?language=en_US) to test your login experience with third-party cookies disabled.  
+* [Use Chrome's feature flags](https://support.okta.com/help/s/article/deprecation-of-3rd-party-cookies-in-google-chrome?language=en_US) to test your login experience with third-party cookies disabled.
+* Read the [Third Party Cookies Utilized by the Sign-in Widget](https://support.okta.com/help/s/article/third-party-cookies-utilized-by-the-sign-in-widget) Knowledge Base article
