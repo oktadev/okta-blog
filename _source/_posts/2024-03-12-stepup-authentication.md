@@ -50,9 +50,9 @@ npm ci
 
 Open the project up in your favorite IDE. Let's take a quick look at the project organization. The project has an Angular frontend and NestJS API backend housed in a [Lerna](https://lerna.js.org/) monorepo. If you are curious about how to recreate the project, check out the repo's README file. I'll include all the `npx` commands, CLI commands, and the manual steps used to create the project.
 
-You need an authentication configuration to serve the project. Let's do so now.
+You need to set up an authentication configuration to serve the project. Let's do so now.
 
-## Set up the Identity Provide to use OAuth 2.0 and OpenID Connect
+## Set up the Identity Provider to use OAuth 2.0 and OpenID Connect
 
 You'll use Okta to handle authentication and authorization in this project securely.
 
