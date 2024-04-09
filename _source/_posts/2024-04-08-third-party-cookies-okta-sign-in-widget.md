@@ -78,7 +78,9 @@ To set the `offline_access` scope on the Authorization Server:
 
 To set the `offline_access` scope in your AuthJS code, add `offline_access` to the `scopes` array in your `OktaAuth` configuration. This configuration is found in the file where you [initialize the SDK](https://developer.okta.com/docs/guides/auth-js/main/#initialize-the-sdk).
 
-
+> **Note**
+>
+> This to edit a [custom authorization server](https://developer.okta.com/docs/concepts/auth-servers/#custom-authorization-server) requires the feature [API Access Management](https://www.okta.com/products/api-access-management/?adgroupid=&campaignid=&utm_source=google&utm_campaign=amer_mult_usa_all_wf-all_dg-ao_a-wf_search_google_text_kw_dsa_utm2&utm_medium=cpc&utm_id=aNK4z000000UAzJGAW&gad_source=1&gclid=Cj0KCQjwztOwBhD7ARIsAPDKnkD3WQMla4xEM7GwHXqaQt-O2IF6mH1x5dadKgpUp4rH12IYyZQgjP4aApevEALw_wcB) enabled.
 ## Transition to supported endpoints
 
 If your code is using the deprecated `sessions/me` endpoint, read the data from other endpoints.
