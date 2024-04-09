@@ -49,6 +49,7 @@ If you're using a custom domain like `login.mycompany.com` in your sign-in widge
 
 If you have a self-hosted Sign-In Widget with `mycompany.okta.com` configured as the `baseUrl` or `issuer` in its settings, cookies will be issued for `okta.com` and will be first-party to `okta.com` but third-party to `mycompany.com`. 
 
+
 ### Third-party cookie deprecation when using Agentless Desktop Single Sign-on
 
 If you have a Custom Domain or Self-Hosted Sign-in Widget deployment model and use Agentless Desktop Single Sign-on (ADSSO), follow the steps in the [Third Party Cookies Utilized by the Sign-in Widget](https://support.okta.com/help/s/article/third-party-cookies-utilized-by-the-sign-in-widget) Knowledge Base article to enable `CookiesAllowedforURLs` in Chrome browsers. 
