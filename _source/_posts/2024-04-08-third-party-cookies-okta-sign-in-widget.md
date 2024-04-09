@@ -57,7 +57,7 @@ Changing your application to use [the authorization code flow](https://developer
 4. Select General.
 5. In the General Settings section, select the Refresh Token grant type and configure the desired token rotation policy. "Rotate token after every use" is the most secure option and is suitable for most cases.
 
-For more information on the authorization code flow, see (Get a refresh token with the code flow in Refresh access tokens)[https://developer.okta.com/docs/guides/refresh-tokens/main/#get-a-refresh-token-with-the-code-flow].
+For more information on the authorization code flow, see [Get a refresh token with the code flow in Refresh access tokens](https://developer.okta.com/docs/guides/refresh-tokens/main/#get-a-refresh-token-with-the-code-flow).
 
 
 ### Configure AuthJS to use offline access
