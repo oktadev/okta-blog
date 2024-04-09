@@ -5,7 +5,7 @@ author: edunham
 by: advocate
 communities: [devops,security,mobile,.net,java,javascript,go,php,python,ruby]
 description: "If you have a self-hosted Okta Sign-In Widget, there are several options to mitigate Chrome's third-party cookies deprecation."
-tags: [third-party-cookies, okta-sign-in-widget]
+tags: [third-party-cookies, okta-sign-in-widget, auth-js-sdk]
 tweets:
 - ""
 - ""
