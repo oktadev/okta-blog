@@ -1,6 +1,6 @@
 ---
 layout: blog_post
-title: "How to prepare your self-hosted Okta Sign-In Widget to work without third-party cookies"
+title: "How to Prepare Your Self-Hosted Okta Sign-in Widget to Work without Third-Party Cookies"
 author: edunham
 by: advocate
 communities: [devops,security,mobile,.net,java,javascript,go,php,python,ruby]
