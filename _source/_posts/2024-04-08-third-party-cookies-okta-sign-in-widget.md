@@ -10,7 +10,7 @@ tweets:
 - ""
 - ""
 - ""
-image: blog/3pc/social.jpg
+image: blog/3pc/3pcd-siw.jpg
 type: awareness
 ---
 
