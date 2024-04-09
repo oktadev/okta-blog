@@ -38,10 +38,10 @@ The custom domain for your Okta organization should be a subdomain of your own d
 
 #### To configure your custom domain:
 
-1) Open the Admin console for your Okta org.
-2) In the Admin Console, select **Customizations**.
-3) Select **Domain** in the customization list.
-4) In the **Custom URL Domain** section, click **Edit** and follow the instructions on the page that appears.
+1. Open the Admin console for your Okta org.
+2. In the Admin Console, select **Customizations**.
+3. Select **Domain** in the customization list.
+4. In the **Custom URL Domain** section, click **Edit** and follow the instructions on the page that appears.
 
 If you have customized the look and feel of the Okta sign-in page using resources like images that are hosted on other domains, you will need to configure the Content Security Policy (CSP) to allow those resources. Learn more about customizing your CSP in [this Okta help center guide](https://help.okta.com/oie/en-us/content/topics/settings/customizations-configure-csp.htm). 
 
@@ -51,11 +51,11 @@ Changing your application to use [the authorization code flow](https://developer
 
 #### To change an Okta application to use the authorization code flow:
 
-1) Open the Admin console for your Okta org.
-2) In the Admin Console, select Applications > Applications.
-3) Open the desired app integration.
-4) Select General.
-5) In the General Settings section, select the Refresh Token grant type and configure the desired token rotation policy. "Rotate token after every use" is the most secure option and is suitable for most cases.
+1. Open the Admin console for your Okta org.
+2. In the Admin Console, select Applications > Applications.
+3. Open the desired app integration.
+4. Select General.
+5. In the General Settings section, select the Refresh Token grant type and configure the desired token rotation policy. "Rotate token after every use" is the most secure option and is suitable for most cases.
 
 For more information on the authorization code flow, see (Get a refresh token with the code flow in Refresh access tokens)[https://developer.okta.com/docs/guides/refresh-tokens/main/#get-a-refresh-token-with-the-code-flow].
 
@@ -110,4 +110,4 @@ Cookies are used to introspect and extend the Okta session. If a third-party coo
 
 ## Temporary fix in 2024
 
-Google granted Okta an exemption to the third-party cookie deprecation rollout until the end of 2024. To opt in to this exemption, you embed an Okta-provided script into your sign-in widget following the instructions at https://support.okta.com/help/s/article/third-party-cookies-utilized-by-the-sign-in-widget?language=en_US. The script sets a Trial token, which tells Google to continue allowing third-party cookies for your login experience until the end of 2024. 
+Google granted Okta an exemption to the third-party cookie deprecation rollout until the end of 2024. To opt in to this exemption, you embed an Okta-provided script into your sign-in widget following [these instructions](https://support.okta.com/help/s/article/third-party-cookies-utilized-by-the-sign-in-widget?language=en_US). The script sets a Trial token, which tells Google to continue allowing third-party cookies for your login experience until the end of 2024. 
