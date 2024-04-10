@@ -14,7 +14,7 @@ image:
 type: awareness
 ---
 
-OAuth 2.0 and OpenID Connect are the authentication and authorization _de facto_ standards for online web applications. In this post you will learn how to enable the extension Proof Key for Code Exchange in a Spring Boot confidential client, adhering to the latest [Security Best Current Practice (BCP)](https://oauth.net/2/oauth-best-practice/).
+OAuth 2.0 and OpenID Connect are the authentication and authorization _de facto_ standards for online web applications. In this post you will learn how to enable the extension Proof Key for Code Exchange (PKCE) in a Spring Boot confidential client, adhering to the [OAuth 2.0 Security Best Current Practice (BCP)](https://oauth.net/2/oauth-best-practice/).
 
 > **This tutorial was created with the following tools and services**:
 > - [Java OpenJDK 17](https://jdk.java.net/java-se-ri/17)
@@ -67,7 +67,7 @@ The modified flow has the following steps:
 3. The Client then sends the authorization code in the Access Token Request as usual but includes the "code_verifier" secret generated in the first step.
 4. The Authorization Server transforms "code_verifier" and compares it to the recorded "code_challenge". Access is denied if they are not equal.
 
-The latest [Security BCP](https://www.ietf.org/archive/id/draft-ietf-oauth-security-topics-24.html) states that PKCE should be enabled for all types of clients, public and confidential (browser-based applications, mobile applications, native applications, and secure server applications).
+The [OAuth 2.0 Security BCP](https://www.ietf.org/archive/id/draft-ietf-oauth-security-topics-24.html) states that PKCE should be enabled for all types of clients, public and confidential (browser-based applications, mobile applications, native applications, and secure server applications) for added security.
 
 ## Spring Security for Authorization Code Flow
 
@@ -120,7 +120,7 @@ Create the `index.html` template at `src/main/resources/templates` with the foll
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Bootstrap demo</title>
+    <title>Spring Boot + PKCE Demo</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
     <link rel="stylesheet" href="styles.css">
 </head>
@@ -276,7 +276,7 @@ public String profile(@AuthenticationPrincipal OidcUser oidcUser, Model model) {
 
 > Auth0 supports [OAuth 2.0 Security Best Current Practice](https://oauth.net/2/oauth-best-practice/), and you can register the application as a Regular Web Application (confidential client), and the Auth0 authorization server will honor the PKCE flow.
 
-Sign up at [Auth0](https://auth0.com/signup) and install the [Auth0 CLI](https://github.com/auth0/auth0-cli). Then in the command line run:
+Sign up at [Auth0](https://a0.to/blog_signup) and install the [Auth0 CLI](https://github.com/auth0/auth0-cli). Then in the command line run:
 
 ```shell
 auth0 login
@@ -342,7 +342,7 @@ Run the application with:
 ./gradlew bootRun
 ```
 
-In your browser, open a private navigation window and go to [**http://localhost:4040/**](localhost:8080). Upon clicking the "Log In" button, Spring MVC redirects you to the Auth0 Universal Login page. If you check the application logs, you will see Spring Security redirects to your Auth0 '/authorize' endpoint:
+In your browser, open a private window and go to [**http://localhost:4040/**](localhost:8080). Upon clicking the "Log In" button, Spring MVC redirects you to the Auth0 Universal Login page. If you check the application logs, you will see Spring Security redirects to your Auth0 '/authorize' endpoint:
 
 ```
 Redirecting to https://dev-avup2laz.us.auth0.com/authorize?response_type=code&client_id=3SgEFDZfV2402hKmNhc0eIN10Z7tem1R&scope=profile%20email%20openid&state=qw8rMCn7N6hv7V4Wx8z5-ejsV8Av8Ypx9KBm5jL6tN4%3D&redirect_uri=http://localhost:4040/login/oauth2/code/okta&nonce=3aiFDmu7aOktibpACDUYuUh4HxLpBAMnVw79EcHDapk&code_challenge=andLN4-6Lu2mtHoPp1Pteu2v87oK_RmzmFLgPaHaY0s&code_challenge_method=S256
