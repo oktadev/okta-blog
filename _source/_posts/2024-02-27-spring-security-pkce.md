@@ -17,11 +17,9 @@ type: awareness
 OAuth 2.0 and OpenID Connect are the authentication and authorization _de facto_ standards for online web applications. In this post you will learn how to enable the extension Proof Key for Code Exchange (PKCE) in a Spring Boot confidential client, adhering to the [OAuth 2.0 Security Best Current Practice (BCP)](https://oauth.net/2/oauth-best-practice/).
 
 > **This tutorial was created with the following tools and services**:
-> - [Java OpenJDK 17](https://jdk.java.net/java-se-ri/17)
+> - [Java OpenJDK 21](https://jdk.java.net/java-se-ri/21)
 > - [Auth0 account](https://auth0.com/signup)
 > - [Auth0 CLI 1.4.0](https://github.com/auth0/auth0-cli#installation)
-
-If you'd rather skip the step-by-step and prefer running a sample application, follow the [README](https://github.com/indiepopart/spring-web-pkce) instructions in the Github repository.
 
 {% include toc.md %}
 
@@ -79,37 +77,23 @@ You can experiment with how to configure the authorization code flow configurati
 With Spring Initializr and curl, create Spring Boot project:
 
 ```shell
-curl -v "https://start.spring.io/starter.zip?\
-bootVersion=3.2.3&\
-language=java&\
-packaging=jar&\
-javaVersion=17&\
-type=gradle-project&\
-dependencies=web,okta,thymeleaf&\
-groupId=com.example&\
-artifactId=spring-web&\
-packageName=com.example.demo" \
---output spring-web.zip
+curl -G https://start.spring.io/starter.tgz \
+  -d dependencies=web,okta,thymeleaf \
+  -d baseDir=spring-web \
+  -d bootVersion=3.2.3 \
+  -d language=java \
+  -d packaging=jar \
+  -d javaVersion=21 \
+  -d type=gradle-project \
+  -d groupId=com.example \
+  -d artifactId=spring-web \
+  -d packageName=com.example.demo \
+ | tar -xzvf -
 ```
 
-Then extract the content:
-
-```shell
-unzip spring-web.zip -d spring-web
-```
+> Note: You can also create the project using [Spring Initalizr Web UI](https://start.spring.io/)
 
 If you inspect the contents of `build.gradle`, you will find the Okta Spring Boot Starter dependency is included. The Okta Spring Boot Starter simplifies the process of adding authentication into your Spring Boot application by auto-configuring the necessary classes and adhering to best practices, eliminating the need for you to do it manually. It leverages the OAuth 2.0 and OpenID Connect protocols for user authentication.
-
-Add the following additional dependencies to `build.gradle`:
-
-```groovy
-// build.gradle
-dependencies {
-    ...
-    implementation 'me.paulschwarz:spring-dotenv:4.0.0'
-    ...
-}    
-```
 
 Create the `index.html` template at `src/main/resources/templates` with the following content:
 
@@ -291,8 +275,8 @@ auth0 apps create \
   --name "Spring MVC" \
   --description "Spring Boot Webapp" \
   --type regular \
-  --callbacks http://localhost:4040/login/oauth2/code/okta \
-  --logout-urls http://localhost:4040 \
+  --callbacks http://localhost:8080/login/oauth2/code/okta \
+  --logout-urls http://localhost:8080 \
   --reveal-secrets
 ```
 
@@ -305,36 +289,27 @@ Rename `application.properties` to `application.yml` and add the following value
 server:
   port: ${PORT}
 
-okta:
-  oauth2:
-    issuer: ${OKTA_OAUTH2_ISSUER}
-    client-id: ${OKTA_OAUTH2_CLIENT_ID}
-    client-secret: ${OKTA_OAUTH2_CLIENT_SECRET}
-
 logging:
   level:
     org.springframework.security: DEBUG
     org.springframework.web: DEBUG
 ```
 
+Create a new `application.yml` at the root at the project with the following properties:
+
+```yml
+okta:
+  oauth2:
+    issuer: https://<your-auth0-domain>/
+    client-id: <client-id>
+    client-secret: <client-secret>
+```
+
+Replace the placeholders with the values from the previous `auth0 apps create` command output. Add `application.yml` to the `..gitignore` file so the credentials are not pushed to the repository.
+
 The Okta Spring Boot Starter will detect the presence of the properties above and auto-configure the Spring Security filter chain for OpenID Connect authentication. The configuration also enables security and web logs for analyzing the authentication flow.
 
-Create a `.env` file under the root project directory:
-
-```shell
-touch .env
-```
-
-Populate the `.env` with the following environment variables and values from the previous `auth0 apps create` command output:
-
-```shell
-PORT=4040
-OKTA_OAUTH2_ISSUER=https://<your-auth0-domain>/
-OKTA_OAUTH2_CLIENT_ID=<client-id>
-OKTA_OAUTH2_CLIENT_SECRET=<client-secret>
-```
-
-> The default client authentication method (how the application identifies itself when calling the token endpoint) in Auth0, when you register a regular web application, is `client_secret_post`, but it supports `client_secret_basic` as well. The default client authentication method in Spring Security for confidential clients is `client_secret_basic` if the provider supports it (available in the provider configuration metadata).
+> The default client authentication method (how the application identifies itself when calling the token endpoint) in Auth0, when you register a regular web application, is `client_secret_post`, but it supports `client_secret_basic` as well. The default client authentication method in Spring Security for confidential clients is `client_secret_basic` if the provider supports it (available in the provider configuration metadata). This example is using the default `client_secret_basic` method and no explicit configuration is required.
 
 Run the application with:
 
@@ -342,17 +317,19 @@ Run the application with:
 ./gradlew bootRun
 ```
 
-In your browser, open a private window and go to [**http://localhost:4040/**](localhost:8080). Upon clicking the "Log In" button, Spring MVC redirects you to the Auth0 Universal Login page. If you check the application logs, you will see Spring Security redirects to your Auth0 '/authorize' endpoint:
+In your browser, open a private window and go to [**http://localhost:8080/**](localhost:8080). Upon clicking the "Log In" button, Spring MVC redirects you to the Auth0 Universal Login page. If you check the application logs, you will see Spring Security redirects to your Auth0 '/authorize' endpoint:
 
 ```
-Redirecting to https://dev-avup2laz.us.auth0.com/authorize?response_type=code&client_id=3SgEFDZfV2402hKmNhc0eIN10Z7tem1R&scope=profile%20email%20openid&state=qw8rMCn7N6hv7V4Wx8z5-ejsV8Av8Ypx9KBm5jL6tN4%3D&redirect_uri=http://localhost:4040/login/oauth2/code/okta&nonce=3aiFDmu7aOktibpACDUYuUh4HxLpBAMnVw79EcHDapk&code_challenge=andLN4-6Lu2mtHoPp1Pteu2v87oK_RmzmFLgPaHaY0s&code_challenge_method=S256
+Redirecting to https://dev-avup2laz.us.auth0.com/authorize?response_type=code&client_id=3SgEFDZfV2402hKmNhc0eIN10Z7tem1R&scope=profile%20email%20openid&state=qw8rMCn7N6hv7V4Wx8z5-ejsV8Av8Ypx9KBm5jL6tN4%3D&redirect_uri=http://localhost:8080/login/oauth2/code/okta&nonce=3aiFDmu7aOktibpACDUYuUh4HxLpBAMnVw79EcHDapk&code_challenge=andLN4-6Lu2mtHoPp1Pteu2v87oK_RmzmFLgPaHaY0s&code_challenge_method=S256
 ```
 
 As you can see, the last two query parameters in the request to `/authorize` endpoint are _code_challenge_ and _code_challenge_method_.
 
 > [Spring Security](https://docs.spring.io/spring-security/reference/servlet/oauth2/client/authorization-grants.html#_obtaining_authorization) will automatically enable PKCE when `client-secret` is omitted or empty, and `client-authentication-method` is none. A client without a secret is assumed to be a public client.
 
-> Since version 2.1.6, the Okta Starter enables PKCE by default for confidential clients. With the Okta Starter default auto-configuration, PKCE is enabled automatically even if the client-secret is set through the Okta Starter configuration properties.
+> Since version 2.1.6, the Okta Starter enables PKCE by default for confidential clients as well, meaning for clients that require a client-secret. Be careful when using custom `HttpSecurity`, overriding the Okta auto-configuration.
+
+> As the application was registered as regular web at Auth0, you must configure a client-secret for the flow, otherwise Auth0 will reject the authentication requests and return code 401.
 
 In the browser window, continue with the sign-in flow, and give consent to the application to access your user information:
 
@@ -432,11 +409,16 @@ public class SecurityConfiguration {
 }
 ```
 
+### Enable PKCE when not using Okta Starter
+
+> [Spring Security](https://docs.spring.io/spring-security/reference/servlet/oauth2/client/authorization-grants.html#_obtaining_authorization) will automatically enable PKCE when `client-secret` is omitted or empty, and `client-authentication-method` is none. A client without a secret is assumed to be a public client.
+
+
 ## Learn more about PKCE and Spring Boot
 
 I hope this post helped you to gain a basic understanding on authentication with OpenID Connect Authorization Code Flow with PKCE, and how to enable the PKCE security best practice in Spring Boot applications using the Okta Spring Boot Starter.
 
-You can find the code shown in this tutorial on [GitHub](https://github.com/indiepopart/spring-web-pkce).
+You can find the code shown in this tutorial on [GitHub](https://github.com/indiepopart/spring-web-pkce). If you'd rather skip the step-by-step and prefer running a sample application, follow the [README](https://github.com/indiepopart/spring-web-pkce) instructions in the same repository.
 
 If you liked this post, you might enjoy these related posts:
 
