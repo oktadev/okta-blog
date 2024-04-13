@@ -126,7 +126,7 @@ Invoke-OktaListGroupUsers -GroupId $CreatedGroup.Id
 
 ## Example: script to automatically sync employee data from a file to Okta
 
-For this scenario, we imagine that a custom tool which lacks OIDC or SCIM compatibility has emitted a CSV of users who we'll add to our Okta organization using a PowerShell script. 
+For this scenario, we imagine a custom tool that lacks [OIDC](https://developer.okta.com/blog/2023/07/28/oidc_workshop) or [SCIM](https://developer.okta.com/blog/2023/07/28/scim-workshop) compatibility has emitted a CSV of users who we'll add to our Okta organization using a PowerShell script. 
 
 The file `~/Documents/hr-export-employees.csv` contains data which looks like this: 
 
