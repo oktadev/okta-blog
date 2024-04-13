@@ -124,7 +124,7 @@ New-OktaUser -Body $CreateUserRequest
 Invoke-OktaListGroupUsers -GroupId $CreatedGroup.Id
 ```
 
-## Example: Script to automatically sync employee data from a file to Okta
+## Example: script to automatically sync employee data from a file to Okta
 
 For this scenario, we imagine that a custom tool which lacks OIDC or SCIM compatibility has emitted a CSV of users who we'll add to our Okta organization using a PowerShell script. 
 
