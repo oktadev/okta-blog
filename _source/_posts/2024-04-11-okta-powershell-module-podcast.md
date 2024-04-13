@@ -105,7 +105,7 @@ Invoke-OktaListGroupUsers -GroupId $CreatedGroup.Id
 ```
 
 
-### Onboarding New Employees
+### Onboarding new employees
 
 
 ```ps
