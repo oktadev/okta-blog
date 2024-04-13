@@ -67,7 +67,7 @@ echo $CreatedGroup
 ```
 
 
-### Group Rules Definition
+### Group rules definition
 
 
 ```ps
