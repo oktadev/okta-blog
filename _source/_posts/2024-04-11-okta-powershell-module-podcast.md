@@ -52,7 +52,7 @@ Running this command in PowerShell opens a browser so you can follow your organi
 Invoke-OktaEstablishAccessToken
 ```
 
-### Group Creation
+### Group creation
 
 ```ps
 $GroupProfile = [PSCustomObject]@{
