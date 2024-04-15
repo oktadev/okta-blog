@@ -95,128 +95,41 @@ curl -G https://start.spring.io/starter.tgz \
 
 If you inspect the contents of `build.gradle`, you will find the Okta Spring Boot Starter dependency is included. The Okta Spring Boot Starter simplifies the process of adding authentication into your Spring Boot application by auto-configuring the necessary classes and adhering to best practices, eliminating the need for you to do it manually. It leverages the OAuth 2.0 and OpenID Connect protocols for user authentication.
 
-Create the `index.html` template at `src/main/resources/templates` with the following content:
+Add the following dependency to `build.gradle`:
+
+```groovy
+implementation 'org.thymeleaf.extras:thymeleaf-extras-springsecurity6'
+```
+
+Create the `home.html` template at `src/main/resources/templates` with the following content:
 
 ```html
 <!-- src/main/resources/templates/index.html -->
-<!doctype html>
-<html lang="en">
+<html xmlns:th="http://www.thymeleaf.org">
 <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Spring Boot + PKCE Demo</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
-    <link rel="stylesheet" href="styles.css">
+    <title>Spring Boot ❤️ Auth0</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css"
+          integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
 </head>
 <body>
+<div class="container">
+    <h2>Spring Boot PKCE Example</h2>
 
-<th:block th:replace="~{fragments/navigation.html}" />
-
-
-<div class="container my-5">
-    <h1>Hello, world!</h1>
-    <div class="col-lg-8 px-0">
-        <p class="fs-5">You've successfully loaded up the Bootstrap starter example. It includes <a href="https://getbootstrap.com/">Bootstrap 5</a> via the <a href="https://www.jsdelivr.com/package/npm/bootstrap">jsDelivr CDN</a> and includes an additional CSS and JS file for your own code.</p>
-        <p>Feel free to download or copy-and-paste any parts of this example.</p>
-
-        <hr class="col-1 my-4">
-
-        <a href="https://getbootstrap.com" class="btn btn-primary">Read the Bootstrap docs</a>
-        <a href="https://github.com/twbs/examples" class="btn btn-secondary">View on GitHub</a>
+    <div th:unless="${#authorization.expression('isAuthenticated()')}">
+        <p>Hello!</p>
+        <p>If you're viewing this page then you have successfully configured and started this application.</p>
+        <p>This example shows you how to use the <a href="https://github.com/okta/okta-spring-boot">Okta Spring Boot
+            Starter</a> to add the <a
+                href="https://auth0.com/docs/get-started/authentication-and-authorization-flow/authorization-code-flow">Authorization
+            Code Flow</a> to your application.</p>
+        <p>When you click the login button below, you will be redirected to login. After you
+            authenticate, you will be returned to this application.</p>
     </div>
-</div>
 
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
-<script src="main.js"></script>
-</body>
-</html>
-```
-
-Create the fragment `navigation.html` at `src/main/resources/templates/fragments`:
-
-```html
-<!-- src/main/resources/templates/fragments/navigation.html -->
-<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-    <div class="container">
-        <a class="navbar-brand" href="#">Navbar</a>
-        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-        </button>
-        <div class="collapse navbar-collapse" id="navbarSupportedContent">
-            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-                <li class="nav-item">
-                    <a class="nav-link active" aria-current="page" href="#">Home</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="#">Link</a>
-                </li>
-            </ul>
-            <ul class="navbar-nav d-flex mb-2 mb-lg-0">
-                <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                        [[${username}]]
-                    </a>
-                    <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                        <li><a class="dropdown-item" th:href="@{/profile}">Profile</a></li>
-                        <li>
-                            <form method="post" th:action="@{/logout}">
-                                <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}"/>
-                                <button id="logout" class="dropdown-item" type="submit">Logout</button>
-                            </form>
-                        </li>
-                    </ul>
-                </li>
-            </ul>
-        </div>
-    </div>
-</nav>
-```
-
-Create the `HomeController.java` in the `com.example.demo.web` package:
-
-```java
-// src/main/java/com/example/demo/web/HomeController.java
-package com.example.demo.web;
-
-import org.springframework.security.core.annotation.AuthenticationPrincipal;
-import org.springframework.security.oauth2.core.oidc.user.OidcUser;
-import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-
-@Controller
-public class HomeController {
-
-    @GetMapping("/")
-    public String index(@AuthenticationPrincipal OidcUser oidcUser, Model model) {
-        model.addAttribute("username", oidcUser.getEmail());
-        return "index";
-    }
-}
-```
-
-Add a `profile.html` template:
-
-```html
-<!-- src/main/resources/templates/profile.html -->
-<!doctype html>
-<html lang="en">
-<head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Bootstrap demo</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
-    <link rel="stylesheet" href="styles.css">
-</head>
-<body>
-
-<th:block th:replace="~{fragments/navigation.html}" />
-
-
-<div class="container my-5">
-    <h1>[[${username}]]</h1>
-    <div class="col-lg-8 px-0">
-        <p class="fs-5">Here are your user's attributes:</p>
+    <div th:if="${#authorization.expression('isAuthenticated()')}">
+        <p>Welcome home, <span th:text="${#authentication.principal.attributes['name']}">Mary Coder</span>!</p>
+        <p>You have successfully authenticated with Auth0, and have been redirected back to this application.</p>
+        <p>Here are your user's attributes:</p>
         <table class="table table-striped">
             <thead>
             <tr>
@@ -232,28 +145,42 @@ Add a `profile.html` template:
             </tbody>
         </table>
     </div>
-</div>
 
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
-<script src="main.js"></script>
+    <form method="get" th:action="@{/oauth2/authorization/okta}"
+          th:unless="${#authorization.expression('isAuthenticated()')}">
+        <button id="login" class="btn btn-primary" type="submit">Login</button>
+    </form>
+    <form method="post" th:action="@{/logout}" th:if="${#authorization.expression('isAuthenticated()')}">
+        <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}"/>
+        <button id="logout" class="btn btn-danger" type="submit">Logout</button>
+    </form>
+</div>
 </body>
 </html>
 ```
 
-Add the `/profile` handler in the `HomeController` class:
+Create the `HomeController.java` in the `com.example.demo.web` package:
 
 ```java
 // src/main/java/com/example/demo/web/HomeController.java
-...
+package com.example.demo.web;
 
-@GetMapping("/profile")
-public String profile(@AuthenticationPrincipal OidcUser oidcUser, Model model) {
-    model.addAttribute("username", oidcUser.getEmail());
-    model.addAttribute("claims", oidcUser.getClaims());
-    return "profile";
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.security.oauth2.core.oidc.user.OidcUser;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.servlet.ModelAndView;
+
+import java.util.Collections;
+
+@RestController
+class HomeController {
+
+    @GetMapping("/")
+    public ModelAndView home(@AuthenticationPrincipal OidcUser user) {
+        return new ModelAndView("home", Collections.singletonMap("claims", user.getClaims()));
+    }
 }
-
-...
 ```
 
 ### Configure Authentication Code Flow with PKCE at Auth0
@@ -286,9 +213,6 @@ Rename `application.properties` to `application.yml` and add the following value
 
 ```yml
 # src/main/resources/application.yml
-server:
-  port: ${PORT}
-
 logging:
   level:
     org.springframework.security: DEBUG
@@ -305,7 +229,7 @@ okta:
     client-secret: <client-secret>
 ```
 
-Replace the placeholders with the values from the previous `auth0 apps create` command output. Add `application.yml` to the `..gitignore` file so the credentials are not pushed to the repository.
+Replace the placeholders with the values from the previous `auth0 apps create` command output. Add the root `application.yml` to the `.gitignore` file so the credentials are not pushed to the repository.
 
 The Okta Spring Boot Starter will detect the presence of the properties above and auto-configure the Spring Security filter chain for OpenID Connect authentication. The configuration also enables security and web logs for analyzing the authentication flow.
 
