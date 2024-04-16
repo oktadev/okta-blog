@@ -67,7 +67,7 @@ The modified flow has the following steps:
 
 The [OAuth 2.0 Security BCP](https://www.ietf.org/archive/id/draft-ietf-oauth-security-topics-24.html) states that PKCE should be enabled for all types of clients, public and confidential (browser-based applications, mobile applications, native applications, and secure server applications) for added security.
 
-## Spring Security for Authorization Code Flow
+## Authorization Code Flow for confidential clients with Okta Starter
 
 You can experiment with how to configure the authorization code flow configuration by creating a simple Spring Boot web application, following the step-by-step guide in the following sections.
 
@@ -93,7 +93,7 @@ curl -G https://start.spring.io/starter.tgz \
 
 > Note: You can also create the project using [Spring Initalizr Web UI](https://start.spring.io/)
 
-If you inspect the contents of `build.gradle`, you will find the Okta Spring Boot Starter dependency is included. The Okta Spring Boot Starter simplifies the process of adding authentication into your Spring Boot application by auto-configuring the necessary classes and adhering to best practices, eliminating the need for you to do it manually. It leverages the OAuth 2.0 and OpenID Connect protocols for user authentication.
+If you inspect the contents of `build.gradle`, you will find the Okta Spring Boot Starter dependency is included. The Okta Spring Boot Starter is the Okta's Spring Security integration. It simplifies the process of adding authentication into your Spring Boot application by auto-configuring the necessary classes and adhering to best practices, eliminating the need for you to do it manually. It leverages the OAuth 2.0 and OpenID Connect protocols for user authentication.
 
 Add the following dependency to `build.gradle`:
 
@@ -285,7 +285,7 @@ Make sure [End Session Endpoint Discovery](https://auth0.com/docs/authenticate/l
 
 Restart the application. Now the **Logout** link will end the session at Auth0, and the browser will redirect to the Universal Login page.
 
-### Enable PKCE for confidential clients with custom HttpSecurity
+## Enable PKCE when using Okta Starter and custom HttpSecurity
 
 You can customize the OIDC login by defining your own web security, adding a custom `LogoutSuccessHandler` for making the application redirect to the base URL after the logout.
 
@@ -333,10 +333,83 @@ public class SecurityConfiguration {
 }
 ```
 
-### Enable PKCE when not using Okta Starter
+## Enable PKCE with Spring Security
 
 > [Spring Security](https://docs.spring.io/spring-security/reference/servlet/oauth2/client/authorization-grants.html#_obtaining_authorization) will automatically enable PKCE when `client-secret` is omitted or empty, and `client-authentication-method` is none. A client without a secret is assumed to be a public client.
 
+For confidential clients, implementing [OIDC Login](https://docs.spring.io/spring-security/reference/servlet/oauth2/index.html#oauth2-client-log-users-in) in a Spring Boot application without the Okta Starter dependency can be done using just Spring Security as well. You must add the following dependency to `build.gradle`:
+
+```groovy
+implementation 'org.springframework.boot:spring-boot-starter-oauth2-client'
+```
+
+You must also set the following properties in the `application.yml` file:
+
+```yml
+spring:
+  security:
+    oauth2:
+      client:
+        registration:
+          okta:
+            provider: okta
+            client-id: <client-id>
+            client-secret: <client-secret>
+            authorization-grant-type: authorization_code
+            scope: openid,profile,email
+        provider:
+          okta:
+            issuer-uri: https://<your-auth0-domain>/
+```
+
+When the `client-secret` is defined, you must explicitly enable PKCE if required. The following `SecurityConfig` class does the job:
+
+```java
+package com.example.demo;
+
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
+import org.springframework.security.config.annotation.web.builders.HttpSecurity;
+import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
+import org.springframework.security.oauth2.client.oidc.web.logout.OidcClientInitiatedLogoutSuccessHandler;
+import org.springframework.security.oauth2.client.registration.ClientRegistrationRepository;
+import org.springframework.security.oauth2.client.web.DefaultOAuth2AuthorizationRequestResolver;
+import org.springframework.security.oauth2.client.web.OAuth2AuthorizationRequestCustomizers;
+import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.security.web.authentication.logout.LogoutSuccessHandler;
+
+@Configuration
+@EnableWebSecurity
+public class SecurityConfig {
+
+    private final ClientRegistrationRepository clientRegistrationRepository;
+
+    public SecurityConfig(ClientRegistrationRepository clientRegistrationRepository) {
+        this.clientRegistrationRepository = clientRegistrationRepository;
+    }
+
+    private LogoutSuccessHandler logoutSuccessHandler() {
+        OidcClientInitiatedLogoutSuccessHandler logoutSuccessHandler = new OidcClientInitiatedLogoutSuccessHandler(this.clientRegistrationRepository);
+        logoutSuccessHandler.setPostLogoutRedirectUri("{baseUrl}");
+
+        return logoutSuccessHandler;
+    }
+    @Bean
+    public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
+        DefaultOAuth2AuthorizationRequestResolver authorizationRequestResolver = new DefaultOAuth2AuthorizationRequestResolver(this.clientRegistrationRepository, "/oauth2/authorization");
+        authorizationRequestResolver.setAuthorizationRequestCustomizer(OAuth2AuthorizationRequestCustomizers.withPkce());
+
+        http.authorizeHttpRequests(authorize -> authorize.anyRequest().authenticated())
+                .logout(logout -> logout.logoutSuccessHandler(logoutSuccessHandler()))
+                .oauth2Login(oauth2 -> oauth2
+                    .authorizationEndpoint(authorization -> authorization
+                            .authorizationRequestResolver(authorizationRequestResolver))
+                );
+        return http.build();
+    }
+
+}
+```
 
 ## Learn more about PKCE and Spring Boot
 
