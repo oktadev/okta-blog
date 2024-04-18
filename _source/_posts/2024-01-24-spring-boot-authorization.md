@@ -40,10 +40,10 @@ After the year 2020, in Buenos Aires, many bars and restaurants implemented a di
 For learning purposes, let's assume you have built a Spring Boot menu API that must be secured, so only authorized users can perform requests to its endpoints. Now you are going to implement authorization for the API with OAuth 2.0 and Auth0. Start by doing a checkout of the API repository, which already implements basic request handling:
 
 ```shell
-git clone https://github.com/indiepopart/spring-menu-api.git
+git clone https://github.com/oktadev/spring-menu-api.git  
 ```
 
-The repository contains two project folders, `start` and `demo`. The bare bones menu API is a Gradle project in the `start` folder, open it with your favorite IDE. If you would rather skip the step-by-step security configuration and just run the final `demo` project, follow the instructions in the [README](https://github.com/indiepopart/spring-menu-api).
+The repository contains two project folders, `start` and `demo`. The bare bones menu API is a Gradle project in the `start` folder, open it with your favorite IDE. If you would rather skip the step-by-step security configuration and just run the final `demo` project, follow the instructions in the [README](https://github.com/oktadev/spring-menu-api).
 
 Sign up at [Auth0](https://a0.to/blog_signup) and install the [Auth0 CLI](https://github.com/auth0/auth0-cli). Then in the command line run:
 
@@ -465,7 +465,7 @@ If you remove the permissions from the `menu-admin` role, the UI will display li
 
 I hope you enjoyed this tutorial on how to secure a Spring Boot API with OAuth2 and Auth0. You learned how to configure a resource server with `okta-spring-boot-starter` and how to implement RBAC.
 
-You can find all the code shown in this tutorial on GitHub in the [spring-menu-api](https://github.com/indiepopart/spring-menu-api) repository.
+You can find all the code shown in this tutorial on GitHub in the [spring-menu-api](https://github.com/oktadev/spring-menu-api) repository.
 
 If you liked this post, you might enjoy these related posts:
 
