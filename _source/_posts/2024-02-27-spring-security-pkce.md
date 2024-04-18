@@ -1,15 +1,15 @@
 ---
 layout: blog_post
-title:  "Proof Key for Code Exchange (PKCE) in Web Applications with Spring Security"
+title: "Proof Key for Code Exchange (PKCE) in Web Applications with Spring Security"
 author: jimena-garbarino
 by: contractor
-communities: [security,java]
+communities: [security, java]
 description: "Implementing OpenID Connect authentication in Java Web Applications with Okta Spring Boot Starter and Spring Security support for Authorization Code Flow with PKCE "
 tags: []
 tweets:
-- ""
-- ""
-- ""
+  - ""
+  - ""
+  - ""
 image:
 type: awareness
 ---
@@ -17,11 +17,11 @@ type: awareness
 OAuth 2.0 and OpenID Connect are the authentication and authorization _de facto_ standards for online web applications. In this post you will learn how to enable the extension Proof Key for Code Exchange (PKCE) in a Spring Boot confidential client, adhering to the [OAuth 2.0 Security Best Current Practice (BCP)](https://oauth.net/2/oauth-best-practice/).
 
 > **This tutorial was created with the following tools and services**:
+>
 > - [Java OpenJDK 21](https://jdk.java.net/java-se-ri/21)
 > - [Auth0 account](https://auth0.com/signup)
 > - [Auth0 CLI 1.4.0](https://github.com/auth0/auth0-cli#installation)
-
-{% include toc.md %}
+> - [Spring Boot 3.2.4](https://start.spring.io/#!platformVersion=3.2.4&jvmVersion=21&artifactId=spring-web&name=spring-web&packageName=com.example.demo&dependencies=web,okta,thymeleaf)
 
 ## Authorization Code Flow and PKCE
 
@@ -30,19 +30,19 @@ OAuth 2.0 and OpenID Connect are the authentication and authorization _de facto_
 The OpenID Connect core specification defines the following roles:
 
 1. End-User: Human participant
-2. Authorization Server: The server issuing access tokens to the client after successfully authenticating the resource owner and obtaining authorization.
+2. Authorization Server: The server issues access tokens to the client after successfully authenticating the resource owner and obtaining authorization.
 3. Client: An application making protected resource requests on behalf of the resource owner (the end-user) and with its authorization.
 
 From the OpenID Connect specification, the authentication using Authorization Code Flow has the following steps:
 
-{% img blog/spring-security-pkce/auth0-authorization-code.png alt:"Authorization Code Grant" width:"800" %}{: .center-image }
+{% img blog/spring-security-pkce/auth0-authorization-code.jpg alt:"Authorization Code Grant" width:"800" %}{: .center-image }
 
-1. Client prepares an authentication request and sends the request to the Authorization Server.
+1. The client prepares an authentication request and sends the request to the Authorization Server.
 2. Authorization Server prompts for the End-User authentication and obtains End-User consent/authorization.
 3. The End-User authenticates and gives consent
-4. Authorization Server sends the End-User back to the Client with an Authorization Code.
-5. Client requests a response using the Authorization Code at the Token Endpoint.
-6. Client receives a response that contains an ID Token and Access Token in the response body.
+4. The Authorization Server sends the End-User back to the Client with an Authorization Code.
+5. The client requests a response using the Authorization Code at the Token Endpoint.
+6. The client receives a response that contains an ID Token and Access Token in the response body.
 
 The diagram is a simplified sequence of the Authorization Code Flow, where the User Agent (the browser) redirections are not shown.
 
@@ -58,7 +58,7 @@ As browser and mobile applications _cannot_ hold credentials securely and theref
 
 The modified flow has the following steps:
 
-{% img blog/spring-security-pkce/auth0-authorization-code-pkce.png alt:"Authorization Code Grant" width:"850" %}{: .center-image }
+{% img blog/spring-security-pkce/auth0-authorization-code-pkce.jpg alt:"Authorization Code Grant" width:"850" %}{: .center-image }
 
 1. The Client creates and records a secret named the "code_verifier" and derives a transformed version referred to as the "code_challenge", which is sent in the OAuth 2.0 Authorization Request along with the transformation method.
 2. The Authorization Endpoint responds as usual but records the "code_challenge" and the transformation method.
@@ -71,27 +71,22 @@ The [OAuth 2.0 Security BCP](https://www.ietf.org/archive/id/draft-ietf-oauth-se
 
 You can experiment with how to configure the authorization code flow configuration by creating a simple Spring Boot web application, following the step-by-step guide in the following sections.
 
-
 ### Create a simple Spring Boot application
 
-With Spring Initializr and curl, create Spring Boot project:
+With Spring Initializr and curl, create a Spring Boot project:
 
 ```shell
 curl -G https://start.spring.io/starter.tgz \
   -d dependencies=web,okta,thymeleaf \
   -d baseDir=spring-web \
-  -d bootVersion=3.2.3 \
-  -d language=java \
-  -d packaging=jar \
+  -d bootVersion=3.2.4 \
   -d javaVersion=21 \
-  -d type=gradle-project \
-  -d groupId=com.example \
   -d artifactId=spring-web \
   -d packageName=com.example.demo \
  | tar -xzvf -
 ```
 
-> Note: You can also create the project using [Spring Initalizr Web UI](https://start.spring.io/)
+> Note: You can also create the project using [Spring Initalizr Web UI](https://start.spring.io/#!platformVersion=3.2.4&jvmVersion=21&artifactId=spring-web&name=spring-web&packageName=com.example.demo&dependencies=web,okta,thymeleaf)
 
 If you inspect the contents of `build.gradle`, you will find the Okta Spring Boot Starter dependency is included. The Okta Spring Boot Starter is Okta's Spring Security integration. It simplifies the process of adding authentication into your Spring Boot application by auto-configuring the necessary classes and adhering to best practices, eliminating the need for you to do it manually. It leverages the OAuth 2.0 and OpenID Connect protocols for user authentication.
 
@@ -106,56 +101,64 @@ Create the `home.html` template at `src/main/resources/templates` with the follo
 ```html
 <!-- src/main/resources/templates/home.html -->
 <html xmlns:th="http://www.thymeleaf.org">
-<head>
+  <head>
     <title>Spring Boot ❤️ Auth0</title>
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css"
-          integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
-</head>
-<body>
-<div class="container">
-    <h2>Spring Boot PKCE Example</h2>
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css"
+      integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65"
+      crossorigin="anonymous"
+    />
+  </head>
+  <body>
+    <div class="container">
+      <h2>Spring Boot PKCE Example</h2>
 
-    <div th:unless="${#authorization.expression('isAuthenticated()')}">
+      <div th:unless="${#authorization.expression('isAuthenticated()')}">
         <p>Hello!</p>
         <p>If you're viewing this page then you have successfully configured and started this application.</p>
-        <p>This example shows you how to use the <a href="https://github.com/okta/okta-spring-boot">Okta Spring Boot
-            Starter</a> to add the <a
-                href="https://auth0.com/docs/get-started/authentication-and-authorization-flow/authorization-code-flow">Authorization
-            Code Flow</a> to your application.</p>
-        <p>When you click the login button below, you will be redirected to login. After you
-            authenticate, you will be returned to this application.</p>
-    </div>
+        <p>
+          This example shows you how to use the <a href="https://github.com/okta/okta-spring-boot">Okta Spring Boot Starter</a> to add the
+          <a href="https://auth0.com/docs/get-started/authentication-and-authorization-flow/authorization-code-flow"
+            >Authorization Code Flow</a
+          >
+          to your application.
+        </p>
+        <p>
+          When you click the login button below, you will be redirected to login. After you authenticate, you will be returned to this
+          application.
+        </p>
+      </div>
 
-    <div th:if="${#authorization.expression('isAuthenticated()')}">
+      <div th:if="${#authorization.expression('isAuthenticated()')}">
         <p>Welcome home, <span th:text="${#authentication.principal.attributes['name']}">Mary Coder</span>!</p>
         <p>You have successfully authenticated with Auth0, and have been redirected back to this application.</p>
         <p>Here are your user's attributes:</p>
         <table class="table table-striped">
-            <thead>
+          <thead>
             <tr>
-                <th>Claim</th>
-                <th>Value</th>
+              <th>Claim</th>
+              <th>Value</th>
             </tr>
-            </thead>
-            <tbody>
+          </thead>
+          <tbody>
             <tr th:each="item : ${claims}">
-                <td th:text="${item.key}">Key</td>
-                <td th:id="${'claim-' + item.key}" th:text="${item.value}">Value</td>
+              <td th:text="${item.key}">Key</td>
+              <td th:id="${'claim-' + item.key}" th:text="${item.value}">Value</td>
             </tr>
-            </tbody>
+          </tbody>
         </table>
-    </div>
+      </div>
 
-    <form method="get" th:action="@{/oauth2/authorization/okta}"
-          th:unless="${#authorization.expression('isAuthenticated()')}">
+      <form method="get" th:action="@{/oauth2/authorization/okta}" th:unless="${#authorization.expression('isAuthenticated()')}">
         <button id="login" class="btn btn-primary" type="submit">Login</button>
-    </form>
-    <form method="post" th:action="@{/logout}" th:if="${#authorization.expression('isAuthenticated()')}">
-        <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}"/>
+      </form>
+      <form method="post" th:action="@{/logout}" th:if="${#authorization.expression('isAuthenticated()')}">
+        <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}" />
         <button id="logout" class="btn btn-danger" type="submit">Logout</button>
-    </form>
-</div>
-</body>
+      </form>
+    </div>
+  </body>
 </html>
 ```
 
@@ -234,7 +237,7 @@ Replace the placeholders with the values from the previous `auth0 apps create` c
 
 The Okta Spring Boot Starter will detect the presence of the properties above and auto-configure the Spring Security filter chain for OpenID Connect authentication. The configuration also enables security and web logs for analyzing the authentication flow.
 
-> The default client authentication method (how the application identifies itself when calling the token endpoint) in Auth0, when you register a regular web application, is `client_secret_post`, but it supports `client_secret_basic` as well. The default client authentication method in Spring Security for confidential clients is `client_secret_basic` if the provider supports it (available in the provider configuration metadata). This example is using the default `client_secret_basic` method and no explicit configuration is required.
+> The default client authentication method (how the application identifies itself when calling the token endpoint) in Auth0, when you register a regular web application, is `client_secret_post`, but it supports `client_secret_basic` as well. The default client authentication method in Spring Security for confidential clients is `client_secret_basic` if the provider supports it (available in the provider configuration metadata). This example uses the default `client_secret_basic` method and no explicit configuration is required.
 
 Run the application with:
 
@@ -254,15 +257,15 @@ As you can see, the last two query parameters in the request to `/authorize` end
 
 > Since version 2.1.6, the Okta Starter enables PKCE by default for confidential clients as well, meaning for clients that require a client-secret. Be careful when using custom `HttpSecurity`, overriding the Okta auto-configuration.
 
-> As the application was registered as regular web at Auth0, you must configure a client-secret for the flow, otherwise Auth0 will reject the authentication requests and return code 401.
+> As the application was registered as regular web at Auth0, you must configure a client-secret for the flow, otherwise, Auth0 will reject the authentication requests and return code 401.
 
 In the browser window, continue with the sign-in flow, and give consent to the application to access your user information:
 
-{% img blog/spring-security-pkce/auth0-consent.png alt:"Auth0 Consent Page" width:"400" %}{: .center-image }
+{% img blog/spring-security-pkce/auth0-consent.jpg alt:"Auth0 Consent Page" width:"400" %}{: .center-image }
 
 After the approval, Auth0 will redirect the browser to the `home.html` page, displaying the ID Token claims. At the bottom left, you can find a **Logout** button. If you click on **Logout**, it will end the local session and redirect to a _logged out_ page generated by Spring Security.
 
-{% img blog/spring-security-pkce/home-page.png alt:"Application Home Page" width:"900" %}{: .center-image }
+{% img blog/spring-security-pkce/home-page.jpg alt:"Application Home Page" width:"900" %}{: .center-image }
 
 ### Configure the logout
 
@@ -275,20 +278,20 @@ okta:
   oauth2:
     ...
     post-logout-redirect-uri: "{baseUrl}"
-...    
+...
 ```
 
-Spring security will resolve `{baseUrl}` placeholder to the application base URL at request time.
+Spring security will resolve `{baseUrl}` placeholder to the application base URL at the request time.
 
-Make sure [End Session Endpoint Discovery](https://auth0.com/docs/authenticate/login/logout/log-users-out-of-auth0#enable-endpoint-discovery) is enabled in your Auth0 tenant. If enabled, Spring Security will logout the user at the provider with [RP-Initated Logout](https://auth0.com/docs/authenticate/login/logout/log-users-out-of-auth0). In the Auth0 dashboard, choose the **Settings** option from the left menu, and then click the **Advanced** tab.
+Make sure [End Session Endpoint Discovery](https://auth0.com/docs/authenticate/login/logout/log-users-out-of-auth0#enable-endpoint-discovery) is enabled in your Auth0 tenant. If enabled, Spring Security will log out the user at the provider with [RP-Initated Logout](https://auth0.com/docs/authenticate/login/logout/log-users-out-of-auth0). In the Auth0 dashboard, choose the **Settings** option from the left menu, and then click the **Advanced** tab.
 
-{% img blog/spring-security-pkce/auth0-end-session-discovery.png alt:"Auth0 End Session Endpoint Discovery toggle option" width:"600" %}{: .center-image }
+{% img blog/spring-security-pkce/auth0-end-session-discovery.jpg alt:"Auth0 End Session Endpoint Discovery toggle option" width:"600" %}{: .center-image }
 
 Restart the application. Now the **Logout** link will end the session at Auth0, and the browser will redirect to the Universal Login page.
 
 ## Enable PKCE when using Okta Starter and custom HttpSecurity
 
-You can customize the OIDC login by defining your own web security, adding a custom `LogoutSuccessHandler` for making the application redirect to the base URL after the logout.
+You can customize the OIDC login by defining your own web security and adding a custom `LogoutSuccessHandler` for making the application redirect to the base URL after the logout.
 
 > If the default security configuration is customized with `HttpSecurity.oauth2Login()`, you can re-enable PKCE for confidential clients with [`OAuth2AuthorizationRequestCustomizers.withPkce()`](https://docs.spring.io/spring-security/reference/servlet/oauth2/client/authorization-grants.html#_obtaining_authorization) or with the utility method `Okta.configureOAuth2WithPkce()`
 
@@ -414,7 +417,7 @@ public class SecurityConfig {
 
 ## Learn more about PKCE and Spring Boot
 
-I hope this post helped you to gain a basic understanding on authentication with OpenID Connect Authorization Code Flow with PKCE, and how to enable the PKCE security best practice in Spring Boot applications using the Okta Spring Boot Starter.
+I hope this post helped you to gain a basic understanding of authentication with OpenID Connect Authorization Code Flow with PKCE, and how to enable the PKCE security best practice in Spring Boot applications using the Okta Spring Boot Starter.
 
 You can find the code shown in this tutorial on [GitHub](https://github.com/indiepopart/spring-web-pkce). If you'd rather skip the step-by-step and prefer running a sample application, follow the [README](https://github.com/indiepopart/spring-web-pkce) instructions in the same repository.
 
