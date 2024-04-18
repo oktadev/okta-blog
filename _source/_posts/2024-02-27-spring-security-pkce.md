@@ -5,7 +5,7 @@ author: jimena-garbarino
 by: contractor
 communities: [security, java]
 description: "Implementing OpenID Connect authentication in Java Web Applications with Okta Spring Boot Starter and Spring Security support for Authorization Code Flow with PKCE "
-tags: []
+tags: [java, spring-boot, spring, openid-connect, oauth2, pkce]
 tweets:
   - ""
   - ""
