@@ -24,7 +24,7 @@ So here is what you will learn to do today:
 
 - Scaffold a Java microservice stack using JHipster, Spring Boot, and Spring Cloud
 - Create an EKS cluster, Virtual Private Cloud (VPC), subnets, and required Kubernetes add-ons using Terraform on AWS
-- Set up OIDC authentication for the microservice stack using Auth0 by Okta
+- Set up OIDC authentication for the microservice stack using Okta
 - Build and deploy the microservice stack to the cluster
 
 **Prerequisites**
@@ -36,7 +36,7 @@ So here is what you will learn to do today:
 - [Docker](https://docs.docker.com/get-docker/) installed and configured
 - [Terraform](https://www.terraform.io/downloads) installed
 - [Java 11+](https://sdkman.io/usage) installed
-- [Auth0 CLI](https://auth0.github.io/auth0-cli/) installed
+- [Okta CLI](https://cli.okta.com/) installed
 - [Optional] [JHipster](https://www.jhipster.tech/installation/) CLI installed
 - [Optional] [KDash](https://github.com/kdash-rs/kdash)
 
@@ -44,13 +44,11 @@ So here is what you will learn to do today:
 
 ## Why Terraform, why not CloudFormation?
 
-At this point, the first question that might pop up in your mind would be, "Why not use [CloudFormation](https://aws.amazon.com/cloudformation/)?". It's a good question; after all, CloudFormation is built by AWS and hence sounds like an excellent solution to manage AWS resources. But anyone who has tried both CloudFormation and Terraform will probably tell you to forget that CloudFormation even exists. I think CloudFormation is far more complex and less developer-friendly than Terraform. You also need to write a lot more boilerplate with CloudFormation in YAML or JSON. Yikes! In contrast, Terraform is elegant and concise, and the syntax is easier to read and write. It's cross-platform, developer-friendly and does not require a lot of ramp-up time.
-
-Okay, now that we have that sorted, let's dive into the steps to deploy our microservice stack on EKS.
+At this point, the first question that might pop up in your mind would be, "Why not use [CloudFormation](https://aws.amazon.com/cloudformation/)?". It's a good question; after all, CloudFormation is built by AWS and hence sounds like an excellent solution to manage AWS resources. But anyone who has tried both CloudFormation and Terraform will probably tell you to forget that CloudFormation even exists. I think CloudFormation is far more complex and less developer-friendly than Terraform. You also need to write a lot more boilerplate with CloudFormation in YAML or JSON. Yikes! And most importantly, Terraform is far more powerful and flexible than CloudFormation. It's cross-platform, which means you can take care of all your infrastructure management needs on any platform with one tool.
 
 ## Scaffold a Java microservice stack using JHipster
 
-To start, we will scaffold a Java microservice stack using [JHipster](https://www.jhipster.tech), Spring Boot, and Spring Cloud. JHipster is an excellent tool to generate a microservice stack with Spring Boot, Angular/React/Vue.js, and other modern frameworks. You can use another microservice stack if you want. If you prefer using the same application as in this demo, then you can either scaffold it using JHipster [JDL](https://www.jhipster.tech/jdl/intro) or clone the sample repository from [GitHub](https://github.com/oktadev/okta-jhipster-k8s-eks-microservices-example). Here is how you can scaffold your microservice stack using JHipster:
+You need a microservice stack to deploy to the cluster. I'm using a microservice stack scaffolded for demo purposes using [JHipster](https://www.jhipster.tech). You can use another microservice stack if you want. If you prefer using the same application as in this demo, then you can either scaffold it using JHipster [JDL](https://www.jhipster.tech/jdl/intro) or clone the sample repository from [GitHub](https://github.com/oktadev/okta-jhipster-k8s-eks-microservices-example).
 
 {% img blog/jhipster-k8s-eks-terraform/jh-microservice-eks.jpg alt:"JHipster microservice architecture" width:"900" %}{: .center-image }
 
@@ -501,28 +499,10 @@ You should see the cluster details if you run `kdash` or `kubectl get nodes` com
 
 > **Note**: The EKS cluster defined here will not come under AWS free tier; hence, running this will cost money, so delete the cluster as soon as you finish the tutorial to keep the cost within a few dollars.
 
-## Set up OIDC authentication using Auth0 by Okta
+## Set up OIDC authentication using Okta
 
-You can proceed to deploy the sample application. You could skip this step if you used a sample that does not use Auth0 or OIDC for authentication.
+You can proceed to deploy the sample application. You could skip this step if you used a sample that does not use Okta or OIDC for authentication.
 
-Since we are using Terraform, we can setup the Auth0 application using the [Auth0 Terraform provider](https://registry.terraform.io/providers/auth0/auth0/latest/docs). This will allow us to automate the setup of the Auth0 application.
-
-### Create an Auth0 application
-<!-- Create  a Terraform script that creates an auth0 web application -->
-
-
-Alternatively you can use the Auth0 CLI to create an application. You can install the CLI using the following command:
-
-```bash
-npm install -g auth0-cli
-```
-
-Then, run the following command to create an application:
-
-```bash
-auth0 login
-
-```
 First, navigate to the **store** application folder.
 
 {% include setup/cli.md type="jhipster" %}
