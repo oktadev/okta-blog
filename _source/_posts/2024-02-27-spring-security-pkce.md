@@ -422,7 +422,7 @@ public class SecurityConfig {
 
 I hope this post helped you to gain a basic understanding of authentication with OpenID Connect Authorization Code Flow with PKCE, and how to enable the PKCE security best practice in Spring Boot applications using the Okta Spring Boot Starter.
 
-You can find the code shown in this tutorial on [GitHub](https://github.com/indiepopart/spring-web-pkce). If you'd rather skip the step-by-step and prefer running a sample application, follow the [README](https://github.com/indiepopart/spring-web-pkce) instructions in the same repository.
+You can find the code shown in this tutorial on [GitHub](https://github.com/oktadev/spring-web-pkce). If you'd rather skip the step-by-step and prefer running a sample application, follow the [README](https://github.com/oktadev/spring-web-pkce) instructions in the same repository.
 
 If you liked this post, you might enjoy these related posts:
 
