@@ -29,9 +29,9 @@ OAuth 2.0 and OpenID Connect are the authentication and authorization _de facto_
 
 The OpenID Connect core specification defines the following roles:
 
-1. End-User: Human participant
-2. Authorization Server: The server issues access tokens to the client after successfully authenticating the resource owner and obtaining authorization.
-3. Client: An application making protected resource requests on behalf of the resource owner (the end-user) and with its authorization.
+1. **End-User**: Human participant
+2. **Authorization Server**: The server issues access tokens to the client after successfully authenticating the resource owner and obtaining authorization.
+3. **Client**: An application making protected resource requests on behalf of the resource owner (the end-user) and with its authorization.
 
 From the OpenID Connect specification, the authentication using Authorization Code Flow has the following steps:
 
