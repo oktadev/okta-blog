@@ -32,7 +32,7 @@ Below is the example code discussed in the podcast episode.
 Install-Module -Name Okta.PowerShell
 ```
 
-### Set up configuration
+### Set up the OAuth 2.0 configuration
 
 Set up an app integration following [this guide](https://developer.okta.com/docs/guides/device-authorization-grant/main/#configure-an-application-to-use-the-device-authorization-grant) to get the Client ID. Then configure PowerShell: 
 
