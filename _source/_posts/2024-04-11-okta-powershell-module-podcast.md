@@ -4,7 +4,7 @@ title: "Introducing Okta's Official PowerShell Module"
 author: edunham
 by: advocate
 communities: [devops,.net]
-description: "In this podcast, we discuss the new PowerShell module with Laura Rodriguez and Bhavik Thakkar"
+description: "In this podcast, we discuss the new PowerShell module that enables you to manage your Okta resources with Laura Rodriguez and Bhavik Thakkar"
 tags: [powershell-cli]
 tweets:
 - ""
