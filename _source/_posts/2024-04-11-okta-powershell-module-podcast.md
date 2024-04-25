@@ -16,7 +16,7 @@ type: awareness
 
 The Okta Workforce Identity Developer Podcast returns with an exploration of our latest new developer tool, the Okta PowerShell Module! 
 
-## Watch on YouTube
+## Watch on the OktaDev YouTube channel
 
 {% youtube ADnxvCYLL9A %}
 
