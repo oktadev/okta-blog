@@ -5,7 +5,7 @@ author: edunham
 by: advocate
 communities: [devops,.net]
 description: "In this podcast, we discuss the new PowerShell module that enables you to manage your Okta resources with Laura Rodriguez and Bhavik Thakkar"
-tags: [powershell-cli]
+tags: [powershell,cli]
 tweets:
 - ""
 - ""
@@ -52,7 +52,7 @@ Running this command in PowerShell opens a browser so you can follow your organi
 Invoke-OktaEstablishAccessToken
 ```
 
-### Group creation
+### Create an Okta group using PowerShell
 
 ```ps
 $GroupProfile = [PSCustomObject]@{
@@ -170,5 +170,7 @@ if (Test-Path $filePath) {
 }
 ```
 
-What will you automate with Okta's PowerShell module? Let us know in the comments below!
+What will you automate with Okta's PowerShell module? Let us know in the comments below!  
+
+Follow us on [Twitter](https://twitter.com/oktadev) and subscribe to our [YouTube](https://www.youtube.com/c/oktadev) channel. If you have any questions or you want to share what other topics you'd like to hear about on the podcast, please comment below!
 
