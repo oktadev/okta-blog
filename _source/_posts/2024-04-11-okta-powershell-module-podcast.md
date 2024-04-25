@@ -34,7 +34,7 @@ Install-Module -Name Okta.PowerShell
 
 ### Set up the OAuth 2.0 configuration
 
-Set up an app integration following [this guide](https://developer.okta.com/docs/guides/device-authorization-grant/main/#configure-an-application-to-use-the-device-authorization-grant) to get the Client ID. Then configure PowerShell: 
+Set up an app integration following [this guide](/docs/guides/device-authorization-grant/main/#configure-an-application-to-use-the-device-authorization-grant) to get the Client ID. Then configure PowerShell: 
 
 ```ps
 $Configuration = Get-OktaConfiguration
@@ -126,7 +126,7 @@ Invoke-OktaListGroupUsers -GroupId $CreatedGroup.Id
 
 ## Example: script to automatically sync employee data from a file to Okta
 
-For this scenario, we imagine a custom tool that lacks [OpenID Connect (OIDC)](https://developer.okta.com/blog/2023/07/28/oidc_workshop) or [System for Cross-Identity Management (SCIM)](https://developer.okta.com/blog/2023/07/28/scim-workshop) compatibility has emitted a CSV of users who we'll add to our Okta organization using a PowerShell script. 
+For this scenario, we imagine a custom tool that lacks [OpenID Connect (OIDC)](/blog/2023/07/28/oidc_workshop) or [System for Cross-Identity Management (SCIM)](/blog/2023/07/28/scim-workshop) compatibility has emitted a CSV of users who we'll add to our Okta organization using a PowerShell script. 
 
 The file `~/Documents/hr-export-employees.csv` contains data which looks like this: 
 
