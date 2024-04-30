@@ -31,7 +31,7 @@ When a user logs into their Okta account in a web browser, a [session cookie](ht
 
 Most of Okta's core auth flows do not rely on third-party cookies. When third-party cookies are used, they normally augment the basic login experience or add convenience features. The following sections outline all the design patterns in which Okta uses third-party cookies. If your application is in one of these categories, please test its behavior with third-party cookie deprecation. 
 
-Okta uses cookies to let applications introspect and extend user sessions. Cookies aren't required for basic login functionality. 
+Okta uses cookies to let applications introspect and extend user sessions. Cookies aren't required for basic login functionality. Without cookies, users can still log in, but some users might have to re-authenticate more often.
 
 ### Third-party cookie deprecation affects web applications that rely on the Okta session for user context
 
@@ -48,6 +48,11 @@ If the sign-in experience and app are on different top-level domains, third-part
 If you're using a custom domain like `login.mycompany.com` in your sign-in widget configuration, cookies will be written to the domain which received the request. If your Sign-In Widget configuration sets `login.mycompany.com` as the `baseUrl` or `issuer`, cookies will be issued for `mycompany.com` when a user logs in, so those cookies are first-party to all `mycompany.com` web pages.
 
 If you have a self-hosted Sign-In Widget with `mycompany.okta.com` configured as the `baseUrl` or `issuer` in its settings, cookies will be issued for `okta.com` and will be first-party to `okta.com` but third-party to `mycompany.com`. 
+
+
+### Third-party cookie deprecation when using Agentless Desktop Single Sign-on
+
+If you have a Custom Domain or Self-Hosted Sign-in Widget deployment model and use Agentless Desktop Single Sign-on (ADSSO), follow the steps in the [Third Party Cookies Utilized by the Sign-in Widget](https://support.okta.com/help/s/article/third-party-cookies-utilized-by-the-sign-in-widget) Knowledge Base article to enable `CookiesAllowedforURLs` in Chrome browsers. 
 
 ### Third-party cookie deprecation affects "remember me" features
 
@@ -67,4 +72,5 @@ Here on the Okta Developer Blog, we'll keep you updated about how to mitigate ea
 
 * Learn more about [how blocking third-party cookies affects Okta environments](https://support.okta.com/help/s/article/FAQ-How-Blocking-Third-Party-Cookies-Can-Potentially-Impact-Your-Okta-Environment?language=en_US).
 * See the [Okta session cookies guide](https://developer.okta.com/docs/guides/session-cookie/main/) for more on how cookies are used.
-* [Use Chrome's feature flags](https://support.okta.com/help/s/article/deprecation-of-3rd-party-cookies-in-google-chrome?language=en_US) to test your login experience with third-party cookies disabled.  
+* [Use Chrome's feature flags](https://support.okta.com/help/s/article/deprecation-of-3rd-party-cookies-in-google-chrome?language=en_US) to test your login experience with third-party cookies disabled.
+* Read the [Third Party Cookies Utilized by the Sign-in Widget](https://support.okta.com/help/s/article/third-party-cookies-utilized-by-the-sign-in-widget) Knowledge Base article
