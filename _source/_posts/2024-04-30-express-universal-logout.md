@@ -19,7 +19,7 @@ Your enterprise customers expect you to safeguard them from common security inci
 
 Bottom line, if you build SaaS applications for enterprise-level customers who leverage Identity Providers (IdPs), workflows, and threat-detection tools, then adding Universal Logout to your app is the solution to ending suspicious user sessions ASAP. 
 
-In this tutorial, you'll learn to add a secure Universal Logout API endpoint to a web app, test it by sending a request to end a user's active session, and finally handle signing them out of the app. However, we will not cover initiating user logout through an IdP, i.e. Okta, as this feature is soon to come.
+In this tutorial, you'll learn to add a secure Universal Logout API endpoint to a web app, test it by sending a request to end a user's active session, and finally handle signing them out of the app. However, we will not cover initiating user sign-out through an IdP, i.e. Okta, as this feature is soon to come.
 
 >**Note**: You can follow along with this blog to build a Universal Logout or check out the finished code on the [ul-workshop-complete](https://github.com/oktadev/okta-enterprise-ready-workshops/tree/ul-workshop-complete) branch of our Oktadev GitHub repository.
 
@@ -45,9 +45,9 @@ If you don't already have an Okta account, you can sign up for one here under [W
 
 >**Note**: Take note of your client_id and client_secret info, you'll need this in the following step.
 
-### Add your OIDC integration details to the app
+### Add configuration to authenticate with OIDC
 
-You can view the user table locally using Prisma. To do this, go to the root of this workshop folder in your terminal and run `npx prisma studio`. Your browser will open a new web page where you can see all the users in your database.
+You can view the user table locally using Prisma Studio. To do this, go to the root of this workshop folder in your terminal and run `npx prisma studio`. Your browser will open a new web page where you can see all the users in your database.
 
 While viewing your database locally, you'll also see an org table. You can manually input the following info to seed your database with an org linked to an Okta authorization server, allowing OIDC SSO sign-in.
 
@@ -63,8 +63,8 @@ While viewing your database locally, you'll also see an org table. You can manua
 
 ### Create a test user
 
-To test whether UL works for our app, we'll create a new user on Okta whose account we will forcibly sign out. 
-Open the Admin Console for your org, and go to **Directory** > **People**. Click Add Person and create a person with the following properties:
+To test whether UL works for our app, we'll create a user on Okta whose account we'll forcibly sign out. 
+Open the Admin Console for your org, and go to **Directory** > **People**. Click **Add Person** and create a person with the following properties:
 
 - User type: User
 - First name: Trinity
