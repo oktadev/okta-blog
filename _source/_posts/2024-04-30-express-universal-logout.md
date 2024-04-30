@@ -411,7 +411,7 @@ universalLogoutRoute.use((err,req,res,next) => {
 
 Moving right along, now that we have the target user of a specific org. Let's figure out how to target their application session and end it.
 
-## Implement the forced logout for a user
+## Implement the forced sign-out for a user
 
 In this section, we'll work towards ending a user's session and logging them out of the app.
 
