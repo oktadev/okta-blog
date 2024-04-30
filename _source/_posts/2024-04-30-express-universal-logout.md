@@ -12,7 +12,7 @@ tweets:
 - ""
 image: blog/express-universal-logout/social.jpg
 type: awareness
-github:
+github: https://github.com/oktadev/okta-enterprise-ready-workshops/tree/ul-workshop-complete
 ---
 
 Your enterprise customers expect you to safeguard them from common security incidents, especially when it comes to compromised user accounts. Perhaps a user has signed in from a known stolen device or another country outside the list of allowed IP zones. If a hacker is masquerading as one of your customer's employees, potentially accessing sensitive company data, you must end their session and log them out of your app immediately. 
@@ -35,7 +35,7 @@ In this tutorial, you will learn to add a secure Universal Logout API endpoint t
 
 Follow [these setup instructions](/blog/2023/07/27/enterprise-ready-getting-started) to install and run the Todo sample app. Run `node -v` and ensure you have Node version 18 or newer. 
 
->**Note**: If you have already completed the [Enterprise Ready OIDC Workshop](/blog/2023/07/28/oidc_workshop) and can successfully run the Todo app with OIDC-SSO configured with Okta, please skip to **Build a Universal Logout endpoint section and secure it**. If you haven't, please read on.
+>**Note**: If you have already completed the [Enterprise Ready OIDC Workshop](/blog/2023/07/28/oidc_workshop) and can successfully run the Todo app with OIDC-SSO configured with Okta, please skip to the **Build a Universal Logout endpoint section and secure it**. If you haven't, please read on.
 We will build the Universal Logout (UL) endpoint on [the sample app](https://github.com/oktadev/okta-enterprise-ready-workshops/) with OIDC support implemented. After cloning the repo, check out the oidc-workshop-complete branch with git checkout **oidc-workshop-complete**. 
 
 >**Troubleshooting tips**: Ensure you can run the Todo application before you begin. We will be adding some code and testing along the way. 
@@ -413,7 +413,7 @@ Moving right along, now that we have the target user of a specific org. Let's fi
 
 ## Implement the forced logout for a user
 
-In this section we'll work towards ending a users session and logging them out of the app.
+In this section, we'll work towards ending a user's session and logging them out of the app.
 
 ### End a user's session
 
@@ -594,7 +594,7 @@ curl --request POST \
 
 Check that you get a 204 response, and then try to add another Todo task to see what happens. You won't be able to add another task, and if you open the dev tools and inspect the console tab, you will see a 401 Unauthorized error. 
 
-We accomplished our goal of ending a user's session, but the user can still see the contents of the webpage. Let's make sure we fully log them out by refreshing the browser and redirecting them to the main sign-in page—forcing the user to reauthenticate.
+We accomplished our goal of ending a user's session, but the user can still see the contents of the webpage. Let's ensure we fully log them out by refreshing the browser and redirecting them to the main sign-in page—forcing the user to reauthenticate.
 
 ### Sign a user out of the Todo app
 
@@ -663,7 +663,7 @@ window.location.href = '/';
 
 >**Checkpoint**: Let's retest, ending Trinity's session, and watch what happens when you attempt to add a new task to the Todo app.
 
->**Improve your code**: Notice the code above only handles a 401 response from the server when adding a new task. How might you handle 401 errors globally? You can use fetch or Axios Interceptor. Our completed workshop code handles this using fetch, check it out here [Universal Logout Workshop Complete](github).
+>**Improve your code**: Notice the code above only handles a 401 response from the server when adding a new task. How might you handle 401 errors globally? You can use fetch or [Axios Interceptor](https://axios-http.com/docs/interceptors). The completed workshop code handles this using fetch; check it out here [Universal Logout Workshop Complete](https://github.com/oktadev/okta-enterprise-ready-workshops/blob/ul-workshop-complete/apps/todo-app/src/app/components/useTodoApi.tsx).
 
 ### Revoke a user's tokens
 This web application architecture used cookie-based sessions instead of session tokens to authenticate to the backend resources. However, in the case of mobile apps and single-page applications, you will need to revoke refresh tokens on the frontend. As per the [spec](https://datatracker.ietf.org/doc/html/draft-parecki-oauth-global-token-revocation#name-revocation-expectations), written by [Aaron Perecki](https://aaronparecki.com/) a successful logout will require revoking a user's refresh token. 
