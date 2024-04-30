@@ -413,7 +413,7 @@ Moving right along, now that we have the target user of a specific org. Let's fi
 
 ## Implement the forced sign-out for a user
 
-In this section, we'll work towards ending a user's session and logging them out of the app.
+In this section, we'll work towards ending a user's session and signing them out of the app.
 
 ### End a user's session
 
