@@ -141,7 +141,7 @@ export const universalLogoutRoute = Router();
 import { PrismaClient } from '@prisma/client';
 ```
 
-We'll need to instantiate a Prisma client and add a TypeScript interface to ensure the request coming to our endpoint is the data type we expect. As per the [Global Token Revocation Specification](https://datatracker.ietf.org/doc/html/draft-parecki-oauth-global-token-revocation#name-revocation-request), we are expecting an external request to end a user's session based on the email used to SSO with their IdP. The request will look like the following:
+We'll need to instantiate a Prisma client and define a TypeScript interface to ensure the request coming to our endpoint is the data type we expect. As per the [Global Token Revocation Specification](https://datatracker.ietf.org/doc/html/draft-parecki-oauth-global-token-revocation#name-revocation-request), we are expecting an external request to end a user's session based on the email used to SSO with their IdP. The request will look like the following:
 
 ```http
 POST /global-token-revocation
@@ -217,13 +217,13 @@ import { universalLogoutRoute } from './universal-logout';
 import morgan from 'morgan';
 ```
 
-Add the following line to your UL route in `apps/api/src/main.ts`. It instructs the server to use Morgan:
+Add the following line to your UL Route section in `apps/api/src/main.ts`. It instructs the server to use Morgan:
 
 ```ts
 app.use(morgan('combined'))
 ```
 
-The UL section will now look like this:
+The UL Route section will now look like this:
 
 ```ts
 ///////////////////////////////////////////////////////
@@ -456,7 +456,7 @@ app.use(session({
 }));
 ```
 
-Notice how the user session is configured in the `apps/api/src/main.ts` file via the Passport.js library's serialization and deserialization functions. We can instruct the Passport.js library to reference a user's session via `user.id`; this will come in handy soon. If you are curious, you can read more about how this works in the [Passport.js documentation](https://www.passportjs.org/concepts/authentication/sessions/). 
+Notice how the user session is configured in the `apps/api/src/main.ts` file with the Passport.js library's serialization and deserialization functions. We can instruct the Passport.js library to reference a specific user's session with their `user.id`. If you're curious, you can read more about how this works in the [Passport.js documentation](https://www.passportjs.org/concepts/authentication/sessions/). 
 
 ```ts
 passport.serializeUser( async (user: IUser, done) => {
