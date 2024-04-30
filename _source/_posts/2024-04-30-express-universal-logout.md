@@ -71,23 +71,23 @@ Open the Admin Console for your org, and go to **Directory** > **People**. Click
 - Last name: Anderson
 - Username: trinity@whiterabbit.fake
 - Activation: Activate now
-- Enter a password of your own choice, and click Save.
+- Enter a password of your choosing and click **Save**
 
 ### Migrate the test user
 
-Now that you have a user on the Okta side. Let's migrate Trinity (within the Todo app) to the correct org according to her company domain. Run the following command and then check the Prisma database to see if Trinity is linked to the whiterabbit.fake domain (org #1).
+Now that you have a user in Okta. Let's migrate Trinity to the correct Todo App org according to her company domain. Run the following command and then check the Prisma database to see if Trinity is linked to the whiterabbit.fake domain (org #1).
 
 ```shell
 ​npm run oidc-migrate whiterabbit.fake
 ```
 
-Lastly, test that the user can log in via the Okta.
+Finally, test that the user can sign in to the app.
 
 ## Build a Universal Logout endpoint and secure it
 
 Now that we have the app set up, we'll extend it to include a UL endpoint. In this section, we'll test the endpoint, secure it, sign a user out, and finally end their session.
 
-## Create the basic endpoint
+## Create the required token revocation endpoint
 
 Create a file called `universalLogout.ts` under the `apps/api/src` folder and, at the top of the file, import `Router` from Express. From here, create a route called `universalLogoutRoute` and export it. 
 
@@ -96,7 +96,7 @@ import { Router } from 'express';
 export const universalLogoutRoute = Router();
 ```
 
-Let's add the route within this file. It will look like the following:
+Let's add the UL route to this file:
 
 ```ts
 import { Router } from 'express';
@@ -124,7 +124,7 @@ import session from 'express-session';
 import { universalLogoutRoute } from './universalLogout';
 ```
 
-Add your UL route at the end of the OIDC-related code section. As shown below
+Add your UL route at the end of the OIDC-related code section:
 
 ```ts
 ///////////////////////////////////////////////////////
@@ -133,7 +133,7 @@ Add your UL route at the end of the OIDC-related code section. As shown below
 app.use('/', universalLogoutRoute);
 ```
 
-Let's circle back to the `apps/api/src/universalLogout.ts` file and add more requirements to set up our UL endpoint. Let's include the Prisma Client to access our database of users, so at the top of the file, add the line `import { PrismaClient } from '@prisma/client;` the file will now look like this:
+Let's circle back to the `apps/api/src/universalLogout.ts` file and add more requirements to set up our UL endpoint. Let's include the Prisma client to access our database of users, so at the top of the file, add the line `import { PrismaClient } from '@prisma/client;`:
 
 ```ts
 import { Router } from 'express';
@@ -141,7 +141,7 @@ export const universalLogoutRoute = Router();
 import { PrismaClient } from '@prisma/client';
 ```
 
-We'll need to instantiate a Prisma Client and add a TypeScript interface to ensure the request coming to our endpoint is the data type we expect. As per the [Global Token Revocation Specification](https://datatracker.ietf.org/doc/html/draft-parecki-oauth-global-token-revocation#name-revocation-request), we are expecting an external request to end a user's session based on the email used to SSO with their IdP. The request will look like the following:
+We'll need to instantiate a Prisma client and add a TypeScript interface to ensure the request coming to our endpoint is the data type we expect. As per the [Global Token Revocation Specification](https://datatracker.ietf.org/doc/html/draft-parecki-oauth-global-token-revocation#name-revocation-request), we are expecting an external request to end a user's session based on the email used to SSO with their IdP. The request will look like the following:
 
 ```
 POST /global-token-revocation
