@@ -85,7 +85,7 @@ Lastly, test that the user can log in via the Okta.
 
 ## Build a Universal Logout endpoint and secure it
 
-Now that we have the app set up, we'll extend it to include a UL endpoint. In this section, we'll test the endpoint, secure it, log a user out, and finally end their session.
+Now that we have the app set up, we'll extend it to include a UL endpoint. In this section, we'll test the endpoint, secure it, sign a user out, and finally end their session.
 
 ## Create the basic endpoint
 
