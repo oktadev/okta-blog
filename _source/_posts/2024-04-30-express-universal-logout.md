@@ -603,7 +603,7 @@ Under the `apps/todo-app/src/app/components/todolist.tsx` file. Find the functio
 ```ts
  if (!res.ok)
 {if (res.status === 401) {
-// Redirect user back to login
+// Redirect user back to the sign-in page
 window.location.href = '/';
         } else {
           // Handle other errors
