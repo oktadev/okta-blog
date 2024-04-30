@@ -662,7 +662,7 @@ This web application architecture uses cookie-based sessions instead of session 
 This tutorial provides the fundamental steps to creating a UL endpoint to end a user's session or tokens. However, the UL feature isn't available yet; once released, a secondary blog will be posted with further instructions on how to initiate sign-out with Okta. Stay tuned! For now, you can find the completed project [ul-workshop-complete](https://github.com/oktadev/okta-enterprise-ready-workshops/tree/ul-workshop-complete) on our Oktadev GitHub repository. 
 
 ## Continue adding more features to your SaaS app!
-Now that you have an OIDC app with a UL endpoint, you can continue your Enterprise-Ready journey by adding user lifecycle management through System for Cross-domain Identity Management (SCIM).
+Now that you have an OIDC app with a UL endpoint, you can continue your Enterprise-Ready journey by adding user lifecycle management through System for Cross-domain Identity Management [(SCIM)](https://datatracker.ietf.org/doc/html/rfc7644).
 
 - [Enterprise-Ready Workshop: Manage users with SCIM](/blog/2023/07/28/scim-workshop)
 
