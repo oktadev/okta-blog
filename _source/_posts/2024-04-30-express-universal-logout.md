@@ -21,7 +21,7 @@ Bottom line, if you build SaaS applications for enterprise-level customers who l
 
 In this tutorial, you will learn to add a secure Universal Logout API endpoint to a web app, test it by sending a request to end a user's active session, and finally handle signing them out of the app. Lastly, we'll use Okta as the IdP to initiate user logout.
 
->**Note**: You can follow along with this blog to build a Universal Logout or jump ahead to the completed project [ul-workshop-complete]() on our Oktadev GitHub repository.
+>**Note**: You can follow along with this blog to build a Universal Logout or check out the finished code on the [ul-workshop-complete](https://github.com/oktadev/okta-enterprise-ready-workshops/tree/ul-workshop-complete) branch of our Oktadev GitHub repository.
 
 {% include toc.md %}
 
@@ -35,7 +35,7 @@ In this tutorial, you will learn to add a secure Universal Logout API endpoint t
 
 Follow [these setup instructions](/blog/2023/07/27/enterprise-ready-getting-started) to install and run the Todo sample app. Run `node -v` and ensure you have Node version 18 or newer. 
 
->**Note**: If you have already completed the [Enterprise Ready OIDC Workshop](/blog/2023/07/28/oidc_workshop) and can successfully run the Todo app with OIDC-SSO configured with Okta, please skip to the **Build a Universal Logout endpoint section and secure it**. If you haven't, please read on.
+>**Note**: If you have already completed the [Enterprise Ready OIDC Workshop](/blog/2023/07/28/oidc_workshop) and can successfully run the Todo app with OIDC-SSO configured with Okta, please skip to **Build a Universal Logout endpoint section and secure it**. If you haven't, please read on.
 We will build the Universal Logout (UL) endpoint on [the sample app](https://github.com/oktadev/okta-enterprise-ready-workshops/) with OIDC support implemented. After cloning the repo, check out the oidc-workshop-complete branch with git checkout **oidc-workshop-complete**. 
 
 >**Troubleshooting tips**: Ensure you can run the Todo application before you begin. We will be adding some code and testing along the way. 
@@ -447,7 +447,7 @@ import passportBearer from 'passport-http-bearer';
 import { store } from './sessionsStore';
 ```
 
-Now add store within your session configuration:
+Now add `store` within your session configuration:
 
 ```ts
 app.use(session({
