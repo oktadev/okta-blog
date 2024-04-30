@@ -28,17 +28,17 @@ In this tutorial, you'll learn to add a secure Universal Logout API endpoint to 
 ## Get the sample app up and running
 
 **Prerequisites**
-- Enterprise Ready OIDC Workshop - [oidc-workshop-complete](https://github.com/oktadev/okta-enterprise-ready-workshops/tree/oidc-workshop-complete)
+- Enterprise Ready OIDC Workshop](/blog/2023/07/28/oidc_workshop) - [oidc-workshop-complete](https://github.com/oktadev/okta-enterprise-ready-workshops/tree/oidc-workshop-complete)
 - Code Editor (I used [Visual Studio Code](https://code.visualstudio.com/download)) 
 - [Okta Developer Account](https://developer.okta.com/signup/)
 - [Node.js](https://nodejs.org/en) v18 or greater
 
-Follow [these setup instructions](/blog/2023/07/27/enterprise-ready-getting-started) to install and run the Todo sample app. Run `node -v` and ensure you have Node version 18 or newer. 
+Run `node -v` and ensure you have Node version 18 or newer. Follow [these setup instructions](/blog/2023/07/27/enterprise-ready-getting-started) to install and run the Todo sample app.  
 
->**Note**: If you have already completed the [Enterprise Ready OIDC Workshop](/blog/2023/07/28/oidc_workshop) and can successfully run the Todo app with OIDC-SSO configured with Okta, please skip to the **Build a Universal Logout endpoint section and secure it**. If you haven't, please read on.
-We will build the Universal Logout (UL) endpoint on [the sample app](https://github.com/oktadev/okta-enterprise-ready-workshops/) with OIDC support implemented. After cloning the repo, check out the oidc-workshop-complete branch with git checkout **oidc-workshop-complete**. 
+>**Note**: If you have already completed the [Enterprise Ready OIDC Workshop](/blog/2023/07/28/oidc_workshop) and can successfully run the Todo app with OIDC-SSO configured with Okta, add a task, and sign a user out, please skip to the **Build a Universal Logout endpoint section and secure it**. If you haven't, please read on.
+We'll build the Universal Logout (UL) endpoint on [the sample app](https://github.com/oktadev/okta-enterprise-ready-workshops/) with OIDC support implemented. After cloning the repo, check out the oidc-workshop-complete branch with git checkout **oidc-workshop-complete**. 
 
->**Troubleshooting tips**: Ensure you can run the Todo application before you begin. We will be adding some code and testing along the way. 
+>**Troubleshooting tips**: Ensure you can run the Todo application before you begin. We'll be adding some code and testing along the way. 
 
 ### Create a free Okta Developer Edition account
 If you don't already have an Okta account, you can sign up for one here under [Workforce Identity Cloud – Developer Edition](https://developer.okta.com/signup/). You'll also need to create an [OpenID Connect (OIDC) application](https://developer.okta.com/docs/guides/implement-grant-type/authcode/main/#set-up-your-app), which you can do by following the instructions listed here under Setup your app.
@@ -609,9 +609,11 @@ window.location.href = '/';
           // Handle other errors
           throw new Error('Error occurred while fetching data');
         }}     
+```
 
 The onNewTask function will now look like this:
 
+```ts
 import { useEffect, useState } from 'react';
 import { useAuthState } from './authState';
 
@@ -668,7 +670,16 @@ window.location.href = '/';
 ### Revoke a user's tokens
 This web application architecture used cookie-based sessions instead of session tokens to authenticate to the backend resources. However, in the case of mobile apps and single-page applications, you will need to revoke refresh tokens on the frontend. As per the [spec](https://datatracker.ietf.org/doc/html/draft-parecki-oauth-global-token-revocation#name-revocation-expectations), written by [Aaron Perecki](https://aaronparecki.com/) a successful logout will require revoking a user's refresh token. 
 
-## Initiate UL through Okta 
+## Initiate Universal Logout through Okta 
 This tutorial provides the fundamental steps to creating a UL endpoint to end a user's session or tokens. However, the UL feature is not yet available; once released, a secondary blog will be posted with further instructions on how to initiate logout with Okta. Stay tuned! For now, you can find the completed project [ul-workshop-complete](https://github.com/oktadev/okta-enterprise-ready-workshops/tree/ul-workshop-complete) on our Oktadev GitHub repository. 
+
+## Continue adding more features to your SaaS app!
+Now that you have an OIDC app with a UL endpoint, you can continue your Enterprise-Ready journey by adding user lifecycle management through System for Cross-domain Identity Management (SCIM).
+
+- [Enterprise-Ready Workshop: Manage users with SCIM](/blog/2023/07/28/scim-workshop)
+
+You can further manage your users and groups using Terraform or Workflows:
+- [Enterprise Maturity Workshop: Terraform](/blog/2023/07/28/terraform-workshop)
+- [Enterprise Ready Workshop: Automate with no-code Okta Workflows](/blog/2023/09/15/workflows-workshop)
 
 Follow us on [Twitter](https://twitter.com/oktadev) and subscribe to our [YouTube](https://www.youtube.com/c/oktadev) channel. If you have any questions about Universal Logout, please comment below! 
