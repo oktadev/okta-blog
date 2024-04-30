@@ -462,7 +462,7 @@ app.use(session({
 }));
 ```
 
-Notice how the user session is configured in the `apps/api/src/main.ts` file via the Passport.js library's serialization and deserialization functions. We can instruct the Passport.js library to reference a user's session via user.id; this will come in handy soon. If you are curious, you can read more about how this works in the [Passport.js documentation](https://www.passportjs.org/concepts/authentication/sessions/). 
+Notice how the user session is configured in the `apps/api/src/main.ts` file via the Passport.js library's serialization and deserialization functions. We can instruct the Passport.js library to reference a user's session via `user.id`; this will come in handy soon. If you are curious, you can read more about how this works in the [Passport.js documentation](https://www.passportjs.org/concepts/authentication/sessions/). 
 
 ```ts
 passport.serializeUser( async (user: IUser, done) => {
