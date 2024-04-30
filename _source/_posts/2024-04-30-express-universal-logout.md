@@ -210,7 +210,7 @@ In a new terminal, install Morgan with the following command:
 npm install morgan
 ```
 
-Then, import Morgan at the top of the `apps/api/src/main.ts` file. It will look like this:
+Then, import Morgan at the top of the `apps/api/src/main.ts` file:
 
 ```ts
 import express from 'express';
@@ -223,7 +223,7 @@ import { universalLogoutRoute } from './universal-logout';
 import morgan from 'morgan';
 ```
 
-Add the following line in the `apps/api/src/main.ts` file and within your UL Route section to instruct the server to use Morgan:
+Add the following line to your UL route in `apps/api/src/main.ts`. It instructs the server to use Morgan:
 
 ```ts
 app.use(morgan('combined'))
@@ -254,7 +254,7 @@ curl --request POST \
 }'
 ```
 
-This request will result in a 204 response confirming that a user named Trinity exists in our database. Sure, we got a successful response, but what is wrong here? This endpoint isn't secure; we've made it available for anyone to access. Let's fix this by adding authentication to protect this endpoint and establish trust between our server and any external service making a request to this route.
+This request will result in a 204 response confirming that a user named Trinity exists in our database. Sure, we got a successful response, but what is wrong here? This endpoint isn't secure. We've made it available for anyone to access. Let's fix this by adding authentication to protect this endpoint and establish trust between our server and any external service making a request to this route.
 
 ## Allow only authorized access to the endpoint
 
@@ -267,7 +267,7 @@ npm install passport-http-bearer
 npm install @types/passport-http-bearer -D
 ```
 
-Then import `passportBearer` at the top of `apps/api/src/main.ts`. It will look like this:
+Then import `passportBearer` at the top of `apps/api/src/main.ts`:
 
 ```ts
 import express from 'express';
@@ -310,7 +310,7 @@ const OpenIDConnectStrategy = passportOIDC.Strategy;
 const BearerStrategy = passportBearer.Strategy;
 ```
 
-Lastly, add the token auth strategy to your UL-related code (just below the OIDC-related code). Notice how we are programmatically setting the Passport.js auth strategy to relate the API key to an existing org in our database. From here, we'll be able to have context about which org the incoming request is referring to. You can read more about this in the [Passport.js documentation](https://www.passportjs.org/concepts/authentication/http-bearer/).
+Lastly, add the token auth strategy to your UL-related code (just below the OIDC-related code). Notice how we're setting the Passport.js auth strategy to relate the API key to an existing org in our database. From here, we'll be able to have context about which org the incoming request is referring to. You can read more about this in the [Passport.js documentation](https://www.passportjs.org/concepts/authentication/http-bearer/).
 
 ```ts
 // Bearer Auth Strategy
@@ -365,9 +365,9 @@ curl --request POST \
 }'
 ```
 
-You will get a 401 Unauthorized, meaning the authorization provided was invalid. This error is valid because we didn't send a token to our authorization headers. Let's fix that! We know from our database that the API key to our database is 131313. You can confirm this by opening another terminal and running `npx prisma studio`. A new window will open with a UI showing you the tables in your database; inspect the org table to see the column apikey for org 1. With that, go ahead and add this missing info to your cURL request. 
+You'll get a **401 Unauthorized** response, meaning the authorization provided was invalid. This error is valid because we didn't send a token to our authorization headers. Let's fix that! We know from our database that the API key to our database is 131313. You can confirm this by opening another terminal and running `npx prisma studio`. A new window will open with a UI showing you the tables in your database; inspect the org table to see the column apikey for org 1. With that, go ahead and add this missing info to your cURL request. 
 
-It is crucial to authenticate with the correct API key as it specifies the org with which the user is associated. We'll also need to incorporate this information into the code. How might you do that? Thanks to the Passport.js library and how we configured the auth strategy in the `apps/api/src/main.ts`, we have information about the org the request is about, which is stored in `req['user']`. Try adding `console.log(req['user'])` to see what I mean. Furthermore, we can now access the org context with `req['user']['id']`. We'll need this to find the exact user within a specific org, and it will be beneficial if your app handles multitenancy. Add the following code to `apps/api/src/universalLogout.ts`: 
+It's crucial to authenticate with the correct API key as it specifies the org with which the user is associated. We'll also need to incorporate this information into the code. How might you do that? Thanks to the Passport.js library and how we configured the auth strategy in the `apps/api/src/main.ts`, we have information about the org the request is about, which is stored in `req['user']`. Try adding `console.log(req['user'])` to see what I mean. Furthermore, we can now access the org context with `req['user']['id']`. We'll need this to find the exact user within a specific org, and it will be beneficial if your app handles multitenancy. Add the following code to `apps/api/src/universalLogout.ts`: 
 
 ```ts
 universalLogoutRoute.post('/global-token-revocation', async (req, res) => {
