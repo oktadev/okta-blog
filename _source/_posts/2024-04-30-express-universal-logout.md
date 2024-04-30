@@ -430,7 +430,7 @@ For now, import `store` from the `session/Store` file at the top of the `apps/ap
 import { store } from './sessionsStore';
 ```
 
-The top of the `apps/api/src/main.ts` file will now look like this:
+The top of the `apps/api/src/main.ts` file now looks like this:
 
 ```ts
 import express from 'express';
@@ -480,7 +480,7 @@ passport.deserializeUser( async (id: number, done) => {
 });
 ```
 
-Next, import the variable store at the top of the `apps/api/src/universalLogout.ts` file. 
+Next, import `store` at the top of `apps/api/src/universalLogout.ts`: 
 
 ```ts
 import { Router } from 'express';
