@@ -143,7 +143,7 @@ import { PrismaClient } from '@prisma/client';
 
 We'll need to instantiate a Prisma client and add a TypeScript interface to ensure the request coming to our endpoint is the data type we expect. As per the [Global Token Revocation Specification](https://datatracker.ietf.org/doc/html/draft-parecki-oauth-global-token-revocation#name-revocation-request), we are expecting an external request to end a user's session based on the email used to SSO with their IdP. The request will look like the following:
 
-```
+```http
 POST /global-token-revocation
 Host: example.com
 Content-Type: application/json
@@ -200,9 +200,9 @@ universalLogoutRoute.post('/global-token-revocation', async (req, res) => {
 
 >**Checkpoint**: Now is an excellent time to test our code. 
 
-### Test the basic endpoint
+### Test the token revocation endpoint
 
-Before we proceed, let's make sure the basic endpoint is working. We'll use [cURL](https://curl.se/docs/httpscripting.html) to send requests to the endpoint and [Morgan](https://www.npmjs.com/package/morgan), an HTTP logger middleware to see the response codes it returns.
+Before we proceed, let's make sure the token revocation endpoint works. We'll use [cURL](https://curl.se/docs/httpscripting.html) to send requests to the endpoint and [Morgan](https://www.npmjs.com/package/morgan), an HTTP logger middleware to see the response codes it returns.
 
 In a new terminal, install Morgan with the following command:
 
