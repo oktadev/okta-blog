@@ -483,7 +483,7 @@ import { PrismaClient } from '@prisma/client';
 import { store } from './sessionsStore';
 ```
 
-So far, we know the user's email from the request to the UL endpoint and have associated the user with an org via the provided API key. Now that we have the user object, we can associate the user's user ID with the session object. Add the following code to find and terminate a user's session.
+So far, we know the user's email from the request to the UL endpoint and have associated the user with an org with the provided API key. Now that we have the user object, we can associate the user's user ID with the session object. Add the following code to find and terminate a user's session.
 
 ```ts
 // End user session
