@@ -642,7 +642,7 @@ export const Todos = () => {
         });
 
         if (!res.ok){if (res.status === 401) {
-// Redirect user back to login
+// Redirect user back to the sign in page
 window.location.href = '/';
         } else {
           // Handle other errors
