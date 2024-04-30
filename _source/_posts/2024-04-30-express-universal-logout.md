@@ -19,7 +19,7 @@ Your enterprise customers expect you to safeguard them from common security inci
 
 Bottom line, if you build SaaS applications for enterprise-level customers who leverage Identity Providers (IdPs), workflows, and threat-detection tools, then adding Universal Logout to your app is the solution to ending suspicious user sessions ASAP. 
 
-In this tutorial, you will learn to add a secure Universal Logout API endpoint to a web app, test it by sending a request to end a user's active session, and finally handle signing them out of the app. Lastly, we'll use Okta as the IdP to initiate user logout.
+In this tutorial, you'll learn to add a secure Universal Logout API endpoint to a web app, test it by sending a request to end a user's active session, and finally handle signing them out of the app. However, we will not cover initiating user logout through an IdP, i.e. Okta, as this feature is soon to come.
 
 >**Note**: You can follow along with this blog to build a Universal Logout or check out the finished code on the [ul-workshop-complete](https://github.com/oktadev/okta-enterprise-ready-workshops/tree/ul-workshop-complete) branch of our Oktadev GitHub repository.
 
@@ -668,7 +668,7 @@ window.location.href = '/';
 ### Revoke a user's tokens
 This web application architecture used cookie-based sessions instead of session tokens to authenticate to the backend resources. However, in the case of mobile apps and single-page applications, you will need to revoke refresh tokens on the frontend. As per the [spec](https://datatracker.ietf.org/doc/html/draft-parecki-oauth-global-token-revocation#name-revocation-expectations), written by [Aaron Perecki](https://aaronparecki.com/) a successful logout will require revoking a user's refresh token. 
 
-## Initate UL through Okta 
-This tutorial provides the fundamental steps to creating a UL endpoint to end a user's session or tokens. However, the Universal Logout feature has not yet been released; once it is release a secondary blog will be posted with further instruction on how to initate logout with Okta. Stay tuned! For now you can find the completed project [ul-workshop-complete]() on our Oktadev GitHub repository. 
+## Initiate UL through Okta 
+This tutorial provides the fundamental steps to creating a UL endpoint to end a user's session or tokens. However, the UL feature is not yet available; once released, a secondary blog will be posted with further instructions on how to initiate logout with Okta. Stay tuned! For now, you can find the completed project [ul-workshop-complete](https://github.com/oktadev/okta-enterprise-ready-workshops/tree/ul-workshop-complete) on our Oktadev GitHub repository. 
 
-Follow us on [Twitter](https://twitter.com/oktadev) and subscribe to our [YouTube](https://www.youtube.com/c/oktadev) channel. If you have any questions about Universal Logout, please comment below!
+Follow us on [Twitter](https://twitter.com/oktadev) and subscribe to our [YouTube](https://www.youtube.com/c/oktadev) channel. If you have any questions about Universal Logout, please comment below! 
