@@ -41,7 +41,7 @@ We will build the Universal Logout (UL) endpoint on [the sample app](https://git
 >**Troubleshooting tips**: Ensure you can run the Todo application before you begin. We will be adding some code and testing along the way. 
 
 ### Create a free Okta Developer Edition account
-If you don't already have an Okta account, you can sign up for one here under [Workforce Identity Cloud – Developer Edition](https://developer.okta.com/signup/). You'll also need to create an [OIDC application](https://developer.okta.com/docs/guides/implement-grant-type/authcode/main/#set-up-your-app), which you can do by following the instructions listed here under Setup your app.
+If you don't already have an Okta account, you can sign up for one here under [Workforce Identity Cloud – Developer Edition](https://developer.okta.com/signup/). You'll also need to create an [OpenID Connect (OIDC) application](https://developer.okta.com/docs/guides/implement-grant-type/authcode/main/#set-up-your-app), which you can do by following the instructions listed here under Setup your app.
 
 >**Note**: Take note of your client_id and client_secret info, you'll need this in the following step.
 
