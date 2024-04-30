@@ -594,7 +594,7 @@ curl --request POST \
 
 Check that you get a 204 response, and then try to add another Todo task to see what happens. You won't be able to add another task, and if you open the dev tools and inspect the console tab, you will see a 401 Unauthorized error. 
 
-We accomplished our goal of ending a user's session, but the user can still see the contents of the webpage. Let's ensure we fully log them out by refreshing the browser and redirecting them to the main sign-in page—forcing the user to reauthenticate.
+We accomplished our goal of ending a user's session, but the user can still see the contents of the webpage. Let's ensure we fully sign them out by refreshing the browser and redirecting them to the main sign-in page—forcing the user to reauthenticate.
 
 ### Sign a user out of the Todo app
 
