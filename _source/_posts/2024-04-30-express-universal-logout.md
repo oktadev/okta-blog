@@ -577,9 +577,9 @@ universalLogoutRoute.use((err,req,res,next) => {
 
 >**Checkpoint**: Now will be an excellent time to test our code. 
 
-Let's sign in to the Todo app with Trinity's credentials email: trinity@whiterabbit.fake and the temporary password: Zion123$. Okta will redirect you and prompt you to update the password. When you redirect back to the Todo app, you will have an active session; you can test this by adding a new task. Let's test ending this session by sending a cURL request.
+Let's sign in to the Todo app with Trinity's credentials email: trinity@whiterabbit.fake and the temporary password: Zion123$. Okta will redirect you and prompt you to update the password. When you redirect back to the Todo app, you'll have an active session; you can test this by adding a task. Let's test ending this session by sending a cURL request.
 
-```
+```http
 curl --request POST \
   --url http://localhost:3333/global-token-revocation \
   --header 'Authorization: Bearer 131313' \
@@ -592,13 +592,13 @@ curl --request POST \
 }'
 ```
 
-Check that you get a 204 response, and then try to add another Todo task to see what happens. You won't be able to add another task, and if you open the dev tools and inspect the console tab, you will see a 401 Unauthorized error. 
+Check that you get a 204 response, and then try to add another Todo task to see what happens. You won't be able to add another task, and if you open the dev tools and inspect the console tab, you'll see a **401 Unauthorized** error. 
 
 We accomplished our goal of ending a user's session, but the user can still see the contents of the webpage. Let's ensure we fully sign them out by refreshing the browser and redirecting them to the main sign-in page—forcing the user to reauthenticate.
 
 ### Sign a user out of the Todo app
 
-Under the `apps/todo-app/src/app/components/todolist.tsx` file. Find the function for creating a new task onNewTask function and add the following code to catch a 401 error and redirect them back to the login page.
+Open `apps/todo-app/src/app/components/todolist.tsx` and find 'onNewTask', the function that creates tasks. Add the following code to catch a 401 error and redirect the user back to the sign-in page.
 
 ```ts
  if (!res.ok)
@@ -668,10 +668,10 @@ window.location.href = '/';
 >**Improve your code**: Notice the code above only handles a 401 response from the server when adding a new task. How might you handle 401 errors globally? You can use fetch or [Axios Interceptor](https://axios-http.com/docs/interceptors). The completed workshop code handles this using fetch; check it out here [Universal Logout Workshop Complete](https://github.com/oktadev/okta-enterprise-ready-workshops/blob/ul-workshop-complete/apps/todo-app/src/app/components/useTodoApi.tsx).
 
 ### Revoke a user's tokens
-This web application architecture used cookie-based sessions instead of session tokens to authenticate to the backend resources. However, in the case of mobile apps and single-page applications, you will need to revoke refresh tokens on the frontend. As per the [spec](https://datatracker.ietf.org/doc/html/draft-parecki-oauth-global-token-revocation#name-revocation-expectations), written by [Aaron Perecki](https://aaronparecki.com/) a successful logout will require revoking a user's refresh token. 
+This web application architecture uses cookie-based sessions instead of session tokens to authenticate to the backend resources. However, in the case of mobile apps and single-page applications, you'll need to revoke refresh tokens on the front end. As per the [spec](https://datatracker.ietf.org/doc/html/draft-parecki-oauth-global-token-revocation#name-revocation-expectations), written by [Aaron Perecki](https://aaronparecki.com/) a successful sign-out will require revoking a user's refresh token. 
 
 ## Initiate Universal Logout through Okta 
-This tutorial provides the fundamental steps to creating a UL endpoint to end a user's session or tokens. However, the UL feature is not yet available; once released, a secondary blog will be posted with further instructions on how to initiate logout with Okta. Stay tuned! For now, you can find the completed project [ul-workshop-complete](https://github.com/oktadev/okta-enterprise-ready-workshops/tree/ul-workshop-complete) on our Oktadev GitHub repository. 
+This tutorial provides the fundamental steps to creating a UL endpoint to end a user's session or tokens. However, the UL feature isn't available yet; once released, a secondary blog will be posted with further instructions on how to initiate sign-out with Okta. Stay tuned! For now, you can find the completed project [ul-workshop-complete](https://github.com/oktadev/okta-enterprise-ready-workshops/tree/ul-workshop-complete) on our Oktadev GitHub repository. 
 
 ## Continue adding more features to your SaaS app!
 Now that you have an OIDC app with a UL endpoint, you can continue your Enterprise-Ready journey by adding user lifecycle management through System for Cross-domain Identity Management (SCIM).
