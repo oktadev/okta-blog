@@ -49,7 +49,7 @@ If you don't already have an Okta account, you can sign up for one here under [W
 
 You can view the user table locally using Prisma. To do this, go to the root of this workshop folder in your terminal and run `npx prisma studio`. Your browser will open a new web page where you can see all the users in your database.
 
-While viewing your database locally, you will also see an org table. You can manually input the following info to seed your database with an org linked to an Okta authorization server, allowing OIDC SSO login.
+While viewing your database locally, you'll also see an org table. You can manually input the following info to seed your database with an org linked to an Okta authorization server, allowing OIDC SSO sign-in.
 
 - id # = 1
 - domain = whiterabbit.fake
