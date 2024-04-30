@@ -28,7 +28,7 @@ In this tutorial, you'll learn to add a secure Universal Logout API endpoint to 
 ## Get the sample app up and running
 
 **Prerequisites**
-- Enterprise Ready OIDC Workshop](/blog/2023/07/28/oidc_workshop) - [oidc-workshop-complete](https://github.com/oktadev/okta-enterprise-ready-workshops/tree/oidc-workshop-complete)
+- [Enterprise Ready OIDC Workshop](/blog/2023/07/28/oidc_workshop) - [oidc-workshop-complete](https://github.com/oktadev/okta-enterprise-ready-workshops/tree/oidc-workshop-complete)
 - Code Editor (I used [Visual Studio Code](https://code.visualstudio.com/download)) 
 - [Okta Developer Account](https://developer.okta.com/signup/)
 - [Node.js](https://nodejs.org/en) v18 or greater
@@ -113,7 +113,7 @@ Moving along, import `UniversalLogoutRoute` from `universalLogout.ts` at the top
 import { universalLogoutRoute } from './universalLogout';
 ```
 
-The file will now look like this:
+The `apps/api/src/main.ts` file will now look like this:
 
 ```ts
 import express from 'express';
@@ -174,21 +174,15 @@ universalLogoutRoute.post('/global-token-revocation', async (req, res) => {
   if (!req.body) {
     res.status(400);
   }
-  
-  // Make sure an API token is passed
-  const authHeaders = req.headers.authorization
-  if(!authHeaders){
-    return res.sendStatus(401)
-  }
 	
   // Find the user by email linked to the org id associated with the API key provided
- const domainOrgId = req['user']['id']
+  const domainOrgId = req['user']['id']
   const newRequest:IRequestSchema = req.body;
   const { email } = newRequest.sub_id;
   const user = await prisma.user.findFirst({
     where: {
       email: email,
-      org: { id: domainOrgId } ,
+      org: { id: domainOrgId },
     },
   });
 
@@ -235,7 +229,7 @@ The UL section will now look like this:
 ///////////////////////////////////////////////////////
 // Universal Logout Route
 
-app.use(morgan('combined'))
+app.use(morgan('combined'));
 
 app.use('/', universalLogoutRoute);
 ```
@@ -328,7 +322,7 @@ passport.use(new BearerStrategy(
 
 Update the UL endpoint by adding the following arguments passport.authenticate('bearer', { session: false }). The complete code will look like this:
 
->**Note**: The [Passport Library] (https://www.passportjs.org/packages/passport-http-bearer/) offers the option of setting the token authentication token session to false. We'll set it to false since we won't need a session in our use case.
+>**Note**: The [Passport Library](https://www.passportjs.org/packages/passport-http-bearer/) offers the option of setting the token authentication token session to false. We'll set it to false since we won't need a session in our use case.
 
 ```ts
 ///////////////////////////////////////////////////////
@@ -353,7 +347,7 @@ app.use('/', passport.authenticate('bearer', { session: false }), universalLogou
 
 >**Checkpoint**: Now test the same cURL command again:
 
-```
+```http
 curl --request POST \
   --url http://localhost:3333/global-token-revocation \
   --header 'Content-Type: application/json' \
@@ -417,11 +411,11 @@ In this section, we'll work towards ending a user's session and signing them out
 
 ### End a user's session
 
-In Express, we'll need to access a user's session in the session store from the express-session library. Create a new file called sessionStore.ts under the `apps/api/src` folder and create a variable called store. A separate file to reference the `store` variable in multiple files. 
+In Express, we'll need to access a user's session in the session store from the express-session library. Create a file called sessionStore.ts under the `apps/api/src` folder and a variable called store. Notice we created a separate file to reference `store` in multiple files. For example, we'll need it in the `apps/api/src/main.ts` file and the `apps/api/src/universalLogout.ts` file. 
 
 ```ts
 import {MemoryStore} from 'express-session';
-export const store = new MemoryStore()
+export const store = new MemoryStore();
 ```
 
 For now, import `store` from the `session/Store` file at the top of the `apps/api/src/main.ts`. 
@@ -528,12 +522,6 @@ universalLogoutRoute.post('/global-token-revocation', async (req, res) => {
   if (!req.body) {
     res.status(400);
   }
-  
-  // Make sure an API token is passed
-  const authHeaders = req.headers.authorization
-  if(!authHeaders){
-    return res.sendStatus(401)
-  }
 	
   // Find the user by email linked to the org id associated with the API key provided
  const domainOrgId = req['user']['id']
@@ -601,14 +589,14 @@ We accomplished our goal of ending a user's session, but the user can still see 
 Open `apps/todo-app/src/app/components/todolist.tsx` and find 'onNewTask', the function that creates tasks. Add the following code to catch a 401 error and redirect the user back to the sign-in page.
 
 ```ts
- if (!res.ok)
+if (!res.ok)
 {if (res.status === 401) {
-// Redirect user back to the sign-in page
-window.location.href = '/';
-        } else {
-          // Handle other errors
-          throw new Error('Error occurred while fetching data');
-        }}     
+  // Redirect user back to the sign-in page
+  window.location.href = '/';
+  } else {
+  // Handle other errors
+  throw new Error('Error occurred while fetching data');
+}}     
 ```
 
 The onNewTask function will now look like this:
