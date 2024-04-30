@@ -103,7 +103,7 @@ import { Router } from 'express';
 export const universalLogoutRoute = Router();
 
 universalLogoutRoute.post('/global-token-revocation', async (req, res) => {
-// Build logic for our route here.
+// Build logic for your route here.
  });
 ```
 
