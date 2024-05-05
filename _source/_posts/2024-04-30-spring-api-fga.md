@@ -1,10 +1,10 @@
 ---
 layout: blog_post
-title: "Fine Grained Authorization (FGA) in a Spring Boot API"
+title: "Adding Fine-Grained Authorization (FGA) to a Spring Boot API with OpenFGA"
 author: jimena-garbarino
 by: contractor
 communities: [security,java]
-description: "How to add Fine Grained Authorization (FGA) to a Spring Boot API using the OpenFGA Spring Boot starter"
+description: "How to add Fine-Grained Authorization (FGA) to a Spring Boot API using the OpenFGA Spring Boot starter"
 tags: []
 tweets:
 - ""
@@ -16,7 +16,7 @@ type: awareness
 
 - INTRO
 
-This guide will teach you how to secure a Spring document API with Okta and integrate Fine Grained Authorization (FGA) to the document operations.
+This guide will teach you how to secure a Spring document API with Okta and integrate Fine-Grained Authorization (FGA) to the document operations.
 
 > **This tutorial was created with the following tools and services**:
 > - [Java OpenJDK 21](https://jdk.java.net/java-se-ri/21)
@@ -165,12 +165,481 @@ You should get a JSON response listing the menu items:
 - MODEL DESCRIPTION
 - MODEL CONVERSION FROM DSL TO JSON
 
-## Add fine grained authorization (FGA) with OpenFGA
+## Add fine-grained authorization (FGA) with OpenFGA
 
 - ADD OPENFGA SPRING BOOT STARTER
-- SERVICE LAYER
 - OPENFGA SERVER INITIALIZER
+- SERVICE LAYER
 - INTEGRATION TESTING WITH TESTCONTAINERS
+
+Now let's integrate fine-grained authorization into the application. OpenFGA team has just released the OpenFGA Spring Boot Starter 0.0.1, and you can add it to your project with the following dependency:
+
+```groovy
+implementation 'dev.openfga:openfga-spring-boot-starter:0.0.1'
+```
+
+The OpenFGA Spring Boot Starter dependency provides the auto-configuration of an FGA client and FGA bean that exposes a check method for authorizing operations. Before adding method security, let's add the changes required for creating the owner tuple when the document is created. Create an `AuthorizationService` in the package `com.example.demo.service`:
+
+```java
+package com.example.demo.service;
+
+import com.example.demo.model.Document;
+import dev.openfga.sdk.api.client.OpenFgaClient;
+import dev.openfga.sdk.api.client.model.ClientTupleKey;
+import dev.openfga.sdk.api.client.model.ClientWriteResponse;
+import dev.openfga.sdk.errors.FgaInvalidParameterException;
+import org.springframework.stereotype.Service;
+
+import java.util.List;
+import java.util.concurrent.ExecutionException;
+
+@Service
+public class AuthorizationService {
+
+    private OpenFgaClient fgaClient;
+
+    public AuthorizationService(OpenFgaClient fgaClient) {
+        this.fgaClient = fgaClient;
+    }
+
+    public void create(Document file){
+        try {
+          ClientTupleKey tuple = new ClientTupleKey()
+                  .user("user:" + file.getOwnerId())
+                  .relation("owner")
+                  ._object("document:" + file.getId());
+          ClientWriteResponse response = fgaClient.writeTuples(List.of(tuple)).get();
+
+        } catch (FgaInvalidParameterException | InterruptedException | ExecutionException e) {
+            throw new AuthorizationServiceException(e);
+        }
+
+    }
+}
+```
+
+```java
+package com.example.demo.service;
+
+public class AuthorizationServiceException extends RuntimeException {
+    public AuthorizationServiceException(Exception e) {
+        super(e);
+    }
+}
+```
+
+Then update the `DocumentService` for the required [dual write](https://developers.redhat.com/articles/2023/01/11/fine-grained-authorization-quarkus-microservices#challenges_of_implementing_a_zanzibar_fine_grained_permission_model) (database and OpenFGA server) when creating a `Document`:
+
+```java
+package com.example.demo.service;
+
+import com.example.demo.model.Document;
+import com.example.demo.model.DocumentRepository;
+import jakarta.transaction.Transactional;
+import org.springframework.stereotype.Service;
+
+import java.util.List;
+import java.util.Optional;
+
+@Service
+public class DocumentService {
+
+    private DocumentRepository documentRepository;
+
+    private AuthorizationService authorizationService;
+
+    public DocumentService(DocumentRepository documentRepository, AuthorizationService authorizationService) {
+        this.documentRepository = documentRepository;
+        this.authorizationService = authorizationService;
+    }
+
+    @Transactional
+    public Document save(Document file) {
+        try {
+            Document result = documentRepository.save(file);
+            authorizationService.create(result);
+            return result;
+        } catch(Exception e){
+            throw new DocumentServiceException("Unexpected error", e);
+        }
+    }
+}
+```
+
+With the approach above, the `Document` will not be saved if the permission tuple cannot be created, and this prevents having an entity without permission.
+
+Next, you need to add method security enforcing the permissions policy. With `@PreAuthorize` and `@fga.check` you can express the permissions required for each operation. For example, the `save` operation can be guarded as follows:
+
+```java
+@PreAuthorize("#document.parentId == null or @fga.check('document', #document.parentId, 'writer', 'user')")
+public Document save(@P("document") Document file)
+```
+
+The expression will produce a call to OpenFGA that will check if the authenticated user is a writer of the parent document, if the parent is defined. Assuming the parent is a folder, the document can be created in the folder if the user is a writer (has write permission) in that folder. The complete method security can be expressed as follows:
+
+```java
+package com.example.demo.service;
+
+import com.example.demo.model.Document;
+import com.example.demo.model.DocumentRepository;
+import jakarta.transaction.Transactional;
+import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.core.parameters.P;
+import org.springframework.stereotype.Service;
+
+import java.util.List;
+import java.util.Optional;
+
+@Service
+public class DocumentService {
+
+    private DocumentRepository documentRepository;
+
+    private AuthorizationService authorizationService;
+
+    public DocumentService(DocumentRepository documentRepository, AuthorizationService authorizationService) {
+        this.documentRepository = documentRepository;
+        this.authorizationService = authorizationService;
+    }
+    @Transactional
+    @PreAuthorize("#document.parentId == null or @fga.check('document', #document.parentId, 'writer', 'user')")
+    public Document save(@P("document") Document file) {
+        try {
+            Document result = documentRepository.save(file);
+            authorizationService.create(result);
+            return result;
+        } catch(Exception e){
+            throw new DocumentServiceException("Unexpected error", e);
+        }
+    }
+
+    @PreAuthorize("@fga.check('document', #id, 'viewer', 'user')")
+    public Optional<Document> findById(@P("id") Long id) {
+        return documentRepository.findById(id);
+    }
+
+    @PreAuthorize("@fga.check('document', #id, 'owner', 'user')")
+    public void deleteById(@P("id") Long id) {
+        documentRepository.deleteById(id);
+    }
+
+    @PreAuthorize("@fga.check('document', #document.id, 'writer', 'user')")
+    public Document update(@P("document") Document document){
+        return documentRepository.save(document);
+    }
+
+    public List<Document> findAll() {
+        return documentRepository.findAll();
+    }
+}
+```
+
+> **NOTE**: In this guide, OpenFGA tuples are not deleted when the document is deleted
+
+In the previous section you created an authorization model and converted it to JSON format. This will allow to initialize the OpenFGA server in development with that model. Add the utility component `OpenFGAUtil` in the `com.example.demo.initializer` package:
+
+```java
+package com.example.demo.initializer;
+
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import dev.openfga.sdk.api.model.AuthorizationModel;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.core.io.Resource;
+import org.springframework.core.io.ResourceLoader;
+import org.springframework.stereotype.Component;
+import org.springframework.util.StreamUtils;
+
+import java.io.IOException;
+import java.nio.charset.Charset;
+
+@Component
+public class OpenFGAUtil {
+
+    private static Logger logger = LoggerFactory.getLogger(OpenFGAUtil.class);
+
+    private ResourceLoader resourceLoader;
+
+    private ObjectMapper objectMapper;
+
+    public OpenFGAUtil(ResourceLoader resourceLoader, ObjectMapper objectMapper) {
+        this.resourceLoader = resourceLoader;
+        this.objectMapper = objectMapper;
+    }
+
+    public AuthorizationModel convertJsonToAuthorizationModel(String path){
+        try {
+            Resource resource = resourceLoader.getResource(path);
+            String json = StreamUtils.copyToString(resource.getInputStream(), Charset.defaultCharset());
+            logger.debug(json);
+            AuthorizationModel authorizationModel = objectMapper.readValue(json, AuthorizationModel.class);
+            logger.debug(authorizationModel.toString());
+            return authorizationModel;
+        } catch (JsonProcessingException e) {
+            throw new RuntimeException(e);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+}
+```
+
+The class `OpenFGAUtil` encapsulates the task of loading the JSON model into a domain `AuthorizationModel` object for building the authorization model request.
+
+
+```java
+package com.example.demo.initializer;
+
+import dev.openfga.sdk.api.client.OpenFgaClient;
+import dev.openfga.sdk.api.model.*;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.boot.CommandLineRunner;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
+import org.springframework.stereotype.Component;
+
+import java.util.concurrent.ExecutionException;
+
+@Component
+@ConditionalOnProperty(prefix = "openfga", name = "initialize", havingValue = "true")
+public class OpenFGAInitializer implements CommandLineRunner {
+
+    private Logger logger = LoggerFactory.getLogger(OpenFGAInitializer.class);
+
+    private OpenFgaClient fgaClient;
+
+    private OpenFGAUtil openFgaUtil;
+
+
+    public OpenFGAInitializer(OpenFgaClient fgaClient, OpenFGAUtil openFgaUtil) {
+        this.fgaClient = fgaClient;
+        this.openFgaUtil = openFgaUtil;
+    }
+
+    @Override
+    public void run(String... args) throws Exception {
+        CreateStoreRequest storeRequest = new CreateStoreRequest().name("test");
+        try {
+            CreateStoreResponse storeResponse = fgaClient.createStore(storeRequest).get();
+            logger.info("Created store: {}", storeResponse);
+            fgaClient.setStoreId(storeResponse.getId());
+
+            WriteAuthorizationModelRequest modelRequest = new WriteAuthorizationModelRequest();
+            AuthorizationModel model = openFgaUtil.convertJsonToAuthorizationModel("classpath:fga/auth-model.json");
+            modelRequest.setTypeDefinitions(model.getTypeDefinitions());
+            modelRequest.setConditions(model.getConditions());
+            modelRequest.setSchemaVersion(model.getSchemaVersion());
+            WriteAuthorizationModelResponse modelResponse = fgaClient.writeAuthorizationModel(modelRequest).get();
+            logger.info("Created model: {}", modelResponse);
+            fgaClient.setAuthorizationModelId(modelResponse.getAuthorizationModelId());
+
+        } catch (InterruptedException | ExecutionException e) {
+            throw new RuntimeException("Error writing to FGA", e);
+        }
+    }
+}
+```
+
+Before running the API, add some integration tests for verifying the method security. Add the following `Testcontainers` dependencies:
+
+```groovy
+testImplementation "org.testcontainers:testcontainers:1.19.7"
+testImplementation "org.testcontainers:openfga:1.19.7"
+testImplementation "org.testcontainers:junit-jupiter:1.19.7"
+```
+
+Then create the `DocumentIntegrationTest` class with the following code:
+
+```java
+package com.example.demo;
+
+import com.example.demo.model.Document;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.http.MediaType;
+import org.springframework.security.test.context.support.WithMockUser;
+import org.springframework.test.context.DynamicPropertyRegistry;
+import org.springframework.test.context.DynamicPropertySource;
+import org.springframework.test.web.servlet.MockMvc;
+import org.springframework.test.web.servlet.MvcResult;
+import org.springframework.test.web.servlet.setup.MockMvcBuilders;
+import org.springframework.web.context.WebApplicationContext;
+import org.testcontainers.junit.jupiter.Container;
+import org.testcontainers.junit.jupiter.Testcontainers;
+import org.testcontainers.openfga.OpenFGAContainer;
+
+import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.csrf;
+import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.user;
+import static org.springframework.security.test.web.servlet.setup.SecurityMockMvcConfigurers.springSecurity;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+
+@SpringBootTest
+@Testcontainers
+public class DocumentIntegrationTest {
+
+    @Container
+    static OpenFGAContainer openfga = new OpenFGAContainer("openfga/openfga:v1.4.3");
+    @Autowired
+    private WebApplicationContext applicationContext;
+    private MockMvc mockMvc;
+    @Autowired
+    private ObjectMapper objectMapper;
+
+    @DynamicPropertySource
+    static void registerOpenFGAProperties(DynamicPropertyRegistry registry) {
+        registry.add("openfga.api-url", () -> "http://localhost:" + openfga.getMappedPort(8080));
+    }
+
+    @BeforeEach
+    public void init() {
+        this.mockMvc = MockMvcBuilders.webAppContextSetup(applicationContext)
+                .apply(springSecurity()).build();
+    }
+
+    @Test
+    @WithMockUser(username = "test-user")
+    public void testCreateFileIsFobidden() throws Exception {
+
+        Document document = new Document();
+        document.setParentId(1L);
+        document.setName("test-file");
+        document.setDescription("test-description");
+
+        mockMvc.perform(post("/file").with(csrf())
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(objectMapper.writeValueAsString(document)))
+                .andExpect(status().isForbidden());
+    }
+
+    @Test
+    @WithMockUser(username = "test-user")
+    public void testCreateFile() throws Exception {
+
+        Document document = new Document();
+        document.setName("test-file");
+        document.setDescription("test-description");
+
+        MvcResult mvcResult = mockMvc.perform(post("/file")
+                .with(csrf())
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(objectMapper.writeValueAsString(document)))
+                .andExpect(status().isOk()).andExpect(jsonPath("$").exists())
+                .andExpect(jsonPath("$.name").value("test-file"))
+                .andExpect(jsonPath("$.description").value("test-description"))
+                .andReturn();
+
+        Document result = objectMapper.readValue(mvcResult.getResponse().getContentAsString(), Document.class);
+
+        mockMvc.perform(get("/file/{id}", result.getId())
+                .with(csrf())
+                .contentType(MediaType.APPLICATION_JSON))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$").exists())
+                .andExpect(jsonPath("$.name").value("test-file"))
+                .andExpect(jsonPath("$.description").value("test-description"));
+    }
+
+    @Test
+    @WithMockUser(username = "test-user")
+    public void testUpdateFile() throws Exception {
+        Document document = new Document();
+        document.setName("test-file");
+        document.setDescription("test-description");
+
+        MvcResult mvcResult = mockMvc.perform(post("/file")
+                        .with(csrf())
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(objectMapper.writeValueAsString(document)))
+                .andExpect(status().isOk()).andExpect(jsonPath("$").exists())
+                .andExpect(jsonPath("$.name").value("test-file"))
+                .andExpect(jsonPath("$.description").value("test-description"))
+                .andReturn();
+
+        Document result = objectMapper.readValue(mvcResult.getResponse().getContentAsString(), Document.class);
+        document.setDescription("updated-description");
+
+
+        mockMvc.perform(put("/file/{id}", result.getId())
+                        .with(csrf())
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(objectMapper.writeValueAsString(document)))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$").exists())
+                .andExpect(jsonPath("$.name").value("test-file"))
+                .andExpect(jsonPath("$.description").value("updated-description"));
+
+        mockMvc.perform(get("/file/{id}", result.getId())
+                        .with(csrf())
+                        .contentType(MediaType.APPLICATION_JSON))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$").exists())
+                .andExpect(jsonPath("$.name").value("test-file"))
+                .andExpect(jsonPath("$.description").value("updated-description"));
+    }
+
+    @Test
+    @WithMockUser(username = "test-user")
+    public void testDeleteFile() throws Exception {
+        Document document = new Document();
+        document.setName("test-file");
+        document.setDescription("test-description");
+
+        MvcResult mvcResult = mockMvc.perform(post("/file").with(csrf())
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(objectMapper.writeValueAsString(document)))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$").exists())
+                .andExpect(jsonPath("$.name").value("test-file"))
+                .andExpect(jsonPath("$.description").value("test-description"))
+                .andReturn();
+
+        Document result = objectMapper.readValue(mvcResult.getResponse().getContentAsString(), Document.class);
+
+        mockMvc.perform(delete("/file/{id}", result.getId()).with(csrf())
+                .contentType(MediaType.APPLICATION_JSON))
+                .andExpect(status().isOk());
+    }
+
+    @Test
+    @WithMockUser(username = "test-user")
+    public void testDeleteFile_NotOwned_AccessDenied() throws Exception {
+        Document document = new Document();
+        document.setName("test-file");
+        document.setDescription("test-description");
+
+        MvcResult mvcResult = mockMvc.perform(post("/file")
+                        .with(csrf())
+                        .with(user("owner-user"))
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(objectMapper.writeValueAsString(document)))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$").exists())
+                .andExpect(jsonPath("$.name").value("test-file"))
+                .andExpect(jsonPath("$.description").value("test-description"))
+                .andReturn();
+
+        Document result = objectMapper.readValue(mvcResult.getResponse().getContentAsString(), Document.class);
+
+        mockMvc.perform(delete("/file/{id}", result.getId()).with(csrf())
+                        .contentType(MediaType.APPLICATION_JSON))
+                .andExpect(status().isForbidden());
+
+    }
+}
+```
+
+Run the test with:
+
+```shell
+./gradlew test --tests com.example.demo.DocumentIntegrationTest
+```
 
 ## Running the Spring Boot API
 
@@ -178,7 +647,7 @@ You should get a JSON response listing the menu items:
 - AUTH0 TEST TOKEN
 - CURL TESTS
 
-## Learn more about fine grained authorization with OpenFGA and Spring Boot
+## Learn more about fine-grained authorization with OpenFGA and Spring Boot
 
 - RECAP CLOSING
 
