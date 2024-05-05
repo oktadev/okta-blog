@@ -548,67 +548,6 @@ public class DocumentIntegrationTest {
 
     @Test
     @WithMockUser(username = "test-user")
-    public void testUpdateFile() throws Exception {
-        Document document = new Document();
-        document.setName("test-file");
-        document.setDescription("test-description");
-
-        MvcResult mvcResult = mockMvc.perform(post("/file")
-                        .with(csrf())
-                        .contentType(MediaType.APPLICATION_JSON)
-                        .content(objectMapper.writeValueAsString(document)))
-                .andExpect(status().isOk()).andExpect(jsonPath("$").exists())
-                .andExpect(jsonPath("$.name").value("test-file"))
-                .andExpect(jsonPath("$.description").value("test-description"))
-                .andReturn();
-
-        Document result = objectMapper.readValue(mvcResult.getResponse().getContentAsString(), Document.class);
-        document.setDescription("updated-description");
-
-
-        mockMvc.perform(put("/file/{id}", result.getId())
-                        .with(csrf())
-                        .contentType(MediaType.APPLICATION_JSON)
-                        .content(objectMapper.writeValueAsString(document)))
-                .andExpect(status().isOk())
-                .andExpect(jsonPath("$").exists())
-                .andExpect(jsonPath("$.name").value("test-file"))
-                .andExpect(jsonPath("$.description").value("updated-description"));
-
-        mockMvc.perform(get("/file/{id}", result.getId())
-                        .with(csrf())
-                        .contentType(MediaType.APPLICATION_JSON))
-                .andExpect(status().isOk())
-                .andExpect(jsonPath("$").exists())
-                .andExpect(jsonPath("$.name").value("test-file"))
-                .andExpect(jsonPath("$.description").value("updated-description"));
-    }
-
-    @Test
-    @WithMockUser(username = "test-user")
-    public void testDeleteFile() throws Exception {
-        Document document = new Document();
-        document.setName("test-file");
-        document.setDescription("test-description");
-
-        MvcResult mvcResult = mockMvc.perform(post("/file").with(csrf())
-                .contentType(MediaType.APPLICATION_JSON)
-                .content(objectMapper.writeValueAsString(document)))
-                .andExpect(status().isOk())
-                .andExpect(jsonPath("$").exists())
-                .andExpect(jsonPath("$.name").value("test-file"))
-                .andExpect(jsonPath("$.description").value("test-description"))
-                .andReturn();
-
-        Document result = objectMapper.readValue(mvcResult.getResponse().getContentAsString(), Document.class);
-
-        mockMvc.perform(delete("/file/{id}", result.getId()).with(csrf())
-                .contentType(MediaType.APPLICATION_JSON))
-                .andExpect(status().isOk());
-    }
-
-    @Test
-    @WithMockUser(username = "test-user")
     public void testDeleteFile_NotOwned_AccessDenied() throws Exception {
         Document document = new Document();
         document.setName("test-file");
@@ -634,6 +573,18 @@ public class DocumentIntegrationTest {
     }
 }
 ```
+
+Update `application.yml` and add the following properties:
+
+```yaml
+openfga:
+  api-url: http://localhost:8090
+  store-id: 01AAAAAAAAAAAAAAAAAAAAAAAA
+  authorization-model-id: 01AAAAAAAAAAAAAAAAAAAAAAAA
+  initialize: true
+```
+
+Don't worry about the dummy `store-id` and `authorization-model-id`, in development the initializer will create the store and authorization model and set them as default for the FGA operations.
 
 Run the test with:
 
