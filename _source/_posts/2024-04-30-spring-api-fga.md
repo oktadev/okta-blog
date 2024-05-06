@@ -183,7 +183,7 @@ The OpenFGA Spring Boot Starter dependency provides the auto-configuration of an
 ```java
 package com.example.demo.service;
 
-import com.example.demo.model.Document;
+import com.example.demo.model.Permission;
 import dev.openfga.sdk.api.client.OpenFgaClient;
 import dev.openfga.sdk.api.client.model.ClientTupleKey;
 import dev.openfga.sdk.api.client.model.ClientWriteResponse;
@@ -202,18 +202,16 @@ public class AuthorizationService {
         this.fgaClient = fgaClient;
     }
 
-    public void create(Document file){
+    public void create(Permission permission) {
         try {
-          ClientTupleKey tuple = new ClientTupleKey()
-                  .user("user:" + file.getOwnerId())
-                  .relation("owner")
-                  ._object("document:" + file.getId());
-          ClientWriteResponse response = fgaClient.writeTuples(List.of(tuple)).get();
-
+            ClientTupleKey tuple = new ClientTupleKey()
+                    .user("user:" + permission.getUserId())
+                    .relation(permission.getRelation())
+                    ._object("document:" + permission.getDocumentId());
+            ClientWriteResponse response = fgaClient.writeTuples(List.of(tuple)).get();
         } catch (FgaInvalidParameterException | InterruptedException | ExecutionException e) {
             throw new AuthorizationServiceException(e);
         }
-
     }
 }
 ```
@@ -228,60 +226,15 @@ public class AuthorizationServiceException extends RuntimeException {
 }
 ```
 
-Then update the `DocumentService` for the required [dual write](https://developers.redhat.com/articles/2023/01/11/fine-grained-authorization-quarkus-microservices#challenges_of_implementing_a_zanzibar_fine_grained_permission_model) (database and OpenFGA server) when creating a `Document`:
+Update the `DocumentService` for the required [dual write](https://developers.redhat.com/articles/2023/01/11/fine-grained-authorization-quarkus-microservices#challenges_of_implementing_a_zanzibar_fine_grained_permission_model) (database and OpenFGA server) when creating a `Document`:
 
 ```java
 package com.example.demo.service;
 
 import com.example.demo.model.Document;
 import com.example.demo.model.DocumentRepository;
-import jakarta.transaction.Transactional;
-import org.springframework.stereotype.Service;
-
-import java.util.List;
-import java.util.Optional;
-
-@Service
-public class DocumentService {
-
-    private DocumentRepository documentRepository;
-
-    private AuthorizationService authorizationService;
-
-    public DocumentService(DocumentRepository documentRepository, AuthorizationService authorizationService) {
-        this.documentRepository = documentRepository;
-        this.authorizationService = authorizationService;
-    }
-
-    @Transactional
-    public Document save(Document file) {
-        try {
-            Document result = documentRepository.save(file);
-            authorizationService.create(result);
-            return result;
-        } catch(Exception e){
-            throw new DocumentServiceException("Unexpected error", e);
-        }
-    }
-}
-```
-
-With the approach above, the `Document` will not be saved if the permission tuple cannot be created, and this prevents having an entity without permission.
-
-Next, you need to add method security enforcing the permissions policy. With `@PreAuthorize` and `@fga.check` you can express the permissions required for each operation. For example, the `save` operation can be guarded as follows:
-
-```java
-@PreAuthorize("#document.parentId == null or @fga.check('document', #document.parentId, 'writer', 'user')")
-public Document save(@P("document") Document file)
-```
-
-The expression will produce a call to OpenFGA that will check if the authenticated user is a writer of the parent document, if the parent is defined. Assuming the parent is a folder, the document can be created in the folder if the user is a writer (has write permission) in that folder. The complete method security can be expressed as follows:
-
-```java
-package com.example.demo.service;
-
-import com.example.demo.model.Document;
-import com.example.demo.model.DocumentRepository;
+import com.example.demo.model.Permission;
+import com.example.demo.model.PermissionBuilder;
 import jakarta.transaction.Transactional;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.parameters.P;
@@ -301,12 +254,75 @@ public class DocumentService {
         this.documentRepository = documentRepository;
         this.authorizationService = authorizationService;
     }
+
+    @Transactional
+    public Document save(@P("document") Document file) {
+        try {
+            Document result = documentRepository.save(file);
+            Permission permission = new PermissionBuilder()
+                    .withDocumentId(result.getId())
+                    .withRelation("owner")
+                    .withUserId(result.getOwnerId())
+                    .build();
+            authorizationService.create(permission);
+            return result;
+        } catch(Exception e){
+            throw new DocumentServiceException("Unexpected error", e);
+        }
+    }
+...
+}
+```
+
+With the approach above, the `Document` will not be saved if the permission tuple cannot be created, and this prevents having an entity without permission.
+
+Next, you need to add method security enforcing the permissions policy. With `@PreAuthorize` and `@fga.check` you can express the permissions required for each operation. For example, the `save` operation can be guarded as follows:
+
+```java
+@PreAuthorize("#document.parentId == null or @fga.check('document', #document.parentId, 'writer', 'user')")
+public Document save(@P("document") Document file)
+```
+
+The expression will produce a call to OpenFGA that will check if the authenticated user is a writer of the parent document, if the parent is defined. Assuming the parent is a folder, the document can be created in the folder if the user is a writer (has write permission) in that folder. The complete method security can be expressed as follows:
+
+```java
+package com.example.demo.service;
+
+import com.example.demo.model.Document;
+import com.example.demo.model.DocumentRepository;
+import com.example.demo.model.Permission;
+import com.example.demo.model.PermissionBuilder;
+import jakarta.transaction.Transactional;
+import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.core.parameters.P;
+import org.springframework.stereotype.Service;
+
+import java.util.List;
+import java.util.Optional;
+
+@Service
+public class DocumentService {
+
+    private DocumentRepository documentRepository;
+
+    private AuthorizationService authorizationService;
+
+    public DocumentService(DocumentRepository documentRepository, AuthorizationService authorizationService) {
+        this.documentRepository = documentRepository;
+        this.authorizationService = authorizationService;
+    }
+
     @Transactional
     @PreAuthorize("#document.parentId == null or @fga.check('document', #document.parentId, 'writer', 'user')")
     public Document save(@P("document") Document file) {
         try {
             Document result = documentRepository.save(file);
-            authorizationService.create(result);
+            Permission permission = new PermissionBuilder()
+                    .withDocumentId(result.getId())
+                    .withRelation("owner")
+                    .withUserId(result.getOwnerId())
+                    .build();
+            authorizationService.create(permission);
             return result;
         } catch(Exception e){
             throw new DocumentServiceException("Unexpected error", e);
@@ -677,15 +693,36 @@ HTTP/1.1 403
 Access is denied%                      
 ```
 
+## Authorizing Access
+
+- ADD PERMISSION ENDPOINT
+
 Also, you can remove auth0.com cookie, and create an access token for a different user, an attempt to get a document not owned with:
 
 ```shell
 curl -i -H "Authorization:Bearer $ANA_ACCESS_TOKEN" http://localhost:8080/file/4
 ```
 
-Let's make Tom share the document with Ana, with edit permission:
+Let's add a permission endpoint for granting `writer` access to Ana.
 
 
+
+
+Now let's make Tom share the document with Ana. First, you can find out Ana userId with:
+
+```shell
+curl -i -H "Authorization:Bearer $ANA_ACCESS_TOKEN" http://localhost:8080/greeting
+```
+
+Then replace the `userId` with Ana's userId and create the `writer` permission:
+
+```shell
+curl -i -X POST \                                                               
+  -H "Authorization:Bearer $TOM_ACCESS_TOKEN" \
+  -H "Content-Type: application/json" \
+  -d '{"documentId": 4, "relation": "writer", "userId": "auth0|888888888888888888888888"}' \
+  http://localhost:8080/permission
+```
 
 ## Learn more about fine-grained authorization with OpenFGA and Spring Boot
 
