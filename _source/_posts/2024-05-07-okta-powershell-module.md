@@ -73,7 +73,7 @@ You'll see a message indicating success in PowerShell that looks something like
 Your token has been successfully retrieved and set to your configuration
 ```
 
-Manage users using the Okta PowerShell module
+## Manage users using the Okta PowerShell module
 
 We've successfully established a connection to our Okta org via PowerShell, so let's see what we can do with it. First, search for users with specific criteria and see the results. For this example, we will search for all users with the last name "Test," but feel free to replace "Test" with the last name listed on your user account so you can see the output.
 
