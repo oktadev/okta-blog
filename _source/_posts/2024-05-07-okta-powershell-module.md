@@ -10,7 +10,7 @@ tweets:
 - ""
 - ""
 - ""
-image:
+image: blog/okta-powershell-module/social.jpg
 type: conversion
 ---
 
