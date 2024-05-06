@@ -597,12 +597,101 @@ Run the test with:
 - DOCKER COMPOSE FOR OPENFGA
 - AUTH0 TEST TOKEN
 - CURL TESTS
+- SHARE DOCUMENT
+
+Taking advantage of Spring Boot Docker, create a `compose.yml` file at the root of the project, to start an OpenFGA server when the application runs:
+
+```yaml
+services:
+  openfga:
+    image: openfga/openfga:latest
+    container_name: openfga
+    command: run
+    environment:
+      - OPENFGA_DATASTORE_ENGINE=memory
+      - OPENFGA_PLAYGROUND_ENABLED=true
+    networks:
+      - default
+    ports:
+      - "8090:8080" #http
+      - "3000:3000" #playground
+    healthcheck:
+      test: ["CMD", "/usr/local/bin/grpc_health_probe", "-addr=openfga:8081"]
+      interval: 5s
+      timeout: 30s
+      retries: 3
+```
+
+Notice the HTTP API port is mapped to host port `8090`. Run the application with:
+
+```shell
+./gradlew bootRun
+```
+
+You should see in the application logs messages when the OpenFGA container is starting:
+```
+[Document API] [           main] .s.b.d.c.l.DockerComposeLifecycleManager : Using Docker Compose file '.../compose.yml'
+[Document API] [utReader-stderr] o.s.boot.docker.compose.core.DockerCli   :  Container openfga  Recreate
+[Document API] [utReader-stderr] o.s.boot.docker.compose.core.DockerCli   :  Container openfga  Recreated
+[Document API] [utReader-stderr] o.s.boot.docker.compose.core.DockerCli   :  Container openfga  Starting
+[Document API] [utReader-stderr] o.s.boot.docker.compose.core.DockerCli   :  Container openfga  Started
+[Document API] [utReader-stderr] o.s.boot.docker.compose.core.DockerCli   :  Container openfga  Waiting
+[Document API] [utReader-stderr] o.s.boot.docker.compose.core.DockerCli   :  Container openfga  Healthy
+```
+
+Create a new test token with Auth0 CLI:
+
+```shell
+auth0 test token -a https://document-api.okta.com -s openid
+```
+
+With curl, send a request to the API server using a bearer access token:
+
+```shell
+TOM_ACCESS_TOKEN=<auth0-access-token>
+```
+
+```shell
+curl -i -X POST \
+  -H "Authorization:Bearer $TOM_ACCESS_TOKEN" \
+  -H "Content-Type: application/json" \
+  -d '{"name": "planning.doc"}' \
+  http://localhost:8080/file
+```
+
+Verify the API does not authorize creating a document with a parent not owned:
+
+```shell
+curl -i -X POST \
+  -H "Authorization:Bearer $TOM_ACCESS_TOKEN" \
+  -H "Content-Type: application/json" \
+  -d '{"name": "planning.doc", "parentId": 6}' \
+  http://localhost:8080/file
+```
+
+The API will reject with HTTP 403:
+
+```
+HTTP/1.1 403
+...
+Access is denied%                      
+```
+
+Also, you can remove auth0.com cookie, and create an access token for a different user, an attempt to get a document not owned with:
+
+```shell
+curl -i -H "Authorization:Bearer $ANA_ACCESS_TOKEN" http://localhost:8080/file/4
+```
+
+Let's make Tom share the document with Ana, with edit permission:
+
+
 
 ## Learn more about fine-grained authorization with OpenFGA and Spring Boot
 
 - RECAP CLOSING
 
-You can find the code shown in this tutorial on [GitHub](https://github.com/oktadev/spring-api-fga). If you'd rather skip the step-by-step and prefer running a sample application, follow the [README](https://github.com/oktadev/spring-api-fga) instructions in the same repository.
+In this post you learned about OpenFGA integration to a Spring Boot API using the OpenFGA Spring Boot Starter 0.0.1, just released. I hope you find this introduction useful, and could grasp the basics of fine-grained authorization through OpenFGA system, and the benefits of moving authorization logic outside application code. You can find the code shown in this tutorial on [GitHub](https://github.com/oktadev/spring-api-fga). If you'd rather skip the step-by-step and prefer running a sample application, follow the [README](https://github.com/oktadev/spring-api-fga) instructions in the same repository.
 
 If you liked this post, you might enjoy these related posts:
 
