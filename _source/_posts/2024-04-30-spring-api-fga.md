@@ -14,9 +14,9 @@ image:
 type: awareness
 ---
 
-- INTRO
+Fine-Grained Authorization (FGA) refers to the capability to grant individual users permission to perform particular actions on specific resources. Effective FGA systems enable the management of permissions for a large number of objects and users. These permissions can undergo frequent changes as the system dynamically adds objects and adjusts access permissions for its users.
 
-This guide will teach you how to secure a Spring document API with Okta and integrate Fine-Grained Authorization (FGA) to the document operations.
+OpenFGA is an open-source authorization system designed for developers, offering scalability and flexibility for the implementation of RBAC and ABAC authorization models, moving authorization logic outside application code, making it simpler to evolve authorization policies as complexity grows. It is under the ownership of the Cloud Native Foundation. In this guide you will learn how to secure a Spring document API with Auth0 and integrate Fine-Grained Authorization (FGA) to the document operations with OpenFGA.
 
 > **This tutorial was created with the following tools and services**:
 > - [Java OpenJDK 21](https://jdk.java.net/java-se-ri/21)
@@ -155,10 +155,9 @@ You should get a JSON response listing the menu items:
 ]
 ```
 
-## Design an authorization model
+## Define an authorization model
 
-- MODEL DESCRIPTION
-- MODEL CONVERSION FROM DSL TO JSON
+At a high level, an authorization model is defined by indicating user types, object types and relationships between them. As we are not going to deep-dive on [ReBAC](https://openfga.dev/docs/authorization-concepts#what-is-relationship-based-access-control) in this guide, you can refer to OpenFGA documentation for learning about modeling concepts. Under the [Advanced use-cases](https://openfga.dev/docs/modeling/advanced) section in the doc, there is an simplified authorization model for a [Google Drive](https://openfga.dev/docs/modeling/advanced/gdrive) application ready to test:
 
 ```fga
 model
@@ -179,12 +178,14 @@ type domain
     define member: [user]
 ```
 
-Install the [FGA CLI](https://openfga.dev/docs/getting-started/cli) and convert the DSL model to JSON:
+The OpenFGA authorization model is expressed in a configuration language that can be presented in DSL or JSON syntax. The JSON syntax is accepted by the API. The DSL adds syntactic sugar on top of JSON for ease of use, and can be transformed to JSON using the FGA CLI. The syntax above is the document authorization model in DSL. Copy the modeol to a `authorization-model.fga` file, install the [FGA CLI](https://openfga.dev/docs/getting-started/cli) and transform the model to JSON:
 
 
 ```shell
 fga model transform --file=authorization-model.fga > authorization-model.json
 ```
+
+The transformed model should like the JSON below:
 
 ```json
 // authorization-model.json
@@ -389,12 +390,9 @@ fga model transform --file=authorization-model.fga > authorization-model.json
 }
 ```
 
-## Add fine-grained authorization (FGA) with OpenFGA
+Place the file at `src/main/resources/fga/authorization-model.json` as it will be required later.
 
-- ADD OPENFGA SPRING BOOT STARTER
-- OPENFGA SERVER INITIALIZER
-- SERVICE LAYER
-- INTEGRATION TESTING WITH TESTCONTAINERS
+## Add fine-grained authorization (FGA) with OpenFGA
 
 Now let's integrate fine-grained authorization into the application. OpenFGA team has just released the OpenFGA Spring Boot Starter 0.0.1, and you can add it to your project with the following dependency:
 
@@ -633,7 +631,6 @@ public class OpenFGAUtil {
 
 The class `OpenFGAUtil` encapsulates the task of loading the JSON model into a domain `AuthorizationModel` object for building the authorization model request.
 
-
 ```java
 // src/main/java/com/example/demo/initializer/OpenFGAInitializer.java
 package com.example.demo.initializer;
@@ -842,11 +839,6 @@ Run the test with:
 
 ## Running the Spring Boot API
 
-- DOCKER COMPOSE FOR OPENFGA
-- AUTH0 TEST TOKEN
-- CURL TESTS
-- SHARE DOCUMENT
-
 Taking advantage of Spring Boot Docker, create a `compose.yml` file at the root of the project, to start an OpenFGA server when the application runs:
 
 ```yaml
@@ -928,9 +920,7 @@ Access is denied%
 
 ## Authorizing Access
 
-- ADD PERMISSION ENDPOINT
-
-Also, you can remove auth0.com cookie, and create an access token for a different user, an attempt to get a document not owned with:
+You can remove auth0.com cookie, and create an access token for a different user, and request a document not owned with the following command:
 
 ```shell
 curl -i -H "Authorization:Bearer $ANA_ACCESS_TOKEN" http://localhost:8080/document/4
@@ -1000,11 +990,9 @@ curl -i -H "Authorization:Bearer $ANA_ACCESS_TOKEN" http://localhost:8080/docume
 
 ## Learn more about fine-grained authorization with OpenFGA and Spring Boot
 
-- RECAP CLOSING
-
 In this post you learned about OpenFGA integration to a Spring Boot API using the OpenFGA Spring Boot Starter 0.0.1, just released. I hope you find this introduction useful, and could grasp the basics of fine-grained authorization through OpenFGA system, and the benefits of moving authorization logic outside application code. You can find the code shown in this tutorial on [GitHub](https://github.com/oktadev/spring-api-fga). If you'd rather skip the step-by-step and prefer running a sample application, follow the [README](https://github.com/oktadev/spring-api-fga) instructions in the same repository.
 
-If you liked this post, you might enjoy these related posts:
+Also, if you liked this post, you might enjoy these related posts:
 
 - [Deploy Secure Spring Boot Microservices on Amazon EKS Using Terraform and Kubernetes](https://auth0.com/blog/terraform-eks-java-microservices/)
 - [Get started with Spring Boot and Auth0](https://auth0.com/blog/get-started-with-okta-spring-boot-starter/)
