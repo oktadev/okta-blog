@@ -918,7 +918,7 @@ tanish-kumar:
   display_name: Tanish Kumar
   avatar: avatar-tanish-kumar.jpeg
   github: https://github.com/tanishkumar02
-  linkedin: https://www.linkedin.com/in/tanish-kumar/ 
+  linkedin: https://www.linkedin.com/in/tanish-kumar/
 
 michael-palermo:
   full_name: Michael Palermo
@@ -927,7 +927,7 @@ michael-palermo:
   linkedin: https://www.linkedin.com/in/palermo4/
   twitter: https://twitter.com/palermo4
   web: https://about.me/palermo4
-  bio: Michael is the Manager of Developer Advocacy at Okta. He has been advocating developer technologies for over 25 years. Michael is a published author of technical books as well as online courses with Pluralsight. Previously, Michael evangelized "smart home" with the Amazon Alexa team, taught developers location data with HERE Technologies, and championed HTML5 while at Microsoft. 
+  bio: Michael is the Manager of Developer Advocacy at Okta. He has been advocating developer technologies for over 25 years. Michael is a published author of technical books as well as online courses with Pluralsight. Previously, Michael evangelized "smart home" with the Amazon Alexa team, taught developers location data with HERE Technologies, and championed HTML5 while at Microsoft.
 
 ram-gandhi:
   full_name: Ram Gandhi
@@ -935,3 +935,10 @@ ram-gandhi:
   avatar: avatar-ram-gandhi.jpg
   github: https://github.com/ramgandhi-okta
   bio: Ram Gandhi is a Developer Support Solutions Architect at Okta, a full-stack developer, DevOps expert, and a problem solver who is excited by learning new things. He has over 13 years of experience developing software applications across various industries and securing them using industry best practices. He loves to work in cross-platform development and Kubernetes.
+
+louie-campagna:
+  full_name: Louie Campagna
+  display_name: Louie Campagna
+  avatar: avatar-louie-campagna.jpeg
+  linkedin: https://www.linkedin.com/in/louie-campagna/
+  bio: Louie Campagna is an Okta Developer Support Engineer. He enjoys coding creative solutions to problems and writing scripts to automate processes. Louie's previous experience spans across customer service, desktop engineering, identity and access management and governance, and programming.
