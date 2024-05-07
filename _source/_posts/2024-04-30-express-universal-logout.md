@@ -373,7 +373,7 @@ universalLogoutRoute.post('/global-token-revocation', async (req, res) => {
     res.status(400);
   }
   
-  // Find the user by email linked tothe org id associated with the API key provided
+  // Find the user by email linked to the org id associated with the API key provided
   const domainOrgId = req['user']['id']
   const newRequest:IRequestSchema = req.body;
   const { email } = newRequest.sub_id;
