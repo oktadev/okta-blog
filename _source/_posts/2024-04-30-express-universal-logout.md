@@ -41,15 +41,13 @@ We'll build the Universal Logout (UL) endpoint on [the sample app](https://githu
 >**Troubleshooting tips**: Ensure you can run the Todo application before you begin. We'll be adding some code and testing along the way. 
 
 ### Create a free Okta Developer Edition account
-If you don't already have an Okta account, you can sign up for one here under [Workforce Identity Cloud – Developer Edition](https://developer.okta.com/signup/). You'll also need to create an [OpenID Connect (OIDC) application](https://developer.okta.com/docs/guides/implement-grant-type/authcode/main/#set-up-your-app), which you can do by following the instructions listed here under Setup your app.
-
->**Note**: Take note of your client_id and client_secret info, you'll need this in the following step.
+If you don't already have an Okta account, you can sign up for one here under [Workforce Identity Cloud – Developer Edition](https://developer.okta.com/signup/). You'll also need to create an [OpenID Connect (OIDC) application](https://developer.okta.com/docs/guides/implement-grant-type/authcode/main/#set-up-your-app), which you can do by following the instructions listed here under Setup your app. Set the Sign-in redirect URI as `http://localhost:3333/openid/callback/1`. Note down your ***client_id** and **client_secret**; you'll need it in the next steps.
 
 ### Add configuration to authenticate with OIDC
 
-You can view the user table locally using Prisma Studio. To do this, go to the root of this workshop folder in your terminal and run `npx prisma studio`. Your browser will open a new web page where you can see all the users in your database.
+You can view the user table locally using Prisma Studio. To do this, go to the root of this workshop folder in your terminal and run `npx prisma studio`. Your browser will open a new web page where you can see all the users in your database.  
 
-While viewing your database locally, you'll also see an org table. You can manually input the following info to seed your database with an org linked to an Okta authorization server, allowing OIDC SSO sign-in.
+While viewing your database locally, you'll also see an org table. By clicking the **Add record** button, you can manually input the following info to seed your database with an org linked to an Okta authorization server, allowing OIDC-SSO login. Add the **client_id** and **client_secret** from the previous step, then click the **Save change** button to save your changes.
 
 - id # = 1
 - domain = whiterabbit.fake
@@ -71,7 +69,9 @@ Open the Admin Console for your org, and go to **Directory** > **People**. Click
 - Last name: Anderson
 - Username: trinity@whiterabbit.fake
 - Activation: Activate now
-- Enter a password of your choosing and click **Save**
+- Enable the option **I will set password** > Enter a password of your choosing and click **Save**
+
+Refresh the page and click on Trinity Anderson's profile. Click the **Assign Application** button and assign Trinity to the UL OIDC App. 
 
 ### Migrate the test user
 
@@ -320,7 +320,7 @@ passport.use(new BearerStrategy(
 ));
 ```
 
-Update the UL endpoint by adding the following arguments passport.authenticate('bearer', { session: false }). The complete code will look like this:
+Update the UL endpoint by adding the following arguments `passport.authenticate('bearer', { session: false })`. The complete code will look like this:
 
 >**Note**: The [Passport Library](https://www.passportjs.org/packages/passport-http-bearer/) offers the option of setting the token authentication token session to false. We'll set it to false since we won't need a session in our use case.
 
@@ -373,13 +373,7 @@ universalLogoutRoute.post('/global-token-revocation', async (req, res) => {
     res.status(400);
   }
   
-  // Make sure an API token is passed
-  const authHeaders = req.headers.authorization
-  if(!authHeaders){
-    return res.sendStatus(401)
-  }
-
-   // Find the user by email linked tothe org id associated with the API key provided
+  // Find the user by email linked tothe org id associated with the API key provided
   const domainOrgId = req['user']['id']
   const newRequest:IRequestSchema = req.body;
   const { email } = newRequest.sub_id;
