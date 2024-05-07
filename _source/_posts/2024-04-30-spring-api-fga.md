@@ -30,11 +30,6 @@ This guide will teach you how to secure a Spring document API with Okta and inte
 
 ## Add security with Auth0 and Okta Spring Boot starter
 
-- ADD OKTA SPRING BOOT STARTER
-- AUTH0 CONFIGURATION
-- AUTH0 TEST TOKEN
-- CURL TESTS
-
 Start by doing a checkout of the document API repository, which already implements basic request handling:
 
 ```shell
@@ -95,7 +90,7 @@ Run the API with:
 Test the API authorization with curl:
 
 ```shell
-curl -i localhost:8080/file
+curl -i localhost:8080/document
 ```
 You will get HTTP response code `401` because the request requires bearer authentication. Using Auth0 CLI, get an access token:
 
@@ -111,7 +106,7 @@ ACCESS_TOKEN=<auth0-access-token>
 ```
 
 ```shell
-curl -i --header "Authorization: Bearer $ACCESS_TOKEN" localhost:8080/file
+curl -i --header "Authorization: Bearer $ACCESS_TOKEN" localhost:8080/document
 ```
 
 You should get a JSON response listing the menu items:
@@ -165,6 +160,235 @@ You should get a JSON response listing the menu items:
 - MODEL DESCRIPTION
 - MODEL CONVERSION FROM DSL TO JSON
 
+```fga
+model
+  schema 1.1
+
+type user
+
+type document
+  relations
+    define owner: [user, domain#member] or owner from parent
+    define writer: [user, domain#member] or owner or writer from parent
+    define commenter: [user, domain#member] or writer or commenter from parent
+    define viewer: [user, user:*, domain#member] or commenter or viewer from parent
+    define parent: [document]
+
+type domain
+  relations
+    define member: [user]
+```
+
+Install the [FGA CLI](https://openfga.dev/docs/getting-started/cli) and convert the DSL model to JSON:
+
+
+```shell
+fga model transform --file=authorization-model.fga > authorization-model.json
+```
+
+```json
+// authorization-model.json
+{
+   "schema_version":"1.1",
+   "type_definitions":[
+      {
+         "type":"user"
+      },
+      {
+         "metadata":{
+            "relations":{
+               "commenter":{
+                  "directly_related_user_types":[
+                     {
+                        "type":"user"
+                     },
+                     {
+                        "relation":"member",
+                        "type":"domain"
+                     }
+                  ]
+               },
+               "owner":{
+                  "directly_related_user_types":[
+                     {
+                        "type":"user"
+                     },
+                     {
+                        "relation":"member",
+                        "type":"domain"
+                     }
+                  ]
+               },
+               "parent":{
+                  "directly_related_user_types":[
+                     {
+                        "type":"document"
+                     }
+                  ]
+               },
+               "viewer":{
+                  "directly_related_user_types":[
+                     {
+                        "type":"user"
+                     },
+                     {
+                        "type":"user",
+                        "wildcard":{
+
+                        }
+                     },
+                     {
+                        "relation":"member",
+                        "type":"domain"
+                     }
+                  ]
+               },
+               "writer":{
+                  "directly_related_user_types":[
+                     {
+                        "type":"user"
+                     },
+                     {
+                        "relation":"member",
+                        "type":"domain"
+                     }
+                  ]
+               }
+            }
+         },
+         "relations":{
+            "commenter":{
+               "union":{
+                  "child":[
+                     {
+                        "this":{
+
+                        }
+                     },
+                     {
+                        "computedUserset":{
+                           "relation":"writer"
+                        }
+                     },
+                     {
+                        "tupleToUserset":{
+                           "computedUserset":{
+                              "relation":"commenter"
+                           },
+                           "tupleset":{
+                              "relation":"parent"
+                           }
+                        }
+                     }
+                  ]
+               }
+            },
+            "owner":{
+               "union":{
+                  "child":[
+                     {
+                        "this":{
+
+                        }
+                     },
+                     {
+                        "tupleToUserset":{
+                           "computedUserset":{
+                              "relation":"owner"
+                           },
+                           "tupleset":{
+                              "relation":"parent"
+                           }
+                        }
+                     }
+                  ]
+               }
+            },
+            "parent":{
+               "this":{
+
+               }
+            },
+            "viewer":{
+               "union":{
+                  "child":[
+                     {
+                        "this":{
+
+                        }
+                     },
+                     {
+                        "computedUserset":{
+                           "relation":"commenter"
+                        }
+                     },
+                     {
+                        "tupleToUserset":{
+                           "computedUserset":{
+                              "relation":"viewer"
+                           },
+                           "tupleset":{
+                              "relation":"parent"
+                           }
+                        }
+                     }
+                  ]
+               }
+            },
+            "writer":{
+               "union":{
+                  "child":[
+                     {
+                        "this":{
+
+                        }
+                     },
+                     {
+                        "computedUserset":{
+                           "relation":"owner"
+                        }
+                     },
+                     {
+                        "tupleToUserset":{
+                           "computedUserset":{
+                              "relation":"writer"
+                           },
+                           "tupleset":{
+                              "relation":"parent"
+                           }
+                        }
+                     }
+                  ]
+               }
+            }
+         },
+         "type":"document"
+      },
+      {
+         "metadata":{
+            "relations":{
+               "member":{
+                  "directly_related_user_types":[
+                     {
+                        "type":"user"
+                     }
+                  ]
+               }
+            }
+         },
+         "relations":{
+            "member":{
+               "this":{
+
+               }
+            }
+         },
+         "type":"domain"
+      }
+   ]
+}
+```
+
 ## Add fine-grained authorization (FGA) with OpenFGA
 
 - ADD OPENFGA SPRING BOOT STARTER
@@ -181,6 +405,7 @@ implementation 'dev.openfga:openfga-spring-boot-starter:0.0.1'
 The OpenFGA Spring Boot Starter dependency provides the auto-configuration of an FGA client and FGA bean that exposes a check method for authorizing operations. Before adding method security, let's add the changes required for creating the owner tuple when the document is created. Create an `AuthorizationService` in the package `com.example.demo.service`:
 
 ```java
+// src/main/java/com/example/demo/service/AuthorizationService.java
 package com.example.demo.service;
 
 import com.example.demo.model.Permission;
@@ -217,6 +442,7 @@ public class AuthorizationService {
 ```
 
 ```java
+// src/main/java/com/example/demo/service/AuthorizationServiceException.java
 package com.example.demo.service;
 
 public class AuthorizationServiceException extends RuntimeException {
@@ -229,6 +455,7 @@ public class AuthorizationServiceException extends RuntimeException {
 Update the `DocumentService` for the required [dual write](https://developers.redhat.com/articles/2023/01/11/fine-grained-authorization-quarkus-microservices#challenges_of_implementing_a_zanzibar_fine_grained_permission_model) (database and OpenFGA server) when creating a `Document`:
 
 ```java
+// src/main/java/com/example/demo/service/DocumentService.java
 package com.example.demo.service;
 
 import com.example.demo.model.Document;
@@ -256,9 +483,9 @@ public class DocumentService {
     }
 
     @Transactional
-    public Document save(@P("document") Document file) {
+    public Document save(@P("document") Document document) {
         try {
-            Document result = documentRepository.save(file);
+            Document result = documentRepository.save(document);
             Permission permission = new PermissionBuilder()
                     .withDocumentId(result.getId())
                     .withRelation("owner")
@@ -280,12 +507,13 @@ Next, you need to add method security enforcing the permissions policy. With `@P
 
 ```java
 @PreAuthorize("#document.parentId == null or @fga.check('document', #document.parentId, 'writer', 'user')")
-public Document save(@P("document") Document file)
+public Document save(@P("document") Document document)
 ```
 
 The expression will produce a call to OpenFGA that will check if the authenticated user is a writer of the parent document, if the parent is defined. Assuming the parent is a folder, the document can be created in the folder if the user is a writer (has write permission) in that folder. The complete method security can be expressed as follows:
 
 ```java
+// src/main/java/com/example/demo/service/DocumentService.java
 package com.example.demo.service;
 
 import com.example.demo.model.Document;
@@ -314,9 +542,9 @@ public class DocumentService {
 
     @Transactional
     @PreAuthorize("#document.parentId == null or @fga.check('document', #document.parentId, 'writer', 'user')")
-    public Document save(@P("document") Document file) {
+    public Document save(@P("document") Document document) {
         try {
-            Document result = documentRepository.save(file);
+            Document result = documentRepository.save(document);
             Permission permission = new PermissionBuilder()
                     .withDocumentId(result.getId())
                     .withRelation("owner")
@@ -355,6 +583,7 @@ public class DocumentService {
 In the previous section you created an authorization model and converted it to JSON format. This will allow to initialize the OpenFGA server in development with that model. Add the utility component `OpenFGAUtil` in the `com.example.demo.initializer` package:
 
 ```java
+// src/main/java/com/example/demo/initializer/OpenFGAUtil.java
 package com.example.demo.initializer;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
@@ -406,6 +635,7 @@ The class `OpenFGAUtil` encapsulates the task of loading the JSON model into a d
 
 
 ```java
+// src/main/java/com/example/demo/initializer/OpenFGAInitializer.java
 package com.example.demo.initializer;
 
 import dev.openfga.sdk.api.client.OpenFgaClient;
@@ -469,6 +699,7 @@ testImplementation "org.testcontainers:junit-jupiter:1.19.7"
 Then create the `DocumentIntegrationTest` class with the following code:
 
 ```java
+// src/main/java/com/example/demo/DocumentIntegrationTest.java
 package com.example.demo;
 
 import com.example.demo.model.Document;
@@ -521,14 +752,14 @@ public class DocumentIntegrationTest {
 
     @Test
     @WithMockUser(username = "test-user")
-    public void testCreateFileIsFobidden() throws Exception {
+    public void testCreateDocumentIsFobidden() throws Exception {
 
         Document document = new Document();
         document.setParentId(1L);
-        document.setName("test-file");
+        document.setName("test-doc");
         document.setDescription("test-description");
 
-        mockMvc.perform(post("/file").with(csrf())
+        mockMvc.perform(post("/document").with(csrf())
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(objectMapper.writeValueAsString(document)))
                 .andExpect(status().isForbidden());
@@ -536,53 +767,53 @@ public class DocumentIntegrationTest {
 
     @Test
     @WithMockUser(username = "test-user")
-    public void testCreateFile() throws Exception {
+    public void testCreateDocument() throws Exception {
 
         Document document = new Document();
-        document.setName("test-file");
+        document.setName("test-doc");
         document.setDescription("test-description");
 
-        MvcResult mvcResult = mockMvc.perform(post("/file")
+        MvcResult mvcResult = mockMvc.perform(post("/document")
                 .with(csrf())
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(objectMapper.writeValueAsString(document)))
                 .andExpect(status().isOk()).andExpect(jsonPath("$").exists())
-                .andExpect(jsonPath("$.name").value("test-file"))
+                .andExpect(jsonPath("$.name").value("test-doc"))
                 .andExpect(jsonPath("$.description").value("test-description"))
                 .andReturn();
 
         Document result = objectMapper.readValue(mvcResult.getResponse().getContentAsString(), Document.class);
 
-        mockMvc.perform(get("/file/{id}", result.getId())
+        mockMvc.perform(get("/document/{id}", result.getId())
                 .with(csrf())
                 .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$").exists())
-                .andExpect(jsonPath("$.name").value("test-file"))
+                .andExpect(jsonPath("$.name").value("test-doc"))
                 .andExpect(jsonPath("$.description").value("test-description"));
     }
 
     @Test
     @WithMockUser(username = "test-user")
-    public void testDeleteFile_NotOwned_AccessDenied() throws Exception {
+    public void testDeleteDocument_NotOwned_AccessDenied() throws Exception {
         Document document = new Document();
-        document.setName("test-file");
+        document.setName("test-doc");
         document.setDescription("test-description");
 
-        MvcResult mvcResult = mockMvc.perform(post("/file")
+        MvcResult mvcResult = mockMvc.perform(post("/document")
                         .with(csrf())
                         .with(user("owner-user"))
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(objectMapper.writeValueAsString(document)))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$").exists())
-                .andExpect(jsonPath("$.name").value("test-file"))
+                .andExpect(jsonPath("$.name").value("test-doc"))
                 .andExpect(jsonPath("$.description").value("test-description"))
                 .andReturn();
 
         Document result = objectMapper.readValue(mvcResult.getResponse().getContentAsString(), Document.class);
 
-        mockMvc.perform(delete("/file/{id}", result.getId()).with(csrf())
+        mockMvc.perform(delete("/document/{id}", result.getId()).with(csrf())
                         .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isForbidden());
 
@@ -593,6 +824,7 @@ public class DocumentIntegrationTest {
 Update `application.yml` and add the following properties:
 
 ```yaml
+# src/main/resources/application.yml
 openfga:
   api-url: http://localhost:8090
   store-id: 01AAAAAAAAAAAAAAAAAAAAAAAA
@@ -618,6 +850,7 @@ Run the test with:
 Taking advantage of Spring Boot Docker, create a `compose.yml` file at the root of the project, to start an OpenFGA server when the application runs:
 
 ```yaml
+# compose.yml
 services:
   openfga:
     image: openfga/openfga:latest
@@ -672,7 +905,7 @@ curl -i -X POST \
   -H "Authorization:Bearer $TOM_ACCESS_TOKEN" \
   -H "Content-Type: application/json" \
   -d '{"name": "planning.doc"}' \
-  http://localhost:8080/file
+  http://localhost:8080/document
 ```
 
 Verify the API does not authorize creating a document with a parent not owned:
@@ -682,7 +915,7 @@ curl -i -X POST \
   -H "Authorization:Bearer $TOM_ACCESS_TOKEN" \
   -H "Content-Type: application/json" \
   -d '{"name": "planning.doc", "parentId": 6}' \
-  http://localhost:8080/file
+  http://localhost:8080/document
 ```
 
 The API will reject with HTTP 403:
@@ -700,13 +933,48 @@ Access is denied%
 Also, you can remove auth0.com cookie, and create an access token for a different user, an attempt to get a document not owned with:
 
 ```shell
-curl -i -H "Authorization:Bearer $ANA_ACCESS_TOKEN" http://localhost:8080/file/4
+curl -i -H "Authorization:Bearer $ANA_ACCESS_TOKEN" http://localhost:8080/document/4
 ```
 
-Let's add a permission endpoint for granting `writer` access to Ana.
+Before creating the permission, the call will return HTTP code 403. Let's add a permission endpoint for granting `writer` access to Ana. Create a `PermissionController` class:
 
+```java
+// src/main/java/com/example/demo/web/PermissionController.java
+package com.example.demo.web;
 
+import com.example.demo.model.Permission;
+import com.example.demo.service.AuthorizationService;
+import com.example.demo.service.AuthorizationServiceException;
+import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.core.parameters.P;
+import org.springframework.web.bind.annotation.ExceptionHandler;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RestController;
 
+@RestController
+public class PermissionController {
+
+    private AuthorizationService authorizationService;
+
+    public PermissionController(AuthorizationService authorizationService) {
+        this.authorizationService = authorizationService;
+    }
+
+    // Only the owner can create permissions for the document
+    @PostMapping("/permission")
+    @PreAuthorize("@fga.check('document', #permission.documentId, 'owner', 'user')")
+    public void createPermission(@P("permission") @RequestBody Permission permission) {
+        authorizationService.create(permission);
+    }
+
+    @ExceptionHandler
+    public ResponseEntity<String> handle(AuthorizationServiceException ex) {
+        return ResponseEntity.status(500).body(ex.getMessage());
+    }
+}
+```
 
 Now let's make Tom share the document with Ana. First, you can find out Ana userId with:
 
@@ -722,6 +990,12 @@ curl -i -X POST \
   -H "Content-Type: application/json" \
   -d '{"documentId": 4, "relation": "writer", "userId": "auth0|888888888888888888888888"}' \
   http://localhost:8080/permission
+```
+
+Repeat the call and verify the view operation is authorized for the document, as it is implicit in the `writer` relation:
+
+```shell
+curl -i -H "Authorization:Bearer $ANA_ACCESS_TOKEN" http://localhost:8080/document/4
 ```
 
 ## Learn more about fine-grained authorization with OpenFGA and Spring Boot
