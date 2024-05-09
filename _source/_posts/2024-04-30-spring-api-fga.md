@@ -111,7 +111,7 @@ ACCESS_TOKEN=<auth0-access-token>
 curl -i --header "Authorization: Bearer $ACCESS_TOKEN" localhost:8080/document
 ```
 
-You should get a JSON response listing the menu items:
+You should get a JSON response listing the available documents:
 
 ```json
 [
@@ -926,7 +926,7 @@ Access is denied%
 
 ## Authorizing Access
 
-You can remove auth0.com cookie, and create an access token for a different user, and request a document not owned with the following command:
+You can remove the auth0.com cookie, and create an access token for a different user, and request a document not owned with the following command:
 
 ```shell
 curl -i -H "Authorization:Bearer $ANA_ACCESS_TOKEN" http://localhost:8080/document/4
@@ -1002,12 +1002,12 @@ You can use the same credentials of your Auth0 account to log in to the Okta FGA
 
 {% img blog/spring-api-fga/oktafga-explorer.png alt:"Okta FGA model explorer" width:"900" %}{: .center-image }
 
-> Note: Check out the [Okta FGA Playground](https://play.fga.dev/) to play around with the model editor or see some example models for applications like Google Drive, GitHub, or Slack.
+> **Note**: Check out the [Okta FGA Playground](https://play.fga.dev/) to play around with the model editor or see some example models for applications like Google Drive, GitHub, or Slack.
 
 On the left menu, find the **Settings** option and copy the _Store ID_ and _Model ID_. In the Authorized Clients section, click on **Create Client**. Set the following values:
 
 - Client Name: **spring-api-fga**
-- Read/Write model, changes, assertions: **No**
+- Read/Write model, changes, assertions: **Yes**
 - Write and delete tuples: **Yes**
 - Read and query: **Yes**
 
@@ -1015,7 +1015,7 @@ Click on **Create** and copy the _Client ID_ and _Client Secret_, click **Contin
 
 ```yml
 openfga:
-  api-url: https://api.us1.fga.dev/ # check options for your region
+  api-url: https://api.us1.fga.dev # check options for your region
   store-id: <okta-fga-store-id>
   authorization-model-id: <okta-fga-authorization-model-id>
   initialize: false
