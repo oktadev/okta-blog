@@ -862,7 +862,7 @@ openfga:
   authorization-model-id: <okta-fga-authorization-model-id>
   initialize: false
   credentials:
-    method: CLIENT_CONFIGURATION # constant
+    method: CLIENT_CREDENTIALS # constant
     config:
       client-id: <client-id>
       client-secret: <client-secret>
