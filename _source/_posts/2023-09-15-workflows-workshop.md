@@ -1,6 +1,6 @@
 ---
 layout: blog_post
-title: "Enterprise Ready Workshop: Automate with no-code Okta Workflows"
+title: "Enterprise Maturity Workshop: Automate with no-code Okta Workflows"
 author: max-katz
 by: advocate
 communities: [no-code,javascript]
@@ -55,8 +55,9 @@ You will complete the following steps:
 | 1. [How to Get Going with the On-Demand SaaS Apps Workshops](/blog/2023/07/27/enterprise-ready-getting-started) |
 | 2. [Enterprise-Ready Workshop: Authenticate with OpenID Connect](/blog/2023/07/28/oidc_workshop) |
 | 3. [Enterprise-Ready Workshop: Manage Users with SCIM](/blog/2023/07/28/scim-workshop) |
-| 4. [Enterprise-Ready Workshop: Terraform](/blog/2023/07/028/terraform-workshop) |
-| 5. **Enterprise-Ready Workshop: Automate with no-code Okta Workflows** |
+| 4. [Enterprise Maturity Workshop: Terraform](/blog/2023/07/028/terraform-workshop) |
+| 5. **Enterprise Maturity Workshop: Automate with no-code Okta Workflows** |
+| 6. [How to Instantly Sign a User Out across All Your App](/blog/2024/04/30/express-universal-logout) |
 
 
 ## What is Okta Workflows?
@@ -939,8 +940,9 @@ Now that you can run the application locally, you are ready to start on a worksh
 | 1. [How to Get Going with the On-Demand SaaS Apps Workshops](/blog/2023/07/27/enterprise-ready-getting-started) |
 | 2. [Enterprise-Ready Workshop: Authenticate with OpenID Connect](/blog/2023/07/28/oidc_workshop) |
 | 3. [Enterprise-Ready Workshop: Manage Users with SCIM](/blog/2023/07/28/scim-workshop) |
-| 4. [Enterprise-Ready Workshop: Terraform](/blog/2023/07/028/terraform-workshop) |
-| 5. **Enterprise-Ready Workshop: Automate with no-code Okta Workflows** |
+| 4. [Enterprise Maturity Workshop: Terraform](/blog/2023/07/028/terraform-workshop) |
+| 5. **Enterprise Maturity Workshop: Automate with no-code Okta Workflows** |
+| 6. [How to Instantly Sign a User Out across All Your App](/blog/2024/04/30/express-universal-logout) |
 
 Ready to become enterprise-ready? Follow us on [Twitter](https://twitter.com/oktadev) and subscribe to our [YouTube](https://www.youtube.com/c/oktadev) channel to get notified about new workshops. If you have any questions or want to share what workshops/base application tech stacks you'd like to see next, please comment below!
 

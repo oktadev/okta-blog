@@ -30,6 +30,8 @@ Hello SaaS developers! You sell your software to technologically mature enterpri
 | 2. [Enterprise-Ready Workshop: Authenticate with OpenID Connect](/blog/2023/07/28/oidc_workshop) |
 | 3. **Enterprise-Ready Workshop: Manage Users with SCIM** |
 | 4. [Enterprise Maturity Workshop: Terraform](/blog/2023/07/28/terraform-workshop) |
+| 5. [Enterprise Maturity Workshop: Automate with no-code Okta Workflows](/blog/2023/09/15/workflows-workshop) |
+| 6. [How to Instantly Sign a User Out across All Your App](/blog/2024/04/30/express-universal-logout) |
 
 But creating accounts when users log in is only one of your customers' many expectations! Your app is also expected to know about users who haven't logged in yet, and remove the accounts of employees who are removed from your customer's identity provider. 
 
@@ -1407,6 +1409,8 @@ You can check out the completed SCIM server sample in the [scim-workshop-complet
 | 1. [How to Get Going with the Enterprise-Ready SaaS Apps Workshops](/blog/2023/07/27/enterprise-ready-getting-started) |
 | 2. [Enterprise-Ready Workshop: Authenticate with OpenID Connect](/blog/2023/07/28/oidc_workshop) |
 | 3. **Enterprise-Ready Workshop: Manage Users with SCIM** |
-| 4. [Enterprise-Ready Workshop: Terraform](/blog/2023/07/28/terraform-workshop) |
+| 4. [Enterprise Maturity Workshop: Terraform](/blog/2023/07/28/terraform-workshop) |
+| 5. [Enterprise Maturity Workshop: Automate with no-code Okta Workflows](/blog/2023/09/15/workflows-workshop) |
+| 6. [How to Instantly Sign a User Out across All Your App](/blog/2024/04/30/express-universal-logout) |
 
 Follow us on [Twitter](https://twitter.com/oktadev) and subscribe to our [YouTube](https://www.youtube.com/c/oktadev) channel to get notified about exciting new content. Please comment below if you have any questions or want to share problems you have used SCIM to solve or are planning to solve. As all our sample projects and SDKs are open source, we invite you to initiate a pull request if you see something you want us to improve. Thank you! 

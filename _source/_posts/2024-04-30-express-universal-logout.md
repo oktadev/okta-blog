@@ -17,7 +17,16 @@ github: https://github.com/oktadev/okta-enterprise-ready-workshops/tree/ul-works
 
 Your enterprise customers expect you to safeguard them from common security incidents, especially when it comes to compromised user accounts. Perhaps a user has signed in from a known stolen device or another country outside the list of allowed IP zones. If a hacker is masquerading as one of your customer's employees, potentially accessing sensitive company data, you must end their session and sign them out of your app immediately. 
 
-Bottom line, if you build SaaS applications for enterprise-level customers who leverage Identity Providers (IdPs), workflows, and threat-detection tools, then adding Universal Logout to your app is the solution to ending suspicious user sessions ASAP. 
+Bottom line, if you build SaaS applications for enterprise-level customers who leverage Identity Providers (IdPs), workflows, and threat-detection tools, then adding Universal Logout to your app is the solution to ending suspicious user sessions ASAP.
+
+|Posts in the on-demand workshop series|
+| --- |
+| 1. [How to Get Going with the On-Demand SaaS Apps Workshops](/blog/2023/07/27/enterprise-ready-getting-started) |
+| 2. [Enterprise-Ready Workshop: Authenticate with OpenID Connect](/blog/2023/07/28/oidc_workshop) |
+| 3. [Enterprise-Ready Workshop: Manage Users with SCIM](/blog/2023/07/28/scim-workshop) |
+| 4. [Enterprise Maturity Workshop: Terraform](/blog/2023/07/28/terraform-workshop) |
+| 5. [Enterprise Maturity Workshop: Automate with no-code Okta Workflows](/blog/2023/09/15/workflows-workshop) |
+| 6. **How to Instantly Sign a User Out across All Your App** |
 
 In this tutorial, you'll learn to add a secure Universal Logout API endpoint to a web app, test it by sending a request to end a user's active session, and finally handle signing them out of the app. However, we will not cover initiating user sign-out through an IdP, i.e. Okta, as this feature is soon to come.
 
@@ -28,7 +37,7 @@ In this tutorial, you'll learn to add a secure Universal Logout API endpoint to 
 ## Get the sample app up and running
 
 **Prerequisites**
-- [Enterprise Ready OIDC Workshop](/blog/2023/07/28/oidc_workshop) - [oidc-workshop-complete](https://github.com/oktadev/okta-enterprise-ready-workshops/tree/oidc-workshop-complete)
+- [Enterprise-Ready OIDC Workshop](/blog/2023/07/28/oidc_workshop) - [oidc-workshop-complete](https://github.com/oktadev/okta-enterprise-ready-workshops/tree/oidc-workshop-complete)
 - Code Editor (I used [Visual Studio Code](https://code.visualstudio.com/download)) 
 - [Okta Developer Account](https://developer.okta.com/signup/)
 - [Node.js](https://nodejs.org/en) v18 or greater
@@ -661,7 +670,14 @@ Now that you have an OIDC app with a UL endpoint, you can continue your Enterpri
 - [Enterprise-Ready Workshop: Manage users with SCIM](/blog/2023/07/28/scim-workshop)
 
 You can further manage your users and groups using Terraform or Workflows:
-- [Enterprise Maturity Workshop: Terraform](/blog/2023/07/28/terraform-workshop)
-- [Enterprise Ready Workshop: Automate with no-code Okta Workflows](/blog/2023/09/15/workflows-workshop)
+
+|Posts in the on-demand workshop series|
+| --- |
+| 1. [How to Get Going with the On-Demand SaaS Apps Workshops](/blog/2023/07/27/enterprise-ready-getting-started) |
+| 2. [Enterprise-Ready Workshop: Authenticate with OpenID Connect](/blog/2023/07/28/oidc_workshop) |
+| 3. [Enterprise-Ready Workshop: Manage Users with SCIM](/blog/2023/07/28/scim-workshop) |
+| 4. [Enterprise Maturity Workshop: Terraform](/blog/2023/07/28/terraform-workshop) |
+| 5. [Enterprise Maturity Workshop: Automate with no-code Okta Workflows](/blog/2023/09/15/workflows-workshop) |
+| 6. **How to Instantly Sign a User Out across All Your App** |
 
 Follow us on [Twitter](https://twitter.com/oktadev) and subscribe to our [YouTube](https://www.youtube.com/c/oktadev) channel. If you have any questions about Universal Logout, please comment below! 
