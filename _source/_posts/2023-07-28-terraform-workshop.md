@@ -20,6 +20,8 @@ This workshop is part of our Enterprise-Ready Workshop series. Follow along to g
 | 2. [Enterprise-Ready Workshop: Authenticate with OpenID Connect](/blog/2023/07/28/oidc_workshop) |
 | 3. [Enterprise-Ready Workshop: Manage Users with SCIM](/blog/2023/07/28/scim-workshop) |
 | 4. **Enterprise Maturity Workshop: Terraform** |
+| 5. [Enterprise Maturity Workshop: Automate with no-code Okta Workflows](/blog/2023/09/15/workflows-workshop) |
+| 6. [How to Instantly Sign a User Out across All Your App](/blog/2024/04/30/express-universal-logout) |
 
 The steps in this workshop are also demonstrated in the accompanying video, so that you can follow along in whatever medium is the best fit for your current learning needs.  
 
@@ -667,6 +669,8 @@ Check out the other workshops in the enterprise-ready series if you haven't alre
 | 2. [Enterprise-Ready Workshop: Authenticate with OpenID Connect](/blog/2023/07/28/oidc_workshop) |
 | 3. [Enterprise-Ready Workshop: Manage Users with SCIM](/blog/2023/07/28/scim-workshop) |
 | 4. **Enterprise-Ready Workshop: Terraform** |
+| 5. [Enterprise Maturity Workshop: Automate with no-code Okta Workflows](/blog/2023/09/15/workflows-workshop) |
+| 6. [How to Instantly Sign a User Out across All Your App](/blog/2024/04/30/express-universal-logout) |
 
 You've also begun to consider more advanced topics that you'll encounter in your Terraform journey, like config drift and API usage. 
 

@@ -27,6 +27,8 @@ You can pick which workshop to participate in and the order in which you partici
 | 2. [Enterprise-Ready Workshop: Authenticate with OpenID Connect](/blog/2023/07/28/oidc_workshop) |
 | 3. [Enterprise-Ready Workshop: Manage Users with SCIM](/blog/2023/07/28/scim-workshop) |
 | 4. [Enterprise Maturity Workshop: Terraform](/blog/2023/07/28/terraform-workshop) |
+| 5. [Enterprise Maturity Workshop: Automate with no-code Okta Workflows](/blog/2023/09/15/workflows-workshop) |
+| 6. [How to Instantly Sign a User Out across All Your App](/blog/2024/04/30/express-universal-logout) |
 
 > We want to ensure you can follow the workshops and focus on understanding how to enhance the application for enterprise use cases, so don't use this base application as a template expecting a production-quality B2C or B2B application - it has some obvious intentional security shortcomings!
 
@@ -142,6 +144,8 @@ Now that you can run the application locally, you're ready to start on a worksho
 | 1. **How to Get Going with the Enterprise-Ready SaaS Apps Workshops** |
 | 2. [Enterprise-Ready Workshop: Authenticate with OpenID Connect](/blog/2023/07/28/oidc_workshop) |
 | 3. [Enterprise-Ready Workshop: Manage Users with SCIM](/blog/2023/07/28/scim-workshop) |
-| 4. [Enterprise-Ready Workshop: Terraform](/blog/2023/07/28/terraform-workshop) |
+| 4. [Enterprise Maturity Workshop: Terraform](/blog/2023/07/28/terraform-workshop) |
+| 5. [Enterprise Maturity Workshop: Automate with no-code Okta Workflows](/blog/2023/09/15/workflows-workshop) |
+| 6. [How to Instantly Sign a User Out across All Your App](/blog/2024/04/30/express-universal-logout) |
 
 Ready to become enterprise-ready? Follow us on [Twitter](https://twitter.com/oktadev) and subscribe to our [YouTube](https://www.youtube.com/c/oktadev) channel to get notified about new workshops. If you have any questions or want to share what workshops/base application tech stacks you'd like to see next, please comment below!

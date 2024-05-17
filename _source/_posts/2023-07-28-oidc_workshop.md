@@ -26,6 +26,8 @@ In this workshop, you will be wearing the hat of a SaaS developer who will up-le
 | 2. **Enterprise-Ready Workshop: Authenticate with OpenID Connect** |
 | 3. [Enterprise-Ready Workshop: Manage Users with SCIM](/blog/2023/07/28/scim-workshop) |
 | 4. [Enterprise Maturity Workshop: Terraform](/blog/2023/07/28/terraform-workshop) |
+| 5. [Enterprise Maturity Workshop: Automate with no-code Okta Workflows](/blog/2023/09/15/workflows-workshop) |
+| 6. [How to Instantly Sign a User Out across All Your App](/blog/2024/04/30/express-universal-logout) |
 
 Today, we'll walk through adding OIDC to our Todo sample application. If you want to jump to the completed project, you can find it in the [oidc-workshop-complete](https://github.com/oktadev/okta-enterprise-ready-workshops/tree/oidc-workshop-complete) GitHub repository.
 
@@ -555,7 +557,9 @@ To set up users and groups in your Okta Developer Account, try our Terraform wor
 | 1. [How to Get Going with the Enterprise-Ready SaaS Apps Workshops](/blog/2023/07/27/enterprise-ready-getting-started) |
 | 2. **Enterprise-Ready Workshop: Authenticate with OpenID Connect** |
 | 3. [Enterprise-Ready Workshop: Manage Users with SCIM](/blog/2023/07/28/scim-workshop) |
-| 4. [Enterprise-Ready Workshop: Terraform](/blog/2023/07/28/terraform-workshop) |
+| 4. [Enterprise Maturity Workshop: Terraform](/blog/2023/07/28/terraform-workshop) |
+| 5. [Enterprise Maturity Workshop: Automate with no-code Okta Workflows](/blog/2023/09/15/workflows-workshop) |
+| 6. [How to Instantly Sign a User Out across All Your App](/blog/2024/04/30/express-universal-logout) |
 
 When gathering requirements from enterprise customers, pay attention to their security and interoperability needs surrounding workforce identity. Ask whether their identity administrators prefer OIDC, or allowing employees to manage passwords for every service! 
 
