@@ -92,7 +92,13 @@ If you were using the HTTP Header Prefer with the `sessions/me` API, extend the 
 
 Instead of calling `api/v1/sessions/me` for user information, use the OAuth introspect endpoint (https://developer.okta.com/docs/reference/api/oidc/#introspect). If the introspect endpoint's response is missing a piece of information that you want to use, add that information using [custom claims](https://developer.okta.com/docs/guides/customize-tokens-returned-from-okta/main/#add-a-custom-claim-to-a-token).
 
-If you ended sessions with `<ApiOperation method="delete" url="/api/v1/sessions/me" />`, follow [this updated guidance](https://developer.okta.com/docs/guides/sign-users-out/react-native/main/#sign-users-out-of-your-app) instead. Select your language or SDK from the "Instructions For" dropdown in that guide to see sample code for the revocation process.
+If you ended sessions with
+
+ ```http
+DELETE /api/v1/sessions/me HTTP/1.1
+```
+ 
+ follow [this updated guidance](https://developer.okta.com/docs/guides/sign-users-out/react-native/main/#sign-users-out-of-your-app) instead. Select your language or SDK from the "Instructions For" dropdown in that guide to see sample code for the revocation process.
 
 ## Test your Login Experience
 
