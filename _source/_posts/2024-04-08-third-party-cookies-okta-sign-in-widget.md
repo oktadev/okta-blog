@@ -80,7 +80,7 @@ To set the `offline_access` scope in your AuthJS code, add `offline_access` to t
 
 > **Note**
 >
-> This is to edit a [custom authorization server](https://developer.okta.com/docs/concepts/auth-servers/#custom-authorization-server) and requires that the feature [API Access Management](https://www.okta.com/products/api-access-management/?adgroupid=&campaignid=&utm_source=google&utm_campaign=amer_mult_usa_all_wf-all_dg-ao_a-wf_search_google_text_kw_dsa_utm2&utm_medium=cpc&utm_id=aNK4z000000UAzJGAW&gad_source=1&gclid=Cj0KCQjwztOwBhD7ARIsAPDKnkD3WQMla4xEM7GwHXqaQt-O2IF6mH1x5dadKgpUp4rH12IYyZQgjP4aApevEALw_wcB) is enabled for the okta org.
+> This is to edit a [custom authorization server](https://developer.okta.com/docs/concepts/auth-servers/#custom-authorization-server) and requires that the feature [API Access Management](https://www.okta.com/products/api-access-management) is enabled for the okta org.
 
 ## Transition to supported endpoints
 
@@ -92,7 +92,7 @@ If you were using the HTTP Header Prefer with the `sessions/me` API, extend the 
 
 Instead of calling `api/v1/sessions/me` for user information, use the OAuth introspect endpoint (https://developer.okta.com/docs/reference/api/oidc/#introspect). If the introspect endpoint's response is missing a piece of information that you want to use, add that information using [custom claims](https://developer.okta.com/docs/guides/customize-tokens-returned-from-okta/main/#add-a-custom-claim-to-a-token).
 
-If you ended sessions with `<ApiOperation method="delete" url="/api/v1/sessions/me" />`, follow [this updated guidance](https://d28m3l9ryqsunl.cloudfront.net/docs/guides/sign-users-out/react-native/main/#sign-users-out-of-your-app) instead. Select your language or SDK from the "Instructions For" dropdown in that guide to see sample code for the revocation process.
+If you ended sessions with `<ApiOperation method="delete" url="/api/v1/sessions/me" />`, follow [this updated guidance](https://developer.okta.com/docs/guides/sign-users-out/react-native/main/#sign-users-out-of-your-app) instead. Select your language or SDK from the "Instructions For" dropdown in that guide to see sample code for the revocation process.
 
 ## Test your Login Experience
 
@@ -113,4 +113,4 @@ Cookies are used to introspect and extend the Okta session. If a third-party coo
 
 ## Temporary fix in 2024
 
-Google granted Okta an exemption to the third-party cookie deprecation rollout until the end of 2024. To opt in to this exemption, you embed an Okta-provided script into your sign-in widget following [these instructions](https://support.okta.com/help/s/article/third-party-cookies-utilized-by-the-sign-in-widget?language=en_US). The script sets a Trial token, which tells Google to continue allowing third-party cookies for your login experience until the end of 2024. 
+Google granted Okta an exemption to the third-party cookie deprecation rollout until the end of 2024. To opt in to this exemption, you embed an Okta-provided script into your sign-in widget following [these instructions](https://support.okta.com/help/s/article/third-party-cookies-utilized-by-the-sign-in-widget). The script sets a Trial token, which tells Google to continue allowing third-party cookies for your login experience until the end of 2024. 
