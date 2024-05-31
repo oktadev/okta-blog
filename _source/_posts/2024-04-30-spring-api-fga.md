@@ -881,7 +881,7 @@ Stop the application and run it again, the API should work as before.
 
 ## Learn more about OpenFGA and Spring Boot
 
-In this post you learned about OpenFGA integration to a Spring Boot API using the OpenFGA Spring Boot Starter 0.0.1, just released. I hope you found this introduction useful and could grasp the basics of fine-grained authorization through the OpenFGA system, and the benefits of moving authorization logic outside application code. You can find the code shown in this tutorial on [GitHub](https://github.com/oktadev/spring-api-fga). If you'd rather skip the step-by-step and prefer running a sample application, follow the [README](https://github.com/oktadev/spring-api-fga) instructions in the same repository.
+In this post you learned about OpenFGA integration to a Spring Boot API using the [OpenFGA Spring Boot Starter 0.0.1](https://github.com/openfga/spring-boot-starter), just released. I hope you found this introduction useful and could grasp the basics of fine-grained authorization through the OpenFGA system, and the benefits of moving authorization logic outside application code. You can find the code shown in this tutorial on [GitHub](https://github.com/oktadev/spring-api-fga). If you'd rather skip the step-by-step and prefer running a sample application, follow the [README](https://github.com/oktadev/spring-api-fga) instructions in the same repository.
 
 Also, if you liked this post, you might enjoy these related posts:
 
