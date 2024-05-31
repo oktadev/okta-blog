@@ -67,7 +67,7 @@ dependencies {
     ...
 }
 ```
-As the `document-api` must be configured as an OAuth2 resource server, add the following properties:
+As the `document-api` must be configured as an OAuth2 resource server, add the following properties to `application.yml`
 
 ```yml
 # application.yml
@@ -264,6 +264,7 @@ public class AuthorizationService {
 }
 ```
 
+Add the exception class in the package `com.example.demo.service`:
 ```java
 // src/main/java/com/example/demo/service/AuthorizationServiceException.java
 package com.example.demo.service;
