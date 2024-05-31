@@ -255,7 +255,7 @@ public class AuthorizationService {
                     ._object("document:" + permission.getDocumentId());
             ClientWriteResponse response = fgaClient.writeTuples(List.of(tuple)).get();
         } catch (FgaInvalidParameterException | InterruptedException | ExecutionException e) {
-            throw new AuthorizationServiceException(e);
+            throw new AuthorizationServiceException("Unexpected error", e);
         }
     }
 }
@@ -269,6 +269,10 @@ package com.example.demo.service;
 public class AuthorizationServiceException extends RuntimeException {
     public AuthorizationServiceException(Exception e) {
         super(e);
+    }
+
+    public AuthorizationServiceException(String message, Exception e) {
+        super(message, e);
     }
 }
 ```
@@ -429,7 +433,6 @@ In the previous section, you created an authorization model and converted it to 
 // src/main/java/com/example/demo/initializer/OpenFGAUtil.java
 package com.example.demo.initializer;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import dev.openfga.sdk.api.model.AuthorizationModel;
 import org.slf4j.Logger;
@@ -464,8 +467,6 @@ public class OpenFGAUtil {
             AuthorizationModel authorizationModel = objectMapper.readValue(json, AuthorizationModel.class);
             logger.debug(authorizationModel.toString());
             return authorizationModel;
-        } catch (JsonProcessingException e) {
-            throw new RuntimeException(e);
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
