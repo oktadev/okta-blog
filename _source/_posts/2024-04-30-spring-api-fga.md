@@ -16,7 +16,7 @@ type: awareness
 
 Fine-grained authorization (FGA) refers to the capability of granting individual users permission to perform particular actions on specific resources. Effective FGA systems enable the management of permissions for a large number of objects and users. These permissions can undergo frequent changes as the system dynamically adds objects and adjusts access permissions for its users.
 
-OpenFGA is an open-source authorization system designed by Okta for developers, and adopted by the Cloud Native Computing Foundation (CNCF). It offers scalability and flexibility for the implementation of RBAC and ABAC authorization models, moving authorization logic outside application code, making it simpler to evolve authorization policies as complexity grows. In this guide, you will learn how to secure a Spring Boot document API with Auth0 and integrate Fine-Grained Authorization (FGA) into the document operations with OpenFGA.
+OpenFGA is an open-source Relationship Based Access Control (ReBAC) system designed by Okta for developers, and adopted by the Cloud Native Computing Foundation (CNCF). It offers scalability and flexibility, and it also supports the implementation of RBAC and ABAC authorization models, moving authorization logic outside application code, making it simpler to evolve authorization policies as complexity grows. In this guide, you will learn how to secure a Spring Boot document API with Auth0 and integrate Fine-Grained Authorization (FGA) into the document operations with OpenFGA.
 
 {% img blog/spring-api-fga/logos.png alt:"Spring Boot plus Auth0 by Okta plus OpenFGA" width:"600" %}{: .center-image }
 
@@ -32,7 +32,7 @@ OpenFGA is an open-source authorization system designed by Okta for developers, 
 
 ## Add security with Auth0 and the Okta Spring Boot starter
 
-Sign up at [Auth0](https://auth0.com/signup) and install the [Auth0 CLI](https://github.com/auth0/auth0-cli). Then in the command line run:
+Before working on the authorization (giving access to resources), you must define the mechanism for identifying the user. Auth0 is an easy to implement, adaptable authentication and authorization platform, and you can implement authentication for any application in just minutes. With Auth0 CLI you can create access tokens and use them for identifying the user when making requests to the document API. Sign up at [Auth0](https://auth0.com/signup) and install the [Auth0 CLI](https://github.com/auth0/auth0-cli). Then in the command line run:
 
 ```shell
 auth0 login
@@ -104,11 +104,8 @@ Select any available client when prompted. You also will be prompted to open a b
 With curl, send a request to the API server using a bearer access token:
 
 ```shell
-ACCESS_TOKEN=<auth0-access-token>
-```
-
-```shell
-curl -i --header "Authorization: Bearer $ACCESS_TOKEN" localhost:8080/document
+ACCESS_TOKEN=<auth0-access-token> && \
+  curl -i --header "Authorization: Bearer $ACCESS_TOKEN" localhost:8080/document
 ```
 
 You should get a JSON response listing the available documents:
@@ -161,7 +158,7 @@ You should get a JSON response listing the available documents:
 
 At a high level, an authorization model is defined by indicating user types, object types, and relationships between them. As we are not going to deep-dive on [ReBAC](https://openfga.dev/docs/authorization-concepts#what-is-relationship-based-access-control) in this guide, you can refer to OpenFGA documentation for learning about modeling concepts. Under the [Advanced use-cases](https://openfga.dev/docs/modeling/advanced) section in the doc, there is a simplified authorization model for a [Google Drive](https://openfga.dev/docs/modeling/advanced/gdrive) application ready to test:
 
-```fga
+```python
 model
   schema 1.1
 
@@ -219,7 +216,7 @@ Place the file at `src/main/resources/fga/auth-model.json` as it will be require
 
 ## Add fine-grained authorization (FGA) with OpenFGA
 
-Now let's integrate fine-grained authorization into the application. The OpenFGA team has just released the OpenFGA Spring Boot Starter 0.0.1, and you can add it to your project with the following dependency:
+Now let's integrate fine-grained authorization into the application. The OpenFGA team has just released the [OpenFGA Spring Boot Starter 0.0.1](https://github.com/openfga/spring-boot-starter), and you can add it to your project with the following dependency:
 
 ```groovy
 implementation 'dev.openfga:openfga-spring-boot-starter:0.0.1'
@@ -739,15 +736,12 @@ auth0 test token -a https://document-api.okta.com -s openid
 With curl, send a request to the API server using a bearer access token:
 
 ```shell
-TOM_ACCESS_TOKEN=<auth0-access-token>
-```
-
-```shell
-curl -i -X POST \
-  -H "Authorization:Bearer $TOM_ACCESS_TOKEN" \
-  -H "Content-Type: application/json" \
-  -d '{"name": "planning.doc"}' \
-  http://localhost:8080/document
+TOM_ACCESS_TOKEN=<auth0-access-token> && \
+  curl -i -X POST \
+    -H "Authorization:Bearer $TOM_ACCESS_TOKEN" \
+    -H "Content-Type: application/json" \
+    -d '{"name": "planning.doc"}' \
+    http://localhost:8080/document
 ```
 
 Verify the API does not authorize creating a document with a parent not owned:
@@ -770,13 +764,20 @@ Access is denied%
 
 ## Authorizing Access
 
-You can remove the auth0.com cookie, create an access token for a different user, and request a document not owned with the following command:
+You can remove the auth0.com cookie, and with the Auth0 CLI create a new access token for a second user. Let's suppose this second user is _ANA_:
 
 ```shell
-curl -i -H "Authorization:Bearer $ANA_ACCESS_TOKEN" http://localhost:8080/document/4
+auth0 test token -a https://document-api.okta.com -s openid
 ```
 
-Before creating the permission, the call will return HTTP code 403. Let's add a permission endpoint for granting `writer` access to Ana. Create a `PermissionController` class:
+Then request a document owned by _TOM_ with `$ANA_ACCESS_TOKEN` with the following command:
+
+```shell
+ANA_ACCESS_TOKEN=<auth0-access-token> && \
+  curl -i -H "Authorization:Bearer $ANA_ACCESS_TOKEN" http://localhost:8080/document/4
+```
+
+Before creating the permission, the call will return HTTP code 403. Let's add a permission endpoint for granting `writer` access to _ANA_. Create a `PermissionController` class:
 
 ```java
 // src/main/java/com/example/demo/web/PermissionController.java
@@ -815,23 +816,23 @@ public class PermissionController {
     }
 }
 ```
-Restart the server. Find out Ana's userId with:
+Restart the server. Find out _ANA_'s userId with:
 
 ```shell
 curl -i -H "Authorization:Bearer $ANA_ACCESS_TOKEN" http://localhost:8080/greeting
 ```
 
-Then replace the `userId` with Ana's userId and create the `writer` permission using the document's owner access token:
+Then, in the command below, replace `<user-id>` with _ANA_'s userId and create the `writer` permission using `$TOM_ACCESS_TOKEN`, as _TOM_ is the document's owner:
 
 ```shell
 curl -i -X POST \
   -H "Authorization:Bearer $TOM_ACCESS_TOKEN" \
   -H "Content-Type: application/json" \
-  -d '{"documentId": 4, "relation": "writer", "userId": "auth0|888888888888888888888888"}' \
+  -d '{"documentId": 4, "relation": "writer", "userId": "<user-id>"}' \
   http://localhost:8080/permission
 ```
 
-Repeat the call and verify the view operation is authorized for the document, as it is implicit in the `writer` relation:
+Repeat the GET call to the document API and verify the view operation is authorized for the document, as it is implicit in the `writer` relation:
 
 ```shell
 curl -i -H "Authorization:Bearer $ANA_ACCESS_TOKEN" http://localhost:8080/document/4
