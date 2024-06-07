@@ -2,6 +2,7 @@ module Jekyll
   # A simple tag for YouTube include using an iframe
     class ExcerptTag < Liquid::Tag
       def initialize(_tag_name, url, _tokens)
+        super
         @article_id = url.strip
       end
 
@@ -17,6 +18,11 @@ module Jekyll
           # avatar = author['avatar']
           # display_name = author['full_name']
           description = post['description']
+
+          if (description.nil?)
+            # Use excerpt in cases description doesn't exist. One day truncate text...
+            description = post['excerpt']
+          end
 
           %(<article class="link-container" style="border: 1px solid silver; border-radius: 3px; padding: 12px 15px">
               <a href='#{@article_id}' style="font-size: 1.375em; margin-bottom: 20px;">
