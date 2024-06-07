@@ -364,6 +364,16 @@ Use the tweet ID from the Tweets URL
 
 ```
 
+**Excerpt from OktaDev post**
+
+Embed an OktaDev blog post within your post. You need to use the blog link format `/blog/YYYY/MM/DD/<keywords>`.
+
+For example:
+
+```markup
+{% excerpt /blog/2024/02/29/net-scim %}
+```
+
 **StackBlitz**
 
 This tag supports pre-created StackBlitz and auto-creating a StackBlitz directly from GitHub.
