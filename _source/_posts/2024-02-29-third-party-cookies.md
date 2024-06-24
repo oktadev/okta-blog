@@ -14,6 +14,8 @@ image: blog/3pc/social.jpg
 type: awareness
 ---
 
+
+
 ## What are third-party cookies?
 
 Cookies are as old as the internet. Historically, cookies were among the only options for personalizing a user's online experience and carrying their preferences from page to page. First-party cookies are issued by the web site where they're used, and third-party cookies come from other domains. 
@@ -60,7 +62,7 @@ If you have a Custom Domain or Self-Hosted Sign-in Widget deployment model and u
 
 ## When will this affect you? 
 
-Google has made an exemption for Okta's third-party cookies until the end of 2024. However, you can set Chrome's flags to simulate how the browser will treat Okta's third-party cookies after that exemption ends. 
+Google has made an exemption for Okta's third-party cookies until the end of 2024. However, you can set Chrome's flags to simulate how the browser will treat Okta's third-party cookies after that exemption ends. Although Google has changed [their timeline](https://developers.google.com/privacy-sandbox/3pcd), Okta recommends that you take action as soon as possible, to allow time for proper testing and potential unforeseen issues.
 
 ### Test your application today!
 
