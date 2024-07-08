@@ -32,7 +32,7 @@ type: awareness
 
 Start by creating a Java microservices architecture using [JHipster](https://www.jhipster.tech/), Spring Boot, and Consul. JHipster is an excellent tool for generating a microservice stack with Spring Boot, Angular/React/Vue.js, and other modern frameworks. If you prefer using the same application as in this demo, then you can either scaffold it using JHipster JDL or clone the sample repository from GitHub. Here is how you can scaffold your microservice stack using JHipster:
 
-### Option 1: Generate the architecture with JHipster Domain Language (JDL)
+**Option 1**: Generate the architecture with JHipster Domain Language (JDL)
 
 ```shell
 mkdir jhipster-microservice-stack
@@ -43,7 +43,7 @@ jhipster download https://raw.githubusercontent.com/indiepopart/jhipster-terrafo
 # scaffold the apps.
 jhipster jdl apps.jdl
 ```
-### Option 2: Clone the sample repository
+**Option 2**: Clone the sample repository
 
 ```shell
 git clone https://github.com/indiepopart/jhipster-terraform-azure
@@ -65,7 +65,7 @@ touch providers.tf
 
 Edit the file `providers.tf` and add the following content:
 
-```hcl
+```terraform
 # terraform/providers.tf
 terraform {
   required_version = ">=1.8"
@@ -107,7 +107,7 @@ touch variables.tf
 
 Edit `main.tf` and add the following content:
 
-```hcl
+```terraform
 # terraform/modules/hub_network/main.tf
 
 locals {
@@ -550,7 +550,7 @@ The configuration above will create a Hub Newtwork with a subnet for the Azure F
 
 Edit `variables.tf` and add the following content:
 
-```hcl
+```terraform
 # terraform/modules/hub_network/variables.tf
 variable "resource_group_location" {
   description = "The location of the resource group"
@@ -583,7 +583,7 @@ variable "cluster_nodes_address_space" {
 
 Edit `outputs.tf` and add the following content:
 
-```hcl
+```terraform
 # terraform/modules/hub_network/outputs.tf
 output "hub_vnet_id" {
   value = azurerm_virtual_network.hub_vnet.id
@@ -637,7 +637,7 @@ touch variables.tf
 
 Edit `main.tf` and add the following content:
 
-```hcl
+```terraform
 # terraform/modules/spoke_network/main.tf
 locals {
   spoke_vnet_name = "vnet-${var.resource_group_location}-spoke"
@@ -841,18 +841,123 @@ resource "azurerm_application_gateway" "gateway" {
   }
 }
 ```
-The configuration above will create a Spoke Network, the network peerings hub-spoke and spoke-hub, and the Azure application gateway hosted in its own subnet.
+The configuration above will create a Spoke Network, the network peerings the hub and spoke networks, and the Azure application gateway hosted in its own subnet.
 
 Edit `outputs.tf` and add the following content:
 
-```hcl
+```terraform
 # terraform/modules/spoke_network/outputs.tf
+output "spoke_vnet_id" {
+  value = azurerm_virtual_network.spoke_vnet.id
+}
+
+output "cluster_nodes_subnet_id" {
+  value = azurerm_subnet.cluster_nodes_subnet.id
+}
+
+output "application_gateway_subnet_id" {
+  value = azurerm_subnet.application_gateways_subnet.id
+}
+
+output "cluster_nodes_route_table_association_id" {
+  value = azurerm_subnet_route_table_association.cluster_nodes_route_table.id
+}
+
+output "spoke_pip" {
+  value = azurerm_public_ip.spoke_pip.ip_address
+}
+
+output "spoke_pip_id" {
+  value = azurerm_public_ip.spoke_pip.id
+}
+
+output "spoke_pip_name" {
+  value = azurerm_public_ip.spoke_pip.name
+
+}
+
+output "hub_to_spoke_peer_id" {
+  value = azurerm_virtual_network_peering.hub_to_spoke_peer.id
+}
+
+output "spoke_to_hub_peer_id" {
+  value = azurerm_virtual_network_peering.spoke_to_hub_peer.id
+}
+
+output "spoke_rg_name" {
+  value = azurerm_resource_group.rg_spoke_networks.name
+}
+
+output "spoke_rg_location" {
+  value = azurerm_resource_group.rg_spoke_networks.location
+}
+
+output "spoke_rg_id" {
+  value = azurerm_resource_group.rg_spoke_networks.id
+}
+
+output "application_gateway_id" {
+  value = azurerm_application_gateway.gateway.id
+}
 ```
 
 Edit `variables.tf` and add the following content:
 
-```hcl
+```terraform
 # terraform/modules/spoke_network/variables.tf
+variable "resource_group_location" {
+  description = "The location of the spoke resource group."
+}
+
+variable "hub_fw_private_ip" {
+  description = "The private IP address of the hub firewall."
+}
+
+variable "hub_fw_public_ip" {
+  description = "The public IP address of the hub firewall."
+}
+
+variable "application_id" {
+
+}
+
+variable "spoke_vnet_address_space" {
+  description = "The address space for the spoke virtual network."
+  default = "10.240.0.0/16"
+}
+
+
+variable "cluster_nodes_address_space" {
+  description = "The address space for the cluster nodes."
+  default = "10.240.0.0/22"
+}
+
+variable "ingress_services_address_space" {
+  description = "The address space for the ingress services."
+  default = "10.240.4.0/28"
+}
+
+variable "application_gateways_address_space" {
+  description = "The address space for the application gateways."
+  default = "10.240.4.16/28"
+}
+
+variable "hub_vnet_id" {
+  description = "The ID of the hub virtual network."
+}
+
+variable "hub_vnet_name" {
+  description = "The name of the hub virtual network."
+}
+
+variable "hub_rg_name" {
+  description = "The name of the hub resource group."
+}
+
+variable "host_name" {
+  description = "The host name"
+
+}
 ```
 
 ### Configure an Azure Kubernetes Cluster
@@ -871,28 +976,764 @@ touch outputs.tf
 touch variables.tf
 ```
 
+Edit `main.tf` and add the following content:
+
+```terraform
+# terraform/modules/acr/main.tf
+resource "azurerm_container_registry" "acr" {
+  name                     = var.acr_name
+  resource_group_name      = var.resource_group_name
+  location                 = var.resource_group_location
+  sku                      = "Premium"
+  admin_enabled            = false
+  network_rule_set {
+    default_action = "Allow"
+  }
+
+  quarantine_policy_enabled = false
+
+  trust_policy {
+    enabled = false
+  }
+
+  retention_policy {
+    days = 15
+    enabled = true
+  }
+
+  tags = {
+    displayName = "Container Registry"
+  }
+}
+```
+
+Edit `outputs.tf` and add the following content:
+
+```terraform
+# terraform/modules/acr/outputs.tf
+output "acr_id" {
+  value = azurerm_container_registry.acr.id
+}
+
+output "acr_login_server" {
+  value = azurerm_container_registry.acr.login_server
+}
+
+output "acr_admin_username" {
+  value = azurerm_container_registry.acr.admin_username
+}
+
+output "acr_admin_password" {
+  value = azurerm_container_registry.acr.admin_password
+  sensitive = true
+}
+```
+
+Edit `variables.tf` and add the following content:
+
+```terraform
+# terraform/modules/acr/variables.tf
+variable "acr_name" {
+  description = "The name of the Azure Container Registry."
+  default     = "jhipsteracr"
+}
+
+
+variable "resource_group_location" {
+  description = "The location of the resource group"
+}
+
+
+variable "resource_group_name" {
+  description = "The name of the resource group"
+}
+```
+
 Create a module for the Azure Kubernetes Service (AKS) configuration:
 
 ```shell
 cd modules
 mkdir cluster
 cd cluster
+touch providers.tf
 touch main.tf
 touch outputs.tf
 touch variables.tf
 ```
 
+Edit `providers.tf` and add the following content:
+
+```terraform
+# terraform/modules/cluster/providers.tf
+terraform {
+  required_version = ">=1.8"
+
+  required_providers {
+    azapi = {
+      source  = "azure/azapi"
+      version = "~>1.5"
+    }
+
+  }
+}
+```
+
+Edit `main.tf` and add the following content:
+
+```terraform
+# terraform/modules/cluster/main.tf
+resource "random_pet" "ssh_key_name" {
+  prefix    = "ssh"
+  separator = ""
+}
+
+resource "azapi_resource" "ssh_public_key" {
+  type      = "Microsoft.Compute/sshPublicKeys@2022-11-01"
+  name      = random_pet.ssh_key_name.id
+  location  = var.resource_group_location
+  parent_id = var.resource_group_id
+}
+
+resource "azapi_resource_action" "ssh_public_key_gen" {
+  type        = "Microsoft.Compute/sshPublicKeys@2022-11-01"
+  resource_id = azapi_resource.ssh_public_key.id
+  action      = "generateKeyPair"
+  method      = "POST"
+
+  response_export_values = ["publicKey", "privateKey"]
+}
+
+resource "random_pet" "azurerm_kubernetes_cluster_name" {
+  prefix = "cluster"
+}
+
+resource "azurerm_user_assigned_identity" "cluster_control_plane_identity" {
+  location            = var.resource_group_location
+  name                = "${random_pet.azurerm_kubernetes_cluster_name.id}-controlplane"
+  resource_group_name = var.resource_group_name
+}
+
+resource "azurerm_kubernetes_cluster" "k8s" {
+  location            = var.resource_group_location
+  name                = random_pet.azurerm_kubernetes_cluster_name.id
+  resource_group_name = var.resource_group_name
+  dns_prefix          = random_pet.azurerm_kubernetes_cluster_name.id
+  oidc_issuer_enabled = true
+  workload_identity_enabled = true
+  #node_resource_group = "rg-${random_pet.azurerm_kubernetes_cluster_name.id}-nodepools"
+
+  tags = {
+    displayName = "Kubernetes Cluster"
+  }
+
+  key_vault_secrets_provider {
+    secret_rotation_enabled = false
+  }
+
+  identity {
+    type = "UserAssigned"
+    identity_ids = [
+      azurerm_user_assigned_identity.cluster_control_plane_identity.id
+    ]
+  }
+
+  default_node_pool {
+    name       = "agentpool"
+    vm_size    = var.vm_size
+    node_count = var.node_count
+    zones = ["1","2", "3"]
+    type = "VirtualMachineScaleSets"
+    vnet_subnet_id = var.vnet_subnet_id
+  }
+
+  linux_profile {
+    admin_username = var.username
+
+    ssh_key {
+      key_data = azapi_resource_action.ssh_public_key_gen.output.publicKey
+    }
+  }
+
+  network_profile {
+    network_plugin    = "azure"
+    network_policy  = "azure"
+    outbound_type = "userDefinedRouting"
+    load_balancer_sku = "standard"
+    service_cidr = "172.16.0.0/16"
+    dns_service_ip = "172.16.0.10"
+  }
+
+  ingress_application_gateway {
+    gateway_id = var.application_gateway_id
+  }
+}
+
+resource "azurerm_role_assignment" "cluster_identity_acrpull_role_assignment" {
+  scope                = var.acr_id
+  role_definition_name = "AcrPull"
+  principal_id         = azurerm_kubernetes_cluster.k8s.kubelet_identity[0].object_id
+}
+
+resource "azurerm_role_assignment" "cluster_nodepool_role_assignment" {
+  scope                = azurerm_kubernetes_cluster.k8s.node_resource_group_id
+  role_definition_name = "Virtual Machine Contributor"
+  principal_id         = azurerm_kubernetes_cluster.k8s.kubelet_identity[0].object_id
+}
+
+resource "azurerm_role_assignment" "cluster_vnet_role_assignment" {
+  scope                = var.vnet_subnet_id
+  role_definition_name = "Network Contributor"
+  principal_id         = azurerm_kubernetes_cluster.k8s.kubelet_identity[0].object_id
+}
+
+resource "azurerm_role_assignment" "control_plane_vnet_role_assignment" {
+  scope                = var.vnet_subnet_id
+  role_definition_name = "Network Contributor"
+  principal_id         = azurerm_user_assigned_identity.cluster_control_plane_identity.principal_id
+}
+
+resource "azurerm_role_assignment" "control_plane_pip_role_assignment" {
+  scope                = var.spoke_pip_id
+  role_definition_name = "Network Contributor"
+  principal_id         = azurerm_user_assigned_identity.cluster_control_plane_identity.principal_id
+}
+
+resource "azurerm_role_assignment" "ingress_vnet_role_assignment" {
+  scope                = var.vnet_subnet_id
+  role_definition_name = "Network Contributor"
+  principal_id         = azurerm_kubernetes_cluster.k8s.ingress_application_gateway[0].ingress_application_gateway_identity[0].object_id
+}
+
+resource "azurerm_role_assignment" "ingress_pip_role_assignment" {
+  scope                = var.spoke_pip_id
+  role_definition_name = "Network Contributor"
+  principal_id         = azurerm_kubernetes_cluster.k8s.ingress_application_gateway[0].ingress_application_gateway_identity[0].object_id
+}
+
+resource "azurerm_role_assignment" "ingress_app_gateway_role_assignment" {
+  scope                = var.application_gateway_id
+  role_definition_name = "Contributor"
+  principal_id         = azurerm_kubernetes_cluster.k8s.ingress_application_gateway[0].ingress_application_gateway_identity[0].object_id
+}
+
+resource "azurerm_role_assignment" "ingress_rg_role_assignment" {
+  scope                = var.resource_group_id
+  role_definition_name = "Contributor"
+  principal_id         = azurerm_kubernetes_cluster.k8s.ingress_application_gateway[0].ingress_application_gateway_identity[0].object_id
+}
+```
 
 Edit `outputs.tf` and add the following content:
 
-```hcl
-# terraform/modules/spoke_network/outputs.tf
+```terraform
+# terraform/modules/cluster/outputs.tf
+output "kubernetes_cluster_name" {
+  value = azurerm_kubernetes_cluster.k8s.name
+}
+
+output "client_certificate" {
+  value     = azurerm_kubernetes_cluster.k8s.kube_config[0].client_certificate
+  sensitive = true
+}
+
+output "client_key" {
+  value     = azurerm_kubernetes_cluster.k8s.kube_config[0].client_key
+  sensitive = true
+}
+
+output "cluster_ca_certificate" {
+  value     = azurerm_kubernetes_cluster.k8s.kube_config[0].cluster_ca_certificate
+  sensitive = true
+}
+
+output "cluster_password" {
+  value     = azurerm_kubernetes_cluster.k8s.kube_config[0].password
+  sensitive = true
+}
+
+output "cluster_username" {
+  value     = azurerm_kubernetes_cluster.k8s.kube_config[0].username
+  sensitive = true
+}
+
+output "host" {
+  value     = azurerm_kubernetes_cluster.k8s.kube_config[0].host
+  sensitive = true
+}
+
+output "kube_config" {
+  value     = azurerm_kubernetes_cluster.k8s.kube_config_raw
+  sensitive = true
+}
+output "kubelet_identity_id" {
+  value = azurerm_kubernetes_cluster.k8s.kubelet_identity[0].object_id
+}
+
+output "key_data" {
+  value = azapi_resource_action.ssh_public_key_gen.output.publicKey
+}
 ```
 
-## Provision the cluster
-- Create account
+Edit `variables.tf` and add the following content:
+
+```terraform
+# terraform/modules/cluster/variables.tf
+variable "resource_group_location" {
+  description = "The location of the resource group"
+}
+
+variable "resource_group_name" {
+  description = "The name of the resource group"
+}
+
+variable "resource_group_id" {
+  description = "The id of the resource group"
+}
+
+variable "username" {
+  type        = string
+  description = "The admin username for the new cluster."
+  default     = "azureadmin"
+}
+
+variable "node_count" {
+  type        = number
+  description = "The initial quantity of nodes for the node pool."
+  default     = 4
+}
+
+variable "acr_id" {
+  description = "The id of the Azure Container Registry"
+}
+
+variable "vnet_subnet_id" {
+  description = "The id of the subnet"
+}
+
+variable "application_gateway_id" {
+  description = "The id of the application gateway"
+}
+
+variable "vm_size" {
+  type        = string
+  description = "The size of the Virtual Machine."
+  default     = "Standard_B2s_v2"
+}
+
+variable "spoke_pip_id" {
+  description = "The id of the spoke public IP"
+}
+```
+
+### Provision the cluster
+
+Reference the modules in the main configuration file `terraform/main.tf`, adding the following content:
+
+```terraform
+# terraform/main.tf
+resource "azurerm_resource_group" "rg_ecommerce" {
+  name     = "rg-ecommerce-${var.resource_group_location}"
+  location = var.resource_group_location
+
+  tags = {
+    displayName = "Resource Group for general purpose"
+  }
+}
+
+module "acr" {
+  source = "./modules/acr"
+
+  resource_group_name = azurerm_resource_group.rg_ecommerce.name
+  resource_group_location = azurerm_resource_group.rg_ecommerce.location
+}
+
+module "hub_network" {
+  source = "./modules/hub_network"
+  resource_group_location = azurerm_resource_group.rg_ecommerce.location
+  cluster_nodes_address_space = var.cluster_nodes_address_space
+}
+
+module "spoke_network" {
+  source = "./modules/spoke_network"
+  resource_group_location    = azurerm_resource_group.rg_ecommerce.location
+  application_id             = var.application_id
+  host_name                  = var.host_name
+  cluster_nodes_address_space = var.cluster_nodes_address_space
+  hub_fw_private_ip          = module.hub_network.hub_fw_private_ip
+  hub_fw_public_ip           = module.hub_network.hub_pip
+  hub_vnet_id                = module.hub_network.hub_vnet_id
+  hub_vnet_name              = module.hub_network.hub_vnet_name
+  hub_rg_name                = module.hub_network.hub_rg_name
+
+  depends_on = [
+    module.hub_network.hub_pip,
+    module.hub_network.hub_vnet_id,
+    module.acr.acr_id,
+  ]
+}
+
+module "cluster" {
+  source = "./modules/cluster"
+
+  resource_group_location = module.spoke_network.spoke_rg_location
+  resource_group_name     = module.spoke_network.spoke_rg_name
+  resource_group_id       = module.spoke_network.spoke_rg_id
+  acr_id                  = module.acr.acr_id
+  vnet_subnet_id          = module.spoke_network.cluster_nodes_subnet_id
+  application_gateway_id  = module.spoke_network.application_gateway_id
+  spoke_pip_id            = module.spoke_network.spoke_pip_id
+
+  depends_on = [
+    module.spoke_network.cluster_nodes_route_table_association_id,
+    module.spoke_network.spoke_to_hub_peer_id,
+    module.spoke_network.hub_to_spoke_peer_id,
+    module.spoke_network.spoke_pip_id,
+    module.spoke_network.application_gateway_id,
+    module.hub_network.fw_net_rule_org_wide_id,
+    module.hub_network.fw_net_rule_aks_global_id,
+    module.hub_network.fw_app_rule_aks_global_id,
+  ]
+}
+```
+
+Edit `terraform/outputs.tf` and add the following contents:
+
+```terraform
+# terraform/outputs.tf
+output "resource_group_name" {
+  value = azurerm_resource_group.rg_ecommerce.name
+}
+
+output "kube_config" {
+  value = module.cluster.kube_config
+  sensitive = true
+}
+
+output "kubernetes_cluster_name" {
+  value = module.cluster.kubernetes_cluster_name
+}
+
+output "acr_id" {
+  value = module.acr.acr_id
+}
+
+output "hub_vnet_id" {
+  value = module.hub_network.hub_vnet_id
+}
+
+output "spoke_vnet_id" {
+  value = module.spoke_network.spoke_vnet_id
+}
+
+output "spoke_rg_name" {
+  value = module.spoke_network.spoke_rg_name
+}
+
+output "hub_rg_name" {
+  value = module.hub_network.hub_rg_name
+}
+
+output "hub_fw_private_ip" {
+  value = module.hub_network.hub_fw_private_ip
+}
+
+output "hub_pip" {
+  value = module.hub_network.hub_pip
+}
+
+output "spoke_pip" {
+  value = module.spoke_network.spoke_pip
+}
+
+output "azure_firewall_id" {
+  value = module.hub_network.azure_firewall_id
+}
+
+output "azure_application_gateway_id" {
+  value = module.spoke_network.application_gateway_id
+}
+```
+
+Edit `terraform/variables.tf` and add the following variables:
+
+```terraform
+variable "resource_group_location" {
+  description = "The location of the resource group"
+  default     = "westus2"
+}
+
+variable "application_id" {
+  description = "The application id"
+  default = "jhipster-microservices"
+}
+
+variable "cluster_nodes_address_space" {
+  description = "The address space for the cluster nodes."
+  default = "10.240.0.0/22"
+}
+
+variable "host_name" {
+  description = "The host name"
+  default = "store.example.com"
+}
+```
+
+With the terraform configuration ready, ensure the Azure CLI has an active subscription with the following line:
+
+> **IMPORTANT NOTE**
+> For this demo, the chosen VM size is Standard_B2s_v2, and the selected architecture requires a minimum node count of 4. The architecture will not run under the Azure free account, so please don't forget to delete the architecture after the test to avoid unwanted costs.
+
+```shell
+az account list
+```
+
+Next initialize terraform workspace and plan the changes:
+
+```shell
+terraform init
+terraform plan -out main.tfplan
+```
+
+Review the plan and make sure everything is correct. Then apply changes:
+
+```shell
+terraform apply main.tfplan
+```
+
+Once the AKS cluster is ready, you will see the output variables printed to the console:
+
+```
+Apply complete! Resources: 41 added, 0 changed, 0 destroyed.
+
+Outputs:
+
+acr_id = "/subscriptions/11d381ef-908b-4d3c-90d5-45c2897d09d8/resourceGroups/rg-ecommerce-westus2/providers/Microsoft.ContainerRegistry/registries/jhipsteracr"
+azure_application_gateway_id = "/subscriptions/11d381ef-908b-4d3c-90d5-45c2897d09d8/resourceGroups/rg-spokes-westus2/providers/Microsoft.Network/applicationGateways/app-gateway"
+azure_firewall_id = "/subscriptions/11d381ef-908b-4d3c-90d5-45c2897d09d8/resourceGroups/rg-hubs-westus2/providers/Microsoft.Network/azureFirewalls/fw-westus2-hub"
+hub_fw_private_ip = "10.200.0.4"
+hub_pip = "52.250.37.145"
+hub_rg_name = "rg-hubs-westus2"
+hub_vnet_id = "/subscriptions/11d381ef-908b-4d3c-90d5-45c2897d09d8/resourceGroups/rg-hubs-westus2/providers/Microsoft.Network/virtualNetworks/vnet-westus2-hub"
+kube_config = <sensitive>
+kubernetes_cluster_name = "cluster-rapid-collie"
+resource_group_name = "rg-ecommerce-westus2"
+spoke_pip = "52.250.37.106"
+spoke_rg_name = "rg-spokes-westus2"
+spoke_vnet_id = "/subscriptions/11d381ef-908b-4d3c-90d5-45c2897d09d8/resourceGroups/rg-spokes-westus2/providers/Microsoft.Network/virtualNetworks/vnet-westus2-spoke"
+```
+For `kubectl` commands, run the following Azure CLI option for retrieving the cluster credentials:
+
+```shell
+az aks get-credentials --resource-group rg-spokes-westus2 --name <aks-cluster-name> --admin
+```
+
+Then check the cluster details with `kdash` or `kubectl get nodes`.
+
+```
+NAME                                STATUS   ROLES   AGE   VERSION
+aks-agentpool-37249218-vmss000000   Ready    agent   43m   v1.28.9
+aks-agentpool-37249218-vmss000001   Ready    agent   43m   v1.28.9
+aks-agentpool-37249218-vmss000003   Ready    agent   43m   v1.28.9
+aks-agentpool-37249218-vmss000004   Ready    agent   42m   v1.28.9
+```
 
 # Set up OIDC Authentication using Auth0
+
+Since you are using Terraform, you can set up the Auth0 application using the Auth0 Terraform provider. This will allow you to automate the setup of the Auth0 application and manage the addition of users, customizations, and such.
+
+Find your Auth0 domain with the following Auth0 CLI command:
+
+```shell
+auth0 tenants list
+```
+
+Create a machine-to-machine Auth0 client for Terraform to identify to Auth0:
+
+```shell
+auth0 apps create \
+  --name "Auth0 Terraform Provider" \
+  --description "Auth0 Terraform Provider M2M" \
+  --type m2m \
+  --reveal-secrets
+```
+
+Set the clientId and clientSecret as environment variables, as required by Terraform Auth0 provider:
+
+```shell
+export AUTH0_CLIENT_ID=<client-id>
+export AUTH0_CLIENT_SECRET=<client-secret>
+```
+
+Find out the Auth0 Management API id and identifier:
+
+```shell
+auth0 apis list
+```
+Set the id and identifier as environment variables:
+
+```shell
+export AUTH0_MANAGEMENT_API_ID=<auth0-management-api-id>
+export AUTH0_MANAGEMENT_API_IDENTIFIER=<auth0-management-api-identifier>
+```
+
+Then retrieve all the scopes of the Auth0 Management API:
+
+```shell
+export AUTH0_MANAGEMENT_API_SCOPES=$(auth0 apis scopes list $AUTH0_MANAGEMENT_API_ID --json | jq -r '.[].value' | jq -ncR '[inputs]')
+```
+
+Finally grant all the scopes to the newly created clientId:
+
+```shell
+auth0 api post "client-grants" --data='{"client_id": "'$AUTH0_CLIENT_ID'", "audience": "'$AUTH0_MANAGEMENT_API_IDENTIFIER'", "scope":'$AUTH0_MANAGEMENT_API_SCOPES'}'
+```
+
+Edit `terraform/providers.tf` and add the Auth0 provider:
+
+```terraform
+terraform {
+  required_version = ">=1.8"
+
+  required_providers {
+    ...
+    auth0 = {
+      source  = "auth0/auth0"
+      version = "~> 0.49.0"
+    }
+    ...
+  }
+
+  }
+}
+```
+
+Create a module for the Auth0 resources:
+
+```shell
+cd modules
+mkdir auth0
+cd auth0
+touch main.tf
+touch output.tf
+```
+
+Edit `main.tf` and add the following content:
+
+```terraform
+provider "auth0" {
+  domain        = "https://<your-auth0-domain>"
+  debug         = false
+}
+
+# Create a new Auth0 application for the JHipster app
+resource "auth0_client" "java_ms_client" {
+  name                = "JavaMicroservices"
+  description         = "Java Microservices Client Created Through Terraform"
+  app_type            = "regular_web"
+  callbacks           = ["http://store.example.com/login/oauth2/code/oidc"]
+  allowed_logout_urls = ["http://store.example.com"]
+  oidc_conformant     = true
+
+  jwt_configuration {
+    alg = "RS256"
+  }
+}
+
+# Configuring client_secret_post as an authentication method.
+resource "auth0_client_credentials" "java_ms_client_creds" {
+  client_id = auth0_client.java_ms_client.id
+
+  authentication_method = "client_secret_post"
+}
+
+# Create roles for the JHipster app
+resource "auth0_role" "admin" {
+  name        = "ROLE_ADMIN"
+  description = "Administrator"
+}
+
+resource "auth0_role" "user" {
+  name        = "ROLE_USER"
+  description = "User"
+}
+
+# Create an action to customize the authentication flow to add the roles and the username to the access token claims expected by JHipster applications.
+resource "auth0_action" "jhipster_action" {
+  name    = "jhipster_roles_claim"
+  runtime = "node18"
+  deploy  = true
+  code    = <<-EOT
+  /**
+   * Handler that will be called during the execution of a PostLogin flow.
+   *
+   * @param {Event} event - Details about the user and the context in which they are logging in.
+   * @param {PostLoginAPI} api - Interface whose methods can be used to change the behavior of the login.
+   */
+   exports.onExecutePostLogin = async (event, api) => {
+     const namespace = 'https://www.jhipster.tech';
+     if (event.authorization) {
+       api.idToken.setCustomClaim('preferred_username', event.user.email);
+       api.idToken.setCustomClaim(`${namespace}/roles`, event.authorization.roles);
+       api.accessToken.setCustomClaim(`${namespace}/roles`, event.authorization.roles);
+     }
+   };
+  EOT
+
+  supported_triggers {
+    id      = "post-login"
+    version = "v3"
+  }
+}
+
+# Attach the action to the login flow
+resource "auth0_trigger_actions" "login_flow" {
+  trigger = "post-login"
+
+  actions {
+    id           = auth0_action.jhipster_action.id
+    display_name = auth0_action.jhipster_action.name
+  }
+}
+
+# Create a test user. You can create more users here if needed
+resource "auth0_user" "test_user" {
+  connection_name = "Username-Password-Authentication"
+  name            = "Jane Doe"
+  email           = "jhipster@test.com"
+  email_verified  = true
+  password        = "passpass$12$12" # Don't set passwords like this in production! Use env variables instead.
+  lifecycle {
+    ignore_changes = [roles]
+  }
+}
+
+resource "auth0_user_roles" "test_user_roles" {
+  user_id = auth0_user.test_user.id
+  roles   = [auth0_role.admin.id, auth0_role.user.id]
+}
+```
+
+Edit `outputs.tf` and add the following content:
+
+```terraform
+output "auth0_webapp_client_id" {
+  description = "Auth0 JavaMicroservices Client ID"
+  value       = auth0_client.java_ms_client.client_id
+}
+
+output "auth0_webapp_client_secret" {
+  description = "Auth0 JavaMicroservices Client Secret"
+  value       = auth0_client_credentials.java_ms_client_creds.client_secret
+  sensitive   = true
+}
+```
+
+Now you can run the Terraform script to create the Auth0 application. Run the following commands to initialize the script and apply it.
+
+```shell
+terraform init -upgrade
+terraform apply
+```
 
 # Deploy the microservices stack
 
