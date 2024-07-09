@@ -21,9 +21,13 @@ type: awareness
 > - [Java OpenJDK 21](https://jdk.java.net/java-se-ri/21)
 > - [Auth0 account](https://auth0.com/signup)
 > - [Auth0 CLI 1.4.0](https://github.com/auth0/auth0-cli#installation)
-> - [Docker 24.0.7](https://docs.docker.com/desktop/)
-> - [OpenFGA Server 1.5.1](https://hub.docker.com/r/openfga/openfga)
-> - [FGA CLI v0.2.7](https://openfga.dev/docs/getting-started/cli)
+> - [Docker 26.1.2](https://docs.docker.com/desktop/)
+> - [Azure account](https://azure.microsoft.com/en-us/pricing/purchase-options/pay-as-you-go)
+> - [Azure CLI 2.60.0](https://learn.microsoft.com/en-us/cli/azure/install-azure-cli)
+> - [JHipster 8.4.0](https://www.jhipster.tech/)
+> - [kubectl 1.30.1](https://kubernetes.io/docs/tasks/tools/#kubectl)
+> - [Terraform 1.8.3](https://developer.hashicorp.com/terraform/install)
+> - [jq 1.6](https://jqlang.github.io/jq/download/)
 
 {% include toc.md %}
 
@@ -83,7 +87,6 @@ terraform {
       source  = "azure/azapi"
       version = "~>1.5"
     }
-
   }
 }
 
@@ -132,7 +135,6 @@ resource "azurerm_virtual_network" "hub_vnet" {
   resource_group_name = azurerm_resource_group.rg_hub_networks.name
   address_space       = [var.hub_vnet_address_space]
 }
-
 
 resource "azurerm_subnet" "azure_firewall_subnet" {
   name                 = "AzureFirewallSubnet"
@@ -221,7 +223,6 @@ resource "azurerm_firewall_network_rule_collection" "org_wide_allow" {
     destination_addresses = [
       "*",
     ]
-
   }
 
   rule {
@@ -244,9 +245,7 @@ resource "azurerm_firewall_network_rule_collection" "org_wide_allow" {
       "*",
     ]
   }
-
 }
-
 
 resource "azurerm_firewall_network_rule_collection" "aks_global_allow" {
   name                = "aks-global-requirements"
@@ -296,7 +295,6 @@ resource "azurerm_firewall_network_rule_collection" "aks_global_allow" {
     destination_addresses = [
       "AzureCloud",
     ]
-
   }
 
   rule {
@@ -317,7 +315,6 @@ resource "azurerm_firewall_network_rule_collection" "aks_global_allow" {
     destination_addresses = [
       "AzureCloud",
     ]
-
   }
 
   rule {
@@ -341,10 +338,7 @@ resource "azurerm_firewall_network_rule_collection" "aks_global_allow" {
       "production.cloudflare.docker.com"
     ]
   }
-
-
 }
-
 
 resource "azurerm_firewall_application_rule_collection" "aks_global_allow" {
   name                = "aks-global-requirements"
@@ -370,6 +364,7 @@ resource "azurerm_firewall_application_rule_collection" "aks_global_allow" {
       type = "Https"
     }
   }
+
   rule {
     name = "microsoft-container-registry"
 
@@ -388,6 +383,7 @@ resource "azurerm_firewall_application_rule_collection" "aks_global_allow" {
       type = "Https"
     }
   }
+
   rule {
     name = "management-plane"
 
@@ -404,6 +400,7 @@ resource "azurerm_firewall_application_rule_collection" "aks_global_allow" {
       type = "Https"
     }
   }
+
   rule {
     name = "aad-auth"
 
@@ -420,6 +417,7 @@ resource "azurerm_firewall_application_rule_collection" "aks_global_allow" {
       type = "Https"
     }
   }
+
   rule {
     name = "apt-get"
 
@@ -436,6 +434,7 @@ resource "azurerm_firewall_application_rule_collection" "aks_global_allow" {
       type = "Https"
     }
   }
+
   rule {
     name = "cluster-binaries"
 
@@ -452,6 +451,7 @@ resource "azurerm_firewall_application_rule_collection" "aks_global_allow" {
       type = "Https"
     }
   }
+
   rule {
     name = "ubuntu-security-patches"
 
@@ -470,6 +470,7 @@ resource "azurerm_firewall_application_rule_collection" "aks_global_allow" {
       type = "Http"
     }
   }
+
   rule {
     name = "azure-monitor"
 
@@ -541,9 +542,7 @@ resource "azurerm_firewall_application_rule_collection" "aks_global_allow" {
       type = "Https"
     }
   }
-
 }
-
 ```
 
 The configuration above will create a Hub Newtwork with a subnet for the Azure Firewall through which outbound traffic will be routed.
@@ -653,7 +652,6 @@ locals {
   gateway_pip_name               = "app-gateway-pip"
 }
 
-
 resource "azurerm_resource_group" "rg_spoke_networks" {
   name = local.spoke_rg_name
   location = var.resource_group_location
@@ -746,14 +744,12 @@ resource "azurerm_virtual_network_peering" "hub_to_spoke_peer" {
     var.hub_vnet_id,
     azurerm_virtual_network.spoke_vnet
   ]
-
 }
 
 resource "azurerm_private_dns_zone" "dns_zone_acr" {
   name                = "privatelink.azurecr.io"
   resource_group_name = azurerm_resource_group.rg_spoke_networks.name
 }
-
 
 resource "azurerm_private_dns_zone_virtual_network_link" "acr_network_link" {
   name                  = "dns-link-acr"
@@ -772,7 +768,6 @@ resource "azurerm_public_ip" "spoke_pip" {
   idle_timeout_in_minutes = 4
   ip_version = "IPv4"
 }
-
 
 resource "azurerm_application_gateway" "gateway" {
   name                = "app-gateway"
@@ -873,7 +868,6 @@ output "spoke_pip_id" {
 
 output "spoke_pip_name" {
   value = azurerm_public_ip.spoke_pip.name
-
 }
 
 output "hub_to_spoke_peer_id" {
@@ -918,14 +912,13 @@ variable "hub_fw_public_ip" {
 }
 
 variable "application_id" {
-
+  description = "The identifier for the application."
 }
 
 variable "spoke_vnet_address_space" {
   description = "The address space for the spoke virtual network."
   default = "10.240.0.0/16"
 }
-
 
 variable "cluster_nodes_address_space" {
   description = "The address space for the cluster nodes."
@@ -956,7 +949,6 @@ variable "hub_rg_name" {
 
 variable "host_name" {
   description = "The host name"
-
 }
 ```
 
@@ -986,11 +978,12 @@ resource "azurerm_container_registry" "acr" {
   location                 = var.resource_group_location
   sku                      = "Premium"
   admin_enabled            = false
+  quarantine_policy_enabled = false
+
   network_rule_set {
     default_action = "Allow"
   }
 
-  quarantine_policy_enabled = false
 
   trust_policy {
     enabled = false
@@ -1038,11 +1031,9 @@ variable "acr_name" {
   default     = "jhipsteracr"
 }
 
-
 variable "resource_group_location" {
   description = "The location of the resource group"
 }
-
 
 variable "resource_group_name" {
   description = "The name of the resource group"
@@ -1073,7 +1064,6 @@ terraform {
       source  = "azure/azapi"
       version = "~>1.5"
     }
-
   }
 }
 ```
@@ -1481,7 +1471,7 @@ variable "host_name" {
 With the terraform configuration ready, ensure the Azure CLI has an active subscription with the following line:
 
 > **IMPORTANT NOTE**
-> For this demo, the chosen VM size is Standard_B2s_v2, and the selected architecture requires a minimum node count of 4. The architecture will not run under the Azure free account, so please don't forget to delete the architecture after the test to avoid unwanted costs.
+> For this demo, the chosen VM size is __Standard_B2s_v2__, and the selected architecture requires a minimum node count of 4. The architecture will not run under the Azure free account, so please don't forget to delete the architecture after the test to avoid unwanted costs.
 
 ```shell
 az account list
@@ -1490,6 +1480,7 @@ az account list
 Next initialize terraform workspace and plan the changes:
 
 ```shell
+cd terraform
 terraform init
 terraform plan -out main.tfplan
 ```
@@ -1524,7 +1515,7 @@ spoke_vnet_id = "/subscriptions/11d381ef-908b-4d3c-90d5-45c2897d09d8/resourceGro
 For `kubectl` commands, run the following Azure CLI option for retrieving the cluster credentials:
 
 ```shell
-az aks get-credentials --resource-group rg-spokes-westus2 --name <aks-cluster-name> --admin
+az aks get-credentials --resource-group rg-spokes-westus2 --name <kubernetes_cluster_name> --admin
 ```
 
 Then check the cluster details with `kdash` or `kubectl get nodes`.
@@ -1537,7 +1528,7 @@ aks-agentpool-37249218-vmss000003   Ready    agent   43m   v1.28.9
 aks-agentpool-37249218-vmss000004   Ready    agent   42m   v1.28.9
 ```
 
-# Set up OIDC Authentication using Auth0
+## Set up OIDC Authentication using Auth0
 
 Since you are using Terraform, you can set up the Auth0 application using the Auth0 Terraform provider. This will allow you to automate the setup of the Auth0 application and manage the addition of users, customizations, and such.
 
@@ -1607,19 +1598,17 @@ terraform {
 }
 ```
 
-Create a module for the Auth0 resources:
+Create a configuration file for the Auth0 resources:
 
 ```shell
-cd modules
-mkdir auth0
-cd auth0
-touch main.tf
-touch output.tf
+cd terraform
+touch auth0.tf
 ```
 
-Edit `main.tf` and add the following content:
+Edit `auth0.tf` and add the following content:
 
 ```terraform
+# terraform/auth0.tf
 provider "auth0" {
   domain        = "https://<your-auth0-domain>"
   debug         = false
@@ -1673,8 +1662,8 @@ resource "auth0_action" "jhipster_action" {
      const namespace = 'https://www.jhipster.tech';
      if (event.authorization) {
        api.idToken.setCustomClaim('preferred_username', event.user.email);
-       api.idToken.setCustomClaim(`${namespace}/roles`, event.authorization.roles);
-       api.accessToken.setCustomClaim(`${namespace}/roles`, event.authorization.roles);
+       api.idToken.setCustomClaim(namespace + '/roles', event.authorization.roles);
+       api.accessToken.setCustomClaim(namespace + '/roles', event.authorization.roles);
      }
    };
   EOT
@@ -1701,7 +1690,8 @@ resource "auth0_user" "test_user" {
   name            = "Jane Doe"
   email           = "jhipster@test.com"
   email_verified  = true
-  password        = "passpass$12$12" # Don't set passwords like this in production! Use env variables instead.
+  # Don't set passwords like this in production! Use env variables instead.
+  password        = "passpass$12$12"
   lifecycle {
     ignore_changes = [roles]
   }
@@ -1711,11 +1701,7 @@ resource "auth0_user_roles" "test_user_roles" {
   user_id = auth0_user.test_user.id
   roles   = [auth0_role.admin.id, auth0_role.user.id]
 }
-```
 
-Edit `outputs.tf` and add the following content:
-
-```terraform
 output "auth0_webapp_client_id" {
   description = "Auth0 JavaMicroservices Client ID"
   value       = auth0_client.java_ms_client.client_id
@@ -1731,12 +1717,161 @@ output "auth0_webapp_client_secret" {
 Now you can run the Terraform script to create the Auth0 application. Run the following commands to initialize the script and apply it.
 
 ```shell
-terraform init -upgrade
+terraform init
 terraform apply
 ```
 
-# Deploy the microservices stack
+Note the `auth0_webapp_client_id` and `auth0_webapp_client_secret` from the output:
 
-# Tear down the cluster with Terraform
+```shell
+terraform output auth0_webapp_client_secret
+```
 
-# Learn more
+Update `kubernetes/registry-k8s/application-configmap.yml` with the Spring Security OIDC configuration using those values. This configuration is loaded into Consul, and it shares the values with the gateway and microservices.
+
+```yml
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: application-config
+  namespace: jhipster
+#common configuration shared between all applications
+data:
+  application.yml: |-
+    configserver:
+      name: Consul
+      status: Connected to Consul running in Kubernetes
+    logging:
+      level:
+        ROOT: INFO
+    jhipster:
+      security:
+        authentication:
+          jwt:
+            base64-secret: NTY5NTUyYzUzZDFlNjBkNjMzNDNkZWQzNDk0ZjAwOTQzZTU2ZTMyOTgxYTI3ZTZjYWViNjEzMmM3MGQ5MDNlY2YwYjY2MDc0ZDNlZWM1ZTY3ZDllNDE4NDlhY2M2YmViY2E3Mg==
+        oauth2:
+          audience:
+            - https://<your-auth0-domain>/api/v2/
+    spring:
+      security:
+        oauth2:
+          client:
+            provider:
+              oidc:
+                issuer-uri: https://<your-auth0-domain>/
+            registration:
+              oidc:
+                client-id: <client-id>
+                client-secret: <client-secret>
+```
+
+## Deploy the microservices stack
+
+Before the actual deployment, some more configuration changes are required for making the inbound traffic to the store service to go through the Azure Application Gateway Ingress Controller (AGIC) enabled in the cluster. Also you need to build and push the Docker images to Docker container registry.
+
+### Configure Azure AGIC
+
+In the `kubernetes/store-k8s` folder, edit the file `store-service.yml` and set the following content:
+
+```yml
+# kubernetes/store-k8s/store-service.yml
+apiVersion: v1
+kind: Service
+metadata:
+  name: store
+  namespace: jhipster
+  labels:
+    app: store
+spec:
+  selector:
+    app: store
+  ports:
+    - name: http
+      targetPort: 8080
+      port: 80
+```
+
+Also, create a file `kubernetes/store-k8s/store-ingress.yml` and set the following content:
+
+```yml
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: store-ingress
+  namespace: jhipster
+spec:
+  ingressClassName: azure-application-gateway
+  rules:
+  - http:
+      paths:
+      - path: /
+        backend:
+          service:
+            name: store
+            port:
+              number: 80
+        pathType: Exact
+```
+
+> **IMPORTANT NOTE:** This tutorial does not cover securing secrets, and the Azure recommended microservices architecture uses the Azure Key Vault for secrets storage and management.
+
+### Build the Docker images
+
+You need to build Docker images for each app. This is specific to the JHipster application used in this tutorial which uses [Jib](https://github.com/GoogleContainerTools/jib) to build the images. Make sure you are logged into Docker using `docker login`. Navigate to each app folder (store, invoice, product) and run the following command:
+
+```shell
+./gradlew bootJar -Pprod jib -Djib.to.image=<docker-repo-uri-or-name>/<image-name>
+```
+
+### Deploy the microservices to AKS
+
+You can deploy the microservices with the script generated by JHipster:
+
+```shell
+cd kubernetes
+./kubectl-apply.sh -f
+```
+
+With `kdash`, check the pods status in the `jhipster` namespace:
+
+{% img blog/jhipster-terraform-azure/kdash.png alt:"Pod status with kdash" width:"900" %}{: .center-image }
+
+As the Azure Application Gateway requires the inbound traffic to be for the host `store.example.com`, you can test the store service by adding an entry in your hosts file that maps to the gateway public ip:
+
+```shell
+terraform output spoke_pip
+```
+
+Then navigate to `http://store.example.com` and sign in at Atuh0 with the test user/password jhipster@test.com/passpass$12$12. The authentication flow will redirect back to the application home:
+
+{% img blog/jhipster-terraform-azure/jhipster-application.png alt:"Store application home" width:"900" %}{: .center-image }
+
+## Tear down the cluster with Terraform
+
+Once you finish verifying the deployment, don't forget to remove all resources to avoid unwanted costs. You can first delete the deployment with:
+
+```shell
+kubectl delete namespace jhipster
+```
+
+And then, delete the architecture with:
+
+```shell
+terraform destroy -auto-approve
+```
+
+## Learn more about Java Microservices, Kubernetes and Jhipster
+
+In this post you learned about JHipster microservices deployment to Azure Kubernetes Service using Terraform for provisioning a hub-spoke network architecture. You can find the code shown in this tutorial on [GitHub](https://github.com/indiepopart/jhipster-terraform-azure). If you'd rather skip the step-by-step Terraform configuration and prefer jumping straight into the deployment, follow the [README](https://github.com/indiepopart/jhipster-terraform-azure) instructions in the same repository.
+
+Also, if you liked this post, you might enjoy these related posts:
+
+- [Identity in Spring Boot with Kubernetes, Keycloak, and Auth0](https://auth0.com/blog/identity-in-spring-boot-with-kubernetes-keycloak-and-auth0/)
+- [Micro Frontends for Java Microservices](https://auth0.com/blog/micro-frontends-for-java-microservices/)
+- [Build a Beautiful CRUD App with Spring Boot and Angular](https://auth0.com/blog/spring-boot-angular-crud/)
+- [Get Started with the Auth0 Terraform Provider](https://auth0.com/blog/get-started-with-auth0-terraform-provider/)
+- [A Passwordless Future: Passkeys for Java Developers](https://auth0.com/blog/webauthn-and-passkeys-for-java-developers/)
+
+Please follow us on Twitter [@oktadev](https://twitter.com/oktadev) and subscribe to our [YouTube channel](https://www.youtube.com/oktadev) for more Spring Boot and microservices knowledge.
+
+You can also sign up for our [developer newsletter](https://a0.to/nl-signup/java) to stay updated on everything Identity and Security.
