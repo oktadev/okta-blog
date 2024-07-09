@@ -12,11 +12,25 @@ module Jekyll
 
         if !post.nil?
           title = post['title']
-          # one day figure out how to add author
-          # author_id = post['author']
-          # author = context.registers[:site].data['authors'][author_id]
-          # avatar = author['avatar']
-          # display_name = author['full_name']
+          author_content = ""
+
+          if !post['author'].kind_of?(Array)
+            author_id = post['author']
+
+            author = context.registers[:site].data['authors'][author_id]
+            avatar = author['avatar']
+            display_name = author['full_name']
+            img=Liquid::Template.parse("{% img '#{avatar}' alt:'avatar-#{avatar}' class:BlogPost-avatar %}").render(context)
+            author_content = %(<div class="BlogPost-attribution">
+            <a href='/blog/authors/#{author_id}/'>
+              #{img}
+            </a>
+            <span class="BlogPost-author">
+                <a href='/blog/authors/#{author_id}/'>#{display_name}</a>
+            </span>
+          </div>)
+          end
+
           description = post['description']
 
           if (description.nil?)
@@ -29,6 +43,7 @@ module Jekyll
                 <span>#{title}</span>
               </a>
               <p>#{description}</p>
+              <div>#{author_content}</div>
           </article>)
         else
           %(<div class="link-container">
