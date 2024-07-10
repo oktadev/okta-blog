@@ -16,6 +16,7 @@ type: awareness
 
 - introduction
 
+{% img blog/jhipster-terraform-azure/jhipster-terraform-azure.png alt:"JHipster, Terraform and Azure logos" width:"900" %}{: .center-image }
 
 > **This tutorial was created with the following tools and services**:
 > - [Java OpenJDK 21](https://jdk.java.net/java-se-ri/21)
@@ -56,6 +57,8 @@ git clone https://github.com/indiepopart/jhipster-terraform-azure
 ## Create an AKS cluster using Terraform
 - Architecture diagram
 - Notes on firewall and gateway
+
+{% img blog/jhipster-terraform-azure/azure-architecture.jpg alt:"Azure architecture diagram" width:"900" %}{: .center-image }
 
 ```shell
 mkdir terraform
