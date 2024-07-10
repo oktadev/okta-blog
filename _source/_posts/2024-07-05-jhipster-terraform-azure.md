@@ -14,7 +14,11 @@ image:
 type: awareness
 ---
 
-- introduction
+In today's infrastructure landscape, public clouds have emerged as the most popular choice, with Microsoft Azure being one of the leading cloud vendors. Kubernetes is the standard choice for microservices orchestration, and most public cloud providers offer managed Kubernetes services. For Azure, the managed Kubernetes service is Azure Kubernetes Service (AKS).
+
+Deploying and managing microservices on the public cloud comes with its own set of challenges. Each cloud service has unique complexities, and Azure AKS comes with its own recommended architecture best practices, which require significant time and effort for the setup and management. This is where infrastructure as code (IaC) tools like Terraform become valuable.
+
+In this post, you will learn the basics of automating the provisioning of a managed Kubernetes cluster on Azure, using a hub-network topology, for deploying a Spring Boot microservices architecture generated with JHipster framework.
 
 {% img blog/jhipster-terraform-azure/jhipster-terraform-azure.png alt:"JHipster, Terraform and Azure logos" width:"900" %}{: .center-image }
 
@@ -32,10 +36,9 @@ type: awareness
 
 {% include toc.md %}
 
-
 ## Build a microservices architecture with JHipster
 
-Start by creating a Java microservices architecture using [JHipster](https://www.jhipster.tech/), Spring Boot, and Consul. JHipster is an excellent tool for generating a microservice stack with Spring Boot, Angular/React/Vue.js, and other modern frameworks. If you prefer using the same application as in this demo, then you can either scaffold it using JHipster JDL or clone the sample repository from GitHub. Here is how you can scaffold your microservice stack using JHipster:
+Start by creating a Java microservices architecture using [JHipster](https://www.jhipster.tech/), Spring Boot, and Consul. JHipster is an excellent tool for generating a microservice stack with Spring Boot, Angular/React/Vue.js, and other modern frameworks. For deploying the application of this demo, then you can either generate it using JHipster JDL or clone the sample repository from GitHub. Here is how you can build your microservices stack using JHipster:
 
 **Option 1**: Generate the architecture with JHipster Domain Language (JDL)
 
@@ -55,10 +58,28 @@ git clone https://github.com/indiepopart/jhipster-terraform-azure
 ```
 
 ## Create an AKS cluster using Terraform
-- Architecture diagram
-- Notes on firewall and gateway
+
+Following Azure recommendations for microservices deployment, in the next sections you will find a simplified version of the advanced microservices architecture, with the components included in the diagram below:
 
 {% img blog/jhipster-terraform-azure/azure-architecture.jpg alt:"Azure architecture diagram" width:"900" %}{: .center-image }
+
+**Network Topology**: The architecture uses a hub-spoke network topoloy, where the hub and spoke are deployed in separate virtual networks connected through peering, minimizing exposure of resources to the public internet. The hub virtual network contains an Azure Firewall in its own subnet, securing outbound network traffic. The spoke network contains the AKS cluster, the Application Gateway and a private link to the Azure Container Registry.
+
+**Azure Kubernetes Service**: The managed Kubernetes cluster.
+
+**Azure Virtual Network**: an isolated and secure environment for VMs and applications.
+
+**Azure Application Gateway**: Load balances traffic to the web application, operating at Layer 7, using the Azure Application Gateway Ingress Controller (AGIC) as the Kubernetes ingress controller. It has Web Application Firewall (WAF) enabled, securing incoming traffic from common web attacks and it can perform SSL termination.
+
+> **IMPORTANT NOTE**: To limit the scope of this tutorial, TLS is not configured at the Application Gateway, but keep in mind securing traffic to your application is required for production.
+
+**Azure Firewall**: the network security service protecting all network resources, only allowing approved inbound traffic, through the configuration of firewall rules.
+
+**Azure Container Registry**: stores private container images that can be run in the AKS cluster.
+
+**Application Gateway Ingress Controller (AGIC)**: a Kubernetes resource for leveraging the Azure Application Gateway as external loadbalancer for exposing an application to the internet.
+
+On to the deployment, start by creating a folder for the Terraform configuration, inspired on the [reference implementation](https://github.com/mspnp/aks-fabrikam-dronedelivery) from Azure:
 
 ```shell
 mkdir terraform
@@ -957,9 +978,6 @@ variable "host_name" {
 
 ### Configure an Azure Kubernetes Cluster
 
-- ACR
-- Cluster
-
 Create a module for the Azure Container Registry (ACR) configuration:
 
 ```shell
@@ -1320,7 +1338,7 @@ variable "spoke_pip_id" {
 
 ### Provision the cluster
 
-Reference the modules in the main configuration file `terraform/main.tf`, adding the following content:
+Add references to the modules in the main configuration file `terraform/main.tf`, use the following content:
 
 ```terraform
 # terraform/main.tf
@@ -1471,7 +1489,7 @@ variable "host_name" {
 }
 ```
 
-With the terraform configuration ready, ensure the Azure CLI has an active subscription with the following line:
+With the Terraform configuration ready, ensure the Azure CLI has an active subscription with the following line:
 
 > **IMPORTANT NOTE**
 > For this demo, the chosen VM size is __Standard_B2s_v2__, and the selected architecture requires a minimum node count of 4. The architecture will not run under the Azure free account, so please don't forget to delete the architecture after the test to avoid unwanted costs.
@@ -1480,7 +1498,13 @@ With the terraform configuration ready, ensure the Azure CLI has an active subsc
 az account list
 ```
 
-Next initialize terraform workspace and plan the changes:
+Also, verify you have the available cores quota for the minimum node count of 4 (8 cores):
+
+```shell
+az quota show --resource-name standardBsv2Family --scope /subscriptions/11d381ef-908b-4d3c-90d5-45c2897d09d8/providers/Microsoft.Compute/locations/westus2
+```
+
+Next initialize Terraform workspace and plan the changes:
 
 ```shell
 cd terraform
@@ -1724,7 +1748,7 @@ terraform init
 terraform apply
 ```
 
-Note the `auth0_webapp_client_id` and `auth0_webapp_client_secret` from the output:
+Note the `auth0_webapp_client_id` from the output and get the `auth0_webapp_client_secret` with:
 
 ```shell
 terraform output auth0_webapp_client_secret
@@ -1869,6 +1893,7 @@ In this post you learned about JHipster microservices deployment to Azure Kubern
 
 Also, if you liked this post, you might enjoy these related posts:
 
+- [Deploy Secure Spring Boot Microservices on Amazon EKS Using Terraform and Kubernetes](https://auth0.com/blog/terraform-eks-java-microservices/)
 - [Identity in Spring Boot with Kubernetes, Keycloak, and Auth0](https://auth0.com/blog/identity-in-spring-boot-with-kubernetes-keycloak-and-auth0/)
 - [Micro Frontends for Java Microservices](https://auth0.com/blog/micro-frontends-for-java-microservices/)
 - [Build a Beautiful CRUD App with Spring Boot and Angular](https://auth0.com/blog/spring-boot-angular-crud/)
