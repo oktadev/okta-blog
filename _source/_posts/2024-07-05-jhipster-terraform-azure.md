@@ -136,7 +136,6 @@ Edit `main.tf` and add the following content:
 
 ```terraform
 # terraform/modules/hub_network/main.tf
-
 locals {
   pip_name   = "pip-fw-${var.resource_group_location}-default"
   hub_fw_name   = "fw-${var.resource_group_location}-hub"
@@ -165,22 +164,6 @@ resource "azurerm_subnet" "azure_firewall_subnet" {
   resource_group_name  = azurerm_resource_group.rg_hub_networks.name
   virtual_network_name = azurerm_virtual_network.hub_vnet.name
   address_prefixes       = [var.azure_firewall_address_space]
-  service_endpoints    = ["Microsoft.KeyVault"]
-}
-
-resource "azurerm_subnet" "gateway_subnet" {
-  name                 = "GatewaySubnet"
-  resource_group_name  = azurerm_resource_group.rg_hub_networks.name
-  virtual_network_name = azurerm_virtual_network.hub_vnet.name
-  address_prefixes       = [var.on_prem_gateway_addess_space]
-  service_endpoints    = ["Microsoft.KeyVault"]
-}
-
-resource "azurerm_subnet" "bastion_subnet" {
-  name                 = "AzureBastionSubnet"
-  resource_group_name  = azurerm_resource_group.rg_hub_networks.name
-  virtual_network_name = azurerm_virtual_network.hub_vnet.name
-  address_prefixes       = [var.bastion_address_space]
   service_endpoints    = ["Microsoft.KeyVault"]
 }
 
@@ -297,7 +280,6 @@ resource "azurerm_firewall_network_rule_collection" "aks_global_allow" {
     destination_addresses = [
       "AzureCloud",
     ]
-
   }
 
   rule {
@@ -547,7 +529,6 @@ resource "azurerm_firewall_application_rule_collection" "aks_global_allow" {
     fqdn_tags = [
       "AzureKubernetesService"
     ]
-
   }
 
   rule {
@@ -577,16 +558,6 @@ Edit `variables.tf` and add the following content:
 # terraform/modules/hub_network/variables.tf
 variable "resource_group_location" {
   description = "The location of the resource group"
-}
-
-variable "on_prem_gateway_addess_space" {
-  description = "A /27 under the VNet Address Space for our On-Prem Gateway"
-  default     = "10.200.0.64/27"
-}
-
-variable "bastion_address_space" {
-  description = "A /27 under the VNet Address Space for Azure Bastion"
-  default     = "10.200.0.96/27"
 }
 
 variable "hub_vnet_address_space" {
@@ -722,14 +693,6 @@ resource "azurerm_subnet_route_table_association" "cluster_nodes_route_table" {
   route_table_id = azurerm_route_table.spoke_route_table.id
 }
 
-resource "azurerm_subnet" "ingress_services_subnet" {
-  name                 = "snet-ingress-services"
-  resource_group_name  = azurerm_resource_group.rg_spoke_networks.name
-  virtual_network_name = azurerm_virtual_network.spoke_vnet.name
-  address_prefixes       = [var.ingress_services_address_space]
-
-}
-
 resource "azurerm_subnet" "application_gateways_subnet" {
   name                 = "snet-application-gateways"
   resource_group_name  = azurerm_resource_group.rg_spoke_networks.name
@@ -768,6 +731,7 @@ resource "azurerm_virtual_network_peering" "hub_to_spoke_peer" {
     var.hub_vnet_id,
     azurerm_virtual_network.spoke_vnet
   ]
+
 }
 
 resource "azurerm_private_dns_zone" "dns_zone_acr" {
@@ -947,11 +911,6 @@ variable "spoke_vnet_address_space" {
 variable "cluster_nodes_address_space" {
   description = "The address space for the cluster nodes."
   default = "10.240.0.0/22"
-}
-
-variable "ingress_services_address_space" {
-  description = "The address space for the ingress services."
-  default = "10.240.4.0/28"
 }
 
 variable "application_gateways_address_space" {
@@ -1377,9 +1336,7 @@ module "spoke_network" {
   hub_rg_name                = module.hub_network.hub_rg_name
 
   depends_on = [
-    module.hub_network.hub_pip,
-    module.hub_network.hub_vnet_id,
-    module.acr.acr_id,
+    module.hub_network
   ]
 }
 
@@ -1395,14 +1352,9 @@ module "cluster" {
   spoke_pip_id            = module.spoke_network.spoke_pip_id
 
   depends_on = [
-    module.spoke_network.cluster_nodes_route_table_association_id,
-    module.spoke_network.spoke_to_hub_peer_id,
-    module.spoke_network.hub_to_spoke_peer_id,
-    module.spoke_network.spoke_pip_id,
-    module.spoke_network.application_gateway_id,
-    module.hub_network.fw_net_rule_org_wide_id,
-    module.hub_network.fw_net_rule_aks_global_id,
-    module.hub_network.fw_app_rule_aks_global_id,
+    module.spoke_network,
+    module.hub_network,
+    module.acr
   ]
 }
 ```
