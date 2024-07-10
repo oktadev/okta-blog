@@ -73,7 +73,7 @@ Following Azure recommendations for microservices deployment, in the next sectio
 
 > **IMPORTANT NOTE**: To limit the scope of this tutorial, TLS is not configured at the Application Gateway, but keep in mind securing traffic to your application is required for production.
 
-**Azure Firewall**: the network security service protecting all network resources, only allowing approved inbound traffic, by configuring firewall rules.
+**Azure Firewall**: the network security service protecting all network resources, only allowing approved outbound traffic, by configuring firewall rules.
 
 **Azure Container Registry**: stores private container images that can be run in the AKS cluster.
 
