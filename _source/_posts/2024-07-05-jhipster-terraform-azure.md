@@ -18,9 +18,9 @@ In today's infrastructure landscape, public clouds have emerged as the most popu
 
 Deploying and managing microservices on the public cloud comes with its own set of challenges. Each cloud service has unique complexities, and Azure AKS comes with its own recommended architecture best practices, which require significant time and effort for the setup and management. This is where infrastructure as code (IaC) tools like Terraform become valuable.
 
-In this post, you will learn the basics of automating the provisioning of a managed Kubernetes cluster on Azure, using a hub-network topology, for deploying a Spring Boot microservices architecture generated with JHipster framework.
+In this post, you will learn the basics of automating the provisioning of a managed Kubernetes cluster on Azure, using a hub-network topology, for deploying a Spring Boot microservices architecture generated with the JHipster framework.
 
-{% img blog/jhipster-terraform-azure/jhipster-terraform-azure.png alt:"JHipster, Terraform and Azure logos" width:"900" %}{: .center-image }
+{% img blog/jhipster-terraform-azure/jhipster-terraform-azure.png alt:"JHipster, Terraform, and Azure logos" width:"900" %}{: .center-image }
 
 > **This tutorial was created with the following tools and services**:
 > - [Java OpenJDK 21](https://jdk.java.net/java-se-ri/21)
@@ -38,7 +38,7 @@ In this post, you will learn the basics of automating the provisioning of a mana
 
 ## Build a microservices architecture with JHipster
 
-Start by creating a Java microservices architecture using [JHipster](https://www.jhipster.tech/), Spring Boot, and Consul. JHipster is an excellent tool for generating a microservice stack with Spring Boot, Angular/React/Vue.js, and other modern frameworks. For deploying the application of this demo, then you can either generate it using JHipster JDL or clone the sample repository from GitHub. Here is how you can build your microservices stack using JHipster:
+Create a Java microservices architecture using [JHipster](https://www.jhipster.tech/), Spring Boot, and Consul. JHipster is an excellent tool for generating a microservice stack with Spring Boot, Angular/React/Vue.js, and other modern frameworks. For deploying the application of this demo, then you can either generate it using JHipster JDL or clone the sample repository from GitHub. Here is how you can build your microservices stack using JHipster:
 
 **Option 1**: Generate the architecture with JHipster Domain Language (JDL)
 
@@ -63,23 +63,23 @@ Following Azure recommendations for microservices deployment, in the next sectio
 
 {% img blog/jhipster-terraform-azure/azure-architecture.jpg alt:"Azure architecture diagram" width:"900" %}{: .center-image }
 
-**Network Topology**: The architecture uses a hub-spoke network topoloy, where the hub and spoke are deployed in separate virtual networks connected through peering, minimizing exposure of resources to the public internet. The hub virtual network contains an Azure Firewall in its own subnet, securing outbound network traffic. The spoke network contains the AKS cluster, the Application Gateway and a private link to the Azure Container Registry.
+**Network Topology**: The architecture uses a hub-spoke network topology, where the hub and spoke are deployed in separate virtual networks connected through peering, minimizing exposure of resources to the public internet. The hub virtual network contains an Azure Firewall in a dedicated subnet, securing outbound network traffic. The spoke network contains the AKS cluster, the Application Gateway, and a private link to the Azure Container Registry.
 
 **Azure Kubernetes Service**: The managed Kubernetes cluster.
 
 **Azure Virtual Network**: an isolated and secure environment for VMs and applications.
 
-**Azure Application Gateway**: Load balances traffic to the web application, operating at Layer 7, using the Azure Application Gateway Ingress Controller (AGIC) as the Kubernetes ingress controller. It has Web Application Firewall (WAF) enabled, securing incoming traffic from common web attacks and it can perform SSL termination.
+**Azure Application Gateway**: Load balances traffic to the web application, operating at Layer 7, using the Azure Application Gateway Ingress Controller (AGIC) as the Kubernetes ingress controller. It has the Web Application Firewall (WAF) enabled, securing incoming traffic from common web attacks and it can perform SSL termination.
 
 > **IMPORTANT NOTE**: To limit the scope of this tutorial, TLS is not configured at the Application Gateway, but keep in mind securing traffic to your application is required for production.
 
-**Azure Firewall**: the network security service protecting all network resources, only allowing approved inbound traffic, through the configuration of firewall rules.
+**Azure Firewall**: the network security service protecting all network resources, only allowing approved inbound traffic, by configuring firewall rules.
 
 **Azure Container Registry**: stores private container images that can be run in the AKS cluster.
 
-**Application Gateway Ingress Controller (AGIC)**: a Kubernetes resource for leveraging the Azure Application Gateway as external loadbalancer for exposing an application to the internet.
+**Application Gateway Ingress Controller (AGIC)**: a Kubernetes resource for leveraging the Azure Application Gateway as an external load balancer for exposing an application to the internet.
 
-On to the deployment, start by creating a folder for the Terraform configuration, inspired on the [reference implementation](https://github.com/mspnp/aks-fabrikam-dronedelivery) from Azure:
+On to the deployment, start by creating a folder for the Terraform configuration, inspired by the [reference implementation](https://github.com/mspnp/aks-fabrikam-dronedelivery) from Azure:
 
 ```shell
 mkdir terraform
@@ -569,7 +569,7 @@ resource "azurerm_firewall_application_rule_collection" "aks_global_allow" {
 }
 ```
 
-The configuration above will create a Hub Newtwork with a subnet for the Azure Firewall through which outbound traffic will be routed.
+The configuration above will create a Hub Network with a subnet for the Azure Firewall through which outbound traffic will be routed.
 
 Edit `variables.tf` and add the following content:
 
@@ -666,7 +666,7 @@ locals {
   spoke_vnet_name = "vnet-${var.resource_group_location}-spoke"
   spoke_rg_name = "rg-spokes-${var.resource_group_location}"
   pip_name = "pip-${var.application_id}-00"
-  backend_address_pool_name      = "app-gwateway-beap"
+  backend_address_pool_name      = "app-gateway-beap"
   frontend_port_name             = "app-gateway-feport"
   frontend_ip_configuration_name = "app-gateway-feip"
   http_setting_name              = "app-gateway-be-htst"
@@ -860,7 +860,7 @@ resource "azurerm_application_gateway" "gateway" {
   }
 }
 ```
-The configuration above will create a Spoke Network, the network peerings the hub and spoke networks, and the Azure application gateway hosted in its own subnet.
+The configuration above will create a Spoke Network, the network peerings the hub and spoke networks, and the Azure application gateway hosted in a dedicated subnet.
 
 Edit `outputs.tf` and add the following content:
 
@@ -1338,7 +1338,7 @@ variable "spoke_pip_id" {
 
 ### Provision the cluster
 
-Add references to the modules in the main configuration file `terraform/main.tf`, use the following content:
+Add references to the modules in the main configuration file `terraform/main.tf`, setting the following content:
 
 ```terraform
 # terraform/main.tf
@@ -1504,7 +1504,7 @@ Also, verify you have the available cores quota for the minimum node count of 4 
 az quota show --resource-name standardBsv2Family --scope /subscriptions/11d381ef-908b-4d3c-90d5-45c2897d09d8/providers/Microsoft.Compute/locations/westus2
 ```
 
-Next initialize Terraform workspace and plan the changes:
+Next, initialize the Terraform workspace and plan the changes:
 
 ```shell
 cd terraform
@@ -1565,7 +1565,7 @@ Find your Auth0 domain with the following Auth0 CLI command:
 auth0 tenants list
 ```
 
-Create a machine-to-machine Auth0 client for Terraform to identify to Auth0:
+Create a machine-to-machine Auth0 client for Terraform to identify at Auth0:
 
 ```shell
 auth0 apps create \
@@ -1582,7 +1582,7 @@ export AUTH0_CLIENT_ID=<client-id>
 export AUTH0_CLIENT_SECRET=<client-secret>
 ```
 
-Find out the Auth0 Management API id and identifier:
+Find out the Auth0 Management API _id_ and _identifier_:
 
 ```shell
 auth0 apis list
@@ -1600,7 +1600,7 @@ Then retrieve all the scopes of the Auth0 Management API:
 export AUTH0_MANAGEMENT_API_SCOPES=$(auth0 apis scopes list $AUTH0_MANAGEMENT_API_ID --json | jq -r '.[].value' | jq -ncR '[inputs]')
 ```
 
-Finally grant all the scopes to the newly created clientId:
+Finally, grant all the scopes to the newly created clientId:
 
 ```shell
 auth0 api post "client-grants" --data='{"client_id": "'$AUTH0_CLIENT_ID'", "audience": "'$AUTH0_MANAGEMENT_API_IDENTIFIER'", "scope":'$AUTH0_MANAGEMENT_API_SCOPES'}'
@@ -1794,7 +1794,7 @@ data:
 
 ## Deploy the microservices stack
 
-Before the actual deployment, some more configuration changes are required for making the inbound traffic to the store service to go through the Azure Application Gateway Ingress Controller (AGIC) enabled in the cluster. Also you need to build and push the Docker images to Docker container registry.
+Before the actual deployment, some more configuration changes are required for making the inbound traffic to the store service go through the Azure Application Gateway Ingress Controller (AGIC) enabled in the cluster. Also, you need to build and push the Docker images to the Docker container registry.
 
 ### Configure Azure AGIC
 
@@ -1863,7 +1863,7 @@ With `kdash`, check the pods status in the `jhipster` namespace:
 
 {% img blog/jhipster-terraform-azure/kdash.png alt:"Pod status with kdash" width:"900" %}{: .center-image }
 
-As the Azure Application Gateway requires the inbound traffic to be for the host `store.example.com`, you can test the store service by adding an entry in your hosts file that maps to the gateway public ip:
+As the Azure Application Gateway requires the inbound traffic to be for the host `store.example.com`, you can test the store service by adding an entry in your _hosts_ file that maps to the gateway public IP:
 
 ```shell
 terraform output spoke_pip
@@ -1889,7 +1889,7 @@ terraform destroy -auto-approve
 
 ## Learn more about Java Microservices, Kubernetes and Jhipster
 
-In this post you learned about JHipster microservices deployment to Azure Kubernetes Service using Terraform for provisioning a hub-spoke network architecture. You can find the code shown in this tutorial on [GitHub](https://github.com/indiepopart/jhipster-terraform-azure). If you'd rather skip the step-by-step Terraform configuration and prefer jumping straight into the deployment, follow the [README](https://github.com/indiepopart/jhipster-terraform-azure) instructions in the same repository.
+In this post, you learned about JHipster microservices deployment to Azure Kubernetes Service using Terraform for provisioning a hub-spoke network architecture. You can find the code shown in this tutorial on [GitHub](https://github.com/indiepopart/jhipster-terraform-azure). If you'd rather skip the step-by-step Terraform configuration and prefer jumping straight into the deployment, follow the [README](https://github.com/indiepopart/jhipster-terraform-azure) instructions in the same repository.
 
 Also, if you liked this post, you might enjoy these related posts:
 
