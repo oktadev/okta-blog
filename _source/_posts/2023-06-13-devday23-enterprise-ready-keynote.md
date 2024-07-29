@@ -1,7 +1,7 @@
 ---
 layout: blog_post
 title: "What Does It Mean to Be Enterprise Ready: Devday23 Keynote"
-author: alisa-duncan
+author: team-okta
 by: advocate
 communities: [devops,security,.net,java,javascript,php,python]
 description: "How to reduce friction and elevate security to increase adoption of your SaaS app in enterprises: perspectives from Arnab Bose, Chief Product Officer, Workforce Identity Cloud at Okta."
