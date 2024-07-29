@@ -1,7 +1,7 @@
 ---
 layout: blog_post
 title: "What Enterprises Look For: Devday23 Enterprise Customer Perspectives"
-author: alisa-duncan
+author: team-okta
 by: advocate
 communities: [devops,security,.net,java,javascript,php,python]
 description: "See your app from the perspective of an enterprise customer. Do you know what they expect from your Saas app? Learn more from Jon Lehtinen, Director of 'Okta on Okta'."
