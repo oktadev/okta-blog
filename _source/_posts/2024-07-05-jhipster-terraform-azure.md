@@ -38,7 +38,7 @@ In this post, you will learn the basics of automating the provisioning of a mana
 
 ## Build a microservices architecture with JHipster
 
-Create a Java microservices architecture using [JHipster](https://www.jhipster.tech/), Spring Boot, and Consul. JHipster is an excellent tool for generating a microservice stack with Spring Boot, Angular/React/Vue.js, and other modern frameworks. For deploying the application of this demo, then you can either generate it using JHipster JDL or clone the sample repository from GitHub. Here is how you can build your microservices stack using JHipster:
+Create a Java microservices architecture using [JHipster](https://www.jhipster.tech/), Spring Boot, and Consul. JHipster is an excellent tool for generating a microservice stack with Spring Boot, Angular/React/Vue.js, and other modern frameworks. For deploying the application of this demo, you can either generate it using JHipster JDL or clone the sample repository from GitHub. Here is how you can build your microservices stack using JHipster:
 
 **Option 1**: Generate the architecture with JHipster Domain Language (JDL)
 
