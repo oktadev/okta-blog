@@ -130,6 +130,8 @@ cd hub_network
 touch main.tf
 touch outputs.tf
 touch variables.tf
+touch firewall.tf
+touch firewall_rules.tf
 ```
 
 Edit `main.tf` and add the following content:
@@ -137,14 +139,14 @@ Edit `main.tf` and add the following content:
 ```terraform
 # terraform/modules/hub_network/main.tf
 locals {
-  pip_name   = "pip-fw-${var.resource_group_location}-default"
+  pip_name      = "pip-fw-${var.resource_group_location}-default"
   hub_fw_name   = "fw-${var.resource_group_location}-hub"
   hub_vnet_name = "vnet-${var.resource_group_location}-hub"
   hub_rg_name   = "rg-hubs-${var.resource_group_location}"
 }
 
 resource "azurerm_resource_group" "rg_hub_networks" {
-  name = local.hub_rg_name
+  name     = local.hub_rg_name
   location = var.resource_group_location
 
   tags = {
@@ -163,31 +165,83 @@ resource "azurerm_subnet" "azure_firewall_subnet" {
   name                 = "AzureFirewallSubnet"
   resource_group_name  = azurerm_resource_group.rg_hub_networks.name
   virtual_network_name = azurerm_virtual_network.hub_vnet.name
-  address_prefixes       = [var.azure_firewall_address_space]
+  address_prefixes     = [var.azure_firewall_address_space]
   service_endpoints    = ["Microsoft.KeyVault"]
 }
 
 resource "azurerm_public_ip" "hub_pip" {
-  name                = local.pip_name
-  location            = azurerm_resource_group.rg_hub_networks.location
-  resource_group_name = azurerm_resource_group.rg_hub_networks.name
-  allocation_method   = "Static"
-  sku                 = "Standard"
-  zones              = ["1", "2", "3"]
+  name                    = local.pip_name
+  location                = azurerm_resource_group.rg_hub_networks.location
+  resource_group_name     = azurerm_resource_group.rg_hub_networks.name
+  allocation_method       = "Static"
+  sku                     = "Standard"
+  zones                   = ["1", "2", "3"]
   idle_timeout_in_minutes = 4
-  ip_version = "IPv4"
+}
+```
 
+The configuration above will create a Hub Network with a subnet for the Azure Firewall through which outbound traffic will be routed.
+
+Edit `variables.tf` and add the following content:
+
+```terraform
+# terraform/modules/hub_network/variables.tf
+variable "resource_group_location" {
+  description = "The location of the resource group"
 }
 
+variable "hub_vnet_address_space" {
+  description = "The address space for the hub virtual network."
+  default     = "10.200.0.0/24"
+}
+
+variable "azure_firewall_address_space" {
+  description = "The address space for the Azure Firewall subnet."
+  default     = "10.200.0.0/26"
+}
+
+variable "cluster_nodes_address_space" {
+  description = "The address space for the cluster nodes."
+}
+```
+
+Edit `outputs.tf` and add the following content:
+
+```terraform
+# terraform/modules/hub_network/outputs.tf
+output "hub_vnet_id" {
+  value = azurerm_virtual_network.hub_vnet.id
+}
+
+output "hub_vnet_name" {
+  value = azurerm_virtual_network.hub_vnet.name
+}
+
+output "hub_fw_private_ip" {
+  value = azurerm_firewall.azure_firewall.ip_configuration.0.private_ip_address
+}
+
+output "hub_rg_name" {
+  value = azurerm_resource_group.rg_hub_networks.name
+}
+
+output "hub_pip" {
+  value = azurerm_public_ip.hub_pip.ip_address
+}
+```
+
+Edit `firewall.tf` and add the following content:
+
+```terraform
+# terraform/modules/hub_network/firewall.tf
 resource "azurerm_firewall" "azure_firewall" {
   name                = local.hub_fw_name
   location            = azurerm_resource_group.rg_hub_networks.location
   resource_group_name = azurerm_resource_group.rg_hub_networks.name
   sku_name            = "AZFW_VNet"
-  sku_tier            = "Standard"
+  sku_tier            = "Standard" # requried for network rules
   zones               = ["1", "2", "3"]
-  threat_intel_mode   = "Alert"
-  dns_proxy_enabled    = true
+  dns_proxy_enabled   = true # required for network rules with fqdns (tcp to docker.io)
 
   ip_configuration {
     name                 = local.pip_name
@@ -195,14 +249,18 @@ resource "azurerm_firewall" "azure_firewall" {
     public_ip_address_id = azurerm_public_ip.hub_pip.id
   }
 }
+```
 
+The firewall requires a set of network and application rules for [allowing outgoing traffic from the cluster](https://learn.microsoft.com/en-us/azure/aks/limit-egress-traffic?tabs=aks-with-user-assigned-identities#add-firewall-rules). Edit `firewall_rules.tf` and add the following content:
+
+```terraform
+# terraform/modules/hub_network/firewall_rules.tf
 resource "azurerm_ip_group" "aks_ip_group" {
   name                = "aks_ip_group"
   location            = azurerm_resource_group.rg_hub_networks.location
   resource_group_name = azurerm_resource_group.rg_hub_networks.name
 
   cidrs = [var.cluster_nodes_address_space]
-
 }
 
 resource "azurerm_firewall_network_rule_collection" "org_wide_allow" {
@@ -233,7 +291,7 @@ resource "azurerm_firewall_network_rule_collection" "org_wide_allow" {
   }
 
   rule {
-    name = "ntp"
+    name        = "ntp"
     description = "Network Time Protocol (NTP) time synchronization"
 
     source_addresses = [
@@ -335,7 +393,7 @@ resource "azurerm_firewall_network_rule_collection" "aks_global_allow" {
     ]
 
     destination_ports = [
-       "443"
+      "443"
     ]
 
     destination_fqdns = [
@@ -344,6 +402,10 @@ resource "azurerm_firewall_network_rule_collection" "aks_global_allow" {
       "production.cloudflare.docker.com"
     ]
   }
+
+  depends_on = [
+    azurerm_firewall_network_rule_collection.org_wide_allow
+  ]
 }
 
 resource "azurerm_firewall_application_rule_collection" "aks_global_allow" {
@@ -547,72 +609,10 @@ resource "azurerm_firewall_application_rule_collection" "aks_global_allow" {
       type = "Https"
     }
   }
-}
-```
 
-The configuration above will create a Hub Network with a subnet for the Azure Firewall through which outbound traffic will be routed.
-
-Edit `variables.tf` and add the following content:
-
-```terraform
-# terraform/modules/hub_network/variables.tf
-variable "resource_group_location" {
-  description = "The location of the resource group"
-}
-
-variable "hub_vnet_address_space" {
-  description = "The address space for the hub virtual network."
-  default = "10.200.0.0/24"
-}
-
-variable "azure_firewall_address_space" {
-  description = "The address space for the Azure Firewall subnet."
-  default = "10.200.0.0/26"
-}
-
-variable "cluster_nodes_address_space" {
-  description = "The address space for the cluster nodes."
-}
-```
-
-Edit `outputs.tf` and add the following content:
-
-```terraform
-# terraform/modules/hub_network/outputs.tf
-output "hub_vnet_id" {
-  value = azurerm_virtual_network.hub_vnet.id
-}
-
-output "hub_vnet_name" {
-  value = azurerm_virtual_network.hub_vnet.name
-}
-
-output "hub_fw_private_ip" {
-  value = azurerm_firewall.azure_firewall.ip_configuration.0.private_ip_address
-}
-
-output "hub_rg_name" {
-  value = azurerm_resource_group.rg_hub_networks.name
-}
-
-output "hub_pip" {
-  value = azurerm_public_ip.hub_pip.ip_address
-}
-
-output "fw_net_rule_org_wide_id" {
-  value = azurerm_firewall_network_rule_collection.org_wide_allow.id
-}
-
-output "fw_net_rule_aks_global_id" {
-  value = azurerm_firewall_network_rule_collection.aks_global_allow.id
-}
-
-output "fw_app_rule_aks_global_id" {
-  value = azurerm_firewall_application_rule_collection.aks_global_allow.id
-}
-
-output "azure_firewall_id" {
-  value = azurerm_firewall.azure_firewall.id
+  depends_on = [
+    azurerm_firewall_network_rule_collection.aks_global_allow
+  ]
 }
 ```
 
@@ -627,6 +627,8 @@ cd spoke_network
 touch main.tf
 touch outputs.tf
 touch variables.tf
+touch gateway.tf
+touch peering.tf
 ```
 
 Edit `main.tf` and add the following content:
@@ -635,20 +637,12 @@ Edit `main.tf` and add the following content:
 # terraform/modules/spoke_network/main.tf
 locals {
   spoke_vnet_name = "vnet-${var.resource_group_location}-spoke"
-  spoke_rg_name = "rg-spokes-${var.resource_group_location}"
-  pip_name = "pip-${var.application_id}-00"
-  backend_address_pool_name      = "app-gateway-beap"
-  frontend_port_name             = "app-gateway-feport"
-  frontend_ip_configuration_name = "app-gateway-feip"
-  http_setting_name              = "app-gateway-be-htst"
-  listener_name                  = "app-gateway-httplstn"
-  request_routing_rule_name      = "app-gateway-rqrt"
-  redirect_configuration_name    = "app-gateway-rdrcfg"
-  gateway_pip_name               = "app-gateway-pip"
+  spoke_rg_name   = "rg-spokes-${var.resource_group_location}"
+  pip_name        = "pip-${var.application_id}-00"
 }
 
 resource "azurerm_resource_group" "rg_spoke_networks" {
-  name = local.spoke_rg_name
+  name     = local.spoke_rg_name
   location = var.resource_group_location
 
   tags = {
@@ -667,7 +661,7 @@ resource "azurerm_subnet" "cluster_nodes_subnet" {
   name                 = "snet-clusternodes"
   resource_group_name  = azurerm_resource_group.rg_spoke_networks.name
   virtual_network_name = azurerm_virtual_network.spoke_vnet.name
-  address_prefixes       = [var.cluster_nodes_address_space]
+  address_prefixes     = [var.cluster_nodes_address_space]
 }
 
 resource "azurerm_route_table" "spoke_route_table" {
@@ -676,20 +670,20 @@ resource "azurerm_route_table" "spoke_route_table" {
   resource_group_name = azurerm_resource_group.rg_spoke_networks.name
 
   route {
-    name                = "r-nexthop-to-fw"
-    address_prefix      = "0.0.0.0/0"
-    next_hop_type       = "VirtualAppliance"
+    name                   = "r-nexthop-to-fw"
+    address_prefix         = "0.0.0.0/0"
+    next_hop_type          = "VirtualAppliance"
     next_hop_in_ip_address = var.hub_fw_private_ip
   }
   route {
-    name                = "r-internet"
-    address_prefix      = "${var.hub_fw_public_ip}/32"
-    next_hop_type       = "Internet"
+    name           = "r-internet"
+    address_prefix = "${var.hub_fw_public_ip}/32"
+    next_hop_type  = "Internet"
   }
 }
 
 resource "azurerm_subnet_route_table_association" "cluster_nodes_route_table" {
-  subnet_id = azurerm_subnet.cluster_nodes_subnet.id
+  subnet_id      = azurerm_subnet.cluster_nodes_subnet.id
   route_table_id = azurerm_route_table.spoke_route_table.id
 }
 
@@ -697,153 +691,29 @@ resource "azurerm_subnet" "application_gateways_subnet" {
   name                 = "snet-application-gateways"
   resource_group_name  = azurerm_resource_group.rg_spoke_networks.name
   virtual_network_name = azurerm_virtual_network.spoke_vnet.name
-  address_prefixes       = [var.application_gateways_address_space]
+  address_prefixes     = [var.application_gateways_address_space]
 
-}
-
-resource "azurerm_virtual_network_peering" "spoke_to_hub_peer" {
-  name                      = "spoke-to-hub"
-  resource_group_name       = azurerm_resource_group.rg_spoke_networks.name
-  virtual_network_name      = azurerm_virtual_network.spoke_vnet.name
-  remote_virtual_network_id = var.hub_vnet_id
-  allow_virtual_network_access = true
-  allow_forwarded_traffic = true
-  allow_gateway_transit = false
-  use_remote_gateways = false
-
-  depends_on = [
-    var.hub_vnet_id,
-    azurerm_virtual_network.spoke_vnet
-  ]
-}
-
-resource "azurerm_virtual_network_peering" "hub_to_spoke_peer" {
-  name                      = "hub-to-spoke"
-  resource_group_name       = var.hub_rg_name
-  virtual_network_name      = var.hub_vnet_name
-  remote_virtual_network_id = azurerm_virtual_network.spoke_vnet.id
-  allow_forwarded_traffic = false
-  allow_virtual_network_access = true
-  allow_gateway_transit = false
-  use_remote_gateways = false
-
-  depends_on = [
-    var.hub_vnet_id,
-    azurerm_virtual_network.spoke_vnet
-  ]
-
-}
-
-resource "azurerm_private_dns_zone" "dns_zone_acr" {
-  name                = "privatelink.azurecr.io"
-  resource_group_name = azurerm_resource_group.rg_spoke_networks.name
-}
-
-resource "azurerm_private_dns_zone_virtual_network_link" "acr_network_link" {
-  name                  = "dns-link-acr"
-  resource_group_name   = azurerm_resource_group.rg_spoke_networks.name
-  private_dns_zone_name = azurerm_private_dns_zone.dns_zone_acr.name
-  virtual_network_id    = azurerm_virtual_network.spoke_vnet.id
 }
 
 resource "azurerm_public_ip" "spoke_pip" {
-  name                = local.pip_name
-  location            = azurerm_resource_group.rg_spoke_networks.location
-  resource_group_name = azurerm_resource_group.rg_spoke_networks.name
-  allocation_method   = "Static"
-  sku                 = "Standard"
-  zones              = ["1","2", "3"]
+  name                    = local.pip_name
+  location                = azurerm_resource_group.rg_spoke_networks.location
+  resource_group_name     = azurerm_resource_group.rg_spoke_networks.name
+  allocation_method       = "Static"
+  sku                     = "Standard"
+  zones                   = ["1", "2", "3"]
   idle_timeout_in_minutes = 4
-  ip_version = "IPv4"
-}
-
-resource "azurerm_application_gateway" "gateway" {
-  name                = "app-gateway"
-  location            = azurerm_resource_group.rg_spoke_networks.location
-  resource_group_name = azurerm_resource_group.rg_spoke_networks.name
-  zones               = ["1", "2", "3"]
-
-  sku {
-    name     = "WAF_v2"
-    tier     = "WAF_v2"
-    capacity = 2
-  }
-
-  gateway_ip_configuration {
-    name      = "gateway-ip-configuration"
-    subnet_id = azurerm_subnet.application_gateways_subnet.id
-  }
-
-  frontend_port {
-    name = local.frontend_port_name
-    port = 80
-  }
-
-  frontend_ip_configuration {
-    name                 = local.frontend_ip_configuration_name
-    public_ip_address_id = azurerm_public_ip.spoke_pip.id
-  }
-
-  waf_configuration {
-    enabled = true
-    firewall_mode = "Prevention"
-    rule_set_type = "OWASP"
-    rule_set_version = "3.0"
-  }
-
-  backend_address_pool {
-    name = local.backend_address_pool_name
-  }
-
-  backend_http_settings {
-    name                  = local.http_setting_name
-    cookie_based_affinity = "Disabled"
-    path                  = "/path1/"
-    port                  = 80
-    protocol              = "Http"
-    pick_host_name_from_backend_address = true
-    request_timeout       = 60
-  }
-
-  http_listener {
-    name                           = local.listener_name
-    frontend_ip_configuration_name = local.frontend_ip_configuration_name
-    frontend_port_name             = local.frontend_port_name
-    protocol                       = "Http"
-    host_name                      = var.host_name
-    #require_sni                    = true
-  }
-
-  request_routing_rule {
-    name                       = local.request_routing_rule_name
-    priority                   = 1
-    rule_type                  = "Basic"
-    http_listener_name         = local.listener_name
-    backend_address_pool_name  = local.backend_address_pool_name
-    backend_http_settings_name = local.http_setting_name
-  }
 }
 ```
-The configuration above will create a Spoke Network, the network peerings the hub and spoke networks, and the Azure application gateway hosted in a dedicated subnet.
+
+The configuration above will create a Spoke Network. The network peerings between the hub and spoke networks, and the Azure application gateway will be created in separate `.tf` files.
 
 Edit `outputs.tf` and add the following content:
 
 ```terraform
 # terraform/modules/spoke_network/outputs.tf
-output "spoke_vnet_id" {
-  value = azurerm_virtual_network.spoke_vnet.id
-}
-
 output "cluster_nodes_subnet_id" {
   value = azurerm_subnet.cluster_nodes_subnet.id
-}
-
-output "application_gateway_subnet_id" {
-  value = azurerm_subnet.application_gateways_subnet.id
-}
-
-output "cluster_nodes_route_table_association_id" {
-  value = azurerm_subnet_route_table_association.cluster_nodes_route_table.id
 }
 
 output "spoke_pip" {
@@ -852,18 +722,6 @@ output "spoke_pip" {
 
 output "spoke_pip_id" {
   value = azurerm_public_ip.spoke_pip.id
-}
-
-output "spoke_pip_name" {
-  value = azurerm_public_ip.spoke_pip.name
-}
-
-output "hub_to_spoke_peer_id" {
-  value = azurerm_virtual_network_peering.hub_to_spoke_peer.id
-}
-
-output "spoke_to_hub_peer_id" {
-  value = azurerm_virtual_network_peering.spoke_to_hub_peer.id
 }
 
 output "spoke_rg_name" {
@@ -905,17 +763,17 @@ variable "application_id" {
 
 variable "spoke_vnet_address_space" {
   description = "The address space for the spoke virtual network."
-  default = "10.240.0.0/16"
+  default     = "10.240.0.0/16"
 }
 
 variable "cluster_nodes_address_space" {
   description = "The address space for the cluster nodes."
-  default = "10.240.0.0/22"
+  default     = "10.240.0.0/22"
 }
 
 variable "application_gateways_address_space" {
   description = "The address space for the application gateways."
-  default = "10.240.4.16/28"
+  default     = "10.240.4.16/28"
 }
 
 variable "hub_vnet_id" {
@@ -932,6 +790,128 @@ variable "hub_rg_name" {
 
 variable "host_name" {
   description = "The host name"
+}
+```
+
+Edit `peering.tf` and add the following content:
+
+```terraform
+# terraform/modules/spoke_network/peering.tf
+resource "azurerm_virtual_network_peering" "spoke_to_hub_peer" {
+  name                      = "spoke-to-hub"
+  resource_group_name       = azurerm_resource_group.rg_spoke_networks.name
+  virtual_network_name      = azurerm_virtual_network.spoke_vnet.name
+  remote_virtual_network_id = var.hub_vnet_id
+  allow_forwarded_traffic   = true
+
+  depends_on = [
+    var.hub_vnet_id,
+    azurerm_virtual_network.spoke_vnet
+  ]
+}
+
+resource "azurerm_virtual_network_peering" "hub_to_spoke_peer" {
+  name                      = "hub-to-spoke"
+  resource_group_name       = var.hub_rg_name
+  virtual_network_name      = var.hub_vnet_name
+  remote_virtual_network_id = azurerm_virtual_network.spoke_vnet.id
+
+  depends_on = [
+    var.hub_vnet_id,
+    azurerm_virtual_network.spoke_vnet
+  ]
+}
+
+resource "azurerm_private_dns_zone" "dns_zone_acr" {
+  name                = "privatelink.azurecr.io"
+  resource_group_name = azurerm_resource_group.rg_spoke_networks.name
+}
+
+resource "azurerm_private_dns_zone_virtual_network_link" "acr_network_link" {
+  name                  = "dns-link-acr"
+  resource_group_name   = azurerm_resource_group.rg_spoke_networks.name
+  private_dns_zone_name = azurerm_private_dns_zone.dns_zone_acr.name
+  virtual_network_id    = azurerm_virtual_network.spoke_vnet.id
+}
+```
+
+Edit `gateway.tf` and add the following content:
+
+```terraform
+# terraform/modules/spoke_network/gateway.tf
+locals {
+  backend_address_pool_name      = "app-gateway-beap"
+  frontend_port_name             = "app-gateway-feport"
+  frontend_ip_configuration_name = "app-gateway-feip"
+  http_setting_name              = "app-gateway-be-htst"
+  listener_name                  = "app-gateway-httplstn"
+  request_routing_rule_name      = "app-gateway-rqrt"
+  redirect_configuration_name    = "app-gateway-rdrcfg"
+}
+
+resource "azurerm_application_gateway" "gateway" {
+  name                = "app-gateway"
+  location            = azurerm_resource_group.rg_spoke_networks.location
+  resource_group_name = azurerm_resource_group.rg_spoke_networks.name
+  zones               = ["1", "2", "3"]
+
+  sku {
+    name     = "WAF_v2"
+    tier     = "WAF_v2"
+    capacity = 2
+  }
+
+  gateway_ip_configuration {
+    name      = "gateway-ip-configuration"
+    subnet_id = azurerm_subnet.application_gateways_subnet.id
+  }
+
+  frontend_port {
+    name = local.frontend_port_name
+    port = 80
+  }
+
+  frontend_ip_configuration {
+    name                 = local.frontend_ip_configuration_name
+    public_ip_address_id = azurerm_public_ip.spoke_pip.id
+  }
+
+  waf_configuration {
+    enabled          = true
+    firewall_mode    = "Prevention"
+    rule_set_type    = "OWASP"
+    rule_set_version = "3.0"
+  }
+
+  backend_address_pool {
+    name = local.backend_address_pool_name
+  }
+
+  backend_http_settings {
+    name                                = local.http_setting_name
+    cookie_based_affinity               = "Disabled"
+    port                                = 80
+    protocol                            = "Http"
+    pick_host_name_from_backend_address = true
+    request_timeout                     = 60
+  }
+
+  http_listener {
+    name                           = local.listener_name
+    frontend_ip_configuration_name = local.frontend_ip_configuration_name
+    frontend_port_name             = local.frontend_port_name
+    protocol                       = "Http"
+    host_name                      = var.host_name
+  }
+
+  request_routing_rule {
+    name                       = local.request_routing_rule_name
+    priority                   = 1
+    rule_type                  = "Basic"
+    http_listener_name         = local.listener_name
+    backend_address_pool_name  = local.backend_address_pool_name
+    backend_http_settings_name = local.http_setting_name
+  }
 }
 ```
 
@@ -953,26 +933,10 @@ Edit `main.tf` and add the following content:
 ```terraform
 # terraform/modules/acr/main.tf
 resource "azurerm_container_registry" "acr" {
-  name                     = var.acr_name
-  resource_group_name      = var.resource_group_name
-  location                 = var.resource_group_location
-  sku                      = "Premium"
-  admin_enabled            = false
-  quarantine_policy_enabled = false
-
-  network_rule_set {
-    default_action = "Allow"
-  }
-
-
-  trust_policy {
-    enabled = false
-  }
-
-  retention_policy {
-    days = 15
-    enabled = true
-  }
+  name                = var.acr_name
+  resource_group_name = var.resource_group_name
+  location            = var.resource_group_location
+  sku                 = "Premium"
 
   tags = {
     displayName = "Container Registry"
@@ -986,19 +950,6 @@ Edit `outputs.tf` and add the following content:
 # terraform/modules/acr/outputs.tf
 output "acr_id" {
   value = azurerm_container_registry.acr.id
-}
-
-output "acr_login_server" {
-  value = azurerm_container_registry.acr.login_server
-}
-
-output "acr_admin_username" {
-  value = azurerm_container_registry.acr.admin_username
-}
-
-output "acr_admin_password" {
-  value = azurerm_container_registry.acr.admin_password
-  sensitive = true
 }
 ```
 
@@ -1030,6 +981,7 @@ touch providers.tf
 touch main.tf
 touch outputs.tf
 touch variables.tf
+touch role_assignment.tf
 ```
 
 Edit `providers.tf` and add the following content:
@@ -1052,27 +1004,6 @@ Edit `main.tf` and add the following content:
 
 ```terraform
 # terraform/modules/cluster/main.tf
-resource "random_pet" "ssh_key_name" {
-  prefix    = "ssh"
-  separator = ""
-}
-
-resource "azapi_resource" "ssh_public_key" {
-  type      = "Microsoft.Compute/sshPublicKeys@2022-11-01"
-  name      = random_pet.ssh_key_name.id
-  location  = var.resource_group_location
-  parent_id = var.resource_group_id
-}
-
-resource "azapi_resource_action" "ssh_public_key_gen" {
-  type        = "Microsoft.Compute/sshPublicKeys@2022-11-01"
-  resource_id = azapi_resource.ssh_public_key.id
-  action      = "generateKeyPair"
-  method      = "POST"
-
-  response_export_values = ["publicKey", "privateKey"]
-}
-
 resource "random_pet" "azurerm_kubernetes_cluster_name" {
   prefix = "cluster"
 }
@@ -1084,20 +1015,15 @@ resource "azurerm_user_assigned_identity" "cluster_control_plane_identity" {
 }
 
 resource "azurerm_kubernetes_cluster" "k8s" {
-  location            = var.resource_group_location
-  name                = random_pet.azurerm_kubernetes_cluster_name.id
-  resource_group_name = var.resource_group_name
-  dns_prefix          = random_pet.azurerm_kubernetes_cluster_name.id
-  oidc_issuer_enabled = true
+  location                  = var.resource_group_location
+  name                      = random_pet.azurerm_kubernetes_cluster_name.id
+  resource_group_name       = var.resource_group_name
+  dns_prefix                = random_pet.azurerm_kubernetes_cluster_name.id
+  oidc_issuer_enabled       = true
   workload_identity_enabled = true
-  #node_resource_group = "rg-${random_pet.azurerm_kubernetes_cluster_name.id}-nodepools"
 
   tags = {
     displayName = "Kubernetes Cluster"
-  }
-
-  key_vault_secrets_provider {
-    secret_rotation_enabled = false
   }
 
   identity {
@@ -1108,36 +1034,94 @@ resource "azurerm_kubernetes_cluster" "k8s" {
   }
 
   default_node_pool {
-    name       = "agentpool"
-    vm_size    = var.vm_size
-    node_count = var.node_count
-    zones = ["1","2", "3"]
-    type = "VirtualMachineScaleSets"
+    name           = "agentpool"
+    vm_size        = var.vm_size
+    node_count     = var.node_count
+    zones          = ["1", "2", "3"]
     vnet_subnet_id = var.vnet_subnet_id
   }
 
-  linux_profile {
-    admin_username = var.username
-
-    ssh_key {
-      key_data = azapi_resource_action.ssh_public_key_gen.output.publicKey
-    }
-  }
-
   network_profile {
-    network_plugin    = "azure"
-    network_policy  = "azure"
-    outbound_type = "userDefinedRouting"
-    load_balancer_sku = "standard"
-    service_cidr = "172.16.0.0/16"
-    dns_service_ip = "172.16.0.10"
+    network_plugin = "azure"
+    network_policy = "azure"
+    outbound_type  = "userDefinedRouting"
   }
 
   ingress_application_gateway {
     gateway_id = var.application_gateway_id
   }
 }
+```
 
+Edit `outputs.tf` and add the following content:
+
+```terraform
+# terraform/modules/cluster/outputs.tf
+output "kubernetes_cluster_name" {
+  value = azurerm_kubernetes_cluster.k8s.name
+}
+
+output "kube_config" {
+  value     = azurerm_kubernetes_cluster.k8s.kube_config_raw
+  sensitive = true
+}
+```
+
+Edit `variables.tf` and add the following content:
+
+```terraform
+# terraform/modules/cluster/variables.tf
+variable "resource_group_location" {
+  description = "The location of the resource group"
+}
+
+variable "resource_group_name" {
+  description = "The name of the resource group"
+}
+
+variable "resource_group_id" {
+  description = "The id of the resource group"
+}
+
+variable "username" {
+  type        = string
+  description = "The admin username for the new cluster."
+  default     = "azureadmin"
+}
+
+variable "node_count" {
+  type        = number
+  description = "The initial quantity of nodes for the node pool."
+  default     = 4
+}
+
+variable "acr_id" {
+  description = "The id of the Azure Container Registry"
+}
+
+variable "vnet_subnet_id" {
+  description = "The id of the subnet"
+}
+
+variable "application_gateway_id" {
+  description = "The id of the application gateway"
+}
+
+variable "vm_size" {
+  type        = string
+  description = "The size of the Virtual Machine."
+  default     = "Standard_B2s_v2"
+}
+
+variable "spoke_pip_id" {
+  description = "The id of the spoke public IP"
+}
+```
+
+Edit `role_assignment.tf` and add the following content:
+
+```terraform
+# terraform/modules/cluster/role_assignment.tf
 resource "azurerm_role_assignment" "cluster_identity_acrpull_role_assignment" {
   scope                = var.acr_id
   role_definition_name = "AcrPull"
@@ -1193,108 +1177,6 @@ resource "azurerm_role_assignment" "ingress_rg_role_assignment" {
 }
 ```
 
-Edit `outputs.tf` and add the following content:
-
-```terraform
-# terraform/modules/cluster/outputs.tf
-output "kubernetes_cluster_name" {
-  value = azurerm_kubernetes_cluster.k8s.name
-}
-
-output "client_certificate" {
-  value     = azurerm_kubernetes_cluster.k8s.kube_config[0].client_certificate
-  sensitive = true
-}
-
-output "client_key" {
-  value     = azurerm_kubernetes_cluster.k8s.kube_config[0].client_key
-  sensitive = true
-}
-
-output "cluster_ca_certificate" {
-  value     = azurerm_kubernetes_cluster.k8s.kube_config[0].cluster_ca_certificate
-  sensitive = true
-}
-
-output "cluster_password" {
-  value     = azurerm_kubernetes_cluster.k8s.kube_config[0].password
-  sensitive = true
-}
-
-output "cluster_username" {
-  value     = azurerm_kubernetes_cluster.k8s.kube_config[0].username
-  sensitive = true
-}
-
-output "host" {
-  value     = azurerm_kubernetes_cluster.k8s.kube_config[0].host
-  sensitive = true
-}
-
-output "kube_config" {
-  value     = azurerm_kubernetes_cluster.k8s.kube_config_raw
-  sensitive = true
-}
-output "kubelet_identity_id" {
-  value = azurerm_kubernetes_cluster.k8s.kubelet_identity[0].object_id
-}
-
-output "key_data" {
-  value = azapi_resource_action.ssh_public_key_gen.output.publicKey
-}
-```
-
-Edit `variables.tf` and add the following content:
-
-```terraform
-# terraform/modules/cluster/variables.tf
-variable "resource_group_location" {
-  description = "The location of the resource group"
-}
-
-variable "resource_group_name" {
-  description = "The name of the resource group"
-}
-
-variable "resource_group_id" {
-  description = "The id of the resource group"
-}
-
-variable "username" {
-  type        = string
-  description = "The admin username for the new cluster."
-  default     = "azureadmin"
-}
-
-variable "node_count" {
-  type        = number
-  description = "The initial quantity of nodes for the node pool."
-  default     = 4
-}
-
-variable "acr_id" {
-  description = "The id of the Azure Container Registry"
-}
-
-variable "vnet_subnet_id" {
-  description = "The id of the subnet"
-}
-
-variable "application_gateway_id" {
-  description = "The id of the application gateway"
-}
-
-variable "vm_size" {
-  type        = string
-  description = "The size of the Virtual Machine."
-  default     = "Standard_B2s_v2"
-}
-
-variable "spoke_pip_id" {
-  description = "The id of the spoke public IP"
-}
-```
-
 ### Provision the cluster
 
 Add references to the modules in the main configuration file `terraform/main.tf`, setting the following content:
@@ -1313,27 +1195,27 @@ resource "azurerm_resource_group" "rg_ecommerce" {
 module "acr" {
   source = "./modules/acr"
 
-  resource_group_name = azurerm_resource_group.rg_ecommerce.name
+  resource_group_name     = azurerm_resource_group.rg_ecommerce.name
   resource_group_location = azurerm_resource_group.rg_ecommerce.location
 }
 
 module "hub_network" {
-  source = "./modules/hub_network"
-  resource_group_location = azurerm_resource_group.rg_ecommerce.location
+  source                      = "./modules/hub_network"
+  resource_group_location     = azurerm_resource_group.rg_ecommerce.location
   cluster_nodes_address_space = var.cluster_nodes_address_space
 }
 
 module "spoke_network" {
-  source = "./modules/spoke_network"
-  resource_group_location    = azurerm_resource_group.rg_ecommerce.location
-  application_id             = var.application_id
-  host_name                  = var.host_name
+  source                      = "./modules/spoke_network"
+  resource_group_location     = azurerm_resource_group.rg_ecommerce.location
+  application_id              = var.application_id
+  host_name                   = var.host_name
   cluster_nodes_address_space = var.cluster_nodes_address_space
-  hub_fw_private_ip          = module.hub_network.hub_fw_private_ip
-  hub_fw_public_ip           = module.hub_network.hub_pip
-  hub_vnet_id                = module.hub_network.hub_vnet_id
-  hub_vnet_name              = module.hub_network.hub_vnet_name
-  hub_rg_name                = module.hub_network.hub_rg_name
+  hub_fw_private_ip           = module.hub_network.hub_fw_private_ip
+  hub_fw_public_ip            = module.hub_network.hub_pip
+  hub_vnet_id                 = module.hub_network.hub_vnet_id
+  hub_vnet_name               = module.hub_network.hub_vnet_name
+  hub_rg_name                 = module.hub_network.hub_rg_name
 
   depends_on = [
     module.hub_network
@@ -1368,7 +1250,7 @@ output "resource_group_name" {
 }
 
 output "kube_config" {
-  value = module.cluster.kube_config
+  value     = module.cluster.kube_config
   sensitive = true
 }
 
@@ -1376,44 +1258,8 @@ output "kubernetes_cluster_name" {
   value = module.cluster.kubernetes_cluster_name
 }
 
-output "acr_id" {
-  value = module.acr.acr_id
-}
-
-output "hub_vnet_id" {
-  value = module.hub_network.hub_vnet_id
-}
-
-output "spoke_vnet_id" {
-  value = module.spoke_network.spoke_vnet_id
-}
-
-output "spoke_rg_name" {
-  value = module.spoke_network.spoke_rg_name
-}
-
-output "hub_rg_name" {
-  value = module.hub_network.hub_rg_name
-}
-
-output "hub_fw_private_ip" {
-  value = module.hub_network.hub_fw_private_ip
-}
-
-output "hub_pip" {
-  value = module.hub_network.hub_pip
-}
-
 output "spoke_pip" {
   value = module.spoke_network.spoke_pip
-}
-
-output "azure_firewall_id" {
-  value = module.hub_network.azure_firewall_id
-}
-
-output "azure_application_gateway_id" {
-  value = module.spoke_network.application_gateway_id
 }
 ```
 
@@ -1422,22 +1268,22 @@ Edit `terraform/variables.tf` and add the following variables:
 ```terraform
 variable "resource_group_location" {
   description = "The location of the resource group"
-  default     = "westus2"
+  default     = "eastus2"
 }
 
 variable "application_id" {
   description = "The application id"
-  default = "jhipster-microservices"
+  default     = "jhipster-microservices"
 }
 
 variable "cluster_nodes_address_space" {
   description = "The address space for the cluster nodes."
-  default = "10.240.0.0/22"
+  default     = "10.240.0.0/22"
 }
 
 variable "host_name" {
   description = "The host name"
-  default = "store.example.com"
+  default     = "store.example.com"
 }
 ```
 
@@ -1453,7 +1299,7 @@ az account list
 Also, verify you have the available cores quota for the minimum node count of 4 (8 cores):
 
 ```shell
-az quota show --resource-name standardBsv2Family --scope /subscriptions/11d381ef-908b-4d3c-90d5-45c2897d09d8/providers/Microsoft.Compute/locations/westus2
+az quota show --resource-name standardBsv2Family --scope /subscriptions/<account-id>/providers/Microsoft.Compute/locations/eastus2
 ```
 
 Next, initialize the Terraform workspace and plan the changes:
@@ -1477,24 +1323,24 @@ Apply complete! Resources: 41 added, 0 changed, 0 destroyed.
 
 Outputs:
 
-acr_id = "/subscriptions/11d381ef-908b-4d3c-90d5-45c2897d09d8/resourceGroups/rg-ecommerce-westus2/providers/Microsoft.ContainerRegistry/registries/jhipsteracr"
-azure_application_gateway_id = "/subscriptions/11d381ef-908b-4d3c-90d5-45c2897d09d8/resourceGroups/rg-spokes-westus2/providers/Microsoft.Network/applicationGateways/app-gateway"
-azure_firewall_id = "/subscriptions/11d381ef-908b-4d3c-90d5-45c2897d09d8/resourceGroups/rg-hubs-westus2/providers/Microsoft.Network/azureFirewalls/fw-westus2-hub"
+acr_id = "/subscriptions/.../resourceGroups/rg-ecommerce-eastus2/providers/Microsoft.ContainerRegistry/registries/jhipsteracr"
+azure_application_gateway_id = "/subscriptions/.../resourceGroups/rg-spokes-eastus2/providers/Microsoft.Network/applicationGateways/app-gateway"
+azure_firewall_id = "/subscriptions/.../resourceGroups/rg-hubs-eastus2/providers/Microsoft.Network/azureFirewalls/fw-eastus2-hub"
 hub_fw_private_ip = "10.200.0.4"
 hub_pip = "52.250.37.145"
-hub_rg_name = "rg-hubs-westus2"
-hub_vnet_id = "/subscriptions/11d381ef-908b-4d3c-90d5-45c2897d09d8/resourceGroups/rg-hubs-westus2/providers/Microsoft.Network/virtualNetworks/vnet-westus2-hub"
+hub_rg_name = "rg-hubs-eastus2"
+hub_vnet_id = "/subscriptions/.../resourceGroups/rg-hubs-eastus2/providers/Microsoft.Network/virtualNetworks/vnet-eastus2-hub"
 kube_config = <sensitive>
 kubernetes_cluster_name = "cluster-rapid-collie"
-resource_group_name = "rg-ecommerce-westus2"
+resource_group_name = "rg-ecommerce-eastus2"
 spoke_pip = "52.250.37.106"
-spoke_rg_name = "rg-spokes-westus2"
-spoke_vnet_id = "/subscriptions/11d381ef-908b-4d3c-90d5-45c2897d09d8/resourceGroups/rg-spokes-westus2/providers/Microsoft.Network/virtualNetworks/vnet-westus2-spoke"
+spoke_rg_name = "rg-spokes-eastus2"
+spoke_vnet_id = "/subscriptions/.../resourceGroups/rg-spokes-eastus2/providers/Microsoft.Network/virtualNetworks/vnet-eastus2-spoke"
 ```
 For `kubectl` commands, run the following Azure CLI option for retrieving the cluster credentials:
 
 ```shell
-az aks get-credentials --resource-group rg-spokes-westus2 --name <kubernetes_cluster_name> --admin
+az aks get-credentials --resource-group rg-spokes-eastus2 --name <kubernetes_cluster_name> --admin
 ```
 
 Then check the cluster details with `kdash` or `kubectl get nodes`.
