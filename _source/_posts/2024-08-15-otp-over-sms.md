@@ -1,6 +1,6 @@
 ---
 layout: blog_post
-title: "Approaches to keep sending OTP over SMS… for now"
+title: "Approaches to keep sending OTP over SMS... for now"
 author: maurice-sharp
 by: contractor
 communities: [devops,.net]
@@ -11,11 +11,11 @@ tweets:
 image: blog/telephony/social.jpg
 type: conversion
 ---
-## Approaches to keep sending OTP over SMS… for now
+## Approaches to keep sending OTP over SMS... for now
 
-"SMS has long played an important role as a universally applicable method of verifying a user’s identity via one-time passcodes. And over the last decade, SMS and voice-based Multifactor Authentication has prevented untold attempts to compromise user accounts.
+"SMS has long played an important role as a universally applicable method of verifying a user's identity via one-time passcodes. And over the last decade, SMS and voice-based Multifactor Authentication has prevented untold attempts to compromise user accounts.
 
-But it’s time to move on."
+But it's time to move on."
 
 – Ben King, VP Customer Trust: [BYO Telephony and the future of SMS at Okta](https://sec.okta.com/articles/2023/08/byo-telephony-and-future-sms-okta?_gl=1*50v0v8*_gcl_au*NzM2MTA4NjA5LjE3MTk5NTY2MDU.*_ga*MTE1NjAwNzQxNC4xNjY0OTc5MTk3*_ga_QKMSDV5369*MTcyMjg4MjA0Ni4yODIuMS4xNzIyODgzNDM3LjYwLjAuMA..&_ga=2.145329393.498111759.1722873073-1156007414.1664979197)
 
