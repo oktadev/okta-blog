@@ -1,4 +1,3 @@
-
 ---
 layout: blog_post
 title: "Approaches to keep sending OTP over SMS… for now"
