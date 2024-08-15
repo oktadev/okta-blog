@@ -53,7 +53,7 @@ The code or URL you provide may simply send the message and communicate the outc
 
 Some of the main things to consider when choosing an approach are the regions for messages, the expected traffic, the desired reliability, branding requirements, protection from hacking, and your resources.
 
-### Which regions
+### Which regions?
 
 Two things can identify a region. First are any regulations for sending messages. Those regulations can be set by collectives, such as the European Union, countries, or even sub-parts of a country. Second is the area covered by the telco sending the message. 
 
@@ -73,7 +73,7 @@ Second, the features and regulations for traffic may differ from region to regio
 
 Check that your vendor supports the regulations in your desired regions.
 
-### How many messages
+### How many messages?
 
 Telephony vendors or service providers need to know the volume of messages. And not just the average volume, but any peaks, such as a time when a majority of people are trying to sign on to your network.
 
@@ -83,7 +83,7 @@ The second impact, the reputation score, also limits the volume of messages. The
 
 Some telephony vendors or service providers can work around this limit. For example, a service provider may use their reputation or send it from a pool of phone numbers.
 
-### How reliable
+### How reliable?
 
 Delivering the OTP to a phone requires several steps, and any of them can fail. The more steps, the more code between the OTP and the requestor, and the more chances of failure.
 
@@ -91,13 +91,13 @@ Most telephony and other service providers provide a service level agreement (SL
 
 That last number is important as there's a time limit of three seconds from Okta calling the hook to receiving a success (or failure) result. After that, the default is that Okta sends the message using its providers. However, those sends are heavily rate-limited.
 
-### From you or Okta
+### From you or Okta?
 
 Implementing the code for the hook yourself or using a consultant gives you the most control over message content. Services may offer partial or complete content customization.
 
 You can [customize the SMS messages](https://help.okta.com/oie/en-us/content/topics/settings/settings_sms.htm) sent by the Okta failover mechanism, though not the voice calls.
 
-### How secure
+### How secure?
 
 Okta still rate-limits calls to the telephony hook to prevent spam or toll fraud. But that's not the only security issue.
 
@@ -105,7 +105,7 @@ Whether you implement the hook yourself or use a service, the endpoints and call
 
 There are also accounts with the provider or service that must be secured. 
 
-### How many people
+### How many people?
 
 No matter the other concerns you identified, processes will change and update, and new things will need to be done.
 
@@ -169,4 +169,8 @@ Services include:
 
 * [Twilio Verify](https://www.twilio.com/docs/verify/api)
 
-git
+## What Next? 
+
+If you rely on SMS for authentication, start thinking about how to replace it. In the meantime, use what you've learned in this post to keep your solutions as secure as possible. 
+
+For more content like this, follow Okta Developer on [Twitter](https://twitter.com/oktadev) and subscribe to our [YouTube](https://www.youtube.com/c/oktadev) channel. If you have any questions about migrating away from SMS, please comment below!
