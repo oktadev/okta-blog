@@ -11,15 +11,12 @@ tweets:
 image: blog/telephony/social.jpg
 type: conversion
 ---
-{% include toc.md %}
 
-## Approaches to keep sending OTP over SMS... for now
-
-"SMS has long played an important role as a universally applicable method of verifying a user's identity via one-time passcodes. And over the last decade, SMS and voice-based Multifactor Authentication has prevented untold attempts to compromise user accounts.
-
-But it's time to move on."
-
-– Ben King, VP Customer Trust: [BYO Telephony and the future of SMS at Okta](https://sec.okta.com/articles/2023/08/byo-telephony-and-future-sms-okta?_gl=1*50v0v8*_gcl_au*NzM2MTA4NjA5LjE3MTk5NTY2MDU.*_ga*MTE1NjAwNzQxNC4xNjY0OTc5MTk3*_ga_QKMSDV5369*MTcyMjg4MjA0Ni4yODIuMS4xNzIyODgzNDM3LjYwLjAuMA..&_ga=2.145329393.498111759.1722873073-1156007414.1664979197)
+> SMS has long played an important role as a universally applicable method of verifying a user's identity via one-time passcodes. And over the last decade, SMS and voice-based Multifactor Authentication has prevented untold attempts to compromise user accounts
+> 
+> But it's time to move on."
+> 
+> <cite>Ben King, VP Customer Trust: [BYO Telephony and the future of SMS at Okta](https://sec.okta.com/articles/2023/08/byo-telephony-and-future-sms-okta?_gl=1*50v0v8*_gcl_au*NzM2MTA4NjA5LjE3MTk5NTY2MDU.*_ga*MTE1NjAwNzQxNC4xNjY0OTc5MTk3*_ga_QKMSDV5369*MTcyMjg4MjA0Ni4yODIuMS4xNzIyODgzNDM3LjYwLjAuMA..&_ga=2.145329393.498111759.1722873073-1156007414.1664979197)</cite>
 
 ## SMS/Voice is too SIMple
 
@@ -33,7 +30,7 @@ The one-time passcode (OTP) you send using SMS or Voice may not go to the phone 
 
 * Longer login times than other methods
 
-Okta [recommended moving away](https://www.okta.com/blog/2020/05/why-you-should-ditch-sms-as-an-auth-factor/)[ from SMS/Voice authentication](https://www.okta.com/blog/2020/05/why-you-should-ditch-sms-as-an-auth-factor/) some time ago. There are many other factors you can use for authentication, including:
+Okta [recommended moving away](/blog/2020/05/why-you-should-ditch-sms-as-an-auth-factor/) from [SMS/Voice authentication](/blog/2020/05/why-you-should-ditch-sms-as-an-auth-factor/) some time ago. There are many other factors you can use for authentication, including:
 
 * Generating codes in an authenticator app such as Okta Verify, Authy, Google Authenticator, or 1Password.
 
@@ -41,11 +38,14 @@ Okta [recommended moving away](https://www.okta.com/blog/2020/05/why-you-should-
 
 Soon, [Okta will](https://support.okta.com/help/s/article/bring-your-own-telephony-required-for-sms-and-voice?language=en_US)[ require you to bring your own telephony provider](https://support.okta.com/help/s/article/bring-your-own-telephony-required-for-sms-and-voice?language=en_US) to keep sending those codes. If you need time to move to a different method of verifying identity, you must configure your own provider for SMS/Voice.
 
+{% include toc.md %}
+
+
 ## Hooked on telephony
 
 You can send the OTP in the SMS/Voice flow using the [telephony inline hook]([https://help.okta.com/oie/en-us/content/topics/telephony/telephony-inline-hook.htm](https://help.okta.com/oie/en-us/content/topics/telephony/telephony-inline-hook.htm)). Okta uses the code or URL in the hook to send the OTP, though, as you'll see, the hook may not be called every time (and that's a good thing). When your hook fails to send the message or takes too long to update the status, Okta takes over sending the message. However, the number of those messages is heavily rate-limited.
 
-The code or URL you provide may simply send the message and communicate the outcome to Okta. The code or server may be more complex, managing geo-specific vendors, failure, failover to another provider, and hacking. No matter how easy or complex the code, there are three main approaches:
+The code or URL you provide may simply send the message and communicate the outcome to Okta. The code or server may be more complex, managing geo-specific vendors, failure, failover to another provider, and hacking. No matter how simple or complex the code, there are three main approaches:
 
 1. Implement the code and use your own telephony provider or providers.
 
@@ -67,7 +67,7 @@ Second, the features and regulations for traffic may differ from region to regio
 
 * Registration of a sender ID for your business. For example, messages without a valid sender ID are automatically marked as "Likely-SCAM" in Singapore.
 
-* Using *short codes*–special telephone numbers designed for high traffic. This can add significant cost.
+* Using *short codes*, which are special telephone numbers designed for high traffic. This can add significant cost.
 
 * Supported formats, such as ASCII and Unicode.
 
@@ -119,7 +119,7 @@ Implementing custom code is similar to adding a somewhat complex feature to your
 
 Moving to a service provider minimizes the technical requirements, though there's still vendor management and monitoring.
 
-## Designing a DIY Hook
+## Designing a DIY hook
 
 The first step in implementing a telephony hook is finding a vendor. There are at least three essential criteria:
 
@@ -171,7 +171,7 @@ Services include:
 
 * [Twilio Verify](https://www.twilio.com/docs/verify/api)
 
-## What Next? 
+## What's next? 
 
 If you rely on SMS for authentication, start thinking about how to replace it. In the meantime, use what you've learned in this post to keep your solutions as secure as possible. 
 
