@@ -11,6 +11,8 @@ tweets:
 image: blog/telephony/social.jpg
 type: conversion
 ---
+{% include toc.md %}
+
 ## Approaches to keep sending OTP over SMS... for now
 
 "SMS has long played an important role as a universally applicable method of verifying a user's identity via one-time passcodes. And over the last decade, SMS and voice-based Multifactor Authentication has prevented untold attempts to compromise user accounts.
