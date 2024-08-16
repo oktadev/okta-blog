@@ -16,7 +16,7 @@ type: conversion
 > 
 > But it's time to move on."
 > 
-> <cite>Ben King, VP Customer Trust: [BYO Telephony and the future of SMS at Okta](https://sec.okta.com/articles/2023/08/byo-telephony-and-future-sms-okta?_gl=1*50v0v8*_gcl_au*NzM2MTA4NjA5LjE3MTk5NTY2MDU.*_ga*MTE1NjAwNzQxNC4xNjY0OTc5MTk3*_ga_QKMSDV5369*MTcyMjg4MjA0Ni4yODIuMS4xNzIyODgzNDM3LjYwLjAuMA..&_ga=2.145329393.498111759.1722873073-1156007414.1664979197)</cite>
+> <cite>Ben King, VP Customer Trust: [BYO Telephony and the future of SMS at Okta](https://sec.okta.com/articles/2023/08/byo-telephony-and-future-sms-okta)</cite>
 
 ## SMS/Voice is too SIMple
 
