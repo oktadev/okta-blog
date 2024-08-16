@@ -79,7 +79,7 @@ Check that your vendor supports the regulations in your desired regions.
 
 Telephony vendors or service providers need to know the volume of messages. And not just the average volume, but any peaks, such as a time when a majority of people are trying to sign on to your network.
 
-The service cost is the most obvious thing related to volume, but there are two others. First is the impact on the rate limits used to prevent spam texts. These limits can prevent your messages from being sent, especially during peak volume. Vendors may be able to increase limits.
+The service cost is the most obvious related to volume issues, but there are two others. First is the impact on the rate limits used to prevent spam texts. These limits can prevent messages from being sent, especially during peak volume; vendors may be able to increase limits.
 
 The second impact, the reputation score, also limits the volume of messages. The lower the reputation score, the fewer messages you can send. The goal is to prevent bad actors from sending lots of spam. Newer and smaller companies start with a lower score. The score increases over time as you send messages without hitting rate limits.
 
