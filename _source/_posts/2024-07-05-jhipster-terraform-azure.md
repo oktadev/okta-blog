@@ -239,9 +239,9 @@ resource "azurerm_firewall" "azure_firewall" {
   location            = azurerm_resource_group.rg_hub_networks.location
   resource_group_name = azurerm_resource_group.rg_hub_networks.name
   sku_name            = "AZFW_VNet"
-  sku_tier            = "Standard" # requried for network rules
+  sku_tier            = "Standard" # requried for network level fqdn fitlering
   zones               = ["1", "2", "3"]
-  dns_proxy_enabled   = true # required for network rules with fqdns (tcp to docker.io)
+  dns_proxy_enabled   = true # required for network rules with fqdns fitlering (tcp to docker.io)
 
   ip_configuration {
     name                 = local.pip_name
@@ -615,6 +615,8 @@ resource "azurerm_firewall_application_rule_collection" "aks_global_allow" {
   ]
 }
 ```
+
+> **NOTE**: According to the Azure Firewall [documentation](https://learn.microsoft.com/en-us/azure/firewall/choose-firewall-sku), network level FQDN filtering is not supported in the _basic_ firewall version, and that is required for allowing cluster outgoing connections to Docker. The firewall version _standard_ was selected for the example, using the `sku_tier` argument of the `azurerm_firewall` resource.
 
 ### Configure a Spoke Network and Azure Application Gateway
 
@@ -1286,21 +1288,24 @@ variable "host_name" {
   default     = "store.example.com"
 }
 ```
+> **CHOOSING A REGION**: In this example, multiple resources have availability zones requirements. The default region in `resource_group_location` is _eastus2_. You can choose a different region, but make sure it has [availability zones support](https://learn.microsoft.com/en-us/azure/reliability/availability-zones-service-support#azure-regions-with-availability-zone-support).  
 
 With the Terraform configuration ready, ensure the Azure CLI has an active subscription with the following line:
-
-> **IMPORTANT NOTE**
-> For this demo, the chosen VM size is __Standard_B2s_v2__, and the selected architecture requires a minimum node count of 4. The architecture will not run under the Azure free account, so please don't forget to delete the architecture after the test to avoid unwanted costs.
 
 ```shell
 az account list
 ```
 
-Also, verify you have the available cores quota for the minimum node count of 4 (8 cores):
+> **IMPORTANT NOTE**
+> For this demo, the selected VM size is __Standard_B2s_v2__, and the deployed architecture requires a **minimum node count of 4**. The architecture will not run under the Azure free account, so please don't forget to delete the architecture after the test to avoid unwanted costs.
+
+Verify you have the available cores quota for the minimum node count of 4 (8 cores):
 
 ```shell
 az quota show --resource-name standardBsv2Family --scope /subscriptions/<account-id>/providers/Microsoft.Compute/locations/eastus2
 ```
+
+> **QUOTA REQUESTS**: While writing this post, for some regions, quota requests were denied without reason. An alternate region was suggested by support team, for which the quota request succeeded. You can send quota requests through the Azure [portal](https://portal.azure.com/#view/Microsoft_Azure_Capacity/QuotaMenuBlade/~/myQuotas).
 
 Next, initialize the Terraform workspace and plan the changes:
 
@@ -1687,7 +1692,7 @@ terraform destroy -auto-approve
 
 ## Learn more about Java Microservices, Kubernetes and Jhipster
 
-In this post, you learned about JHipster microservices deployment to Azure Kubernetes Service using Terraform for provisioning a hub-spoke network architecture. You can find the code shown in this tutorial on [GitHub](https://github.com/indiepopart/jhipster-terraform-azure). If you'd rather skip the step-by-step Terraform configuration and prefer jumping straight into the deployment, follow the [README](https://github.com/indiepopart/jhipster-terraform-azure) instructions in the same repository.
+In this post, you learned about JHipster microservices deployment to Azure Kubernetes Service using Terraform for provisioning a hub-spoke network architecture and an Auth0 client application for authentication and authorization. You can find the code shown in this tutorial on [GitHub](https://github.com/indiepopart/jhipster-terraform-azure). If you'd rather skip the step-by-step Terraform configuration and prefer jumping straight into the deployment, follow the [README](https://github.com/indiepopart/jhipster-terraform-azure) instructions in the same repository. Be aware, some important and interesting features were not included in this example, like cluster auto-scaling, monitoring, cluster access security and workload managed identities.
 
 Also, if you liked this post, you might enjoy these related posts:
 
