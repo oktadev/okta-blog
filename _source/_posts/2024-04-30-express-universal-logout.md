@@ -68,6 +68,8 @@ While viewing your database locally, you'll also see an org table. By clicking t
 - client_secret = ${ClientSecret}
 - apikey = 131313
 
+>**Note**: You can also get these OIDC-related endpoints by visiting this metadata URL `https://{yourOktaOrg}/.well-known/openid-configuration` provided by the [Okta Org authorization server](https://developer.okta.com/docs/concepts/auth-servers/#discovery-endpoints-org-authorization-servers).
+
 ### Create a test user
 
 To test whether UL works for our app, we'll create a user on Okta whose account we'll forcibly sign out. 
