@@ -34,7 +34,6 @@ In this post, you will learn the basics of automating the provisioning of a mana
 > - [Terraform 1.8.3](https://developer.hashicorp.com/terraform/install)
 > - [jq 1.6](https://jqlang.github.io/jq/download/)
 
-{% include toc.md %}
 
 ## Build a microservices architecture with JHipster
 
