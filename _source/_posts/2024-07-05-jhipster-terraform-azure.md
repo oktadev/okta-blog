@@ -1307,7 +1307,7 @@ az quota show --resource-name standardBsv2Family --scope /subscriptions/<account
 
 > **QUOTA REQUESTS**: While writing this post, for some regions, quota requests were denied without reason. An alternate region was suggested by support team, for which the quota request succeeded. You can send quota requests through the Azure [portal](https://portal.azure.com/#view/Microsoft_Azure_Capacity/QuotaMenuBlade/~/myQuotas).
 
-Next, initialize the Terraform workspace and plan the changes:
+Terraform teams recommends [authenticating the Azure Provider](https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/guides/azure_cli) using the Azure CLI when running Terraform locally. Next, initialize the Terraform workspace and plan the changes:
 
 ```shell
 cd terraform
@@ -1324,23 +1324,14 @@ terraform apply main.tfplan
 Once the AKS cluster is ready, you will see the output variables printed to the console:
 
 ```
-Apply complete! Resources: 41 added, 0 changed, 0 destroyed.
+Apply complete! Resources: 35 added, 0 changed, 0 destroyed.
 
 Outputs:
 
-acr_id = "/subscriptions/.../resourceGroups/rg-ecommerce-eastus2/providers/Microsoft.ContainerRegistry/registries/jhipsteracr"
-azure_application_gateway_id = "/subscriptions/.../resourceGroups/rg-spokes-eastus2/providers/Microsoft.Network/applicationGateways/app-gateway"
-azure_firewall_id = "/subscriptions/.../resourceGroups/rg-hubs-eastus2/providers/Microsoft.Network/azureFirewalls/fw-eastus2-hub"
-hub_fw_private_ip = "10.200.0.4"
-hub_pip = "52.250.37.145"
-hub_rg_name = "rg-hubs-eastus2"
-hub_vnet_id = "/subscriptions/.../resourceGroups/rg-hubs-eastus2/providers/Microsoft.Network/virtualNetworks/vnet-eastus2-hub"
 kube_config = <sensitive>
-kubernetes_cluster_name = "cluster-rapid-collie"
+kubernetes_cluster_name = "cluster-helping-terrier"
 resource_group_name = "rg-ecommerce-eastus2"
-spoke_pip = "52.250.37.106"
-spoke_rg_name = "rg-spokes-eastus2"
-spoke_vnet_id = "/subscriptions/.../resourceGroups/rg-spokes-eastus2/providers/Microsoft.Network/virtualNetworks/vnet-eastus2-spoke"
+spoke_pip = "4.153.103.124"
 ```
 For `kubectl` commands, run the following Azure CLI option for retrieving the cluster credentials:
 
@@ -1351,11 +1342,11 @@ az aks get-credentials --resource-group rg-spokes-eastus2 --name <kubernetes_clu
 Then check the cluster details with `kdash` or `kubectl get nodes`.
 
 ```
-NAME                                STATUS   ROLES   AGE   VERSION
-aks-agentpool-37249218-vmss000000   Ready    agent   43m   v1.28.9
-aks-agentpool-37249218-vmss000001   Ready    agent   43m   v1.28.9
-aks-agentpool-37249218-vmss000003   Ready    agent   43m   v1.28.9
-aks-agentpool-37249218-vmss000004   Ready    agent   42m   v1.28.9
+AME                                STATUS   ROLES    AGE     VERSION
+aks-agentpool-71839675-vmss000000   Ready    <none>   4m58s   v1.29.7
+aks-agentpool-71839675-vmss000002   Ready    <none>   4m27s   v1.29.7
+aks-agentpool-71839675-vmss000003   Ready    <none>   4m31s   v1.29.7
+aks-agentpool-71839675-vmss000004   Ready    <none>   3m43s   v1.29.7
 ```
 
 ## Set up OIDC Authentication using Auth0
@@ -1544,7 +1535,7 @@ output "auth0_webapp_client_secret" {
 }
 ```
 
-Now you can run the Terraform script to create the Auth0 application. Run the following commands to initialize the script and apply it.
+Replace `<your-auth0-domain>` in the provider configuration. Now you can run the Terraform script to create the Auth0 application. Run the following commands to initialize the script and apply it.
 
 ```shell
 terraform init
@@ -1669,6 +1660,7 @@ With `kdash`, check the pods status in the `jhipster` namespace:
 As the Azure Application Gateway requires the inbound traffic to be for the host `store.example.com`, you can test the store service by adding an entry in your _hosts_ file that maps to the gateway public IP:
 
 ```shell
+cd terraform
 terraform output spoke_pip
 ```
 
