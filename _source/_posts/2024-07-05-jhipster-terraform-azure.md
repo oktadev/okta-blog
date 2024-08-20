@@ -46,7 +46,7 @@ Create a Java microservices architecture using [JHipster](https://www.jhipster.t
 mkdir jhipster-microservice-stack
 cd jhipster-microservice-stack
 # download the JDL file.
-jhipster download https://raw.githubusercontent.com/indiepopart/jhipster-terraform-azure/main/apps.jdl
+jhipster download https://raw.githubusercontent.com/oktadev/jhipster-terraform-azure/main/apps.jdl
 # Update the `dockerRepositoryName` property to use your Docker Repository URI/Name.
 # scaffold the apps.
 jhipster jdl apps.jdl
