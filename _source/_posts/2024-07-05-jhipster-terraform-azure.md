@@ -54,7 +54,7 @@ jhipster jdl apps.jdl
 **Option 2**: Clone the sample repository
 
 ```shell
-git clone https://github.com/indiepopart/jhipster-terraform-azure
+git clone https://github.com/oktadev/jhipster-terraform-azure
 ```
 
 ## Create an AKS cluster using Terraform
@@ -1684,7 +1684,7 @@ terraform destroy -auto-approve
 
 ## Learn more about Java Microservices, Kubernetes and Jhipster
 
-In this post, you learned about JHipster microservices deployment to Azure Kubernetes Service using Terraform for provisioning a hub-spoke network architecture and an Auth0 client application for authentication and authorization. You can find the code shown in this tutorial on [GitHub](https://github.com/indiepopart/jhipster-terraform-azure). If you'd rather skip the step-by-step Terraform configuration and prefer jumping straight into the deployment, follow the [README](https://github.com/indiepopart/jhipster-terraform-azure) instructions in the same repository. Be aware, some important and interesting features were not included in this example, like cluster auto-scaling, monitoring, cluster access security and workload managed identities.
+In this post, you learned about JHipster microservices deployment to Azure Kubernetes Service using Terraform for provisioning a hub-spoke network architecture and an Auth0 client application for authentication and authorization. You can find the code shown in this tutorial on [GitHub](https://github.com/oktadev/jhipster-terraform-azure). If you'd rather skip the step-by-step Terraform configuration and prefer jumping straight into the deployment, follow the [README](https://github.com/oktadev/jhipster-terraform-azure) instructions in the same repository. Be aware, some important and interesting features were not included in this example, like cluster auto-scaling, monitoring, cluster access security and workload managed identities.
 
 Also, if you liked this post, you might enjoy these related posts:
 
