@@ -1301,6 +1301,7 @@ az account list
 Verify you have the available cores quota for the minimum node count of 4 (8 cores):
 
 ```shell
+# `<account-id>` is the `id` field from the az account list output
 az quota show --resource-name standardBsv2Family --scope /subscriptions/<account-id>/providers/Microsoft.Compute/locations/eastus2
 ```
 
