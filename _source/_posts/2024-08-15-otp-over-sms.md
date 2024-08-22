@@ -176,3 +176,4 @@ Services include:
 If you rely on SMS for authentication, start thinking about how to replace it. In the meantime, use what you've learned in this post to keep your solutions as secure as possible. 
 
 For more content like this, follow Okta Developer on [Twitter](https://twitter.com/oktadev) and subscribe to our [YouTube](https://www.youtube.com/c/oktadev) channel. If you have any questions about migrating away from SMS, please comment below!
+
