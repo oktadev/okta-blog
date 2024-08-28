@@ -17,6 +17,9 @@ type: awareness
 
 - introduction
 
+In this post, you will learn the basics of automating the provisioning of a managed Kubernetes cluster on Google Kubernetes Engine, using a Standalone VPC, for deploying a Spring Boot microservices architecture generated with the JHipster framework.
+
+{% img blog/jhipster-terraform-gke/jhipster-terraform-gke.jpeg alt:"JHipster, Terraform, and GKE logos" width:"900" %}{: .center-image }
 
 > **This tutorial was created with the following tools and services**:
 > - [Java OpenJDK 21](https://jdk.java.net/java-se-ri/21)
@@ -483,6 +486,9 @@ spec:
             port:
               number: 80
 ```
+
+> **NOTE**: Although the kubernetes.io/ingress.class annotation is [deprecated](https://kubernetes.io/docs/concepts/services-networking/ingress/#deprecated-annotation) in Kubernetes, GKE continues to use this annotation.
+
 
 ### Get cluster credentials
 
