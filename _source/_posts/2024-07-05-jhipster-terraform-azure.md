@@ -58,7 +58,7 @@ jhipster jdl apps.jdl
 git clone https://github.com/oktadev/jhipster-terraform-azure
 ```
 
-Update `kubernetes/invoice-k8s/invoice-deployment.yml`, `kubernetes/product-k8s/product-deployment.yml`, and `kubernetes/store-k8s/store-deployment.yml` with your Docker Repository URI/Name instead of `indiepopart`.
+Update `kubernetes/invoice-k8s/invoice-deployment.yml`, `kubernetes/product-k8s/product-deployment.yml`, and `kubernetes/store-k8s/store-deployment.yml` with your Docker Repository URI/Name instead of `your-docker-repo`.
 
 ## Create an AKS cluster using Terraform
 
