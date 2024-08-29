@@ -3,13 +3,13 @@ layout: blog_post
 title: "Deploy Secure Spring Boot Microservices on Azure AKS Using Terraform and Kubernetes"
 author: jimena-garbarino
 by: contractor
-communities: [devops,security,java]
+communities: [devops, security, java]
 description: "Deploy a cloud-native Java Spring Boot microservice stack secured with Auth0 on Azure AKS using Terraform and Kubernetes."
 tags: []
 tweets:
-- ""
-- ""
-- ""
+  - ""
+  - ""
+  - ""
 image:
 type: awareness
 ---
@@ -23,6 +23,7 @@ In this post, you will learn the basics of automating the provisioning of a mana
 {% img blog/jhipster-terraform-azure/jhipster-terraform-azure.png alt:"JHipster, Terraform, and Azure logos" width:"900" %}{: .center-image }
 
 > **This tutorial was created with the following tools and services**:
+>
 > - [Java OpenJDK 21](https://jdk.java.net/java-se-ri/21)
 > - [Auth0 account](https://auth0.com/signup)
 > - [Auth0 CLI 1.4.0](https://github.com/auth0/auth0-cli#installation)
@@ -33,7 +34,6 @@ In this post, you will learn the basics of automating the provisioning of a mana
 > - [kubectl 1.30.1](https://kubernetes.io/docs/tasks/tools/#kubectl)
 > - [Terraform 1.8.3](https://developer.hashicorp.com/terraform/install)
 > - [jq 1.6](https://jqlang.github.io/jq/download/)
-
 
 ## Build a microservices architecture with JHipster
 
@@ -46,15 +46,19 @@ mkdir jhipster-microservice-stack
 cd jhipster-microservice-stack
 # download the JDL file.
 jhipster download https://raw.githubusercontent.com/oktadev/jhipster-terraform-azure/main/apps.jdl
+
 # Update the `dockerRepositoryName` property to use your Docker Repository URI/Name.
 # scaffold the apps.
 jhipster jdl apps.jdl
 ```
+
 **Option 2**: Clone the sample repository
 
 ```shell
 git clone https://github.com/oktadev/jhipster-terraform-azure
 ```
+
+Update `kubernetes/invoice-k8s/invoice-deployment.yml`, `kubernetes/product-k8s/product-deployment.yml`, and `kubernetes/store-k8s/store-deployment.yml` with your Docker Repository URI/Name instead of `indiepopart`.
 
 ## Create an AKS cluster using Terraform
 
@@ -70,13 +74,13 @@ Following Azure recommendations for microservices deployment, in the next sectio
 
 **Azure Application Gateway**: Load balances traffic to the web application, operating at Layer 7, using the Azure Application Gateway Ingress Controller (AGIC) as the Kubernetes ingress controller. It has the Web Application Firewall (WAF) enabled, securing incoming traffic from common web attacks and it can perform SSL termination.
 
-> **IMPORTANT NOTE**: To limit the scope of this tutorial, TLS is not configured at the Application Gateway, but keep in mind securing traffic to your application is required for production.
-
 **Azure Firewall**: the network security service protecting all network resources, only allowing approved outbound traffic, by configuring firewall rules.
 
 **Azure Container Registry**: stores private container images that can be run in the AKS cluster.
 
 **Application Gateway Ingress Controller (AGIC)**: a Kubernetes resource for leveraging the Azure Application Gateway as an external load balancer for exposing an application to the internet.
+
+> **IMPORTANT NOTE**: To limit the scope of this tutorial, TLS is not configured at the Application Gateway, but keep in mind securing traffic to your application is required for production.
 
 On to the deployment, start by creating a folder for the Terraform configuration, inspired by the [reference implementation](https://github.com/mspnp/aks-fabrikam-dronedelivery) from Azure:
 
@@ -147,10 +151,7 @@ locals {
 resource "azurerm_resource_group" "rg_hub_networks" {
   name     = local.hub_rg_name
   location = var.resource_group_location
-
-  tags = {
-    displayName = "Resource Group for Hub networks"
-  }
+  tags = { displayName = "Resource Group for Hub networks" }
 }
 
 resource "azurerm_virtual_network" "hub_vnet" {
@@ -258,8 +259,7 @@ resource "azurerm_ip_group" "aks_ip_group" {
   name                = "aks_ip_group"
   location            = azurerm_resource_group.rg_hub_networks.location
   resource_group_name = azurerm_resource_group.rg_hub_networks.name
-
-  cidrs = [var.cluster_nodes_address_space]
+  cidrs               = [var.cluster_nodes_address_space]
 }
 
 resource "azurerm_firewall_network_rule_collection" "org_wide_allow" {
@@ -268,46 +268,20 @@ resource "azurerm_firewall_network_rule_collection" "org_wide_allow" {
   resource_group_name = azurerm_resource_group.rg_hub_networks.name
   priority            = 100
   action              = "Allow"
-
   rule {
-    name = "dns"
-
-    source_addresses = [
-      "*",
-    ]
-
-    protocols = [
-      "UDP",
-    ]
-
-    destination_ports = [
-      "53",
-    ]
-
-    destination_addresses = [
-      "*",
-    ]
+    name                  = "dns"
+    source_addresses      = ["*"]
+    protocols             = ["UDP"]
+    destination_ports     = ["53"]
+    destination_addresses = ["*"]
   }
-
   rule {
-    name        = "ntp"
-    description = "Network Time Protocol (NTP) time synchronization"
-
-    source_addresses = [
-      "*",
-    ]
-
-    protocols = [
-      "UDP",
-    ]
-
-    destination_ports = [
-      "123",
-    ]
-
-    destination_addresses = [
-      "*",
-    ]
+    name                  = "ntp"
+    description           = "Network Time Protocol (NTP) time synchronization"
+    source_addresses      = ["*"]
+    protocols             = ["UDP"]
+    destination_ports     = ["123"]
+    destination_addresses = ["*"]
   }
 }
 
@@ -317,94 +291,35 @@ resource "azurerm_firewall_network_rule_collection" "aks_global_allow" {
   resource_group_name = azurerm_resource_group.rg_hub_networks.name
   priority            = 200
   action              = "Allow"
-
   rule {
-    name = "tunnel-front-pod-tcp"
-
-    source_ip_groups = [
-      azurerm_ip_group.aks_ip_group.id,
-    ]
-
-    protocols = [
-      "TCP",
-    ]
-
-    destination_ports = [
-      "22",
-      "9000"
-    ]
-
-    destination_addresses = [
-      "AzureCloud",
-    ]
+    name                  = "tunnel-front-pod-tcp"
+    source_ip_groups      = [azurerm_ip_group.aks_ip_group.id]
+    protocols             = ["TCP"]
+    destination_ports     = ["22", "9000"]
+    destination_addresses = ["AzureCloud"]
   }
-
   rule {
-    name = "tunnel-front-pod-udp"
-
-    source_ip_groups = [
-      azurerm_ip_group.aks_ip_group.id,
-    ]
-
-    protocols = [
-      "UDP",
-    ]
-
-    destination_ports = [
-      "1194",
-      "123"
-    ]
-
-    destination_addresses = [
-      "AzureCloud",
-    ]
+    name                  = "tunnel-front-pod-udp"
+    source_ip_groups      = [azurerm_ip_group.aks_ip_group.id]
+    protocols             = ["UDP"]
+    destination_ports     = ["1194", "123"]
+    destination_addresses = ["AzureCloud"]
   }
-
   rule {
-    name = "managed-k8s-api-tcp-443"
-
-    source_ip_groups = [
-      azurerm_ip_group.aks_ip_group.id,
-    ]
-
-    protocols = [
-      "TCP",
-    ]
-
-    destination_ports = [
-      "443",
-    ]
-
-    destination_addresses = [
-      "AzureCloud",
-    ]
+    name                  = "managed-k8s-api-tcp-443"
+    source_ip_groups      = [azurerm_ip_group.aks_ip_group.id]
+    protocols             = ["TCP"]
+    destination_ports     = ["443"]
+    destination_addresses = ["AzureCloud"]
   }
-
   rule {
-    name = "docker"
-
-    source_ip_groups = [
-      azurerm_ip_group.aks_ip_group.id,
-    ]
-
-    protocols = [
-      "TCP"
-    ]
-
-    destination_ports = [
-      "443"
-    ]
-
-    destination_fqdns = [
-      "docker.io",
-      "registry-1.docker.io",
-      "production.cloudflare.docker.com"
-    ]
+    name              = "docker"
+    source_ip_groups  = [azurerm_ip_group.aks_ip_group.id]
+    protocols         = ["TCP"]
+    destination_ports = ["443"]
+    destination_fqdns = ["docker.io", "registry-1.docker.io", "production.cloudflare.docker.com"]
   }
-
-  depends_on = [
-    azurerm_firewall_network_rule_collection.org_wide_allow
-  ]
+  depends_on = [azurerm_firewall_network_rule_collection.org_wide_allow]
 }
 
 resource "azurerm_firewall_application_rule_collection" "aks_global_allow" {
@@ -413,138 +328,72 @@ resource "azurerm_firewall_application_rule_collection" "aks_global_allow" {
   resource_group_name = azurerm_resource_group.rg_hub_networks.name
   priority            = 200
   action              = "Allow"
-
   rule {
-    name = "nodes-to-api-server"
-
-    source_ip_groups = [
-      azurerm_ip_group.aks_ip_group.id,
-    ]
-
-    target_fqdns = [
-      "*.hcp.eastus2.azmk8s.io",
-      "*.tun.eastus2.azmk8s.io"
-    ]
-
+    name             = "nodes-to-api-server"
+    source_ip_groups = [azurerm_ip_group.aks_ip_group.id]
+    target_fqdns     = ["*.hcp.${azurerm_resource_group.rg_hub_networks.location}.azmk8s.io", "*.tun.${azurerm_resource_group.rg_hub_networks.location}.azmk8s.io"]
     protocol {
       port = "443"
       type = "Https"
     }
   }
-
   rule {
-    name = "microsoft-container-registry"
-
-    source_ip_groups = [
-      azurerm_ip_group.aks_ip_group.id,
-    ]
-
-    target_fqdns = [
-      "*.cdn.mscr.io",
-      "mcr.microsoft.com",
-      "*.data.mcr.microsoft.com"
-    ]
-
+    name             = "microsoft-container-registry"
+    source_ip_groups = [azurerm_ip_group.aks_ip_group.id]
+    target_fqdns     = ["*.cdn.mscr.io", "mcr.microsoft.com", "*.data.mcr.microsoft.com"]
     protocol {
       port = "443"
       type = "Https"
     }
   }
-
   rule {
-    name = "management-plane"
-
-    source_ip_groups = [
-      azurerm_ip_group.aks_ip_group.id,
-    ]
-
-    target_fqdns = [
-      "management.azure.com"
-    ]
-
+    name             = "management-plane"
+    source_ip_groups = [azurerm_ip_group.aks_ip_group.id]
+    target_fqdns     = ["management.azure.com"]
     protocol {
       port = "443"
       type = "Https"
     }
   }
-
   rule {
-    name = "aad-auth"
-
-    source_ip_groups = [
-      azurerm_ip_group.aks_ip_group.id,
-    ]
-
-    target_fqdns = [
-      "login.microsoftonline.com"
-    ]
-
+    name             = "aad-auth"
+    source_ip_groups = [azurerm_ip_group.aks_ip_group.id]
+    target_fqdns     = ["login.microsoftonline.com"]
     protocol {
       port = "443"
       type = "Https"
     }
   }
-
   rule {
-    name = "apt-get"
-
-    source_ip_groups = [
-      azurerm_ip_group.aks_ip_group.id,
-    ]
-
-    target_fqdns = [
-      "packages.microsoft.com"
-    ]
-
+    name             = "apt-get"
+    source_ip_groups = [azurerm_ip_group.aks_ip_group.id]
+    target_fqdns     = ["packages.microsoft.com"]
     protocol {
       port = "443"
       type = "Https"
     }
   }
-
   rule {
-    name = "cluster-binaries"
-
-    source_ip_groups = [
-      azurerm_ip_group.aks_ip_group.id,
-    ]
-
-    target_fqdns = [
-      "acs-mirror.azureedge.net"
-    ]
-
+    name             = "cluster-binaries"
+    source_ip_groups = [azurerm_ip_group.aks_ip_group.id]
+    target_fqdns     = ["acs-mirror.azureedge.net"]
     protocol {
       port = "443"
       type = "Https"
     }
   }
-
   rule {
-    name = "ubuntu-security-patches"
-
-    source_ip_groups = [
-      azurerm_ip_group.aks_ip_group.id,
-    ]
-
-    target_fqdns = [
-      "security.ubuntu.com",
-      "azure.archive.ubuntu.com",
-      "changelogs.ubuntu.com"
-    ]
-
+    name             = "ubuntu-security-patches"
+    source_ip_groups = [azurerm_ip_group.aks_ip_group.id]
+    target_fqdns     = ["security.ubuntu.com", "azure.archive.ubuntu.com", "changelogs.ubuntu.com"]
     protocol {
       port = "80"
       type = "Http"
     }
   }
-
   rule {
-    name = "azure-monitor"
-
-    source_ip_groups = [
-      azurerm_ip_group.aks_ip_group.id,
-    ]
-
+    name             = "azure-monitor"
+    source_ip_groups = [azurerm_ip_group.aks_ip_group.id]
     target_fqdns = [
       "dc.services.visualstudio.com",
       "*.ods.opinsights.azure.com",
@@ -552,20 +401,14 @@ resource "azurerm_firewall_application_rule_collection" "aks_global_allow" {
       "*.microsoftonline.com",
       "*.monitoring.azure.com"
     ]
-
     protocol {
       port = "443"
       type = "Https"
     }
   }
-
   rule {
-    name = "azure-policy"
-
-    source_ip_groups = [
-      azurerm_ip_group.aks_ip_group.id,
-    ]
-
+    name             = "azure-policy"
+    source_ip_groups = [azurerm_ip_group.aks_ip_group.id]
     target_fqdns = [
       "gov-prod-policy-data.trafficmanager.net",
       "raw.githubusercontent.com",
@@ -573,45 +416,26 @@ resource "azurerm_firewall_application_rule_collection" "aks_global_allow" {
       "data.policy.core.windows.net",
       "store.policy.core.windows.net"
     ]
-
     protocol {
       port = "443"
       type = "Https"
     }
   }
-
   rule {
-    name = "azure-kubernetes-service"
-
-    source_ip_groups = [
-      azurerm_ip_group.aks_ip_group.id,
-    ]
-
-    fqdn_tags = [
-      "AzureKubernetesService"
-    ]
+    name             = "azure-kubernetes-service"
+    source_ip_groups = [azurerm_ip_group.aks_ip_group.id]
+    fqdn_tags        = ["AzureKubernetesService"]
   }
-
   rule {
-    name = "auth0"
-
-    source_ip_groups = [
-      azurerm_ip_group.aks_ip_group.id,
-    ]
-
-    target_fqdns = [
-      "*.auth0.com"
-    ]
-
+    name             = "auth0"
+    source_ip_groups = [azurerm_ip_group.aks_ip_group.id]
+    target_fqdns     = ["*.auth0.com"]
     protocol {
       port = "443"
       type = "Https"
     }
   }
-
-  depends_on = [
-    azurerm_firewall_network_rule_collection.aks_global_allow
-  ]
+  depends_on = [azurerm_firewall_network_rule_collection.aks_global_allow]
 }
 ```
 
@@ -645,7 +469,6 @@ locals {
 resource "azurerm_resource_group" "rg_spoke_networks" {
   name     = local.spoke_rg_name
   location = var.resource_group_location
-
   tags = {
     displayName = "Resource Group for Spoke networks"
   }
@@ -669,7 +492,6 @@ resource "azurerm_route_table" "spoke_route_table" {
   name                = "route-spoke-to-hub"
   location            = azurerm_resource_group.rg_spoke_networks.location
   resource_group_name = azurerm_resource_group.rg_spoke_networks.name
-
   route {
     name                   = "r-nexthop-to-fw"
     address_prefix         = "0.0.0.0/0"
@@ -693,7 +515,6 @@ resource "azurerm_subnet" "application_gateways_subnet" {
   resource_group_name  = azurerm_resource_group.rg_spoke_networks.name
   virtual_network_name = azurerm_virtual_network.spoke_vnet.name
   address_prefixes     = [var.application_gateways_address_space]
-
 }
 
 resource "azurerm_public_ip" "spoke_pip" {
@@ -804,11 +625,7 @@ resource "azurerm_virtual_network_peering" "spoke_to_hub_peer" {
   virtual_network_name      = azurerm_virtual_network.spoke_vnet.name
   remote_virtual_network_id = var.hub_vnet_id
   allow_forwarded_traffic   = true
-
-  depends_on = [
-    var.hub_vnet_id,
-    azurerm_virtual_network.spoke_vnet
-  ]
+  depends_on = [ var.hub_vnet_id, azurerm_virtual_network.spoke_vnet ]
 }
 
 resource "azurerm_virtual_network_peering" "hub_to_spoke_peer" {
@@ -816,11 +633,7 @@ resource "azurerm_virtual_network_peering" "hub_to_spoke_peer" {
   resource_group_name       = var.hub_rg_name
   virtual_network_name      = var.hub_vnet_name
   remote_virtual_network_id = azurerm_virtual_network.spoke_vnet.id
-
-  depends_on = [
-    var.hub_vnet_id,
-    azurerm_virtual_network.spoke_vnet
-  ]
+  depends_on = [ var.hub_vnet_id, azurerm_virtual_network.spoke_vnet ]
 }
 
 resource "azurerm_private_dns_zone" "dns_zone_acr" {
@@ -918,60 +731,6 @@ resource "azurerm_application_gateway" "gateway" {
 
 ### Configure an Azure Kubernetes Cluster
 
-Create a module for the Azure Container Registry (ACR) configuration:
-
-```shell
-cd modules
-mkdir acr
-cd acr
-touch main.tf
-touch outputs.tf
-touch variables.tf
-```
-
-Edit `main.tf` and add the following content:
-
-```terraform
-# terraform/modules/acr/main.tf
-resource "azurerm_container_registry" "acr" {
-  name                = var.acr_name
-  resource_group_name = var.resource_group_name
-  location            = var.resource_group_location
-  sku                 = "Premium"
-
-  tags = {
-    displayName = "Container Registry"
-  }
-}
-```
-
-Edit `outputs.tf` and add the following content:
-
-```terraform
-# terraform/modules/acr/outputs.tf
-output "acr_id" {
-  value = azurerm_container_registry.acr.id
-}
-```
-
-Edit `variables.tf` and add the following content:
-
-```terraform
-# terraform/modules/acr/variables.tf
-variable "acr_name" {
-  description = "The name of the Azure Container Registry."
-  default     = "jhipsteracr"
-}
-
-variable "resource_group_location" {
-  description = "The location of the resource group"
-}
-
-variable "resource_group_name" {
-  description = "The name of the resource group"
-}
-```
-
 Create a module for the Azure Kubernetes Service (AKS) configuration:
 
 ```shell
@@ -1022,16 +781,13 @@ resource "azurerm_kubernetes_cluster" "k8s" {
   dns_prefix                = random_pet.azurerm_kubernetes_cluster_name.id
   oidc_issuer_enabled       = true
   workload_identity_enabled = true
-
   tags = {
     displayName = "Kubernetes Cluster"
   }
 
   identity {
     type = "UserAssigned"
-    identity_ids = [
-      azurerm_user_assigned_identity.cluster_control_plane_identity.id
-    ]
+    identity_ids = [ azurerm_user_assigned_identity.cluster_control_plane_identity.id ]
   }
 
   default_node_pool {
@@ -1096,10 +852,6 @@ variable "node_count" {
   default     = 4
 }
 
-variable "acr_id" {
-  description = "The id of the Azure Container Registry"
-}
-
 variable "vnet_subnet_id" {
   description = "The id of the subnet"
 }
@@ -1123,12 +875,6 @@ Edit `role_assignment.tf` and add the following content:
 
 ```terraform
 # terraform/modules/cluster/role_assignment.tf
-resource "azurerm_role_assignment" "cluster_identity_acrpull_role_assignment" {
-  scope                = var.acr_id
-  role_definition_name = "AcrPull"
-  principal_id         = azurerm_kubernetes_cluster.k8s.kubelet_identity[0].object_id
-}
-
 resource "azurerm_role_assignment" "cluster_nodepool_role_assignment" {
   scope                = azurerm_kubernetes_cluster.k8s.node_resource_group_id
   role_definition_name = "Virtual Machine Contributor"
@@ -1178,7 +924,7 @@ resource "azurerm_role_assignment" "ingress_rg_role_assignment" {
 }
 ```
 
-### Provision the cluster
+### Add the Terraform Module Configurations
 
 Add references to the modules in the main configuration file `terraform/main.tf`, setting the following content:
 
@@ -1191,13 +937,6 @@ resource "azurerm_resource_group" "rg_ecommerce" {
   tags = {
     displayName = "Resource Group for general purpose"
   }
-}
-
-module "acr" {
-  source = "./modules/acr"
-
-  resource_group_name     = azurerm_resource_group.rg_ecommerce.name
-  resource_group_location = azurerm_resource_group.rg_ecommerce.location
 }
 
 module "hub_network" {
@@ -1218,9 +957,7 @@ module "spoke_network" {
   hub_vnet_name               = module.hub_network.hub_vnet_name
   hub_rg_name                 = module.hub_network.hub_rg_name
 
-  depends_on = [
-    module.hub_network
-  ]
+  depends_on = [ module.hub_network ]
 }
 
 module "cluster" {
@@ -1229,16 +966,11 @@ module "cluster" {
   resource_group_location = module.spoke_network.spoke_rg_location
   resource_group_name     = module.spoke_network.spoke_rg_name
   resource_group_id       = module.spoke_network.spoke_rg_id
-  acr_id                  = module.acr.acr_id
   vnet_subnet_id          = module.spoke_network.cluster_nodes_subnet_id
   application_gateway_id  = module.spoke_network.application_gateway_id
   spoke_pip_id            = module.spoke_network.spoke_pip_id
 
-  depends_on = [
-    module.spoke_network,
-    module.hub_network,
-    module.acr
-  ]
+  depends_on = [ module.spoke_network, module.hub_network ]
 }
 ```
 
@@ -1287,7 +1019,10 @@ variable "host_name" {
   default     = "store.example.com"
 }
 ```
-> **CHOOSING A REGION**: In this example, multiple resources have availability zones requirements. The default region in `resource_group_location` is _eastus2_. You can choose a different region, but make sure it has [availability zones support](https://learn.microsoft.com/en-us/azure/reliability/availability-zones-service-support#azure-regions-with-availability-zone-support).  
+
+### Provision the cluster
+
+In this example, multiple resources have availability zones requirements. The default region in `resource_group_location` is _eastus2_. You can choose a different region, but make sure it has [availability zones support](https://learn.microsoft.com/en-us/azure/reliability/availability-zones-service-support#azure-regions-with-availability-zone-support).
 
 With the Terraform configuration ready, ensure the Azure CLI has an active subscription with the following line:
 
@@ -1296,18 +1031,25 @@ az account list
 ```
 
 > **IMPORTANT NOTE**
-> For this demo, the selected VM size is __Standard_B2s_v2__, and the deployed architecture requires a **minimum node count of 4**. The architecture will not run under the Azure free account, so please don't forget to delete the architecture after the test to avoid unwanted costs.
+> For this demo, the selected VM size is **Standard_B2s_v2**, and the deployed architecture requires a **minimum node count of 4**. The architecture will not run under the Azure free account, you need to upgrade to at least a [basic plan of the pay-as-you-go subscription](https://learn.microsoft.com/en-us/azure/cost-management-billing/manage/upgrade-azure-subscription#upgrade-your-azure-free-account), so please don't forget to delete the architecture after the test to avoid unwanted costs.
+
+Register required resource providers. It may take a few minutes to complete. You can refer the [Azure CLI docs](https://learn.microsoft.com/en-us/azure/azure-resource-manager/troubleshooting/error-register-resource-provider?tabs=azure-cli) for more details.
+
+```shell
+az provider register --namespace Microsoft.Quota
+```
 
 Verify you have the available cores quota for the minimum node count of 4 (8 cores):
 
+> **Note**: `<account-id>` is the `id` field from the `az account list` command output.
+
 ```shell
-# `<account-id>` is the `id` field from the az account list output
 az quota show --resource-name standardBsv2Family --scope /subscriptions/<account-id>/providers/Microsoft.Compute/locations/eastus2
 ```
 
-> **QUOTA REQUESTS**: While writing this post, for some regions, quota requests were denied without reason. An alternate region was suggested by support team, for which the quota request succeeded. You can send quota requests through the Azure [portal](https://portal.azure.com/#view/Microsoft_Azure_Capacity/QuotaMenuBlade/~/myQuotas).
+> **QUOTA REQUESTS**: If the 'properties.limit.value' in the output is not 8, you have to request an increase in quota. Go to the Azure [portal](https://portal.azure.com/#view/Microsoft_Azure_Capacity/QuotaMenuBlade/~/myQuotas) and filter by the region and then find 'Standard Bsv2 Family vCPUs' using the search field. Open the entry and click the 'New Quota Request' button. Enter '8' as the new limit and submit. While writing this post, for some regions, quota requests were denied without reason. An alternate region was suggested by support team, for which the quota request succeeded.
 
-Terraform teams recommends [authenticating the Azure Provider](https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/guides/azure_cli) using the Azure CLI when running Terraform locally. Next, initialize the Terraform workspace and plan the changes:
+Terraform teams recommends [authenticating the Azure Provider](https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/guides/azure_cli) using the Azure CLI when running Terraform locally. You should be logged in from the previous steps. Next, initialize the Terraform workspace and plan the changes:
 
 ```shell
 cd terraform
@@ -1333,13 +1075,20 @@ kubernetes_cluster_name = "cluster-helping-terrier"
 resource_group_name = "rg-ecommerce-eastus2"
 spoke_pip = "4.153.103.124"
 ```
+
+> **IMPORTANT NOTE**
+> If you encounter en error `Error: creating Kubernetes Cluster` that has the error code `SkuNotAvailable`, it means that the selected VM size is not available in the selected region.
+> Run `az vm list-skus --size Standard_B2s_v2 --all --output table` to see all regions availability and choose a region that has `Restrictions: None`.
+> Repeat the quota request process for that region.
+> Run `terraform destroy` to delete current state and once its complete, update the `resource_group_location` variable in `terraform/variables.tf` and re-run the `terraform apply` command.
+
 For `kubectl` commands, run the following Azure CLI option for retrieving the cluster credentials:
 
 ```shell
-az aks get-credentials --resource-group rg-spokes-eastus2 --name <kubernetes_cluster_name> --admin
+az aks get-credentials --resource-group rg-spokes-<resource_group_location> --name <kubernetes_cluster_name> --admin
 ```
 
-Then check the cluster details with `kdash` or `kubectl get nodes`.
+Then check the cluster details with [`kdash`](https://github.com/kdash-rs/kdash) or `kubectl get nodes`.
 
 ```
 AME                                STATUS   ROLES    AGE     VERSION
@@ -1381,6 +1130,7 @@ Find out the Auth0 Management API _id_ and _identifier_:
 ```shell
 auth0 apis list
 ```
+
 Set the id and identifier as environment variables:
 
 ```shell
@@ -1413,8 +1163,6 @@ terraform {
       version = "~> 0.49.0"
     }
     ...
-  }
-
   }
 }
 ```
@@ -1542,10 +1290,11 @@ terraform init
 terraform apply
 ```
 
-Note the `auth0_webapp_client_id` from the output and get the `auth0_webapp_client_secret` with:
+Get the `client-id` and `client-secret` with:
 
 ```shell
 terraform output auth0_webapp_client_secret
+terraform output auth0_webapp_client_id
 ```
 
 Update `kubernetes/registry-k8s/application-configmap.yml` with the Spring Security OIDC configuration using those values. This configuration is loaded into Consul, and it shares the values with the gateway and microservices.
@@ -1623,15 +1372,15 @@ metadata:
 spec:
   ingressClassName: azure-application-gateway
   rules:
-  - http:
-      paths:
-      - path: /
-        backend:
-          service:
-            name: store
-            port:
-              number: 80
-        pathType: Exact
+    - http:
+        paths:
+          - path: /
+            backend:
+              service:
+                name: store
+                port:
+                  number: 8080
+            pathType: Exact
 ```
 
 > **IMPORTANT NOTE:** This tutorial does not cover securing secrets, and the Azure recommended microservices architecture uses the Azure Key Vault for secrets storage and management.
@@ -1643,6 +1392,8 @@ You need to build Docker images for each app. This is specific to the JHipster a
 ```shell
 ./gradlew bootJar -Pprod jib -Djib.to.image=<docker-repo-uri-or-name>/<image-name>
 ```
+
+> **Note**: `<image-name>` would be same as the folder name of the app.
 
 ### Deploy the microservices to AKS
 
@@ -1657,14 +1408,20 @@ With `kdash`, check the pods status in the `jhipster` namespace:
 
 {% img blog/jhipster-terraform-azure/kdash.png alt:"Pod status with kdash" width:"900" %}{: .center-image }
 
-As the Azure Application Gateway requires the inbound traffic to be for the host `store.example.com`, you can test the store service by adding an entry in your _hosts_ file that maps to the gateway public IP:
+As the Azure Application Gateway requires the inbound traffic to be for the host `store.example.com`, you can test the store service by adding an entry in your _/etc/hosts_ file that maps to the gateway public IP. Get the public IP of the Azure Application Gateway with:
 
 ```shell
 cd terraform
 terraform output spoke_pip
 ```
 
-Then navigate to `http://store.example.com` and sign in at Atuh0 with the test user/password jhipster@test.com/passpass$12$12. The authentication flow will redirect back to the application home:
+Edit the _/etc/hosts_ file and add the following line:
+
+```
+<spoke_pip> store.example.com
+```
+
+Then navigate to `http://store.example.com` and sign in at Auth0 with the test user/password `jhipster@test.com/passpass$12$12`. The authentication flow will redirect back to the application home:
 
 {% img blog/jhipster-terraform-azure/jhipster-application.png alt:"Store application home" width:"900" %}{: .center-image }
 
