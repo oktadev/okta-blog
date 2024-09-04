@@ -86,7 +86,7 @@ When using DPoP, the client creates a "proof" using asymmetric encryption. The D
 
 A sequence diagram for the OAuth 2.0 Authorization Code flow with DPoP looks like this.
 
-{% img blog/dpop-oauth/token-request.svg alt:"Sequence diagram where client redirects to authorization server for user challenge. The authorization server redirects back to the client with the authorization code. The client generates a public/private key and creates the DPoP proof. The client sends the DPoP proof in the token request. The authorization server returns an access token bound to the DPoP proof." width:"800" %}{ .center-image }
+{% img blog/dpop-oauth/token-request.svg alt:"Sequence diagram where client redirects to authorization server for user challenge. The authorization server redirects back to the client with the authorization code. The client generates a public/private key and creates the DPoP proof. The client sends the DPoP proof in the token request. The authorization server returns an access token bound to the DPoP proof." width:"800" %}
 
 {% comment %}
 Tweak the diagram on https://mermaid.live/ with the following content
@@ -167,7 +167,7 @@ An example of a highly secure request is when making the initial token request. 
 
 When the authorization server's `/token` request requires a nonce, the server rejects the request and returns an error. The response includes a new header type, `DPoP-Nonce`, with the nonce value, and a new standard error message, `use_dpop_nonce`. The flow for requesting tokens now looks like this:
 
-{% img blog/dpop-oauth/token-request-with-nonce.svg alt:"Sequence diagram where client redirects to authorization server for user challenge. The authorization server redirects back to the client with the authorization code. The client generates a public/private key and creates the DPoP proof. The client sends the DPoP proof in the token request. The authorization server rejects the request and returns a nonce. The client regenerates the proof with nonce incorporated and re-requests the tokens. The authorization server returns an access token bound to the DPoP proof." width:"800" %}{ .center-image }
+{% img blog/dpop-oauth/token-request-with-nonce.svg alt:"Sequence diagram where client redirects to authorization server for user challenge. The authorization server redirects back to the client with the authorization code. The client generates a public/private key and creates the DPoP proof. The client sends the DPoP proof in the token request. The authorization server rejects the request and returns a nonce. The client regenerates the proof with nonce incorporated and re-requests the tokens. The authorization server returns an access token bound to the DPoP proof." width:"800" %}
 
 {% comment %}
 Tweak the diagram on https://mermaid.live/ with the following content
