@@ -10,7 +10,7 @@ image: blog/dpop-oauth/social.jpg
 type: awareness
 ---
 
-We use access tokens to request data and perform actions within our software systems. The client application sends a bearer token to the resource server. The resource server checks the validity of the access token before acting upon the HTTP request. What happens if the requesting party is malicious, steals your token, and makes a fraudulent API call? Would the resource server honor the HTTP request? If you use a bearer token, the answer is "Yes." 
+We use access tokens to request data and perform actions within our software systems. The client application sends a bearer token to the resource server. The resource server checks the validity of the access token before acting upon the HTTP request. What happens if the requesting party is malicious, steals your token, and makes a fraudulent API call? Would the resource server honor the HTTP request? If you use a bearer token, the answer is "yes." 
 
 My teammate wrote that an access token is like a hotel room keycard. If you have a valid keycard, anyone can use it to access the room. If you have a valid access token, anyone can use it to access a resource server.
 
@@ -84,7 +84,7 @@ Store the keys in a storage format that someone can't export and guard the app a
 
 When using DPoP, the client creates a "proof" using asymmetric encryption. The DPoP proof is a JWT, which includes the URI, the HTTP method of the request, and the public key. The client application requests tokens from the authorization server and includes the proof as part of the request. The authorization server binds a public key hash and the HTTP request information from the DPoP proof within the access token it returns to the client. This means the access token is only valid for the specific HTTP request.
 
-A sequence diagram for the OAuth 2.0 Authorization Code flow with DPoP looks like this.
+A sequence diagram for the OAuth 2.0 Authorization Code flow with DPoP looks like this:
 
 {% img blog/dpop-oauth/token-request.svg alt:"Sequence diagram where client redirects to authorization server for user challenge. The authorization server redirects back to the client with the authorization code. The client generates a public/private key and creates the DPoP proof. The client sends the DPoP proof in the token request. The authorization server returns an access token bound to the DPoP proof." width:"800" %}
 
