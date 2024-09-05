@@ -6,7 +6,7 @@ by: advocate
 communities: [security, javascript]
 description: "Elevate access token security by demonstrating proof of possession (DPoP). Migrate a SPA to use DPoP in this hands-on project."
 tags: [angular, react, vue, spa, authorization]
-image:
+image: blog/angular-dpop-jwt/social.jpg
 type: conversion
 github: https://github.com/oktadev/okta-angular-dpop-example
 ---
