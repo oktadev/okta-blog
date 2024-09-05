@@ -82,11 +82,11 @@ Store the keys in a storage format that someone can't export and guard the app a
 
 ## Incorporating DPoP into OAuth 2.0 token requests
 
-When using DPoP, the client creates a "proof" using asymmetric encryption. The DPoP proof is a JWT, which includes the URI, the HTTP method of the request, and the public key. The client application requests tokens from the authorization server and includes the proof as part of the request. The authorization server binds a public key hash and the HTTP request information from the DPoP proof within the access token it returns to the client. This means the access token is only valid for the specific HTTP request.
+When using DPoP, the client creates a "proof" using asymmetric encryption. The proof is a JWT, which includes the URI, the HTTP method of the request, and the public key. The client application requests tokens from the authorization server and includes the proof as part of the request. The authorization server binds a public key hash and the HTTP request information from the proof within the access token it returns to the client. This means the access token is only valid for the specific HTTP request.
 
 A sequence diagram for the OAuth 2.0 Authorization Code flow with DPoP looks like this:
 
-{% img blog/dpop-oauth/token-request.svg alt:"Sequence diagram where client redirects to authorization server for user challenge. The authorization server redirects back to the client with the authorization code. The client generates a public/private key and creates the DPoP proof. The client sends the DPoP proof in the token request. The authorization server returns an access token bound to the DPoP proof." width:"800" %}
+{% img blog/dpop-oauth/token-request.svg alt:"Sequence diagram where client redirects to authorization server for user challenge. The authorization server redirects back to the client with the authorization code. The client generates a public/private key and creates the DPoP proof. The client sends the proof in the token request. The authorization server returns an access token bound to the proof." width:"800" %}
 
 {% comment %}
 Tweak the diagram on https://mermaid.live/ with the following content
@@ -105,12 +105,12 @@ The proof contains metadata proving the sender and ways to limit unauthorized us
  * The public/private key encryption algorithm
  * The public key in [JSON Web Key (JWK)](https://www.rfc-editor.org/rfc/rfc7517) format
 
-Inspecting the decoded DPoP proof JWT's payload shows claims that limit unauthorized use, such as:
+Inspecting the decoded proof's payload shows claims that limit unauthorized use, such as:
  * HTTP request info including the URI and HTTP method (such as `https://{yourOktaDomain}/oauth2/v1/token` and `POST`)
  * Issue time to limit the validity window for the proof
  * An identifier that's unique within the validity window to mitigate replay attacks
 
-Let's inspect the `/token` request a little further. When making the request, the client adds the DPoP proof in the header. The rest of the request, including the grant type and the code itself, remains the same for the Authorization Code flow.
+Let's inspect the `/token` request a little further. When making the request, the client adds the proof in the header. The rest of the request, including the grant type and the code itself, remains the same for the Authorization Code flow.
 
 ```http
 POST https://{yourOktaDomain}/oauth2/v1/token HTTP/1.1
@@ -122,7 +122,7 @@ grant_type=authorization_code
 code=XGa_U6toXP0Rvc.....SnHO6bxX0ikK1ss-nA
 ```
 
-The authorization server decodes the DPoP proof JWT and incorporates properties from the JWT into the access token. The authorization server responds to the `/token` request with the token and explicitly sets the response header to state the token type as `DPoP`.
+The authorization server decodes the proof and incorporates properties from the JWT into the access token. The authorization server responds to the `/token` request with the token and explicitly sets the response header to state the token type as `DPoP`.
 
 ```http
 HTTP/1.1 200 OK
@@ -140,9 +140,9 @@ You now have a DPoP type access token with a possession proof. What changes when
 
 ## Use DPoP-bound access tokens in HTTP requests
 
-DPoP tokens are no longer bearer tokens; the token is now "sender-constrained." The sender, the client application calling the resource server, must have both the access token and a valid DPoP proof, which requires the private key held by the client. This means malicious sorts need both pieces of information to impersonate calls into the server. The spec builds in constraints even if a malicious sort steals the token and the proof. The proof limits the call to a unique request for the URI and method within a validity window. Plus, your application system still has the defensive web security measures applicable to all web apps, preventing the leaking of sensitive data such as tokens and keysets. 
+DPoP tokens are no longer bearer tokens; the token is now "sender-constrained." The sender, the client application calling the resource server, must have both the access token and a valid proof, which requires the private key held by the client. This means malicious sorts need both pieces of information to impersonate calls into the server. The spec builds in constraints even if a malicious sort steals the token and the proof. The proof limits the call to a unique request for the URI and method within a validity window. Plus, your application system still has the defensive web security measures applicable to all web apps, preventing the leaking of sensitive data such as tokens and keysets. 
 
-The client generates a new DPoP proof for each HTTP request and adds a new property, a hash of the access token. The hash further binds the proof to the access token itself, adding another layer of sender constraint. The proof's payload now includes:
+The client generates a new proof for each HTTP request and adds a new property, a hash of the access token. The hash further binds the proof to the access token itself, adding another layer of sender constraint. The proof's payload now includes:
  * HTTP request info including the URI and HTTP method (such as `https://{yourResourceServer}/resource` and `GET`)
  * Issue time to limit the validity window for the proof
  * An identifier that's unique within the validity window to mitigate replay attacks
@@ -157,17 +157,17 @@ Authorization: DPop eyJhbG1NiIsPOk.....6yJV_adQssw5c
 DPoP: eyJhbGciOiJIUzI1.....-DZQ1NI8V-OG4g
 ```
 
-The resource server verifies the validity of the access token and the DPoP proof before responding with the requested resource. 
+The resource server verifies the validity of the access token and the proof before responding with the requested resource. 
 
 ## Extend the DPoP flow with an enhanced security handshake
 
-DPoP optionally defines an enhanced handshake mechanism for calls requiring extra security measures. The client _could_ sneakily create proofs for future use by setting the issued time in advance, but the authorization and resource servers can wield their weapon, the nonce. The nonce is an opaque value the server creates to limit the request's lifetime. If the client makes a high-security request, the authorization or resource server may issue a nonce that the client incorporates within the DPoP proof. Doing so binds the specific request and time of the request to the server.
+DPoP optionally defines an enhanced handshake mechanism for calls requiring extra security measures. The client _could_ sneakily create proofs for future use by setting the issued time in advance, but the authorization and resource servers can wield their weapon, the nonce. The nonce is an opaque value the server creates to limit the request's lifetime. If the client makes a high-security request, the authorization or resource server may issue a nonce that the client incorporates within the proof. Doing so binds the specific request and time of the request to the server.
 
 An example of a highly secure request is when making the initial token request. Okta follows this pattern. Different industries may apply guidance and rules for the types of resource server requests requiring a nonce. Since the enhancement requires an extra HTTP request, use it minimally.
 
 When the authorization server's `/token` request requires a nonce, the server rejects the request and returns an error. The response includes a new header type, `DPoP-Nonce`, with the nonce value, and a new standard error message, `use_dpop_nonce`. The flow for requesting tokens now looks like this:
 
-{% img blog/dpop-oauth/token-request-with-nonce.svg alt:"Sequence diagram where client redirects to authorization server for user challenge. The authorization server redirects back to the client with the authorization code. The client generates a public/private key and creates the DPoP proof. The client sends the DPoP proof in the token request. The authorization server rejects the request and returns a nonce. The client regenerates the proof with nonce incorporated and re-requests the tokens. The authorization server returns an access token bound to the DPoP proof." width:"800" %}
+{% img blog/dpop-oauth/token-request-with-nonce.svg alt:"Sequence diagram where client redirects to authorization server for user challenge. The authorization server redirects back to the client with the authorization code. The client generates a public/private key and creates the proof. The client sends the proof in the token request. The authorization server rejects the request and returns a nonce. The client regenerates the proof with nonce incorporated and re-requests the tokens. The authorization server returns an access token bound to the proof." width:"800" %}
 
 {% comment %}
 Tweak the diagram on https://mermaid.live/ with the following content
@@ -204,18 +204,18 @@ DPoP-Nonce: server-generated-nonce-value
 WWW-Authenticate: error="use_dpop_nonce", error_description="Resource server requires nonce in DPoP proof"
 ```
 
-We want that resource, so it's time for a new proof! The client reacts to the error and generates a new DPoP proof with the following info in the payload:
+We want that resource, so it's time for a new proof! The client reacts to the error and generates a new proof with the following info in the payload:
  * HTTP request info including the URI and HTTP method (such as `https://{yourResourceServer}/resource` and `GET`)
  * Issue time to limit the validity window for the proof
  * An identifier that's unique within the validity window to mitigate replay attacks
  * The server-provided nonce value
  * Hash of the access token
 
-With this new DPoP proof, the client can remake the request.
+With this new proof, the client can remake the request.
 
 ## Validate DPoP requests in the resource server
 
-Okta's API resources support DPoP-enabled requests. If you want to add DPoP support to your own resource server, you must validate the request. You'll decode the DPoP proof to verify the properties in the header and payload sections of the JWT. You'll also need to verify properties within the access token. OAuth 2.0 access tokens can be opaque, so use your authorization server's `/introspect` endpoint to get token properties. Okta's API security guide, [Configure OAuth 2.0 Demonstrating Proof-of-Possession](https://developer.okta.com/docs/guides/dpop/nonoktaresourceserver/main/#make-a-request-to-a-non-okta-resource) has a step-by-step guide on validating DPoP tokens, but you should use a well-maintained and vetted OAuth 2.0 library to do this for you instead. Finally, enforce any application-defined access control measures before returning a response.
+Okta's API resources support DPoP-enabled requests. If you want to add DPoP support to your own resource server, you must validate the request. You'll decode the proof to verify the properties in the header and payload sections of the JWT. You'll also need to verify properties within the access token. OAuth 2.0 access tokens can be opaque, so use your authorization server's `/introspect` endpoint to get token properties. Okta's API security guide, [Configure OAuth 2.0 Demonstrating Proof-of-Possession](https://developer.okta.com/docs/guides/dpop/nonoktaresourceserver/main/#make-a-request-to-a-non-okta-resource) has a step-by-step guide on validating DPoP tokens, but you should use a well-maintained and vetted OAuth 2.0 library to do this for you instead. Finally, enforce any application-defined access control measures before returning a response.
 
 ## Learn more about OAuth 2.0, Demonstrating Proof-of-Possession, and secure token practices
 
