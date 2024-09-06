@@ -13,7 +13,7 @@ github: https://github.com/oktadev/okta-angular-dpop-example
 
 In OAuth, a valid access token grants the caller access to resources and the ability to perform actions on the resources. This means the access token is powerful and dangerous if it falls into malicious hands. The traditional bearer token scheme means the token grants anyone who possesses it access. A new OAuth 2.0 extension specification, [Demonstrating Proof of Possession (DPoP)](https://www.rfc-editor.org/rfc/rfc9449), defines a standard way that binds the access token to the OAuth client sending the request, elevating access token security. 
 
-The high-level overview of DPoP uses public/private keys to create a signed DPoP proof that the authorization and resource server use to confirm the authenticity of the request and requesting client. This way, the token is sender-constrained, and a token thief can less use a compromised access token. Learn more about the problems DPoP solves and how it works by reading:
+The high-level overview of DPoP uses public/private keys to create a signed DPoP proof that the authorization and resource server use to confirm the authenticity of the request and requesting client. This way, the token is sender-constrained, and a token thief is less likely to use a compromised access token. Learn more about the problems DPoP solves and how it works by reading:
 
 {% excerpt /blog/2024/09/05/dpop-oauth %}
 
@@ -49,7 +49,7 @@ You'll need the following tools:
 
 ## Get the starting Angular, React, or Vue project
 
-You'll use a starter project. The instructions are for the Angular sample project. If you are following along in [React](https://github.com/okta-samples/okta-react-sample) or [Vue](https://github.com/okta-samples/okta-vue-sample), replace the GitHub repo location with the URL for the sample you're using. 
+You'll use a starter project. These instructions are for the Angular sample project. If you are following along in [React](https://github.com/okta-samples/okta-react-sample) or [Vue](https://github.com/okta-samples/okta-vue-sample), replace the GitHub repo location with the URL for the sample you're using. 
 
 Open a terminal window and run the following commands to get a local copy of the project in an `okta-client-dpop-project` directory and install dependencies. Feel free to fork the repo so you can track your changes.
 
@@ -141,7 +141,7 @@ The entity holding the token can legitimately request resources. Let's try using
 
 > **Note**
 >
-> Access tokens expire quickly. If too much time passes in these next steps, you may get a `401 Unauthorized`. If you do, repeat the steps with a more recent access token by navigating between the profile and user routes to trigger a call to the API. It prompts the OIDC client, the Okta Auth JS SDK, to update expired tokens.
+> Access tokens expire quickly. If too much time passes in these next steps, you may get a `401 Unauthorized`. If you do, repeat the steps with a more recent access token by navigating between the profile and user routes to trigger a call to the API. It prompts the OIDC client (the Okta Auth JS SDK) to update expired tokens.
 
 Copy the token from the browser, and double-check you captured the entire token. Open your HTTP client and run the following HTTP request replacing `{yourOktaDomain}` and `{yourAccessToken}`:
 
@@ -175,7 +175,7 @@ All web applications must use secure coding techniques to protect from attacks, 
 
 {% excerpt /blog/2022/07/06/spa-web-security %}
 
-It doesn't matter if your application uses bearer tokens or DPoP; apps must employ secure coding practices. DPoP doesn't prevent attackers from stealing your token but constrains its use. DPoP uses asymmetric encryption to prove token ownership, so you must avoid exfiltration or unauthorized use of the keyset. If an attacker gets a hold of the private key, they can create valid proofs.
+It doesn't matter if your application uses bearer tokens or DPoP; apps must employ secure coding practices. DPoP doesn't prevent attackers from stealing your token but constrains its use. DPoP uses asymmetric encryption to prove token ownership, so you must avoid exfiltration or unauthorized use of the keyset. If an attacker gets a hold of the private key they can create valid proofs.
 
 Let's migrate the application to DPoP and try making these HTTP requests again.
 
