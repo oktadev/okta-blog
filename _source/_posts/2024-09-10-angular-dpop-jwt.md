@@ -11,13 +11,13 @@ type: conversion
 github: https://github.com/oktadev/okta-angular-dpop-example
 ---
 
-In OAuth, a valid access token grants the caller access to resources and the ability to perform actions on the resources. This means the access token is powerful and dangerous if it falls into malicious hands. The traditional bearer token scheme means the token grants anyone who possesses it access. A new OAuth 2.0 extension specification, [Demonstrating Proof of Possession (DPoP)](https://www.rfc-editor.org/rfc/rfc9449), defines a standard way that binds the access token to the OAuth client sending the request, elevating access token security. 
+In OAuth, a valid access token grants the caller access to resources and the ability to perform actions on the resources. This means the access token is powerful and dangerous if it falls into malicious hands. The traditional bearer token scheme means the token grants anyone who possesses it access. A new OAuth 2.0 extension specification, [Demonstrating Proof of Possession (DPoP)](https://www.rfc-editor.org/rfc/rfc9449), defines a standard way that binds the access token to the OAuth client sending the request elevating access token security. 
 
 The high-level overview of DPoP uses public/private keys to create a signed DPoP proof that the authorization and resource server use to confirm the authenticity of the request and requesting client. This way, the token is sender-constrained, and a token thief is less likely to use a compromised access token. Learn more about the problems DPoP solves and how it works by reading:
 
 {% excerpt /blog/2024/09/05/dpop-oauth %}
 
-The primary use case for DPoP is for public clients, the applications where authentication code runs within the end user's browser, such as Single-Page Applications (SPA) and mobile apps. Due to their architecture, public clients inherently have higher risk and less security in authentication and authorization. Public clients can't leverage a client secret used by application types that can communicate to the authorization server through a "back-channel," a network connection opaque to users, network sniffing attackers, and nosy developers. Without proper protection, a SPA may store tokens accessible to the end-user and injection-related attacks. DPoP adds an extra protection layer that makes tokens less usable if stolen.
+The primary use case for DPoP is for public clients, but the spec elevates token security for all OAuth client types. Public clients are applications where authentication code runs within the end user's browser, such as Single-Page Applications (SPA) and mobile apps. Due to their architecture, public clients inherently have higher risk and less security in authentication and authorization. Public clients can't leverage a client secret used by application types that can communicate to the authorization server through a "back-channel," a network connection opaque to users, network sniffing attackers, and nosy developers. Without proper protection, a SPA may store tokens accessible to the end-user and injection-related attacks. DPoP adds an extra protection layer that makes tokens less usable if stolen.
 
 **Table of Contents**{: .hide }
 * Table of Contents
@@ -123,7 +123,7 @@ After you sign in, the Angular app will display routes for "Profile" and "Users.
 
 ## Inspect the OAuth 2.0 bearer tokens and request resources manually
 
-After signing in, you have the OAuth 2.0 access token and the OIDC ID token. Okta stores the tokens in browser storage. In DevTools, open the **Application** tab to view browser storage data. Okta Auth JS defaults to local storage for tokens and is configurable based on your application needs. Expand **Local storage**, select the application, and expand the `okta-token-storage` key to see the tokens and token metadata, such as the `tokenType`, which is `Bearer`.
+After signing in, you have the OAuth 2.0 access token and the OIDC ID token. Okta stores the tokens in browser storage. In DevTools, open the **Application** tab to view browser storage data. Okta Auth JS defaults to local storage for tokens and is configurable based on your application needs. Expand **Local storage**, select the application, and expand the `okta-token-storage` key to see the tokens and token metadata. The `tokenType` property is `Bearer`.
 
 {% img blog/angular-dpop-jwt/local-storage-tokens.jpg alt:"Browser local storage showing Okta's token storage. The access token has the token in JWT format as well as scopes, claims, and token type as top-level properties." width:"800" %}{: .center-image }
 
@@ -156,7 +156,7 @@ If you use curl, add the verbose flag to see the request and response headers:
 curl -v --header "Authorization: Bearer {yourAccessToken}" https://{yourOktaDomain}/api/v1/users
 ```
 
-The call succeeds even though the client making the call, your HTTP client, isn't the same client the authorization issued the token to, the sample app.
+The call succeeds even though the HTTP client isn't the same client the authorization server issued the token to (the sample app).
 
 Let's call another endpoint with the same access token, the Okta Applications endpoint. Run the following HTTP request replacing `{yourOktaDomain}` and `{yourAccessToken}`:
 
@@ -165,7 +165,7 @@ GET https://alisa.oktapreview.com/api/v1/apps HTTP/1.1
 Authorization: Bearer {yourAccessToken}
 ```
 
-The call succeeds even though you call from a different client, like you saw in the prior step, calling the Users API. The call succeeds for a privileged user as long as the Okta Application has the `okta.apps.read` and the OIDC config has the scope. You may say that's a lot of constraints, and you're right. Okta adds a lot of guards when making API requests about the resources in the top-level Okta org, such as the list of Okta applications. This example demonstrates how powerful and vulnerable a privileged user, such as an admin, access is. Anyone with the token can make the same request, even if they are an attacker.
+The call succeeds even though you call from a different client, like you saw in the prior step, calling the Users API. The call succeeds for a privileged user as long as the Okta Application has the `okta.apps.read` and the OIDC config has the scope. You may say that's a lot of constraints, and you're right. Okta adds a lot of guards when making API requests about the resources in the top-level Okta org, such as the list of Okta applications. This example demonstrates how powerful and vulnerable tokens issued for privileged users like admins are. Anyone with the token can make the same request, even if they are an attacker.
 
 Back in the app, sign out to clear the authenticated session and tokens. We're making changes that require you to sign in from scratch.
 
@@ -175,7 +175,7 @@ All web applications must use secure coding techniques to protect from attacks, 
 
 {% excerpt /blog/2022/07/06/spa-web-security %}
 
-It doesn't matter if your application uses bearer tokens or DPoP; apps must employ secure coding practices. DPoP doesn't prevent attackers from stealing your token but constrains its use. DPoP uses asymmetric encryption to prove token ownership, so you must avoid exfiltration or unauthorized use of the keyset. If an attacker gets a hold of the private key they can create valid proofs.
+It doesn't matter if your application uses bearer tokens or DPoP; apps must employ secure coding practices. DPoP doesn't prevent attackers from stealing your token but constrains its use. DPoP uses asymmetric encryption to prove token ownership, so you must avoid exfiltration or unauthorized use of the keyset. An attacker can create valid proofs if they get a hold of the private key.
 
 Let's migrate the application to DPoP and try making these HTTP requests again.
 
@@ -194,7 +194,7 @@ HTTP/1.1 400 Bad Request
 }
 ```
 
-All HTTP requests to DPoP-protected resources, including the `/token` request to sign in, now require a DPoP proof. We must enable DPoP in the OIDC configuration.
+All HTTP requests to DPoP-protected resources (including the `/token` request) require proof. We must enable DPoP in the OIDC configuration.
 
 The Okta Auth JS SDK has a [configuration property for DPoP](https://github.com/okta/okta-auth-js?tab=readme-ov-file#enabling-dpop) as part of the OIDC config. In your IDE, open `src/app/app.config.ts` and find the `OktaAuthModule.forRoot()` configuration. Add the `dpop: true` property. Your OIDC config will look something like this:
 
@@ -355,9 +355,9 @@ The proof also has two other protection mechanisms: the JWT unique identifier (`
 
 We must securely store the keyset within the SPA and prevent an attacker from exfiltrating them. If an attacker has the keyset, they can impersonate you and make DPoP-protected calls. Fortunately, Okta SDK uses a few different techniques to mitigate keyset hijacking without any extra coding on your part.
 
-Local and session storage aren't secure enough; this time, we'll rely on [IndexedDB](https://developer.mozilla.org/en-US/docs/Web/API/IndexedDB_API) storage. The typical use case for IndexedDB is storing a large volume of data, but it has some built-in security mechanisms that work well for protecting the keyset. The `SubtleCrypto` API supports generating non-exportable keys, preventing browser code from turning the private key into a portable format. IndexedDB stores the keys as a `CryptoKeyPairs` object and DB query results return a reference to the object, not the raw key. IndexedDB protects the sensitive private key but still works within the `WebCrypto` methods to sign the proof.   
+Local and session storage aren't secure enough; this time, we'll rely on [IndexedDB](https://developer.mozilla.org/en-US/docs/Web/API/IndexedDB_API) storage. The typical use case for IndexedDB is storing a large volume of data, but it has some built-in security mechanisms that work well for protecting the keyset. The `SubtleCrypto` API supports generating non-exportable keys, preventing browser code from turning the private key into a portable format. IndexedDB stores the keys as a `CryptoKeyPairs` object and DB query results return a reference to the object, not the raw key. IndexedDB protects sensitive private keys but still works with the `WebCrypto` methods for signing proof.   
 
-You can inspect the keys following the steps:
+You can inspect the keys by following the steps:
  1. Navigate to the **Applications** tab in DevTools
  2. Expand **IndexedDB** under the **Storage** sidenav
  3. Expand **OktaAuthJs** > **DPoPKeys**
