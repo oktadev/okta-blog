@@ -221,6 +221,7 @@ Okta's API resources support DPoP-enabled requests. If you want to add DPoP supp
 
 I hope this intro to sender-constrained tokens is helpful and inspires you to use DPoP to elevate token security! Watch for more content about DPoP, including hands-on experimentation and code projects. If you found this post interesting, you may also like these resources:
 
+* [Secure OAuth 2.0 Access Tokens with Proofs of Possession](/blog/2024/09/05/dpop-oauth)
 * [Why You Should Migrate to OAuth 2.0 From Static API Tokens](/blog/2023/09/25/oauth-api-tokens)
 * [How to Secure the SaaS Apps of the Future](https://sec.okta.com/appsofthefuture)
 * [Step-up Authentication in Modern Application](/blog/2023/03/08/step-up-auth)
