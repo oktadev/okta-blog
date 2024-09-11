@@ -14,8 +14,11 @@ image:
 type: awareness
 ---
 
+In the evolving landscape of cloud computing, public cloud vendors play a pivotal role in enabling organizations to scale and innovate rapidly. Among the leading public cloud providers, Google Cloud Platform (GCP) ranks third in popularity, following Amazon Web Services (AWS) and Microsoft Azure. GCP stands out for its robust infrastructure, advanced data analytics capabilities, and comprehensive suite of services that cater to businesses of all sizes.
 
-- introduction
+One of the key offerings from GCP is its managed Kubernetes service, Google Kubernetes Engine (GKE). This service simplifies the deployment, management, and scaling of containerized applications, allowing developers to focus on building features rather than managing infrastructure. GKE is designed to offer a seamless experience, integrating with GCP's extensive ecosystem and providing powerful tools for monitoring, security, and automation.
+
+Infrastructure as code (IaC) tools like Terraform provide a way to efficiently manage infrastructure on GCP and provision resources like GKE cluster. Terraform enables the declarative management of cloud resources, making it easier to automate the provisioning process, enforce consistency, and maintain infrastructure state across environments.
 
 In this post, you will learn the basics of automating the provisioning of a managed Kubernetes cluster on Google Kubernetes Engine, using a Standalone VPC, for deploying a Spring Boot microservices architecture generated with the JHipster framework.
 
@@ -34,7 +37,6 @@ In this post, you will learn the basics of automating the provisioning of a mana
 > - [jq 1.6](https://jqlang.github.io/jq/download/)
 
 {% include toc.md %}
-
 
 ## Build a microservices architecture with JHipster
 
@@ -119,19 +121,14 @@ resource "google_compute_subnetwork" "default" {
 
 resource "google_container_cluster" "default" {
   project = var.project_id
-  name    = "example-cluster"
+  name    = "example-autopilot-cluster"
 
   location                 = var.location
+  enable_autopilot         = true
   enable_l4_ilb_subsetting = true
-  initial_node_count       = 2
-  datapath_provider        = "ADVANCED_DATAPATH"
 
   network    = google_compute_network.default.id
   subnetwork = google_compute_subnetwork.default.id
-
-  node_config {
-    machine_type = "e2-standard-2"
-  }
 
   ip_allocation_policy {
     stack_type                    = "IPV4_IPV6"
@@ -144,6 +141,8 @@ resource "google_container_cluster" "default" {
   deletion_protection = false
 }
 ```
+
+The declarations above create a Standalone VPC network named `example-network`, and a sub-network in the selected region, which will host the Kubernetes cluster. Notice the subnet defines two secondary ip ranges for cluster pods and services. By allocating from a range separate from the range used for primary IP addresses, you can separate infrastructure (VMs) from services (containers), and set up firewall controls for VM alias IP addresses separately from the firewall controls for a VM's primary IP addresses. For example, you can allow certain traffic for container pods and deny similar traffic for the VM's primary IP address.
 
 Edit the file `outputs.tf` and add the following content:
 
@@ -175,7 +174,7 @@ Set the default Google project in the file `terraform/terraform.tfvars`:
 project_id = "<google-project-id>"
 ```
 
-> **NOTE**: About requirements for Shared VPC, and network topology options
+> **NOTE**: In general, a Shared VPC network is a commonly used architecture that suits most organizations with a centralized management team. Among other pre-requisites, the Shared VPC must be created within an organization, which requires a company website and email address. For simplicity, in this post the selected network topology is a Standalone VPC. Check out Google [best practices for networking](https://cloud.google.com/kubernetes-engine/docs/best-practices/networking)
 
 ## Set up OIDC Authentication using Auth0
 
@@ -197,7 +196,7 @@ auth0 apps create \
   --reveal-secrets
 ```
 
-Set the clientId and clientSecret as environment variables, as required by Terraform Auth0 provider:
+Set the clientId and clientSecret from the Auth0 CLI output as environment variables, as required by Terraform Auth0 provider:
 
 ```shell
 export AUTH0_CLIENT_ID=<client-id>
@@ -209,7 +208,7 @@ Find out the Auth0 Management API _id_ and _identifier_:
 ```shell
 auth0 apis list
 ```
-Set the id and identifier as environment variables:
+Set the API id and API identifier as environment variables:
 
 ```shell
 export AUTH0_MANAGEMENT_API_ID=<auth0-management-api-id>
@@ -222,11 +221,13 @@ Then retrieve all the scopes of the Auth0 Management API:
 export AUTH0_MANAGEMENT_API_SCOPES=$(auth0 apis scopes list $AUTH0_MANAGEMENT_API_ID --json | jq -r '.[].value' | jq -ncR '[inputs]')
 ```
 
-Finally, grant all the scopes to the newly created clientId:
+Finally, grant all the scopes from the Auth0 Management API to the newly created clientId for Terraform:
 
 ```shell
 auth0 api post "client-grants" --data='{"client_id": "'$AUTH0_CLIENT_ID'", "audience": "'$AUTH0_MANAGEMENT_API_IDENTIFIER'", "scope":'$AUTH0_MANAGEMENT_API_SCOPES'}'
 ```
+
+The previous grant is required for Terraform to create different type of resources in Auth0, like users and roles.
 
 Edit `terraform/providers.tf` and add the Auth0 provider:
 
@@ -489,6 +490,25 @@ spec:
 
 > **NOTE**: Although the kubernetes.io/ingress.class annotation is [deprecated](https://kubernetes.io/docs/concepts/services-networking/ingress/#deprecated-annotation) in Kubernetes, GKE continues to use this annotation.
 
+For Consul instances to be spread across different zones, edit the file `kubernetes/registry-k8s/consul.yml`, and update the `StatefulSet` affinity:
+
+```yml
+spec:
+  affinity:
+    podAntiAffinity:
+      preferredDuringSchedulingIgnoredDuringExecution:
+        - podAffinityTerm:
+            labelSelector:
+              matchLabels:
+                app.kubernetes.io/name: consul
+                app: consul
+            namespaces:
+              - jhipster
+            topologyKey: topology.kubernetes.io/zone
+          weight: 1          
+```
+
+> **NOTE**: `preferredDuringSchedulingIgnoredDuringExecution` is a soft rule, so that the scheduler might still schedule multiple consul pods in the same zone.
 
 ### Get cluster credentials
 
