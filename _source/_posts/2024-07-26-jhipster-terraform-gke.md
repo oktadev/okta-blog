@@ -40,7 +40,7 @@ In this post, you will learn the basics of automating the provisioning of a mana
 
 ## Build a microservices architecture with JHipster
 
-Create a Java microservices architecture using [JHipster](https://www.jhipster.tech/), Spring Boot, and Consul. JHipster is an excellent tool for generating a microservice stack with Spring Boot, Angular/React/Vue.js, and other modern frameworks. For deploying the application of this demo, then you can either generate it using JHipster JDL or clone the sample repository from GitHub. Here is how you can build your microservices stack using JHipster:
+Create a Java microservices architecture using [JHipster](https://www.jhipster.tech/), Spring Boot, and Consul. JHipster is an excellent tool for generating a microservice stack with Spring Boot, Angular/React/Vue.js, and other modern frameworks. To deploy the application of this demo, you can either generate it using JHipster JDL or clone the sample repository from GitHub. Here is how you can build your microservices stack using JHipster:
 
 **Option 1**: Generate the architecture with JHipster Domain Language (JDL)
 
@@ -59,7 +59,7 @@ jhipster jdl apps.jdl
 git clone https://github.com/indiepopart/jhipster-terraform-gke
 ```
 
-## Create an GKE cluster using Terraform
+## Create a GKE cluster using Terraform
 
 Create a folder for the Terraform configuration, and some `*.tf` files:
 
@@ -142,7 +142,7 @@ resource "google_container_cluster" "default" {
 }
 ```
 
-The declarations above create a Standalone VPC network named `example-network`, and a sub-network in the selected region, which will host the Kubernetes cluster. Notice the subnet defines two secondary ip ranges for cluster pods and services. By allocating from a range separate from the range used for primary IP addresses, you can separate infrastructure (VMs) from services (containers), and set up firewall controls for VM alias IP addresses separately from the firewall controls for a VM's primary IP addresses. For example, you can allow certain traffic for container pods and deny similar traffic for the VM's primary IP address.
+The declarations above create a Standalone VPC network named `example-network`, and a sub-network in the selected region, which will host the Kubernetes cluster. Notice the subnet defines two secondary IP ranges for cluster pods and services. By allocating from a range separate from the range used for primary IP addresses, you can separate infrastructure (VMs) from services (containers), and set up firewall controls for VM alias IP addresses separately from the firewall controls for a VM's primary IP addresses. For example, you can allow certain traffic for container pods and deny similar traffic for the VM's primary IP address.
 
 Edit the file `outputs.tf` and add the following content:
 
@@ -174,7 +174,7 @@ Set the default Google project in the file `terraform/terraform.tfvars`:
 project_id = "<google-project-id>"
 ```
 
-> **NOTE**: In general, a Shared VPC network is a commonly used architecture that suits most organizations with a centralized management team. Among other pre-requisites, the Shared VPC must be created within an organization, which requires a company website and email address. For simplicity, in this post the selected network topology is a Standalone VPC. Check out Google [best practices for networking](https://cloud.google.com/kubernetes-engine/docs/best-practices/networking)
+> **NOTE**: In general, a Shared VPC network is a commonly used architecture that suits most organizations with a centralized management team. Among other prerequisites, the Shared VPC must be created within an organization, which requires a company website and email address. For simplicity, in this post, the selected network topology is a Standalone VPC. Check out Google [best practices for networking](https://cloud.google.com/kubernetes-engine/docs/best-practices/networking)
 
 ## Set up OIDC Authentication using Auth0
 
@@ -208,7 +208,7 @@ Find out the Auth0 Management API _id_ and _identifier_:
 ```shell
 auth0 apis list
 ```
-Set the API id and API identifier as environment variables:
+Set the API ID and API identifier as environment variables:
 
 ```shell
 export AUTH0_MANAGEMENT_API_ID=<auth0-management-api-id>
@@ -227,7 +227,7 @@ Finally, grant all the scopes from the Auth0 Management API to the newly created
 auth0 api post "client-grants" --data='{"client_id": "'$AUTH0_CLIENT_ID'", "audience": "'$AUTH0_MANAGEMENT_API_IDENTIFIER'", "scope":'$AUTH0_MANAGEMENT_API_SCOPES'}'
 ```
 
-The previous grant is required for Terraform to create different type of resources in Auth0, like users and roles.
+The previous grant is required for Terraform to create different types of resources in Auth0, like users and roles.
 
 Edit `terraform/providers.tf` and add the Auth0 provider:
 
