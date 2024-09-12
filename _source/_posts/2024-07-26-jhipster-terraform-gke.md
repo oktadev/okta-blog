@@ -20,7 +20,7 @@ One of the key offerings from GCP is its managed Kubernetes service, Google Kube
 
 Infrastructure as code (IaC) tools like Terraform provide a way to efficiently manage infrastructure on GCP and provision resources like GKE cluster. Terraform enables the declarative management of cloud resources, making it easier to automate the provisioning process, enforce consistency, and maintain infrastructure state across environments.
 
-In this post, you will learn the basics of automating the provisioning of a managed Kubernetes cluster on Google Kubernetes Engine, using a Standalone VPC, for deploying a Spring Boot microservices architecture generated with the JHipster framework.
+In this post, you will learn the basics of automating the provisioning of a managed Kubernetes cluster on Google Kubernetes Engine, using the Standalone VPC networking option, for deploying a Spring Boot microservices architecture generated with the JHipster framework.
 
 {% img blog/jhipster-terraform-gke/jhipster-terraform-gke.jpeg alt:"JHipster, Terraform, and GKE logos" width:"900" %}{: .center-image }
 
@@ -172,6 +172,12 @@ Set the default Google project in the file `terraform/terraform.tfvars`:
 ```terraform
 # terraform/terraform.tfvars
 project_id = "<google-project-id>"
+```
+
+You can find the project ID with gcloud CLI:
+
+```shell
+gcloud projects list
 ```
 
 > **NOTE**: In general, a Shared VPC network is a commonly used architecture that suits most organizations with a centralized management team. Among other prerequisites, the Shared VPC must be created within an organization, which requires a company website and email address. For simplicity, in this post, the selected network topology is a Standalone VPC. Check out Google [best practices for networking](https://cloud.google.com/kubernetes-engine/docs/best-practices/networking)
@@ -338,9 +344,6 @@ resource "auth0_user" "test_user" {
   email_verified  = true
   # Don't set passwords like this in production! Use env variables instead.
   password        = "passpass$12$12"
-  lifecycle {
-    ignore_changes = [roles]
-  }
 }
 
 resource "auth0_user_roles" "test_user_roles" {
@@ -360,6 +363,8 @@ output "auth0_webapp_client_secret" {
 }
 ```
 
+Replace `<your-auth0-domain>`.
+
 ## Provision with Terraform
 
 Now you can run the Terraform script to create the Auth0 application. Run the following commands to initialize the script and apply it.
@@ -378,14 +383,13 @@ terraform apply main.tfplan
 Once the GKE cluster is ready, you will see the Terraform output:
 
 ```
-Apply complete! Resources: 35 added, 0 changed, 0 destroyed.
+Apply complete! Resources: 11 added, 0 changed, 0 destroyed.
 
 Outputs:
 
-kube_config = <sensitive>
-kubernetes_cluster_name = "cluster-helping-terrier"
-resource_group_name = "rg-ecommerce-eastus2"
-spoke_pip = "4.153.103.124"
+auth0_webapp_client_id = "1nQGDrJZfVG5tZsjVxAMThjFbuHTKXD7"
+auth0_webapp_client_secret = <sensitive>
+cluster_name = "example-autopilot-cluster"
 ```
 
 Note the `auth0_webapp_client_id` from the output and get the `auth0_webapp_client_secret` with:
@@ -510,22 +514,23 @@ spec:
 
 > **NOTE**: `preferredDuringSchedulingIgnoredDuringExecution` is a soft rule, so that the scheduler might still schedule multiple consul pods in the same zone.
 
+Update resource limits for autopilot. Edit `kubernetes/store-k8s/store-deployment.yml` and remove the `resource.requests`. Then repeat for the `product-deployment.yml` and `invoice-deployment.yml`.
+
+```yml
+resources:
+  limits:
+    memory: "1Gi"
+    cpu: "1"
+ ```
+
+> **NOTE**: When using autopilot clusters, if `requests` is less than `limits`, and the cluster does not support bursting, GKE sets the limits equal to the requests.
+
 ### Get cluster credentials
 
 For `kubectl` commands, run the following Google Cloud CLI option for retrieving the cluster credentials:
 
 ```shell
-gcloud container clusters get-credentials <kubernetes-cluster-name> --location us-east1
-```
-
-Then check the cluster details with `kdash` or `kubectl get nodes`.
-
-```
-AME                                STATUS   ROLES    AGE     VERSION
-aks-agentpool-71839675-vmss000000   Ready    <none>   4m58s   v1.29.7
-aks-agentpool-71839675-vmss000002   Ready    <none>   4m27s   v1.29.7
-aks-agentpool-71839675-vmss000003   Ready    <none>   4m31s   v1.29.7
-aks-agentpool-71839675-vmss000004   Ready    <none>   3m43s   v1.29.7
+gcloud container clusters get-credentials example-autopilot-cluster --location us-east1
 ```
 
 ### Deploy the microservices to GKE
@@ -537,14 +542,29 @@ cd kubernetes
 ./kubectl-apply.sh -f
 ```
 
+> **Note**: GKE Autopilot will return warnings if the container spec does not specify 'cpu' resource.
+
+Run `watch -n 1 kubectl get nodes` and get the list of autopilot nodes:
+
+```
+NAME                                                  STATUS     ROLES    AGE     VERSION
+gk3-example-autopilot-cl-nap-kng3oc2k-45c77a8e-92vf   Ready      <none>   85s     v1.30.3-gke.1639000
+gk3-example-autopilot-cl-nap-kng3oc2k-45c77a8e-c82c   Ready      <none>   36s     v1.30.3-gke.1639000
+gk3-example-autopilot-cl-nap-kng3oc2k-45c77a8e-zrxj   NotReady   <none>   35s     v1.30.3-gke.1639000
+gk3-example-autopilot-cl-nap-kng3oc2k-f36cf7ca-g6s8   Ready      <none>   94s     v1.30.3-gke.1639000
+gk3-example-autopilot-cl-nap-kng3oc2k-f36cf7ca-sl4b   Ready      <none>   92s     v1.30.3-gke.1639000
+gk3-example-autopilot-cluster-pool-2-98d0acdc-vwzb    Ready      <none>   2m10s   v1.30.3-gke.1639000
+gk3-example-autopilot-cluster-pool-3-bb546278-cq6w    Ready      <none>   39s     v1.30.3-gke.1639000
+```
+
 With `kdash`, check the pods status in the `jhipster` namespace:
 
 {% img blog/jhipster-terraform-gke/kdash.png alt:"Pod status with kdash" width:"900" %}{: .center-image }
 
-The Ingress configuration requires inbound traffic to be for the host `store.example.com`, you can test the store service by adding an entry in your _hosts_ file that maps to the gateway public IP:
+The Ingress configuration requires inbound traffic to be for the host `store.example.com`, you can test the store service by adding an entry in your _hosts_ file that maps to the store-ingress public IP:
 
 ```shell
-terraform output spoke_pip
+kubectl get ingress -n jhipster
 ```
 
 Then navigate to `http://store.example.com` and sign in at Atuh0 with the test user/password jhipster@test.com/passpass$12$12. The authentication flow will redirect back to the application home:
@@ -553,13 +573,7 @@ Then navigate to `http://store.example.com` and sign in at Atuh0 with the test u
 
 ## Tear down the cluster with Terraform
 
-Once you finish verifying the deployment, don't forget to remove all resources to avoid unwanted costs. You can first delete the deployment with:
-
-```shell
-kubectl delete namespace jhipster
-```
-
-And then, delete the architecture with:
+Once you finish verifying the deployment, don't forget to remove all resources to avoid unwanted costs.
 
 ```shell
 terraform destroy -auto-approve
