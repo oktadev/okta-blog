@@ -581,7 +581,7 @@ terraform destroy -auto-approve
 
 ## Learn more about Java Microservices, Kubernetes and Jhipster
 
-In this post, you learned about JHipster microservices deployment to Azure Kubernetes Service using Terraform for provisioning a GKE cluster in a Standalone VPC. You can find the code shown in this tutorial on [GitHub](https://github.com/indiepopart/jhipster-terraform-gke). If you'd rather skip the step-by-step Terraform configuration and prefer jumping straight into the deployment, follow the [README](https://github.com/indiepopart/jhipster-terraform-gke) instructions in the same repository.
+In this post, you learned about JHipster microservices deployment to Google Kubernetes Service using Terraform for provisioning a GKE cluster in a Standalone VPC. You can find the code shown in this tutorial on [GitHub](https://github.com/indiepopart/jhipster-terraform-gke). If you'd rather skip the step-by-step Terraform configuration and prefer jumping straight into the deployment, follow the [README](https://github.com/indiepopart/jhipster-terraform-gke) instructions in the same repository.
 
 Also, if you liked this post, you might enjoy these related posts:
 
