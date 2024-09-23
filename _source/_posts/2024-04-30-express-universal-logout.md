@@ -194,13 +194,13 @@ universalLogoutRoute.post('/global-token-revocation', async (req, res) => {
       email: email
     },
   });
-  return res.sendStatus(httpStatus);
 
   // 404 User not found
   if (!user) {
     res.sendStatus(404);
   }
 
+  return res.sendStatus(httpStatus);
 });
 
 universalLogoutRoute.use((err,req,res,next) => {
@@ -237,12 +237,13 @@ universalLogoutRoute.post('/global-token-revocation', async (req, res) => {
       email: email
     },
   });
-  return res.sendStatus(httpStatus);
-
+  
   // 404 User not found
   if (!user) {
     res.sendStatus(404);
   }
+
+  return res.sendStatus(httpStatus);
 
 });
 
@@ -449,6 +450,9 @@ universalLogoutRoute.post('/global-token-revocation', async (req, res) => {
   if (!user) {
     res.sendStatus(404);
   }
+
+  return res.sendStatus(httpStatus);
+});
 
 universalLogoutRoute.use((err,req,res,next) => {
   if(err){
@@ -668,7 +672,7 @@ if (!res.ok)
 }}     
 ```
 
-The onNewTask function will now look like this with a change made only to the `onNewTAsk` function:
+The `onNewTask` function will now look like this:
 
 ```ts
 import { useEffect, useState } from 'react';
