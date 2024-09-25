@@ -18,7 +18,7 @@ We planned fantastic events to help you take your SaaS apps to the next level by
 
 Take a drive through the Oktane Expo Hall, and you'll find the SaaS B2B experience in the Dev Hub at the intersection of SaaS Way and Integration Drive. Here, you'll discover the ways Okta can help you create secure B2B SaaS applications. You'll learn about identity and user lifecycle management best practices. Then build these standards-compliant solutions into your apps so you can submit them to the [Okta Integration Network](https://www.okta.com/okta-integration-network/) (OIN) and watch your customer base grow!
 
-## Check out the DevLabs for interactive learning opportunities
+## Check out the Oktane Hands-on Labs for interactive learning opportunities
 
 Roll up your sleeves and get your coding on. This is your chance to get techy and build code using Okta solutions. Find us at labs where you can pick from options such as:
   1. Automating your environment using the Okta Terraform provider 
