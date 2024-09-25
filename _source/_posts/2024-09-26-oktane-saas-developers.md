@@ -21,9 +21,15 @@ Take a drive through the Oktane Expo Hall, and you'll find the SaaS B2B experien
 ## Check out the Oktane Hands-on Labs for interactive learning opportunities
 
 Roll up your sleeves and get your coding on. This is your chance to get techy and build code using Okta solutions. Find us at labs where you can pick from options such as:
-  1. Automating your environment using the Okta Terraform provider 
-  2. Reacting to security threats and managing authenticated sessions programmatically with Universal Logout
-  3. Cleaning up inactive users with Okta workflows
+
+**Scaling Okta App Management by Importing Data from PowerShell into Terraform** <br/>
+Streamline and scale your Okta app management by using PowerShell to export configurations and use Terraform to automate environment transitions.
+
+**Universal Logout: Instantly Sign a User Out across All Your Apps** <br/>
+Learn how to lock down all your apps and protect your customers completely at the first sign of trouble with one API!
+
+**Identify Inactive Okta Users with Okta Workflows** <br/>
+Determine if you have unused accounts that might have been missed by some manual deprovisioning process.
 
 Labs are first-come-first-serve and have limited capacity. If there's a lab you're interested in, be sure to show up on time!
 
