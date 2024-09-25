@@ -1,7 +1,7 @@
 ---
 layout: blog_post
 title: "Propel Your SaaS Apps Into the Future at Oktane"
-author: michael-palermo
+author: [michael-palermo, jeff-taylor]
 by: advocate
 communities: [devops,security,mobile,.net,java,javascript,go,php,python,ruby]
 description: "See you at Oktane 2024 in Las Vegas on October 15-17. We have activities, experiences, and labs with developers in mind."
@@ -10,13 +10,13 @@ image:
 type: awareness
 ---
 
-The future of identity is at [Oktane](https://www.okta.com/oktane). Join us at Caesars Forum, Las Vegas, NV, on October 15-17, 2024, for the biggest identity event of the year, and learn how to propel your SaaS apps into the future by connecting with Okta!
+We've been discussing and reflecting on the Future of Identity over the last couple of months. It's apparent to us that Identity is rapidly growing in its complexity. The surface area that our customers need to protect is growing, like a sunrise revealing a hidden terrain in the morning twilight. We realize that in a short time, the growing demands of customers will start to influence the roadmaps of SaaS companies to keep pace with protecting their customers and differentiating their value in their respective markets. The timing of this discussion couldn't be better! We would love to meet you, hear about your vision and challenges, and nerd out on Identity and Software Development. Join us at Caesars Forum in Las Vegas, NV, on October 15-17, 2024, for [Oktane](https://www.okta.com/oktane), the biggest identity event of the year, and learn how to propel your SaaS apps into the future by connecting with Okta!
 
-We planned fantastic events to help you take your SaaS apps to the next level by leveraging Okta's identity and user lifecycle platforms. We'll be there, and we can't wait to meet you at these activities:
+We planned fantastic events to help you take your SaaS apps to the next level by leveraging Okta's identity and user lifecycle platforms. We'll be there, and we can't wait to meet you to chat at these activities:
 
 ## Stop by the Oktane Dev Hub
 
-Take a drive through Oktane, and you'll find the SaaS B2B experience in the Dev Hub at the intersection of SaaS Way and Integration Drive. Here, you'll discover the ways Okta can help you create secure B2B SaaS applications. You'll learn about identity and user lifecycle management best practices. Then build these standards-compliant solutions into your apps so you can submit them to the [Okta Integration Network](https://www.okta.com/okta-integration-network/) (OIN) and watch your customer base grow!
+Take a drive through the Oktane Expo Hall, and you'll find the SaaS B2B experience in the Dev Hub at the intersection of SaaS Way and Integration Drive. Here, you'll discover the ways Okta can help you create secure B2B SaaS applications. You'll learn about identity and user lifecycle management best practices. Then build these standards-compliant solutions into your apps so you can submit them to the [Okta Integration Network](https://www.okta.com/okta-integration-network/) (OIN) and watch your customer base grow!
 
 ## Check out the DevLabs for interactive learning opportunities
 
@@ -29,7 +29,7 @@ Labs are first-come-first-serve and have limited capacity. If there's a lab you'
 
 ## B2B SaaS builders happy hour
 
-Join us at a special event for those who build apps that connect with Okta for their customer base! This happy hour is where all the fun and connections happen. This is a private event exclusively for techy folk who build multi-tenant B2B SaaS applications and want to offer Okta Identity Provider connections as an option for their customers. Does this describe you and are you interested in attending this event? Connect with us by commenting below!
+Join us at a special event for those who build apps that connect with Okta for their customer base! This happy hour is where all the fun and connections happen. This is a private event exclusively for techy folk who build multi-tenant B2B SaaS applications and want to offer Okta Identity Provider connections as an option for their customers. Does this describe you and are you interested in attending this event? Please contact us at wic-dev-advocacy[at]okta.com for a discount code! 
 
 ## Okta Workflows community meetup
 
