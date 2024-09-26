@@ -4,7 +4,7 @@ title: "Propel Your SaaS Apps Into the Future at Oktane"
 author: [michael-palermo, jeff-taylor]
 by: advocate
 communities: [devops,security,mobile,.net,java,javascript,go,php,python,ruby]
-description: "See you at Oktane 2024 in Las Vegas on October 15-17. We have activities, experiences, and labs with developers in mind."
+description: "See you at Oktane in Las Vegas on October 15-17, 2024. We have activities, experiences, and labs with developers in mind."
 tags: [announcement, conference]
 image:
 type: awareness
