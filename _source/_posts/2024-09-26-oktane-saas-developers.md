@@ -18,13 +18,13 @@ We planned fantastic events to help you take your SaaS apps to the next level by
 
 ## Breakout sessions
 
-**Building a SaaS Application with CIC** </br>
+**Building a SaaS Application with CIC** <br/>
 Wednesday Oct 16, 3:45 PM
 
-**Empower your Ecosystem with Okta** </br>
+**Empower your Ecosystem with Okta** <br/>
 Thursday Oct 17, 12:45 PM
 
-**B2B SaaS App of the Future** </br>
+**B2B SaaS App of the Future** <br/>
 Thursday Oct 17, 2:30 PM
 
 
