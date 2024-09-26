@@ -14,7 +14,7 @@ We've been discussing and reflecting on the Future of Identity over the last cou
 
 > If you are currently not attending Oktane (but would like to) and you build SaaS apps, please reach out to us at wic-dev-advocacy[at]okta.com to request information regarding how you can obtain a pass. Limited number of passes available so reach out soon!
 
-We planned fantastic events to help you take your SaaS apps to the next level by leveraging Okta's identity and user lifecycle platforms. We'll be there, and we can't wait to meet you to chat at these activities:
+We planned fantastic events to help you take your SaaS apps to the next level by leveraging Okta's identity and user lifecycle platforms. Find us and let's chat at these activities: 
 
 ## Breakout sessions
 
