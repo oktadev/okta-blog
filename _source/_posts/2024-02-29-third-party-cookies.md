@@ -14,6 +14,7 @@ image: blog/3pc/social.jpg
 type: awareness
 ---
 
+**NOTE**: In July, Google has given an update on their [3rd party cookie deprecation effort](https://developers.google.com/privacy-sandbox/cookies).  Okta will be working with Google to understand the specific impact to Okta customers.  In the meantime, we continue to advise customers to migrate way from the use of 3rd party cookies, as outlined below
 
 
 ## What are third-party cookies?
