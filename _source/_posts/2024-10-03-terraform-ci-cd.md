@@ -8,7 +8,7 @@ description: "Learn how to create a secure CI/CD pipeline with the power of Okta
 tags: [terraform, ci, cd, aws]
 image: blog/terraform-ci-cd/social.jpg
 type: conversion
-github: 
+github: https://github.com/oktadev/okta-terraform-devops-tem
 ---
 
 Embarking on a DevOps journey can be exciting and daunting, especially for beginners. The landscape is vast, and the learning curve can feel steep. One of the most common challenges is setting up and managing a robust Continuous Integration/Continuous Deployment (CI/CD) pipeline that ensures seamless integration and delivery of code changes. This guide aims to simplify that process by walking you through setting up a CI/CD pipeline for Okta using Terraform, AWS, and GitHub Actions.
