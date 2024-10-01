@@ -344,7 +344,7 @@ Now that we have checked out our code let's finalize the configurations required
 
 #### Backend configuration files
 
-The Terraform backend configuration is stored within the backend-*.conf files and contain configurations relevant to your environments. Within these files, you will find placeholders for the following:
+The Terraform backend configuration is stored within the `backend-*.conf` files and contain configurations relevant to your environments. Within these files, you will find placeholders for the following:
   * `bucket` - the name of your bucket (not the ARN!)
   * `key` - the path to your Terraform state file (i.e. the folder and resultant file name, which defaults to `terraform.tfstate`)
   * `dynamodb_table` - the name of your DynamoDB table (not the ARN!)
