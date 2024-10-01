@@ -6,7 +6,7 @@ by: internal-contributor
 communities: [devops]
 description: "Learn how to create a secure CI/CD pipeline with the power of Okta Terraform!"
 tags: [terraform, ci, cd, aws]
-image:
+image: blog/terraform-ci-cd/social.jpg
 type: conversion
 github: 
 ---
