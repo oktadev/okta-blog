@@ -8,7 +8,7 @@ description: "Learn how to create a secure CI/CD pipeline with the power of Okta
 tags: [terraform, ci, cd, aws]
 image: blog/terraform-ci-cd/social.jpg
 type: conversion
-github: https://github.com/oktadev/okta-terraform-devops-tem
+github: https://github.com/oktadev/okta-terraform-devops-template-example
 ---
 
 Embarking on a DevOps journey can be exciting and daunting, especially for beginners. The landscape is vast, and the learning curve can feel steep. One of the most common challenges is setting up and managing a robust Continuous Integration/Continuous Deployment (CI/CD) pipeline that ensures seamless integration and delivery of code changes. This guide aims to simplify that process by walking you through setting up a CI/CD pipeline for Okta using Terraform, AWS, and GitHub Actions.
@@ -69,8 +69,8 @@ It is essential to understand the key components and their roles in the CI/CD pr
 **GitHub Actions**
 * **Workflows**: Workflows are automatically triggered by GitHub repository events and execute the necessary commands to integrate with AWS and Terraform.
 * **AWS**:
- * **Assume Role**: Integrates with AWS IAM STS via GitHub OIDC IdP to authenticate and assume roles with web identity.
- * **Temporary Credentials**: Utilizes temporary credentials returned from AWS IAM STS for Terraform backend operations.
+  * **Assume Role**: Integrates with AWS IAM STS via GitHub OIDC IdP to authenticate and assume roles with web identity.
+  * **Temporary Credentials**: Utilizes temporary credentials returned from AWS IAM STS for Terraform backend operations.
 * **Terraform**: Runs Terraform commands to manage infrastructure.
 
 **Terraform**
@@ -103,7 +103,7 @@ You will also need a GitHub Organization. If you are an enterprise user, you lik
 
 You'll create a new repository within your GitHub Organization and then connect it to your local development environment:
 
-1. **Create a new repository**: We created a templated repository for you to use for this guide. Follow the [Creating a repository from a template](https://docs.github.com/en/repositories/creating-and-managing-repositories/creating-a-repository-from-a-template) instruction from GitHub and use this [sample template](https://github.com/verysecureorg/yourorg-okta-terraform).  Select your GitHub Organization as the owner and name the repository using a structure such as `{okta-domain-name}-okta-terraform` (e.g., `verysecureorg-okta-terraform`). Ensure you set the repository to **Private**. This setting is crucial as the repository will run GitHub Actions workflows and have information related to your environment (e.g., AWS resource names).
+1. **Create a new repository**: We created a templated repository for you to use for this guide. Follow the [Creating a repository from a template](https://docs.github.com/en/repositories/creating-and-managing-repositories/creating-a-repository-from-a-template) instruction from GitHub and use this [sample template](https://github.com/oktadev/okta-terraform-devops-template-example).  Select your GitHub Organization as the owner and name the repository using a structure such as `{okta-domain-name}-okta-terraform` (e.g., `verysecureorg-okta-terraform`). Ensure you set the repository to **Private**. This setting is crucial as the repository will run GitHub Actions workflows and have information related to your environment (e.g., AWS resource names).
 2. **Clone the Repository**: Once you create your repository, copy the clone link and run the following commands in the command line. Replace the variables with your GitHub username, GitHub organization, and repository name:
 ```bash
 git clone https://{your_github_username}@github.com/{your-github-organization}/{your-repository-name}.git
@@ -157,7 +157,7 @@ Follow the [Creating a bucket](https://docs.aws.amazon.com/AmazonS3/latest/userg
 
 **Create a DynamoDB Table for State Locking**
 
-Follow the [Create a table in DynamoDB](https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/getting-started-step-1.html) instructions to create a DynamoDB table. Name the table using a structure such as `{okta-domain-name}-okta-terraform-{environment}` (e.g. `verysecureorg-okta-terraform-dev`). Set the partition key to 'LockID' and leave other configuration defaults. Note the table name, we will be using it later in the AWS IAM Role Policy definition. Repeat for any other environments you manage.
+Follow the [Create a table in DynamoDB](https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/getting-started-step-1.html) instructions to create a DynamoDB table. Name the table using a structure such as `{okta-domain-name}-okta-terraform-{environment}` (e.g. `atko-okta-terraform-dev`). Set the partition key to 'LockID' and leave other configuration defaults. Note the table name, we will be using it later in the AWS IAM Role Policy definition. Repeat for any other environments you manage.
 
 For more information on the AWS S3 Terraform backend, please refer to [Terraform S3 Backend Documentation](https://developer.hashicorp.com/terraform/language/settings/backends/s3).
 
@@ -248,6 +248,8 @@ When configuring the Trusted Entity, choose **Web Identity**, and use the follow
   * **Audience**: `sts.amazonaws.com`
   * **GitHub organization**: `{your_github_organization}` (the unique identifier for your GitHub Organization)
   * **GitHub repository**: `{your_github_repository}` (the name of your GitHub repository)
+
+
 For permissions, choose the IAM Policy ('Okta_Terraform_Backend', or your name of choosing) you created earlier. Name the role something meaningful (e.g. 'GitHub_Okta_Terraform_Backend'). Once the role has been created, copy the Role ARN. This is the only variable we need to pass to our pipeline to initialize the backend and retrieve the secret to authenticate and authorize Okta APIs — and it's not even a secret! 
 
 By following these steps, you will have created an IAM Role that GitHub can assume via OIDC, enabling secure interactions with AWS and Okta.
@@ -353,9 +355,9 @@ The Terraform backend configuration is stored within the `backend-*.conf` files 
 Replace all the placeholders in the `backend-*.conf` files. There are two placeholders for development and production environments, respectively. Refer to the following example as a reference:
 
 ```
-bucket         = "acme-okta-terraform"
+bucket         = "atko-okta-terraform"
 key            = "dev/terraform.tfstate"
-dynamodb_table = "acme-okta-terraform-dev"
+dynamodb_table = "atko-okta-terraform-dev"
 region         = "ap-southeast-2"
 ```
 
@@ -375,7 +377,7 @@ Additional configuration-related variables stored within the `vars-*.tfvars` fil
 Replace all the placeholders in the `vars-*.tfvars` files. Refer to the following example as a reference:
 ```
 region            = "ap-southeast-2"
-okta_org_name     = "acme"
+okta_org_name     = "atko"
 okta_base_url     = "oktapreview.com"
 okta_scopes       = [
   "okta.groups.manage"
