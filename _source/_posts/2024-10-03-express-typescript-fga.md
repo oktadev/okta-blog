@@ -54,7 +54,7 @@ git clone https://github.com/indiepopart/express-typescript-fga.git
 The repository contains two project folders, `start` and `final`. The bare bones document API is a Node.js project in the `start` folder, open it with your favorite IDE. Add the `express-oauth2-jwt-bearer` dependency:
 
 ```shell
-cd start
+cd express-typescript-fga/start
 npm install express-oauth2-jwt-bearer
 ```
 
@@ -89,14 +89,13 @@ documentRouter.get("/", validateAccessToken, async (req, res, next) => {
 ...
 ```
 
-Add error handling to `error.middleware.ts`:
+Add error handling to `error.middleware.ts`, the final code should look like:
 
 ```typescript
 import { Request, Response, NextFunction } from "express";
 import {
   InvalidTokenError,
   UnauthorizedError,
-  InsufficientScopeError,
 } from "express-oauth2-jwt-bearer";
 
 import mongoose from "mongoose";
@@ -147,14 +146,13 @@ export const errorHandler = (
 
   response.status(status).json({ message });
 };
-
 ```
 
 Copy `.env.example` to `.env` and add the properties:
 
 ```shell
-AUTH0_AUDIENCE=<your-auth0-domain>
-AUTH0_DOMAIN=dev-avup2laz.us.auth0.com
+AUTH0_AUDIENCE=https://document-api.okta.com
+AUTH0_DOMAIN=<your-auth0-domain>
 ```
 
 Run the MongoDB database with:
@@ -174,8 +172,7 @@ Obtain a test access token with Auth0 CLI:
 ```shell
 auth0 test token -a https://document-api.okta.com -s openid
 ```
-
-Set the access token in an environment var:
+Choose an available `[Generic]` client when prompted. Set the access token in an environment var:
 
 ```shell
 ACCESS_TOKEN=<access-token>
@@ -188,36 +185,48 @@ curl -i -X POST \
   -H "Authorization:Bearer $ACCESS_TOKEN" \
   -H "Content-Type: application/json" \
   -d '{"name": "planning.doc"}' \
-  http://localhost:8080/api/documents
+  http://localhost:6060/api/documents
 ```
 
 The output should look like:
 
 ```json
-{}
+{
+  "name": "planning.doc",
+  "_id": "66feb9c1f106b84c28644d3e",
+  "__v": 0
+}
 ```
 
 Retrieve all documents:
 
 ```shell
-curl -i -H "Authorization: Bearer $ACCESS_TOKEN" localhost:8080/api/documents
+curl -i -H "Authorization: Bearer $ACCESS_TOKEN" localhost:6060/api/documents
 ```
 
 The output should look like:
 
 ```json
-{}
+[
+  {
+    "_id": "66feb9c1f106b84c28644d3e",
+    "name": "planning.doc",
+    "__v": 0
+  }
+]
 ```
 
 Verify access is denied if the access token is not present:
 
 ```shell
-curl -i localhost:8080/api/documents
+curl -i localhost:6060/api/documents
 ```
+
+The response code should be `401 Unauthorized`.
 
 ## Initialize an authorization model in OpenFGA
 
-At a high level, an authorization model is defined by indicating user types, object types, and relationships between them. As we are not going to deep-dive on [ReBAC](https://openfga.dev/docs/authorization-concepts#what-is-relationship-based-access-control) in this guide, you can refer to OpenFGA documentation for learning about modeling concepts. Under the [Advanced use-cases](https://openfga.dev/docs/modeling/advanced) section in the doc, there is a simplified authorization model for a [Google Drive](https://openfga.dev/docs/modeling/advanced/gdrive) application ready to test. Prepare the model for import to the OpenFGA service, creating `auth-model.fga` at `start/openfga`:
+At a high level, an authorization model is defined by indicating user types, object types, and relationships between them. As we are not going to deep-dive on [ReBAC](https://openfga.dev/docs/authorization-concepts#what-is-relationship-based-access-control) in this guide, you can refer to OpenFGA documentation for learning about modeling concepts. Under the [Advanced use-cases](https://openfga.dev/docs/modeling/advanced) section in the doc, there is a simplified authorization model for a [Google Drive](https://openfga.dev/docs/modeling/advanced/gdrive) application ready to test. Prepare the model for import to the OpenFGA service, creating the file `auth-model.fga` at the directory `start/openfga`:
 
 ```fga
 model
@@ -247,7 +256,7 @@ fga model transform --file=auth-model.fga > auth-model.json
 Run the OpenFGA service with:
 
 ```shell
-docker compose run openfga
+docker compose up openfga
 ```
 
 Create a store:
@@ -260,14 +269,14 @@ Create a store:
  Set the store id in the output as an env var, and write the model:
 
  ```shell
- export FGA_STORE_ID=01J97AA9CHW4BB2TPWRTN3SK96
+ export FGA_STORE_ID=<store-id>
  fga model write --store-id=${FGA_STORE_ID} --file auth-model.json
  ```
 
  Set the model id in the output as an env var:
 
  ```shell
- export FGA_MODEL_ID=01J97BHGF6FW4MM4BHVFWEPXF6
+ export FGA_MODEL_ID=<model-id>
  ```
 
 ## Add Fine-Grained Authorization (FGA) with OpenFGA
@@ -470,17 +479,19 @@ if (error instanceof PermissionDenied) {
 Run the API and try a read operation:
 
 ```shell
-curl -i -H "Authorization: Bearer $ACCESS_TOKEN" localhost:8080/api/documents
+curl -i -H "Authorization: Bearer $ACCESS_TOKEN" localhost:6060/api/documents
 ```
 
 ```shell
-curl -i -H "Authorization: Bearer $ACCESS_TOKEN" localhost:8080/api/documents/<document-id>
+curl -i -H "Authorization: Bearer $ACCESS_TOKEN" localhost:6060/api/documents/<document-id>
 ```
 
-It should fail with the following response:
+It should fail with the following `403 Forbidden` response:
 
 ```json
-{}
+{
+  "message": "Permission denied"
+}
 ```
 
 Got to https://jwt.io/ and decode the Auth0 access token, and copy the `sub` claim value to use it as UserIDº.
@@ -491,11 +502,7 @@ Then grant read access to the document with FGA CLI:
 fga tuple write --store-id=${FGA_STORE_ID} --model-id=$FGA_MODEL_ID 'user:<sub-claim>' viewer document:<document-id>
 ```
 
-You can add other relationship for the user and document like `owner`, `writer`. Retry the read operation and it should succeed, and the response will look like:
-
-```json
-
-```
+You can add other relationships for the user and document like `owner`, `writer`. Retry the read operation and it should succeed with `200 OK`.
 
 ## Learn more about Node.js and Fine-Grained Authorization
 
