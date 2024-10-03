@@ -506,7 +506,7 @@ You can add other relationships for the user and document like `owner`, `writer`
 
 ## Learn more about Node.js and Fine-Grained Authorization
 
-In this post, you learned about OpenFGA integration to a Node.js API using the [OpenFGA Javascript and Node.js SDK](https://github.com/openfga/js-sdk). I hope you enjoyed this quick tutorial, and if you'd rather skip the step-by-step and prefer running a sample application, follow the [README](https://github.com/oktadev/express-javascript-fga) instructions in the same repository.
+In this post, you learned about OpenFGA integration to a Node.js API using the [OpenFGA Javascript and Node.js SDK](https://github.com/openfga/js-sdk). I hope you enjoyed this quick tutorial, and if you'd rather skip the step-by-step and prefer running a sample application, follow the [README](https://github.com/indiepopart/express-typescript-fga) instructions in the same repository.
 
 Also, if you liked this post, you might enjoy these related posts:
 
