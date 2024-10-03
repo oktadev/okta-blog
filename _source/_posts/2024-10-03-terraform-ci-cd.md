@@ -103,7 +103,7 @@ You will also need a GitHub Organization. If you are an enterprise user, you lik
 
 You'll create a new repository within your GitHub Organization and then connect it to your local development environment:
 
-1. **Create a new repository**: We created a templated repository for you to use for this guide. Follow the [Creating a repository from a template](https://docs.github.com/en/repositories/creating-and-managing-repositories/creating-a-repository-from-a-template) instruction from GitHub and use this [sample template](https://github.com/oktadev/okta-terraform-devops-template-example).  Select your GitHub Organization as the owner and name the repository using a structure such as `{okta-domain-name}-okta-terraform` (e.g., `verysecureorg-okta-terraform`). Ensure you set the repository to **Private**. This setting is crucial as the repository will run GitHub Actions workflows and have information related to your environment (e.g., AWS resource names).
+1. **Create a new repository**: We created a templated repository for you to use for this guide. Follow the [Creating a repository from a template](https://docs.github.com/en/repositories/creating-and-managing-repositories/creating-a-repository-from-a-template) instruction from GitHub and use this [sample template](https://github.com/oktadev/okta-terraform-devops-template-example).  Select your GitHub Organization as the owner and name the repository using a structure such as `{okta-domain-name}-okta-terraform` (e.g., `atk-okta-terraform`). Ensure you set the repository to **Private**. This setting is crucial as the repository will run GitHub Actions workflows and have information related to your environment (e.g., AWS resource names).
 2. **Clone the Repository**: Once you create your repository, copy the clone link and run the following commands in the command line. Replace the variables with your GitHub username, GitHub organization, and repository name:
 ```bash
 git clone https://{your_github_username}@github.com/{your-github-organization}/{your-repository-name}.git
@@ -131,7 +131,7 @@ In the **General Settings** tab, find the **Client Credentials** section and pre
   4. Select **Done** and **Save**
 
 Navigate to **Okta API Scopes** tab and make the changes:
-  1. Find and select `okta.groups.manage` 
+  1. Find `okta.groups.manage` and select **Grant**
 
 Navigate to the **Admin roles** tab and press **Edit assignments**. Then apply the following changes:
   1. In the **Role** drop-down, select 'Organization Administrator', or your preferred Admin Role
@@ -231,7 +231,7 @@ By following these steps, you will have created an IAM policy that provides the 
 
 ### Configure an OpenID Connect Provider in GitHub
 
-Next, we'll configure the OIDC Identity Provider for GitHub. Follow the AWS instructions at [Create an OpenID Connect identity provider in IAM](https://docs.aws.amazon.com/IAM/latest/UserGuide/id_roles_providers_create_oidc.html). 
+Next, we'll configure the OIDC Identity Provider for GitHub. Follow the AWS instructions at [Create an OpenID Connect identity provider in IAM](https://docs.aws.amazon.com/IAM/latest/UserGuide/id_roles_providers_create_oidc.html#manage-oidc-provider-console). 
 
   * For the **Provider URL**, use `https://token.actions.githubusercontent.com`
   * For the **Audience**, use `sts.amazonaws.com`
@@ -260,7 +260,7 @@ GitHub Actions allows us to run our build and deployment activities using Terraf
 
 First, we must store the Role ARN and other environment variables in GitHub. To create and store variables for the GitHub repository, follow the [Creating configuration variables for a repository](https://docs.github.com/en/actions/writing-workflows/choosing-what-your-workflow-does/store-information-in-variables#creating-configuration-variables-for-a-repository) instructions.
 
-1. **Store the Role ARN**: Create a variable named AWS_ROLE_ARN and use the Role ARN for the value
+1. **Store the Role ARN**: Create a variable named AWS_ROLE_ARN and use the Role ARN for the value (e.g. `arn:aws:iam::<Account-Number>:role/<Role-Name>`).
 1. **Store the Region**: Create a variable named AWS_REGION and use the Region in which the AWS resources were created (e.g. `ap-southeast-2`). Refer to the following documentation for more details on Region names: [AWS Regions Documentation](https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/Concepts.RegionsAndAvailabilityZones.html)
 
 > Ensure you do this at a 'Repository' level and not at an 'Organization' level, or the GitHub Actions workflows will not be able to read the variables 
@@ -383,7 +383,7 @@ okta_scopes       = [
   "okta.groups.manage"
 ]
 okta_client_id    = "0oaes123y1FekjfoE1d7"
-okta_private_key_id = "ievOgRgNc7eAoyZJkR_Nvlf0qWnqGg5-JKaJJn5ra_4"
+okta_private_key_id = "ievOgRgNc...aJJn5ra_4"
 okta_secret_id    = "dev/okta_terraform_key"
 ```
 
