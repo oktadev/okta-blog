@@ -157,6 +157,12 @@ AUTH0_AUDIENCE=<your-auth0-domain>
 AUTH0_DOMAIN=dev-avup2laz.us.auth0.com
 ```
 
+Run the MongoDB database with:
+
+```shell
+docker compose up mongodb mongo-express
+```
+
 Run the API with:
 
 ```shell
@@ -188,6 +194,7 @@ curl -i -X POST \
 The output should look like:
 
 ```json
+{}
 ```
 
 Retrieve all documents:
@@ -199,6 +206,7 @@ curl -i -H "Authorization: Bearer $ACCESS_TOKEN" localhost:8080/api/documents
 The output should look like:
 
 ```json
+{}
 ```
 
 Verify access is denied if the access token is not present:
@@ -207,10 +215,287 @@ Verify access is denied if the access token is not present:
 curl -i localhost:8080/api/documents
 ```
 
+## Initialize an authorization model in OpenFGA
+
+At a high level, an authorization model is defined by indicating user types, object types, and relationships between them. As we are not going to deep-dive on [ReBAC](https://openfga.dev/docs/authorization-concepts#what-is-relationship-based-access-control) in this guide, you can refer to OpenFGA documentation for learning about modeling concepts. Under the [Advanced use-cases](https://openfga.dev/docs/modeling/advanced) section in the doc, there is a simplified authorization model for a [Google Drive](https://openfga.dev/docs/modeling/advanced/gdrive) application ready to test. Prepare the model for import to the OpenFGA service, creating `auth-model.fga` at `start/openfga`:
+
+```fga
+model
+  schema 1.1
+
+type user
+
+type document
+  relations
+    define owner: [user, domain#member] or owner from parent
+    define writer: [user, domain#member] or owner or writer from parent
+    define commenter: [user, domain#member] or writer or commenter from parent
+    define viewer: [user, user:*, domain#member] or commenter or viewer from parent
+    define parent: [document]
+
+type domain
+  relations
+    define member: [user]
+```
+
+For saving the authorization model in an OpenFGA store, it must be transformed to JSON format with FGA CLI:
+
+```shell
+fga model transform --file=auth-model.fga > auth-model.json
+```
+
+Run the OpenFGA service with:
+
+```shell
+docker compose run openfga
+```
+
+Create a store:
+
+ ```shell
+ export FGA_API_URL=http://localhost:8090
+ fga store create --name "documents-fga"
+ ```
+
+ Set the store id in the output as an env var, and write the model:
+
+ ```shell
+ export FGA_STORE_ID=01J97AA9CHW4BB2TPWRTN3SK96
+ fga model write --store-id=${FGA_STORE_ID} --file auth-model.json
+ ```
+
+ Set the model id in the output as an env var:
+
+ ```shell
+ export FGA_MODEL_ID=01J97BHGF6FW4MM4BHVFWEPXF6
+ ```
+
 ## Add Fine-Grained Authorization (FGA) with OpenFGA
 
+First, add the following vars to the `.env` file:
 
+```shell
+FGA_API_URL=http://localhost:8090
+FGA_STORE_ID=<store-id>
+FGA_MODEL_ID=<model-id>
+```
 
+Create a middleware for permission checks using OpenFGA Node.js SDK. Install the dependency:
+
+```shell
+npm install @openfga/sdk
+```
+
+Add the file `src/middleware/openfga.middleware.ts`:
+
+```typescript
+// src/middleware/openfga.middleware.ts
+import * as dotenv from "dotenv";
+import { NextFunction, Request, Response } from "express";
+import { ClientCheckRequest, OpenFgaClient } from "@openfga/sdk";
+
+dotenv.config();
+
+export class PermissionDenied extends Error {
+  constructor(message: string) {
+    super(message);
+  }
+}
+
+const fgaClient = new OpenFgaClient({
+  apiUrl: process.env.FGA_API_URL, // required
+  storeId: process.env.FGA_STORE_ID, // not needed when calling `CreateStore` or `ListStores`
+  authorizationModelId: process.env.FGA_MODEL_ID, // Optional, can be overridden per request
+});
+
+export const forView = (req: Request): ClientCheckRequest => {
+  const userId = req.auth?.payload.sub;
+  const tuple = {
+    user: `user:${userId}`,
+    object: `document:${req.params.id}`,
+    relation: "viewer",
+  };
+  return tuple;
+};
+
+export const forUpdate = (req: Request): ClientCheckRequest => {
+  const userId = req.auth?.payload.sub;
+  const tuple = {
+    user: `user:${userId}`,
+    object: `document:${req.params.id}`,
+    relation: "writer",
+  };
+  return tuple;
+};
+
+export const forDelete = (req: Request): ClientCheckRequest => {
+  const userId = req.auth?.payload.sub;
+  const tuple = {
+    user: `user:${userId}`,
+    object: `document:${req.params.id}`,
+    relation: "owner",
+  };
+  return tuple;
+};
+
+export const forCreate = (req: Request): ClientCheckRequest | null => {
+  const userId = req.auth?.payload.sub;
+  const parentId = req.body.parentId;
+  const tuple = parentId
+    ? {
+        user: `user:${userId}`,
+        object: `document:${parentId}`,
+        relation: "writer",
+      }
+    : null;
+  return tuple;
+};
+
+export const checkPermissions = (
+  createTuple: (req: Request) => ClientCheckRequest | null
+) => {
+  return async (req: Request, res: Response, next: NextFunction) => {
+    try {
+      const tuple = createTuple(req);
+
+      console.log("tuple", tuple);
+
+      if (!tuple) {
+        next();
+        return;
+      }
+      const result = await fgaClient.check(tuple);
+
+      if (!result.allowed) {
+        next(new PermissionDenied("Permission denied"));
+        return;
+      }
+
+      next();
+    } catch (error) {
+      next(error);
+    }
+  };
+};
+```
+
+Call the middleware from the document router:
+
+```typescript
+// src/documents/document.router.ts
+
+documentRouter.post(
+  "/",
+  validateAccessToken,
+  checkPermissions(forCreate),
+  async (req, res, next) => {
+    try {
+      const document = await saveDocument(req.body);
+      res.status(200).json(document);
+    } catch (error) {
+      next(error);
+    }
+  }
+);
+
+documentRouter.put(
+  "/:id",
+  validateAccessToken,
+  checkPermissions(forUpdate),
+  async (req, res, next) => {
+    try {
+      const document = await updateDocument(req.params.id, req.body);
+      if (!document) {
+        res.status(404).json({ message: "Document not found" });
+        return;
+      }
+      res.status(200).json(document);
+    } catch (error) {
+      next(error);
+    }
+  }
+);
+
+documentRouter.delete(
+  "/:id",
+  validateAccessToken,
+  checkPermissions(forDelete),
+  async (req, res, next) => {
+    try {
+      const document = await deleteDocumentById(req.params.id);
+      if (!document) {
+        res.status(404).json({ message: "Document not found" });
+        return;
+      }
+      res.status(200).send();
+    } catch (error) {
+      next(error);
+    }
+  }
+);
+
+documentRouter.get(
+  "/:id",
+  validateAccessToken,
+  checkPermissions(forView),
+  async (req, res, next) => {
+    try {
+      const document = await findDocumentById(req.params.id);
+      if (!document) {
+        res.status(404).json({ message: "Document not found" });
+        return;
+      }
+      res.status(200).json(document);
+    } catch (error) {
+      next(error);
+    }
+  }
+```
+
+Update the error handling middleware:
+
+```typescript
+// src/middleware/error.middleware.ts
+if (error instanceof PermissionDenied) {
+  const message = "Permission denied";
+
+  response.status(403).json({ message });
+
+  return;
+}
+```
+
+## Send requests to the Express API
+
+Run the API and try a read operation:
+
+```shell
+curl -i -H "Authorization: Bearer $ACCESS_TOKEN" localhost:8080/api/documents
+```
+
+```shell
+curl -i -H "Authorization: Bearer $ACCESS_TOKEN" localhost:8080/api/documents/<document-id>
+```
+
+It should fail with the following response:
+
+```json
+{}
+```
+
+Got to https://jwt.io/ and decode the Auth0 access token, and copy the `sub` claim value to use it as UserIDº.
+
+Then grant read access to the document with FGA CLI:
+
+```shell
+fga tuple write --store-id=${FGA_STORE_ID} --model-id=$FGA_MODEL_ID 'user:<sub-claim>' viewer document:<document-id>
+```
+
+You can add other relationship for the user and document like `owner`, `writer`. Retry the read operation and it should succeed, and the response will look like:
+
+```json
+
+```
 
 ## Learn more about Node.js and Fine-Grained Authorization
 
