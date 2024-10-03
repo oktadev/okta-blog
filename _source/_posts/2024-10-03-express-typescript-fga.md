@@ -3,7 +3,7 @@ layout: blog_post
 title: "OpenFGA for an Express + Typescript Node.js API"
 author: jimena-garbarino
 by: contractor
-communities: [security,javascript,]
+communities: [security,javascript]
 description: "How to add Fine-Grained Authorization (FGA) to an Express + Typescript API using the OpenFGA Javascript and Node.js SDK."
 tags: [javascript, nodejs, expressjs, openfga]
 tweets:
@@ -14,7 +14,7 @@ image:
 type: awareness
 ---
 
-OpenFGA is an open-source Relationship Based Access Control (ReBAC) system designed by Okta for developers, and adopted by the Cloud Native Computing Foundation (CNCF). It offers scalability and flexibility, and it also supports the implementation of RBAC and ABAC authorization models, moving authorization logic outside application code, making it simpler to evolve authorization policies as complexity grows. In this guide, you will learn how to secure a Node.js API with Auth0 and integrate Fine-Grained Authorization (FGA) into document operations with OpenFGA.
+OpenFGA is an open-source Relationship-Based Access Control (ReBAC) system designed by Okta for developers, and adopted by the Cloud Native Computing Foundation (CNCF). It offers scalability and flexibility, and it also supports the implementation of RBAC and ABAC authorization models, moving authorization logic outside application code, making it simpler to evolve authorization policies as complexity grows. In this guide, you will learn how to secure a Node.js API with Auth0 and integrate Fine-Grained Authorization (FGA) into document operations with OpenFGA.
 
 > **This tutorial was created with the following tools and services**:
 > - [Node 20.10.0](https://jdk.java.net/java-se-ri/21)
@@ -89,7 +89,7 @@ documentRouter.get("/", validateAccessToken, async (req, res, next) => {
 ...
 ```
 
-Add error handling to `error.middleware.ts`, the final code should look like:
+Add error handling to `error.middleware.ts`, the final code should look like this:
 
 ```typescript
 import { Request, Response, NextFunction } from "express";
@@ -226,7 +226,7 @@ The response code should be `401 Unauthorized`.
 
 ## Initialize an authorization model in OpenFGA
 
-At a high level, an authorization model is defined by indicating user types, object types, and relationships between them. As we are not going to deep-dive on [ReBAC](https://openfga.dev/docs/authorization-concepts#what-is-relationship-based-access-control) in this guide, you can refer to OpenFGA documentation for learning about modeling concepts. Under the [Advanced use-cases](https://openfga.dev/docs/modeling/advanced) section in the doc, there is a simplified authorization model for a [Google Drive](https://openfga.dev/docs/modeling/advanced/gdrive) application ready to test. Prepare the model for import to the OpenFGA service, creating the file `auth-model.fga` at the directory `start/openfga`:
+At a high level, an authorization model is defined by indicating user types, object types, and relationships between them. As we are not going to deep-dive on [ReBAC](https://openfga.dev/docs/authorization-concepts#what-is-relationship-based-access-control) in this guide, you can refer to OpenFGA documentation for learning about modeling concepts. Under the [Advanced use-cases](https://openfga.dev/docs/modeling/advanced) section in the doc, there is a simplified authorization model for a [Google Drive](https://openfga.dev/docs/modeling/advanced/gdrive) application ready to test. Prepare the model for import to the OpenFGA service, creating the file `auth-model.fga` in the directory `start/openfga`:
 
 ```fga
 model
@@ -273,7 +273,7 @@ Create a store:
  fga model write --store-id=${FGA_STORE_ID} --file auth-model.json
  ```
 
- Set the model id in the output as an env var:
+ Set the model ID in the output as an env var:
 
  ```shell
  export FGA_MODEL_ID=<model-id>
@@ -494,7 +494,7 @@ It should fail with the following `403 Forbidden` response:
 }
 ```
 
-Got to https://jwt.io/ and decode the Auth0 access token, and copy the `sub` claim value to use it as UserIDº.
+Go to https://jwt.io/ and decode the Auth0 access token, and copy the `sub` claim value to use it as UserIDº.
 
 Then grant read access to the document with FGA CLI:
 
@@ -506,7 +506,7 @@ You can add other relationships for the user and document like `owner`, `writer`
 
 ## Learn more about Node.js and Fine-Grained Authorization
 
-In this post you learned about OpenFGA integration to a Node.js API using the [OpenFGA Javascript and Node.js SDK](https://github.com/openfga/js-sdk). I hope you enjoyed this quick tutorial, and if you'd rather skip the step-by-step and prefer running a sample application, follow the [README](https://github.com/oktadev/express-javascript-fga) instructions in the same repository.
+In this post, you learned about OpenFGA integration to a Node.js API using the [OpenFGA Javascript and Node.js SDK](https://github.com/openfga/js-sdk). I hope you enjoyed this quick tutorial, and if you'd rather skip the step-by-step and prefer running a sample application, follow the [README](https://github.com/oktadev/express-javascript-fga) instructions in the same repository.
 
 Also, if you liked this post, you might enjoy these related posts:
 
@@ -519,6 +519,6 @@ Check out the Javascript resources in our Developer Center:
 - [Express.js Code Sample: API Role-Based Access Control](https://developer.auth0.com/resources/code-samples/api/express/basic-role-based-access-control)
 - [Node (Express) API: Authorization](https://auth0.com/docs/quickstart/backend/nodejs)
 
-Please follow us on Twitter [@oktadev](https://twitter.com/oktadev) and subscribe to our [YouTube channel](https://www.youtube.com/oktadev) for more Spring Boot and microservices knowledge.
+Please follow us on Twitter [@oktadev](https://twitter.com/oktadev) and subscribe to our [YouTube channel](https://www.youtube.com/oktadev) for more Node.js and microservices knowledge.
 
 You can also sign up for our [developer newsletter](https://a0.to/nl-signup/java) to stay updated on everything Identity and Security.
