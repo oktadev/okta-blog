@@ -184,10 +184,10 @@ module.exports = oktaService;
 
 Add a new file named `app.js` in the project root folder. This is the entry point for running our Node.js service application. In this file, we'll do the following
 
-    * Import `oktaSevice`
-    * Create an async wrapper to execute asynchronous code
-    * Authenticate to Okta by calling `oktaService.authenticate()`
-    * Validate the previous step by listing users using a `GET` call to Okta's `/api/v1/users` endpoint
+  * Import `oktaService`
+  * Create an async wrapper to execute asynchronous code
+  * Authenticate to Okta by calling `oktaService.authenticate()`
+  * Validate the previous step by listing users using a `GET` call to Okta's `/api/v1/users` endpoint
 
 Paste the following code into the `app.js` file:
 ```javascript
