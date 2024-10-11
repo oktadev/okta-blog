@@ -419,7 +419,7 @@ variable "okta_group_name" {
 
 Next, open `terraform/main.tf` and uncomment the following entry. The main file contains critical configurations for the backend and providers (like Okta or AWS). It also is where we reference any modules, including the directory module, via their path within the local repository. It's also necessary to pass through any variables within this module block. You can manage variables in two ways:
 1. Configure the variable values directly within the main file, which may be acceptable for any standardized or non-environment-specific variables
-2. Reference the parent module variables file like we have done so in this example:
+2. Reference the parent module variables file like we have done, so in this example:
 
 ```
 okta_group_name = var.okta_group_name
