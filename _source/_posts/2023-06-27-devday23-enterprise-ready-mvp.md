@@ -1,7 +1,7 @@
 ---
 layout: blog_post
 title: "How to Build an Enterprise-Ready MVP SaaS App"
-author: alisa-duncan
+author: team-okta
 by: advocate
 communities: [devops,security,.net,java,javascript,php,python]
 description: "Prepare your SaaS app for enterprise identity management. What you need to know about Single Sign On (SSO) when building an enterprise-ready app. Learn more from Dan Marma, Product Acceleration Principal Architect."
