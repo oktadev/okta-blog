@@ -83,15 +83,15 @@ Install dependencies for the project by running:
 npm i dotenv@16.4.5 jsonwebtoken@9.0.2
 ```
 
-Create an `oktaService.js` file in the project root. We'll add the basic foundation of authenticating and calling Okta endpoints in this file. This file contains the following functions:
+Create an `oktaService.js` file in the project root. We'll add the basic foundation of authenticating and calling Okta endpoints in this file. This file contains three key functions:
 
-  * `oktaService.authenticate(..)` method gets an access token by following the steps below
-    * Generates a private key JWT required for authenticating and signs it using a keypair registered in the Okta application
-    * Generates the token request to Okta org authorization server
-    * Retrieves and stores the access token for future calls
-    * This token is valid for one hour by default at the time of writing this article
-   *  `oktaService.managementApiCall(..)` method makes the Okta management API calls and adds the necessary headers and tokens to enable the request
-    * `oktaHelper` contains utility methods to store okta configuration, access token, generating private key JWT, generating token request
+  * `oktaService.authenticate(..)` method gets an access token by:
+    * Generating a private key JWT required for authenticating and signs it using a keypair registered in the Okta application
+    * Generating the token request to Okta org authorization server
+    * Retrieving and stores the access token for future calls
+      **Note** - This token is valid for one hour by default at the time of writing this article
+  *  `oktaService.managementApiCall(..)` method makes the Okta management API calls and adds the necessary headers and tokens to enable the request
+  * `oktaHelper` contains utility methods to store okta configuration, access token, generating private key JWT, generating token request
 
 Add the following code to the `oktaService.js` file:
 
