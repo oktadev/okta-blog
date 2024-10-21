@@ -68,6 +68,8 @@ While viewing your database locally, you'll also see an org table. By clicking t
 - client_secret = ${ClientSecret}
 - apikey = 131313
 
+>**Note**: You can also get these OIDC-related endpoints by visiting this metadata URL `https://{yourOktaOrg}/.well-known/openid-configuration` provided by the [Okta Org authorization server](https://developer.okta.com/docs/concepts/auth-servers/#discovery-endpoints-org-authorization-servers).
+
 ### Create a test user
 
 To test whether UL works for our app, we'll create a user on Okta whose account we'll forcibly sign out. 
@@ -105,7 +107,7 @@ import { Router } from 'express';
 export const universalLogoutRoute = Router();
 ```
 
-Let's add the UL route to this file:
+Let's add the UL route to this file as well:
 
 ```ts
 import { Router } from 'express';
@@ -183,22 +185,73 @@ universalLogoutRoute.post('/global-token-revocation', async (req, res) => {
   if (!req.body) {
     res.status(400);
   }
-	
-  // Find the user by email linked to the org id associated with the API key provided
-  const domainOrgId = req['user']['id']
+
+  // Find the user
   const newRequest:IRequestSchema = req.body;
   const { email } = newRequest.sub_id;
   const user = await prisma.user.findFirst({
     where: {
-      email: email,
-      org: { id: domainOrgId },
+      email: email
     },
   });
 
-  // 404 User not found 
+  // 404 User not found
   if (!user) {
     res.sendStatus(404);
   }
+
+  return res.sendStatus(httpStatus);
+});
+
+universalLogoutRoute.use((err,req,res,next) => {
+  if(err){
+    return res.sendStatus(404)
+  }
+})
+```
+The apps/api/src/universalLogout.ts file now looks like the following:
+
+```ts
+import { Router } from 'express';
+export const universalLogoutRoute = Router();
+import { PrismaClient } from '@prisma/client';
+const prisma = new PrismaClient();
+
+interface IRequestSchema {
+  'sub_id': {format:string; email: string};
+}
+universalLogoutRoute.post('/global-token-revocation', async (req, res) => {
+  // 204 When the request is successful
+  const httpStatus = 204;
+
+  // 400 If the request is malformed
+  if (!req.body) {
+    res.status(400);
+  }
+
+  // Find the user
+  const newRequest:IRequestSchema = req.body;
+  const { email } = newRequest.sub_id;
+  const user = await prisma.user.findFirst({
+    where: {
+      email: email
+    },
+  });
+  
+  // 404 User not found
+  if (!user) {
+    res.sendStatus(404);
+  }
+
+  return res.sendStatus(httpStatus);
+
+});
+
+universalLogoutRoute.use((err,req,res,next) => {
+  if(err){
+    return res.sendStatus(404)
+  }
+})
 ```
 
 >**Checkpoint**: Now is an excellent time to test our code. 
@@ -398,12 +451,29 @@ universalLogoutRoute.post('/global-token-revocation', async (req, res) => {
     res.sendStatus(404);
   }
 
+  return res.sendStatus(httpStatus);
+});
+
 universalLogoutRoute.use((err,req,res,next) => {
   if(err){
 
     return res.sendStatus(404)
   }
 })
+```
+So now let's do another test to make sure the authentication piece we added is working. We'll need to modify our cURL request to include an Authorization header with a `Bearer 131313`. This should result in a 204 response. 
+
+```http
+curl --request POST \
+  --url http://localhost:3333/global-token-revocation \
+  --header 'Authorization: Bearer 131313' \
+  --header 'Content-Type: application/json' \
+  --data '{
+  "sub_id": {
+    "format": "email",
+    "email": "trinity@whiterabbit.fake"
+  }
+}'
 ```
 
 Moving right along, now that we have the target user of a specific org. Let's figure out how to target their application session and end it.
@@ -527,7 +597,7 @@ universalLogoutRoute.post('/global-token-revocation', async (req, res) => {
   }
 	
   // Find the user by email linked to the org id associated with the API key provided
- const domainOrgId = req['user']['id']
+  const domainOrgId = req['user']['id']
   const newRequest:IRequestSchema = req.body;
   const { email } = newRequest.sub_id;
   const user = await prisma.user.findFirst({
@@ -602,7 +672,7 @@ if (!res.ok)
 }}     
 ```
 
-The onNewTask function will now look like this:
+The `onNewTask` function will now look like this:
 
 ```ts
 import { useEffect, useState } from 'react';
@@ -635,8 +705,8 @@ export const Todos = () => {
         });
 
         if (!res.ok){if (res.status === 401) {
-// Redirect user back to the sign in page
-window.location.href = '/';
+        // Redirect user back to the sign in page
+        window.location.href = '/';
         } else {
           // Handle other errors
           throw new Error('Error occurred while fetching data');
