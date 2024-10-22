@@ -182,7 +182,7 @@ const oktaService = {
 module.exports = oktaService;
 ```
 
-Add a new file named `app.js` in the project root folder. This is the entry point for running our Node.js service application. In this file, we'll do the following
+Add a new file named `app.js` in the project root folder. This is the entry point for running our Node.js service application. In this file, we'll do the following:
 
   * Import `oktaService`
   * Create an async wrapper to execute asynchronous code
@@ -206,7 +206,7 @@ const oktaService = require('./oktaService.js');
 })();
 ```
 
-Next, update this as the entry point. In the `package.json` file, update the `scripts` property with the following.
+Next, update this as the entry point. In the `package.json` file, update the `scripts` property with the following:
  
 ```json
 "scripts": {
@@ -230,9 +230,9 @@ If you receive any errors, this is a good time to troubleshoot and resolve issue
 
 Why isn't OAuth 2.0 client credential flow enough?
 
-Our setup used the `client_credentials` grant type to authenticate and get an access token. If someone gets hold of the private_key_jwt, they cannot replay it beyond expiration (I reduced it to 5 minutes to shorten this window). However, if someone gets hold of the access token, they can use it for up to 1 hour, which is the default expiration time of an access token. 
+Our setup used the `client_credentials` grant type to authenticate and get an access token. If someone gets hold of the private_key_jwt, they cannot replay it beyond expiration (I reduced it to 5 minutes to shorten this window). However, if someone gets ahold of the access token, they can use it for up to 1 hour, which is the default expiration time of an access token. 
 
-Constraining the token sender is one way to make the access token more secure. How can you do that? By adding the Demonstrating Proof of Possession (DPoP) OAuth extension method to the access token interaction. The technique adds a sender-generated token for each call it makes. Doing so prevents replay attacks even before tokens expire since each call needs a fresh DPoP token. Here is the detailed flow
+Constraining the token sender is one way to make the access token more secure. How can you do that? By adding the Demonstrating Proof of Possession (DPoP) OAuth extension method to the access token interaction. The technique adds a sender-generated token for each call it makes. Doing so prevents replay attacks even before tokens expire since each call needs a fresh DPoP token. Here is the detailed flow:
 
 {% img blog/dpop-oauth-node/dpopflow.jpg alt:"Sequence diagram that displays the back and forth between the client, authorization server, and resource server for Demonstrating Proof-of-Possession" width:"800" %}{: .center-image }
 
@@ -260,7 +260,7 @@ OKTA_DPOP_PRIVATE_KEY_FILE=./assets/dpop_private_key.pem
 OKTA_DPOP_PUBLIC_KEY_FILE=./assets/dpop_public_key.json
 ```
 
-Add the DPoP-related code to `oktaService.js`. Add the key files to config; we can use this while adding DPoP to our methods
+Add the DPoP-related code to `oktaService.js`. Add the key files to config. We can use this while adding DPoP to our methods:
 
 ```javascript
 const oktaHelper = {
