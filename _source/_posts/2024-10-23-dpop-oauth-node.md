@@ -431,9 +431,10 @@ Try modifying the project using different Okta API scopes and experimenting with
 
 In this post, you accessed Okta management API using a node app and were able to make it more secure by adding DPoP support. I hope you enjoyed it! If you want to learn more about the ways you can incorporate authentication and authorization security in your apps, you might want to check out these resources:
 
+* [Elevate Access Token Security by Demonstrating Proof-of-Possession](/blog/2024/09/05/dpop-oauth)
 * [Okta Management API reference](https://developer.okta.com/docs/reference/)
 * [OAuth 2.0 and OpenID Connect overview](https://developer.okta.com/docs/concepts/oauth-openid/)
-* [Implement oAuth for Okta](https://developer.okta.com/docs/guides/implement-oauth-for-okta-serviceapp/main/)
+* [Implement OAuth for Okta](https://developer.okta.com/docs/guides/implement-oauth-for-okta-serviceapp/main/)
 * [Configure OAuth 2.0 Demonstrating Proof-of-Possession](https://developer.okta.com/docs/guides/dpop/-/main/)
 
 Remember to follow us on [Twitter](https://twitter.com/oktadev) and subscribe to our [YouTube channel](https://www.youtube.com/c/OktaDev/) for more exciting content. We also want to hear from you about topics you want to see and questions you may have. Leave us a comment below!
