@@ -119,12 +119,6 @@ Below the client ID, the "client authentication" radio button defaults to "Clien
 
 In the browser, save your changes to the general settings of the API Service App, and navigate to the app's Okta API Scopes. Grant `okta.groups.manage`, `okta.policies.manage`, and `okta.users.manage` for this workshop. 
 
-In the terminal, `cd okta-terraform-workshop` and convert the PKCS-1 key to an RSA (PKCS-8) key: 
-
-```
-$ openssl rsa -in pkcs.pem -out rsa.pem
-```
-
 ### 3.4: Configure the Okta Terraform provider
 
 After setting up the app integration, you have found all the values required by the provider configuration! In `main.tf`, check that your provider block contains the `org_name`, `client_id`, and `private_key` file location. Tell it where to find the private key that you converted. With all the values filled out, the provider configuration looks like this:
