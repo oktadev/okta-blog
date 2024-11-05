@@ -40,7 +40,7 @@ maurice-sharp:
   email: maurice.sharp@okta.com
   linkedin: https://www.linkedin.com/in/msharp/
   bio: Maurice is a developer, author, and documentation writer. He transitioned to developer documentation after writing a book on coding for iPhone. He went from managing a mobile development team to documenting Apple developer APIs. Then he moved to Okta where he focuses on developer content strategy and writes the occasional article.
-    Outside of work, he occasionally gives a workshop on designing and delivering engaging stories using a methodology based on cognitive biology and brain function. He's given these to presenters, entrepreneurs pitching VCs, and others. He uses the same methodology for writing documentation. 
+    Outside of work, he occasionally gives a workshop on designing and delivering engaging stories using a methodology based on cognitive biology and brain function. He's given these to presenters, entrepreneurs pitching VCs, and others. He uses the same methodology for writing documentation.
 
 
 victor-ronin:
@@ -952,3 +952,18 @@ louie-campagna:
   avatar: avatar-louie-campagna.jpeg
   linkedin: https://www.linkedin.com/in/louie-campagna/
   bio: Louie Campagna is an Okta Developer Support Engineer. He enjoys coding creative solutions to problems and writing scripts to automate processes. Louie's previous experience spans across customer service, desktop engineering, identity and access management and governance, and programming.
+
+nick-connelly:
+  full_name: Nick Connelly
+  display_name: Nick Connelly
+  avatar: avatar-nick-connelly.jpg
+  linkedin: https://www.linkedin.com/in/nicholasconnelly/
+  bio: Nick Connelly is a seasoned Professional Consultant within the Okta Professional Services team, bringing over a decade of experience in cybersecurity and identity and access management. Passionate about learning new technologies and improving processes, Nick is dedicated to delivering exceptional value for customers by leveraging the latest advancements and best practices in the industry.
+
+jeff-taylor:
+  full_name: Jeff Taylor
+  display_name: Jeff Taylor
+  avatar: avatar-jeff-taylor.jpg
+  linkedin: https://www.linkedin.com/in/jeffctaylor/
+  github: https://github.com/jefftaylor-okta
+  bio: Jeff is a Group Product Manager working on our Developer Products for Developers and Operators working with Workforce Identity Cloud including helping Integrators submitting to the Okta Integration Network easily and effectively. Jeff is a champion for Builders on the Okta ecosystem.

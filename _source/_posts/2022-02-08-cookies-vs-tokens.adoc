@@ -102,7 +102,7 @@ Tokens—or JWTs in this context—are stateless in nature, meaning the server d
 
 * **Multiple storage options**: Tokens can be stored in a number of ways in browsers or front-end applications.
 
-If you use a browser's local storage, tokens can't be accessed by a subdomain. However, they can be accessed and manipulated by any JavaScript code on the webpage, as well as by browser plugins. This isn't a recommended method: first, itposes a security risk, plus you must manage the storage.
+If you use a browser's local storage, tokens can't be accessed by a subdomain. However, they can be accessed and manipulated by any JavaScript code on the webpage, as well as by browser plugins. This isn't a recommended method: first, it poses a security risk, plus you must manage the storage.
 
 Session storage is another way to store tokens. The drawback is that the token is destroyed when the browser is closed.
 
