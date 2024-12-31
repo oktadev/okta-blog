@@ -10,7 +10,7 @@ tweets:
 - ""
 - ""
 - ""
-image:
+image: blog/scim-okta-integration-network/scim-okta-integration-network.jpg
 type: awareness
 ---
 
