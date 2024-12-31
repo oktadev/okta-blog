@@ -10,7 +10,7 @@ tweets:
 - ""
 - ""
 - ""
-image:
+image: blog/scim-okta-integration-network/scim-okta-integration-network.jpg
 type: awareness
 ---
 
@@ -57,7 +57,7 @@ Lastly, you must have a publicly accessible SCIM server for Okta to send request
 ## Learn more about Secure Identity Integrations
 For more resources, check out Okta's [Saas Security page](https://www.okta.com/saas-security/) and [integrator help hub](https://support.okta.com/help/s/product-hub/application-integrations?language=en_US).
 
-## Enterprise Workshop Series on building a SCIM server and other integrations
+## Enterprise workshop series on building a SCIM server and other integrations
 
 |Posts in the on-demand workshop series|
 | --- |
