@@ -1,7 +1,7 @@
 ---
 layout: blog_post
 title: "How to Submit Your System for Cross-domain Identity Management (SCIM) Integration to the Okta Integration Network"
-author:
+author: semona-igama
 by: advocate
 communities: [devops,security,mobile,.net,java,javascript,go,php,python,ruby]
 description: "A post on creating a SCIM provisioning instance in Okta for testing and submitting to the Okta Integration Network."
@@ -58,6 +58,7 @@ Lastly, you must have a publicly accessible SCIM server for Okta to send request
 For more resources, check out Okta's [Saas Security page](https://www.okta.com/saas-security/) and [integrator help hub](https://support.okta.com/help/s/product-hub/application-integrations?language=en_US).
 
 ## Enterprise Workshop Series on Building a SCIM Server and Other Integrations
+
 |Posts in the on-demand workshop series|
 | --- |
 | 1. [How to Get Going with the On-Demand SaaS Apps Workshops](/blog/2023/07/27/enterprise-ready-getting-started) |
