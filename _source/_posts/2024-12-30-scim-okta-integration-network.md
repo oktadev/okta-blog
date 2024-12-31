@@ -4,7 +4,7 @@ title: "How to Submit Your System for Cross-domain Identity Management (SCIM) In
 author:
 by: advocate
 communities: [devops,security,mobile,.net,java,javascript,go,php,python,ruby]
-description: ""
+description: "A post on creating a SCIM provisioning instance in Okta for testing and submitting to the Okta Integration Network."
 tags: [enterprise-ready-workshops, scim, okta-integration-network]
 tweets:
 - ""
@@ -27,7 +27,7 @@ and more critically,
 
 - Security vulnerabilities from inconsistent user deprovisioning
 
-This is where you come in as a partner. By integrating with Okta through SCIM (System for Cross-domain Identity Management) a standard for managing users, you can offer enterprise customers a solution that addresses these pain points.
+This is where you come in as a partner. By integrating with Okta through SCIM (System for Cross-domain Identity Management), a standard for managing users, you can offer enterprise customers a solution that addresses these pain points.
 
 ## So Why Is System for Cross-Domain Identity Management (SCIM) Your Gateway to Enterprise Success?
 
@@ -39,7 +39,7 @@ It facilitates:
 - Reduced operational complexity, which helps customers save on their identity management costs and overhead
 
 ## Accelerate Your Growth by Joining the Okta Integration Network (OIN)!
-And once you have a SCIM-compliant integration with Okta, we invite you to [Okta's Integration Network (OIN)](https://www.okta.com/integrations/). Here, you can unlock potential growth by tapping into Okta's massive customer base of 18,000+ organizations including leading companies and government institutions who rely on Okta as their identity security foundation. Furthermore, fast-track enterprise deals with your pre-built integration, and reduce sales friction with verified enterprise-ready status. More importantly, you'll be able to differentiate your offering with premium security features.
+And once you have a SCIM-compliant integration with Okta, we invite you to [Okta's Integration Network (OIN)](https://www.okta.com/integrations/). Here, you can unlock potential growth by tapping into Okta's massive customer base of 18,000+ organizations, including leading companies and government institutions that rely on Okta as their identity security foundation. Furthermore, fast-track enterprise deals with your pre-built integration and reduce sales friction with verified enterprise-ready status. More importantly, you'll be able to differentiate your offering with premium security features.
 
 ## How to Submit Your SCIM Integration to the Okta Integration Network (OIN)
 Here is a video walkthrough on creating your SCIM provisioning instance for OIN testing and submission.
@@ -52,7 +52,7 @@ Here is a video walkthrough on creating your SCIM provisioning instance for OIN 
 - [Manual Okta SCIM integration tests](https://developer.okta.com/docs/guides/submit-oin-app/scim/main/#manual-okta-scim-integration-tests)
 - Provisioning-enabled instance and confirmation
 
-Lastly, you will need to have a publicly accessible SCIM server for Okta to send requests to. I used the SCIM server from this [Enterprise Workshop on SCIM](/blog/2023/07/28/scim-workshop) to demo the submission process.
+Lastly, you must have a publicly accessible SCIM server for Okta to send requests to. I used the SCIM server from this [Enterprise Workshop on SCIM](/blog/2023/07/28/scim-workshop) to demo the submission process.
 
 ## Learn More About Secure Identity Integrations
 For more resources, check out Okta's [Saas Security page](https://www.okta.com/saas-security/) and [integrator help hub](https://support.okta.com/help/s/product-hub/application-integrations?language=en_US).
