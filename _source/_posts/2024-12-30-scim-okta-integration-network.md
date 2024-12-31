@@ -65,15 +65,6 @@ For more resources, check out Okta's [Saas Security page](https://www.okta.com/s
 | 3. [Enterprise-Ready Workshop: Manage Users with SCIM](/blog/2023/07/28/scim-workshop) |
 | 4. [Enterprise Maturity Workshop: Terraform](/blog/2023/07/28/terraform-workshop) |
 | 5. [Enterprise Maturity Workshop: Automate with no-code Okta Workflows](/blog/2023/09/15/workflows-workshop) |
-|  |
-
-|Posts in the on-demand workshop series|
-| --- |
-| 1. [How to Get Going with the On-Demand SaaS Apps Workshops](/blog/2023/07/27/enterprise-ready-getting-started) |
-| 2. [Enterprise-Ready Workshop: Authenticate with OpenID Connect](/blog/2023/07/28/oidc_workshop) |
-| 3. [Enterprise-Ready Workshop: Manage Users with SCIM](/blog/2023/07/28/scim-workshop) |
-| 4. [Enterprise Maturity Workshop: Terraform](/blog/2023/07/28/terraform-workshop) |
-| 5. [Enterprise Maturity Workshop: Automate with no-code Okta Workflows](/blog/2023/09/15/workflows-workshop) |
 | 6. [Enterprise-Ready Workshop: How to Instantly Sign a User Out Across All Your Apps](/blog/2024/04/30/express-universal-logout) |
 
 ## Stay In Touch!
