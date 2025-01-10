@@ -4,8 +4,8 @@ title: "Oktane Lab: Scaling Okta App Management by Importing Data from PowerShel
 author: E. Dunham
 by: advocate
 communities: [devops,.net]
-description: ""
-tags: []
+description: "Hands-on guide to using Okta Terraform and Powershell"
+tags: [terraform, powershell]
 tweets:
 - ""
 - ""
