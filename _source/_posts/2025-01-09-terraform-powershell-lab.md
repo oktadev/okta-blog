@@ -12,20 +12,16 @@ tweets:
 - ""
 image: blog/terraform-powershell-lab/image.jpg
 type: awareness
+---
 
 At Oktane 2024, we offered a lab session to teach the basics of automating Okta administration tasks with Terraform and PowerShell. This blog post will walk you through the content taught in that lab so you can follow along at your own pace to get some hands-on experience managing an Okta tenant with both tools. 
 
 This lab includes some Scenario sections to give realistic examples of a situation where you might perform each task. You can ignore these sections if you don't find them helpful. 
 
 ## Background
-PowerShell is an excellent introductory tool for general automation tasks. It is easier to set up
-but can require extensive customization to integrate with a more complete infrastructure-as-
-code solution. In this lab, the focus will be on reading data with PowerShell, but it is a general-
-purpose tool that can read from and write to Okta when configured with the appropriate scopes.
+PowerShell is an excellent introductory tool for general automation tasks. It is easier to set up but can require extensive customization to integrate with a more complete infrastructure-as-code solution. In this lab, the focus will be on reading data with PowerShell, but it is a general-purpose tool that can read from and write to Okta when configured with the appropriate scopes.
 
-Terraform is a specialized tool for developing infrastructure as code. Terraform requires more
-setup steps than PowerShell, but adding Okta management to an existing Terraform
-deployment is more straightforward than designing a new solution with PowerShell.
+Terraform is a specialized tool for developing infrastructure as code. Terraform requires more setup steps than PowerShell, but adding Okta management to an existing Terraform deployment is more straightforward than designing a new solution with PowerShell.
 
 ## How to create your lab environment
 
@@ -39,29 +35,22 @@ You can follow these steps on any computer where you're able to install the foll
 Note: Free trial accounts expire after 30 days, but developer accounts do not expire. 
 
 To use Terraform, you'll run commands in a terminal. You can even use a PowerShell window if you don't have a favorite terminal! 
+
 If this is your first time writing code, you might want to install an IDE like [Visual Studio](https://code.visualstudio.com/docs/introvideos/basics) so that you can navigate the files you're writing, detect errors using plugins, and execute commands using the built-in terminal. 
 
 ## How to set up Terraform to manage your Okta org's configuration
 
-When an identity administrator gives a person the ability to make changes in Okta, they
-provision the person with credentials to authenticate and scopes to indicate what they're
-authorized to do. When you set up an automation tool in your Okta organization, it's similar to
-onboarding any other colleague: Your tool will need credentials to authenticate and scopes to
-indicate what it's authorized to do.
+When an identity administrator gives a person the ability to make changes in Okta, they provision the person with credentials to authenticate and scopes to indicate what they're authorized to do. When you set up an automation tool in your Okta organization, it's similar to onboarding any other colleague: Your tool will need credentials to authenticate and scopes to indicate what it's authorized to do.
 
 ## Scenario
-You are on the DevOps team at Okta Ice. As the company has grown, it's gotten more challenging to
-manage and audit the changes that various teams make in Okta. Adding Okta to the
-infrastructure you are already managing with Terraform allows you to apply existing
-code review processes to your identity configuration.
+You are on the DevOps team at Okta Ice. As the company has grown, it's gotten more challenging to manage and audit the changes that various teams make in Okta. Adding Okta to the infrastructure you are already managing with Terraform allows you to apply existing code review processes to your identity configuration.
 
 
 ### Accessing Terraform
 
 In a production setting, you would collaborate on your Terraform files with colleagues using version control. If anyone at your organization uses Terraform, you should set it up according to their advice on best practices. 
 
-Note that Terraform creates a `.tfstate` file. Each real-world resource should only be
-represented in one `.tfstate` file. If you're collaborating on a Terraform codebase, products like [Terraform Cloud](https://www.hashicorp.com/resources/what-is-terraform-cloud) are available to help you manage shared access to `.tfstate` files. 
+Note that Terraform creates a `.tfstate` file. Each real-world resource should only be represented in one `.tfstate` file. If you're collaborating on a Terraform codebase, products like [Terraform Cloud](https://www.hashicorp.com/resources/what-is-terraform-cloud) are available to help you manage shared access to `.tfstate` files. 
 
 You will save a private key alongside your code to simplify the lab. In production, you should store keys in your organization's secrets management solution. Because private keys are secrets, follow your organization's best practices for secrets management when dealing with them.
 
@@ -101,8 +90,7 @@ You will save a private key alongside your code to simplify the lab. In producti
 
 4. On your computer, paste the key into a file and save it as `key.pem`
 
-   **Important:** The key is saved locally to simplify the lab. You should save the key to an appropriate secrets management solution when working with production environments. If
-   you do not have secrets management, [this blog post](/blog/2024/10/11/terraform-ci-cd) shares one way to set it up.
+   **Important:** The key is saved locally to simplify the lab. You should save the key to an appropriate secrets management solution when working with production environments. If you do not have secrets management, [this blog post](/blog/2024/10/11/terraform-ci-cd) shares one way to set it up.
 
 5. Complete the configuration steps.
     
@@ -113,11 +101,11 @@ You will save a private key alongside your code to simplify the lab. In producti
     c. In the "Existing client secrets will no longer be used" popup, select Save.
 
 6. From the Okta API Scopes tab, grant the following scopes:
-    - okta.appGrants.manage
-    - okta.apps.manage
-    - okta.oauthIntegrations.manage
-    - okta.policies.read
-    - okta.users.manage
+    - `okta.appGrants.manage`
+    - `okta.apps.manage`
+    - `okta.oauthIntegrations.manage`
+    - `okta.policies.read`
+    - `okta.users.manage`
 
 7. Modify the admin roles for the Terraform lab app.
     
@@ -158,11 +146,11 @@ provider "okta" {
 
 9. In your `main.tf` file, replace `ORGID` with the subdomain for your Okta org.
 
-   Note: The subdomain is between `https://` and `.oktapreview.com`. In the example below,
-   the subdomain is `oktaice0000000`.
+   **Note:** The subdomain is between `https://` and `.oktapreview.com`. In the example below, the subdomain is `oktaice0000000`.
 
 10. In your `main.tf` file, replace `CLIENTID` with the client ID of your Terraform lab app.
-    Note: Go to Applications > Applications to find the client ID of your Terraform lab app.
+
+    **Note:** Go to Applications > Applications to find the client ID of your Terraform lab app.
 
 11. Save the `main.tf` file.
 12. Initiate and run the terraform plan.
@@ -181,15 +169,10 @@ provider "okta" {
 In this lab, we'll use Terraform to create an application that PowerShell can use to read Okta data safely. If you want to use Okta's PowerShell module without managing it in Terraform, follow [the usage guide](https://github.com/okta/okta-powershell-cli?tab=readme-ov-file#usage-guide) instead. 
 
 ## Scenario
-An Okta Ice intern uses PowerShell to generate a newsletter with statistics about the
-company. They have asked you to help them access data about how the company uses Okta.
-You want to give their script read access to various data from Okta by setting up an
-application for PowerShell and testing it out. Since they are already using PowerShell, the Okta
-PowerShell Module is a perfect choice for the task!
+An Okta Ice intern uses PowerShell to generate a newsletter with statistics about the company. They have asked you to help them access data about how the company uses Okta.  You want to give their script read access to various data from Okta by setting up an application for PowerShell and testing it out. Since they are already using PowerShell, the Okta PowerShell Module is a perfect choice for the task!
 
 ### Accessing PowerShell
-You can access PowerShell 7 by launching it from the shortcut generated during its installation or with the Visual Studio Code
-built-in terminal. 
+You can access PowerShell 7 by launching it from the shortcut generated during its installation or with the Visual Studio Code built-in terminal. 
 
 ## Configure a PowerShell Application using Terraform
 1. Add the following to your main.tf file:
@@ -217,11 +200,8 @@ resource "okta_app_oauth_api_scope" "ps-scopes" {
   "okta.userTypes.read", "okta.users.read"]
 }
 ```
-2. In your terminal, run the following command:
-   ```
-   terraform apply
-   ```
-3. Type yes when prompted.
+2. In your terminal, run the command `terraform apply`
+3. Type `yes` when prompted.
 4. Wait for the `terraform apply` to complete.
 5. From the `Creation complete after` output, copy the value of the `okta_app_oauth` id.
    **Note:** PowerShell and Terraform now have separate applications in your Okta organization. 
@@ -240,16 +220,11 @@ resource "okta_app_oauth_api_scope" "ps-scopes" {
 
 7. The `Invoke-OktaEstablishAccessToken` command displays a URL. Open the link in a web browser.
 8. Authenticate to your Okta Training Org when prompted.
-9. Run this command in your PowerShell session:
-
-  ```
-  Invoke-OktaListApplications
-  ```
+9. In your PowerShell session, run the command `Invoke-OktaListApplications`
 
 ## Extra Credit
-You have set up the PowerShell application with various scopes. What interesting information about your organization can you retrieve using these scopes? Will these scopes allow you to make any
-changes to the Okta organization? Try some PowerShell commands to create or destroy
-resources and see what happens!
+You have set up the PowerShell application with various scopes. What interesting information about your organization can you retrieve using these scopes? Will these scopes allow you to make any changes to the Okta organization? Try some PowerShell commands to create or destroy resources and see what happens!
+
 If you want to explore your Okta org more with PowerShell, these resources may help:
 - Okta Developer [PowerShell blog post](/blog/2024/05/07/okta-powershell-module)
 - Okta Developer Podcast [PowerShell Episode](/blog/2024/04/11/okta-powershell-module-podcast)
@@ -267,11 +242,8 @@ Your manager at Okta Ice assigns you a ticket to update the configuration of the
 
 ## Manage Terraform in Terraform
 
-1) 	In your PowerShell session from the previous section, run the following command: 
-
-``` powershell
-Invoke-OktaListApplications
-```
+1) 	In your PowerShell session from the previous section, run the command `powershell
+Invoke-OktaListApplications`
 
 2) 	In the resulting list, find the ID of your Terraform app. Note that the name you chose, such as "Terraform lab," will be shown in the label field. 
 
@@ -285,7 +257,7 @@ import {
 ```
 4) 	Save `main.tf`
 
-5)	In your terminal, run the command: `terraform plan --generate-config-out tf-app-config.tf` 
+5)	In your terminal, run the command `terraform plan --generate-config-out tf-app-config.tf` 
 
 6)	Remove the `import{...}` block from `main.tf` and save `main.tf`
 
@@ -293,7 +265,7 @@ import {
 
 8)	Open the file `tf-app-config.tf` 
 
-9)	Remove the comments from the top of the file (single-line comments in Terraform start with # or //)
+9)	Remove the comments from the top of the file (single-line comments in Terraform start with `#` or `//`)
 
 10)	Remove the lines from the resource block that do not represent properties you plan to manage. You can safely remove any null field. 
 
@@ -317,7 +289,7 @@ Now that you are managing Terraform's Okta application in Terraform, you can mod
 
 Remember that the scopes configured in the provider block and those configured in the Okta application must match before Terraform can use them!
 
-# Appendix: All the Terraform Code in one place
+## Appendix: All the Terraform Code in one place
 After completing the lab, your `main.tf` will contain the following. To clean up the whitespace in your files, run the command terraform fmt.  
 ```
 terraform {
