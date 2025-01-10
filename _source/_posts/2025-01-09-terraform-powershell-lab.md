@@ -34,7 +34,7 @@ You can follow these steps on any computer where you're able to install the foll
 - Install [PowerShell](https://learn.microsoft.com/en-us/powershell/scripting/install/installing-powershell?view=powershell-7.4).
 - Install the [official Okta PowerShell module](https://github.com/okta/okta-powershell-cli) from your preferred PowerShell module location.
 - Install [Terraform](https://developer.hashicorp.com/terraform/tutorials/aws-get-started/install-cli).
-- Create an Okta org by signing up for Workforce Identity Cloud at [developer.okta.com](https://developer.okta.com/signup/).
+- Create an Okta org by [signing up](/signup/) for Workforce Identity Cloud.
 
 Note: Free trial accounts expire after 30 days, but developer accounts do not expire. 
 
@@ -103,8 +103,7 @@ To simplify the lab, you will save a private key alongside your code. In product
 
    **Important:** The key is saved locally to simplify the lab. When working with production
    environments, the key should be saved to an appropriate secrets management solution. If
-   you do not have secrets management, this blog post shares one way to set it up:
-   https://developer.okta.com/blog/2024/10/11/terraform-ci-cd
+   you do not have secrets management, [this blog post](/blog/2024/10/11/terraform-ci-cd) shares one way to set it up.
 
 5. Complete the configuration steps.
     
@@ -255,9 +254,9 @@ about your org can you retrieve with these scopes? Will these scopes let you mak
 changes to the Okta organization? Try some PowerShell commands to create or destroy
 resources and see what happens!
 If you want to explore your Okta org more with PowerShell, these resources may help:
-- https://developer.okta.com/blog/2024/05/07/okta-powershell-module
-- https://developer.okta.com/blog/2024/04/11/okta-powershell-module-podcast
-- https://github.com/okta/okta-powershell-cli/blob/main/tests/Api/OktaGroupApi.Tests.ps1
+- Okta Developer [PowerShell blog post](/blog/2024/05/07/okta-powershell-module)
+- Okta Developer Podcast [PowerShell Episode](/blog/2024/04/11/okta-powershell-module-podcast)
+- The Okta PowerShell module [test suite](https://github.com/okta/okta-powershell-cli/blob/main/tests/Api/OktaGroupApi.Tests.ps1)
 
 ## Manage Terraform using Terraform
 
@@ -313,7 +312,7 @@ Consult the Okta Terraform Provider documentation at https://registry.terraform.
 Find an interesting resource and use Terraform to create that resource in your Okta training organization. 
 After creating a resource in your Okta organization, you can view it in the admin console. 
  
-For some more examples of things you can do in Terraform, see https://developer.okta.com/blog/2023/07/28/terraform-workshop. 
+For some more examples of things you can do in Terraform, see the [Terraform Enterprise Maturity Workshop](/blog/2023/07/28/terraform-workshop). 
 
 ### Extra Credit 2: 
 
