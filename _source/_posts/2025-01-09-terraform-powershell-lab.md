@@ -32,7 +32,7 @@ You can follow these steps on any computer where you're able to install the foll
 - Install [Terraform](https://developer.hashicorp.com/terraform/tutorials/aws-get-started/install-cli).
 - Create an Okta org by [signing up](/signup/) for Workforce Identity Cloud.
 
-Note: Free trial accounts expire after 30 days, but developer accounts do not expire. 
+**Note:** Free trial accounts expire after 30 days, but developer accounts do not expire. 
 
 To use Terraform, you'll run commands in a terminal. You can even use a PowerShell window if you don't have a favorite terminal! 
 
@@ -83,14 +83,13 @@ You will save a private key alongside your code to simplify the lab. In producti
     
     e. Under "Private Key - Copy this!" select PEM.
     
-       **Note**: the PEM key begins with the line `-----BEGIN PRIVATE KEY-----`.
-       Make sure you're looking at the PEM, not the JSON. 
+**Note**: the PEM key begins with the line `-----BEGIN PRIVATE KEY-----`. Make sure you're looking at the PEM, not the JSON. 
     
     f. Select Copy to clipboard.
 
 4. On your computer, paste the key into a file and save it as `key.pem`
 
-   **Important:** The key is saved locally to simplify the lab. You should save the key to an appropriate secrets management solution when working with production environments. If you do not have secrets management, [this blog post](/blog/2024/10/11/terraform-ci-cd) shares one way to set it up.
+**Important:** The key is saved locally to simplify the lab. You should save the key to an appropriate secrets management solution when working with production environments. If you do not have secrets management, [this blog post](/blog/2024/10/11/terraform-ci-cd) shares one way to set it up.
 
 5. Complete the configuration steps.
     
@@ -175,7 +174,7 @@ An Okta Ice intern uses PowerShell to generate a newsletter with statistics abou
 You can access PowerShell 7 by launching it from the shortcut generated during its installation or with the Visual Studio Code built-in terminal. 
 
 ## Configure a PowerShell Application using Terraform
-1. Add the following to your main.tf file:
+1. Add the following to your `main.tf` file:
 
 ```hcl
 resource "okta_app_oauth" "ps" {
@@ -204,11 +203,12 @@ resource "okta_app_oauth_api_scope" "ps-scopes" {
 3. Type `yes` when prompted.
 4. Wait for the `terraform apply` to complete.
 5. From the `Creation complete after` output, copy the value of the `okta_app_oauth` id.
-   **Note:** PowerShell and Terraform now have separate applications in your Okta organization. 
-   The PowerShell application's ID can also be found in the Okta admin console under Applications -> Applications. 
+
+**Note:** PowerShell and Terraform now have separate applications in your Okta organization. The PowerShell application's ID can also be found in the Okta admin console under Applications -> Applications. 
+
 6. In PowerShell, run these commands:
-   **Note:** Replace the {yourOktaDomain} with the entire domain for your Okta org. For example,
-   oktaice0000000.oktapreview.com. Replace the ID with the value you copied above.
+
+**Note:** Replace the {yourOktaDomain} with the entire domain for your Okta org. For example, `oktaice0000000.oktapreview.com`. Replace the ID with the value you copied above.
 
     ```
     $Configuration = Get-OktaConfiguration
@@ -225,11 +225,6 @@ resource "okta_app_oauth_api_scope" "ps-scopes" {
 ## Extra Credit
 You have set up the PowerShell application with various scopes. What interesting information about your organization can you retrieve using these scopes? Will these scopes allow you to make any changes to the Okta organization? Try some PowerShell commands to create or destroy resources and see what happens!
 
-If you want to explore your Okta org more with PowerShell, these resources may help:
-- Okta Developer [PowerShell blog post](/blog/2024/05/07/okta-powershell-module)
-- Okta Developer Podcast [PowerShell Episode](/blog/2024/04/11/okta-powershell-module-podcast)
-- The Okta PowerShell module [test suite](https://github.com/okta/okta-powershell-cli/blob/main/tests/Api/OktaGroupApi.Tests.ps1)
-
 ## Manage Terraform using Terraform
 
 Now, we'll use data gathered by Powershell to improve your Terraform configuration.
@@ -242,8 +237,7 @@ Your manager at Okta Ice assigns you a ticket to update the configuration of the
 
 ## Manage Terraform in Terraform
 
-1) 	In your PowerShell session from the previous section, run the command `powershell
-Invoke-OktaListApplications`
+1) 	In your PowerShell session from the previous section, run the command `powershell Invoke-OktaListApplications`
 
 2) 	In the resulting list, find the ID of your Terraform app. Note that the name you chose, such as "Terraform lab," will be shown in the label field. 
 
@@ -358,5 +352,13 @@ resource "okta_app_oauth" "tf" {
 }
 ```
 
+## Conclusion
+
+If you want to explore your Okta org more with PowerShell, these resources may help:
+- Okta Developer [PowerShell blog post](/blog/2024/05/07/okta-powershell-module)
+- Okta Developer Podcast [PowerShell Episode](/blog/2024/04/11/okta-powershell-module-podcast)
+- The Okta PowerShell module [test suite](https://github.com/okta/okta-powershell-cli/blob/main/tests/Api/OktaGroupApi.Tests.ps1)
+
+Remember to follow us on [Twitter](https://twitter.com/oktadev) and subscribe to our [YouTube channel](https://www.youtube.com/c/OktaDev/) for more exciting content. We also want to hear from you about topics you want to see and questions you may have. Leave us a comment below!
 
 
