@@ -169,6 +169,8 @@ Services include:
 
 * [BeyondID](https://beyondid.com/solutions/sms-for-okta/)
 
+* [Credenti](https://credenti.com/products-sms-gateway-for-okta-customers/)
+
 * [Twilio Verify](https://www.twilio.com/docs/verify/api)
 
 ## What's next? 
