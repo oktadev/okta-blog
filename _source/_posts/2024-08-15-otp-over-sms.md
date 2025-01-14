@@ -43,7 +43,7 @@ Soon, [Okta will](https://support.okta.com/help/s/article/bring-your-own-telepho
 
 ## Hooked on telephony
 
-You can send the OTP in the SMS/Voice flow using the [telephony inline hook]([https://help.okta.com/oie/en-us/content/topics/telephony/telephony-inline-hook.htm](https://help.okta.com/oie/en-us/content/topics/telephony/telephony-inline-hook.htm)). Okta uses the code or URL in the hook to send the OTP, though, as you'll see, the hook may not be called every time (and that's a good thing). When your hook fails to send the message or takes too long to update the status, Okta takes over sending the message. However, the number of those messages is heavily rate-limited.
+You can send the OTP in the SMS/Voice flow using the [telephony inline hook](https://help.okta.com/oie/en-us/content/topics/telephony/telephony-inline-hook.htm). Okta uses the code or URL in the hook to send the OTP, though, as you'll see, the hook may not be called every time (and that's a good thing). When your hook fails to send the message or takes too long to update the status, Okta takes over sending the message. However, the number of those messages is heavily rate-limited.
 
 The code or URL you provide may simply send the message and communicate the outcome to Okta. The code or server may be more complex, managing geo-specific vendors, failure, failover to another provider, and hacking. No matter how simple or complex the code, there are three main approaches:
 
@@ -169,6 +169,8 @@ Services include:
 
 * [BeyondID](https://beyondid.com/solutions/sms-for-okta/)
 
+* [Credenti](https://credenti.com/products-sms-gateway-for-okta-customers/)
+
 * [Twilio Verify](https://www.twilio.com/docs/verify/api)
 
 ## What's next? 
@@ -176,3 +178,4 @@ Services include:
 If you rely on SMS for authentication, start thinking about how to replace it. In the meantime, use what you've learned in this post to keep your solutions as secure as possible. 
 
 For more content like this, follow Okta Developer on [Twitter](https://twitter.com/oktadev) and subscribe to our [YouTube](https://www.youtube.com/c/oktadev) channel. If you have any questions about migrating away from SMS, please comment below!
+
