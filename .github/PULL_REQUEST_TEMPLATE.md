@@ -9,4 +9,4 @@ This blog post has the following features:
 - [ ] Images are compressed appropriately
 - [ ] Social image previews well on Twitter and LinkedIn
 - [ ] Tech review request (developer advocate or domain expert)
-- [ ] Review request for editorial/grammar/clarity (developer advocate or Colton)
+- [ ] Review request for editorial/grammar/clarity (a member of the Dev Advocacy team)
