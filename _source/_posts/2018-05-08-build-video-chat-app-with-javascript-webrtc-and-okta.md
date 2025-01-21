@@ -206,8 +206,6 @@ Once you've got your Okta account and you're logged into the Okta dashboard, you
 
 To do this, navigate to the **Applications** tab from your dashboard and click the **Add Application** button. Once there, click the **Single-Page App** icon (because you are building a SPA) then click **Next**.
 
-{% img blog/vchat-app/create-okta-app.gif alt:"Okta create app" width:"800" %}{: .center-image }
-
 Once you've reached the **Create New Application** page fill out the **Application Settings** form with the following information:
 
 {% img blog/vchat-app/okta-app-settings.png alt:"Okta app settings" width:"800" %}{: .center-image }
