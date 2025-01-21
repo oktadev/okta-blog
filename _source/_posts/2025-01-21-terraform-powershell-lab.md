@@ -88,7 +88,7 @@ You will save a private key alongside your code to simplify the lab. In producti
 
 4. On your computer, paste the key into a file and save it as `key.pem`
 
-  **Important:** The key is saved locally to simplify the lab. You should save the key to an appropriate secrets management solution when working with production environments. If you do not have secrets management, [this blog post](/blog/2024/10/11/terraform-ci-cd) shares one way to set it up.
+   **Important:** The key is saved locally to simplify the lab. You should save the key to an appropriate secrets management solution when working with production environments. If you do not have secrets management, [this blog post](/blog/2024/10/11/terraform-ci-cd) shares one way to set it up.
 
 5. Complete the configuration steps.
     
@@ -117,30 +117,30 @@ You will save a private key alongside your code to simplify the lab. In producti
 
 8. In your VM, create the file `main.tf`:
 
-  ```hcl
-  terraform {
-    required_providers {
-      okta = {
-        source = "okta/okta"
-      }
-    }
-  }
+   ```hcl
+   terraform {
+     required_providers {
+       okta = {
+         source = "okta/okta"
+       }
+     }
+   }
 
-  variable "org_id" {
-    default = "ORGID"
-  }
+   variable "org_id" {
+     default = "ORGID"
+   }
 
-  provider "okta" {
-    org_name  = var.org_id
-    base_url  = "oktapreview.com"
-    client_id = "CLIENTID"
-    scopes = ["okta.apps.manage", "okta.appGrants.manage",
-      "okta.oauthIntegrations.manage", "okta.users.manage",
-    "okta.policies.read"]
-    private_key = file("key.pem")
-  }
+   provider "okta" {
+     org_name  = var.org_id
+     base_url  = "oktapreview.com"
+     client_id = "CLIENTID"
+     scopes = ["okta.apps.manage", "okta.appGrants.manage",
+       "okta.oauthIntegrations.manage", "okta.users.manage",
+     "okta.policies.read"]
+     private_key = file("key.pem")
+   }
 
-  ```
+   ```
 9. In your `main.tf` file, replace `ORGID` with the subdomain for your Okta org.
 
    **Note:** The subdomain is between `https://` and `.oktapreview.com`. In the example below, the subdomain is `oktaice0000000`.
@@ -174,19 +174,19 @@ You can access PowerShell 7 by launching it from the shortcut generated during i
 ## Configure a PowerShell Application using Terraform
 1. Add the following to your `main.tf` file:
 
-  ```hcl
-  resource "okta_app_oauth" "ps" {
-
-    grant_types = ["authorization_code",
-    "urn:ietf:params:oauth:grant-type:device_code"]
-    label                      = "PowerShell"
-    response_types             = ["code"]
-    type                       = "native"
-    redirect_uris              = ["com.oktapreview.${var.org_id}:/callback"]
-    token_endpoint_auth_method = "none"
-    implicit_assignment        = true
-    issuer_mode                = "DYNAMIC"
-  }
+   ```hcl
+   resource "okta_app_oauth" "ps" {
+ 
+     grant_types = ["authorization_code",
+     "urn:ietf:params:oauth:grant-type:device_code"]
+     label                      = "PowerShell"
+     response_types             = ["code"]
+     type                       = "native"
+     redirect_uris              = ["com.oktapreview.${var.org_id}:/callback"]
+     token_endpoint_auth_method = "none"
+     implicit_assignment        = true
+     issuer_mode                = "DYNAMIC"
+   }
 
   resource "okta_app_oauth_api_scope" "ps-scopes" {
     app_id = okta_app_oauth.ps.id
@@ -202,23 +202,23 @@ You can access PowerShell 7 by launching it from the shortcut generated during i
 4. Wait for the `terraform apply` to complete.
 5. From the `Creation complete after` output, copy the value of the `okta_app_oauth` id.
 
-  **Note:** PowerShell and Terraform now have separate applications in your Okta organization. The PowerShell application's ID can also be found in the Okta admin console under Applications -> Applications. 
+   **Note:** PowerShell and Terraform now have separate applications in your Okta organization. The PowerShell application's ID can also be found in the Okta admin console under Applications -> Applications. 
 
 6. In PowerShell, run these commands:
 
-  **Note:** Replace the {yourOktaDomain} with the entire domain for your Okta org. For example, `oktaice0000000.oktapreview.com`. Replace the ID with the value you copied above.
+   **Note:** Replace the {yourOktaDomain} with the entire domain for your Okta org. For example, `oktaice0000000.oktapreview.com`. Replace the ID with the value you copied above.
 
-  ```powershell
-  $Configuration = Get-OktaConfiguration
-  $Configuration.BaseUrl = "https://{yourOktaDomain}"
-  $Configuration.ClientId = "id"
-  $Configuration.Scope = "okta.apps.read okta.domains.read okta.groups.read okta.logs.read okta.oauthIntegrations.read okta.orgs.read okta.userTypes.read okta.users.read"
-  Invoke-OktaEstablishAccessToken
-  ```
-
-7. The `Invoke-OktaEstablishAccessToken` command displays a URL. Open the link in a web browser.
-8. Authenticate to your Okta Training Org when prompted.
-9. In your PowerShell session, run the command `Invoke-OktaListApplications`
+   ```powershell
+   $Configuration = Get-OktaConfiguration
+   $Configuration.BaseUrl = "https://{yourOktaDomain}"
+   $Configuration.ClientId = "id"
+   $Configuration.Scope = "okta.apps.read okta.domains.read okta.groups.read okta.logs.read okta.oauthIntegrations.read okta.orgs.read okta.userTypes.read okta.users.read"
+   Invoke-OktaEstablishAccessToken
+   ```
+ 
+ 7. The `Invoke-OktaEstablishAccessToken` command displays a URL. Open the link in a web browser.
+ 8. Authenticate to your Okta Training Org when prompted.
+ 9. In your PowerShell session, run the command `Invoke-OktaListApplications`
 
 ## Extra Credit
 You have set up the PowerShell application with various scopes. What interesting information about your organization can you retrieve using these scopes? Will these scopes allow you to make any changes to the Okta organization? Try some PowerShell commands to create or destroy resources and see what happens!
