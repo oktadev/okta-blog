@@ -188,15 +188,15 @@ You can access PowerShell 7 by launching it from the shortcut generated during i
      issuer_mode                = "DYNAMIC"
    }
 
-  resource "okta_app_oauth_api_scope" "ps-scopes" {
-    app_id = okta_app_oauth.ps.id
-    issuer = "https://${var.org_id}.oktapreview.com"
-    scopes = ["okta.apps.read", "okta.domains.read",
-      "okta.groups.read", "okta.logs.read",
-      "okta.oauthIntegrations.read", "okta.orgs.read",
-    "okta.userTypes.read", "okta.users.read"]
-  }
-  ```
+   resource "okta_app_oauth_api_scope" "ps-scopes" {
+     app_id = okta_app_oauth.ps.id
+     issuer = "https://${var.org_id}.oktapreview.com"
+     scopes = ["okta.apps.read", "okta.domains.read",
+       "okta.groups.read", "okta.logs.read",
+       "okta.oauthIntegrations.read", "okta.orgs.read",
+     "okta.userTypes.read", "okta.users.read"]
+   }
+   ```
 2. In your terminal, run the command `terraform apply`
 3. Type `yes` when prompted.
 4. Wait for the `terraform apply` to complete.
