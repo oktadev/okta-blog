@@ -1,7 +1,7 @@
 ---
 layout: blog_post
 title: "Announcing Integrator Office Hours"
-author: E. Dunham
+author: edunham
 by: advocate
 communities: [devops,security,mobile,.net,java,javascript,go,php,python,ruby]
 description: "A new opportunity for personalized assistance creating OIN Integrations"
