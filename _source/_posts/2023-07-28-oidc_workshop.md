@@ -520,15 +520,15 @@ Open the model for `Org`, press the green **Add record** button, and press the g
   1. **Domain** - Enter the domain name of this organization. It should match the domain name of the email address they'll use. For example, if your customer's organization domain is `whiterabbit.fake`, the domain record is "whiterabbit.fake". Since we are testing with made-up customers, use the email domain you used when you signed up for the Okta Developer Edition organization.
   1. **Client ID** and **Client Secret** - Fill out the `client_id` and `client_secret` for the org with ID 1, using the values from Okta. 
   2. **Issuer** - In the "Security" section of the sidebar in the Okta Admin Console, navigate to **API**. This page lists the Issuer URI for the Okta organization, which goes into the app's database for that org as its `issuer`. 
-  3. **Authorization endpoint** and **Token endpoint** - On the same page in the Okta Admin console as the issuer, click the name of the default authorization server, find the **Metadata URI**. This URI will be of the form `your-dev-account-id.okta.com/oauth2/default/.well-known/oauth-authorization-server`. Click on the URI to open it in the browser where you will see data in JSON format. From this authorization server metadata, copy the `authorization_endpoint` to the `authorization_endpoint` field in your app's database. Copy the `token_endpoint` to the corresponding field in the database as well. 
+  3. **Authorization endpoint** and **Token endpoint** - On the same page in the Okta Admin console as the issuer, click the name of the default authorization server, find the **Metadata URI**. This URI will be of the form `your-dev-account-id.okta.com/.well-known/oauth-authorization-server`. Click on the URI to open it in the browser where you will see data in JSON format. From this authorization server metadata, copy the `authorization_endpoint` to the `authorization_endpoint` field in your app's database. Copy the `token_endpoint` to the corresponding field in the database as well. 
   4. **Userinfo endpoint** - To find the `userinfo_endpoint`, replace the string `oauth-authorization-server` in the metadata URL with `openid-configuration`, and copy the `userinfo_endpoint` from the resulting page to the database. 
 
 After this step, your database should contain the `client_id` and `client_secret` unique to the OIDC app that you made in Okta. All endpoint fields will start with the Okta organization's domain. 
 
 Check that each value is in the right database field. The subdomain of each URL will have your Okta dev account's ID in it, and: 
-- The `userinfo_endpoint` ends with `/oauth2/default/v1/userinfo`
-- The `token_endpoint` ends with `/oauth2/default/v1/token`
-- The `authorization_endpoint` ends with `/oauth2/default/v1/authorize`
+- The `userinfo_endpoint` ends with `/oauth2/v1/userinfo`
+- The `token_endpoint` ends with `/oauth2/v1/token`
+- The `authorization_endpoint` ends with `/oauth2/v1/authorize`
 
 Save the database changes in Prisma, and the first customer's OpenID configuration is ready to go! 
 
