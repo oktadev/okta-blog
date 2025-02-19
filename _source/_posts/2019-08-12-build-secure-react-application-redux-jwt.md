@@ -330,7 +330,7 @@ export default () => (
 
 Go ahead and give it a whirl! You should be able to search through a set of (fake) users, select one, choose another, etc.
 
-{% img blog/react-redux-jwt/select-a-user.gif alt:"Select a User" width:"800" %}{: .center-image }
+{% img blog/react-jwt/select-a-user.gif alt:"Select a User" width:"800" %}{: .center-image }
 
 ## Add Authentication to React with okta
 
@@ -785,7 +785,7 @@ export default connect(mapStateToProps)(Header);
 
 When the app first loads, the user state starts out as `null` and Okta needs to do some work in the background to get you a token. In the meantime, you display a spinner with `<Loader active inline />`. If you're logged out, you get a link to sign in. If you're already logged in, it displays your name with a dropdown option to log back out. To help you out, if you're logged in as an Admin it'll tell you right in the header.
 
-{% img blog/react-redux-jwt/admins-vs-everyone.gif alt:"Admins vs Everyone" width:"800" %}{: .center-image }
+{% img blog/react-jwt/admins-vs-everyone.gif alt:"Admins vs Everyone" width:"800" %}{: .center-image }
 
 ### Bonus Tip
 
