@@ -1,7 +1,7 @@
 ---
 layout: blog_post
 title: "From Meh to Wow: Customize Your Okta Sign-In Experience"
-author: avatar-nesh-popovich
+author: nesh-popovich
 by: contractor
 communities: [javascript]
 description: "Tutorial on customizing your Okta hosted sign-in widget to the next level."
@@ -108,7 +108,7 @@ Let's make a note of a few key things:
 - `var oktaSignIn = new OktaSignIn(config);` initializes the widget with the config values
 
 ## Add custom CSS and third-party libraries to the sign-in widget
-If you want more fine-grained control over the widget's appearance, Okta allows you to inject your own CSS styles as well as use other libraries (e.g., Bootstrap, jQuery, etc.). You can either override specific elements or apply custom styles across the entire widget. To apply your own CSS, you can either do the inline styling or point to a CSS file (which needs to be accessible from the web). Let's dive in! 
+If you want more fine-grained control over the widget's appearance, Okta allows you to inject your own CSS styles as well as use other libraries (e.g., Bootstrap, jQuery, etc.). You can override specific elements or apply custom styles across the widget. To apply your own CSS, you can either do the inline styling or point to a CSS file (which needs to be accessible from the web). Let's dive in! 
 
 Within the `<head>` section and below the following code,
 
@@ -117,7 +117,7 @@ Within the `<head>` section and below the following code,
     <link rel="shortcut icon" href="{{faviconUrl}}" type="image/x-icon"/>
 ```
 
-insert the following code that points to the Font Awesome library, which is hosted on my AWS S3 bucket (you can use your own Font Awesome or any other library but would need to modify the code accordingly).
+insert the following code that points to the Font Awesome library, which is hosted on my AWS S3 bucket (you can use your own Font Awesome or any other library, but you would need to modify the code accordingly).
 
 ```CSS
 <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.14.0/css/all.min.css">
@@ -545,7 +545,7 @@ With the following code:
 ## Enhancing the experience with custom sign-in widget
 Now, let's get into the meat and potatoes. We first need to hide some unwanted pieces of the widget (logo, header, links, etc.). Then, we must apply CSS to the existing HTML objects by replacing the classes (e.g., making the social button round). Easier said than done!
 
-To manipulate the pieces of the widget, we need to know what those HTML elements are, and to find out, you can utilize the developer tools of the browser you are using. After figuring out what CSS classes and objects I needed to modify, I created the following code. So replace the entire default `<script>` section of the widget with the code below. I commented on almost every line; there is A LOT, but it'll make this step straightforward. There is one **IMPORTANT** piece of information to note. It is in the comments, but I will also call it out here.
+To manipulate the pieces of the widget, we need to know what those HTML elements are and to find out; you can utilize the developer tools of the browser you are using. After figuring out what CSS classes and objects I needed to modify, I created the following code. So replace the entire default `<script>` section of the widget with the code below. I commented on almost every line; there is A LOT, but it'll make this step straightforward. There is one **IMPORTANT** piece of information to note. It is in the comments, but I will call it out here.
 
 >**IMPORTANT**: Setting the Routing Rule in the admin interface for external IdPs will break this code, so instead, set the identity providers here in the config object.
 
@@ -723,14 +723,14 @@ Add the following code:
     };
 </script>
 ```
-Feel free to preview your working by clicking the **Save to draft** button and then **Preview** button at the top, but just know there is just one last step before we can see the final result.
+Feel free to preview your work by clicking the **Save to draft** button and then the **Preview** button at the top, but just know that there is one last step before we can see the final result.
 
 ## Content Security Policy to allow trusted external resources
-The remaining task to do is to customize the default Content Security Policy (CSP) to allow trusted external resources and prevent violations. This will enable us to use external resources, such as the Font Awesome library, Google Fonts, and jQuery. If you use additional libraries or resources, you must add the URLs in the CSP.
+The remaining task to do is to customize the default Content Security Policy (CSP) to allow trusted external resources and prevent violations. This will enable us to use external resources, such as the Font Awesome library, Google Fonts, and jQuery. You must add the URLs in the CSP if you use additional libraries or resources.
 
 >**SECURE BEST PRACTICE**: 
-- ✅ Remember to use trusted, well-maintained libraries, and be sure to pin specific versions you've used for future reference and troubleshooting issues. 
-- ✅ Ensure the libraries you use for DOM manipulation are safe from XSS and appropriately sanitize inputs (if this applies to you). We have several blog posts on this topic if you search for [XSS](https://developer.okta.com/search/#q=xss&f:@commonoktasource=[Developer%20blog])in our content collection. 
+- ✅ Remember to use trusted, well-maintained libraries, and pin specific versions you've used for future reference and troubleshooting issues. 
+- ✅ Ensure the libraries you use for DOM manipulation are safe from XSS and appropriately sanitize inputs (if this applies to you). We have several blog posts on this topic if you search for [XSS](https://developer.okta.com/search/#q=xss&f:@commonoktasource=[Developer%20blog]) in our content collection. 
 - ✅ And lastly, it never hurts to get a security review when dealing with code affecting authentication.
 
 CSP is located under the **Settings** tab on the **Sign-in page** section, **Customizations** > **Brands** > **[your custom brand]** > **Pages** > **Sign-in page** > **Settings**. Un the **Content Security Policy** section, click on the **edit** button and add the following **Trusted external resources**:
@@ -738,10 +738,10 @@ CSP is located under the **Settings** tab on the **Sign-in page** section, **Cus
 - https://cdnjs.cloudflare.com
 - https://fonts.googleapis.com
 
-And that should be all! After you've added the necessary CSP information and have previewed your sign-in page you can now click the **Publish** button under the **Page Design** tab to see your changes live. If you copied/pasted everything correctly, you should now have a sign-in widget that looks and functions like the one showcased at the beginning of this tutorial. 
+And that should be all! After you've added the necessary CSP information and have previewed your sign-in page, you can now click the **Publish** button under the **Page Design** tab to see your changes live. If you copied/pasted everything correctly, you should now have a sign-in widget that looks and functions like the one showcased at the beginning of this tutorial. 
 
 ## Troubleshooting your Okta hosted sign in widget
-Before publishing live to production be sure to test on your preview org or developer org first. To target specific elements/attributes you can refer to this [Okta doc on modifying CSS](https://developer.okta.com/docs/guides/custom-widget/main/#modify-the-css).
+Before publishing live to production be sure to test on your preview org or developer org first. To target specific elements/attributes, you can refer to this [Okta doc on modifying CSS](https://developer.okta.com/docs/guides/custom-widget/main/#modify-the-css).
 
 ## More ways to customize your sign-in page
 The manipulation and styling were only done for login and registration. As bonus practice, I suggest you try to modify the MFA screens. To recap what I have demonstrated, customizing the Okta Sign-in Widget allows you to make authentication an integrated part of your app's user experience. From simple color changes to more complex UI tweaks, Okta's flexibility allows you to maintain your brand's visual identity while ensuring a secure and seamless login process.
