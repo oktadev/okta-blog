@@ -1,7 +1,7 @@
 ---
 layout: blog_post
 title: "From Meh to Wow: Customize Your Okta Sign-In Experience"
-author: nesh-popovich
+author: nesh-popovic
 by: contractor
 communities: [javascript]
 description: "Tutorial on customizing your Okta hosted sign-in widget to the next level."
