@@ -25,7 +25,8 @@ In this guide, we'll transform the Okta-hosted widget using standard Javascript 
 Our goal:
 
 **After**
-![Giphy of customized Okta hosted sign-in widget with sliding window effect for new signups](_source/_assets/img/blog/okta-hosted-sign-in-widget/okta-hosted-sign-in-widget-after.gif){: .center-image }
+{% img blog/okta-hosted-sign-in-widget/okta-hosted-sign-in-widget-after.gif  alt:"animated gif of customized Okta hosted sign-in widget with sliding window effect for new signups" width:"800" %}{: .center-image }
+
 
 ## Okta-hosted sign-in widget basics
 Before diving into customization, let's go over a few basics. "Okta-hosted widget" means that when the user needs to authenticate, you redirect them from your application to Okta, and the login screen that the user is presented with is hosted by Okta (it could be on a custom domain). Hence, all the widget code is on Okta itself (and not in the application), which makes it very convenient for your developers.
