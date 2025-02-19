@@ -1,7 +1,7 @@
 ---
 layout: blog_post
 title: "From Meh to Wow: Customize Your Okta Sign-In Experience"
-author: nesh-popovich
+author: avatar-nesh-popovich
 by: contractor
 communities: [javascript]
 description: "Tutorial on customizing your Okta hosted sign-in widget to the next level."
@@ -31,21 +31,21 @@ Our goal:
 Before diving into customization, let's go over a few basics. "Okta-hosted widget" means that when the user needs to authenticate, you redirect them from your application to Okta, and the login screen that the user is presented with is hosted by Okta (it could be on a custom domain). Hence, all the widget code is on Okta itself (and not in the application), which makes it very convenient for your developers.
 
 **Prequisites to this tutorial**
-This guide assumes you already have an Single Sign-On (SSO) application that redirects to Okta for authentication. In addition, you already have a customized Okta-hosted widget with a [custom domain](https://help.okta.com/en-us/content/topics/settings/settings-configure-custom-url.htm) enabled to make the necessary edits I will be demonstrating in this tutorial. And lastly, this guide assumes you have [Self-Service Registration (SSR)](https://support.okta.com/help/s/article/sign-up-link-missing-from-okta-login-page-during-sp-initiated-login?language=en_US) also enabled to handle user self-registration.  
+This guide assumes you already have a Single Sign-On (SSO) application that redirects to Okta for authentication. In addition, you already have a customized Okta-hosted widget with a [custom domain](https://help.okta.com/en-us/content/topics/settings/settings-configure-custom-url.htm) enabled to make the necessary edits I will be demonstrating in this tutorial. And lastly, this guide assumes you have [Self-Service Registration (SSR)](https://support.okta.com/help/s/article/sign-up-link-missing-from-okta-login-page-during-sp-initiated-login?language=en_US) also enabled to handle user self-registration.  
 
 If you don't have the above setup just yet, you can test one of our [samples](https://github.com/okta-samples) with a free developer org under (Sign up free for Developer Edition)[https://developer.okta.com/signup/]. 
 
 >**Note:** You must use your work email address to sign up for a free developer account.
 
-Within the samples, please refer to the ones labeled **Okta Hosted Login** or **Redirect Model** for example here is one in [React](https://github.com/okta-samples/okta-react-sample) and [Angular](https://github.com/okta-samples/okta-angular-sample). Each sample readme should have directions on creating an SSO applications within Okta, but for more info you can always refer to this page on [creating app integrations](https://help.okta.com/en-us/content/topics/apps/apps_app_integration_wizard_oidc.htm.). One last note, be sure you are using the correct authorization server for SSO and that is the [Okta Org Authorization Server](https://developer.okta.com/docs/concepts/auth-servers/#org-authorization-server). 
+Within the samples, please refer to the ones labeled **Okta Hosted Login** or **Redirect Model**. For example, here is one in [React](https://github.com/okta-samples/okta-react-sample) and [Angular](https://github.com/okta-samples/okta-angular-sample). Each sample readme should have directions on creating an SSO application within Okta, but for more info, you can always refer to this page on [creating app integrations](https://help.okta.com/en-us/content/topics/apps/apps_app_integration_wizard_oidc.htm.). One last note, be sure you are using the correct authorization server for SSO and that is the [Okta Org Authorization Server](https://developer.okta.com/docs/concepts/auth-servers/#org-authorization-server). 
 
-For even more examples on getting started with the Okta Hosted Sign-in Widget check out this blog [A Secure and Themed Sign-in Page](blog/2023/01/12/signin-custom-domain#set-up-the-angular-micro-frontend-site-and-add-okta).
+For even more examples of getting started with the Okta Hosted Sign-in Widget, check out this blog [A Secure and Themed Sign-in Page](blog/2023/01/12/signin-custom-domain#set-up-the-angular-micro-frontend-site-and-add-okta).
 
 ## Customizing colors and branding on the sign-in widget
 One of the easiest and basic ways to personalize the Okta Sign-In Widget is through the **Customizations** > **Brands** > **[your custom brand]** > **Theme** tab; here, you can modify the logo, colors, and background. 
 
 ## Understanding the sign-in widget structure
-Now, we're not here to change the button color or simply slap a logo on the widget, we're here to learn how to slice and dice that widget so it dazzles and provides a better user experience. 🙂
+We're not here to change the button color or simply slap a logo on the widget; we're here to learn how to slice and dice that widget so it dazzles and provides a better user experience. 🙂
 
 We will accomplish this by utilizing the standard Javascript and CSS.
 If you use the Okta-hosted widget, you will find it under **Customizations** > **Brands** > **[your custom brand]** > **Pages** > **Sign-in** page. Click the **Configure** button and toggle the **Code editor** to **ON**. At this point, you should see some code appear like the one below:
@@ -349,9 +349,9 @@ add the following code,
     }
 ```
 
-Lastly, we will modify the widget CSS to our desired style. I will not explain each one here, but it is just a CSS juggling act. Please note that I am not a CSS expert, so the following styles can probably be used more efficiently. 🙂
+Lastly, we will modify the widget CSS to our desired style. I will not explain each here, but it is just a CSS juggling act. Please note that I am not a CSS expert, so the following styles can probably be used more efficiently. 🙂
 
-Still, within the `<head>` section, and just below the code above insert the following code:
+Still, within the `<head>` section, and just below the code above, insert the following code:
 
 ```CSS
 #okta-sign-in { 
@@ -501,7 +501,7 @@ Still, within the `<head>` section, and just below the code above insert the fol
 ```
 
 ## Changing the layout of the sign-in widget
-We need to modify the page's core HTML to make the widget layout horizontal and achieve the desired effect. Replace the default widget code:
+We must modify the page's core HTML to make the widget layout horizontal and achieve the desired effect. Replace the default widget code:
 
 ```HTML
 <div id="login-bg-image-id" class="login-bg-image tb--background"></div>
@@ -543,9 +543,9 @@ With the following code:
 ```
 
 ## Enhancing the experience with custom sign-in widget
-Now, let's get into the meat and potatoes. The first thing we need to do is hide some unwanted pieces of the widget (logo, header, links, etc.). Then, we need to apply CSS to the existing HTML objects by replacing the classes (e.g., make the social button round). Easier said than done!
+Now, let's get into the meat and potatoes. We first need to hide some unwanted pieces of the widget (logo, header, links, etc.). Then, we must apply CSS to the existing HTML objects by replacing the classes (e.g., making the social button round). Easier said than done!
 
-To manipulate the pieces of the widget, we need to know what those HTML elements are, and to find that out you can utilize the developer tools of the browser you are using. After figuring out what CSS classes and objects I needed to modify, I created the following code. So go ahead and replace the entire default `<script>` section of the widget with the code below. I commented on almost every line; there is A LOT, but it'll make this step straightforward. There is one **IMPORTANT** piece of information to note. It is in the comments, but I will call it out here as well.
+To manipulate the pieces of the widget, we need to know what those HTML elements are, and to find out, you can utilize the developer tools of the browser you are using. After figuring out what CSS classes and objects I needed to modify, I created the following code. So replace the entire default `<script>` section of the widget with the code below. I commented on almost every line; there is A LOT, but it'll make this step straightforward. There is one **IMPORTANT** piece of information to note. It is in the comments, but I will also call it out here.
 
 >**IMPORTANT**: Setting the Routing Rule in the admin interface for external IdPs will break this code, so instead, set the identity providers here in the config object.
 
@@ -729,11 +729,11 @@ Feel free to preview your working by clicking the **Save to draft** button and t
 The remaining task to do is to customize the default Content Security Policy (CSP) to allow trusted external resources and prevent violations. This will enable us to use external resources, such as the Font Awesome library, Google Fonts, and jQuery. If you use additional libraries or resources, you must add the URLs in the CSP.
 
 >**SECURE BEST PRACTICE**: 
-✅ Remember to use trusted, well-maintained libraries and pin specifc versions you've used for future reference and troubleshooting issues. 
-✅ Ensure the libraries you use for DOM manipulation are safe from XSS and appropriately sanitize inputs (if this applies to you). We have several blog posts on this topic if you search for [XSS](https://developer.okta.com/search/#q=xss&f:@commonoktasource=[Developer%20blog])in our content collection. 
-✅ And lastly, it never hurts to get a security review when dealing with code affecting authentication.
+- ✅ Remember to use trusted, well-maintained libraries, and be sure to pin specific versions you've used for future reference and troubleshooting issues. 
+- ✅ Ensure the libraries you use for DOM manipulation are safe from XSS and appropriately sanitize inputs (if this applies to you). We have several blog posts on this topic if you search for [XSS](https://developer.okta.com/search/#q=xss&f:@commonoktasource=[Developer%20blog])in our content collection. 
+- ✅ And lastly, it never hurts to get a security review when dealing with code affecting authentication.
 
-CSP is located under the **Settings** tab on the **Sign-in page** section, **Customizations** > **Brands** > **[your custom brand]** > **Pages** > **Sign-in page** > **Settings**. Un the **Content Security Policy** section click on the **edit** button and add the following **Trusted external resources**:
+CSP is located under the **Settings** tab on the **Sign-in page** section, **Customizations** > **Brands** > **[your custom brand]** > **Pages** > **Sign-in page** > **Settings**. Un the **Content Security Policy** section, click on the **edit** button and add the following **Trusted external resources**:
 - https://code.jquery.com
 - https://cdnjs.cloudflare.com
 - https://fonts.googleapis.com
@@ -748,10 +748,10 @@ The manipulation and styling were only done for login and registration. As bonus
 
 Check out the [Okta Sign-In Widget Guide](https://developer.okta.com/docs/guides/embedded-siw/main/) for more detailed documentation and advanced options. Happy customizing!
 
-For more examples on customizing the Okta Sign-in Widget check out these blogs and resources:
+For more examples of customizing the Okta Sign-in Widget check out these blogs and resources:
 - [A Secure and Themed Sign-in Page](blog/2023/01/12/signin-custom-domain#set-up-the-angular-micro-frontend-site-and-add-okta)
 - [i18n in Java 11, Spring Boot, and JavaScript](blog/2019/02/25/java-i18n-internationalization-localization)
 - [Style the sign-in page](https://developer.okta.com/docs/guides/custom-widget/main/#modify-the-css)
 - [Awesome Login CSS Customization!(feat. Amy Kapers)](https://www.youtube.com/watch?v=Q__ugprsOWo)
 
-And to learn more content on ways you can customize your aap's login experience follow us @OktaDev on [X](https://twitter.com/oktadev) and subscribe to our [YouTube channel](https://www.youtube.com/c/OktaDev/)! We also want to hear from you about topics you want to see and questions you may have so please leave us a comment below!
+And to learn more content on ways you can customize your app's login experience, follow us @OktaDev on [X](https://twitter.com/oktadev) and subscribe to our [YouTube channel](https://www.youtube.com/c/OktaDev/)! We also want to hear from you about topics you want to see and questions you may have so please leave us a comment below!
