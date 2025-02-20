@@ -48,7 +48,7 @@ One of the easiest and basic ways to personalize the Okta Sign-In Widget is thro
 ## Understanding the sign-in widget structure
 We're not here to change the button color or simply slap a logo on the widget; we're here to learn how to slice and dice that widget so it dazzles and provides a better user experience. 🙂
 
-We will accomplish this by utilizing the standard Javascript and CSS.
+We will accomplish this by utilizing standard Javascript and CSS.
 If you use the Okta-hosted widget, you will find it under **Customizations** > **Brands** > **[your custom brand]** > **Pages** > **Sign-in** page. Click the **Configure** button and toggle the **Code editor** to **ON**. At this point, you should see some code appear like the one below:
 
 ```HTML
