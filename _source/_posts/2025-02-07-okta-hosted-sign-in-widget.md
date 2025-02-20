@@ -20,7 +20,7 @@ In this guide, we'll transform the Okta-hosted widget using standard Javascript 
 {:toc}
 
 **Before**
-{% img blog/okta-hosted-sign-in-widget/okta-hosted-sign-in-widget-before.gif alt:"animated gif of default static Okta hosted sign-in widgets" width:"800" %}{: .center-image }
+{% img blog/okta-hosted-sign-in-widget/okta-hosted-sign-in-widget-before.gif alt:"animated gif of default static Okta hosted sign-in widgets" width:"800" height:"500" %}{: .center-image }
 
 Our goal:
 
