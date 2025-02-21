@@ -34,7 +34,7 @@ Before diving into customization, let's go over a few basics. "Okta-hosted widge
 **Prequisites to this tutorial**
 This guide assumes you already have a Single Sign-On (SSO) application that redirects to Okta for authentication. In addition, you already have a customized Okta-hosted widget with a [custom domain](https://help.okta.com/en-us/content/topics/settings/settings-configure-custom-url.htm) enabled to make the necessary edits I will be demonstrating in this tutorial. And lastly, this guide assumes you have [Self-Service Registration (SSR)](https://support.okta.com/help/s/article/sign-up-link-missing-from-okta-login-page-during-sp-initiated-login?language=en_US) also enabled to handle user self-registration.  
 
-If you don't have the above setup just yet, you can test one of our [samples](https://github.com/okta-samples) with a free developer org under (Sign up free for Developer Edition)[https://developer.okta.com/signup/]. 
+If you don't have the above setup just yet, you can test one of our [samples](https://github.com/okta-samples) with a free Developer Edition Account under (Sign up free for Developer Edition)[https://developer.okta.com/signup/]. 
 
 >**Note:** You must use your work email address to sign up for a free developer account.
 
