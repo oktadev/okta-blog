@@ -2,9 +2,9 @@
 layout: blog_post
 title: "From Meh to Wow: Customize Your Okta Sign-In Experience"
 author: nesh-popovic
-by: contractor
+by: internal-contributor
 communities: [javascript]
-description: "Tutorial on customizing your Okta hosted sign-in widget to the next level."
+description: "Tutorial on customizing your Okta Hosted Sign-In Widget to the next level."
 tags: [sign-in-custom-domain, custom-domain, okta-hosted-sign-in]
 tweets:
 - ""
@@ -28,7 +28,7 @@ Our goal:
 {% img blog/okta-hosted-sign-in-widget/okta-hosted-sign-in-widget-after.gif  alt:"animated gif of customized Okta hosted sign-in widget with sliding window effect for new signups" width:"800" %}{: .center-image }
 
 
-## Okta-hosted sign-in widget basics
+## Okta Sign-In Widget basics
 Before diving into customization, let's go over a few basics. "Okta-hosted widget" means that when the user needs to authenticate, you redirect them from your application to Okta, and the login screen that the user is presented with is hosted by Okta (it could be on a custom domain). Hence, all the widget code is on Okta itself (and not in the application), which makes it very convenient for your developers.
 
 **Prequisites to this tutorial**
@@ -40,14 +40,14 @@ If you don't have the above setup just yet, you can test one of our [samples](ht
 
 Within the samples, please refer to the ones labeled **Okta Hosted Login** or **Redirect Model**. For example, here is one in [React](https://github.com/okta-samples/okta-react-sample) and [Angular](https://github.com/okta-samples/okta-angular-sample). Each sample readme should have directions on creating an SSO application within Okta, but for more info, you can always refer to this page on [creating app integrations](https://help.okta.com/en-us/content/topics/apps/apps_app_integration_wizard_oidc.htm.). One last note, be sure you are using the correct authorization server for SSO and that is the [Okta Org Authorization Server](https://developer.okta.com/docs/concepts/auth-servers/#org-authorization-server). 
 
-For even more examples of getting started with the Okta Hosted Sign-in Widget, check out this post that walks you through the basic customizations and setting up a custom domain.
+For even more examples of getting started with the Okta Hosted Sign-In Widget, check out this post that walks you through the basic customizations and setting up a custom domain.
 
 {% excerpt /blog/2023/01/12/signin-custom-domain %}
 
-## Customizing colors and branding on the sign-in widget
+## Customizing colors and branding on the Okta Sign-In Widget
 One of the easiest and basic ways to personalize the Okta Sign-In Widget is through the **Customizations** > **Brands** > **[your custom brand]** > **Theme** tab; here, you can modify the logo, colors, and background. 
 
-## Understanding the sign-in widget structure
+## Understanding the Okta Sign-In Widget structure
 We're not here to change the button color or simply slap a logo on the widget; we're here to learn how to slice and dice that widget so it dazzles and provides a better user experience. 🙂
 
 We will accomplish this by utilizing standard Javascript and CSS.
@@ -110,7 +110,7 @@ Let's make a note of a few key things:
 - `var config = OktaUtil.getSignInWidgetConfig();` gets us all the widget configurations so we can start modifying them 
 - `var oktaSignIn = new OktaSignIn(config);` initializes the widget with the config values
 
-## Add custom CSS and third-party libraries to the sign-in widget
+## Add custom CSS and third-party libraries to the Okta Sign-In Widget
 If you want more fine-grained control over the widget's appearance, Okta allows you to inject your own CSS styles as well as use other libraries (e.g., Bootstrap, jQuery, etc.). You can override specific elements or apply custom styles across the widget. To apply your own CSS, you can either do the inline styling or point to a CSS file (which needs to be accessible from the web). Let's dive in! 
 
 Within the `<head>` section and below the following code,
@@ -503,7 +503,7 @@ Still, within the `<head>` section, and just below the code above, insert the fo
 </style>
 ```
 
-## Changing the layout of the sign-in widget
+## Changing the layout of the Okta Sign-In Widget
 We must modify the page's core HTML to make the widget layout horizontal and achieve the desired effect. Replace the default widget code:
 
 ```HTML
@@ -545,7 +545,7 @@ With the following code:
 <!-- end custom login -->
 ```
 
-## Enhancing the experience with custom sign-in widget
+## Enhancing the experience with Okta Custom Sign-In Widget
 Now, let's get into the meat and potatoes. We first need to hide some unwanted pieces of the widget (logo, header, links, etc.). Then, we must apply CSS to the existing HTML objects by replacing the classes (e.g., making the social button round). Easier said than done!
 
 To manipulate the pieces of the widget, we need to know what those HTML elements are and to find out; you can utilize the developer tools of the browser you are using. After figuring out what CSS classes and objects I needed to modify, I created the following code. So replace the entire default `<script>` section of the widget with the code below. I commented on almost every line; there is A LOT, but it'll make this step straightforward. There is one **IMPORTANT** piece of information to note. It is in the comments, but I will call it out here.
@@ -726,7 +726,7 @@ Add the following code:
     };
 </script>
 ```
-Feel free to preview your work by clicking the **Save to draft** button and then the **Preview** button at the top, but just know that there is one last step before we can see the final result.
+Feel free to preview your work by clicking the **Save to draft** button and then the **Preview** button at the top, but just know there is one last step before we can see the final result.
 
 ## Content Security Policy to allow trusted external resources
 The remaining task to do is to customize the default Content Security Policy (CSP) to allow trusted external resources and prevent violations. This will enable us to use external resources, such as the Font Awesome library, Google Fonts, and jQuery. You must add the URLs in the CSP if you use additional libraries or resources.
@@ -747,14 +747,14 @@ And that should be all! After you've added the necessary CSP information and hav
 Before publishing live to production be sure to test on your preview org or developer org first. To target specific elements/attributes, you can refer to this [Okta doc on modifying CSS](https://developer.okta.com/docs/guides/custom-widget/main/#modify-the-css).
 
 ## More ways to customize your sign-in page
-The manipulation and styling were only done for login and registration. As bonus practice, I suggest you try to modify the MFA screens. To recap what I have demonstrated, customizing the Okta Sign-in Widget allows you to make authentication an integrated part of your app's user experience. From simple color changes to more complex UI tweaks, Okta's flexibility allows you to maintain your brand's visual identity while ensuring a secure and seamless login process.
+The manipulation and styling were only done for login and registration. As bonus practice, I suggest you try to modify the MFA screens. To recap what I have demonstrated, customizing the Okta Sign-In Widget allows you to make authentication an integrated part of your app's user experience. From simple color changes to more complex UI tweaks, Okta's flexibility allows you to maintain your brand's visual identity while ensuring a secure and seamless login process.
 
 Check out the [Okta Sign-In Widget Guide](https://developer.okta.com/docs/guides/embedded-siw/main/) for more detailed documentation and advanced options. Happy customizing!
 
-For more examples of customizing the Okta Sign-in Widget check out these blogs and resources:
+For more examples of customizing the Okta Sign-In Widget check out these blogs and resources:
 - [A Secure and Themed Sign-in Page](blog/2023/01/12/signin-custom-domain#set-up-the-angular-micro-frontend-site-and-add-okta)
 - [i18n in Java 11, Spring Boot, and JavaScript](blog/2019/02/25/java-i18n-internationalization-localization)
-- [Style the sign-in page](https://developer.okta.com/docs/guides/custom-widget/main/#modify-the-css)
+- [Style the Sign-In page](https://developer.okta.com/docs/guides/custom-widget/main/#modify-the-css)
 - [Awesome Login CSS Customization!(feat. Amy Kapers)](https://www.youtube.com/watch?v=Q__ugprsOWo)
 
 And to learn more content on ways you can customize your app's login experience, follow us @OktaDev on [X](https://twitter.com/oktadev) and subscribe to our [YouTube channel](https://www.youtube.com/c/OktaDev/)! We also want to hear from you about topics you want to see and questions you may have so please leave us a comment below!
