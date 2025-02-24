@@ -40,7 +40,9 @@ If you don't have the above setup just yet, you can test one of our [samples](ht
 
 Within the samples, please refer to the ones labeled **Okta Hosted Login** or **Redirect Model**. For example, here is one in [React](https://github.com/okta-samples/okta-react-sample) and [Angular](https://github.com/okta-samples/okta-angular-sample). Each sample readme should have directions on creating an SSO application within Okta, but for more info, you can always refer to this page on [creating app integrations](https://help.okta.com/en-us/content/topics/apps/apps_app_integration_wizard_oidc.htm.). One last note, be sure you are using the correct authorization server for SSO and that is the [Okta Org Authorization Server](https://developer.okta.com/docs/concepts/auth-servers/#org-authorization-server). 
 
-For even more examples of getting started with the Okta Hosted Sign-in Widget, check out this blog [A Secure and Themed Sign-in Page](blog/2023/01/12/signin-custom-domain#set-up-the-angular-micro-frontend-site-and-add-okta).
+For even more examples of getting started with the Okta Hosted Sign-in Widget, check out this post that walks you through the basic customizations and setting up a custom domain.
+
+{% excerpt /blog/2023/01/12/signin-custom-domain %}
 
 ## Customizing colors and branding on the sign-in widget
 One of the easiest and basic ways to personalize the Okta Sign-In Widget is through the **Customizations** > **Brands** > **[your custom brand]** > **Theme** tab; here, you can modify the logo, colors, and background. 
