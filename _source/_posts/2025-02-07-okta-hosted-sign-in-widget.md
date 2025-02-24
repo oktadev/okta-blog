@@ -53,7 +53,7 @@ We're not here to change the button color or simply slap a logo on the widget; w
 We will accomplish this by utilizing standard Javascript and CSS.
 If you use the Okta-hosted widget, you will find it under **Customizations** > **Brands** > **[your custom brand]** > **Pages** > **Sign-in** page. Click the **Configure** button and toggle the **Code editor** to **ON**. At this point, you should see some code appear like the one below:
 
-```HTML
+```html
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
 <html>
 <head>
@@ -115,20 +115,20 @@ If you want more fine-grained control over the widget's appearance, Okta allows 
 
 Within the `<head>` section and below the following code,
 
-```HTML
+```html
 <!-- Favicon from theme -->
     <link rel="shortcut icon" href="{{faviconUrl}}" type="image/x-icon"/>
 ```
 
 insert the following code that points to the Font Awesome library, which is hosted on my AWS S3 bucket (you can use your own Font Awesome or any other library, but you would need to modify the code accordingly).
 
-```CSS
+```css
 <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.14.0/css/all.min.css">
 ```
 
 Next, let's add some general styles to achieve the desired look. Just below the following block of code,
 
-```HTML
+```html
 <title>{{pageTitle}}</title>
     {{{SignInWidgetResources}}}
 
@@ -141,7 +141,7 @@ Next, let's add some general styles to achieve the desired look. Just below the 
 
 add the following code,
 
-```CSS
+```css
 <style>
 /********* custom css ************/
     @import url('https://fonts.googleapis.com/css?family=Montserrat:400,800');
@@ -356,7 +356,7 @@ Lastly, we will modify the widget CSS to our desired style. I will not explain e
 
 Still, within the `<head>` section, and just below the code above, insert the following code:
 
-```CSS
+```css
 #okta-sign-in { 
       border-radius: 10px;
       background:#ffffff;
@@ -506,14 +506,14 @@ Still, within the `<head>` section, and just below the code above, insert the fo
 ## Changing the layout of the Okta Sign-In Widget
 We must modify the page's core HTML to make the widget layout horizontal and achieve the desired effect. Replace the default widget code:
 
-```HTML
+```html
 <div id="login-bg-image-id" class="login-bg-image tb--background"></div>
 <div id="okta-login-container"></div>
 ```
 
 With the following code:
 
-```HTML
+```html
 <!-- custom login -->
 <div class="container" id="container">
     <div class="form-container sign-up-container">
@@ -555,7 +555,7 @@ To manipulate the pieces of the widget, we need to know what those HTML elements
 Additionally, I've included some extra code to showcase how you can style or manipulate the widget based on the client id, making per application customizations possible.
 
 Below the OktaUtil object,
-```HTML
+```html
 <!--
   "OktaUtil" defines a global OktaUtil object
   that contains methods used to complete the Okta login flow.
@@ -565,7 +565,7 @@ Below the OktaUtil object,
 
 Add the following code: 
 
-```HTML
+```html
 <!-- Let's add a reference to jQuery for easy object manipulation. You do not have to do this, you can use vanila JS instead -->
 
 <script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
