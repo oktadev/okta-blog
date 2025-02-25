@@ -4,16 +4,16 @@ title: "From Meh to Wow: Customize Your Okta Sign-In Experience"
 author: nesh-popovic
 by: internal-contributor
 communities: [javascript]
-description: "Tutorial on customizing your Okta Hosted Sign-In Widget to the next level."
+description: "Tutorial on customizing your Okta-hosted Sign-In Widget to the next level."
 tags: [sign-in-custom-domain, custom-domain, okta-hosted-sign-in]
 tweets:
 - ""
 - ""
 - ""
 image: blog/okta-hosted-sign-in-widget/sign-in-widget-social-image.jpeg
-type: awareness
+type: conversion
 ---
-The Okta Sign-In Widget is a powerful tool that allows developers to integrate Okta authentication into their web applications seamlessly. But did you know you can also customize the look and feel of the widget to match your application(s)' design, even if the widget is hosted on Okta? Whether you want to modify colors, add custom branding, or adjust the layout, Okta provides flexibility to make the widget fit your brand's identity.
+The Okta Sign-In Widget is a powerful tool that allows developers to integrate Okta authentication into their web applications seamlessly. But did you know you can also customize the look and feel of the widget to match your application's design, even if the widget is hosted on Okta? Whether you want to modify colors, add custom branding, or adjust the layout, Okta provides flexibility to make the widget fit your brand's identity.
 
 In this guide, we'll transform the Okta-hosted widget using standard Javascript and CSS and its built-in functionality.
 
@@ -29,7 +29,7 @@ Our goal:
 
 
 ## Okta Sign-In Widget basics
-Before diving into customization, let's go over a few basics. "Okta-hosted widget" means that when the user needs to authenticate, you redirect them from your application to Okta, and the login screen that the user is presented with is hosted by Okta (it could be on a custom domain). Hence, all the widget code is on Okta itself (and not in the application), which makes it very convenient for your developers.
+Before diving into customization, let's go over a few basics. "Okta-hosted widget" means that when the user needs to authenticate, you redirect them from your application to Okta, and the sign-in screen that the user is presented with is hosted by Okta or on a custom domain. Hence, you can customize the widget and tailor code within Okta's Admin Console, which makes it very convenient for your developers.
 
 **Prerequisites to this tutorial**
 This guide assumes you already have a Single Sign-On (SSO) application that redirects to Okta for authentication. In addition, you already have a customized Okta-hosted widget with a [custom domain](https://help.okta.com/en-us/content/topics/settings/settings-configure-custom-url.htm) enabled to make the necessary edits I will be demonstrating in this tutorial. This tutorial doesn't use the Third-generation widget but uses the Sign-In Widget **version ^7** instead. And lastly, this guide assumes you have [Self-Service Registration (SSR)](https://support.okta.com/help/s/article/sign-up-link-missing-from-okta-login-page-during-sp-initiated-login?language=en_US) also enabled to handle user self-registration.  
@@ -38,7 +38,7 @@ If you don't have the above setup just yet, you can test one of our [samples](ht
 
 >**Note:** You must use your work email address to sign up for a free developer account.
 
-Within the samples, please refer to the ones labeled **Okta Hosted Login** or **Redirect Model**. For example, here is one in [React](https://github.com/okta-samples/okta-react-sample) and [Angular](https://github.com/okta-samples/okta-angular-sample). Each sample readme should have directions on creating an SSO application within Okta. Still, for more info, you can always refer to this page on [creating app integrations](https://help.okta.com/en-us/content/topics/apps/apps_app_integration_wizard_oidc.htm.). One last note, be sure you are using the correct authorization server for SSO and that is the [Okta Org Authorization Server](https://developer.okta.com/docs/concepts/auth-servers/#org-authorization-server). 
+Within the samples, please refer to the ones labeled **Okta Hosted Login** or **Redirect Model**. For example, here is one in [React](https://github.com/okta-samples/okta-react-sample) and [Angular](https://github.com/okta-samples/okta-angular-quickstart). Each sample readme should have directions on creating an SSO application within Okta. Still, for more info, you can always refer to this page on [creating app integrations](https://help.okta.com/en-us/content/topics/apps/apps_app_integration_wizard_oidc.htm.). One last note, be sure you are using the correct authorization server for SSO and that is the [Okta Org Authorization Server](https://developer.okta.com/docs/concepts/auth-servers/#org-authorization-server). 
 
 For even more examples of how to get started with the Okta-hosted Sign-In Widget, check out this post, which walks you through the basic customizations and setting up a custom domain.
 
