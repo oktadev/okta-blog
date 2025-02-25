@@ -149,209 +149,247 @@ add the following code,
 ```css
 /********* custom css ************/
 @import url('https://fonts.googleapis.com/css?family=Montserrat:400,800');
+
 * {
-box-sizing: border-box;
+	box-sizing: border-box;
 }
+
 body {
-background: linear-gradient(-135deg,#ffffff,#4158d0);
-display: flex;
-justify-content: center;
-align-items: center;
-flex-direction: column;
-font-family: 'Montserrat', sans-serif;
-height: 100vh;
-margin: -20px 0 50px;
+	background: linear-gradient(-135deg, #ffffff, #4158d0);
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	flex-direction: column;
+	font-family: 'Montserrat', sans-serif;
+	height: 100vh;
+	margin: -20px 0 50px;
 }
+
 h1 {
-font-weight: bold;
-margin: 0;
-text-align: center;
-padding: 20px;
+	font-weight: bold;
+	margin: 0;
+	text-align: center;
+	padding: 20px;
 }
+
 h2 {
-text-align: center;
+	text-align: center;
 }
+
 p {
-font-size: 14px;
-font-weight: 100;
-line-height: 20px;
-letter-spacing: 0.5px;
-margin: 20px 0 30px;
+	font-size: 14px;
+	font-weight: 100;
+	line-height: 20px;
+	letter-spacing: 0.5px;
+	margin: 20px 0 30px;
 }
+
 span {
-font-size: 12px;
+	font-size: 12px;
 }
+
 a {
-color: #333;
-font-size: 14px;
-text-decoration: none;
-margin: 15px 0;
+	color: #333;
+	font-size: 14px;
+	text-decoration: none;
+	margin: 15px 0;
 }
+
 button {
-border-radius: 20px;
-border: 1px solid #c850c0;
-background-color: #c850c0;
-color: #FFFFFF;
-font-size: 12px;
-font-weight: bold;
-padding: 12px 45px;
-letter-spacing: 1px;
-text-transform: uppercase;
-transition: transform 80ms ease-in;
+	border-radius: 20px;
+	border: 1px solid #c850c0;
+	background-color: #c850c0;
+	color: #FFFFFF;
+	font-size: 12px;
+	font-weight: bold;
+	padding: 12px 45px;
+	letter-spacing: 1px;
+	text-transform: uppercase;
+	transition: transform 80ms ease-in;
 }
+
 button:active {
-transform: scale(0.95);
+	transform: scale(0.95);
 }
+
 button:focus {
-outline: none;
+	outline: none;
 }
+
 button.ghost {
-background-color: transparent;
-border-color: #FFFFFF;
+	background-color: transparent;
+	border-color: #FFFFFF;
 }
+
 form {
-background-color: #FFFFFF;
-display: flex;
-align-items: center;
-justify-content: center;
-flex-direction: column;
-padding: 0 50px;
-height: 100%;
-text-align: center;
+	background-color: #FFFFFF;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	flex-direction: column;
+	padding: 0 50px;
+	height: 100%;
+	text-align: center;
 }
+
 input {
-background-color: #eee;
-border: none;
-padding: 12px 15px;
-margin: 8px 0;
-width: 100%;
+	background-color: #eee;
+	border: none;
+	padding: 12px 15px;
+	margin: 8px 0;
+	width: 100%;
 }
+
 .container {
-background-color: #fff;
-border-radius: 10px;
-box-shadow: 0 14px 28px rgba(0,0,0,0.25), 
-0 10px 10px rgba(0,0,0,0.22);
-position: relative;
-overflow: hidden;
-width: 768px;
-max-width: 100%;
-min-height: 550px;
+	background-color: #fff;
+	border-radius: 10px;
+	box-shadow: 0 14px 28px rgba(0, 0, 0, 0.25),
+		0 10px 10px rgba(0, 0, 0, 0.22);
+	position: relative;
+	overflow: hidden;
+	width: 768px;
+	max-width: 100%;
+	min-height: 550px;
 }
+
 .form-container {
-position: absolute;
-top: 0;
-height: 100%;
-transition: all 0.6s ease-in-out;
+	position: absolute;
+	top: 0;
+	height: 100%;
+	transition: all 0.6s ease-in-out;
 }
+
 .sign-in-container {
-left: 0;
-width: 50%;
-z-index: 2;
+	left: 0;
+	width: 50%;
+	z-index: 2;
 }
+
 .container.right-panel-active .sign-in-container {
-transform: translateX(100%);
+	transform: translateX(100%);
 }
+
 .sign-up-container {
-left: 0;
-width: 50%;
-opacity: 0;
-z-index: 1;
+	left: 0;
+	width: 50%;
+	opacity: 0;
+	z-index: 1;
 }
+
 .container.right-panel-active .sign-up-container {
-transform: translateX(100%);
-opacity: 1;
-z-index: 5;
-animation: show 0.6s;
+	transform: translateX(100%);
+	opacity: 1;
+	z-index: 5;
+	animation: show 0.6s;
 }
+
 @keyframes show {
-0%, 49.99% {
-opacity: 0;
-z-index: 1;
+
+	0%,
+	49.99% {
+		opacity: 0;
+		z-index: 1;
+	}
+
+	50%,
+	100% {
+		opacity: 1;
+		z-index: 5;
+	}
 }
-50%, 100% {
-opacity: 1;
-z-index: 5;
-}
-}
+
 .overlay-container {
-position: absolute;
-top: 0;
-left: 50%;
-width: 50%;
-height: 100%;
-overflow: hidden;
-transition: transform 0.6s ease-in-out;
-z-index: 100;
+	position: absolute;
+	top: 0;
+	left: 50%;
+	width: 50%;
+	height: 100%;
+	overflow: hidden;
+	transition: transform 0.6s ease-in-out;
+	z-index: 100;
 }
-.container.right-panel-active .overlay-container{
-transform: translateX(-100%);
+
+.container.right-panel-active .overlay-container {
+	transform: translateX(-100%);
 }
+
 .overlay {
-background: #c850c0;
-background: -webkit-linear-gradient(to right, #4158d0, #c850c0);
-background: linear-gradient(to right, #4158d0, #c850c0);
-background-repeat: no-repeat;
-background-size: cover;
-background-position: 0 0;
-color: #FFFFFF;
-position: relative;
-left: -100%;
-height: 100%;
-width: 200%;
-transform: translateX(0);
-transition: transform 0.6s ease-in-out;
+	background: #c850c0;
+	background: -webkit-linear-gradient(to right, #4158d0, #c850c0);
+	background: linear-gradient(to right, #4158d0, #c850c0);
+	background-repeat: no-repeat;
+	background-size: cover;
+	background-position: 0 0;
+	color: #FFFFFF;
+	position: relative;
+	left: -100%;
+	height: 100%;
+	width: 200%;
+	transform: translateX(0);
+	transition: transform 0.6s ease-in-out;
 }
+
 .container.right-panel-active .overlay {
-transform: translateX(50%);
+	transform: translateX(50%);
 }
+
 .overlay-panel {
-position: absolute;
-display: flex;
-align-items: center;
-justify-content: center;
-flex-direction: column;
-padding: 0 40px;
-text-align: center;
-top: 0;
-height: 100%;
-width: 50%;
-transform: translateX(0);
-transition: transform 0.6s ease-in-out;
+	position: absolute;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	flex-direction: column;
+	padding: 0 40px;
+	text-align: center;
+	top: 0;
+	height: 100%;
+	width: 50%;
+	transform: translateX(0);
+	transition: transform 0.6s ease-in-out;
 }
+
 .overlay-left {
-transform: translateX(-20%);
+	transform: translateX(-20%);
 }
+
 .container.right-panel-active .overlay-left {
-transform: translateX(0);
+	transform: translateX(0);
 }
+
 .overlay-right {
-right: 0;
-transform: translateX(0);
+	right: 0;
+	transform: translateX(0);
 }
+
 .container.right-panel-active .overlay-right {
-transform: translateX(20%);
+	transform: translateX(20%);
 }
+
 footer {
-background-color: #222;
-color: #fff;
-font-size: 14px;
-bottom: 0;
-position: fixed;
-left: 0;
-right: 0;
-text-align: center;
-z-index: 999;
+	background-color: #222;
+	color: #fff;
+	font-size: 14px;
+	bottom: 0;
+	position: fixed;
+	left: 0;
+	right: 0;
+	text-align: center;
+	z-index: 999;
 }
+
 footer p {
-margin: 10px 0;
+	margin: 10px 0;
 }
+
 footer i {
-color: red;
+	color: red;
 }
+
 footer a {
-color: #3c97bf;
-text-decoration: none;
+	color: #3c97bf;
+	text-decoration: none;
 }
+
 /* end custom css */
 ```
 
@@ -361,148 +399,178 @@ Still, within the `<style>...</style>` section, and just below the code above, i
 
 ```css
 /* modified Okta css */
-#okta-sign-in { 
-border-radius: 10px;
-background:#ffffff;
-width: 100%;
-margin: 20px auto 8px;
+#okta-sign-in {
+	border-radius: 10px;
+	background: #ffffff;
+	width: 100%;
+	margin: 20px auto 8px;
 }
+
 #okta-sign-in .auth-header {
-padding: 0px;
+	padding: 0px;
 }
+
 #okta-sign-in .auth-content {
-padding: 20px 22px 20px;
+	padding: 20px 22px 20px;
 }
+
 #okta-sign-in.no-beacon .auth-content {
-padding-top: 5px;
+	padding-top: 5px;
 }
+
 #okta-sign-in .siw-main-view .siw-main-body .o-form-content {
-width: 100%;
+	width: 100%;
 }
-#okta-sign-in .focused-input, #okta-sign-in .link.help:focus, okta-form-input-field:focus {
-box-shadow: none;
+
+#okta-sign-in .focused-input,
+#okta-sign-in .link.help:focus,
+okta-form-input-field:focus {
+	box-shadow: none;
 }
-#okta-sign-in .o-form .input-fix, #okta-sign-in .o-form .textarea-fix {
-border: none;
+
+#okta-sign-in .o-form .input-fix,
+#okta-sign-in .o-form .textarea-fix {
+	border: none;
 }
-#okta-sign-in .o-form .input-fix input[type="text"], 
-#okta-sign-in .o-form .input-fix input[type="textbox"], 
-#okta-sign-in .o-form .input-fix input[type="number"], 
+
+#okta-sign-in .o-form .input-fix input[type="text"],
+#okta-sign-in .o-form .input-fix input[type="textbox"],
+#okta-sign-in .o-form .input-fix input[type="number"],
 #okta-sign-in .o-form .input-fix input[type="password"] {
-font-size: 15px;
-line-height: 1.5;
-color: #666;
-display: block;
-width: 100%;
-background: #f7f7f7;
-height: 50px;
-border-radius: 5px;
-/*padding: 0 30px 0 68px;*/
-box-shadow: none;
+	font-size: 15px;
+	line-height: 1.5;
+	color: #666;
+	display: block;
+	width: 100%;
+	background: #f7f7f7;
+	height: 50px;
+	border-radius: 5px;
+	/*padding: 0 30px 0 68px;*/
+	box-shadow: none;
 }
+
 #okta-sign-in .focused-input {
-box-shadow: none;
+	box-shadow: none;
 }
+
 #okta-sign-in .o-form-button-bar {
-width: 100%;
-display: flex;
-flex-wrap: wrap;
-justify-content: center;
-padding-top: 13px;
-border: none;
+	width: 100%;
+	display: flex;
+	flex-wrap: wrap;
+	justify-content: center;
+	padding-top: 13px;
+	border: none;
 }
+
 #okta-sign-in.auth-container.main-container {
-background-color: #ffffff;
-border: none;
-border-color: none;
-color: #000;
-box-shadow: none;
+	background-color: #ffffff;
+	border: none;
+	border-color: none;
+	color: #000;
+	box-shadow: none;
 }
+
 #okta-sign-in .auth-divider .auth-divider-text {
-color: #000;
+	color: #000;
 }
+
 #okta-sign-in.auth-container .okta-form-input-field {
-background-color: transparent;
+	background-color: transparent;
 }
-#okta-sign-in.auth-container .button-primary, 
-#okta-sign-in.auth-container input[type=button], 
+
+#okta-sign-in.auth-container .button-primary,
+#okta-sign-in.auth-container input[type=button],
 #okta-sign-in.auth-container input[type=submit] {
-font-family:Montserrat-Bold;
-font-size:15px;
-line-height:1.5;
-color:#ffffff !important;
-text-transform:uppercase;
-text-align: center;
-width:100%;
-height:50px;
-border-radius:25px;
-display:flex;
-justify-content:center;
-align-items:center;
-transition:all .4s              
-background: #c850c0 !important;
-border: #c850c0 1px solid !important; 
-border-bottom-color: #c850c0; 
-box-shadow: none;
-width: 80%;
+	font-family: Montserrat-Bold;
+	font-size: 15px;
+	line-height: 1.5;
+	color: #ffffff !important;
+	text-transform: uppercase;
+	text-align: center;
+	width: 100%;
+	height: 50px;
+	border-radius: 25px;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	transition: all .4s background: #c850c0 !important;
+	border: #c850c0 1px solid !important;
+	border-bottom-color: #c850c0;
+	box-shadow: none;
+	width: 80%;
 }
-#okta-sign-in.auth-container h2, #okta-sign-in.auth-container h3 {
-color: #000;
-font-size: x-large;
-font-weight: bold;
-font-family: 'Montserrat', sans-serif;
+
+#okta-sign-in.auth-container h2,
+#okta-sign-in.auth-container h3 {
+	color: #000;
+	font-size: x-large;
+	font-weight: bold;
+	font-family: 'Montserrat', sans-serif;
 }
+
 #okta-sign-in.auth-container .okta-form-label {
-color: #000;
+	color: #000;
 }
+
 #okta-sign-in.auth-container.main-container .o-form .o-form-input .o-form-control .input-icon-divider {
-height: 50px;
+	height: 50px;
 }
-#okta-sign-in .registration-container .content-container { text-align: center; }
+
+#okta-sign-in .registration-container .content-container {
+	text-align: center;
+}
+
 #okta-sign-in .enroll-sms .enroll-sms-phone {
-width: auto;
+	width: auto;
 }
+
 #okta-sign-in .siw-main-footer .footer-info {
-border-top: none;
-display: flex;
-margin-top: 0rem;
-padding-top: 0rem;
+	border-top: none;
+	display: flex;
+	margin-top: 0rem;
+	padding-top: 0rem;
 }
-#okta-sign-in .o-form .o-form-label, 
-#okta-sign-in .o-form input, 
-#okta-sign-in .o-form label, 
-#okta-sign-in .o-form textarea{
-text-align: left;
+
+#okta-sign-in .o-form .o-form-label,
+#okta-sign-in .o-form input,
+#okta-sign-in .o-form label,
+#okta-sign-in .o-form textarea {
+	text-align: left;
 }
+
 #okta-sign-in .siw-main-view .siw-main-body .o-form-content .o-form-label label {
-font-size: medium;
+	font-size: medium;
 }
+
 #okta-sign-in .siw-main-view .siw-main-body .o-form-content .o-form-label .o-form-explain {
-color: #c250c1;
+	color: #c250c1;
 }
+
 #okta-sign-in .sign-in-with-idp .social-container {
-margin: 20px 0;
+	margin: 20px 0;
 }
+
 #okta-sign-in .sign-in-with-idp .social-container a {
-border: 1px solid #DDDDDD;
-border-radius: 50%;
-display: inline-flex;
-justify-content: center;
-align-items: center;
-margin: 0 5px;
-height: 40px;
-width: 40px;
+	border: 1px solid #DDDDDD;
+	border-radius: 50%;
+	display: inline-flex;
+	justify-content: center;
+	align-items: center;
+	margin: 0 5px;
+	height: 40px;
+	width: 40px;
 }
+
 #okta-sign-in .sign-in-with-idp .social-container i {
--moz-osx-font-smoothing: grayscale;
--webkit-font-smoothing: antialiased;
-display: inline-block;
-font-style: normal;
-font-variant: normal;
-text-rendering: auto;
-line-height: 1;
-font-family: "Font Awesome 5 Brands";
-font-weight: 400;
+	-moz-osx-font-smoothing: grayscale;
+	-webkit-font-smoothing: antialiased;
+	display: inline-block;
+	font-style: normal;
+	font-variant: normal;
+	text-rendering: auto;
+	line-height: 1;
+	font-family: "Font Awesome 5 Brands";
+	font-weight: 400;
 }
 ```
 
