@@ -12,6 +12,7 @@ tweets:
 - ""
 image: blog/okta-hosted-sign-in-widget/sign-in-widget-social-image.jpeg
 type: conversion
+github: https://github.com/oktadev/okta-hosted-sign-in-widget
 ---
 The Okta Sign-In Widget is a powerful tool that allows developers to integrate Okta authentication into their web applications seamlessly. But did you know you can also customize the widget's look and feel to match your application's design, even if hosted on Okta? Whether you want to modify colors, add custom branding, or adjust the layout, Okta provides flexibility to make the widget fit your brand's identity.
 
@@ -130,7 +131,7 @@ insert the following code that points to the Font Awesome library, which is host
 <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.14.0/css/all.min.css">
 ```
 
-Next, let's add some general styles to achieve the desired look. Within the `<style>...</style>` ,
+Next, let's add some general styles to achieve the desired look. Within the `<style>...</style>` block,
 
 {% raw %}
 ```html
@@ -623,11 +624,11 @@ With the following code:
 ## Enhancing the experience with Okta Custom Sign-In Widget
 Now, let's get into the meat and potatoes. We first need to hide some unwanted pieces of the widget (logo, header, links, etc.). Then, we must apply CSS to the existing HTML objects by replacing the classes (e.g., making the social button round). Easier said than done!
 
-To manipulate the pieces of the widget, we need to know what those HTML elements are and to find out; you can utilize the developer tools of the browser you are using. After figuring out what CSS classes and objects I needed to modify, I created the following code. So replace the entire default `<script>` section of the widget with the code below. I commented on almost every line; there is A LOT, but it'll make this step straightforward. There is one **IMPORTANT** piece of information to note. It is in the comments, but I will call it out here.
+To manipulate the pieces of the widget, we need to know what those HTML elements are, and to find out, you can utilize the developer tools of the browser you are using. After figuring out what CSS classes and objects I needed to modify, I created the following code. So, replace the widget's default `<script>` section with the code below. I commented on almost every line; there is A LOT, but it'll make this step straightforward. There is one **IMPORTANT** piece of information to note. It is in the comments, but I will call it out here.
 
 >**IMPORTANT**: Setting the Routing Rule in the admin interface for external IdPs will break this code, so instead, set the identity providers here in the config object.
 
-Additionally, I've included some extra code to showcase how you can style or manipulate the widget based on the client id, making per application customizations possible.
+Additionally, I've included some extra code to showcase how you can style or manipulate the widget based on the client id, making per-application customizations possible.
 
 Below the OktaUtil object,
 
@@ -645,7 +646,7 @@ Add the following code:
 
 {% raw %}
 ```html
- <!-- Let's add a reference to JQuery for easy object manipulation. You do not have to do this, you can use vanila JS instead -->
+ <!-- Let's add a reference to JQuery for easy object manipulation. You do not have to do this; you can use vanila JS instead -->
 <script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
 <script type="text/javascript" nonce="{{nonceValue}}">
    /***** 
@@ -653,7 +654,7 @@ Add the following code:
    PLEASE SEE THE FOLLOWING LINK: https://developer.okta.com/docs/guides/custom-widget-gen3/main/
    *****/
    
-   // if you are interested in seeing what all is in the setttings object log it here and use your browser's dev tools to look at it
+   //If you are interested in seeing what all is in the settings object log it here and use your browser's dev tools to look at it
    console.log("OKTAUTIL object: ", OktaUtil);
    
    // get request context - this allows us to get access to any data that was passed in the /authorize request...see BONUS CODE section later on for a sample code
@@ -692,9 +693,9 @@ Add the following code:
    }
    /****** END BONUS CODE ******/
    
-   // You can either create a Routing Rule to enable external IdPs or you can set the identity providers here in the config object
-   // I have mine set up in the Okta Admin console via Routing Rule but here is the code if you'd like to set them here
-   // To learn how to set up external idps in your Okta tenant visit this link: 
+   // You can either create a Routing Rule to enable external IdPs, or you can set the identity providers here in the config object
+   // I have mine set up in the Okta Admin console via Routing Rule, but here is the code if you'd like to set them here
+   // To learn how to set up external IdPs in your Okta tenant, visit this link: 
    // https://developer.okta.com/docs/guides/identity-providers/#social-logins
    
    config.idps = [
@@ -716,13 +717,13 @@ Add the following code:
        OktaUtil.completeLogin,
        function(error) {
            // Logs errors that occur when configuring the widget.
-           // Remove or replace this with your own custom error handler if desired.
+           // Remove or replace this with your custom error handler if desired.
            console.log(error.message, error);
        }
    );
    
    // Initialize another Okta widget object and bootstrap into the Signup part... 
-   // this is needed so we can flip between login and registration as only one instance can be rendered at a time.
+   //This is needed so we can flip between login and registration, as only one instance can be rendered at a time.
    var oktaSignUp = new OktaSignIn({
            issuer: config.baseUrl,
            flow: 'signup'
@@ -734,7 +735,7 @@ Add the following code:
        manipulateObjects();
    });
    
-   // make the panels move left-right to show/hide the login and reg forms
+   // Make the panels move left-right to show/hide the login and reg forms
    const signUpButton = document.getElementById('signUp');
    const signInButton = document.getElementById('signIn');
    const container = document.getElementById('container');
@@ -758,40 +759,40 @@ Add the following code:
        //console.log("Trying to manipulate the widget...");
    
    // Depending on the config, footer contains links for sign-up, "Forgot password", "Back to Sign in" and possibly 
-       // other self-service options. We'll hide the sign-up option since we're dealing with it separately but will leave the rest.
-       // If you did want to hide it entirely you can use the following code, you can either hide the entire footer or just the pieces of it
+       // other self-service options. We'll hide the sign-up option since we're dealing with it separately, but we will leave the rest.
+       // If you did want to hide it entirely, you can use the following code, you can either hide the entire footer or just the pieces of it
        // $("div.siw-main-footer").css("display","none"); 
        $("div.auth-footer div.signup-info").css("display","none");
    
-   // same for the header, let's hide it
+   // Same for the header; let's hide it
        $("div.okta-sign-in-header").css("display","none");
    
-   // we want to add the placeholder for the username which is in the email format for my Okta tenant
+   // We want to add the placeholder for the username, which is in the email format for my Okta tenant
        $("input[name='identifier']").attr('placeholder', 'Email');
        $("input[name='userProfile.email']").attr('placeholder', 'Email');
    
        /******* TRANSFORM SOCIAL BUTTONS **************/
-   // we need the social buttons to look completely different from the default ones, we will make use of the FontAwesome library for icons
+   // We need the social buttons to look completely different from the default ones, we will make use of the FontAwesome library for icons
        $("#okta-login-container div.okta-idps-container").wrapAll('<div class="social-container">');
    
-   // modify the google button
+   // Modify the google button
        $("a[data-se='social-auth-google-button']").html('<i class="fab fa-google-plus-g"></i>');
        $("a[data-se='social-auth-google-button']").removeClass();
        $("a[data-se='social-auth-google-button']").addClass('social');
    
-   // modify the microsoft button
+   // Modify the microsoft button
        $("a[data-se='social-auth-microsoft-button']").html('<i class="fab fa-microsoft"></i>');
        $("a[data-se='social-auth-microsoft-button']").removeClass();
        $("a[data-se='social-auth-microsoft-button']").addClass('social');
        /********* END TRANSFORM SOCIAL BUTTONS ************/
    
-       // if a user is trying to access Okta dashboard or they came here by some other means, hide the reg form and social buttons. Please keep in mind, this is merely hiding the reg form via frontend (js/css), if the user is crafty they could still access the form
+       //If a user is trying to access the Okta dashboard or came here by other means, hide the reg form and social buttons. Please remember that this merely hides the reg form via frontend (js/css). If the user is     crafty, they could still access the form
        if(clientid == ["CLIENT ID OF YOUR OKTA DASHBOARD APP"]){
-     // hide the registration panel
+     // Hide the registration panel
            $("#reg-overlay").css("display","none");
-     // display the text if this is an Admin user trying to access the dashboard 
+     // Display the text if this is an Admin user trying to access the dashboard 
            $("#admin-overlay").css("display","flex");
-     // hide the social buttons container
+     // Hide the social buttons container
      $("#okta-login-container div.sign-in-with-idp").css("display","none");
        }
    
@@ -804,7 +805,7 @@ Add the following code:
 Feel free to preview your work by clicking the **Save to draft** button and then the **Preview** button at the top, but just know there is one last step before we can see the final result.
 
 ## Content Security Policy to allow trusted external resources
-The remaining task to do is to customize the default Content Security Policy (CSP) to allow trusted external resources and prevent violations. This will enable us to use external resources, such as the Font Awesome library, Google Fonts, and jQuery. You must add the URLs in the CSP if you use additional libraries or resources.
+The remaining task is to customize the default Content Security Policy (CSP) to allow trusted external resources and prevent violations. This will enable us to use external resources, such as the Font Awesome library, Google Fonts, and jQuery. You must add the URLs in the CSP if you use additional libraries or resources.
 
 >**SECURE BEST PRACTICE**: 
 - ✅ Remember to use trusted, well-maintained libraries, and pin specific versions you've used for future reference and troubleshooting issues. 
@@ -819,7 +820,7 @@ CSP is located under the **Settings** tab on the **Sign-in page** section, **Cus
 And that should be all! After you've added the necessary CSP information and have previewed your sign-in page, you can now click the **Publish** button under the **Page Design** tab to see your changes live. If you copied/pasted everything correctly, you should now have a sign-in widget that looks and functions like the one showcased at the beginning of this tutorial. 
 
 ## Troubleshooting your Okta hosted sign in widget
-Before publishing live to production be sure to test on your preview org or developer org first. To target specific elements/attributes, you can refer to this [Okta doc on modifying CSS](https://developer.okta.com/docs/guides/custom-widget/main/#modify-the-css).
+Before publishing live to production, be sure to test it on your preview org or developer org first. To target specific elements/attributes, refer to this [Okta doc on modifying CSS](https://developer.okta.com/docs/guides/custom-widget/main/#modify-the-css).
 
 ## More ways to customize your sign-in page
 The manipulation and styling were only done for login and registration. As bonus practice, I suggest you try to modify the MFA screens. To recap what I have demonstrated, customizing the Okta Sign-In Widget allows you to make authentication an integrated part of your app's user experience. From simple color changes to more complex UI tweaks, Okta's flexibility allows you to maintain your brand's visual identity while ensuring a secure and seamless login process.
