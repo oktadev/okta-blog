@@ -53,6 +53,7 @@ We're not here to change the button color or simply slap a logo on the widget; w
 We will accomplish this by utilizing standard Javascript and CSS.
 If you use the Okta-hosted widget, you will find it under **Customizations** > **Brands** > **[your custom brand]** > **Pages** > **Sign-in** page. Click the **Configure** button and toggle the **Code editor** to **ON**. At this point, you should see some code appear like the one below:
 
+{% raw %}
 ```html
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
 <html>
@@ -104,6 +105,7 @@ If you use the Okta-hosted widget, you will find it under **Customizations** > *
 </body>
 </html>
 ```
+{% endraw %}
 
 Let's make a note of a few key things:
 - `OktaUtil` is a global object that contains all of the widget methods and settings
@@ -115,6 +117,7 @@ If you want more fine-grained control over the widget's appearance, Okta allows 
 
 Within the `<head>` section and below the following code,
 
+{% raw %}
 ```html
 <!-- Favicon from theme -->
     <link rel="shortcut icon" href="{{faviconUrl}}" type="image/x-icon"/>
@@ -125,9 +128,11 @@ insert the following code that points to the Font Awesome library, which is host
 ```css
 <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.14.0/css/all.min.css">
 ```
+{% endraw %}
 
 Next, let's add some general styles to achieve the desired look. Just below the following block of code,
 
+{% raw %}
 ```html
 <title>{{pageTitle}}</title>
     {{{SignInWidgetResources}}}
@@ -138,6 +143,7 @@ Next, let's add some general styles to achieve the desired look. Just below the 
         }
     </style>
 ```
+{% endraw %}
 
 add the following code,
 
@@ -506,13 +512,16 @@ Still, within the `<head>` section, and just below the code above, insert the fo
 ## Changing the layout of the Okta Sign-In Widget
 We must modify the page's core HTML to make the widget layout horizontal and achieve the desired effect. Replace the default widget code:
 
+{% raw %}
 ```html
 <div id="login-bg-image-id" class="login-bg-image tb--background"></div>
 <div id="okta-login-container"></div>
 ```
+{% endraw %}
 
 With the following code:
 
+{% raw %}
 ```html
 <!-- custom login -->
 <div class="container" id="container">
@@ -544,6 +553,7 @@ With the following code:
 </div>
 <!-- end custom login -->
 ```
+{% endraw %}
 
 ## Enhancing the experience with Okta Custom Sign-In Widget
 Now, let's get into the meat and potatoes. We first need to hide some unwanted pieces of the widget (logo, header, links, etc.). Then, we must apply CSS to the existing HTML objects by replacing the classes (e.g., making the social button round). Easier said than done!
@@ -555,6 +565,8 @@ To manipulate the pieces of the widget, we need to know what those HTML elements
 Additionally, I've included some extra code to showcase how you can style or manipulate the widget based on the client id, making per application customizations possible.
 
 Below the OktaUtil object,
+
+{% raw %}
 ```html
 <!--
   "OktaUtil" defines a global OktaUtil object
@@ -562,9 +574,11 @@ Below the OktaUtil object,
 -->
 {{{OktaUtil}}}
 ```
+{% endraw %}
 
-Add the following code: 
+Add the following code:
 
+{% raw %}
 ```html
 <!-- Let's add a reference to jQuery for easy object manipulation. You do not have to do this, you can use vanila JS instead -->
 
@@ -575,14 +589,14 @@ Add the following code:
     PLEASE SEE THE FOLLOWING LINK: https://developer.okta.com/docs/guides/custom-widget-gen3/main/
     *****/
 
-    // if you are interested in seeing what all is in the setttings object log it here and use your browser's dev tools to look at it
+    // if you are interested in seeing what all is in the settings object, log it here and use your browser's dev tools to look at it
     console.log("OKTAUTIL object: ", OktaUtil);
 
-    // get request context - this allows us to get access to any data that was passed in the /authorize request...see BONUS CODE section later for a sample code 
+    // get request context - this allows us to get access to any data that was passed in the /authorize request...see the BONUS CODE section later for a sample code 
     var requestContext = OktaUtil.getRequestContext();
     console.log("REQUEST CONTEXT: ",requestContext);
 
-    // "config" object contains default widget configuration
+    // "config" object contains the default widget configuration
     // with any custom overrides defined in your admin settings.
     var config = OktaUtil.getSignInWidgetConfig();
     console.log("CONFIG object: ", config);
@@ -626,7 +640,7 @@ Add the following code:
             {type: 'Microsoft', id: '[ID OF YOUR MICROSOFT IDP FROM OKTA]'}
         ];
 
-    // display the social buttons first, before the username/password form
+    // display the social buttons before the username/password form
     config.idpDisplay ="PRIMARY";
 
     // enable registration
@@ -640,13 +654,13 @@ Add the following code:
         OktaUtil.completeLogin,
         function(error) {
             // Logs errors that occur when configuring the widget.
-            // Remove or replace this with your own custom error handler if desired.
+            // Remove or replace this with your custom error handler if desired.
             console.log(error.message, error);
         }
     );
 
     // Initialize another Okta widget object and Bootstrap into the Signup part...
-    // this is needed so we can flip between login and registration as only one instance can be rendered at a time.
+    // This is needed to flip between login and registration, as only one instance can be rendered at a time.
     var oktaSignUp = new OktaSignIn({
             issuer: config.baseUrl,
             flow: 'signup'
@@ -726,6 +740,8 @@ Add the following code:
     };
 </script>
 ```
+{% endraw %}
+
 Feel free to preview your work by clicking the **Save to draft** button and then the **Preview** button at the top, but just know there is one last step before we can see the final result.
 
 ## Content Security Policy to allow trusted external resources
@@ -755,6 +771,6 @@ For more examples of customizing the Okta Sign-In Widget check out these blogs a
 - [A Secure and Themed Sign-in Page](blog/2023/01/12/signin-custom-domain#set-up-the-angular-micro-frontend-site-and-add-okta)
 - [i18n in Java 11, Spring Boot, and JavaScript](blog/2019/02/25/java-i18n-internationalization-localization)
 - [Style the Sign-In page](https://developer.okta.com/docs/guides/custom-widget/main/#modify-the-css)
-- [Awesome Login CSS Customization!(feat. Amy Kapers)](https://www.youtube.com/watch?v=Q__ugprsOWo)
+- [Awesome Login CSS Customization! (feat. Amy Kapers)](https://www.youtube.com/watch?v=Q__ugprsOWo)
 
 And to learn more content on ways you can customize your app's login experience, follow us @OktaDev on [X](https://twitter.com/oktadev) and subscribe to our [YouTube channel](https://www.youtube.com/c/OktaDev/)! We also want to hear from you about topics you want to see and questions you may have so please leave us a comment below!
