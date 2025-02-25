@@ -13,7 +13,7 @@ tweets:
 image: blog/okta-hosted-sign-in-widget/sign-in-widget-social-image.jpeg
 type: conversion
 ---
-The Okta Sign-In Widget is a powerful tool that allows developers to integrate Okta authentication into their web applications seamlessly. But did you know you can also customize the widget's look and feel to match your application's design, even if it is hosted on Okta? Whether you want to modify colors, add custom branding, or adjust the layout, Okta provides flexibility to make the widget fit your brand's identity.
+The Okta Sign-In Widget is a powerful tool that allows developers to integrate Okta authentication into their web applications seamlessly. But did you know you can also customize the widget's look and feel to match your application's design, even if hosted on Okta? Whether you want to modify colors, add custom branding, or adjust the layout, Okta provides flexibility to make the widget fit your brand's identity.
 
 In this guide, we'll transform the Okta Hosted Sign-In Widget using standard Javascript and CSS and its built-in functionality.
 
