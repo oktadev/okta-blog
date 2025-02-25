@@ -4,8 +4,8 @@ title: "From Meh to Wow: Customize Your Okta Sign-In Experience"
 author: nesh-popovic
 by: internal-contributor
 communities: [javascript]
-description: "Tutorial on customizing your Okta-hosted Sign-In Widget to the next level."
-tags: [sign-in-custom-domain, custom-domain, okta-hosted-sign-in]
+description: "Tutorial on customizing your Okta Hosted Sign-In Widget to the next level."
+tags: [sign-in-custom-domain, custom-domain, okta-hosted-sign-in-widget]
 tweets:
 - ""
 - ""
@@ -13,34 +13,38 @@ tweets:
 image: blog/okta-hosted-sign-in-widget/sign-in-widget-social-image.jpeg
 type: conversion
 ---
-The Okta Sign-In Widget is a powerful tool that allows developers to integrate Okta authentication into their web applications seamlessly. But did you know you can also customize the look and feel of the widget to match your application's design, even if the widget is hosted on Okta? Whether you want to modify colors, add custom branding, or adjust the layout, Okta provides flexibility to make the widget fit your brand's identity.
+The Okta Sign-In Widget is a powerful tool that allows developers to integrate Okta authentication into their web applications seamlessly. But did you know you can also customize the widget's look and feel to match your application's design, even if it is hosted on Okta? Whether you want to modify colors, add custom branding, or adjust the layout, Okta provides flexibility to make the widget fit your brand's identity.
 
-In this guide, we'll transform the Okta-hosted widget using standard Javascript and CSS and its built-in functionality.
+In this guide, we'll transform the Okta Hosted Sign-In Widget using standard Javascript and CSS and its built-in functionality.
 
 {:toc}
 
 **Before**
-{% img blog/okta-hosted-sign-in-widget/okta-hosted-sign-in-widget-before.gif alt:"animated gif of default static Okta hosted sign-in widgets" %}{: .center-image }
+{% img blog/okta-hosted-sign-in-widget/okta-hosted-sign-in-widget-before.gif alt:"animated gif of default static Okta Hosted Sign-In Widget" %}{: .center-image }
 
 Our goal:
 
 **After**
-{% img blog/okta-hosted-sign-in-widget/okta-hosted-sign-in-widget-after.gif  alt:"animated gif of customized Okta hosted sign-in widget with sliding window effect for new signups" width:"800" %}{: .center-image }
+{% img blog/okta-hosted-sign-in-widget/okta-hosted-sign-in-widget-after.gif  alt:"animated gif of customized Okta Hosted Sign-In Widget with sliding window effect for new signups" width:"800" %}{: .center-image }
 
 
 ## Okta Sign-In Widget basics
-Before diving into customization, let's go over a few basics. "Okta-hosted widget" means that when the user needs to authenticate, you redirect them from your application to Okta, and the sign-in screen that the user is presented with is hosted by Okta or on a custom domain. Hence, you can customize the widget and tailor code within Okta's Admin Console, which makes it very convenient for your developers.
+Before diving into customization, let's go over a few basics. "Okta Hosted Sign-In Widget" means that when the user needs to authenticate, you redirect them from your application to Okta, and the sign-in screen that the user is presented with is hosted by Okta or on a custom domain. Hence, you can customize the widget and tailor code within Okta's Admin Console, which makes it very convenient for your developers.
 
 **Prerequisites to this tutorial**
-This guide assumes you already have a Single Sign-On (SSO) application that redirects to Okta for authentication. In addition, you already have a customized Okta-hosted widget with a [custom domain](https://help.okta.com/en-us/content/topics/settings/settings-configure-custom-url.htm) enabled to make the necessary edits I will be demonstrating in this tutorial. This tutorial doesn't use the Third-generation widget but uses the Sign-In Widget **version ^7** instead. And lastly, this guide assumes you have [Self-Service Registration (SSR)](https://support.okta.com/help/s/article/sign-up-link-missing-from-okta-login-page-during-sp-initiated-login?language=en_US) also enabled to handle user self-registration.  
+This guide assumes you already have:
+- A Single Sign-On (SSO) application that redirects to Okta for authentication.
+- A customized Okta Hosted Sign-In Widget with a [custom domain](https://help.okta.com/en-us/content/topics/settings/settings-configure-custom-url.htm) enabled to make the necessary edits that I will demonstrate in this tutorial.
+- This tutorial uses the Sign-In Widget **version ^7**.
+- [Self-Service Registration (SSR)](https://support.okta.com/help/s/article/sign-up-link-missing-from-okta-login-page-during-sp-initiated-login?language=en_US) enabled to handle user self-registration.
 
-If you don't have the above setup just yet, you can test one of our [samples](https://github.com/okta-samples) with a free Developer Edition Account under (Sign up free for Developer Edition)[https://developer.okta.com/signup/]. 
+If you don't have the above setup just yet, you can test one of our [samples](https://github.com/okta-samples) with a free Developer Edition Account under [Sign up free for Developer Edition](https://developer.okta.com/signup/). 
 
 >**Note:** You must use your work email address to sign up for a free developer account.
 
 Within the samples, please refer to the ones labeled **Okta Hosted Login** or **Redirect Model**. For example, here is one in [React](https://github.com/okta-samples/okta-react-sample) and [Angular](https://github.com/okta-samples/okta-angular-quickstart). Each sample readme should have directions on creating an SSO application within Okta. Still, for more info, you can always refer to this page on [creating app integrations](https://help.okta.com/en-us/content/topics/apps/apps_app_integration_wizard_oidc.htm.). One last note, be sure you are using the correct authorization server for SSO and that is the [Okta Org Authorization Server](https://developer.okta.com/docs/concepts/auth-servers/#org-authorization-server). 
 
-For even more examples of how to get started with the Okta-hosted Sign-In Widget, check out this post, which walks you through the basic customizations and setting up a custom domain.
+For even more examples of how to get started with the  Sign-In Widget, check out this post, which walks you through the basic customizations and setting up a custom domain.
 
 {% excerpt /blog/2023/01/12/signin-custom-domain %}
 
@@ -51,7 +55,7 @@ One of the easiest and basic ways to personalize the Okta Sign-In Widget is thro
 We're not here to change the button color or simply slap a logo on the widget; we're here to learn how to slice and dice that widget so it dazzles and provides a better user experience. 🙂
 
 We will accomplish this by utilizing standard Javascript and CSS.
-If you use the Okta-hosted widget, you will find it under **Customizations** > **Brands** > **[your custom brand]** > **Pages** > **Sign-in** page. Click the **Configure** button and toggle the **Code editor** to **ON**. At this point, you should see some code appear like the one below:
+If you use the Okta Hosted Sign-In Widget, you will find it under **Customizations** > **Brands** > **[your custom brand]** > **Pages** > **Sign-in** page. Click the **Configure** button and toggle the **Code editor** to **ON**. At this point, you should see some code appear like the one below:
 
 {% raw %}
 ```html
@@ -122,13 +126,13 @@ Within the `<head>` section and below the following code,
 <!-- Favicon from theme -->
     <link rel="shortcut icon" href="{{faviconUrl}}" type="image/x-icon"/>
 ```
+{% endraw %}
 
 insert the following code that points to the Font Awesome library, which is hosted on my AWS S3 bucket (you can use your own Font Awesome or any other library, but you would need to modify the code accordingly).
 
 ```css
 <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.14.0/css/all.min.css">
 ```
-{% endraw %}
 
 Next, let's add some general styles to achieve the desired look. Within the `<style>...</style>` ,
 
