@@ -646,7 +646,7 @@ Add the following code:
 
 {% raw %}
 ```html
- <!-- Let's add a reference to JQuery for easy object manipulation. You do not have to do this; you can use vanila JS instead -->
+ <!-- Let's add a reference to jQuery for easy object manipulation. You do not have to do this; you can use vanila JS instead -->
 <script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
 <script type="text/javascript" nonce="{{nonceValue}}">
    /***** 
@@ -819,7 +819,7 @@ CSP is located under the **Settings** tab on the **Sign-in page** section, **Cus
 
 And that should be all! After you've added the necessary CSP information and have previewed your sign-in page, you can now click the **Publish** button under the **Page Design** tab to see your changes live. If you copied/pasted everything correctly, you should now have a sign-in widget that looks and functions like the one showcased at the beginning of this tutorial. 
 
-## Troubleshooting your Okta hosted sign in widget
+## Troubleshooting your Okta Hosted Sign-In Widget
 Before publishing live to production, test it on your preview or developer org first. To target specific elements/attributes, refer to this [Okta doc on modifying CSS](https://developer.okta.com/docs/guides/custom-widget/main/#modify-the-css).
 
 ## More ways to customize your sign-in page
@@ -827,7 +827,7 @@ The manipulation and styling were only done for login and registration. You can 
 
 Check out the [Okta Sign-In Widget Guide](https://developer.okta.com/docs/guides/embedded-siw/main/) for more detailed documentation and advanced options. Happy customizing!
 
-For more examples of customizing the Okta Sign-In Widget check out these blogs and resources:
+For more examples of customizing the Okta Sign-In Widget, check out these blogs and resources:
 - [A Secure and Themed Sign-in Page](blog/2023/01/12/signin-custom-domain#set-up-the-angular-micro-frontend-site-and-add-okta)
 - [i18n in Java 11, Spring Boot, and JavaScript](blog/2019/02/25/java-i18n-internationalization-localization)
 - [Style the Sign-In page](https://developer.okta.com/docs/guides/custom-widget/main/#modify-the-css)
