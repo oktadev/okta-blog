@@ -12,11 +12,11 @@ tweets:
 - ""
 image: blog/okta-hosted-sign-in-widget/sign-in-widget-social-image.jpeg
 type: conversion
-github: https://github.com/oktadev/okta-hosted-sign-in-widget
+github: https://github.com/oktadev/okta-js-sign-in-widget-customization-example
 ---
 The Okta Sign-In Widget is a powerful tool that allows developers to integrate Okta authentication into their web applications seamlessly. But did you know you can also customize the widget's look and feel to match your application's design, even if hosted on Okta? Whether you want to modify colors, add custom branding, or adjust the layout, Okta provides flexibility to make the widget fit your brand's identity.
 
-In this guide, we'll transform the Okta Hosted Sign-In Widget using standard Javascript and CSS and its built-in functionality. If you want to jump to the completed project, you can find it in the [okta-hosted-sign-in-widget](https://github.com/oktadev/okta-hosted-sign-in-widget) GitHub repository.
+In this guide, we'll transform the Okta Hosted Sign-In Widget using standard Javascript and CSS and its built-in functionality. If you want to jump to the completed project, you can find it in the [okta-hosted-sign-in-widget](https://github.com/oktadev/okta-js-sign-in-widget-customization-example) GitHub repository.
 
 {:toc}
 
@@ -823,7 +823,7 @@ And that should be all! After you've added the necessary CSP information and hav
 Before publishing live to production, test it on your preview or developer org first. To target specific elements/attributes, refer to this [Okta doc on modifying CSS](https://developer.okta.com/docs/guides/custom-widget/main/#modify-the-css).
 
 ## More ways to customize your sign-in page
-The manipulation and styling were only done for login and registration. You can check out the completed code in the [okta-hosted-sign-in-widget](https://github.com/oktadev/okta-hosted-sign-in-widget) GitHub repository. As bonus practice, I suggest you try to modify the MFA screens. To recap what I have demonstrated, customizing the Okta Sign-In Widget allows you to make authentication an integrated part of your app's user experience. From simple color changes to more complex UI tweaks, Okta's flexibility allows you to maintain your brand's visual identity while ensuring a secure and seamless login process.
+The manipulation and styling were only done for login and registration. You can check out the completed code in the [okta-hosted-sign-in-widget](https://github.com/oktadev/okta-js-sign-in-widget-customization-example) GitHub repository. As bonus practice, I suggest you try to modify the MFA screens. To recap what I have demonstrated, customizing the Okta Sign-In Widget allows you to make authentication an integrated part of your app's user experience. From simple color changes to more complex UI tweaks, Okta's flexibility allows you to maintain your brand's visual identity while ensuring a secure and seamless login process.
 
 Check out the [Okta Sign-In Widget Guide](https://developer.okta.com/docs/guides/embedded-siw/main/) for more detailed documentation and advanced options. Happy customizing!
 
