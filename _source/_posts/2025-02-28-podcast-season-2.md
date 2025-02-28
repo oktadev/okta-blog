@@ -1,6 +1,6 @@
 ---
 layout: blog_post
-title: "The Okta Developer Podcast is Back"
+title: "Integrators Assemble"
 author: edunham
 by: advocate
 communities: [devops,security,mobile,.net,java,javascript,go,php,python,ruby]
