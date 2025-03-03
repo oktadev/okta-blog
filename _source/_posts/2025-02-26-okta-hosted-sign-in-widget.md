@@ -34,6 +34,7 @@ Before diving into customization, let's go over a few basics. "Okta Hosted Sign-
 
 **Prerequisites to this tutorial**
 This guide assumes you already have:
+- [Okta Classic Engine](https://developer.okta.com/docs/guides/archive-overview/main/#sign-users-in-guides-for-okta-classic-engine)
 - A Single Sign-On (SSO) application that redirects to Okta for authentication.
 - A customized Okta Hosted Sign-In Widget with a [custom domain](https://help.okta.com/en-us/content/topics/settings/settings-configure-custom-url.htm) enabled to make the necessary edits that I will demonstrate in this tutorial.
 - This tutorial uses the Sign-In Widget **version ^7**.
