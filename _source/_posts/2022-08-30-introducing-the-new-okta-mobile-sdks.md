@@ -1,7 +1,7 @@
 ---
 layout: blog_post
 title: "Introducing the New Okta Mobile SDKs"
-author: mike-nachbaur
+author: alex-nachbaur
 by: internal-contributor
 communities: [mobile]
 description: "Announcing Okta's new Mobile SDKs: easier to use, way more features, and a fresh new lemon scent! 🍋"
