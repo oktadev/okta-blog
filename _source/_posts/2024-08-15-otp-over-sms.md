@@ -30,7 +30,7 @@ The one-time passcode (OTP) you send using SMS or Voice may not go to the phone 
 
 * Longer login times than other methods
 
-Okta [recommended moving away](/blog/2020/05/why-you-should-ditch-sms-as-an-auth-factor/) from [SMS/Voice authentication](/blog/2020/05/why-you-should-ditch-sms-as-an-auth-factor/) some time ago. There are many other factors you can use for authentication, including:
+Okta [recommended moving away](https://www.okta.com/blog/2020/05/why-you-should-ditch-sms-as-an-auth-factor/) from [SMS/Voice authentication](https://www.okta.com/blog/2020/05/why-you-should-ditch-sms-as-an-auth-factor/) some time ago. There are many other factors you can use for authentication, including:
 
 * Generating codes in an authenticator app such as Okta Verify, Authy, Google Authenticator, or 1Password.
 
@@ -149,6 +149,8 @@ The kind of vendors you need depends on your approach. Below are a few possibili
 
 Here are some vendors you can use to implement the hook in-house or with a consultant.
 
+* [AWS Pinpoint](https://aws.amazon.com/pinpoint/)
+
 * [Telesign](https://www.telesign.com/okta-telesign)
 
 * [Twillio](https://pages.twilio.com/Twilio-Messaging-Okta.html)
@@ -164,8 +166,6 @@ Many consulting companies can implement the hook for you. Another option is to u
 Some services deliver the SMS for you. That can include handling unavailable telephony vendors, resends, and other issues. Adding a service usually requires only adding a URL for the telephony hook.
 
 Services include:
-
-* [AWS Pinpoint](https://aws.amazon.com/pinpoint/)
 
 * [BeyondID](https://beyondid.com/solutions/sms-for-okta/)
 
