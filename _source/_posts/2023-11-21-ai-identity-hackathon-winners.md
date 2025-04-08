@@ -120,4 +120,4 @@ We would like to also acknowledge and reward those for their community involveme
 We're thrilled with the results of this AI and Identity Hackathon experiment, delighted by the creative range of submission, and the diversity of the qualifying submissions. Our eligible submissions came from the United States and India, and overall participation was from dozens of countries. 
 We congratulate all the winners, supporters, and participants for making this an exciting hackathon!
 
-Have a story to share? Let us know with a comment below or reach out to us at wic-dev-advocacy@okta.com. For more interesting content, follow [@oktadev on Twitter](https://twitter.com/oktadev), connect with us [on LinkedIn](https://www.linkedin.com/company/oktadev), and subscribe to [our YouTube channel](https://www.youtube.com/oktadev).
+Have a story to share? Let us know with a comment below or reach out to us at `dev-advocacy` at okta dot com. For more interesting content, follow [@oktadev on Twitter](https://twitter.com/oktadev), connect with us [on LinkedIn](https://www.linkedin.com/company/oktadev), and subscribe to [our YouTube channel](https://www.youtube.com/oktadev).
