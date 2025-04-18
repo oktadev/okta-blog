@@ -26,16 +26,16 @@ What piqued my interest wasn't just web development and the scope of AI applicat
 
 Driven by a passion for community building that began with Voice AI technology, I later founded Women in Voice, India, to empower more women to build careers in tech. Alongside this endeavor, I've delivered sessions worldwide, hosted hackathons and events, led Google Developer Groups on my campus, and volunteered to organize the largest Devfests in my region, which gathered 3,000+ developers.
 
-My fondest memory has been in Mumbai, where I got to teach how to build AI applications in areas without much tech awareness and opportunities. Seeing someone's face light up when they finally understood new technology was priceless and kept me going. Life should always be about giving back. Even if you have impacted just one person’s life, you have done something priceless. 
+My fondest memory has been in Mumbai, where I got to teach how to build AI applications in areas without much tech awareness and opportunities. Seeing someone's face light up when they finally understood new technology was priceless and kept me going. Life should always be about giving back. Even if you have impacted just one person's life, you have done something priceless. 
 
 {% img blog/akanksha-bhasin-intro/wiv-award.jpeg alt:"Akanksha won the Women in Voice award" width:"800" %}{: .center-image }
 
 ## Embracing developer advocacy at Okta
 
-I'm so excited to join the Okta team; it’s a pinch-me moment\! I love our principle of "Building a world where identity belongs to you\!" Innovation is thriving, and change is here, making this the opportune and crucial moment for security. 
+I'm so excited to join the Okta team; it's a pinch-me moment\! I love our principle of "Building a world where identity belongs to you\!" Innovation is thriving, and change is here, making this the opportune and crucial moment for security. 
 
 Identity and security are the shields and the first line of defense for any software. They wrap every API, CLI, and SaaS workload in a magnetic field of strong authentication and privileged access. Therefore, a compromised credential can topple an entire software system, just like a small puncture in a spacesuit; the whole mission can fail. With that, security cannot remain a checklist item; instead, security is the foundational layer of every enterprise application. I want to be part of this mission to help independent software vendors (ISVs) and developers secure user identities in their applications\! 
 
-## Let’s connect\! 
+## Let's connect\! 
 
 When I'm not geeking out about tech, you'll probably find me dancing or exploring new places and cultures. If you see me with my phone out, I'm trying to capture a beautiful sky. These moments just make me feel calm and happy. Connect with me on [LinkedIn](https://linkedin.com/in/akankshabhasin); I'd love to chat with you\!
