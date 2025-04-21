@@ -38,4 +38,4 @@ Identity security and access management are the shields and the first line of de
 
 ## Let's connect\! 
 
-When I'm not geeking out about tech, you'll probably find me dancing or exploring new places and cultures. If you see me with my phone out, I'm trying to capture a beautiful sky. These moments just make me feel calm and happy. Connect with me on [LinkedIn](https://linkedin.com/in/akankshabhasin); I'd love to chat with you\!
+When I'm not geeking out about tech, you'll probably find me dancing or exploring new places and cultures. If you catch me outside with my phone, I'm probably trying to capture a beautiful sky. These simple moments make me feel calm and happy. Connect with me on [LinkedIn](https://linkedin.com/in/akankshabhasin); I'd love to chat with you\!
