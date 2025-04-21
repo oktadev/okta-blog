@@ -34,7 +34,7 @@ My fondest memory has been in Mumbai, where I got to teach how to build AI appli
 
 I'm so excited to join the Okta team; it's a pinch-me moment\! I love our principle of "Building a world where identity belongs to you\!" Innovation is thriving, and change is here, making this the opportune and crucial moment for security. 
 
-Identity and security are the shields and the first line of defense for any software. They wrap every API, CLI, and SaaS workload in a magnetic field of strong authentication and privileged access. Therefore, a compromised credential can topple an entire software system, just like a small puncture in a spacesuit; the whole mission can fail. With that, security cannot remain a checklist item; instead, security is the foundational layer of every enterprise application. I want to be part of this mission to help independent software vendors (ISVs) and developers secure user identities in their applications\! 
+Identity security and access management are the shields and the first line of defense for any software. They wrap every API, CLI, and SaaS workload in a magnetic field of strong authentication and privileged access. Without it, a compromised credential can topple an entire software system, just like a small puncture in a spacesuit; the whole mission can fail. With that, security can't remain a checklist item; instead, security is the foundational layer of every enterprise application. I want to be part of this mission to help independent software vendors (ISVs) and developers secure user identities in their applications\! 
 
 ## Let's connect\! 
 
