@@ -26,7 +26,7 @@ What piqued my interest wasn't just web development and the scope of AI applicat
 
 Driven by a passion for community building that began with Voice AI technology, I later founded Women in Voice, India, to empower more women to build careers in tech. Alongside this endeavor, I've delivered sessions worldwide, hosted hackathons and events, led Google Developer Groups on my campus, and volunteered to organize the largest DevFests in my region, which gathered 3,000+ developers.
 
-My fondest memory has been in Mumbai, where I got to teach how to build AI applications in areas without much tech awareness and opportunities. Seeing someone's face light up when they finally understood new technology was priceless and kept me going. Life should always be about giving back. Even if you have impacted just one person's life, you have done something priceless. 
+My fondest memory has been in Mumbai, where I got to teach how to build AI applications in areas without much tech awareness and opportunities. Seeing someone's face light up when they finally understood new technology was priceless and kept me going. Life is about giving back. Even if you have impacted just one person's life, you have done something priceless. 
 
 {% img blog/akanksha-bhasin-intro/wiv-award.jpeg alt:"Akanksha won the Women in Voice award" width:"800" %}{: .center-image }
 
