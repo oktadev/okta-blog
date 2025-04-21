@@ -14,7 +14,7 @@ image: blog/terraform-powershell-lab/image.jpg
 type: awareness
 ---
 
-At Oktane 2024, we offered a lab session to teach the basics of automating Okta administration tasks with Terraform and PowerShell. This blog post will walk you through the content taught in that lab so you can follow along at your own pace to get some hands-on experience managing an Okta tenant with both tools. 
+At Oktane 2024, we offered a lab session to teach the basics of automating Okta administration tasks with Terraform and PowerShell. This post walks you through the lab content so you can follow along at your own pace to get some hands-on experience managing an Okta tenant with both tools. 
 
 This lab includes some Scenario sections to give realistic examples of a situation where you might perform each task. You can ignore these sections if you don't find them helpful. 
 
@@ -52,7 +52,7 @@ In a production setting, you would collaborate on your Terraform files with coll
 
 Note that Terraform creates a `.tfstate` file. Each real-world resource should only be represented in one `.tfstate` file. If you're collaborating on a Terraform codebase, products like [Terraform Cloud](https://www.hashicorp.com/resources/what-is-terraform-cloud) are available to help you manage shared access to `.tfstate` files. 
 
-You will save a private key alongside your code to simplify the lab. In production, you should store keys in your organization's secrets management solution. Because private keys are secrets, follow your organization's best practices for secrets management when dealing with them.
+You'll save a private key alongside your code to simplify the lab. In production, you should store keys in your organization's secrets management solution. Because private keys are secrets, follow your organization's best practices for secrets management when dealing with them.
 
 
 ## Set up your Terraform Application
