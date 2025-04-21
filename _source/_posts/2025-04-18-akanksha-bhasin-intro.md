@@ -10,7 +10,7 @@ image: blog/akanksha-bhasin-intro/akanksha-bhasin-social-image.jpg
 type: awareness
 ---
 
-I'm Akanksha Bhasin, and I'm all about building community for developers. I come from a developer background, and for over six years, I've been building and growing communities for developers. On top of that, I've spent the last four years diving into DevRel. I've had the chance to work with some fast-growing companies, helping them build their communities worldwide. That means getting the word out about emerging tech to developers, organizing significant events and hackathons, speaking at conferences, fostering partnerships, and supporting open-source projects.
+I'm Akanksha Bhasin, and I'm all about building community for developers. I come from a developer background, and for over six years, I've been building and growing communities for developers. On top of that, I've spent the last four years diving into Developer Relations. I've had the chance to work with some fast-growing companies, helping them build their communities worldwide. That means getting the word out about emerging tech to developers, organizing significant events and hackathons, speaking at conferences, fostering partnerships, and supporting open-source projects.
 
 My lifelong curiosity, from early science experiments and a fascination with astronomy,  has propelled me into an exciting new orbit: officially becoming an Oktanaut at Okta\! 🚀🌠🧑‍🚀
 
