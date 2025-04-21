@@ -18,7 +18,7 @@ My lifelong curiosity, from early science experiments and a fascination with ast
 
 My tech journey has been quite a ride\! I began by experimenting with various things, including Arduino, different aspects of programming, and building AI applications.
 
-What piqued my interest wasn't just web development and the scope of AI applications. Back in 2018, when Google Assistant came out, I was fascinated by how voice could fit into our everyday lives, from controlling appliances to using apps, all with your voice\! So, I started building voice AI applications for Google Assistant and Alexa and eventually began teaching what I learned at professional meetups and colleges all over India. I got featured at Google I/O for my work in Voice AI. 
+What piqued my interest wasn't just web development and the scope of AI applications. Back in 2018, when Google Assistant came out, I was fascinated by how voice could fit into our everyday lives, from controlling appliances to using apps, all with your voice\! So, I started building Voice AI applications for Google Assistant and Alexa and eventually began teaching what I learned at professional meetups and colleges all over India. Which then led to being featured at Google I/O for my work in Voice AI. 
 
 {% img blog/akanksha-bhasin-intro/google-io.jpeg alt:"Photo of Akanksha featured at Google I/O" width:"800" %}{: .center-image }
 
