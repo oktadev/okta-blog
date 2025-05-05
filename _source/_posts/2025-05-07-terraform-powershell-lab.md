@@ -286,7 +286,7 @@ Now that you are managing Terraform's Okta application in Terraform, you can mod
 
 Remember that the scopes configured in the provider block and those configured in the Okta application must match before Terraform can use them!
 
-## Appendix: All the Terraform Code in one place
+## Appendix: All the Terraform code in one place
 After completing the lab, your `main.tf` will contain the following. To clean up the whitespace in your files, run the command `terraform fmt`.  
 
 ```
