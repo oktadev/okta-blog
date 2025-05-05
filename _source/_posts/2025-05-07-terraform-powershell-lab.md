@@ -233,7 +233,7 @@ Now, we'll use data gathered by Powershell to improve your Terraform configurati
 
 If you aren't using PowerShell, you can get the Terraform integration ID from the Okta admin console instead. 
 
-> Enterprise scenario 3**
+> **Enterprise scenario 3**
 > 
 > Your manager at Okta Ice assigns you a ticket to update the configuration of the Okta Terraform integration. When you try to follow the usual Terraform process of making configuration changes, you discover that the Terraform application isn't managed by Terraform yet! You can fix this without leaving your terminal, thanks to your prior automation efforts with PowerShell. 
 
@@ -280,7 +280,7 @@ After creating a resource in your Okta organization, you can view it in the admi
  
 For more examples of things you can do in Terraform, see the [Terraform Enterprise Maturity Workshop](/blog/2023/07/28/terraform-workshop). 
 
-### Extra credit 2: 
+### Extra credit 2
 
 Now that you are managing Terraform's Okta application in Terraform, you can modify it with your code. Add the scope `okta.groups.manage` to your Terraform provider. 
 
@@ -358,7 +358,7 @@ resource "okta_app_oauth" "tf" {
 
 ## Learn more about PowerShell
 
-If you want to explore your Okta org more with PowerShell, these resources may help:
+If you want to explore your Okta org more with PowerShell, these resources can help:
 - Okta Developer [PowerShell blog post](/blog/2024/05/07/okta-powershell-module)
 - Okta Developer Podcast [PowerShell Episode](/blog/2024/04/11/okta-powershell-module-podcast)
 - The Okta PowerShell module [test suite](https://github.com/okta/okta-powershell-cli/blob/main/tests/Api/OktaGroupApi.Tests.ps1)
