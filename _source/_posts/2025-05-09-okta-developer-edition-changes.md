@@ -6,7 +6,7 @@ by: advocate
 communities: [javascript,security,java,python]
 description: "Integrator Free Plan replaces Okta Developer Edition in 2025"
 tags: [javascript, python, advocacy, okta]
-image: blog/developer-edition-changes/social.jpg
+image: blog/developer-edition-changes/social.png
 type: awareness
 ---
 
