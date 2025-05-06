@@ -19,7 +19,7 @@ On May 22, 2025, our new Integrator Free Plan will become the default organizati
 
 ### Integrator organization benefits
 
-This new organization structure will address several ongoing concerns, such as improving integrator access to Okta support resources and expanding developer access to Okta product offerings for testing purposes. 
+This new organization structure will come with a number of benefits, such as improving integrator access to Okta support resources and expanding developer access to Okta product offerings for testing purposes. 
 
 ## Deprecating Okta Developer Edition organizations 
 
