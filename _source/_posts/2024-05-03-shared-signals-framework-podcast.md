@@ -24,7 +24,7 @@ The Okta Workforce Identity Developer Podcast returns to discuss the OpenID Foun
 
 You can explore the Shared Signals Framework at [sharedsignals.guide](https://sharedsignals.guide/), and learn about Jamf's SSF integration [here](https://learn.jamf.com/en-US/bundle/jamf-security-cloud-setup-guide/page/Shared_Signals_Framework_SSF.html). 
 
-If you'd like to join a pilot program for using SSF to integrate with Okta, contact us at `wic-dev-advocacy` at okta dot com. If signals about security events were available, which could you send to other services? What signals would you want to receive in order to help your code detect threats quickly and accurately? Let us know in the comments below! 
+If you'd like to join a pilot program for using SSF to integrate with Okta, contact us at `dev-advocacy` at okta dot com. If signals about security events were available, which could you send to other services? What signals would you want to receive in order to help your code detect threats quickly and accurately? Let us know in the comments below! 
 
 Follow us on [Twitter](https://twitter.com/oktadev) and subscribe to our [YouTube](https://www.youtube.com/c/oktadev) channel. If you have any questions or you want to share what other topics you'd like to hear about on the podcast, please comment below!
 
