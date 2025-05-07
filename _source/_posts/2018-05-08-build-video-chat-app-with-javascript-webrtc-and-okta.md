@@ -27,8 +27,6 @@ By the time you've gone through this guide, you'll have a much better understand
 
 Let's get started.
 
-{% img blog/vchat-app/chatapp.orig.gif alt:"Chat App Demo" width:"800" %}{: .center-image }
-
 **NOTE**: Want to play around with the chat app in real-time? You can do so here: https://naughty-bhabha-908faa.netlify.com You can also view the source code for the app we'll be building [on GitHub](https://github.com/rdegges/chatapp).
 
 ## Create the Web Page
@@ -205,8 +203,6 @@ Now that you've got a simple web page with some styling on it, let's set up the 
 Once you've got your Okta account and you're logged into the Okta dashboard, you'll need to create a new Okta application (this is how Okta knows what type of app you're building and what type of authentication to allow).
 
 To do this, navigate to the **Applications** tab from your dashboard and click the **Add Application** button. Once there, click the **Single-Page App** icon (because you are building a SPA) then click **Next**.
-
-{% img blog/vchat-app/create-okta-app.gif alt:"Okta create app" width:"800" %}{: .center-image }
 
 Once you've reached the **Create New Application** page fill out the **Application Settings** form with the following information:
 
