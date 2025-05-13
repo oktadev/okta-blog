@@ -17,7 +17,7 @@ On May 22, 2025, our new Integrator Free Plan will become the default organizati
 
 ## New Okta developer organization types tailored for you
  
-We’ve redesigned our developer orgs to better fit how you build. Whether you're testing app integrations, validating identity flows, or preparing for OIN submission, the new Integrator Free Plan is purpose-built for iterative development—not production deployment.
+We've redesigned our developer orgs to better fit how you build. Whether you're testing app integrations, validating identity flows, or preparing for OIN submission, the new Integrator Free Plan is purpose-built for iterative development—not production deployment.
 
 This new structure reflects real-world developer needs:
 
@@ -25,7 +25,7 @@ This new structure reflects real-world developer needs:
 * Terms that match typical pre-production use cases
 * Streamlined signup and org management aligned with how developers work today
   
-By moving to an Integrator organization, you’ll get an environment that's aligned with modern dev workflows—simpler, more relevant, and built to support how you build.
+By moving to an Integrator organization, you'll get an environment that's aligned with modern dev workflows—simpler, more relevant, and built to support how you build.
 
 
 ### Integrator organization benefits
