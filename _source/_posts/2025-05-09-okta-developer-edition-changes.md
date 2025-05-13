@@ -11,11 +11,22 @@ type: awareness
 ---
 
 
-As part of [Okta's Secure Identity Commitment](https://www.okta.com/secure-identity-commitment/) (OSIC) to strengthen customers from identity attacks, we are making changes to improve our architecture related to developer organizations. 
+As part of [Okta's Secure Identity Commitment](https://www.okta.com/secure-identity-commitment/) (OSIC) to lead the industry in the fight against identity attacks, we are making changes to improve our architecture related to developer organizations. 
+
+On May 22, 2025, our new Integrator Free Plan will become the default organization type when you sign up on developer.okta.com. If you are actively using an Okta Developer Edition org, please create an Integrator organization and migrate to it. The Okta Developer Edition [terms of service](https://developer.okta.com/terms/) will also be updated to clarify: neither your old Developer Edition organization nor your new Integrator organization is meant for production use cases. 
 
 ## New Okta developer organization types tailored for you
  
-On May 22, 2025, our new Integrator Free Plan will become the default organization type when you sign up on developer.okta.com. If you are actively using an Okta Developer Edition org, please create an Integrator organization and migrate to it. The Okta Developer Edition [terms of service](https://developer.okta.com/terms/) will also be updated to clarify: neither your old Developer Edition organization nor your new Integrator organization is meant for production use cases. 
+We’ve redesigned our developer orgs to better fit how you build. Whether you're testing app integrations, validating identity flows, or preparing for OIN submission, the new Integrator Free Plan is purpose-built for iterative development—not production deployment.
+
+This new structure reflects real-world developer needs:
+
+* A clean, focused environment optimized for building and validating integrations
+* Terms that match typical pre-production use cases
+* Streamlined signup and org management aligned with how developers work today
+  
+By moving to an Integrator organization, you’ll get an environment that's aligned with modern dev workflows—simpler, more relevant, and built to support how you build.
+
 
 ### Integrator organization benefits
 
