@@ -44,7 +44,7 @@ When an identity administrator gives a person the ability to make changes in Okt
 
 > **Enterprise scenario 1** 
 >
-> You are on the DevOps team at Okta Ice. As the company has grown, it's gotten more challenging to manage and audit the changes that various teams make in Okta. Adding Okta to the infrastructure you are already managing with Terraform allows you to apply existing code review processes to your identity configuration.
+> You are on the DevOps team at Okta Icecream. As the company has grown, it's gotten more challenging to manage and audit the changes that various teams make in Okta. Adding Okta to the infrastructure you are already managing with Terraform allows you to apply existing code review processes to your identity configuration.
 
 
 ### Accessing Terraform
@@ -169,7 +169,7 @@ In this lab, we'll use Terraform to create an application that PowerShell can us
 
 > **Enterprise scenario 2**
 > 
-> An Okta Ice intern uses PowerShell to generate a newsletter with statistics about the company. They have asked you to help them access data about how the company uses Okta.  You want to give their script read access to various data from Okta by setting up an application for PowerShell and testing it out. Since they are already using PowerShell, the Okta PowerShell Module is a perfect choice for the task!
+> An Okta Icecream intern uses PowerShell to generate a newsletter with statistics about the company. They have asked you to help them access data about how the company uses Okta.  You want to give their script read access to various data from Okta by setting up an application for PowerShell and testing it out. Since they are already using PowerShell, the Okta PowerShell Module is a perfect choice for the task!
 
 ### Accessing PowerShell
 You can access PowerShell 7 by launching it from the shortcut generated during its installation or with the Visual Studio Code built-in terminal. 
@@ -235,7 +235,7 @@ If you aren't using PowerShell, you can get the Terraform integration ID from th
 
 > **Enterprise scenario 3**
 > 
-> Your manager at Okta Ice assigns you a ticket to update the configuration of the Okta Terraform integration. When you try to follow the usual Terraform process of making configuration changes, you discover that the Terraform application isn't managed by Terraform yet! You can fix this without leaving your terminal, thanks to your prior automation efforts with PowerShell. 
+> Your manager at Okta Icecream assigns you a ticket to update the configuration of the Okta Terraform integration. When you try to follow the usual Terraform process of making configuration changes, you discover that the Terraform application isn't managed by Terraform yet! You can fix this without leaving your terminal, thanks to your prior automation efforts with PowerShell. 
 
 ## Manage Terraform in Terraform
 
