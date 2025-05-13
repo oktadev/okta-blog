@@ -40,7 +40,7 @@ In July 2025, existing Okta Developer Edition organization will be deactivated. 
 
 Creating an Integrator Free Plan organization will give you a clean slate to test and develop in. However, you might want to replicate setup steps that you've performed in your Okta Developer Edition organization to continue work in progress. Several options are available for migrating your configuration from your Okta Developer Edition organization to your Integrator Free Plan  organization. 
 
-{% img blog/developer-edition-changes/flowchart.svg alt:"flowchart for deciding if and how to migrate data" width:"800" %}
+{% img blog/developer-edition-changes/flowchart.jpg alt:"flowchart for deciding if and how to migrate data" width:"800" %}
 
 ### Migrating data is optional
 
