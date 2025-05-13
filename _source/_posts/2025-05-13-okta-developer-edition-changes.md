@@ -28,7 +28,7 @@ This new structure reflects real-world developer needs:
 By moving to an Integrator organization, you'll get an environment that's aligned with modern dev workflows—simpler, more relevant, and built to support how you build.
 
 
-### Integrator organization benefits
+## Integrator organization benefits
 
 This new organization structure will come with a number of benefits, such as improving integrator access to Okta support resources and expanding developer access to Okta product offerings for testing purposes. 
 
