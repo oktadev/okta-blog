@@ -15,6 +15,8 @@ image: blog/featured/okta-dotnet-sql-closeup.jpg
 type: conversion
 ---
 
+{% include integrator-org-warning.html %}
+
 [Cosmos DB](https://azure.microsoft.com/en-us/services/cosmos-db/) is a cloud database product from Microsoft that offers scalable and high-performance services. The core product runs on a proprietary NoSQL database that should look familiar to experienced MongoDB developers. Microsoft offers several APIs in addition to the core Cosmos DB API. These include APIs for:
 
 - SQL
