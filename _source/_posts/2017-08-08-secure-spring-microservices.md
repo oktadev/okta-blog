@@ -20,6 +20,8 @@ changelog:
   - 2018-01-18: Updated to use latest client from [Build Your First Progressive Web Application with Angular and Spring Boot](/blog/2017/05/09/progressive-web-applications-with-angular-and-spring-boot) and the Okta Sign-In Widget v2.5.0. See the code changes in the [example app on GitHub](https://github.com/oktadeveloper/spring-boot-microservices-example/pull/7). Changes to this article can be viewed [in this pull request](https://github.com/oktadeveloper/okta.github.io/pull/1649).
 ---
 
+{% include integrator-org-warning.html %}
+
 You've built a microservices architecture with Spring Boot and Spring Cloud. You're happy with the results, and you like how it adds resiliency to your application. You're also pleased with how it scales and how different teams can deploy microservices independently. But what about security?
 
 Are you using Spring Security to lock everything down? Are your microservices locked down too, or are they just behind the firewall?

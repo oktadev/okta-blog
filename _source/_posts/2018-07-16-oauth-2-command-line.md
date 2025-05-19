@@ -15,6 +15,8 @@ Tweets:
 type: awareness
 ---
 
+{% include integrator-org-warning.html %}
+
 So you've found yourself writing a command line script and needing to talk to an API that uses OAuth 2.0? The typical approaches to getting an OAuth access token from a command line script usually involve copying and pasting the authorization code into the terminal. But we can do better!
 
 In this tutorial, I'll show you how to write a command line script which is able to complete the OAuth exchange all without any copying and pasting long strings! Why? Because it's mildly useful, but most importantly, because it's fun!

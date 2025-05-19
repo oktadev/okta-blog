@@ -17,6 +17,8 @@ image: blog/featured/okta-dotnet-tile-mouse.jpg
 type: conversion
 ---
 
+{% include integrator-org-warning.html %}
+
 Unity is a cross-platform game engine developed by [Unity Technologies](https://en.wikipedia.org/wiki/Unity_Technologies). The engine is able to create three-dimensional, two-dimensional, virtual reality, and augmented reality games, as well as simulations and other experiences. The engine has been adopted by industries outside video gaming such as film, automotive, architecture, engineering, and construction.
 
 Identity security is a key concept that is mostly missing in Unity. In fact, most engines today do not provide solutions for securing identity, authenticating users, and authorizing users. The industry has instead traditionally relied on custom-built solutions and/or delegated auth from other products, like game stores. As the industry advances beyond anonymous consumption of video games, into massively interconnected online projects, or professional XR use cases such as ArchViz and simulation, new requirements have appeared for authentication and authorization.

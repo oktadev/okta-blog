@@ -19,6 +19,8 @@ changelog:
 - 2021-03-24: Updated to use React Native 0.64 and Okta React SDK 1.10.0. You can see the changes in the [example app on GitHub](https://github.com/oktadeveloper/okta-react-native-login-example/pull/3). Changes to this article can be viewed in [oktadeveloper/okta-blog#624](https://github.com/oktadeveloper/okta-blog/pull/624).
 ---
 
+{% include integrator-org-warning.html %}
+
 React Native is a mobile app development framework that allows you to use React to build native iOS and Android mobile apps. Instead of using a web view and rendering HTML and JavaScript, it converts React components to native platform components. This means you can use React Native in your existing Android and iOS projects, or you can create a whole new app from scratch.
 
 In this post, I'll show you how to add a login feature to a React Native application using OAuth 2.0 and OpenID Connect. Authentication and authorization are important parts of most applications as you often need to know who a user is (authentication) and what they're allowed to do (authorization). OAuth 2.0 is an industry-standard protocol for authorization and OpenID Connect (OIDC) is an authentication layer on top of OAuth 2.0. Integrating with an always-on service like Okta for OAuth makes set up and configuration easy, particularly with React Native and Okta's React Native SDK.

@@ -17,6 +17,8 @@ image: blog/featured/okta-dotnet-half.jpg
 type: conversion
 ---
 
+{% include integrator-org-warning.html %}
+
 > "There is no Frigate like a Book To take us Lands away..." – Emily Dickinson
 
 These days, people read more on social media than they do in books. Maybe the remedy is to make reading more social. To that end, we'll create an API for books. This will be an ASP.NET Core 2.2 Web API using GraphQL, which will allow developers to create applications that consume the API securely. ASP.NET Core 2.2 provides the ability to host the API on any platform and GraphQL makes it easy for consumers of the API to query the API and receive the data the way they want it.

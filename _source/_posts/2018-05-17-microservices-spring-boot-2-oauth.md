@@ -17,6 +17,8 @@ update-url: /blog/2019/05/22/java-microservices-spring-boot-spring-cloud
 update-title: "Java Microservices with Spring Boot and Spring Cloud"
 ---
 
+{% include integrator-org-warning.html %}
+
 Spring Boot has experienced massive adoption over the last several years. For Spring users, it offers a breath of fresh air, where they don't have to worry about how things are configured if they're comfortable with defaults. The Spring Boot ecosystem is filled with a wealth of what they call _starters_. Starters are bundles of dependencies that autoconfigure themselves to work as a developer might expect.
 
 Spring Boot allows you to create standalone web apps, CLIs, batch processes, and microservices. When you get into microservices, you'll find that Spring Cloud helps autoconfigure the tools you want in your microservices architecture.

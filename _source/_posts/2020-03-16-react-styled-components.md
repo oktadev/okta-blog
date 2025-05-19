@@ -19,6 +19,8 @@ changelog:
   - 2020-05-06: Updated to use the v3.0.1 version of the Okta React SDK. See the code changes in the [example app on GitHub](https://github.com/oktadeveloper/okta-react-styled-components-example/pull/2). Changes to this article can be viewed in [oktadeveloper/okta-blog#284](https://github.com/oktadeveloper/okta-blog/pull/284).
 ---
 
+{% include integrator-org-warning.html %}
+
 When you create React applications, at some point you have to make a decision on how to organize your CSS styles. For larger applications, you'll have to modularize the stylesheets. Tools such as Sass and Less let you divide up your styles into separate files and provide lots of other features that make writing CSS files more productive. But some problems remain. The tools separate your styles from your components, and keeping the styles up-to-date with the rest of your code can be difficult. It is hard to figure out if a large application that has been developed and modified for several years still uses a particular CSS class. It is also not easy to make sure that changing a style in one part of your application doesn't affect the appearance of some other unrelated component.
 
 ## Styled Components to the Rescue

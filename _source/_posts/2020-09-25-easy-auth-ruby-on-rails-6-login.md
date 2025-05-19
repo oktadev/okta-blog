@@ -17,6 +17,8 @@ image: blog/rubyonrails6/railstrain.png
 type: conversion
 ---
 
+{% include integrator-org-warning.html %}
+
 A couple of things have changed in the Rails world since we published our [last blog post on Rails](/blog/2018/09/18/simple-authentication-with-rails-and-omniauth). For one, Rails 6.0 was released on August 16, 2019 (Yay progress!), and, for another, Omniauth had a [CRSF](https://owasp.org/www-community/attacks/csrf) vulnerability reported (not so great). Does this make you a bit anxious? Don't worry! Today we will be going over how to create a Rails app from scratch with the new Rails release and go over how to protect ourselves from the CRSF vulnerability.  We are also going to throw in some CRUD action, as well. Last but not least, we will use Okta to take care of authentication and user management in our Rails App.
 
 To get rocking and rolling with this tutorial you will need:

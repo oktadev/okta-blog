@@ -20,6 +20,8 @@ changelog:
   - 2020-06-15: Updated to use the v4.0.1 version of  Okta Middleware. See the code changes in the [example app on GitHub](https://github.com/oktadev/okta-node-express-15-minute-auth-example/pull/6). Changes to this article can be viewed in [oktadev/okta-blog#325](https://github.com/oktadev/okta-blog/pull/325).
 ---
 
+{% include integrator-org-warning.html %}
+
 Building web pages with user authentication can be a huge pain. You typically need to set up some sort of database to manage users even if you're not using the database for anything else. You would then need to store their password hashes, and you almost need a degree on internet security to know the safest ways to do that.
 
 What if I told you it didn't have to be so complicated? Using Okta and Express, I'll show you how to really quickly set up a website that has secure user authentication, without the need for a separate database. Everything you need you could deploy anywhere that you can run Node.

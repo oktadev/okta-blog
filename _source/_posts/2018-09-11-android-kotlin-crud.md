@@ -17,6 +17,8 @@ image: blog/android-kotlin-crud/header.png
 type: conversion
 ---
 
+{% include integrator-org-warning.html %}
+
 Kotlin was recently given official Android support status by Google, but it remains difficult to understand for many developers. The best way to start is by creating a complete app yourself, which you'll do in this tutorial. In this tutorial, you'll use Spring Boot for the API that powers your Android (+ Kotlin) mobile app. Spring Boot is a great way to create a robust REST API with a minimal amount of code.
 
 I'm going to assume you have some Java experience and have at least played around with creating an Android app. If you don't have any Android experience you should be able to follow along but you might have to Google a few things here and there.

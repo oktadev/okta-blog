@@ -17,6 +17,8 @@ image: blog/microprofile-jwt-auth/microprofile-2.2.png
 type: conversion
 ---
 
+{% include integrator-org-warning.html %}
+
 In this post, you will learn how to build a simple REST API using Eclipse MicroProfile and secure it using JSON Web Token (JWT) authentication. You'll also use a free developer account from Okta to configure an OAuth 2.0 / OpenID Connect (OIDC) application as the OAuth provider, with role-based authorization.
 
 That was a lot of jargon. Let's define a few of the terms (and introduce a few more!). 

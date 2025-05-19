@@ -17,6 +17,8 @@ changelog:
   - 2018-04-10: Updated dependencies in the example app to their latest versions using [npm-check-updates](https://www.npmjs.com/package/npm-check-updates). See the code changes in the [example app on GitHub](https://github.com/oktadeveloper/okta-ionic-crypto-pwa/pull/2). Changes to this article can be viewed in [oktadeveloper/okta.github.io#1940](https://github.com/oktadeveloper/okta.github.io/pull/1940).
 ---
 
+{% include integrator-org-warning.html %}
+
 Cryptocurrencies are all the rage. Over the last year, the value of Bitcoin alone has risen 1,603%, driving more and more people to wonder if they're missing out on the "next big thing." Because of the massive influx of money into cryptocurrencies like Bitcoin, Ethereum, Monero, and Ripple &mdash; blockchain technology (which is the foundation of all cryptocurrency) has become an area of intense technical study. At its core, blockchain technology does nothing more than maintain a decentralized log of transactions that can be easily shared across many nodes (miners).
 
 {% img blog/cryptocurrency-pwa/cryptocurrency-so-hot.jpg alt:"So Hot Right Now" width:"620" %}{: .center-image }

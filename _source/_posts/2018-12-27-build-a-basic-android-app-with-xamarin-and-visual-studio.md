@@ -17,6 +17,8 @@ image: blog/featured/okta-android-bottle-headphones-light.jpg
 type: conversion
 ---
 
+{% include integrator-org-warning.html %}
+
 Are you a .NET developer that has always wanted to make a mobile application? Or maybe you have tried building native mobile apps with Android or iOS but didn't like the languages? Well then, you are in luck! The .NET world has been blessed with Xamarin; a set of tools that lets you build mobile apps for Android, iOS, and Windows within Visual Studio.
 
 Xamarin has two main flavors: Xamarin platform (Xamarin.iOS and Xamarin.Android) and Xamarin.Forms. With Xamarin.Forms a vast majority of your business logic and user interface can be written within one shared project that produces fully functioning apps on all 3 of the iOS, Android and the Windows (UWP) operating systems. Xamarin platform, on the other hand, is very much platform-specific work and is more akin to writing native apps but with C#.

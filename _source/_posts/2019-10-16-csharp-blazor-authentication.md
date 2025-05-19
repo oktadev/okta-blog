@@ -17,6 +17,8 @@ image: blog/csharp-blazor-authentication/social.png
 type: conversion
 ---
 
+{% include integrator-org-warning.html %}
+
 Curious what the experience would be like to trade in Javascript for C# on the front end? You are about to find out!
 
 For many years, Javascript (and it's child frameworks) have had their run of the [DOM](https://css-tricks.com/dom/) (Document Object Model) in a browser, and it took having that scripting knowledge to really manipulate client-side UI. About 2 years ago, all of that changed with the introduction of Web Assembly - which allows compiled languages to be interpreted client-side and is fully supported across all browsers now. Microsoft's answer to this was the creation of [Blazor](https://dotnet.microsoft.com/apps/aspnet/web-apps/blazor). Allowing C# developers to build their entire stack in .NET, including UI, was an exciting proposition. For some time Blazor has been in preview but is now included as a [general release](https://devblogs.microsoft.com/dotnet/announcing-net-core-3-0-preview-9/) on September 23rd, 2019 along with the next iteration of .NET Core - version 3.0.

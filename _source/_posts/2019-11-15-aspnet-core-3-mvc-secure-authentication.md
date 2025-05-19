@@ -17,6 +17,8 @@ image: blog/featured/okta-dotnet-bottle-headphones.jpg
 type: conversion
 ---
 
+{% include integrator-org-warning.html %}
+
 On September 23rd, Microsoft announced the third major release of its .NET Core framework. This new release boasts better performance, support for Windows Desktop apps, improved support for Docker containers, and more. Naturally, I was excited to see this new release and get authentication hooked into it with Okta! I put together this  tutorial to demonstrate how to quickly and securely set up user management with Okta and OIDC (OpenID Connect) in an ASP.NET Core 3.0 application.
 
 To follow along, you will need:

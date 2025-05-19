@@ -17,6 +17,8 @@ image: blog/featured/okta-dotnet-mouse-down.jpg
 type: conversion
 ---
 
+{% include integrator-org-warning.html %}
+
 As a big fan of open source, I'm loving the fact that .NET Core is cross-platform. It opens up endless possibilities, from hobby projects, experiments, and proofs of concept, to massive high-load production applications that run on cost-effective infrastructure with high security and scalability. I usually get the simplest and cheapest $5/month Ubuntu-based virtual private server (VPS) from any cloud platform provider instead of the more complex and expensive container instances or cloud computing services.
 
 I'm going to guide you through the steps on how to set up a .NET Core runtime environment, and how to deploy a .NET Core web application with Okta authentication, once you've got an Ubuntu VPS, all using nothing more than the Terminal.

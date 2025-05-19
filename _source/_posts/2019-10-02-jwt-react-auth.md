@@ -17,6 +17,8 @@ image: blog/featured/okta-react-skew.jpg
 type: conversion
 ---
 
+{% include integrator-org-warning.html %}
+
 
 Although authentication is a common requirement for web apps, it can be difficult to get it right, especially if you're by yourself or part of a small team. That's why many sites choose to use OAuth 2.0 to let a third-party handle authentication for them. They just need to know how to decode a JSON Web Token (JWT), rather than how to store a bunch of user information and pray they aren't the next company with leaked passwords.
 

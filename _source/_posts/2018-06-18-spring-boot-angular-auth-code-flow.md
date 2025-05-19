@@ -15,6 +15,8 @@ tweets:
 type: conversion
 ---
 
+{% include integrator-org-warning.html %}
+
 I've written several posts on this blog that show you how to develop an Angular SPA (single-page application) that talks to a Spring Boot API. In almost all of them, I've used OAuth 2.0's implicit flow and built, tested, and deployed them as separate applications. IMHO, this is the way many applications (outside of the Java world) are built and deployed.
 
 What if you could combine the two applications for production, and still get all the benefits of separate applications during development? That's what I'm here to show you today! You'll learn how to take an existing Angular PWA (progressive web app) and a Spring Boot API, combine them with the Maven Frontend Plugin and switch from using OAuth 2.0's implicit flow to its gold standard: authorization code flow.

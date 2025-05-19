@@ -17,6 +17,8 @@ image: blog/ardu-token-mfa/sharedsecret.png
 type: conversion
 ---
 
+{% include integrator-org-warning.html %}
+
 Okta has a great multi-factor authentication (MFA) service that you can use right away with a [free developer account](https://developer.okta.com/signup/). It provides additional security by requiring a second factor after authentication and supports a variety of factor types including SMS, soft tokens like Google Authenticator, hard tokens like Yubikey and the Okta Verify soft token with push notification.
 
 Google Authenticator and Okta Verify are a type of factor called time-based one-time password (TOTP) tokens. They use an algorithm based on a shared secret and a system clock with a high degree of precision. Okta adds an additional level of convenience without sacrificing security by supporting push notifications in the Okta Verify mobile app.

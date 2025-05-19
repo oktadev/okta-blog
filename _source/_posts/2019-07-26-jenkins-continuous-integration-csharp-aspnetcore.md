@@ -16,6 +16,8 @@ tweets:
 image: blog/featured/okta-dotnet-bottle-headphones.jpg
 type: conversion
 ---
+
+{% include integrator-org-warning.html %}
 **"It works on my machine."**
 
 If you're a developer, or you work with developers, you've heard this phrase one too many times. If you've been in the industry for a while, you may even have the coffee mug, tee shirt, or mouse pad. It's fair to say that if Bart Simpson decides to embark on a career in software, "It works on my machine" will be the new "Eat my shorts".

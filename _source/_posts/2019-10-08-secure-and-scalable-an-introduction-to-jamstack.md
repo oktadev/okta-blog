@@ -17,6 +17,8 @@ image: blog/secure-and-scalable-an-introduction-to-jamstack/secure-and-scalable-
 type: awareness
 ---
 
+{% include integrator-org-warning.html %}
+
 If you're a web developer, chances are you have heard the term "JAMstack." Curiously, JAMstack isn't a solution to prevent clogged printers, something to eat on toast, or a way to make music. However, by the time you finish reading this tutorial, you'll understand JAMstack and its benefits, and learn one approach to implementing JAMstack for yourself. _Let's get ready to JAM._
 
 The "JAM" in JAMstack stands for JavaScript, APIs, and Markup. JAMstack's pattern of architecture makes web applications less expensive to build and more secure, with better performance and scalability.

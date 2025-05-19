@@ -16,6 +16,8 @@ tweets:
 type: conversion
 ---
 
+{% include integrator-org-warning.html %}
+
 ASP.NET Web API was released in 2012. Today, it's a mature framework for building ReST-ful APIs to back any modern app. It pairs nicely with the newcomer on the client-side block, Vue In this tutorial, you'll use Vue with .NET Framework 4.7.1 Web API and Visual Studio 2017 to build a simple CRUD app to track your weight and achieve your fitness goals, but really you could use these technologies to do just about anything. 
 
 Let's get started!

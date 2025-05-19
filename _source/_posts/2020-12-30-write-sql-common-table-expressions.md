@@ -17,6 +17,8 @@ image: blog/featured/okta-dotnet-sql-closeup.jpg
 type: conversion
 ---
 
+{% include integrator-org-warning.html %}
+
 Common table expressions are a powerful feature of Microsoft SQL Server. They allow you to store a temporary result and execute a statement afterward using that result set. These can be helpful when trying to accomplish a complicated process that SQL Server isn't well suited to handle. CTEs allow you to perform difficult operations in two distinct steps that make the challenge easier to solve.
 
 In this article, you will learn how to write common table expressions using Microsoft SQL Server. You will then learn how to use that statement in a .NET Core MVC web application that is secured using Okta. Okta is a powerful yet easy to use single sign-on provider. By making use of Okta's `Okta.AspNetCore` package from Nuget, you will learn how to secure your application and any data from your CTEs properly.

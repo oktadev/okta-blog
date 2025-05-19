@@ -17,6 +17,8 @@ image: blog/featured/okta-dotnet-half.jpg
 type: conversion
 ---
 
+{% include integrator-org-warning.html %}
+
 Serverless was only first coined as a concept 8 years ago in 2012 by Ken Fromm in [The future of the world is serverless](https://read.acloud.guru/why-the-future-of-software-and-apps-is-serverless-reprinted-from-10-15-2012-b92ea572b2ef). Even with the rise of cloud computing, the world still revolves around servers. That won't last, though. Cloud apps are moving into a serverless world, and that will bring big implications for the creation and distribution of software and applications. If you come from traditional service architecture roots of on-premises or even early cloud computing where you were basically just renting VM's you might wonder what all the fuss is about.
 
 Speed-to-delivery is the name of the game. In the modern development world, ideas are plentiful as are the number of people to fulfill those ideas. Companies are competing for a *finite pool of customers* and often it has felt like the winner takes all. Your organization's ability to rapidly get ideas to market has a **huge** impact on your ability to find new customers, retain existing customers, and lower your bottom line.

@@ -17,6 +17,8 @@ image: blog/graphql-express/okta-node-skew.jpg
 type: conversion
 ---
 
+{% include integrator-org-warning.html %}
+
 GraphQL has become an immensely popular alternative to REST APIs. The flexibility you get from using GraphQL makes it easier for developers to get any information they need for an app, and _just_ the information they need for that portion of the app. That gives you the feel of a very customized API and can help cut down on bandwidth.
 
 In this tutorial, I'll show you how to write a custom GraphQL API using Node and Express. I'll also show you how to secure parts of the API while making other parts open to the public.

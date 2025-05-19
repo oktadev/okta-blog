@@ -15,6 +15,8 @@ tweets:
 type: conversion
 ---
 
+{% include integrator-org-warning.html %}
+
 Spring Security is a powerful and highly customizable authentication and access-control framework. It is the de-facto standard for securing Spring-based applications.
 
 I first encountered Spring Security when it was called Acegi Security in 2005. I had implemented standard Java EE in my open source project, AppFuse. Acegi Security offered a lot more, including remember me and password encryption as standard features. I had managed to get "remember me" working with Java EE, but it wasn't very clean. I first wrote about [migrating to Acegi Security](https://raibledesigns.com/rd/entry/using_acegi_security_with_appfuse) in January 2005.

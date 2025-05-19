@@ -19,6 +19,8 @@ changelog:
 - 2021-04-03: Updated to Spring Boot 2.4 and Okta CLI for setup. See this post's changes in [okta-blog#688](https://github.com/oktadeveloper/okta-blog/pull/688); the example app's changes can be found in [okta-spring-boot-tomcat-example#2](https://github.com/oktadeveloper/okta-spring-boot-tomcat-example/pull/2).
 ---
 
+{% include integrator-org-warning.html %}
+
 Deploying applications is hard. Often you need console access to the server from which you pull the latest code and then manually instantiate into your container. In this tutorial you'll see an easier way using Tomcat: you'll create an authenticated web app and deploy it through the browser using the latest versions of Tomcat, Spring Boot, and Java.
 
 Since version 9, Oracle has decreased the Java release cadence to six months so major version numbers are increasing at a much faster rate than before. The latest release is **Java SE 11** (Standard Edition) which came out in September 2018. The biggest licensing change in this new release has led to one clear takeaway: to use the OpenJDK from now on. Open JDK is the free version of Java that you can now also get from Oracle. Also, Java 11 has long term support so this is the version you should be using for new projects going forward.

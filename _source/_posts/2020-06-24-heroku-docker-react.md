@@ -17,6 +17,8 @@ image: blog/react-docker/heroku-docker-with-secure-react.png
 type: conversion
 ---
 
+{% include integrator-org-warning.html %}
+
 You've built a React app, but now you need to deploy it. What do you do? First, it's probably best to choose a cloud provider as they're typically low-cost and easy to deploy to.
 
 Most cloud providers offer a way to deploy a static site. Heroku supports static sites, easily deploys apps with Git, and provides a CLI that developers love. A built React app is just JavaScript, HTML, and CSS. They're static files that can live on pretty much any web server. In fact, with JSX (HTML in JS) and Styled Components, you could even say _it's just JavaScript_!

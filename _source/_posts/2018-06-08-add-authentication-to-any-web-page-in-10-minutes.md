@@ -21,6 +21,8 @@ changelog:
   - 2019-10-31: Removed Trusted Origin (CORS) section since it's no longer needed. Changes to this post can be viewed in [okta-blog#69](https://github.com/oktadeveloper/okta-blog/pull/69).
 ---
 
+{% include integrator-org-warning.html %}
+
 <div class="alert alert-info" role="alert">
   <p class="title">
     <a class="close" aria-label="Close" title="Close"

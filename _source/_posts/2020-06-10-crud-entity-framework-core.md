@@ -17,6 +17,8 @@ image: blog/featured/okta-dotnet-half.jpg
 type: conversion
 ---
 
+{% include integrator-org-warning.html %}
+
 
 ASP.NET Core is Microsoft's latest iteration of its web framework, which boasts many upgrades over the .Net Framework versions of ASP.NET.  ASP.NET Core is cross-platform—meaning you can finally deploy your ASP.NET apps on Linux.  It's open-source which is a massive departure from Microsoft's previous line of thinking.  Most of the new framework should be familiar to veteran ASP.NET developers however there are some new tweaks to get used to.
 

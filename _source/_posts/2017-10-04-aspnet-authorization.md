@@ -12,6 +12,8 @@ tags: [asp-dot-net, aspnetcore, authz, authorization]
 type: conversion
 ---
 
+{% include integrator-org-warning.html %}
+
 Authorization is the oft-forgotten piece of identity and access management. The fact is, almost every app needs more than just "are they signed in?" for authorization. Most times, you need to not only know _who_ "they" are, but what access they are supposed to have. For instance, "are they in the administrator group?" or "are they in a group with some special privileges?" Today, you'll learn how to do this with Okta in an ASP.NET Core MVC application.
 
 In the Okta world, users are separated into `Groups`. By default however, ASP.NET only has handling for the `Authorize` attribute to handle authorization using `Roles`. There are a couple of ways you could go about handling authorization using the `Groups` that come from Okta:

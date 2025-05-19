@@ -15,6 +15,8 @@ tweets:
 type: conversion
 ---
 
+{% include integrator-org-warning.html %}
+
 Even with all the hype around ASP.NET Core, many .NET developers continue to develop applications with ASP.NET 4.x. The ASP.NET 4.X framework is still being developed, and will be supported for a long time to come. It's a battle-tested web framework that has existed for over 15 years and is supported by a mature ecosystem.
 
 On the client side, many developers prefer Angular, and it is outstanding for building enterprise-level, feature rich, applications.

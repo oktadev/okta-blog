@@ -17,6 +17,8 @@ image: blog/featured/okta-dotnet-headphones.jpg
 type: conversion
 ---
 
+{% include integrator-org-warning.html %}
+
 Microservices are fun to build and offer us a scalable path to overcoming problems with tightly coupled dependencies that plague monolithic applications.
 
 This post will walk you through building an AWS Lambda microservice written in C# with .NET Core 2.1, and communicating in JSON. We're bringing together multiple exciting technologies here - microservices, serverless API via AWS Lambda, and authentication using Okta's easy and convenient identity provider. Each of these technologies is deserving of their own deep-dive article, so there is a lot to cover on these subjects. This post is meant to provide a starting point implementing all three. It will be simple so that anyone can follow along. It will also be kept to a clean, basic implementation that you can expand easily if needed.

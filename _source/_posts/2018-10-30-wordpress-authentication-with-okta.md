@@ -16,6 +16,8 @@ image: blog/okta-wordpress-sign-in/wordpress-mfa.jpg
 type: conversion
 ---
 
+{% include integrator-org-warning.html %}
+
 Do you run a WordPress site and want to avoid managing a separate list of user accounts? Have you ever wanted to add two-factor authentication to WordPress? Typically WordPress keeps its own database of usernames and passwords, but if you run multiple websites, I'm sure you're familiar with the pain of keeping lists of users in sync. Wouldn't it be great if you could manage all your users in one place, letting them log in to all your websites using the same password?
 
 This is where Okta can help out! Okta is an API service that allows you to create, edit, and securely store user accounts and user account data, and connect them with one or more applications. It also provides a sign-in widget which you can embed into your own applications to avoid creating your own login form for every application.

@@ -15,6 +15,8 @@ tweets:
 type: conversion
 ---
 
+{% include integrator-org-warning.html %}
+
 Multi-factor authentication is an important tool in your security arsenal. If your password is compromised, your account can still be protected by using high quality second factors, such as Authy, Google Authenticator, or Okta Verify. In this tutorial, I'll show you how to authenticate, enroll in multi-factor authentication with Okta Verify, and process push notifications – all from the command line using a [bash](https://www.gnu.org/software/bash/) shell script.
 
 Why would you ever want to do this? A) Because you can, and B) see A. Additionally, this approach has utility to DevOps teams who are interested in automation scripts as well as developers who want to get a better understanding of the API. The code for this post can be found on our [Okta Developer GitHub](https://github.com/oktadeveloper/okta-cli-mfa-example).

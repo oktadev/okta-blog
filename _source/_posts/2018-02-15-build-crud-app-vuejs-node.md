@@ -22,6 +22,8 @@ changelog:
 - 2018-03-12: Updated to use the latest dependencies, including Bootstrap 4.0.0. See the code changes in [okta-vue-node-example#1](https://github.com/oktadeveloper/okta-vue-node-example/pull/1). Changes to this article can be viewed in [okta.github.io#1837](https://github.com/oktadeveloper/okta.github.io/pull/1837).
 ---
 
+{% include integrator-org-warning.html %}
+
 I've danced the JavaScript framework shuffle for years starting with jQuery, then on to Angular. After being frustrated with Angular's complexity, I found React and thought I was in the clear. What seemed simple on the surface ended up being a frustrating mess. Then I found Vue.js.  It just felt right. It worked as expected. It was fast. The documentation was incredible. Templating was eloquent. There was a unanimous consensus around how to handle state management, conditional rendering, two-way binding, routing, and more.
 
 This tutorial will take you step by step through scaffolding a Vue.js project, offloading secure authentication to [Okta's OpenID Connect API (OIDC)](/docs/api/resources/oidc), locking down protected routes, and performing CRUD operations through a backend REST API server. This tutorial uses the following technologies but doesn't require intimate knowledge to follow along:

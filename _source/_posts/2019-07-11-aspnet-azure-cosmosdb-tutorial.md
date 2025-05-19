@@ -17,6 +17,8 @@ image: blog/featured/okta-dotnet-mouse-down.jpg
 type: conversion
 ---
 
+{% include integrator-org-warning.html %}
+
 Cosmos DB is a planet-scale database capable of holding billions of records ("documents" using Cosmos jargon) without significant detriment to performance. In this article, you will learn how to use Azure Cosmos DB - a key-value store solution - your ASP.NET app instead of a relational database.
 
 To demonstrate their differences, check out a simple example query using both a relational database and Cosmos DB. When you query a relational database you get back a set of rows. All rows have the same columns and some may have relationships to other rows. Take a look:

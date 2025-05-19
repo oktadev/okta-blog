@@ -17,6 +17,8 @@ image: blog/node-postgres-weight-tracker/nodejs-weight-tracker-featured-image.pn
 type: conversion
 ---
 
+{% include integrator-org-warning.html %}
+
 Did you make any resolutions this year? One resolution I seem to make *every* year is to lose weight and exercise. Sometimes I even stick to it.
 
 A good way I have found to keep on track with any resolution is to record progress. There's something about visualizing progress that helps me stay motivated.

@@ -12,6 +12,8 @@ tags: [javascript, vue, data-binding, reactive]
 image: blog/featured/okta-vue-bottle-headphones.jpg
 type: conversion
 ---
+
+{% include integrator-org-warning.html %}
 Vue.js is known as a "progressive framework for building user interfaces". There's a lot to unpack in this simple statement. It's easy to get started with Vue.js, with a minimal feature set, and then layer in more of the framework as you need it.
 
 Unike React, it has full support for the MVC (Model View Controller) pattern out-of-the-box. 

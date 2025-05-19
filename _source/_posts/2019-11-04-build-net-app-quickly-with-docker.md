@@ -17,6 +17,8 @@ image: blog/featured/okta-dotnet-half.jpg
 type: conversion
 ---
 
+{% include integrator-org-warning.html %}
+
 In this post, you'll build a .Net Framework application with Visual Studio on Windows 10. You'll then containerize your application so it can be reliably deployed and run on any instance of Docker for Windows.
 
 Since containers share the host operating system, you can only run containers compatible with your host operating system kernel. For Linux based applications, practically all versions of Linux share the same kernel, so as long as you've installed Docker, you're good to go. However, for .Net Framework applications, you need a Windows-based container that can only run on Windows-based hosts with the Windows Containers feature enabled.
