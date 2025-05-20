@@ -105,9 +105,9 @@ Scopes describe categories of changes that Terraform is allowed to make with the
 
 ### 3.3: Create the Okta app integration
 
-In a web browser, log in to your Okta Integrator Account at [developer.okta.com](developer.okta.com). If you don't have an account yet, now is a great time to create one. Integrator accounts are a safe place to experiment without the risk of accidentally changing your production infrastructure. Integrator accounts don't have a time limit, so you can always test your code before taking it to production.
-
-After logging in to your Integrator Account, note the landing page URL. It looks like `https://dev-1234567890-admin.okta.com/admin/getting-started`. Everything after `https://` and before `-admin` is your `org_name`, and can be copied and pasted into your Terraform provider definition in `main.tf`. 
+In a web browser, log in to your Okta Integrator Free Plan account at [developer.okta.com](developer.okta.com). If you don't have an account yet, now is a great time to create one. Integrator accounts are a safe place to experiment without the risk of accidentally changing your production infrastructure.
+ 
+After logging in to your Integrator account, note the landing page URL. It looks like `https://dev-1234567890-admin.okta.com/admin/getting-started`. Everything after `https://` and before `-admin` is your `org_name`, and can be copied and pasted into your Terraform provider definition in `main.tf`. 
  
 In the sidebar of the admin console, click Applications, and click Applications under that. The Applications page lists which apps you have installed, and lets you create new ones. 
 

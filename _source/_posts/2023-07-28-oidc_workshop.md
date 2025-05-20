@@ -40,7 +40,7 @@ For an in-depth walkthrough of developing and troubleshooting the code in this w
 
 Follow the [getting started guide](/blog/2023/07/27/enterprise-ready-getting-started) to set up the Todo app and its dependencies. Make sure you can run the app locally and view the login page in your browser. Launch Prisma Studio (`npx prisma studio`) to examine the database, as well. 
 
-You will also need a free [Okta Integrator Account](https://developer.okta.com/login/), to test the setup steps your customer will follow when integrating their OpenID Connect server with your application. 
+You will also need a free [Okta Integrator Free Plan account](https://developer.okta.com/login/), to test the setup steps your customer will follow when integrating their OpenID Connect server with your application. 
 
 ## Why use OpenID Connect (OIDC) to authenticate users
 
@@ -548,7 +548,7 @@ The OIDC support that you added to the sample app today allows information flow 
 
 OIDC offers a one-way stream of information: Your application can't change a user's records in the upstream identity provider. To support this two-way flow of information between your app and the IDP, you can use SCIM, the System for Cross-Domain Identity Management. Our SCIM workshop builds on the OIDC support implemented in this workshop! 
 
-To set up users and groups in your Okta Integrator Account, try our Terraform workshop! 
+To set up users and groups in your Okta Integrator Free Plan account, try our Terraform workshop! 
 
 |Posts in the enterprise-ready workshop series|
 | --- |
