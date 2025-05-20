@@ -18,6 +18,8 @@ type: conversion
 changelog:
   - 2019-05-10: Updated to use JHipster 6.0 GA release and embed screencast. Changes to this post can be viewed in [okta.github.io#2869](https://github.com/oktadeveloper/okta.github.io/pull/2869).
 ---
+
+{% include integrator-org-warning.html %}
 :page-liquid:
 :toc: macro
 

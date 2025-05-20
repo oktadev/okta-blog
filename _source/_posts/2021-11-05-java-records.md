@@ -15,6 +15,8 @@ type: conversion
 github: https://github.com/oktadev/okta-java-records-example
 ---
 
+{% include integrator-org-warning.html %}
+
 When defining classes for a simple aggregation of values, Java developers have traditionally relied on constructors, accessors, `equals()`, `hashCode()` and `toString()`, an error-prone practice that has low value and shifts the focus away  from modeling immutable data. Java records were introduced as a first preview in JDK 14 in order to simplify how we write  data carrier classes. The second preview came in JDK 15 and the finalized feature arrived  in JDK 16. A summary of this history is available in the [JDK Enhancement Proposal JEP 395](https://openjdk.java.net/jeps/395).
 
 While code generators can be used to reduce boilerplate code, the goals of the `record` proposals focus on its semantics. In this post, let's explore Java records' features and advantages, and apply them for building a REST API and querying a database.

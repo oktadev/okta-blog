@@ -17,6 +17,8 @@ image: blog/featured/okta-java-short-skew.jpg
 type: conversion
 ---
 
+{% include integrator-org-warning.html %}
+
 Nearly all applications rely on authentication. Developers, and the companies that employ them, want to confirm who is making the request and are they who they say they are. And, this needs to happen fast enough for a good user experience. Fortunately, there are great tools to help. 
 
 Spring Boot with Spring Security is a fantastic solution for Java-based web development. With relatively little code, developers can implement, test, update, and expand authentication schemes easily and securely.

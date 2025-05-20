@@ -14,6 +14,8 @@ type: conversion
 github: https://github.com/oktadev/okta-react-azure-functions-example
 ---
 
+{% include integrator-org-warning.html %}
+
 Microsoft's Azure platform has as many high-tech products as anyone could ever want, including the [Azure Static Web Apps](https://azure.microsoft.com/en-us/services/app-service/static/) service. As the name suggests, the platform hosts static web apps that don't require a back end. Azure supports React, Angular, Vue, Gatsby, and many more, out of the box.
 
 However, you may run into situations where you want some back-end support, such as when you need the backend to run one or two API calls. For this task, Azure offers the [Functions](https://azure.microsoft.com/en-us/services/functions/) platform as well. Functions is a serverless computing platform that supports .NET, Node.js, Python, etc. It takes care of setting up a server, builds logging and exception handling, and provides a high availability environment at a reasonable price.

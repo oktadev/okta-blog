@@ -14,6 +14,8 @@ type: conversion
 github: https://github.com/oktadev/okta-react-vite-number-converter-example
 ---
 
+{% include integrator-org-warning.html %}
+
 Front-end applications are becoming ever bigger and more complex. It is not uncommon for a React app to have hundreds or even thousands of components. As the project size increases, build times become increasingly important. In large projects, you may have to wait up to a minute for the code to be translated and bundled into a production package run in the browser. The compile and load times for the development server are also a big issue for these projects. Changes in the code may only show up in the browser after a few seconds. These wait times have become a bottleneck that slows down development.
 
 [Vite](https://vitejs.dev/) addresses this problem by providing a development server and a lightning-fast build command. Vite, pronounced `/vit/`, is French for "quick," and this name describes the goal for this tool. The build command uses [Rollup](https://github.com/rollup/rollup) under the hood, which is preconfigured to create highly optimized code. The development server makes use of browser support for ES modules. Hot Module Replacement will instantly load any codebase changes into the browser.

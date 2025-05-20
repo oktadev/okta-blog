@@ -13,6 +13,8 @@ type: conversion
 github: https://github.com/oktadev/okta-react-typescript-redux-example
 ---
 
+{% include integrator-org-warning.html %}
+
 There are a myriad of state management options available for React. React provides the option of using the built-in [Context](https://reactjs.org/docs/context.html) for when you have a nested tree of components that share a state. There is also a built-in [useState hook](https://reactjs.org/docs/hooks-reference.html#usestate) that will allow you to set local state for a component.
 
 For more complex scenarios where you need a single source of truth that changes frequently and is shared across large sections of your application, consider using a more robust state management library.

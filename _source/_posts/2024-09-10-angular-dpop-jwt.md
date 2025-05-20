@@ -11,6 +11,8 @@ type: conversion
 github: https://github.com/oktadev/okta-angular-dpop-example
 ---
 
+{% include integrator-org-warning.html %}
+
 In OAuth, a valid access token grants the caller access to resources and the ability to perform actions on the resources. This means the access token is powerful and dangerous if it falls into malicious hands. The traditional bearer token scheme means the token grants anyone who possesses it access. A new OAuth 2.0 extension specification, [Demonstrating Proof of Possession (DPoP)](https://www.rfc-editor.org/rfc/rfc9449), defines a standard way that binds the access token to the OAuth client sending the request elevating access token security. 
 
 The high-level overview of DPoP uses public/private keys to create a signed DPoP proof that the authorization and resource server use to confirm the authenticity of the request and requesting client. This way, the token is sender-constrained, and a token thief is less likely to use a compromised access token. Learn more about the problems DPoP solves and how it works by reading:

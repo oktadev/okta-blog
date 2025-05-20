@@ -19,6 +19,8 @@ changelog:
 - 2021-03-31: Updated to use Nuxt/Auth. Setup now uses Okta CLI. You can see changes made in the [example app on GitHub](https://github.com/oktadeveloper/okta-universals-apps-with-nuxt/pull/16) and [this blog post](https://github.com/oktadeveloper/okta-blog/pull/647).
 ---
 
+{% include integrator-org-warning.html %}
+
 Reducing the time between a user clicking your application and the content being displayed is vital. Optimized images? Check! Minified CSS? Check! Minified JS? Check! But if your application is a single page app (or SPA) there is a large bundle of JavaScript that must reach the user before the site can be rendered.
 
 Universal applications address this problem by executing as much as possible on your server and sending only the finished page to the client. Nuxt.js is a framework built on top of Vue designed to provide opinionated defaults to address a lot of the issues developers encounter as they develop universal applications.

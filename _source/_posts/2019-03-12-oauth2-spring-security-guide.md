@@ -19,6 +19,8 @@ changelog:
   - 2020-05-07: Updated to use Spring Boot 2.2.7 and [rename `redirect-uri-template` to `redirect-uri`](https://github.com/oktadeveloper/okta-spring-boot-authz-server-example/issues/2). See the code changes in the [example app on GitHub](https://github.com/oktadeveloper/okta-spring-boot-authz-server-example/pull/3). Changes to this article can be viewed in [oktadeveloper/okta-blog#286](https://github.com/oktadeveloper/okta-blog/pull/286).
 ---
 
+{% include integrator-org-warning.html %}
+
 When building a web application, authentication and authorization is a must. Doing it right, however, is not simple. Computer security is a true specialty. Legions of developers work day and night against equally numerous international hackers creating a continual development cycle of finding vulnerabilities, attacking them, and fixing them. Keeping up with all this solo would be painful (if not impossible).
 
 Fortunately, there's no need. Spring Security and Spring Boot have made implementing a web application using OAuth 2.0 nice and simple. And Okta, a software-as-service identity access provider, have built on top of Spring Boot to make the process even easier.

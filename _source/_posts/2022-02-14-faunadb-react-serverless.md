@@ -15,6 +15,8 @@ type: conversion
 github: https://github.com/oktadev/okta-faunadb-react-example
 ---
 
+{% include integrator-org-warning.html %}
+
 Fauna is a transactional database that is delivered to your application as a secure cloud API. Fauna hosts your database and then allows your application to make calls against it. Typically, to secure such an API, you would establish a relationship between your users and the database in your code. This would mean signing in your users using your authentication provider, in this case, Okta. Then you would need to convert that user to an authorized user to connect to your API.
 
 Fauna cuts out the intermediary by directly accepting Okta as an authentication provider, thus securing your application and your database using your Okta login alone.
