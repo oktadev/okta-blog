@@ -17,6 +17,8 @@ image: blog/featured/okta-java-skew.jpg
 type: conversion
 ---
 
+{% include integrator-org-warning.html %}
+
 Okta is an Identity and Access Management platform. The TL;DR: you offload the responsibility for secure authentication and authorization to Okta so you can focus on the business logic of the app you're building.
 
 Okta and Spring Boot already go together like peanut butter and chocolate. Add in feature flags care of [Split](https://split.io), and you can test new capabilities for your app without having to redeploy. That's testing in production the smart way! And, you can leverage Okta's groups to easily manage who should see the new stuff and who sees the old stuff.

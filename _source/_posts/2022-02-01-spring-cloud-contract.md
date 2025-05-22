@@ -17,6 +17,8 @@ changelog:
 - 2022-02-02: Fixed mistake that said putting multiple contracts in one file caused an error. See [okta-blog#1064](https://github.com/oktadev/okta-blog/pull/1064) and [okta-blog#1065](https://github.com/oktadev/okta-blog/pull/1065) for the changes made in this post.
 ---
 
+{% include integrator-org-warning.html %}
+
 Spring Cloud Contract was created as a way to help test interconnected microservices. Generally speaking, there are two options when testing microservices: 1) you can deploy the entire mesh of services in your integration tests and test against that, or 2) you can mock each service in your integration tests. Both of these options have serious drawbacks. 
 
 The first, deploying the entire mesh of microservices for testing, has the obvious drawback of being difficult, if not impossible, in many environments. It's simply not always feasible to deploy a whole mesh of services just for integration testing. The second solution, writing separate mocks for each projects' integration tests, has the problem of being potentially unreliable. This is because integration tests are written in a separate service from the code actually governing the function that the test is modeling, and as such, can easily drift away from the desired behavior. 

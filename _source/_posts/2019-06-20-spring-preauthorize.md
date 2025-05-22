@@ -19,6 +19,8 @@ changelog:
 - 2021-03-31: Upgraded to Spring Boot 2.4.4 and streamlined setup with the Okta CLI. See the [example changes on GitHub](https://github.com/oktadeveloper/okta-spring-preauthorize-example/pull/1) and [okta-blog#643](https://github.com/oktadeveloper/okta-blog/pull/643/files) for a diff of this blog post.
 ---
 
+{% include integrator-org-warning.html %}
+
 This tutorial will explore two ways to configure authentication and authorization in Spring Boot using Spring Security. One method is to create a `WebSecurityConfigurerAdapter` and use the fluent API to override the default settings on the `HttpSecurity` object. Another is to use the `@PreAuthorize` annotation on controller methods, known as method-level security or expression-based security. The latter will be the main focus of this tutorial. However, I will present some `HttpSecurity` code and ideas by way of contrast.
 
 The first authentication method is `HttpSecurity`, which is global and is by default applied to all requests. Finer-grained control is possible, however, using pattern matching for endpoints, and the fluent API exposed by the `HttpSecurity` is quite powerful. This is where configuration options such as OAuth 2.0, Form Login, and HTTP Basic are exposed. It is a great place to set global authentication policies. 

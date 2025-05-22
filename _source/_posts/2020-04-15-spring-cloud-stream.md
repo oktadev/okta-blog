@@ -17,6 +17,8 @@ image: blog/spring-cloud-stream/spring-cloud-stream.png
 type: conversion
 ---
 
+{% include integrator-org-warning.html %}
+
 In this tutorial, you'll learn how to create a Spring Cloud Stream application that interacts with a messaging service, such as RabbitMQ or Apache Kafka. You're going to do this using functional, reactive code by utilizing Spring's WebFlux and by taking advantage of Spring Cloud Stream's functional binding model.
 
 You'll create an application that contains a **publisher**, a **processor**, and a **consumer**. The app will use two topics to publish a stream of integers, process the integers to calculate a running total, and consume the processed data. Initially, the messages will be simple types— strings and integers—but you'll also see how easy Spring Cloud Stream makes mapping POJOs (Plain Old Java Objects) to messages using JSON mapping.

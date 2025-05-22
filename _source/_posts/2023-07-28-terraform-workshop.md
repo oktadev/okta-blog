@@ -39,7 +39,7 @@ Terraform is a general-purpose Infrastructure As Code tool. Okta's Terraform mod
 * **Sharing configuration:** If you want to help someone else to make a specific change in their Okta organization, you can give them Terraform code which describes that change. Terraform can make the exact same change anywhere it's run, whereas telling a person how to configure their organization through the admin console increases opportunities for human error. 
 * **Auditability:** If you already have tools which back up and track changes to your codebase, managing Terraform code with the same processes lets you enjoy the same benefits for your infrastructure. Keeping infrastructure code in source control helps you track exactly how your infrastructure has changed, when each change was made, and who did it. 
 
-If you're new to Terraform, start with Hashicorp's [Terraform tutorials](https://developer.hashicorp.com/terraform/tutorials). This workshop assumes that you already [have Terraform installed](https://developer.hashicorp.com/terraform/tutorials/aws-get-started/install-cli) on your computer, and that you have a free [Okta Developer Account](https://developer.okta.com/login/). 
+If you're new to Terraform, start with Hashicorp's [Terraform tutorials](https://developer.hashicorp.com/terraform/tutorials). This workshop assumes that you already [have Terraform installed](https://developer.hashicorp.com/terraform/tutorials/aws-get-started/install-cli) on your computer, and that you have a free [Okta Integrator Account](https://developer.okta.com/login/). 
 
 ## 2: Key Terraform concepts
 
@@ -105,9 +105,9 @@ Scopes describe categories of changes that Terraform is allowed to make with the
 
 ### 3.3: Create the Okta app integration
 
-In a web browser, log in to your Okta Developer Account at [developer.okta.com](developer.okta.com). If you don't have an account yet, now is a great time to create one. Developer accounts are a safe place to experiment without the risk of accidentally changing your production infrastructure. Developer accounts don't have a time limit, so you can always test your code before taking it to production.
-
-After logging in to your Developer Account, note the landing page URL. It looks like `https://dev-1234567890-admin.okta.com/admin/getting-started`. Everything after `https://` and before `-admin` is your `org_name`, and can be copied and pasted into your Terraform provider definition in `main.tf`. 
+In a web browser, log in to your Okta Integrator Free Plan account at [developer.okta.com](developer.okta.com). If you don't have an account yet, now is a great time to create one. Integrator accounts are a safe place to experiment without the risk of accidentally changing your production infrastructure.
+ 
+After logging in to your Integrator account, note the landing page URL. It looks like `https://dev-1234567890-admin.okta.com/admin/getting-started`. Everything after `https://` and before `-admin` is your `org_name`, and can be copied and pasted into your Terraform provider definition in `main.tf`. 
  
 In the sidebar of the admin console, click Applications, and click Applications under that. The Applications page lists which apps you have installed, and lets you create new ones. 
 
@@ -152,7 +152,7 @@ In this workshop, the first thing you'll create is a user.
 
 ### 4.2: Write Terraform for a user
 
-Resources in Terraform code describe infrastructure, in this case Okta objects, that Terraform will manage. The first resource you create will describe a user, and applying the Terraform will create that user in the Okta Developer Account whose app integration credentials were passed to the provider configuration. 
+Resources in Terraform code describe infrastructure, in this case Okta objects, that Terraform will manage. The first resource you create will describe a user, and applying the Terraform will create that user in the Okta Integrator Account whose app integration credentials were passed to the provider configuration. 
 
 In the [Okta Provider docs](https://registry.terraform.io/providers/okta/okta/latest/docs) on the Terraform Registry, the `okta_user` resource documentation shows that only the `first_name`, `last_name`, `login`, and `email` fields are mandatory. 
 
@@ -231,7 +231,7 @@ Apply complete! Resources: 1 added, 0 changed, 0 destroyed.
 
 Enter 'yes' to confirm that the plan is still what you want, and Terraform creates the Okta user. 
 
-In the admin console of your Okta Developer Account, go to Directory in the left column and select People. Do you see the newly created user in the list? Note that the resource name "bird" is only used within Terraform, and doesn't show up to the user or in the admin interface. 
+In the admin console of your Okta Integrator Account, go to Directory in the left column and select People. Do you see the newly created user in the list? Note that the resource name "bird" is only used within Terraform, and doesn't show up to the user or in the admin interface. 
 
 ### 4.4: Create another user
 

@@ -16,6 +16,8 @@ image: blog/featured/okta-php-bottle-headphones.jpg
 type: conversion
 ---
 
+{% include integrator-org-warning.html %}
+
 PHP remains the single most popular language choice when creating the backend of a new web application. Within the PHP ecosystem, there are many options when starting a new project: you can use a content management system (CMS) like Wordpress or Drupal, or one of the many frameworks with large user bases and active communities in the PHP world (such as Symfony, CakePHP, CodeIgniter, Yii, Zend Framework). However, if you look at the PHP framework trends of the past several years, there is one framework that stands above them all - Laravel!
 
 Laravel is a clean and modern framework with a vast ecosystem of learning resources. The creators of Laravel provide a number of first-party tools such as Forge/Envoyer/Spark/Nova/Vapor and the vibrant Laravel community produces and supports tons of third-party packages. It's easy to get started with Laravel but not at the expense of available features or performance. It's an opinionated framework that allows you to move quickly if you follow its conventions, but with enough breathing room to deviate from the standards when you need to.

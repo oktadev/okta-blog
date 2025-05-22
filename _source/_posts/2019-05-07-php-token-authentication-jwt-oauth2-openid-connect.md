@@ -17,6 +17,8 @@ image: blog/featured/okta-php-headphones.jpg
 type: conversion
 ---
 
+{% include integrator-org-warning.html %}
+
 JSON Web Tokens (JWTs) have turned into the de-facto standard for stateless authentication of mobile apps, single-page web applications, and machine-to-machine communication. They have mostly superseded the traditional authentication method (server-side sessions) because of some key benefits:
 
 - They are decentralized and portable (you can request a token from a dedicated service, and then use it with multiple backends)

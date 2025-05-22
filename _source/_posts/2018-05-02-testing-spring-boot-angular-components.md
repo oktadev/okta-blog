@@ -17,6 +17,8 @@ changelog:
   - 2018-06-13: Updated to replace [serve](https://www.npmjs.com/package/serve) with node-http-server and fixed typo in Travis script. See the code changes in [oktadeveloper/okta-ionic-crypto-java-sdk-example#12](https://github.com/oktadeveloper/okta-ionic-crypto-java-sdk-example/pull/12). You can see changes to this article in [oktadeveloper/okta.github.io#2123](https://github.com/oktadeveloper/okta.github.io/pull/2123).
 ---
 
+{% include integrator-org-warning.html %}
+
 Writing apps with Spring Boot and Ionic (which is built on Angular) can be fun because both frameworks offer a good developer experience (DX). You change a file, save it, and the app automatically reloads with your changes. This feature is often called hot-reload and it's a blissful way to develop. It's so nice, it can cause you to forget about automating your tests.
 
 I'll admit, writing tests is difficult to do. Writing the test often isn't difficult, it's just code after all. However, writing a *test first* is a habit that's tricky to form. However, if you do test-driven development (TDD), chances are that you'll develop a nicer API. After all, your test will act as a client to your API, and you'll see what code looks like for your users.

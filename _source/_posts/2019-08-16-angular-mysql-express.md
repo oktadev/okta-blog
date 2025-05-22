@@ -19,6 +19,8 @@ changelog:
 - 2021-03-29: Updated to use the latest versions of Okta's JWT Verifier and Angular SDK. You can see the changes in the [example app on GitHub](https://github.com/oktadeveloper/okta-angular-mysql-timeline-example/pull/2). Changes to this article can be viewed in [oktadeveloper/okta-blog#634](https://github.com/oktadeveloper/okta-blog/pull/634).
 ---
 
+{% include integrator-org-warning.html %}
+
 The MySQL database has been a reliable workhorse for web applications for many years. It is the **M** in the LAMP stack, and powers a huge number of web servers across the world. 
 
 MySQL is also a relational database, with data stored in tables with strict data definitions. Rows in tables correspond to data entries and rows in one table can be referenced from another table through their index. Plenty of literature covers the fundamentals of SQL and best practices in designing relational databases for large applications.

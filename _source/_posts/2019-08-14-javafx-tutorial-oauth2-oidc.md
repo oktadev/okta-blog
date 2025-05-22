@@ -17,6 +17,8 @@ image: blog/featured/okta-java-tile-books-mouse.jpg
 type: conversion
 ---
 
+{% include integrator-org-warning.html %}
+
 JavaFX, a library of user interaction controls, allows Java developers to build cross-platform desktop applications and internet application. It was intended as a replacement for Swing (if you're old like me and remember that). 
 
 Implementing an authorization flow with OAuth 2.0 can be tricky with a desktop framework like JavaFX. Typically, OAuth flows require a browser and redirecting to specific URLs. Detecting a redirect in JavaFX's default browser is impossible. The default Java browser (`java.awt.Desktop.browse(URI)`) has no way to communicate with external processes. 

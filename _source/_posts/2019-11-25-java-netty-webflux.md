@@ -17,6 +17,8 @@ image: blog/featured/okta-java-skew.jpg
 type: conversion
 ---
 
+{% include integrator-org-warning.html %}
+
 Netty is a non-blocking input/output (NIO) framework that makes it relatively simple to develop low-level network servers and clients. Netty provides an incredible amount of power for developers who need to work down on the socket level, for example when developing custom communication protocols between clients and servers. It supports SSL/TLS, has both blocking and non-blocking unified APIs, and a flexible threading model. It's also fast and performant.
 
 Netty's asynchronous, non-blocking I/O model is designed for highly scalable architectures and may allow for higher throughput than an analogous blocking model. Basically, a non-blocking server runs all requests asynchronously on a single thread (no function should "block" the event loop). This contrasts with a blocking server model, which typically runs each request on a separate thread. By never having to switch threads or create new threads as load increases, the non-blocking model allows for reduced overhead and quicker expansion as traffic increases.

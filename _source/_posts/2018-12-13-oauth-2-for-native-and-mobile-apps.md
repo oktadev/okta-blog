@@ -17,6 +17,8 @@ image: blog/featured/okta-node-tile-books-mouse.jpg
 type: awareness
 ---
 
+{% include integrator-org-warning.html %}
+
 These days, when you hear someone talking about OAuth, it is likely they mean OAuth 2.0. Previous versions of the standard are deprecated.
 
 OAuth is an authorization framework that enables you to work with external systems in a secure way using digital identifiers called tokens. One type of token is called an `access token`. Its function is to allow you to exercise APIs securely. The API service can use the `access token` to determine if you're allowed to do what you are trying to do.

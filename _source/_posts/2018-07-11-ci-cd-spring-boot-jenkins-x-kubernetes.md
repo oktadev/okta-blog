@@ -15,6 +15,8 @@ tweets:
 type: conversion
 ---
 
+{% include integrator-org-warning.html %}
+
 A lot has happened in the last five years of software development. What it means to build, deploy, and orchestrate software has changed drastically. There's been a move from hosting software on-premise to public cloud and shift from virtual machines (VMs) to containers. Containers are cheaper to run than VMs because they require fewer resources and run as single processes. Moving to containers has reduced costs, but created the problem of how to run containers at scale.
 
 Kubernetes was first open-sourced on June 6th, 2014. Google had been using containers for years and used a tool called Borg to manage containers at scale. Kubernetes is the open source version of Borg and has become the de facto standard in the last four years.

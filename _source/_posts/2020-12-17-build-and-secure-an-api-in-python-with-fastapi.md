@@ -16,6 +16,8 @@ tweets:
 image: blog/build-and-secure-an-api-in-python-with-fastapi/J9aTg6J.png
 type: conversion
 ---
+
+{% include integrator-org-warning.html %}
 As [Python grows in popularity](https://www.zdnet.com/article/programming-language-popularity-python-overtakes-java-as-rust-reaches-top-20/), the variety of high-quality frameworks available to developers has blossomed. In addition to steadfast options like [Django](https://www.djangoproject.com/) and [Flask](https://flask.palletsprojects.com/en/1.1.x/), there are many new options including [FastAPI](https://fastapi.tiangolo.com/).
 
 First released [in late 2018](https://github.com/tiangolo/fastapi/releases?after=0.2.0), FastAPI differentiates itself from other Python frameworks by offering a modern, fast, and succinct developer experience for building reliable [REST APIs](/blog/2019/09/04/securing-rest-apis). While one of the newer open-source Python frameworks available, FastAPI has quickly gained a following with over [22,000 stars on GitHub](https://github.com/tiangolo/fastapi) and an active [community of maintainers](https://fastapi.tiangolo.com/fastapi-people/) working on the project.

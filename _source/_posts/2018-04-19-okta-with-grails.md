@@ -15,6 +15,8 @@ tweets:
 type: conversion
 ---
 
+{% include integrator-org-warning.html %}
+
 What is Grails, what is Groovy, and why would we choose them over Spring Boot? In this post I'll walk you through implementing server-side authentication in Grails using OAuth 2.0 and Okta. Before we dive in, however, I want to talk a little bit about why you'd be using Grails + Groovy in the first place, and how it can make your life easier in specific situations.
 
 [Grails](https://grails.org/) is an open source "convention over configuration" web application framework built on Groovy. It's essentially a JVM version of Ruby on Rails. It's opinionated and full-featured and has a strong emphasis on ORM, templating, and plugins. Grails is built on Spring Boot.

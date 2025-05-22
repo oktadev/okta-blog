@@ -16,6 +16,8 @@ image: blog/featured/okta-php-headphones.jpg
 type: conversion
 ---
 
+{% include integrator-org-warning.html %}
+
 Symfony is not the most popular or loved PHP framework, but it's arguably the most mature, flexible, and reliable. Since its initial release, Symfony has evolved into a set of loosely-coupled, high-quality components that can be chosen individually or combined to create powerful applications, without the compromise of bloat or huge runtime overhead. These components are also widely used outside the context of the framework, as stand-alone modules or sitting at the bottom of other frameworks (e.g., Laravel) and content management systems (Drupal).
 
 One of the most common features of Web applications is user authentication/authorization. Symfony provides a powerful Security component that can take care of most user management use cases automatically. However, you can quickly expand it to add additional authentication methods and user providers, so you don't have to maintain your own Identity Provider (IdP). In this article, I'll show you how to implement user authentication using Okta as the IdP within the Symfony 4.3 security module.

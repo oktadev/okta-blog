@@ -18,6 +18,8 @@ image: blog/featured/okta-dotnet-blazor-closeup.jpg
 type: awareness
 ---
 
+{% include integrator-org-warning.html %}
+
 Last month I came out with a video tutorial on Blazor WebAssembly and I thought it would be good to follow up with a written tutorial as well.
 
 <div style="text-align: center">

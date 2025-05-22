@@ -23,6 +23,10 @@ changelog:
   - 2021-04-07: Changed Okta OIDC app creation instructions to use the Okta CLI. See changes in [okta-blog#670](https://github.com/oktadeveloper/okta-blog/pull/670).
   - 2020-05-18: Updated to remove `/implicit` from Login redirect URI. See the code changes in the [example app on GitHub](https://github.com/oktadeveloper/okta-angular-bootstrap-example/pull/4). Changes to this article can be viewed in [oktadeveloper/okta-blog#298](https://github.com/oktadeveloper/okta-blog/pull/298).
 ---
+
+{% include integrator-org-warning.html %}
+
+{% include integrator-org-warning.html %}
 :toc: macro
 :page-liquid:
 :experimental:

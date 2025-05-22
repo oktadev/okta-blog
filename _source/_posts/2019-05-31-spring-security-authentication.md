@@ -17,6 +17,8 @@ image: blog/featured/okta-java-bottle-headphones.jpg
 type: conversion
 ---
 
+{% include integrator-org-warning.html %}
+
 Authentication is vital to all but the most basic web applications. Who is making the request, wanting data, or wanting to update or delete data? Can you be sure that the request is coming from the stated user or agent? Answering this question with certainty is hard in today's computer security environment. Fortunately, there is absolutely no reason to reinvent the wheel.
 
 Spring Boot with Spring Security is a powerful combination for web application development. With relatively few lines of code, you can implement a variety of authentication systems. These systems are tested, updated, and implemented according to specifications by experts. 

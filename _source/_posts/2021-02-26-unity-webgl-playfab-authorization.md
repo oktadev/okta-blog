@@ -17,6 +17,8 @@ Image: blog/unity-webgl-playfab-authorization/Webgl_OAuth_Thumb.png
 type: conversion
 ---
 
+{% include integrator-org-warning.html %}
+
 As game creators, we hold a fundamental responsibility to protect and secure any and all data that our players entrust to us. Historically, security in games has not been high on the priority list because games were enjoyed anonymously and offline. But with our society becoming ever more connected, demand for social gaming experiences and online gaming features has increased exponentially. This has led to the development of cloud-based gaming platforms, such as [PlayFab](https://docs.microsoft.com/en-us/gaming/playfab/what-is-playfab), that handle everything from multiplayer server hosting, leaderboard tracking, virtual economy, data/analytics, and much more. Even games that are mostly considered "offline" are seeing increased demand for some connected functionality. As more games are developed in the cloud (or developed with cloud-based platforms) and track an increasingly large amount of user data, security is becoming one of the highest priorities for the games community.  
 
 {% img blog/unity-webgl-playfab-authorization/p_soti_stuffing.jpeg alt:"SOTI Credential Stuffing" width:"800" %}{: .center-image }

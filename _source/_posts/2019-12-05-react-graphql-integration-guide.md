@@ -17,6 +17,8 @@ image: blog/featured/okta-react-skew.jpg
 type: conversion
 ---
 
+{% include integrator-org-warning.html %}
+
 If your application consumes a ReST API from React, the default setup will give you ALL the data for a resource. But if you want to specify what data you need, GraphQL can help! Specifying exactly the data you want can reduce the amount of data sent over the wire, and the React applications you write can have less code filtering out useless data from data you need.
 
 There are a lot of GraphQL clients to choose from. Two of the most popular are Apollo and Relay, but both are powerful and might be too complex for a beginner. Luckily, eachoffers a preconfigured "light" option: Apollo Boost and Relay Modern.

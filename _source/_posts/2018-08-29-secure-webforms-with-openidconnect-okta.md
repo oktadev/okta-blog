@@ -16,6 +16,8 @@ tweets:
 type: conversion
 ---
 
+{% include integrator-org-warning.html %}
+
 We talk a lot about ASP.NET Core on this blog, but the .NET ecosystem is much much more than just Core. Microsoft is still updating and supporting .NET Framework, and will continue to do so for the foreseeable future. The same is the case with Web Forms, which even got some new features recently. In this post, we'll take a look at how to easily secure existing ASP.NET Web Forms with via an external provider — Okta.
 
 To follow along, you'll need .NET Framework 4.7.1 and Visual Studio 2017.

@@ -17,6 +17,8 @@ image: blog/featured/okta-dotnet-mouse-down.jpg
 type: conversion
 ---
 
+{% include integrator-org-warning.html %}
+
 Do you ever wish you had a virtual scrap of paper you could use to write notes in the cloud? I'll show you how to build a simple ASP.NET Core app to keep track of your notes, plus how to use .NET Core's OAuth 2 authentication middleware to secure access to your app so your personal notes are kept private.
 
 ## My Private Notes App

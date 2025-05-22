@@ -17,6 +17,8 @@ image: blog/microprofile-graphql/microprofile-graphql.png
 type: conversion
 ---
 
+{% include integrator-org-warning.html %}
+
 MicroProfile is an open-source community project with the goal to encourage the development of Java microservice solutions. It was created in 2016 in response to the changing needs of modern web development. In particular, it seeks to foster the development of smaller, less monolithic services (microservices) that can run on faster release cycles than the typical, old-school Enterprise Java application. Shortly after its creation, it joined the Eclipse foundation.
 
 MicroProfile, in essence, is a set of specifications and standards agreed upon by a community of developers that allows for "write once, run anywhere" in the Java microservice ecosystem. There are currently around nine compliant runtimes for MicroProfile, including Apache TomEE, Quarkus, and Open Liberty. A program written for one can be seamlessly run on another. The community also serves as an incubator for new ideas within Enterprise Java and microservice architectures.

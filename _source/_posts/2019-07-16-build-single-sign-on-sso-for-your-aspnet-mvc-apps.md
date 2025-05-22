@@ -17,6 +17,8 @@ image: blog/featured/okta-dotnet-half.jpg
 type: conversion
 ---
 
+{% include integrator-org-warning.html %}
+
 So you're interested in using single sign-on (SSO) for your ASP.NET MVC apps? You've come to the right place. There are lots of reasons for using SSO for custom apps owned by the same organization. Better user experience. Less development time. Improved security. Those are all great reasons.
 
 Another thing I love about SSO is that it can enable upgrading a large codebase a piece at a time instead of all at once.

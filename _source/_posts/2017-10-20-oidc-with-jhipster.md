@@ -14,6 +14,8 @@ update-url: /blog/2019/04/04/java-11-java-12-jhipster-oidc
 update-title: "Better, Faster, Lighter Java with Java 12 and JHipster 6"
 ---
 
+{% include integrator-org-warning.html %}
+
 Single sign-on (SSO) is a feature that most developers don't care about when building one-off applications for clients or themselves. However, when developing apps for their company, which will be used by employees of their business, they often need to hook into an existing identity provider. It might be Active Directory (AD), LDAP, or a myriad of other systems. Okta provides SSO for many companies around the world and allows them to configure AD and LDAP as *masters* that sync their users to the cloud.
 
 When you use Okta as an employee, you log in once to your dashboard, then log in to the rest of your apps by clicking on bookmarks (or as we like to call them *chiclets*). If you couple this SSO system with our [API Products](https://developer.okta.com/) – which allows developers to integrate SSO into their apps – you have a compelling solution.

@@ -16,6 +16,8 @@ tweets:
 type: conversion
 ---
 
+{% include integrator-org-warning.html %}
+
 Today's Web users are a lot more sophisticated than just a few years ago. They expect applications to be fast, secure, and work equally well on their desktops and phones. Meeting these expectations requires a great deal of work so you can provide a reliable backend and a fully dynamic frontend, while keeping the whole system secure and scalable.
 
 However, with the right set of tools, you can get started quickly and become productive in no time at all. In this article, I'll show you how to build a single-page application using Symfony 4.3 at the backend and Vue.js at the frontend, without spending hours configuring your environment or build tools.

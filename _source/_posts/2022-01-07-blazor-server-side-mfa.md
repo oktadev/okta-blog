@@ -14,6 +14,8 @@ image: blog/featured/okta-dotnet-books-quarter.jpg
 type: conversion
 ---
 
+{% include integrator-org-warning.html %}
+
 ## Introduction to Server Blazor apps
 
 [Blazor](https://docs.microsoft.com/en-us/aspnet/core/blazor) is an exciting new technology from Microsoft that will allow developers to bring C# to clients. Server and client components are written in the same language and can be used and re-used interchangeably. Blazor comes in two flavors, server and client apps. In this tutorial you will be working with [Server Blazor](https://docs.microsoft.com/en-us/aspnet/core/blazor/hosting-models?view=aspnetcore-6.0) apps, where the C# code is run on the server, and messages are exchanged using `SignalR`.

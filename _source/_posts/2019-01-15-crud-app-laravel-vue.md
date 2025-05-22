@@ -18,6 +18,8 @@ changelog:
 - 2021-04-15: Updated to use Okta Vue 3.1.0 and the Okta CLI for OIDC app creation. Updated Laravel CORS library from barryvdh to fruitcake. See changes in [okta-blog#679](https://github.com/oktadeveloper/okta-blog/pull/679). Changes to the example app can be viewed in [okta-php-laravel-vue-crud-example#20](https://github.com/oktadeveloper/okta-php-laravel-vue-crud-example/pull/20).
 ---
 
+{% include integrator-org-warning.html %}
+
 Laravel is one of the most popular web frameworks today because of its elegance, simplicity, and readability. It also boasts one of the largest and most active developer communities. The Laravel community has produced a ton of valuable educational resources, including this one! In this tutorial, you'll build a trivia game as two separate projects: a Laravel API and a Vue frontend (using vue-cli). This approach offers some important benefits:
 
 * It allows you to separate your backend and frontend and deploy them independently, using different strategies and schedules for testing and deployment

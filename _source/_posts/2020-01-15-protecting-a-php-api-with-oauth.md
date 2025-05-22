@@ -16,6 +16,8 @@ image: blog/featured/okta-php-bottle-headphones-close.jpg
 type: conversion
 ---
 
+{% include integrator-org-warning.html %}
+
 REST APIs are a big part of today's Internet. Some of the everyday use cases of REST APIs are:
 
 * driving the backend of single-page Web applications/mobile applications

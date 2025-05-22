@@ -17,6 +17,8 @@ image: blog/secure-serverless-functions-with-netlify/build-and-deploy-secure-ser
 type: conversion
 ---
 
+{% include integrator-org-warning.html %}
+
 Serverless computing, sometimes referred to as "functions as a service" (FaaS), is an on-demand approach to providing backend application services. The serverless architecture is an excellent solution for many use cases where an application needs backend services occasionally, periodically (e.g., once a day), or dynamically scaled to meet demand.
 
 In this tutorial, you will learn to build serverless functions with the JavaScript language, deploy them to Netlify, and secure them using Okta. Netlify is a hosting company that dramatically simplifies deploying web sites and serverless functions (called Netlify Functions) with continuous integration and many more features. Okta is an identity and access management company that makes adding authentication to your applications a breeze.

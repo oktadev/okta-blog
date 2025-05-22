@@ -17,6 +17,8 @@ image: blog/featured/okta-java-skew.jpg
 type: conversion
 ---
 
+{% include integrator-org-warning.html %}
+
 Social login is a great way to offer your customers a simple and secure authentication method. Why force them to create and forget yet another password? The vast majority of your users will have an account with Facebook or Google, so why no go ahead and let them use one of these accounts to log in? 
 
 In this tutorial, you are going to integrate two social login providers: Google and Facebook.  You are also going to use two Okta features that allow you to customize the authentication experience: hosted logins and custom authorization server domains.

@@ -19,6 +19,8 @@ changelog:
   - 2022-01-20: Updated dependencies, code, and the cover image. See this post's changes in [okta-blog#1043](https://github.com/oktadev/okta-blog/pull/1043) and the example app changes in [okta-express-example#3](https://github.com/oktadev/okta-express-example/pull/3).
 ---
 
+{% include integrator-org-warning.html %}
+
 
 If you've ever spent time trying to figure out the best way to handle user
 authentication for your Node app and been confused: you're not alone. Over the

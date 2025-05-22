@@ -14,6 +14,8 @@ type: conversion
 github: https://github.com/oktadev/okta-react-firebase-serverless-example
 ---
 
+{% include integrator-org-warning.html %}
+
 Firebase is an exciting cloud platform from Google available to businesses today.  Firebase connects everything from simple static websites to IoT devices to AI and machine learning platforms. The platform provides various services to facilitate these connections, like storage and authentication.
 
 In this tutorial, you will learn about two core Firebase products: Cloud Functions for Firebase and Firebase Hosting. Hosting is for deploying static web applications. Functions are the Firebase serverless platform.  You will create a static application using React that authenticates users via Okta's React library. After obtaining an access token from Okta's authorization server, you will use a Firebase function to exchange the Okta token for a Firebase token and sign in the user using Firebase's authentication structure. You will obtain additional user information by calling the `userInfo` endpoint on your Okta authorization server and including that data in your Firebase token. Finally, you will create another function endpoint to handle a simple HTTP request that requires an authenticated user.

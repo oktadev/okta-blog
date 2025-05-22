@@ -18,6 +18,8 @@ changelog:
 - 2021-04-15: Updated to use Spring Boot 2.4 and the Okta CLI for OIDC app creation. See changes to this blog post in [okta-blog#765](https://github.com/oktadeveloper/okta-blog/pull/765); changes in the example can be viewed in [okta-spring-social-example#1](https://github.com/oktadeveloper/okta-spring-social-example/pull/1).
 ---
 
+{% include integrator-org-warning.html %}
+
 We've all seen social login. It's the "Log in with Facebook" or "Log in with Twitter" buttons we see below every username and password field on the Internet. But why do these exist?
 
 The primary benefits of social login are ease of use and security. It's easier for your users to log into your app if they can use credentials they've already created on a a service they trust. They don't have to come up with YET ANOTHER password, which they'll likely name after their dog, to which they'll add an exclamation point and/or a number to get past the password strength filter, and then scrawl it on a sticky note and slap it on their desk or computer monitor or email it to themselves, a process they've now repeated more than 200 hundred times. Ridiculous, and not really desirable user behavior, right?

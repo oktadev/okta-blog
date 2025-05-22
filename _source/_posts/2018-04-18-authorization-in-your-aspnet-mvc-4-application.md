@@ -17,6 +17,8 @@ tweets:
 type: conversion
 ---
 
+{% include integrator-org-warning.html %}
+
 A common practice in web applications is to have a restricted area for registered users, and perhaps another for administrators. Whether this restricted access area is premium content, or simply the order history for your e-commerce site's users, it's important that it be properly secured. OpenID Connect (OIDC) makes it easy, but it can be tricky to set up in ASP.NET MVC framework. In this post, I'll show you how to create groups and use the authorization framework that comes with ASP.NET.
 
 ## Set Up the Base ASP.NET MVC 4.x Application

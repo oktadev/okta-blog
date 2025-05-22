@@ -17,6 +17,8 @@ changelog:
   - 2018-04-10: Updated dependencies in the example app to use Okta Spring Boot Starter and Java SDK version 0.4.0. See the code changes in the [example app on GitHub](https://github.com/oktadeveloper/okta-ionic-crypto-java-sdk/pull/2). Changes to this article can be viewed in [oktadeveloper/okta.github.io#1941](https://github.com/oktadeveloper/okta.github.io/pull/1941).
 ---
 
+{% include integrator-org-warning.html %}
+
 Local Storage is a JavaScript API technically known as `localStorage` that arrived with HTML5. It allows you to store information on a user's browser quickly and easily. There are many debates on the web as to whether it's better than cookies. Some say it's faster (because it doesn't send data with every request like cookies do) and more secure.
 Whether it's more secure or not is debatable, especially when compared with secure cookies that have an [HttpOnly flag](https://www.owasp.org/index.php/HttpOnly). It does, however, offer the ability to store a lot more data than cookies. Cookies [can hold up to 4KB](http://browsercookielimits.squawky.net/), while local storage [can hold 5MB or more](https://www.html5rocks.com/en/tutorials/offline/quota-research/), depending on your browser.
 

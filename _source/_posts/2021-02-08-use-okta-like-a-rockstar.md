@@ -16,6 +16,8 @@ tweets:
 image: blog/use-okta-like-a-rockstar/card.png
 type: conversion
 ---
+
+{% include integrator-org-warning.html %}
 > Rockstar chrome extension is a third-party, Non-Okta Application (as defined in Okta's Master Subscription Agreement). Okta is not involved in making this chrome extension available, and we have neither oversight nor input into its security features and functionality. For questions regarding this, or any other, Non-Okta Application(s) your organization uses in connection with the Okta Service, please contact the application provider directly for more information.
 
 Rockstar is a Chrome extension that adds features to the Okta dashboard. What sort of features, you might ask? The most popular ones include:

@@ -17,6 +17,8 @@ image: blog/ktor-kotlin/ktor-and-kotlin.png
 type: conversion
 ---
 
+{% include integrator-org-warning.html %}
+
 In this tutorial, you will build your very own Nano Blogging Service (**nabl** for short) using a modern JVM stack. This includes using the Kotlin programming language, the Ktor web framework, and securing it with Okta. Users can log in or sign up, post updates, and browse specific or global _chronological_ feed without _advertisements_.
 The blogging service displays posts from the selected user or everyone in the _chronological_ feed.
  

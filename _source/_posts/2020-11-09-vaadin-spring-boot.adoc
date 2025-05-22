@@ -16,6 +16,8 @@ tweets:
 image: blog/vaadin-spring-boot/vaadin-spring-boot.png
 type: conversion
 ---
+
+{% include integrator-org-warning.html %}
 :toc: macro
 :page-liquid:
 

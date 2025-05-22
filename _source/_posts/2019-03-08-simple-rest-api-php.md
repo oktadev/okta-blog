@@ -15,6 +15,8 @@ image: blog/featured/okta-php-headphones.jpg
 type: conversion
 ---
 
+{% include integrator-org-warning.html %}
+
 REST APIs are the backbone of modern web development. Most web applications these days are developed as single-page applications on the frontend, connected to backend APIs written in various languages. There are many great frameworks that can help you build REST APIs quickly. Laravel/Lumen and Symfony's API platform are the most often used examples in the PHP ecosystem. They provide great tools to process requests and generate JSON responses with the correct HTTP status codes. They also make it easy to handle common issues like authentication/authorization, request validation, data transformation, pagination, filters, rate throttling, complex endpoints with sub-resources, and API documentation.
 
 You certainly don't need a complex framework to build a simple but secure API though. In this article, I'll show you how to build a simple REST API in PHP from scratch. We'll make the API secure by using Okta as our authorization provider and implementing the Client Credentials Flow. Okta is an API service that allows you to create, edit, and securely store user accounts and user account data, and connect them with one or more applications.

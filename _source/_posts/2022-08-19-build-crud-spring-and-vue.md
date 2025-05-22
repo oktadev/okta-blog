@@ -14,9 +14,12 @@ image: blog/spring-boot-vue3/spring-boot-vue.jpg
 type: conversion
 github: https://github.com/oktadev/okta-spring-boot-vue-crud-example
 changelog:
+- 2025-05-19: Added warning about org type name change
 - 2023-04-26: Updated to use the Okta Spring Boot starter, which supports Auth0 in v3.0.3. You can find the changes to this post in [okta-blog#1365](https://github.com/oktadev/okta-blog/pull/1365) and the example app's changes in [okta-spring-boot-vue-crud-example#8](https://github.com/oktadev/okta-spring-boot-vue-crud-example/pull/8).
 - 2023-01-20: Updated post to add Auth0 and use Spring Boot 3.0. You can find the changes to this post in [okta-blog#1284](https://github.com/oktadev/okta-blog/pull/1284). Example app changes can be found in [okta-spring-boot-vue-crud-example#6](https://github.com/oktadev/okta-spring-boot-vue-crud-example/pull/6).
 ---
+
+{% include integrator-org-warning.html %}
 
 You will use Vue and Spring Boot to build a todo list web application. The application will include CRUD abilities, meaning that you can **c**reate, **r**ead, **u**pdate, and **d**elete the todo items on the Spring Boot API via the client. The Vue frontend client will use the Quasar framework for the presentation. OAuth 2.0 and OpenID Connect (OIDC) will secure the Spring Boot API and the Vue client, initially by using Okta as the security provider. Then, at the end of the tutorial, you will also see how to use Auth0 as the security provider.
 

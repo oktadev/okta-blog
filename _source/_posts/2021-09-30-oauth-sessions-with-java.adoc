@@ -17,6 +17,8 @@ image: blog/oauth-sessions-with-java/social.png
 type: conversion
 ---
 
+{% include integrator-org-warning.html %}
+
 :toc: macro
 :page-liquid:
 :experimental:

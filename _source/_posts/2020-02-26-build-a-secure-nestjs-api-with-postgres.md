@@ -16,6 +16,8 @@ image: blog/featured/okta-node-skew.jpg
 type: conversion
 ---
 
+{% include integrator-org-warning.html %}
+
 NestJS is a modern, progressive framework for building Node.js applications and APIs. NestJS is built on TypeScript, and is designed to use solid programming metaphors such as controllers and modules. Having automatic Swagger API documentation built-in is also a great feature.
 
 Postgres (or PostgreSQL), much like other relational databases, provides a way to persist and query data. It's a powerful, open-source, object-relational database system with over 30 years of active development that has earned it a strong reputation for reliability, feature robustness, and performance.

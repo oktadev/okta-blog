@@ -17,6 +17,8 @@ image: blog/featured/okta-java-skew.jpg
 type: conversion
 ---
 
+{% include integrator-org-warning.html %}
+
 Java is one of the most mature and persistent development languages that exists. Recently, it shifted to a 6-month release schedule, enabling it to deliver more frequent updates to the language.
 One of the changes introduced in Java 9 was the modular system.
 

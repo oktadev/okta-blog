@@ -17,6 +17,8 @@ image: blog/featured/okta-dotnet-tile-mouse.jpg
 type: conversion
 ---
 
+{% include integrator-org-warning.html %}
+
 Authentication is an important part of today's mobile applications, but securely implementing authentication in a mobile app can be a daunting task. In this article, you will learn how to create a basic cross-platform application with [Xamarin.Forms](https://docs.microsoft.com/en-us/xamarin/xamarin-forms/) and use the `WebAuthenticator` class from [Xamarin.Essentials](https://docs.microsoft.com/en-us/xamarin/essentials/web-authenticator?tabs=android) together with Okta to quickly and easily add user login to your mobile app.
 
 To continue you will need:

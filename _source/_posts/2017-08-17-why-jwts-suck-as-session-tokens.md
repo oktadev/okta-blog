@@ -15,6 +15,8 @@ tweets:
 type: awareness
 ---
 
+{% include integrator-org-warning.html %}
+
 {% img blog/why-jwts-suck-as-session-tokens/jwts-so-hot-right-now.jpg alt:"JWTs: So Hot Right Now" %}
 
 JSON Web Tokens (JWTs) are *so* hot right now. They're all the rage in web

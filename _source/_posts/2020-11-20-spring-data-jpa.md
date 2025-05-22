@@ -21,6 +21,8 @@ changelog:
 - 2021-01-26: Updated post to use Spring Boot 2.4.2 and Spring Data 2020.0. See the code changes in the [example on GitHub](https://github.com/oktadev/okta-spring-data-jpa-example/pull/4). Changes to this post can be viewed in [okta-blog#536](https://github.com/oktadev/okta-blog/pull/536)
 ---
 
+{% include integrator-org-warning.html %}
+
 In this tutorial, you're going to use Spring Boot and Spring Data to build a fully functioning web service with ridiculously little effort. You're also going to use Okta to secure the web service using professional, standards-compliant OIDC JWT authentication. All of this will be bootstrapped by the Okta CLI.
 
 Before you get started on the actual application, however, let's take a look at Spring Data for a moment.

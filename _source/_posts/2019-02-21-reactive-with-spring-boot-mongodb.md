@@ -16,6 +16,8 @@ image: blog/spring-boot-mongodb/spring-webflux-mongodb.png
 type: conversion
 ---
 
+{% include integrator-org-warning.html %}
+
 Reactive apps allow you to scale better if you're dealing with lots of streaming data. They're non-blocking and tend to be more efficient because they're not tying up processing while waiting for stuff to happen. 
 
 Reactive systems embrace asynchronous I/O. The concept behind asynchronous I/O is straightforward: alleviate inefficient resource utilization by reclaiming resources that would otherwise be idle as they waited for I/O activity. Asynchronous I/O inverts the normal design of I/O processing: the clients are notified of new data instead of asking for it; this frees the client to do other things while waiting. 

@@ -17,6 +17,8 @@ image: blog/kafka-java/java-kafka.png
 type: conversion
 ---
 
+{% include integrator-org-warning.html %}
+
 Today's users expect your app to be accessible from their computer, mobile phone, tablet, or any other device! This transition to Software as a Service (SaaS) as the norm requires developers to effectively integrate with robust tools that scale to handle thousands (or even millions) of requests every second. Apache Kafka is one of the most effective tools for handling those high throughput environments.
 
 In this tutorial, you'll learn the basic concepts behind Apache Kafka and build a fully-functional Java application, capable of both producing and consuming messages from Kafka.

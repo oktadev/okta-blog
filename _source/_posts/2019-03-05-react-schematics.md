@@ -19,6 +19,8 @@ changelog:
 - 2021-04-15: Updated to use React 17 and OktaDev Schematics v3.4.1. You can see the changes to this post in [okta-blog#707](https://github.com/oktadeveloper/okta-blog/pull/707); example app changes are in [react-schematics-example#1](https://github.com/oktadeveloper/react-schematics-example/pull/1).
 ---
 
+{% include integrator-org-warning.html %}
+
 Developers love to automate things. It's what we do for a living for the most part. We create programs that take the tediousness out of tasks. I do a lot of presentations and live demos. Over the past year, I've noticed that some of my demos have too many steps to remember. I've written them down in scripts, but I've recently learned it's much cooler to automate them with tools powered by Schematics!
 
 Schematics is a library from the Angular CLI project that allows you to manipulate projects with code. You can create/update files and add dependencies to any project that has a `package.json` file. That's right, Schematics aren't just for Angular projects! 

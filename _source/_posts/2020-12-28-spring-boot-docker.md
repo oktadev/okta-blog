@@ -20,6 +20,8 @@ changelog:
 - 2020-12-31: Updated post to add Heroku instructions, since it requires another buildpack. Thanks for the idea, Maurizio! See the code changes in the [example on GitHub](https://github.com/oktadev/okta-spring-boot-docker-buildpacks-example/pull/2). Changes to this post can be viewed in [oktadev/okta-blog#514](https://github.com/oktadev/okta-blog/pull/514).
 ---
 
+{% include integrator-org-warning.html %}
+
 Those of you reading this have certainly heard of Docker. After years of hype, it has become the somewhat standard technology for everyday DevOps operations. It greatly helped to simplify deployments and testing by creating efficient, immutable images of the applications which are working in their own silo. More efficient placement of applications has made this technology central for cloud applications which is why it has gotten so much attention in recent years.
 
 Docker has enabled a new, unified way of application deployment. The basic idea is simple: instead of preparing a target environment on each machine, bring it as a part of your application in the form of a container. This means no conflicting library versions or overlapping network ports. Built images are immutable - your application works the same way locally, on your teammate's computer, or in the cloud. Also, it's possible to run multiple instances of the container on the same machine, and that helps to increase the density of deployment, bringing down costs.

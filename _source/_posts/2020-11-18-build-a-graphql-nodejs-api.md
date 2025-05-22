@@ -17,6 +17,8 @@ image: blog/featured/okta-node-skew.jpg
 type: conversion
 ---
 
+{% include integrator-org-warning.html %}
+
 GraphQL is a query language for APIs that provides a clear description of the data and allows clients to specify what data they need, Benefits of using GraphQL include: reduced overhead,improved performance, and reduced risk of  potential errors as the API evolves. If the API enhances its functionality, existing clients won't be affected unless they want to opt in to the new features.
 
 Clients can also obtain many resources with a single request. Typical REST APIs require the client to query multiple resources as more details are required. If, for example, a user needed information about a book, the client would reach out to a `book` endpoint. If the client then required more information about the author of that book, he/she would need to query the `author` endpoint. With GraphQL, this can be summarized in one request to the GraphQL server.  

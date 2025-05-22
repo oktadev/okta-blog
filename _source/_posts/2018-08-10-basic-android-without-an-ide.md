@@ -16,6 +16,8 @@ tweets:
 type: conversion
 ---
 
+{% include integrator-org-warning.html %}
+
 Virtually every Android tutorial uses Android Studio to create and develop an app. This isn't great for learning since you don't see how things work, namely
 
 - The components that make up an Android Studio project

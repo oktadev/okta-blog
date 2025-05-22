@@ -16,6 +16,8 @@ image: blog/featured/okta-php-headphones.jpg
 type: conversion
 ---
 
+{% include integrator-org-warning.html %}
+
 User account management, authorization, and access control can be difficult to implement for many web developers. At the same time, they are critical cornerstones of application security – any mistake can lead to data leaks, financial losses, and legal troubles.
 
 Successful web applications inevitably grow to a stage where simple user authorization is no longer sufficient and certain features have to be made available only to certain users. There are a variety of ways to achieve this, usually via some combination of access-control lists that limit access to the system based on the user's role, group assignments, or even individual permissions. Depending on your choice of programming language/framework, you will likely have multiple implementation options for authorization available out-of-the-box.

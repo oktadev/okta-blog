@@ -19,6 +19,8 @@ changelog:
 - 2021-04-17: Updated to Spring Boot 2.4.5 and streamline setup with the Okta CLI. See changes to this post in [okta-blog#731](https://github.com/oktadeveloper/okta-blog/pull/731); example app changes can be viewed in [okta-spring-boot-docker-example#3](https://github.com/oktadeveloper/okta-spring-boot-docker-example/pull/3).
 ---
 
+{% include integrator-org-warning.html %}
+
 Docker is a very popular system for containerizing applications. Containerization packages the executable code along with the runtime environment in deployable virtual images using a repeatable, automatable process. 
 
 In the world of cloud-based development and microservices, where a single application can be spread across hundreds of servers in various networks with complex port configurations, the ability to automate the deployment of "units" of code is super helpful. The ability to control the execution environment also offers advantages: managing variables like OS version, disk size, available memory, port configuration, etc... Containerization helps avoid unexpected conflicts when OS libraries create unexpected conflicts or bugs on update.

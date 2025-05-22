@@ -17,6 +17,8 @@ image: blog/graphql-express/okta-node-skew.jpg
 type: conversion
 ---
 
+{% include integrator-org-warning.html %}
+
 GraphQL and React have both become quite popular in the last few years, and it's safe to say they go together like avocado and toast. A GraphQL server can be written in Node and lets you easily create a flexible API using JavaScript classes and functions. When a frontend developer queries the server, only the information asked for gets processed. This means you can make the backend as robust as you want while keeping the frontend light by only requesting information needed for the page you're viewing.
 
 GraphQL is a relatively new standard for defining types and querying data, and there are quite a few different implementations of it, both server-side and client-side. Today I'll show you how to use Express to create a GraphQL server, as well as how to create a single-page app in React that uses Apollo's client to query the server.

@@ -17,6 +17,8 @@ image: blog/featured/okta-react-skew.jpg
 type: conversion
 ---
 
+{% include integrator-org-warning.html %}
+
 React Native is one of the most popular ways of creating mobile apps. Building on the success of React, it ties together native components for both Android and iOS using a shared JavaScript code-base. However, JavaScript has come under fire recently for not being type safe which can lead to a loss of developer trust. Enter TypeScript, which allows type annotations to be added to existing JavaScript code.
 
 One requirement of many mobile apps is authentication (aka authn - confirming user identity) and authorization (authz - confirming access rights). Implementing this through the OAuth 2.0 standard allows integration with all the major third-party authn / authz services. It's also imperative to create automated tests to check that core functionality has not been broken.

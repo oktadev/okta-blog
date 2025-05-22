@@ -39,7 +39,7 @@ In this tutorial, you'll learn to add a secure Universal Logout API endpoint to 
 **Prerequisites**
 - [Enterprise-Ready OIDC Workshop](/blog/2023/07/28/oidc_workshop) - [oidc-workshop-complete](https://github.com/oktadev/okta-enterprise-ready-workshops/tree/oidc-workshop-complete)
 - Code Editor (I used [Visual Studio Code](https://code.visualstudio.com/download)) 
-- [Okta Developer Account](https://developer.okta.com/signup/)
+- [Okta Integrator Free Plan account](https://developer.okta.com/signup/)
 - [Node.js](https://nodejs.org/en) v18 or greater
 
 Run `node -v` and ensure you have Node version 18 or newer. Follow [these setup instructions](/blog/2023/07/27/enterprise-ready-getting-started) to install and run the Todo sample app.  
@@ -49,8 +49,8 @@ We'll build the Universal Logout (UL) endpoint on [the sample app](https://githu
 
 >**Troubleshooting tips**: Ensure you can run the Todo application before you begin. We'll be adding some code and testing along the way. 
 
-### Create a free Okta Developer Edition account
-If you don't already have an Okta account, you can sign up for one here under [Workforce Identity Cloud – Developer Edition](https://developer.okta.com/signup/). You'll also need to create an [OpenID Connect (OIDC) application](https://developer.okta.com/docs/guides/implement-grant-type/authcode/main/#set-up-your-app), which you can do by following the instructions listed here under Setup your app. Set the Sign-in redirect URI as `http://localhost:3333/openid/callback/1`. Note down your ***client_id** and **client_secret**; you'll need it in the next steps.
+### Create an Okta Integrator Free Plan account
+If you don't already have an Okta account, you can sign up for one here under [Integrator](https://developer.okta.com/signup/). You'll also need to create an [OpenID Connect (OIDC) application](https://developer.okta.com/docs/guides/implement-grant-type/authcode/main/#set-up-your-app), which you can do by following the instructions listed here under Setup your app. Set the Sign-in redirect URI as `http://localhost:3333/openid/callback/1`. Note down your ***client_id** and **client_secret**; you'll need it in the next steps.
 
 ### Add configuration to authenticate with OIDC
 

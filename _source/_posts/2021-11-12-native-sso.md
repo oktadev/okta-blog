@@ -14,6 +14,8 @@ image: blog/native-sso/native-sso-social.jpg
 type: conversion
 ---
 
+{% include integrator-org-warning.html %}
+
 When you hear SSO (Single Sign-On), you probably immediately think of web apps, and how you only need to sign into one web app first, then all other web apps give you seamless access. Unfortunately, for desktop and mobile applications (often referred to as "native apps"), the seamless web SSO experience (also referred to as native SSO) has not caught on. This is partly due to the lack of an industry standard or best practice on how to accomplish native SSO.
 
 Although there is no standard yet, there's been growing demand for a solution, due to the continued expansion of native apps, both desktop and mobile. In 2020, a report from RiskIQ counted [8.9 million mobile apps](https://www.forbes.com/sites/johnkoetsier/2020/02/28/there-are-now-89-million-mobile-apps-and-china-is-40-of-mobile-app-spending/?sh=33b7e96721dd). There are also a large number of internal native apps available to employees within an enterprise.

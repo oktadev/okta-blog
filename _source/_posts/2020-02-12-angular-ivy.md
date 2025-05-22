@@ -17,6 +17,8 @@ image: blog/angular-ivy/angular9-ivy.png
 type: conversion
 ---
 
+{% include integrator-org-warning.html %}
+
 Over the last year or so, a new buzzword started floating around Angular forums and blogs. The word was **Ivy**. Ivy promises to make your application faster and smaller. But what exactly does this new technology do? 
 
 Ivy is a complete rewrite of Angular's rendering engine. In fact, it is the fourth rewrite of the engine and the third since Angular 2. But unlike rewrites two and three, which you might not have even noticed, Ivy promises huge improvements to your application. With Ivy, you can compile components more independently of each other. This improves development times since recompiling an application will only involve compiling the components that changed. 

@@ -17,6 +17,8 @@ image: blog/featured/okta-java-headphones.jpg
 type: conversion
 ---
 
+{% include integrator-org-warning.html %}
+
 It can be very satisfying to build an application "the hard way", using few conveniences. This approach helps you understand core development principles and the inner workings of everyday abstractions. That's why today, you'll build an application from the ground up using Java Servlets with a login form.
 
 There are more modern, technologically savvy ways to handle authentication within your application, namely OAuth 2.0 and OIDC, which I will touch upon later. However, this post is for those who want nothing handed to them!  Well, except for some sample code.
