@@ -21,6 +21,8 @@ changelog:
   - 2018-09-19: Updated to use Electron 3.0.0 and AppAuth 1.1.1. See the example app changes in [okta-appauth-js-electron-example#1](https://github.com/oktadeveloper/okta-appauth-js-electron-example/pull/1); changes to this post can be viewed in [okta.github.io#2327](https://github.com/oktadeveloper/okta.github.io/pull/2327).
 ---
 
+{% include integrator-org-warning.html %}
+
 Electron is a framework for building cross-platform desktop applications with web technologies like JavaScript, HTML, and CSS. It was created for GitHub's Atom editor and has achieved widespread adoption since. Electron powers several apps that I use on a daily basis: Slack, Kitematic, and Visual Studio Code to name a few.
 
 Electron 2.0 was released in early May 2018, along with changes to the project to adhere to strict semantic versioning. This is good news for developers because it means patch releases will be more stable and new features will come in major versions only. When open source projects use semantic versioning correctly, end users don't see breaking changes as often and tend to be productive.

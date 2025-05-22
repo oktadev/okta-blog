@@ -14,6 +14,8 @@ changelog:
 - 2023-04-26: Embedded a link to a [companion YouTube video](https://youtu.be/UZQ_ke8BuRU).
 ---
 
+{% include integrator-org-warning.html %}
+
 Adding authentication to public clients such as Single Page Applications (SPA) and JavaScript applications can be a source of confusion. Identity Providers like Okta try to help you via multiple support systems. Still, it can feel like a lot of work. Especially since you're responsible for way more than authentication alone in the applications you work on!
 
 As part of authentication, your client application makes multiple calls to an authorization server, and you get back several strings, which are tokens. Let's demystify what's going on behind the scenes and closely examine what those tokens are and how you use them within your client application.

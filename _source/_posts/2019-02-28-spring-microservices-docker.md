@@ -16,6 +16,8 @@ image: blog/featured/okta-java-tile-books-mouse.jpg
 type: conversion
 ---
 
+{% include integrator-org-warning.html %}
+
 In this post, you'll learn about microservices architecture and how to implement it using Spring Boot. After creating some projects with the technique, you will deploy the artifacts as Docker containers and will simulate a _container orchestrator_ (such as Kubernetes) using _Docker Compose_ for simplification. The icing on the cake will be authentication integration using Spring Profiles; you will see how to enable it with a production profile.
 
 But first, let's talk about microservices.

@@ -17,6 +17,8 @@ image: blog/featured/okta-dotnet-half.jpg
 type: conversion
 ---
 
+{% include integrator-org-warning.html %}
+
 MongoDB is a document database. Instead of storing data in tables and rows, you store documents in a structure very similar to objects in the memory of your application. The schema is flexible and dynamic. You don't need to define all fields upfront. Some MongoDB tutorials define model classes in C# and show how to read from and write to the database with them. This post takes a different approach, which also demonstrates how flexible MongoDB is. You can alter it as you wish at any time!
 
 Another major advantage of MongoDB, and most document databases, is that they scale well. You can easily distribute a single database on multiple servers to increase performance.

@@ -17,6 +17,8 @@ image: blog/featured/okta-angular-headphones.jpg
 type: conversion
 ---
 
+{% include integrator-org-warning.html %}
+
 MongoDB is often the first suggestion when it comes time to select a NoSQL database. But what is a NoSQL database, and why would you want to use one in the first place? To answer this question, let's step back and look at SQL databases and where they shine. SQL databases are a good choice if you have well-defined data that will not change much over time. They also allow you to define complex relationships between different parts of your data and provide tools for ensuring that the data is consistent at all times. The downside? SQL databases are relatively rigid and they don't scale well with large datasets.
 
 NoSQL databases like MongoDB store data in documents that can be retrieved as JSON objects, rather than tables. This design makes NoSQL databases almost as flexible and provides huge scalability gains. You can even split your data into shards and run each shard on a separate server to distribute around the world and improve access times for users in different locations.

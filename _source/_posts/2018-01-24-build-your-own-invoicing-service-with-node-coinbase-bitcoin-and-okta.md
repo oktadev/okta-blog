@@ -15,6 +15,8 @@ tweets:
 type: conversion
 ---
 
+{% include integrator-org-warning.html %}
+
 
 I got into Bitcoin back in 2011. Since then, I've been a fan of cryptocurrencies and have always had an interest in them. I've also built several Bitcoin projects over the years (an information website, an ecommerce site, and several others) to help promote the usage of the cryptocurrency (while having some fun).
 

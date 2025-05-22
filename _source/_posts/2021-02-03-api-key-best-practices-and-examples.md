@@ -17,6 +17,8 @@ image: blog/api-key-best-practices-and-examples/card.png
 type: conversion
 ---
 
+{% include integrator-org-warning.html %}
+
 When you're using a REST API, especially one that incurs costs or has usage limits, you need to use an API key to access the API in question. For example, if you're creating a user account with the Okta API, you'll need to include your API key in that request for it to succeed. Because API keys grant access to API calls which may change important data or incur significant charges. It is therefore important that the keys are not used by unauthorized users. There are a number of common mistakes that developers make that expose API keys to the outside world.
 
 Today, we are going to create an API key for three different APIs. We will show, with examples, the common mistakes that developers make that expose these keys. You'll see specific vulnerabilities and learn the best ways of avoiding these mistakes. Let's get started!

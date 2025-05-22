@@ -19,6 +19,8 @@ changelog:
 - 2021-04-14: Updated to Angular 11, Okta Angular 3.1.0, and changed to use the Okta CLI for setup. See the example app's changes in [okta-angular-pwa-example#1](https://github.com/oktadeveloper/okta-angular-pwa-example/pull/1) and this post's changes in [okta-blog#759](https://github.com/oktadeveloper/okta-blog/pull/759). 
 ---
 
+{% include integrator-org-warning.html %}
+
 During the last two years, everybody started talking about Progressive Web Applications, or PWAs for short. But what is this new type of application, and how can it make your life as an Angular developer better? To understand what PWAs are all about, and how you can build them in Angular, let's consider the following scenario. You are out and about in an area with little or no network reception. You are using a cool web app to search for a good book to read. Traditional web applications only work while you are online. Every time you lose the network the application will stall. What's more, a typical app will load all of its scripts before starting up. This means that you might have to wait a minute or more for the first page to load. In conditions like this, you will quickly give up and abandon the application altogether.
 
 This is where progressive web applications come into play. PWAs leverage a number of current browser technologies in order to provide a smooth user experience even in situations with little or no network connection. They use service workers which act a little like a proxy to intercept network requests and cache the responses. They allow the complete application to be installed in the client's browser. This means that the user can use the application when they're offline.

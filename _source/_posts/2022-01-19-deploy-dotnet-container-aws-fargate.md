@@ -14,6 +14,8 @@ image: blog/featured/okta-dotnet-mouse-down.jpg
 type: conversion
 ---
 
+{% include integrator-org-warning.html %}
+
 In a previous article, we learned [how to host a serverless .NET application using AWS Lambda](/blog/2020/06/08/serverless-lambda-functions-csharp). We talked about the history of serverless and how companies are using these types of technology to simplify delivering APIs and functionality faster than traditional methods. Some problems will arise in this type of application when you need more capability than standard HTTP requests like GET, POST, PUT, DELETE, etc. Web Sockets is a great example of this.
 
 {% include toc.md %}

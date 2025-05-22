@@ -15,6 +15,8 @@ tweets:
 type: conversion
 ---
 
+{% include integrator-org-warning.html %}
+
 Authenticating users for Node.js/Express.js web apps can be difficult. You have to set up a database, define a user schema (or use something more flexible like NoSQL), write code to handle password hashing, etc. It's annoying.
 
 Using Okta's API service, however, you can easily register and log in users to your Node website using our OpenID Connect integration.

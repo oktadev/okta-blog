@@ -17,6 +17,8 @@ image: blog/featured/okta-dotnet-bottle-headphones.jpg
 type: conversion
 ---
 
+{% include integrator-org-warning.html %}
+
 Nothing ruins your weekend quite as wholly as getting paged at 2 am on Saturday to tell you that there's been a data breach at your company. In this post, I'm going to talk about how you can reduce the risk of that happening by keeping secrets out of your source code.
 
 By following this guide, you'll create an ASP.NET Core MVC web application that uses Okta for identity management. Rather than working through a sample that doesn't reflect how you'd do stuff in real life; you'll create a production-ready deployment, and you'll see how you can leverage the Azure KeyVault to deal with secrets securely without storing them in your source code.

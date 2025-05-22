@@ -15,6 +15,8 @@ tweets:
 type: conversion
 ---
 
+{% include integrator-org-warning.html %}
+
 The authorization model in ASP.NET Core got a significant overhaul with the introduction of policy-based authorization. Authorization now uses requirements and handlers, which are decoupled from your controllers and loosely coupled to your data models. The result is a more modular, more testable authorization framework that fits into the modern ASP.NET Core approach nicely.
 
 If you've built a web or mobile app before, you know that even without these changes to ASP.NET Core's authorization model, user management is a royal pain. With Okta, you can have all that user management "stuff", including authorization, out-of-the-box so you can get on with what you really care about – your app! By the time you're done with this tutorial (less than 30 minutes, I promise), you'll have the role-based authorization most ASP.NET devs are familiar with, but that's only the tip of the iceberg! In this post, I'll walk you through some of the impressive new features, and how you can combine them with Okta for robust, scalable authorization!

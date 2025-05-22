@@ -17,6 +17,8 @@ image: blog/java-single-sign-on/no-email-scope-message-tanya.png
 type: conversion
 ---
 
+{% include integrator-org-warning.html %}
+
 In modern app development, you quite frequently have a single resource server that provides data to multiple client applications. These applications may share a similar set of users, but need to enforce different permissions. For example, it's possible that not all users of the first application should be allowed to access the second (think of, for example, an admin console application versus a client or user application). How would you implement this? 
 
 One way to do this is to use Okta, a software-as-service software security provider. Not only does Okta provide a quick and easy OAuth 2.0 single sign-on implementation, it also allows you to set access policies and user permissions via OAuth scopes that span multiple applications.

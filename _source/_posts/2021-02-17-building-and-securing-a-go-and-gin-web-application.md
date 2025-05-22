@@ -17,6 +17,8 @@ image: blog/building-and-securing-a-go-and-gin-web-application/card.png
 type: conversion
 ---
 
+{% include integrator-org-warning.html %}
+
 Today, we are going to build a simple web application that implements a *to-do* list. The backend will be written in Go. It will use the Go Gin Web Framework which implements a high-performance HTTP server. The front end will use the Vue.js JavaScript framework to implement a single page application (SPA). We will secure it using Okta OAuth 2.0 authentication. Let's get started!
 
 **PS**: The code for this project can be found on [GitHub](https://github.com/oktadeveloper/okta-go-gin-vue-example) if you'd like to check it out.

@@ -19,6 +19,8 @@ changelog:
 - 2021-04-13: Updated to for the new Okta Admin Console. You can see the changes in [okta-blog#705](https://github.com/oktadeveloper/okta-blog/pull/705).
 ---
 
+{% include integrator-org-warning.html %}
+
 Spring Boot is a ubiquitous and well-supported suite of tools for developing web applications in Java. Database authentication, in which credentials identifying authorized users are stored in a database accessible by the application, is maybe the most common and straightforward method of authenticating users. SAML is a well-supported open standard for handling authentication between identity providers and service providers.
 
 Configuring SAML authentication in Spring Security is a common topic, and examples are easy to come by. It's also well documented, with straightforward configuration options available, as in [this example from the Okta blog](/blog/2017/03/16/spring-boot-saml).

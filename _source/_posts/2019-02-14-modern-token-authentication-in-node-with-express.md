@@ -19,6 +19,8 @@ changelog:
   - 2021-04-05: Updated Okta JWT Verifier to v2.1.0 and streamlined setup with the Okta CLI. See changes in [okta-blog#677](https://github.com/oktadeveloper/okta-blog/pull/677).
 ---
 
+{% include integrator-org-warning.html %}
+
 Token authentication is the hottest way to authenticate users to your web applications nowadays. There's a lot of interest in token authentication because it *can* be faster than traditional session-based authentication in some scenarios, and also allows you some additional flexibility. In this post, I'm going to teach you all about token authentication: what it is, how it works, why you should use it, and how you can use it in your Node applications. Let's get to it!
 
 **Table of Contents**{: .hide }

@@ -17,6 +17,8 @@ image: blog/featured/okta-react-headphones.jpg
 type: conversion
 ---
 
+{% include integrator-org-warning.html %}
+
 Who doesn't love beer? When you drink a great beer you want to tell someone. You definitely want to be able to remind yourself of the great beers you've had. Enter Brewstr, a beer rating application that allows you to enter a beer you're drinking and give it a rating. This way, you know what to get next time since there's no way you'll remember it later.
 
 React gives the ability to create a component for rating that can be used and re-used anyplace a rating component is needed. You could even add it to your company's internal package management system so that the component is easily consumed by any React application that needs it.

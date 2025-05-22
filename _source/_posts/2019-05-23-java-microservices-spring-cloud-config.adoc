@@ -16,6 +16,8 @@ tweets:
 image: blog/java-microservices-cloud-config/java-microservices-jhipster.jpg
 type: conversion
 ---
+
+{% include integrator-org-warning.html %}
 :page-liquid:
 :toc: macro
 

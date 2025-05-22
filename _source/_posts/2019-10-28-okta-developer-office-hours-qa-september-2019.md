@@ -16,6 +16,8 @@ image: blog/okta-developer-office-hours/okta-dev-office-hours.jpg
 type: awareness
 ---
 
+{% include integrator-org-warning.html %}
+
 On September 19, 2019, we held our first Okta Developer office hours. Our goal was to host a live Q&A with developers that use Okta. Over 150 developers attended!
 
 We [streamed the session live on YouTube](https://youtu.be/nGi8x5XppHI), so you can watch it below if you like.

@@ -16,6 +16,8 @@ tweets:
 type: conversion
 ---
 
+{% include integrator-org-warning.html %}
+
 
 One of the scariest features of Visual Studio is without a doubt right-click to publish. There are very few instances in which you'd actually want to make use of this "feature" and so many more in which it's a terrible idea. In this post I'll walk you through the right way to secure and deploy your new ASP.NET Core app to Azure. My method might not be as fast as right clicking to publish, but it'll keep you, and your users, safe! (And if you're embracing the cross-platform nature of ASP.NET Core, like I am on my Linux laptop with VS Code, right-click to publish isn't even an option for you.)
 

@@ -19,6 +19,8 @@ changelog:
 - 2021-01-28: Updated post to upgrade Quarkus to version 1.11.1.Final. See the code changes in the [example on GitHub](https://github.com/oktadeveloper/okta-quarkus-example/pull/3). Changes to this post can be viewed in [oktadeveloper/okta-blog#537](https://github.com/oktadeveloper/okta-blog/pull/537).
 ---
 
+{% include integrator-org-warning.html %}
+
 Quarkus is a container-first Kubernetes Java framework designed to have a super-fast start-up time and low memory usage. The container-first strategy emphasizes packaging the runtime environment along with the application code, allowing both to be tightly optimized and avoiding the endless updates and configuration problems that can come along with monolithic server systems. Quarkus was built from the beginning to support compilation to native code for use with Graal/SubstrateVM but also supports the good old JVM with OpenJDK HotSpot. 
 
 Quarkus is intended to be used in serverless and microservice environments and works with oth imperative and reactive programming paradigms. Its REST endpoints use JAX-RS, data models can be persisted using JPA, and CDI is used for dependency injection. Further, a large number of industry-standard libraries are supported like Vert.x, Hibernate, RESTEasy, Netty, Kubernetes, and Eclipse MicroProfile, just to name a few.

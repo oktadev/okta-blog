@@ -13,6 +13,8 @@ type: conversion
 github: https://github.com/oktadev/okta-website-eleventy-example
 ---
 
+{% include integrator-org-warning.html %}
+
 11ty is a fantastic tool for quickly creating static sites using a variety of templating languages. 11ty makes designing and developing static sites simple. It supports HTML, Markdown, JavaScript, Nunjucks, Handlebars, and many other template styles, along with built-in support for layouts, pagination, and slugify. 11ty aims to compete against other frameworks such as Jekyll, Hugo, Hexo, Gatsby, and Nuxt. The framework is indeed as simple and powerful as its creators claim. 
 
 This tutorial will teach how to secure your 11ty site using Okta. 11ty will produce static pages, which means you won't have the luxury of servers and states to help manage your authentication. But Okta still has a solution for this. To authenticate users, you will use the [Okta Sign-In Widget](https://developer.okta.com/code/javascript/okta_sign-in_widget/). Then you will store the `id token` returned from the Okta authentication server. You can then use that `id token` to query Okta's servers for many operations, including [verifying if the token is valid](https://developer.okta.com/docs/reference/api/oidc/#introspect) or obtaining user information.

@@ -17,6 +17,8 @@ image: blog/featured/okta-java-skew.jpg
 type: conversion
 ---
 
+{% include integrator-org-warning.html %}
+
 In this tutorial, you're going to use Kubernetes to deploy a Spring Boot microservice architecture to Google Cloud, specifically the Google Kubernetes Engine (GKE). You're also going to use Istio to create a service mesh layer and to create a public gateway. The whole thing is going to be secured using Okta OAuth JWT authentication.
 
 That was a mess of jargon. We're not going to explain microservices in-depth here. In short, microservices are a design pattern that splits larger monolithic services into smaller, independent "micro" services. These services are loosely coupled over a network. The benefits of this architecture are that each service becomes testable,  maintainable, and independently deployable. At internet scale, and in enormous companies like Amazon and Netflix, this architecture is great because it allows companies to assign small teams responsibility for manageable, discrete units of function; as opposed to having enormous monolithic blocks of code overseen by thousands of people. The downside is the high initial cost of complexity and infrastructure, which may not make sense for smaller projects that aren't going to scale.

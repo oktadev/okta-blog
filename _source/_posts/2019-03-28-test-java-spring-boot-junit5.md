@@ -17,6 +17,8 @@ image: blog/featured/okta-java-headphones.jpg
 type: conversion
 ---
 
+{% include integrator-org-warning.html %}
+
 In this post, you'll walk through how to build a simple Spring Boot application and test it with Junit 5. An application without testing is the proverbial Pandora's Box. What good is your application if you don't know that it will work under any condition?  Adding a suite of tests builds confidence that your application can handle anything thrown at it. When building your tests, it is important to use a modern and comprehensive suite of tools. Using a modern framework ensures that you can keep up with the changes within your language and libraries. A comprehensive suite of tools ensures that you can adequately test all areas of your application without the burden of writing your own test utilities. JUnit 5 handles both requirements well.
 
 The application used for this post will be a basic REST API with endpoints to calculate a few things about a person's birthday! There are three POST endpoints you will be able to use to determine either the day of the week, the astrological sign, or the Chinese Zodiac sign for a passed in birthday. This REST API will be secured with OAuth 2.0 and Okta. Once we have built the API, we will walk through unit testing the code with JUnit 5 and review the coverage of our JUnit tests.

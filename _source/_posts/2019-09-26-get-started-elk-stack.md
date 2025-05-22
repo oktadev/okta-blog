@@ -17,6 +17,8 @@ image: blog/featured/okta-java-bottle-headphones.jpg
 type: conversion
 ---
 
+{% include integrator-org-warning.html %}
+
 Good design principles require that microservices architectures are observable, and provide a centralized monitoring tool. This tool allows development teams to verify the overall system health, inspect logs and errors, and get feedback after deployments. So what is the Elastic (or ELK) Stack and why it is an excellent option to meet this need?
 
 In this tutorial post, you will learn how to ...

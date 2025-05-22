@@ -17,6 +17,8 @@ image: blog/featured/okta-dotnet-half.jpg
 type: conversion
 ---
 
+{% include integrator-org-warning.html %}
+
 OAuth 2.0 is a protocol that controls authorization to access a secured resource such as a native app, web app, or API server. For native applications, the recommended method for controlling access between your application and a resource server is the Authorization Code flow with a Proof Key for Code Exchange (PKCE). In this article, you will learn how to build a basic cross-platform application with [Xamarin.Forms](https://docs.microsoft.com/en-us/xamarin/xamarin-forms/) and implement Authorization Code flow with PKCE using [Okta Xamarin SDK](https://github.com/okta/okta-oidc-xamarin). You will also learn about the [Xamarin Community Toolkit](https://docs.microsoft.com/en-us/xamarin/community-toolkit/) - a collection of common elements for mobile development with Xamarin.Forms.
 
 To continue, you will need:

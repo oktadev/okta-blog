@@ -19,6 +19,8 @@ changelog:
 - 2021-04-18: Updated to use Okta Angular SDK v3 and JWT Verifier v2. You can see the changes in [the example app](https://github.com/oktadeveloper/angular-jwt-authentication-example/pull/2) or [this blog post](https://github.com/oktadeveloper/okta-blog/pull/741) on GitHub.
 ---
 
+{% include integrator-org-warning.html %}
+
 User registration and authentication are one of the features that almost no web application can do without. Authentication usually consists of a user entering using a username and a password and then being granted access to various resources or services. Authentication, by its very nature, relies on keeping the state of the user. This seems to contradict a fundamental property of HTTP, which is a stateless protocol.
 
 JSON Web Tokens (JWTs) provide one way to solve this issue. Your Angular app can talk to a backend that produces a token. The Angular app can then pass that token in an `Authorization` header to the backend to prove they're authenticated. The backend should verify the JWT and grant access based on its validity. 

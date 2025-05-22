@@ -17,6 +17,8 @@ image: blog/featured/okta-dotnet-books-quarter.jpg
 type: conversion
 ---
 
+{% include integrator-org-warning.html %}
+
 When the products we develop collect sensitive data, it's essential to secure and safeguard it to protect user privacy and the user's identity. [Personally identifiable information](https://en.wikipedia.org/wiki/Personal_data) (PII) is any data that can be used to identify a *specific individual*, such as name, email address, phone number, US Social Security number, birth date, and so on. Yet companies also need to store user-related data that is not as sensitive as PII. In this tutorial, you will learn how to use [Entity Framework Core](https://docs.microsoft.com/en-us/ef/) together with Okta for storing user's non-sensitive data and PII.
 
 Entity Framework Core is an open-source, cross-platform object-relational mapper (ORM) that allows .NET developers to work with a database using .NET objects. With EF Core, you no longer need to write SQL queries and commands manually. Instead, you query data with strongly typed LINQ (Language Integrated Query) queries and EF Core automatically tracks any changes you make to the result of the query.

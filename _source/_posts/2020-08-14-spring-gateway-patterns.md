@@ -17,6 +17,10 @@ image: blog/spring-gateway-patterns/spring-cloud-gateway-patterns.png
 type: conversion
 ---
 
+{% include integrator-org-warning.html %}
+
+{% include integrator-org-warning.html %}
+
 Spring Cloud Gateway is the Reactive API Gateway of the Spring Ecosystem, built on Spring Boot, WebFlux, and Project Reactor. Its job is to proxy and route requests to services and to provide cross-cutting concerns such as security, monitoring, and resilience. As Reactive models gain popularity, there is a chance that your microservices architecture becomes a mix of Spring MVC blocking applications and Spring WebFlux non-blocking applications.
 
 In this tutorial, you will use Spring Cloud Gateway for routing to traditional Servlet API microservices, and you will learn the required configuration for these three common OAuth2 patterns, using Okta as authorization server:

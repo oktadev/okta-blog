@@ -17,6 +17,8 @@ type: conversion
 
 ---
 
+{% include integrator-org-warning.html %}
+
 Modern authentication systems use and generate JSON Web Tokens (JWT). There are many different ways that JWTs are used but, in this post, we will concentrate on JWTs that are used as OIDC access tokens. When a user successfully logs in to an application using a service like Okta, an OIDC access token is generated in the form of a JWT. That token can be passed in requests to the backend. The backend can then validate that token and reject all requests with invalid or missing tokens.
 
 A common way to validate OIDC access tokens is to simply make an API request to the issuer with the access token. While this is the simplest method to use, it is far faster to validate tokens "offline".

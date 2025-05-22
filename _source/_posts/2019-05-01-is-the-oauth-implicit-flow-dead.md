@@ -17,6 +17,8 @@ image: blog/oauth-implicit-flow-dead/oauth-implicit-flow-dead.png
 type: awareness
 ---
 
+{% include integrator-org-warning.html %}
+
 You may have heard some buzz recently about the OAuth 2.0 Implicit flow. The OAuth Working Group has published some new guidance around the Implicit flow and JavaScript-based apps, specifically that the Implicit flow should no longer be used. In this post we'll look at what's changing with the Implicit flow and why.
 
 <iframe width="100%" height="510" src="https://www.youtube.com/embed/CHzERullHe8" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>

@@ -17,6 +17,8 @@ image: blog/featured/okta-dotnet-books-quarter.jpg
 type: conversion
 ---
 
+{% include integrator-org-warning.html %}
+
 When it comes to developing .NET apps, Visual Studio has historically been the default choice for .NET developers for two main reasons:
 
 1. Visual Studio is the official integrated development environment (IDE) from Microsoft, and  

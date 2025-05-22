@@ -17,6 +17,8 @@ image: blog/featured/okta-php-headphones.jpg
 type: conversion
 ---
 
+{% include integrator-org-warning.html %}
+
 Running REST APIs with AWS Lambda and AWS API Gateway has recently become a very popular option. Although AWS provides its own mechanisms to add an authentication and authorization layer to these APIs, you may want to use your Okta centralized user database and credentials instead.
 
 Today we'll talk about how you can use Okta as the authentication and authorization layer of your REST API hosted in AWS Lambda, validating Okta access tokens using a Lambda authorizer function implemented in PHP.

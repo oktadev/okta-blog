@@ -16,6 +16,8 @@ image: blog/featured/okta-php-headphones.jpg
 type: conversion
 ---
 
+{% include integrator-org-warning.html %}
+
 JSON Web Tokens (JWTs) allow you to implement stateless authentication (without the use of server-side sessions). JWTs are digitally signed with a secret key and can contain various information about the user: identity, role, permissions, etc in JSON format. This information is simply encoded and not encrypted. However, because of the digital signature, the payload cannot be modified without access to the secret key.
 
 JWTs are a relatively hot topic as they are widely used (especially in single-page applications and REST APIs) but many developers do not understand them very well. In this post, I'll discuss what JWTs are, what problems they solve, how they work, and how to use them securely. Then I'll walk you through the process of creating and verifying JWTs from scratch with PHP (and without any external libraries). Finally, I'll show you how to use Okta's JWT library to handle validation of Okta JWTs automatically. Okta is an API service that allows you to create, edit, and securely store user accounts and user account data, and connect them with one or more applications. [Register for a forever-free developer account](https://developer.okta.com/signup/), and when you're done, come back to learn more about JWTs.

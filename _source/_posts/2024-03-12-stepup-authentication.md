@@ -13,6 +13,8 @@ type: conversion
 github: https://github.com/oktadev/okta-angular-nestjs-stepup-auth-example
 ---
 
+{% include integrator-org-warning.html %}
+
 The applications you work on expect good authentication as a secure foundation. In the past, we treated authentication as binary. You are either authenticated or not. You had to set the same authentication mechanism for access to your application without a standard way to change authentication mechanisms conditionally. Consider the case where sensitive actions warrant verification, such as making a large financial transaction or modifying top-secret data. Those actions require extra scrutiny!
 
 ## Use Step Up Authentication Challenge to protect resources
@@ -60,7 +62,7 @@ You'll use Okta to handle authentication and authorization in this project secur
 
 Note the `Issuer` and the `Client ID`. You'll need those values for your authentication configuration, which is coming soon.
 
-There's one manual change to make in the Okta Admin Console. Add the **Refresh Token** grant type to your Okta Application. Open a browser tab to sign in to your [Okta developer account](https://developer.okta.com/login/). Navigate to **Applications** > **Applications** and find the Okta Application you created. Select the name to edit the application. Find the **General Settings** section and press the **Edit** button to add a Grant type. Activate the **Refresh Token** checkbox and press **Save**.
+There's one manual change to make in the Okta Admin Console. Add the **Refresh Token** grant type to your Okta Application. Open a browser tab to sign in to your [Okta Integrator Free Plan account](https://developer.okta.com/login/). Navigate to **Applications** > **Applications** and find the Okta Application you created. Select the name to edit the application. Find the **General Settings** section and press the **Edit** button to add a Grant type. Activate the **Refresh Token** checkbox and press **Save**.
 
 I already added [Okta Angular](https://www.npmjs.com/package/@okta/okta-angular) and [Okta Auth JS](https://www.npmjs.com/package/@okta/okta-auth-js) libraries to connect our Angular application with Okta authentication. On the API side, I added the [Okta JWT Verifier](https://github.com/okta/okta-jwt-verifier-js) library that you'll use for access token verification later in the post.
 

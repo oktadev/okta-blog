@@ -16,6 +16,8 @@ tweets:
 image: blog/spring-boot-remote-vs-local-tokens/spring-jwt-and-opaque.png
 type: conversion
 ---
+
+{% include integrator-org-warning.html %}
 The topic of validating an OAuth 2.0 access tokens comes up frequently on this blog. Often we talk about how to validate JSON Web Token (JWT) based access tokens; however, this is NOT part of the OAuth 2.0 specification. JWTs are so commonly used that Spring Security supported them before adding support for remotely validating tokens (which is part of the OAuth 2.0 specification.)
 
 In this post, you will build a simple application that takes advantage of both types of validation.

@@ -21,6 +21,8 @@ changelog:
 - 2021-04-28: Upgraded to JHipster 7.0.1. You can see the changes in the [example app on GitHub](https://github.com/oktadev/java-microservices-examples/pull/20). Changes to this article can be viewed in [oktadev/okta-blog#779](https://github.com/oktadev/okta-blog/pull/779).
 - 2021-03-25: Upgraded to JHipster 7.0.0 from beta 1. You can see the changes in the [example app on GitHub](https://github.com/oktadev/java-microservices-examples/pull/17). Changes to this article can be viewed in [oktadev/okta-blog#627](https://github.com/oktadev/okta-blog/pull/627).
 ---
+
+{% include integrator-org-warning.html %}
 :toc: macro
 :page-liquid:
 :experimental:

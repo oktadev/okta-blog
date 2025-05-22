@@ -18,6 +18,8 @@ type: conversion
 changelog:
 - 2021-04-20: Updated code for `RestTemplate` so there are no thread-safety issues between clients. See [okta-blog#773](https://github.com/oktadeveloper/okta-blog/pull/773) to see what changed. Changes to the example app can be viewed in [okta-spring-microservices-https-example#1](https://github.com/oktadeveloper/okta-spring-microservices-https-example/pull/1).
 ---
+
+{% include integrator-org-warning.html %}
 :page-liquid:
 :toc: macro
 

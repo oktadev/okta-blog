@@ -1240,11 +1240,11 @@ It will ask for permission to install the npm package; say yes. And when you sta
 
 ### Create a SCIM application in Okta
 
-Log in to your [Okta developer account](https://developer.okta.com/login/), or sign up if you don't have one yet. 
+Log in to your [Okta Integrator Free Plan account](https://developer.okta.com/login/), or sign up if you don't have one yet. 
 
 In this step, you will create an app integration in Okta. Although there are several ways to create apps, we will demonstrate the workflow you would use for an app that will eventually be published to customers on the Okta Integration Network. Don't worry, we won't submit the sample app to the integration network! 
 
-Log in to your Okta Developer Account. Make sure you're in the Admin Console — when you're in the Admin Console, the URL will be "dev-youraccountid-admin.okta.com". In the sidebar, select **Applications** > **Applications**, and press the **Browse App Catalog** button. 
+Log in to your Okta Integrator account. Make sure you're in the Admin Console — when you're in the Admin Console, the URL will be "dev-youraccountid-admin.okta.com". In the sidebar, select **Applications** > **Applications**, and press the **Browse App Catalog** button. 
 
 Enter "**SCIM 2.0 Test App**" in the search box. Select the "**SCIM 2.0 Test App (Header Auth)**", and press the **+ Add Integration** button to confirm creating an integration using "SCIM 2.0 Test App (Header Auth)". 
 

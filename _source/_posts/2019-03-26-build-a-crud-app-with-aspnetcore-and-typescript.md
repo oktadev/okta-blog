@@ -17,6 +17,8 @@ image: blog/featured/okta-dotnet-mouse-down.jpg
 type: conversion
 ---
 
+{% include integrator-org-warning.html %}
+
 There are a lot of things for .NET developers to love about TypeScript. It has strong typing that .NET Developers are used to and the ability to use the latest JavaScript features. Since it is just a superset of JavaScript, the cost to switch is almost nothing. Getting Visual Studio to transpile the TypeScript when it builds your ASP.NET Core app is pretty simple as well.
 
 In this tutorial, you will build an ASP.NET Core app with client-side scripting done in TypeScript. You'll build a simple CRUD app and use TypeScript for client-side validation. You will also learn how to get TypeScript into the build process of an ASP.NET Core application so that your TypeScript is automatically converted to normal JavaScript.

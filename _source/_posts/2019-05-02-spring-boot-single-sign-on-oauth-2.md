@@ -17,6 +17,8 @@ image: blog/featured/okta-java-short-skew.jpg
 type: awareness
 ---
 
+{% include integrator-org-warning.html %}
+
 Single sign-on used to be the "Holy Grail" of enterprise size companies and was usually only available companies that could afford it. Nowadays, we take SSO as a matter of course. For instance, you would think it was completely weird (and unpleasant) if you logged into GMail and then had to log in again when you went to Google Docs.
 
 But, what about building custom applications for developers? SSO was still in the domain of the enterprise with everything from proprietary solutions to SAML, which usually required complex configuration of on-premises solutions.

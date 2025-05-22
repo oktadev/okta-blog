@@ -17,6 +17,8 @@ image: blog/featured/okta-react-headphones.jpg
 type: conversion
 ---
 
+{% include integrator-org-warning.html %}
+
 Serverless architecture with AWS Lambdas is quickly becoming a popular option for companies looking to deploy applications without the overhead of maintaining servers. AWS Lambda functions are event-driven and serverless—triggered to process a piece of code and return a result. AWS Lambdas can be written in most common languages today on a variety of platforms including .NET Core, Java, Go and, in the case of this post, Node.js.
 
 The example in this post uses Node.js 12.x, the latest version available on AWS to date. You'll be using AWS APIs to access AWS Lambdas from your application. This post will teach you how to write your API documentation in YAML and import it into AWS APIs. Additionally, you'll learn how to deploy that API and enable CORS so that your application can access it.

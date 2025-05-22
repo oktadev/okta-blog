@@ -19,6 +19,8 @@ changelog:
   - 2021-11-08: Updated the post to align with the latest Terraform version, latest Okta Terraform provider, and Okta Admin Console. Changes to this article can be viewed in [oktadev/okta-blog#958](https://github.com/oktadev/okta-blog/pull/958).
 ---
 
+{% include integrator-org-warning.html %}
+
 Congratulations, you've chosen to use [Okta](/) to solve your identity problems. Welcome to the happy sunny utopia of a managed identity solution! But wait! How do you manage your environments? Your applications all have separate production, staging, and development environments. How do you manage that in Okta without writing a ton of custom scripts?
 
 In this post, you'll learn how to manage multiple Okta instances using [Terraform](https://www.terraform.io/) and our [Okta Terraform Provider](https://www.terraform.io/docs/providers/okta/index.html). I'll walk you through everything you need to know to keep all your Okta environments in sync and manageable.

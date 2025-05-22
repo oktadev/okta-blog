@@ -18,6 +18,8 @@ update-url: /blog/2020/01/31/java-graphql
 update-title: "How to GraphQL in Java"
 ---
 
+{% include integrator-org-warning.html %}
+
 GraphQL is a data query language developed by Facebook in 2012 to solve a shortcoming of REST APIs and traditional database models. All too often, when programmers write REST API data queries, they default to retrieving entire data structures when they need only a part of it. For example, if you want to find out the number of comments on a blog post, a developer might typically retrieve the entire post and all associated fields along with all the comments and all their associated fields **only to** count the number of comments in the resulting array.
 
 This is pretty inefficient. However, modern computers are fast. Even a shared server these days is pretty damn fast, as long as you have hundreds or thousands of users. However, when you get to Facebook scale, reaching a sizeable portion of the human beings on the internet, this breaks down. This kind of inefficiency becomes either unworkable or expensive.

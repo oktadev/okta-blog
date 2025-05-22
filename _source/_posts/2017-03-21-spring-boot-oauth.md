@@ -19,6 +19,8 @@ changelog:
   - 2017-10-11: Updated instructions for the [Okta Developer Console](/blog/2017/09/25/all-new-developer-console).
 ---
 
+{% include integrator-org-warning.html %}
+
 If you're building a Spring Boot application, you'll eventually need to add user authentication. You can do this with OAuth 2.0 (henceforth: OAuth). OAuth is a standard that applications can use to provide client applications with "secure delegated access". It works over HTTP and authorizes devices, APIs, servers, and applications with access tokens rather than credentials.
 
 Very simply, OAuth is a protocol that supports authorization workflows. It gives you a way to ensure that a specific user has specific permission.

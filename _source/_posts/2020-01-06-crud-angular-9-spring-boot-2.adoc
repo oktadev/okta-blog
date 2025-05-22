@@ -26,6 +26,10 @@ changelog:
   - 2020-02-19: Updated to use Angular CLI 9.0.2 (with Angular 9.0.1). See the code changes in the [example app on GitHub](https://github.com/oktadeveloper/okta-spring-boot-2-angular-9-example/pull/2). Changes to this article can be viewed in [oktadeveloper/okta-blog#197](https://github.com/oktadeveloper/okta-blog/pull/197).
   - 2020-01-30: Updated to use Spring Boot 2.2.4 and Angular CLI 9.0 RC11 (with Angular 9.0 RC11). See the code changes in the [example app on GitHub](https://github.com/oktadeveloper/okta-spring-boot-2-angular-9-example/pull/1). Changes to this article can be viewed in [oktadeveloper/okta-blog#175](https://github.com/oktadeveloper/okta-blog/pull/175).
 ---
+
+{% include integrator-org-warning.html %}
+
+{% include integrator-org-warning.html %}
 :toc: macro
 :page-liquid:
 :experimental:

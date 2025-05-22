@@ -17,6 +17,8 @@ image: blog/react-sass/sass-react.png
 type: conversion
 ---
 
+{% include integrator-org-warning.html %}
+
 When you are developing web applications with React, you know that writing the JavaScript code is only half of the story. The other half is implementing the design using style sheets. When your application becomes larger, using plain CSS style sheets can become tedious and unmaintainable. Sass is one of the most popular alternatives to CSS. It extends the CSS language with variables, mixins, and many other features. It also lets you divide up the style sheets into multiple files.
 
 {% img blog/react-sass/sass-logo.png alt:"The Sass Language" width:"400" %}{: .center-image }

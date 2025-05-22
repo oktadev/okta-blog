@@ -15,6 +15,8 @@ tweets:
 type: conversion
 ---
 
+{% include integrator-org-warning.html %}
+
 Grails and Groovy can be a great alternative to Spring Boot, in some specific use cases. In this post, we'll start with that basic Grails app that already has secure authentication via Okta, and add some additional features. In this tutorial you will:
 
 * Define a simple data model

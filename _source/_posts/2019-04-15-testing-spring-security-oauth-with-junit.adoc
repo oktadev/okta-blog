@@ -16,6 +16,8 @@ tweets:
 image: blog/testing-jhipster-6/social.png
 type: conversion
 ---
+
+{% include integrator-org-warning.html %}
 :page-liquid:
 :toc: macro
 

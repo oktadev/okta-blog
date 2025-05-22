@@ -19,6 +19,8 @@ changelog:
 - 2021-04-16: Updated to use Spring Boot 2.4 and Okta CLI. See blog changes in [okta-blog#727](https://github.com/oktadeveloper/okta-blog/pull/727). Example app changes can be viewed in [this PR](https://github.com/oktadeveloper/okta-spring-boot-kotlin-example/pull/1).
 ---
 
+{% include integrator-org-warning.html %}
+
 In 2011, JetBrains, the company behind IntelliJ, decided to create a modern language that would run inside the Java Virtual Machine and address common concerns with Java at the time like its verbosity. This project became Kotlin, a quickly growing and popular language.
 
 Google then announced official support for Kotlin on Android, further accelerating its adoption. Many companies started to replace Java with Kotlin as their main language to take advantage of the new features it provides. Kotlin is now an increasingly important language for developers inside the JVM ecosystem to know and understand.

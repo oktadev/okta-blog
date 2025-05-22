@@ -20,6 +20,8 @@ changelog:
 github: https://github.com/oktadev/okta-nextjs-typescript-example
 ---
 
+{% include integrator-org-warning.html %}
+
 Next.js is a React framework that aims to provide the best development experience. It is feature rich, including hybrid static and server rendering, TypeScript support, built-in CSS support, API routers, and much more.
 
 TypeScript is an open-source language that is built on JavaScript that allows developers to use types. In this tutorial, you will learn how to use TypeScript with Next.js.  

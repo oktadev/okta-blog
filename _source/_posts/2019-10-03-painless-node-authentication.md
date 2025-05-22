@@ -17,6 +17,8 @@ image: blog/painless-node-authentication/okta-add-user.png
 type: conversion
 ---
 
+{% include integrator-org-warning.html %}
+
 User authentication is a critical component of just about every web application. Unfortunately, while authentication is a core part of all websites, it can still be difficult to get right. Despite the Node.js community being around for a while, there still aren't a lot of simple, foolproof ways to authenticate users in Node.js applications.
 
 In this article I'm going to explain how to build a Node.js application that authenticates users in a best practices way. I'll also explain what authentication options exist, and why you may (or may not) want to use them.

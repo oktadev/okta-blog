@@ -17,6 +17,8 @@ image: blog/featured/okta-dotnet-books-quarter.jpg
 type: conversion
 ---
 
+{% include integrator-org-warning.html %}
+
 Implementing search functionality in your .NET Core apps doesn't have to be hard! Using Elasticsearch makes it easy to develop fast, searchable apps.
 
 In this post, I'll walk you through building a simple web application using [Okta](https://www.okta.com) (for user authentication), [Elastic Cloud](https://www.elastic.co/cloud/) (the official Elasticsearch hosting provider), and the fabulous [Elasticsearch NEST SDK](https://www.elastic.co/guide/en/elasticsearch/client/net-api/current/nest.html).

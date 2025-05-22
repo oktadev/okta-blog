@@ -17,6 +17,8 @@ image: blog/featured/okta-dotnet-half.jpg
 type: conversion
 ---
 
+{% include integrator-org-warning.html %}
+
 Blockchain technology is already central to major cryptocurrencies like Bitcoin and its applications are ever growing. A blockchain is simply a list of records, called blocks. Each block contains information about transactions - and also confirms the validity of the previous block with something called a hash function. A hash function calculates a number from all of the data in a block. It works in such a way that if any of the bytes in the block data changes, the result of the hash function will be a different number.
 
 In a blockchain, one cannot change a block without recalculating all hashes from the changed block and to the end of the chain. Together with the fact that a blockchain is distributed to a many computers in a peer-to-peer network, this makes blockchains resistant to modifications of the data and all kinds of fraud.

@@ -17,6 +17,8 @@ image: blog/token-hooks/crochet.png
 type: awareness
 ---
 
+{% include integrator-org-warning.html %}
+
 OpenID Connect (OIDC) and OAuth 2.0 are already recognized as powerful tools for incorporating authentication and authorization into modern web applications.
 
 Okta has enhanced the capabilities of these standards by introducing our Inline Hooks feature. There are a number of different types of inline hooks that Okta supports. In this post, I focus on hooks that allow you to patch information into the tokens you get back from Okta via OIDC and OAuth.

@@ -18,6 +18,8 @@ image: blog/featured/okta-android-skew.jpg
 type: conversion
 ---
 
+{% include integrator-org-warning.html %}
+
 As mobile app usage is expected to continue to grow, now is as good a time as any to get into the market. Android is by far the most popular OS worldwide and the dominant way to get Android apps to phone users is the Google Play Store. In this tutorial, you'll build a React Native app and I'll walk you through everything from how to pick a design, as well as setting up your React Native environment, tips for getting the most out of your editor, and publishing it on Google Play.
 
 This is what the eventual app will look like:

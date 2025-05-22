@@ -15,6 +15,8 @@ image: blog/sign-in-with-apple/sign-in-with-apple.jpg
 type: awareness
 ---
 
+{% include integrator-org-warning.html %}
+
 This week at Apple's developer conference WWDC, Apple announced a new feature, "Sign In with Apple" enabling users to sign in to apps using their Apple ID. This new feature is positioned as a secure and privacy-friendly way for users to create an account in apps. Most iOS and Mac users already have an Apple ID, and this new feature lets them use that Apple ID to sign in to other apps and websites.
 
 If this sounds a lot like "Sign in with Facebook" or "Sign in with Twitter", that's because it is! This is Apple's way of providing a way for users to sign in to apps without having to rely on an external identity provider like Facebook or Twitter.

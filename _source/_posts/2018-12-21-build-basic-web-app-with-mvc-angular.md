@@ -17,6 +17,8 @@ image: blog/featured/okta-dotnet-mouse-down.jpg
 type: conversion
 ---
 
+{% include integrator-org-warning.html %}
+
 ASP.NET has been around for a long time. When Microsoft introduced ASP.NET MVC, it changed the way many developers approach their codebase. There is an excellent separation of concerns, a TDD friendly framework, and easy integration with JavaScript while maintaining full control over rendered HTML. On the client side, a lot of .NET developers prefer Angular because it comes with TypeScript and it's a much closer language to C# than plain JavaScript. Angular is an excellent framework for building enterprise-level, feature rich, applications.
 
 You will be using .NET Framework 4.7.1, and you should have the latest version of Visual Studio 2017 installed. Also, you should have Node and npm installed since you will use Angular tools that require Node and npm.

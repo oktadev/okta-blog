@@ -12,6 +12,8 @@ tags: [authentication, play, play-framework, java, pac4j, play-pac4j, oidc, oaut
 type: conversion
 ---
 
+{% include integrator-org-warning.html %}
+
 I've fallen in love with Play Framework in the past, but then found a more attractive framework in Spring Boot. I fell in love partly because Play was new and sexy at the time, but also because it's "live reloading" of Java code was a killer feature I'd been looking for. When it added support for Scala in v2.0, I was very excited to learn Scala and discover the power of functional programming. Part of the reason I fell out of love with Play is that I fell *really hard* for Spring Boot. I'd used Spring for ten years before I found Spring Boot, so I knew how most things worked. With Play, I had to learn a lot of new things, and it was difficult to keep up.
 
 I figured it'd be fun to revisit Play and see how easy it is to integrate a modern authentication mechanism like OpenID Connect. I'm happy to report it's *really* easy thanks to [pac4j](http://www.pac4j.org/) and its [play-pac4j](https://github.com/pac4j/play-pac4j) integration, so that's what you'll be building in this tutorial.

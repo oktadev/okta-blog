@@ -17,6 +17,8 @@ image: blog/spring-webclient/spring-webclient.png
 type: conversion
 ---
 
+{% include integrator-org-warning.html %}
+
 Spring ẀebClient was added as part of the reactive web stack WebFlux in Spring Framework 5.0. WebClient allows performing HTTP requests in reactive applications, providing a functional and fluent API based on Reactor, and enabling a declarative composition of asynchronous non-blocking requests without the need to deal with concurrency. One of its features is support for filter registration, allowing to intercept and modify requests, which can be used for cross-cutting concerns such as authentication, as demonstrated in this tutorial.
 
 The WebTestClient is also an HTTP client designed for testing applications. It wraps WebClient and provides a testing facade for verifying responses. It can be used to perform end-to-end HTTP tests, binding to a running server. It can also bind to a controller or application context and mock requests and responses without the need for a running server.

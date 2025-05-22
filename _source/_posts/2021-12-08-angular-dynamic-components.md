@@ -13,6 +13,8 @@ image: blog/angular-dynamic-components/social.jpg
 type: conversion
 ---
 
+{% include integrator-org-warning.html %}
+
 Businesses have unique and complex needs. In addition to the user or organization-specific data to show, there might be a need to display different views and content conditionally. The conditions might include the user's role or which department they belong to.  The information about a user might be part of the authenticated user's [ID token as a profile claim](/blog/2017/07/25/oidc-primer-part-1).
 
 In [Angular](https://angular.io), you can show different components or even parts of templates conditionally using built-in directives such as `*ngIf`. Using `*ngIf` works when the amount of conditional template changes are small, but what if the view has a lot changes, or if the number of conditions to evaluate increases? Managing the correct view only by using `*ngIf` becomes difficult. These types of scenarios are where [dynamic components](https://angular.io/guide/dynamic-component-loader) are helpful. Angular has the mechanics to load components at runtime so you can dynamically display content. 
