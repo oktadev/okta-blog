@@ -32,6 +32,8 @@ By moving to an Integrator organization, you'll get an environment that's aligne
 
 This new organization structure will come with a number of benefits, such as improving integrator access to Okta support resources and expanding developer access to Okta product offerings for testing purposes. 
 
+The features available in the Integrator Free Plan are listed in [our reference docs](/docs/reference/org-defaults/). 
+
 ## Deprecating Okta Developer Edition organizations 
 
 In July 2025, existing Okta Developer Edition organization will be deactivated. At this time, you will lose access to your old Okta Developer Edition organization and all resources in it.. 
@@ -56,7 +58,7 @@ If you created resources in your Okta Developer Edition organization by hand and
 
 ### Use our migration tool for one-off organization backup
 
-If you'd like to capture a snapshot of your current Okta Developer Edition configuration, try [our migration tool](https://github.com/oktadev/okta-dev-account-migration-tool). It wraps the [Okta CLI Client](https://github.com/okta/okta-cli-client) to create files representing all supported objects in your Developer Edition organization, and can use these backup files to automatically re-create many of the objects in your new Integrator Free Plan organization. 
+If you'd like to capture a snapshot of your current Okta Developer Edition configuration, try [our EnvSync migration tool](https://github.com/oktadev/okta-dev-account-migration-tool). It wraps the [Okta CLI Client](https://github.com/okta/okta-cli-client) to create files representing all supported objects in your Developer Edition organization, and can use these backup files to automatically re-create many of the objects in your new Integrator Free Plan organization. 
 
 ## Migrate your public OIN Integration
 
@@ -84,5 +86,7 @@ If you have submitted an OIN integration from an Okta Developer Edition organiza
 ## Plan your migration now! 
 
 If you've used Okta Developer Edition organizations in the past, check now to see if any contain configurations that you'd like to keep. You can check whether you have an organization by checking your password manager for credentials saved on [the login page](https://developer.okta.com/login/), or searching your email for a welcome message from `<noreply@test-account.dev>`. 
+
+
 
 If you have any questions, don't hesitate to contact us in the comments below. 
