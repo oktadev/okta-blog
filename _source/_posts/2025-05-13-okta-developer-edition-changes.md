@@ -8,6 +8,8 @@ description: "Integrator Free Plan replaces Okta Developer Edition in 2025"
 tags: [javascript, python, advocacy, okta]
 image: blog/developer-edition-changes/social.png
 type: awareness
+changelog:
+- 2025-05-28: Added info on determining org type
 ---
 
 
@@ -36,7 +38,15 @@ The features available in the Integrator Free Plan are listed in [our reference 
 
 ## Deprecating Okta Developer Edition organizations 
 
-In July 2025, existing Okta Developer Edition organization will be deactivated. At this time, you will lose access to your old Okta Developer Edition organization and all resources in it.. 
+In July 2025, existing Okta Developer Edition organization will be deactivated. At this time, you will lose access to your old Okta Developer Edition organization and all resources in it.
+
+### How to tell whether your organization is affected
+
+To check whether an organization is in Okta Developer Edition, navigate to Applications / Applications in the Admin Console. If you're on Developer Edition, large text will inform you that "Developer Edition provides a limited number of apps". This message appears below the Applications heading and above the Create App Integration button. 
+
+{% img blog/developer-edition-changes/dev-org-banner.jpg alt:"Screenshot of developer edition app limit banner" width:"800" %}
+
+Organizations in which this banner is absent from the Applications list are not part of Developer Edition, and are unaffected by the Developer Edition deprecation. 
 
 ## How to migrate your resources from Okta Developer Edition to Integrator Free Plan
 
