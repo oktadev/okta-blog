@@ -42,7 +42,7 @@ In July 2025, existing Okta Developer Edition organization will be deactivated. 
 
 ### How to tell whether your organization is affected
 
-To check whether an organization is in Okta Developer Edition, navigate to **Applications** / **Applications** in the Admin Console. If you're on Developer Edition, large text will inform you that "Developer Edition provides a limited number of apps". This message appears below the Applications heading and above the Create App Integration button. 
+To check whether an organization is in Okta Developer Edition, navigate to **Applications** > **Applications** in the Okta Admin Console. If you're on Developer Edition, large text will inform you that "Developer Edition provides a limited number of apps". This message appears below the Applications heading and above the Create App Integration button. 
 
 {% img blog/developer-edition-changes/dev-org-banner.jpg alt:"Screenshot of developer edition app limit banner" width:"800" %}
 
