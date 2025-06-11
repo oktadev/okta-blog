@@ -1,10 +1,10 @@
 ---
 layout: blog_post
-title: "Superheroes, Startups, and Security: Sohail’s Path to Developer Advocacy at Okta"
+title: "Superheroes, Startups, and Security: Sohail's Path to Developer Advocacy at Okta"
 author: sohail-pathan
 by: advocate
 communities: [javascript,security,java,kotlin]
-description: "Join Sohail Pathan’s inspiring journey from Android dev to Okta’s Sr. Developer Advocate. Discover his passion for tech, DevRel, APIs, and community building."
+description: "Join Sohail Pathan's inspiring journey from Android dev to Okta's Sr. Developer Advocate. Discover his passion for tech, DevRel, APIs, and community building."
 tags: [advocacy, javascript, kotlin, okta]
 image: blog/sohail-pathan-intro/sohail-pathan-social-image.png
 type: awareness
@@ -24,25 +24,25 @@ My professional path started at an EdTech startup. Here, my first role as an And
 
 <div style="text-align: center;">
     {% img blog/sohail-pathan-intro/image2.jpeg alt:"Me standing with an amazing group of students and developers, all smiles and ready to learn" width:"782" height:"559" %}
-    <p style="text-align: center;"><em>Image: Post meetup group photo with attendees (I’m the one in black blazer 🕴️).</em></p>
+    <p style="text-align: center;"><em>Image: Post meetup group photo with attendees (I'm the one in black blazer 🕴️).</em></p>
 </div>
 
-One fine afternoon, the founders approached me. They said—***You have a gift for connecting with our users. We’d like you to be our first Developer Community Manager**.* That moment changed everything. I started organizing meetups where we taught about open-source opportunities like [GSOC](https://summerofcode.withgoogle.com/) and [Hacktoberfest](https://hacktoberfest.com/). I used to spend most of my time answering questions on our forums, helping learners one-on-one, and cheering them on as they built their first projects.
+One fine afternoon, the founders approached me. They said—***You have a gift for connecting with our users. We'd like you to be our first Developer Community Manager**.* That moment changed everything. I started organizing meetups where we taught about open-source opportunities like [GSOC](https://summerofcode.withgoogle.com/) and [Hacktoberfest](https://hacktoberfest.com/). I used to spend most of my time answering questions on our forums, helping learners one-on-one, and cheering them on as they built their first projects.
 
-**I didn’t realize it then, but I was doing the heart of a Developer Relations job**—talking to upcoming developers, understanding their struggles, and sharing my own code. The community started growing, and I loved it so much that I decided to make community work my full-time role without giving up my passion for coding. It was a win-win for me 🎉.
+**I didn't realize it then, but I was doing the heart of a Developer Relations job**—talking to upcoming developers, understanding their struggles, and sharing my own code. The community started growing, and I loved it so much that I decided to make community work my full-time role without giving up my passion for coding. It was a win-win for me 🎉.
 
 ### **Adventures in developer relations**
 
-The DevRel adventure deepened when I joined a deep-tech startup that aimed to solve a big pain point: making it easier to run Android Studio on the cloud, which could help people with machines that have limited processing power (similar to Google’s Firebase Studio today). As the Head of Developer Relations, my mission was clear—build and grow a community of Android developers who could test, give feedback, and shape our product.
+The DevRel adventure deepened when I joined a deep-tech startup that aimed to solve a big pain point: making it easier to run Android Studio on the cloud, which could help people with machines that have limited processing power (similar to Google's Firebase Studio today). As the Head of Developer Relations, my mission was clear—build and grow a community of Android developers who could test, give feedback, and shape our product.
 
-So, it was time to roll up my sleeves. I organized virtual and in-person meetups where developers could share their struggles and ideas. We even hosted hackathons, challenging participants to push the tool’s limits and tell us what worked and what didn’t. Week after week, I collected feedback, sifting through every comment and suggestion.
+So, it was time to roll up my sleeves. I organized virtual and in-person meetups where developers could share their struggles and ideas. We even hosted hackathons, challenging participants to push the tool's limits and tell us what worked and what didn't. Week after week, I collected feedback, sifting through every comment and suggestion.
 
 <div style="text-align: center;">
     {% img blog/sohail-pathan-intro/image3.jpeg alt:"Session post of live building a Disco Diwane app in Android Study Jam in Nagpur" width:"782" height:"559" %}
     <p style="text-align: center;"><em>Image: The session post is about building a Disco Diwane app live in Android Study Jam in Nagpur.</em></p>
 </div>
 
-For four intense months, we listened, iterated, and tried to find product-market fit. Unfortunately, despite our best efforts, technical roadblocks and limited demand meant we couldn’t go forward. The founders made the tough call to shut down the company. While it wasn’t the happy ending I’d hoped for, this chapter taught me lessons money can’t buy: **the value of listening closely to your community, the courage to make hard decisions, and the resilience to keep moving forward.**
+For four intense months, we listened, iterated, and tried to find product-market fit. Unfortunately, despite our best efforts, technical roadblocks and limited demand meant we couldn't go forward. The founders made the tough call to shut down the company. While it wasn't the happy ending I'd hoped for, this chapter taught me lessons money can't buy: **the value of listening closely to your community, the courage to make hard decisions, and the resilience to keep moving forward.**
 
 With these lessons etched in my mind, I was ready for whatever came next.
 
@@ -61,7 +61,7 @@ Every week brought new adventures: I delivered talks on API design, cataloged hu
 
 Living in a startup meant wearing many hats. One moment, I was designing microservices used by over 40,000+ developers; the next, I was learning the ins and outs of API gateway, containers, and load balancing—things that require a backend to run smoothly. This hands-on experience deepened my expertise in REST architecture and DevOps practices.
 
-But the heart of my role was listening. Eventually, I became the first responder for our users—paid and free—collecting feedback, identifying what mattered most, and working with the team to make it happen. **There’s nothing like seeing a user’s face light up when a tricky bug is fixed, or a feature is added based on their own suggestion**.
+But the heart of my role was listening. Eventually, I became the first responder for our users—paid and free—collecting feedback, identifying what mattered most, and working with the team to make it happen. **There's nothing like seeing a user's face light up when a tricky bug is fixed, or a feature is added based on their own suggestion**.
 
 Through APIs, I also discovered the power of OAuth and identity management. I saw how a few lines of code could secure entire apps and protect user data. It was a revelation that pointed me straight to Okta.
 
@@ -69,9 +69,9 @@ With every sample app, tutorial, and user conversation, my passion for APIs grew
 
 ### **Why okta?**
 
-I’m beyond excited to be at Okta, a place where security isn’t just a department—it’s part of our DNA. Our customers come first, and every decision we make is guided by a single goal: to give people safe, seamless access to the tools they love. Whether you’re a startup building your first app or an enterprise rolling out AI solutions, Okta’s mission is to keep you secure without slowing you down.
+I'm beyond excited to be at Okta, a place where security isn't just a department—it's part of our DNA. Our customers come first, and every decision we make is guided by a single goal: to give people safe, seamless access to the tools they love. Whether you're a startup building your first app or an enterprise rolling out AI solutions, Okta's mission is to keep you secure without slowing you down.
 
-I’m excited to dive in, share what I’ve learned about APIs and identity, and learn from this amazing community. Together, we’ll build a world where technology empowers everyone—safely, simply, and smartly.
+I'm excited to dive in, share what I've learned about APIs and identity, and learn from this amazing community. Together, we'll build a world where technology empowers everyone—safely, simply, and smartly.
 
 <div style="text-align: center;">
     {% img blog/sohail-pathan-intro/image4.jpeg alt:"A photo captured on my first day at the Okta Campus in Bengaluru, near my workstation" width:"782" height:"559" %}
@@ -80,7 +80,7 @@ I’m excited to dive in, share what I’ve learned about APIs and identity, and
 
 ### **A little fun fact about me**
 
-Beyond tech, I’m an enthusiastic foodie—especially when it comes to biryani (a mixed rice dish made with rice, meat, and spices). I've explored almost every regional variety in India and, according to my friends, I'm quite the cook myself\! Connect with me on [LinkedIn](https://linkedin.com/in/iamspathan), and perhaps we can discover the best biryani spots together 🍗🎉.
+Beyond tech, I'm an enthusiastic foodie—especially when it comes to biryani (a mixed rice dish made with rice, meat, and spices). I've explored almost every regional variety in India and, according to my friends, I'm quite the cook myself\! Connect with me on [LinkedIn](https://linkedin.com/in/iamspathan), and perhaps we can discover the best biryani spots together 🍗🎉.
 
 I'm eager to engage with you all, learn your stories, and build amazing things together at Okta\!
 
