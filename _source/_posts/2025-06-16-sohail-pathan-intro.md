@@ -3,7 +3,7 @@ layout: blog_post
 title: "Superheroes, Startups, and Security: Sohail's Path to Developer Advocacy at Okta"
 author: sohail-pathan
 by: advocate
-communities: [javascript,security,java,kotlin]
+communities: [javascript,security,java,mobile]
 description: "Join Sohail Pathan's inspiring journey from Android dev to Okta's Sr. Developer Advocate. Discover his passion for tech, DevRel, APIs, and community building."
 tags: [advocacy, javascript, kotlin, okta]
 image: blog/sohail-pathan-intro/sohail-pathan-social-image.png
