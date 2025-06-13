@@ -22,13 +22,13 @@ changelog:
   - 2018-05-11: Updated to use Spring Boot 2.0 and Okta Sign-In Widget 2.0.8. See the example app changes in [spring-boot-microservices-example#17](https://github.com/oktadeveloper/spring-boot-microservices-example/pull/17); changes to this post can be viewed in [okta.github.io#2049](https://github.com/oktadeveloper/okta.github.io/pull/2049).
 ---
 
-{% include integrator-org-warning.html %}
-
 Building a microservices architecture with Spring Boot and Spring Cloud can allow your team to scale and develop software faster. It can add resilience and elasticity to your architecture that will enable it to fail gracefully and scale infinitely. All this is great, but you need continuous deployment and excellent security to ensure your system stays up-to-date, healthy, and safe for years to come.
 
 With Spring Security and its OAuth 2.0 support, you have everything you need to lock down your API gateway, as well as your backend servers. You can set it up to automatically propagate your access tokens from one app to the other, ensuring that everything stays secure and encrypted along the way.
 
 This tutorial shows you how to use Spring Security with OAuth and Okta to lock down your microservices architecture. You might remember a similar post I wrote back in August: [Secure a Spring Microservices Architecture with Spring Security, JWTs, Juiser, and Okta](/blog/2017/08/08/secure-spring-microservices). The difference in this post is you won't be using any Okta SDKs; Spring Security OAuth has everything you need!
+
+{% include integrator-org-warning.html %}
 
 ## Microservices Architectures with Spring Boot + Spring Cloud
 

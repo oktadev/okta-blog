@@ -12,8 +12,6 @@ tags: [javascript, vue, data-binding, reactive]
 image: blog/featured/okta-vue-bottle-headphones.jpg
 type: conversion
 ---
-
-{% include integrator-org-warning.html %}
 Vue.js is known as a "progressive framework for building user interfaces". There's a lot to unpack in this simple statement. It's easy to get started with Vue.js, with a minimal feature set, and then layer in more of the framework as you need it.
 
 Unike React, it has full support for the MVC (Model View Controller) pattern out-of-the-box. 
@@ -31,6 +29,8 @@ In this post, you'll look at three different approaches, each with their own pro
 The application also uses the [BootstrapVue](https://bootstrap-vue.js.org/) project which gives us a set of easy tags and components to work with for demonstration. You'll make extensive use of the [progress bar](https://bootstrap-vue.js.org/docs/components/progress) component.
 
 Later, you'll make use of the Vuex library for formal management of data stores. You'll see how we can use these data stores to manage login and logout with Okta. First, let's look at: Why use Okta?
+
+{% include integrator-org-warning.html %}
 
 ## Why Use Okta for Authentication?
 

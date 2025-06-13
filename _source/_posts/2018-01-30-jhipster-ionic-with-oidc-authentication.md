@@ -18,8 +18,6 @@ update-url: /blog/2019/06/24/ionic-4-angular-spring-boot-jhipster
 update-title: "Build Mobile Apps with Angular, Ionic 4, and Spring Boot"
 ---
 
-{% include integrator-org-warning.html %}
-
 We 💙 Ionic, JHipster, and Java here at Okta. Ionic is a framework for building native mobile apps using web technologies. Technically, this is called a "hybrid" app because it's not using native SDKs. Hybrid mobile apps are distributed just like native apps: they can be installed on mobile devices, and they're listed in app stores. As an end user, there's a good chance you can't tell the difference between a hybrid mobile app and a native mobile app.
 
 JHipster is an application generator for modern web apps. It generates a Spring Boot backend, with an Angular UI. It even supports progressive web apps! In addition to being able to create standalone apps, it can also generate a microservices architecture based on Spring Boot and Spring Cloud. The apps it generates have authentication, monitoring, and management built-in. You can also use its entity generator to build CRUD apps quickly and easily.
@@ -36,6 +34,8 @@ As a project, JHipster's goal is to generate an app that unifies:
 > We love JHipster so much; we recently became a [Gold Sponsor on Open Collective](https://opencollective.com/generator-jhipster)! 🥇
 
 Since I wrote the first version (in 2015) of the [JHipster Mini-Book](https://www.infoq.com/minibooks/jhipster-4-mini-book), I've always wanted to add support for generating an Ionic client. I'm happy to report that my dreams have finally come true!
+
+{% include integrator-org-warning.html %}
 
 ## Introducing the Ionic Module for JHipster! 🎉
 

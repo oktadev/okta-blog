@@ -15,8 +15,6 @@ type: conversion
 github: https://github.com/oktadev/okta-thymeleaf-security-example
 ---
 
-{% include integrator-org-warning.html %}
-
 The Thymeleaf library has been around at least for 10 years and it is still actively maintained as of today. It is designed to allow stronger collaboration between design and developer teams for some use cases, as Thymeleaf templates look like HTML and can be displayed in the browser as static prototypes.
 
 In this tutorial you will learn how to create a simple Spring WebFlux application with Thymeleaf and Okta OIDC authentication, addressing the security concerns of preventing CSRF when submitting forms, and protecting functionality based on the user authorities and authentication status.
@@ -30,6 +28,8 @@ In this tutorial you will learn how to create a simple Spring WebFlux applicatio
 **Table of Contents**{: .hide }
 * Table of Contents
 {:toc}
+
+{% include integrator-org-warning.html %}
 
 ## What is Thymeleaf?
 

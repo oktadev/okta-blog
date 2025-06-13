@@ -17,13 +17,13 @@ changelog:
 - 2021-04-06: Updated to use Okta JWT Verifier v2.1.0 and Finale instead of Epilogue. You can see the changes in [the example app](https://github.com/oktadeveloper/okta-node-rest-api-example/pull/1) or [in this blog post](https://github.com/oktadeveloper/okta-blog/pull/683).
 ---
 
-{% include integrator-org-warning.html %}
-
 JavaScript is used everywhere on the web - nearly every web page will include at least some JavaScript, and even if it doesn't, your browser probably has some sort of extension that injects bits of JavaScript code on to the page anyway. It's hard to avoid in 2018.
 
 JavaScript can also be used outside the context of a browser, for anything from hosting a web server to controlling an RC car or running a full-fledged operating system. Sometimes you want a couple of servers to talk to each other, whether on a local network or over the internet.
 
 Today, I'll show you how to create a REST API using Node.js, and secure it with OAuth 2.0 to prevent unwarranted requests. REST APIs are all over the web, but without the proper tools require a ton of boilerplate code. I'll show you how to use a couple of amazing tools that make it all a breeze, including Okta to implement the Client Credentials Flow, which securely connects two machines together without the context of a user.
+
+{% include integrator-org-warning.html %}
 
 ## Build a RESTful Node API Server
 

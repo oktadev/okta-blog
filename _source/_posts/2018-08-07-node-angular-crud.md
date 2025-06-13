@@ -17,8 +17,6 @@ tweets:
 type: conversion
 ---
 
-{% include integrator-org-warning.html %}
-
 Even before the release of Angular 6, Angular had gone through some changes over the years. The biggest one was the jump from AngularJS (v1.x) to Angular (v2+), which included a lot of breaking syntax changes and made TypeScript the default language instead of JavaScript. TypeScript is actually a superset of JavaScript, but it allows you to have strongly typed functions and variables, and it will get compiled down to JavaScript so that it can still run in your browser. Given the popularity of of Angular and Node, it wouldn't be shocking if you were considering this stack for your next project.
 
 Today I'll show you how you to build a secure single-page app with basic CRUD functionality. You'll use [Okta's OpenID Connect (OIDC) API](https://developer.okta.com/docs/api/resources/oidc) to handle authentication. Okta provides a simple to use [Angular SDK](https://github.com/okta/okta-oidc-js/tree/master/packages/okta-angular) to get you up and running very quickly. On the backend, I'll show you how to use the [Okta JWT Verifier](https://github.com/okta/okta-oidc-js/tree/master/packages/jwt-verifier) to ensure that the user is properly authenticated before serving any sensitive content.
@@ -26,6 +24,8 @@ Today I'll show you how you to build a secure single-page app with basic CRUD fu
 We'll be working with Angular 6 for this project, so you can get a feel for some of the changes and news features (read more about them in our [Angular 6: What's New, and Why Upgrade? post](/blog/2018/05/09/upgrade-to-angular-6)).
 
 Let's get started!
+
+{% include integrator-org-warning.html %}
 
 ## Create Your Angular 6 App
 

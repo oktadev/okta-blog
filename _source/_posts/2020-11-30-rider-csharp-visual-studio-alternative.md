@@ -17,8 +17,6 @@ image: blog/featured/okta-dotnet-books-quarter.jpg
 type: conversion
 ---
 
-{% include integrator-org-warning.html %}
-
 When it comes to developing .NET apps, Visual Studio has historically been the default choice for .NET developers for two main reasons:
 
 1. Visual Studio is the official integrated development environment (IDE) from Microsoft, and  
@@ -34,6 +32,8 @@ To continue you will need:
 - [JetBrains Rider](https://www.jetbrains.com/rider/) (Free 30-day trial included)
 - [.NET Core 3.1 SDK](https://dotnet.microsoft.com/download/dotnet-core)
 - An [Okta Developer Account](https://developer.okta.com/) (free forever, to handle your OAuth needs)
+
+{% include integrator-org-warning.html %}
 
 ## Rider Installation and Customization
 

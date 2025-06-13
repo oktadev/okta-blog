@@ -17,8 +17,6 @@ image: blog/featured/okta-dotnet-headphones.jpg
 type: conversion
 ---
 
-{% include integrator-org-warning.html %}
-
 In this article, we'll be building an MVC task management form with .NET Core 2.2. We'll also be showing how to integrate with a MySQL database from MVC, and how to use Twilio to send SMS messages to your app that will add new tasks to your list.
 
 .NET Core and MySQL are both free and open source technologies. The new ASP.NET Core can run on Linux and in Linux Containers, and MySQL is one of the easiest databases to get started with. This makes the combination of ASP.NET Core and MySQL a pretty compelling combination. Let's take a look at what you'll need to get started.
@@ -27,6 +25,8 @@ In this article, we'll be building an MVC task management form with .NET Core 2.
 > - A [Free Okta Developer Account](https://developer.okta.com/signup/)
 > - [MySQL installed](https://dev.mysql.com/downloads/windows/) and will need to know your host and access credentials momentarily.
 > - A [Twilio Account](https://www.twilio.com/try-twilio)
+
+{% include integrator-org-warning.html %}
 
 ## Scaffold Your ASP.NET Core MVC App
 

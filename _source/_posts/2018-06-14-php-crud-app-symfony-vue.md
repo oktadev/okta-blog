@@ -16,8 +16,6 @@ tweets:
 type: conversion
 ---
 
-{% include integrator-org-warning.html %}
-
 If you're a web developer in 2018, then you already know that the expectations are high and the tools are many. Users want progressive web applications and seamless experiences across every device. The focus is shifting from monolithic code to APIs built as microservices and consumed by multiple frontends, and finding our way through the ecosystem of ever-changing tools can be a daunting task even for the most experienced of us.
 
 If you're looking for evidence, go no further than the most popular option for putting a site on the web in the past 15 years: [PHP runs 83.5% of the websites whose server-side programming language we know](https://w3techs.com/technologies/details/pl-php/all/all), and JavaScript is practically everywhere on the frontend. But PHP is not your dad's templating system anymore - it's a modern general-purpose scripting language, and people use it to craft beautiful, fast and optimized code. JavaScript, on the other hand, is changing so dramatically that by the time I finish writing this article a new framework will probably emerge, become fashionable and fade away.
@@ -25,6 +23,8 @@ If you're looking for evidence, go no further than the most popular option for p
 I would like to show you how to set up a 'quick and dirty' modern application using a backend API written in Symfony 4 and a frontend in Vue.js, with a minimal set of dependencies and no hassle.
 
 We'll use Okta for user authentication and authorization. You'll need a development environment with PHP 7 and Node.js/npm/Yarn. You will also need an [Okta developer account](https://developer.okta.com/).
+
+{% include integrator-org-warning.html %}
 
 ## Why Okta?
 Well, we might be biased, but we think Okta makes [identity management](https://developer.okta.com/product/user-management/) easier, more secure, and more scalable than what you're used to. Okta is an API service that allows you to create, edit, and securely store user accounts and user account data, and connect them with one or more applications. Our API enables you to:

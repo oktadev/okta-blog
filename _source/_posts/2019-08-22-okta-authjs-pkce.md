@@ -17,8 +17,6 @@ image: blog/featured/okta-vue-tile-books-mouse.jpg
 type: conversion
 ---
 
-{% include integrator-org-warning.html %}
-
 Imagine two levers that are inversely connected. That is, as one goes up, the other goes down. One lever is User Experience and the other is Security. It's not a perfect analogy, but most developers can attest that as user experience goes up, security goes down.
 
 Take browser history syncing for example. I can start a session with my bank on Firefox mobile and pick up right where I left off on Firefox desktop. From a security standpoint, however, I'm now counting on Firefox to handle cookies and other session information responsibly and securely. Security professionals will tell you that, at the very least, you've increased your surface area for attack by using browser syncing.
@@ -29,6 +27,8 @@ So, how do you protect your SPA in such a hostile environment? When SPAs were ne
 
 OIDC is a thin identity layer for authentication and Single Sign-On that rides on top of OAuth 2.0, an authorization framework. In this post, you'll learn some foundational concepts of OIDC and OAuth2. You'll be guided through a simple SPA example written in
 [Vue.js](https://vuejs.org/) that starts with the older (now deprecated) Implicit flow and then shows the more secure Authorization Code with PKCE flow.
+
+{% include integrator-org-warning.html %}
 
 ## OpenID Connect and OAuth 2.0 Overview
 

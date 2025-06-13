@@ -17,8 +17,6 @@ image: blog/featured/okta-dotnet-skew.jpg
 type: conversion
 ---
 
-{% include integrator-org-warning.html %}
-
 Microsoft Azure makes it incredibly easy to get a basic API/microservice up and running quickly! If you are unfamiliar with building serverless architecture in the Microsoft ecosystem, using Azure Functions has become a quick way to get back-end code up and running that is easy to understand and usable for anyone. 
 
 In this tutorial, we will set-up an API endpoint using the HTTP Trigger invocation that you can use with any front-end site. I use this approach all the time when I am on the go or on a computer that doesn't have Visual Studio installed. It's super powerful for hackathons, quick proof of concepts, and shareable across diverse programming teams with almost no friction. I think you're going to like the results, so let's get started!
@@ -29,6 +27,8 @@ If you'd rather watch a video, [I created a screencast of this blog post](https:
 <div style="text-align: center; margin-bottom: 1.25rem">
 <iframe width="700" height="394" style="max-width: 100%" src="https://www.youtube.com/embed/Db4g34a0Vf4" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 </div>
+
+{% include integrator-org-warning.html %}
 
 ## What is an Azure Function HTTP trigger?
 

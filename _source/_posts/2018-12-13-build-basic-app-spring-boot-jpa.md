@@ -19,8 +19,6 @@ update-url: /blog/2020/11/20/spring-data-jpa
 update-title: "Build a Secure Spring Data JPA Resource Server"
 ---
 
-{% include integrator-org-warning.html %}
-
 Every non-trivial application needs a way to save and update data: a resource server that is accessible via HTTP. Generally, this data must be secured. Java is a great language with decades of history in professional, enterprise development, and is a great choice for any application's server stack. Within the Java ecosystem, Spring makes building secure resource servers for your data simple. When coupled with Okta, you get professionally maintained OAuth and JWT technologies easily integrated into Spring Boot using Spring Security.
 
 In this post, you're going to build a resource server using Spring Boot and Spring Data JPA. On top of that, you're going to implement a group-based authentication and authorization layer using OAuth 2.0. If this sounds complicated - don't worry! It's not.
@@ -32,6 +30,8 @@ A **resource server** is a programmatic access point for your server's functions
  **JPA** is the Java Persistence API, a specification for managing relational databases using Java. It describes an abstraction layer between Java classes and a relational database.
 
 [**Spring Data JPA**](https://spring.io/projects/spring-data-jpa) is a wrapper around JPA providers such as Hibernate. As you'll see, it makes persisting your Java classes as simple as adding some annotations and creating a simple repository interface. No need to actually write persistence or retrieval methods! Another great benefit is that you can change the underlying database implementation transparently without having to change any code. For example, in this tutorial, you'll be using Postgres, but later if you decided you'd rather use MySQL, all you'd have to do is change out some dependencies.
+
+{% include integrator-org-warning.html %}
 
 ## Install PostgreSQL for JPA Persistence
 

@@ -18,8 +18,6 @@ image: blog/featured/okta-dotnet-blazor-closeup.jpg
 type: awareness
 ---
 
-{% include integrator-org-warning.html %}
-
 Last month I came out with a video tutorial on Blazor WebAssembly and I thought it would be good to follow up with a written tutorial as well.
 
 <div style="text-align: center">
@@ -38,6 +36,8 @@ Requirements:
 * An [Okta Developer Account](https://developer.okta.com/) (free forever, to handle your OAuth needs)
 
 Ready to go blazing fast through hooking up external authentication? Start your engines and don't blink - here we go!
+
+{% include integrator-org-warning.html %}
 
 ## Build a Blazor WASM Progressive Web App Project
 

@@ -18,13 +18,13 @@ changelog:
   - 2021-04-16: Updated to use Okta React v4.1.0 and streamline setup with the Okta CLI. Updated Laravel CORS library from barryvdh to fruitcake. See changes in [okta-blog#681](https://github.com/oktadeveloper/okta-blog/pull/681); example app changes are in [okta-php-trivia-react#1](https://github.com/oktadeveloper/okta-php-trivia-react/pull/1);
 ---
 
-{% include integrator-org-warning.html %}
-
 Laravel is an amazing web application framework which regularly tops the lists of best PHP frameworks available today. This is partly because its based on PHP which runs 80% of the web today and the learning curve is relatively small (despite it being packed with advanced features, you can understand the basic concepts easily). However, the real reason for its popularity is its robust ecosystem and abundance of high-quality learning resources available for free (like this blog post!).
 
 Laravel is configured with Vue and build tools (based on webpack) out of the box so you can set up a development environment for building dynamic, single-page applications with little hassle. You are not limited to Vue though - you can also use Laravel as a backend that powers a frontend built in your preferred framework. Today I'll show you how you can build a Laravel API and connect it to a React frontend. We'll use Okta for user authentication and authorization which will allow us to implement a top-notch security system in (almost) no time at all.
 
 Before you start, you'll need to set up a development environment with PHP 7 and Node.js 8+/npm. You will also need an [Okta developer account](https://developer.okta.com/).
+
+{% include integrator-org-warning.html %}
 
 ## Add Okta for Authentication
 

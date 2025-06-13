@@ -17,8 +17,6 @@ image: blog/featured/okta-react-headphones.jpg
 type: conversion
 ---
 
-{% include integrator-org-warning.html %}
-
 GraphQL is an incredibly powerful query language for APIs that helps improve performance and extensibility in your APIs. The query language is designed to allow developers to query exactly the data they need. As your API grows in size and scope, current consumers are unaffected by changes since their queries should return the same data.  
 
 Apollo Client is a state management library for JavaScript. It fits seamlessly into React applications and can handle fetching, caching, and modifying application data.  
@@ -30,6 +28,8 @@ If you prefer to watch the demo, you can view this walk through.
 <div style="text-align: center; margin-bottom: 1.25rem">
 <iframe width="560" height="315" src="https://www.youtube.com/embed/RmFU2CLdsEU" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 </div>
+
+{% include integrator-org-warning.html %}
 
 ## Create your Okta Application
 

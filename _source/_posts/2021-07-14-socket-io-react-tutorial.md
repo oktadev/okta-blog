@@ -20,8 +20,6 @@ changelog:
 - 2021-12-15: Updated to use Socket.IO v4.4.0 and Okta React v6.3.0. See this post's changes in [okta-blog#1001](https://github.com/oktadev/okta-blog/pull/1001) and the example app changes in [okta-socket-io-chat-example#3](https://github.com/oktadev/okta-socket-io-chat-example/pull/3).
 ---
 
-{% include integrator-org-warning.html %}
-
 The HTTP protocol powers the web. Traditionally, HTTP is a request-response protocol. This means that a client requests data from a server, and the server responds to that request. In this model, a server will never send data to a client without having been queried first.
 
 This approach is suitable for many use cases that the web is used for. It allows loose coupling between clients and servers without the need to keep a persistent connection. But for real-time applications, the request-response model has its drawbacks. When some state on the server changes, the client isn't informed immediately. Within the HTTP protocol, the client needs to use regular polling to request data from the server. This is not ideal because the data will not arrive at the server in real-time, and shorter polling intervals will increase network traffic.
@@ -44,6 +42,8 @@ This tutorial will show you how to create a simple chat application using Socket
 If you would rather follow along by watching a video, check out the screencast below from our [YouTube channel](https://youtu.be/449z_p6rkP8).
 
 {% youtube 449z_p6rkP8 %}
+
+{% include integrator-org-warning.html %}
 
 ## Create a Chat Server with Express and Socket.IO
 

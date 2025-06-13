@@ -20,8 +20,6 @@ changelog:
 - 2022-09-16: Updated to Spring Boot 2.7.3, React 18.0.2, and added a section for Auth0. You can find the changes to this article in [okta-blog#1271](https://github.com/oktadev/okta-blog/pull/1271). What's required to switch to Auth0 can be viewed in [the `auth0` branch](https://github.com/oktadev/okta-spring-boot-react-crud-example/compare/auth0).
 ---
 
-{% include integrator-org-warning.html %}
-
 React was designed to make it painless to create interactive UIs. Its state management is efficient and only updates components when your data changes. Component logic is written in JavaScript, meaning you can keep state out of the DOM and create encapsulated components.
 
 Developers like CRUD (create, read, update, and delete) apps because they show a lot of the base functionality you need when creating an app. Once you have the basics of CRUD completed in an app, most of the client-server plumbing is finished, and you can move on to implementing the necessary business logic.
@@ -37,6 +35,8 @@ This tutorial is also available [as a screencast](https://youtu.be/B5tcZoNyqGI).
 You will need [Java 17](http://sdkman.io) and [Node 18](https://nodejs.org/) installed to complete this tutorial.
 
 {% include toc.md %}
+
+{% include integrator-org-warning.html %}
 
 ## Create an API app with Spring Boot
 

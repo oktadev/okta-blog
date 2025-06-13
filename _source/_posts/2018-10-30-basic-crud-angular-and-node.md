@@ -18,8 +18,6 @@ changelog:
   - 2021-04-12: Upgraded to use Okta Angular 3.0.1 and Okta JWT Verifier 2.1.0. You can see the changes to the example in [okta-angular-node-example#3](https://github.com/oktadeveloper/okta-angular-node-example/pull/3) or view the changes in [this blog post](https://github.com/oktadeveloper/okta-blog/pull/689).
 ---
 
-{% include integrator-org-warning.html %}
-
 In recent years, single page applications (SPAs) have become more and more popular. A SPA is a website that consists of just one page. That lone page acts as a container for a JavaScript application. The JavaScript is responsible for obtaining the content and rendering it within the container. The content is typically obtained from a web service and RESTful APIs have become the go-to choice in many situations. The part of the application making up the SPA is commonly known as the _client_ or _front-end_, while the part responsible for the REST API is known as the _server_ or _back-end_. In this tutorial, you will be developing a simple Angular single page app with a REST backend, based on Node and Express. 
 
 You'll be using Angular as it follows the MVC pattern and cleanly separates the View from the Models. It is straightforward to create HTML templates that are dynamically filled with data and automatically updated whenever the data changes. I have come to love this framework because it is very powerful, has a huge community and excellent documentation.
@@ -36,6 +34,8 @@ Here are the libraries you'll be using for the client and the server:
 * __Node:__ The actual server running the JavaScript code
 * __Express:__ A routing library for responding to server requests and building REST APIs
 * __TypeORM:__ A database ORM library for TypeScript
+
+{% include integrator-org-warning.html %}
 
 ## Start Your Basic Angular Client Application
 

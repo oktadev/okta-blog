@@ -14,8 +14,6 @@ image: blog/electron-javascript/electron-auth.jpg
 type: conversion
 ---
 
-{% include integrator-org-warning.html %}
-
 Electron is one of the most popular desktop frameworks today. Electron uses HTML, JavaScript, and CSS for its front end and Node.js for its backend. This design enables developers to quickly write and easily maintain cross-platform applications between their desktop and web applications. Since Electron uses Node on the backend, it also has access to the entire npm ecosystem that Node developers have come to rely on.
 
 Even though it is built on Node, Electron is used for desktop applications rather than web applications. This can present a new set of challenges. For example, one of the most common and popular ways to interface with Okta from a Node.js application is to use the [Okta NodeJS OIDC Middleware](https://www.npmjs.com/package/@okta/oidc-middleware). The middleware takes some configuration and connects with Okta. This process is super simple to set up and use securely.
@@ -25,6 +23,8 @@ Matt Raible wrote a blog post [about using Electron with Okta](/blog/2018/09/17/
 {% img blog/electron-javascript/pkce-flow.png alt:"OAuth flow with PKCE" width:"800" %}{: .center-image }
 
 Both of these approaches require a callback path where Okta can send the authentication code to be processed by your application. For some companies, allowing `localhost` to receive the response from Okta may pose a security concern. There are many ways to handle this, but in this article, you will use [Okta's Auth JS SDK](https://www.npmjs.com/package/@okta/okta-auth-js). This SDK exposes a `signInWithCredentials()` method that you can use to authenticate your users.
+
+{% include integrator-org-warning.html %}
 
 ## Create an OpenID Connect application
 

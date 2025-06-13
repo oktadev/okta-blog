@@ -17,8 +17,6 @@ image: blog/featured/okta-vue-bottle-headphones.jpg
 type: conversion
 ---
 
-{% include integrator-org-warning.html %}
-
 When you develop a new web application, you most likely split the application into two parts. The server-side provides access control and data persistence, while the client-side is mostly presentational. The two parts have to communicate, and your first idea may be to implement a REST API. However, a number of flaws have been identified with the RESTful pattern, mostly related to the flexibility and speed of the request-response pattern. 
 
 At Facebook, these problems were recognized, and a new alternative called GraphQL was developed and made public in 2015. GraphQL allows flexible queries but does not suffer from the design and security flaws of earlier approaches, such as OData.
@@ -30,6 +28,8 @@ In this tutorial, I will show you how to implement a Node-based server using Gra
 **Table of Contents**{: .hide }
 * Table of Contents
 {:toc}
+
+{% include integrator-org-warning.html %}
 
 ## Develop a GraphQL Server with Node.js and Express
 

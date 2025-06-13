@@ -17,14 +17,14 @@ image: blog/featured/okta-dotnet-half.jpg
 type: conversion
 ---
 
-{% include integrator-org-warning.html %}
-
 
 ASP.NET Core is Microsoft's latest iteration of its web framework, which boasts many upgrades over the .Net Framework versions of ASP.NET.  ASP.NET Core is cross-platform—meaning you can finally deploy your ASP.NET apps on Linux.  It's open-source which is a massive departure from Microsoft's previous line of thinking.  Most of the new framework should be familiar to veteran ASP.NET developers however there are some new tweaks to get used to.
 
 One of the most popular tools on ASP.NET was the powerful ORM Entity Framework.  With the release of ASP.NET Core, Entity Framework has released its next-gen version Entity Framework Core to work with .Net Core.  EF Core supports LINQ, change tracking, and schema migrations.  EF Core also works with many different databases, not just SQL Server.  You can use it with SQLite, MySQL, PostgreSQL, and Azure Cosmos DB.
 
 In this article, you will build a small app that allows users to vote on movies.  To compile the list of movies the app will allow users to add, update, or delete movies from the database.  You will use Visual Studio 2019, ASP.NET Core, Entity Framework Core,  Microsoft SQL Server, and Okta for Authentication.
+
+{% include integrator-org-warning.html %}
 
 ## Scaffold Your ASP.NET Core and Entity Framework Core Application
 

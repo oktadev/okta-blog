@@ -17,8 +17,6 @@ image: blog/secure-and-scalable-an-introduction-to-jamstack/secure-and-scalable-
 type: awareness
 ---
 
-{% include integrator-org-warning.html %}
-
 If you're a web developer, chances are you have heard the term "JAMstack." Curiously, JAMstack isn't a solution to prevent clogged printers, something to eat on toast, or a way to make music. However, by the time you finish reading this tutorial, you'll understand JAMstack and its benefits, and learn one approach to implementing JAMstack for yourself. _Let's get ready to JAM._
 
 The "JAM" in JAMstack stands for JavaScript, APIs, and Markup. JAMstack's pattern of architecture makes web applications less expensive to build and more secure, with better performance and scalability.
@@ -26,6 +24,8 @@ The "JAM" in JAMstack stands for JavaScript, APIs, and Markup. JAMstack's patter
 JAMstack does not dictate you switch to any particular technology. You can use any JavaScript library or technology that compiles to JavaScript (e.g. TypeScript, Elm, Clojure, or WebAssembly). JavaScript can fetch data or send updates to third-party APIs, your own API, Serverless functions, or any combination of APIs. For managing content, you can choose from a variety of static site generators, such as Hugo, GatsbyJS, Jekyll, Next.js, Nuxt.js, or VuePress, and write content using Markdown or any other markup system that renders as HTML.
 
 {% img blog/secure-and-scalable-an-introduction-to-jamstack/secure-and-scalable-introduction-to-jamstack.png alt:"JAMStack" width:"800" %}{: .center-image }
+
+{% include integrator-org-warning.html %}
 
 ## JAMstack is Fast, Scalable, and Less Expensive
 

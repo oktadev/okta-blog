@@ -19,8 +19,6 @@ changelog:
 - 2021-04-18: Updated to use Okta Angular v3 and streamline setup with the Okta CLI. See changes to this blog post in [okta-blog#743](https://github.com/oktadeveloper/okta-blog/pull/743); example app updates can be viewed in [okta-angular-notes-app-example#1](https://github.com/oktadeveloper/okta-angular-notes-app-example/pull/1).
 ---
 
-{% include integrator-org-warning.html %}
-
 When designing software with a user interface, it is important to structure the code in a way that makes it easy to extend and maintain. Over time, there have been a few approaches in separating out responsibilities of the different components of an application. Although there is plenty of literature on these design patterns around, it can be very confusing for a beginner to understand the features of limitations of the different patterns and the differences between them.
 
 In this tutorial, I want to talk about the major two approaches, the Model-View-Controller (MVC) pattern and the Model-View-ViewModel (MVVM) pattern. In the MVVM pattern, the controller is replaced by a ViewModel. The main differences between these two components are the direction of dependency between the View on one side, and the Controller or ViewModel on the other side.
@@ -30,6 +28,8 @@ I will be developing the ideas and explaining the patterns by example using a br
 **Table of Contents**{: .hide }
 * Table of Contents
 {:toc}
+
+{% include integrator-org-warning.html %}
 
 ## Set Up Your Application with Angular CLI
 

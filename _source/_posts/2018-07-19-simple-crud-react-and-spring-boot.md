@@ -29,8 +29,6 @@ changelog:
   - 2018-07-31: Updated to use Spring Boot 2.1.0 M1 and Spring Security 5.1.0 M2. You can see the example app changes in [okta-spring-boot-react-crud-example#6](https://github.com/oktadeveloper/okta-spring-boot-react-crud-example/pull/6); changes to this post can be viewed in [okta.github.io#2222](https://github.com/oktadeveloper/okta.github.io/pull/2222).
 ---
 
-{% include integrator-org-warning.html %}
-
 React was designed to make it painless to create interactive UIs. Its state management is efficient and only updates components when your data changes. Component logic is written in JavaScript, which means you can keep state out of the DOM and create components that are encapsulated.
 
 Developers like CRUD (create, read, update, and delete) apps because they show a lot of the base functionality that you need when creating an app. Once you have the basics of CRUD completed in an app, most of the client-server plumbing is finished, and you can move on to implementing the necessary business logic.
@@ -38,6 +36,8 @@ Developers like CRUD (create, read, update, and delete) apps because they show a
 Today, I'll show you how to create a basic CRUD app with Spring Boot in React. You might remember a similar article I wrote for Angular last year: [Build a Basic CRUD App with Angular 5.0 and Spring Boot 2.0](/blog/2017/12/04/basic-crud-angular-and-spring-boot). That tutorial uses OAuth 2.0's implicit flow and our [Okta Angular SDK](https://www.npmjs.com/package/@okta/okta-angular). In this tutorial, I'll be using the OAuth 2.0 Authorization Code flow and packaging the React app in the Spring Boot app for production. At the same time, I'll show you how to keep React's productive workflow for developing locally.
 
 You will need [Java 8](http://www.oracle.com/technetwork/java/javase/downloads/jdk8-downloads-2133151.html), [Node.js 8](https://nodejs.org/), and [Yarn](https://yarnpkg.com/en/docs/install) installed to complete this tutorial. You can use npm instead of Yarn, but you'll need to translate the Yarn syntax to npm.
+
+{% include integrator-org-warning.html %}
 
 ## Create an API App with Spring Boot 2.0
 

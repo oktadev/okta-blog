@@ -19,13 +19,13 @@ changelog:
   - 2021-12-08: Updated GitHub repo and blog post with dependency upgrades. You can see the changes in the [example app on GitHub](https://github.com/oktadev/okta-node-express-typescript-vue-example/pull/11). Changes to this article can be viewed in [oktadev/okta-blog#992](https://github.com/oktadev/okta-blog/pull/992).
 ---
 
-{% include integrator-org-warning.html %}
-
 Like it or not, JavaScript has been helping developers power the Internet since 1995. In that time, JavaScript usage has grown from small user experience enhancements to complex full-stack applications using Node.js on the server and one of many frameworks on the client such as Angular, React, or Vue. 
 
 Today, building JavaScript applications _at scale_ remains a challenge. More and more teams are turning to TypeScript to supplement their JavaScript projects. 
 
 Node.js server applications can benefit from using TypeScript, as well. The goal of this tutorial is to show you how to build a new Node.js application using TypeScript and Express.
+
+{% include integrator-org-warning.html %}
 
 ## The Case for TypeScript
 

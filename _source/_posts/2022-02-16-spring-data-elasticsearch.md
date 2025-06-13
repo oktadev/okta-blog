@@ -15,8 +15,6 @@ type: conversion
 github: https://github.com/oktadev/okta-spring-data-elasticsearch-example
 ---
 
-{% include integrator-org-warning.html %}
-
 You've probably heard of Elasticsearch or the Elastic Stack. The project started as a search engine based on [Lucene](https://lucene.apache.org/), an open-source search engine library built by Shay Banon to index his wife's cooking recipes. Since its early days, Elasticsearch has come a long way and has evolved into the [Elastic Stack](https://www.elastic.co/elastic-stack), a great suite for taking data from any source, in order to search, analyze, and visualize it in near real-time.
 
 Elasticsearch is a distributed document store; data is serialized as JSON documents and stored in a distributed way across cluster nodes. The _inverted index_ is a data structure that lists every unique word that appears in any document, and also lists the documents in which each word appears. This enables fast full-text searches, a feature not supported or only partially supported by database engines. The index is a collection of documents and each document is a collection of fields. In turn, each field can be indexed in an optimal data structure; for example, an inverted index for text fields, but a BKD tree for a numeric field.
@@ -34,6 +32,8 @@ How can be Elasticsearch integrated into a Spring Boot application? What are the
 **Table of Contents**{: .hide }
 * Table of Contents
 {:toc}
+
+{% include integrator-org-warning.html %}
 
 ## Elasticsearch integration options for Spring Boot
 

@@ -17,8 +17,6 @@ image: blog/featured/okta-dotnet-tile-mouse.jpg
 type: conversion
 ---
 
-{% include integrator-org-warning.html %}
-
 Entity Framework is one of the most pervasive Object-Relational Mappers (ORMs) for ASP.NET. An ORM maps an application's object entities to relational entities in a database, and allows developers to build and edit the database schema from the code. Furthermore, Entity Framework's design makes it particularly friendly for PostgreSQL developers.
 
 Entity Framework (EFCore) Core is a lighter weight and more flexible version that specifically enables .NET objects. It reduces the amount of data access code developers need to write, and offers higher-performance APIs.
@@ -33,6 +31,8 @@ To show how Entity Framework uses the domain model to interact with databases di
 > - Free Okta Developer Account
 
 Let's get started!
+
+{% include integrator-org-warning.html %}
 
 ## Create a PostgreSQL Instance
 

@@ -24,9 +24,6 @@ changelog:
   - 2020-05-18: Updated to remove `/implicit` from Login redirect URI. See the code changes in the [example app on GitHub](https://github.com/oktadeveloper/okta-angular-bootstrap-example/pull/4). Changes to this article can be viewed in [oktadeveloper/okta-blog#298](https://github.com/oktadeveloper/okta-blog/pull/298).
 ---
 
-{% include integrator-org-warning.html %}
-
-{% include integrator-org-warning.html %}
 :toc: macro
 :page-liquid:
 :experimental:
@@ -44,6 +41,8 @@ Another web framework took the world by storm the following year: AngularJS. Ang
 Together, these frameworks have had quite a run. It's hard to believe that they've lasted so long, especially considering both projects have had major rewrites!
 
 image::{% asset_path 'blog/angular-bootstrap/angular-bootstrap.png' %}[alt=Beautiful Angular Apps with Bootstrap,width=800,align=center]
+
+{% include integrator-org-warning.html %}
 
 toc::[]
 

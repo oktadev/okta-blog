@@ -22,8 +22,6 @@ changelog:
   - 2020-05-18: Upgraded to Okta React 3.0.1 and removed `/implicit` from Login redirect URI. See the code changes in the [example app on GitHub](https://github.com/oktadeveloper/okta-kotlin-react-crud-example/pull/3). Changes to this article can be viewed in [oktadeveloper/okta-blog#297](https://github.com/oktadeveloper/okta-blog/pull/297).
 ---
 
-{% include integrator-org-warning.html %}
-
 In this tutorial, you're going to build a client and server application using React for the frontend and Kotlin with Spring Boot for the backend. You'll first build the app unsecured before securing it using Okta. To secure the React frontend, you'll use OAuth 2.0 login, and for the backend, you'll use a JSON Web Token and Spring Boot's resource server OAuth implementation.
 
 This tutorial covers a lot of ground. It also uses a lot of technologies. Because of this, it doesn't dive too deep into any one of them and assumes a basic familiarity with React, Kotlin, Spring Boot, and REST APIs.
@@ -36,6 +34,8 @@ If you'd prefer to watch a video, you can [watch this tutorial as a screencast](
 **Table of Contents**{: .hide }
 * Table of Contents
 {:toc}
+
+{% include integrator-org-warning.html %}
 
 ## Install Kotlin and React Project Dependencies
 

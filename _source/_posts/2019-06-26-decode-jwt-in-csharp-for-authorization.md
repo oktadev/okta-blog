@@ -17,11 +17,11 @@ image: blog/featured/okta-dotnet-mouse-down.jpg
 type: conversion
 ---
 
-{% include integrator-org-warning.html %}
-
 There are two main steps in securing an application: authentication and authorization. Authentication is easy enough. A user enters a username and password (maybe even a second factor) to prove (authenticate) who they are. Authorization is a little less cut and dried. There are lots of factors that go into what an authenticated user is authorized to do. First, you need some information about the user that just authenticated.
 
 Many modern web apps use JSON Web Tokens (JWTs) during the authentication process. These JWTs can also carry information that can be used for authorization decisions within your applications. In this tutorial, you will learn how to decode JWTs in C# and how to use information from a JWT to make authorization decisions in a .NET Core app.
+
+{% include integrator-org-warning.html %}
 
 ## TL;DR - How to Decode JWTs in C\#
 

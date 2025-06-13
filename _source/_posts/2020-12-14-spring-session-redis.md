@@ -20,8 +20,6 @@ changelog:
 - 2022-03-08: Updated to use JHipster 7.7.0. See the changes to this post in [okta-blog#1082](https://github.com/oktadev/okta-blog/pull/1082). You can see the updates to the example app in [okta-spring-session-redis-example#2](https://github.com/oktadev/okta-spring-session-redis-example/pull/2).
 ---
 
-{% include integrator-org-warning.html %}
-
 Spring Boot and Spring Security have delighted developers with their APIs for quite some time now. Spring Security has done an excellent job of implementing OAuth and OpenID Connect (OIDC) standards for the last few years.
 
 If you're using Spring Security's default authorization code flow with OIDC, it'll establish a session on the server and serve up old fashion session cookies. If you want to scale your services, you'll need to share session information. This tutorial shows you how to configure a Spring Boot application to store sessions in Redis with Spring Session, so the session can be shared among multiple gateway nodes and is preserved when a node failure happens.
@@ -41,6 +39,8 @@ If you're using Spring Security's default authorization code flow with OIDC, it'
 You can also [watch a video of this tutorial](https://youtu.be/3kGrkVUZ_Fo).
 
 {% youtube 3kGrkVUZ_Fo %}
+
+{% include integrator-org-warning.html %}
 
 ## Build a Microservices Architecture with Spring Session and Redis
 

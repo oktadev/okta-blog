@@ -17,8 +17,6 @@ image: blog/featured/okta-java-skew.jpg
 type: conversion
 ---
 
-{% include integrator-org-warning.html %}
-
 Netty is a non-blocking input/output (NIO) framework that makes it relatively simple to develop low-level network servers and clients. Netty provides an incredible amount of power for developers who need to work down on the socket level, for example when developing custom communication protocols between clients and servers. It supports SSL/TLS, has both blocking and non-blocking unified APIs, and a flexible threading model. It's also fast and performant.
 
 Netty's asynchronous, non-blocking I/O model is designed for highly scalable architectures and may allow for higher throughput than an analogous blocking model. Basically, a non-blocking server runs all requests asynchronously on a single thread (no function should "block" the event loop). This contrasts with a blocking server model, which typically runs each request on a separate thread. By never having to switch threads or create new threads as load increases, the non-blocking model allows for reduced overhead and quicker expansion as traffic increases.
@@ -36,6 +34,8 @@ Netty is designed to make the implementation of custom network protocols relativ
 However, even if you're not going to write your own custom TCP protocol, you can still use the power of Netty. Spring WebFlux is Spring's answer to non-blocking and reactive programming. It's an alternative to the traditional (blocking) Spring MVC architecture. By default, the Spring Boot WebFlux Starter runs on an embedded Netty server. In this configuration, you can think of WebFlux as a reactive, non-blocking HTTP application layer built on top of Netty's NIO socket goodness. 
 
 In this tutorial, you are going to create a basic "Hello world" application in Netty. Next, you're going to create the same "Hello world" application in Spring Boot WebFlux. Finally, you're going to add OAuth 2.0 login to the application using Okta as the OAuth 2.0 provider.
+
+{% include integrator-org-warning.html %}
 
 ## Install the Project Dependencies
 

@@ -16,8 +16,6 @@ tweets:
 type: conversion
 ---
 
-{% include integrator-org-warning.html %}
-
 Building a web application isn't supposed to be drudgery. No developer has ever said "I'd really like to spend two hours configuring webpack and TypeScript this weekend." You'd rather build cool stuff NOW and spend time thinking about your applications, not the tools you're forced to use. In a lot of cases the "cool stuff" is a dynamic, fast, secure single-page app. To achieve that, in this tutorial I'll show you how to get a basic app running with a Symfony 4 API and an Angular 6 frontend in less than an hour.
 
 On the surface, Symfony and Angular might seem like a peculiar combination. Angular is a product of Google and the rumor that Google developers are allowed to use any language at work, except PHP, is not entirely fake news. PHP is a dynamic language. It's also probably the biggest reason why dynamic languages sometimes get a bad reputation. Angular uses TypeScript, which was developed by people who spent vast amounts of effort just because they thought JavaScript should not be a dynamic language.
@@ -29,6 +27,8 @@ However, if you look closer, Symfony and Angular share a lot of similarities:
 * Both frameworks have excellent command line tools for seamless installation, configuration, and code scaffolding
 
 So that covers fast and dynamic, but what about secure? For that you''ll use Okta for user authentication and authorization. You'll need to set up a development environment with PHP 7 and Node.js 8+/npm. You will also need an [Okta developer account](https://developer.okta.com/).
+
+{% include integrator-org-warning.html %}
 
 ## Why Okta?
 

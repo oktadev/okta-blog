@@ -19,8 +19,6 @@ redirect_to:
   - "/blog/2022/10/20/spring-vault"
 ---
 
-{% include integrator-org-warning.html %}
-
 In 2013, GitHub released a search feature that allows users to scan code in all public repositories. A day after the release, however, they had to partially shut it down. It was speculated that the shutdown was because the feature allowed any user to search for all kinds of secrets stored in GitHub repositories. Later, in 2014, data on 50,000 Uber drivers was stolen. It seems someone got access to the company's database using login credentials found in a GitHub public repository. Hashicorp Vault, a tool for managing secrets and encrypting data in transit, was first announced in 2015 and Spring Vault, the integration of Spring with Vault, was first released in 2017.
 
 It seems like a long time ago, right? Secrets leakage seems to remain pervasive and constant, happening to all kinds of developers—as explained by [this study from NC State University](https://www.ndss-symposium.org/ndss-paper/how-bad-can-it-git-characterizing-secret-leakage-in-public-github-repositories/). Exposed secrets leads to cyber-attacks, data loss or corruption, sensitive data breaches, and crypto-jacking (cryptocurrency mining using a victim's cloud computer power). With tools like Hashicorp's Vault and Spring Cloud Vault, the risk can be reduced.
@@ -33,6 +31,8 @@ Nowadays it is widely recommended to never store secret values in code. Therefor
 - Using Spring Cloud Vault
 
 **Prerequisites**: [Java 8](https://adoptopenjdk.net/)+ and [Docker](https://docs.docker.com/engine/install/).
+
+{% include integrator-org-warning.html %}
 
 ## Use Environment Variables for Secrets; a Precursor to Spring Vault
 

@@ -19,7 +19,6 @@ changelog:
 - 2021-04-02: Updated to use Java 11 and Spring Boot 2.4.4. See [example app changes on GitHub](https://github.com/oktadeveloper/spring-boot-docker-example/pull/1). Changes to this article can be viewed in [okta-blog#674](https://github.com/oktadeveloper/okta-blog/pull/674).
 ---
 
-{% include integrator-org-warning.html %}
 :toc: macro
 :page-liquid:
 :experimental:
@@ -29,6 +28,8 @@ Docker enables you to deploy a server environment in containers. A container is 
 image::{% asset_path 'blog/spring-boot-deploy-docker/app-docker-host.png' %}[alt="Docker host layer diagram",width=400,align=center]
 
 In this tutorial, you'll see how to leverage Docker to deploy your Spring Boot application.
+
+{% include integrator-org-warning.html %}
 
 toc::[]
 

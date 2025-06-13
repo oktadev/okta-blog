@@ -17,8 +17,6 @@ Image: blog/unity-webgl-playfab-authorization/Webgl_OAuth_Thumb.png
 type: conversion
 ---
 
-{% include integrator-org-warning.html %}
-
 As game creators, we hold a fundamental responsibility to protect and secure any and all data that our players entrust to us. Historically, security in games has not been high on the priority list because games were enjoyed anonymously and offline. But with our society becoming ever more connected, demand for social gaming experiences and online gaming features has increased exponentially. This has led to the development of cloud-based gaming platforms, such as [PlayFab](https://docs.microsoft.com/en-us/gaming/playfab/what-is-playfab), that handle everything from multiplayer server hosting, leaderboard tracking, virtual economy, data/analytics, and much more. Even games that are mostly considered "offline" are seeing increased demand for some connected functionality. As more games are developed in the cloud (or developed with cloud-based platforms) and track an increasingly large amount of user data, security is becoming one of the highest priorities for the games community.  
 
 {% img blog/unity-webgl-playfab-authorization/p_soti_stuffing.jpeg alt:"SOTI Credential Stuffing" width:"800" %}{: .center-image }
@@ -28,6 +26,8 @@ In their 2020 [State of the Internet / Security](https://www.akamai.com/us/en/mu
 In [Identity Security for Games in C# with Unity](/blog/2020/08/21/unity-csharp-games-security), we took a look at the extreme basics of storing and authenticating users in a Unity project. That example is a great starting point for the fundamentals, providing a "hello world" concept within the Unity editor. I want to expand upon how the design can change depending on the build target and how to make use of a player's authorization by passing it into other back-end platforms. To do this, we will be building a [WebGL](https://docs.unity3d.com/Manual/webgl-gettingstarted.html) application in [Unity](https://unity.com/) that authenticates player's and authorizes them to [Azure Playfab](https://playfab.com/); where their player data will be stored. Here is a conceptual overview of what this will look like:
 
 {% img blog/unity-webgl-playfab-authorization/p_Unity_Playfab_Auth.png alt:"PlayFab SDK" width:"800" %}{: .center-image }
+
+{% include integrator-org-warning.html %}
 
 ## Prerequisites
 

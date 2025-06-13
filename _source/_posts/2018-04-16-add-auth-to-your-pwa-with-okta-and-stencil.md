@@ -16,8 +16,6 @@ tweets:
 type: conversion
 ---
 
-{% include integrator-org-warning.html %}
-
 [Progressive Web Applications](/blog/2017/07/20/the-ultimate-guide-to-progressive-web-applications) (PWAs) are the newest technology on the web dev block and they've arrived just in time to solve a growing problem. Many companies are struggling to keep isolated development teams across their organization up-to-date when new features are released. Some companies are even trying to decide if it's worth the cost to develop both a web app *and* a mobile application. Not surprisingly, it's a headache most companies are looking to avoid. PWAs can give companies a lot of the features they need from a mobile app without the need to manage multiple teams and codebases.
 
 A [PWA](https://developers.google.com/web/progressive-web-apps/) performs spectacularly when on a fast connection and still performs well when offline or on Wi-Fi that's not really fast enough to be called Wi-Fi (sometimes called "Lie-Fi"). It does so via caching and a JavaScript "Service Worker" that intercepts server calls and tries to serve the data from cache first, then when the server finally responds, it will replace the cached data with possibly "fresher" data from the server.
@@ -27,6 +25,8 @@ Recently, the [Ionic](https://ionicframework.com/) team released a new project c
 To get started building a PWA using Stencil, clone the starter application and detach it from the GitHub remote.
 
 **WARNING**: Stencil is not at a 1.0 release yet (as of this writing). So be aware that if you continue, you're in early-adopter territory. If you find bugs, [submit an issue](https://github.com/ionic-team/stencil/issues).
+
+{% include integrator-org-warning.html %}
 
 ## Set Up the Starter Application
 

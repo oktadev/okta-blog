@@ -17,8 +17,6 @@ image: blog/featured/okta-node-tile-books-mouse.jpg
 type: conversion
 ---
 
-{% include integrator-org-warning.html %}
-
 Node.js boasts high performance and scalability for web, mobile, or desktop applications. It is one of the fastest-growing and best-supported javascript frameworks available today, and its microservice patterns has made it a hit for modern enterprise applications. PostgreSQL has also risen in popularity, to compete with MySql. The two technologies partner well as a foundation for modern, microservices-based applications.
 
 In this post, we will build a small application that keeps track of a To-Do List and the status of tasks, all built on Node and Postgres.
@@ -26,6 +24,8 @@ In this post, we will build a small application that keeps track of a To-Do List
 To connect the two you will use an ORM (Object-Relational Mapper) called Sequelize, available via the Node Package Manager, npmjs. Sequelize fits beautifully over Postgres, MSSql, MySql, and MariaDB with no need to rewrite code. This tutorial will also use Express.js, because it makes working with Node so simple. You'll need a proper IDE for Node development, and we use Visual Studio Code in this example, because it's free, lightweight, and extensible.
 
 Finally, to power authentication, you will use [Okta](https://www.okta.com/) , and its Okta OIDC Middleware and the Node.js SDK.
+
+{% include integrator-org-warning.html %}
 
 ## Set Up PostgreSQL
 
