@@ -61,7 +61,7 @@ Through APIs, I also discovered the power of OAuth and identity management. I sa
 
 With every sample app, tutorial, and user conversation, my passion for APIs grew stronger. And now, here I am, ready to bring all of that to Okta.
 
-## Why okta?
+## Why Okta?
 
 I'm beyond excited to be at Okta, a place where security isn't just a department – it's part of our DNA. Our customers come first, and every decision we make is guided by a single goal: to give people safe, seamless access to the tools they love. Whether you're a startup building your first app or an enterprise rolling out AI solutions, Okta's mission is to keep you secure without slowing you down.
 
