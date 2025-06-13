@@ -17,8 +17,6 @@ image: "blog/php-laravel-angular-crud-app/image1.png"
 type: conversion
 ---
 
-{% include integrator-org-warning.html %}
-
 Laravel is a popular PHP framework for Web application development and it's a pretty good choice if you're starting a new project today for multiple reasons:
 
 Laravel is a well-architectured framework that's easy to pick up and write elegant code, but it's powerful as well.
@@ -30,6 +28,8 @@ Laravel includes a decent templating engine if you're going old school (by gener
 One of the best 'hidden' features of Laravel is that it's very easy to use it to create a REST-ful API that can drive a frontend built in your preferred framework. Of course, you can also go with the light-weight version of Laravel, Lumen, if you need a high-performance API with minimum overhead and bootstrapping time of less than 40 ms, but for most purposes, the full-featured Laravel will do just fine. Today, I'm going to show you how easy it is to set up a Laravel API that is consumed by an Angular 6 application. We'll use Okta for user authentication and authorization in our app, which will allow us to implement security the right way without any hassle.
 
 Before you start, you'll need to set up a development environment with PHP 7 and Node.js 8+/npm. You will also need an [Okta developer account](https://developer.okta.com/).
+
+{% include integrator-org-warning.html %}
 
 ## Why Use Okta for Authentication?
 

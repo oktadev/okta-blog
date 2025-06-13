@@ -16,9 +16,9 @@ tweets:
 type: conversion
 ---
 
-{% include integrator-org-warning.html %}
-
 Buying things on the Internet has become a daily activity and is a feature many new projects require. In this tutorial, I will show you how to build an app to sell tickets using an Angular 6 single page app (SPA) using an ASP.NET Core 2.1 backend API. You'll build both the Angular and ASP.NET Core applications and run them from within VS Code. Let's get to it!
+
+{% include integrator-org-warning.html %}
 
 ## Upgrade to Angular 6
 

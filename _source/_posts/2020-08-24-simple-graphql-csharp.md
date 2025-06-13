@@ -17,8 +17,6 @@ image: blog/featured/okta-dotnet-bottle-headphones.jpg
 type: conversion
 ---
 
-{% include integrator-org-warning.html %}
-
 In today's connected world, APIs are becoming an essential part of software and hardware companies. APIs allow companies to expose their services to third-party developers and integrate with other services. As more and more APIs are built and exposed to the internet, it is essential to secure them from unauthorized access. In this tutorial, you will learn how to build an [ASP.NET Core 3.1 Web API](https://docs.microsoft.com/en-us/aspnet/core/introduction-to-aspnet-core?view=aspnetcore-3.1) using GraphQL and secure it with Okta.
 
 ASP.NET Core is an open-source framework for building web apps and web APIs. It is cross-platform, runs on [.NET Core](https://docs.microsoft.com/en-us/dotnet/core/introduction), and can be hosted on-premise or cloud-based.
@@ -29,6 +27,8 @@ To continue you will need:
 - [Visual Studio 2019](https://visualstudio.microsoft.com/vs/) or [Visual Studio Code](https://code.visualstudio.com/)
 - [.NET Core 3.1 SDK](https://dotnet.microsoft.com/download/dotnet-core)
 - An [Okta Developer Account](https://developer.okta.com/) (free forever, to handle your OAuth needs)
+
+{% include integrator-org-warning.html %}
 
 ## Benefits of GraphQL
 

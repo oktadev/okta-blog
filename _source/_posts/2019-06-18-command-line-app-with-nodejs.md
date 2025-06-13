@@ -19,13 +19,13 @@ changelog:
 - 2021-04-05: Updated to use the Okta CLI for setup and upgrade to axios 0.21.1. Changes to this post can be viewed in [okta-blog#676](https://github.com/oktadeveloper/okta-blog/pull/676).
 ---
 
-{% include integrator-org-warning.html %}
-
 Command line applications (CLI) are often the core tools for automating tasks, such as deploying production applications, running tests, building reports, migrating data, DevOps, and the list goes on and on. If you find yourself doing the same things over and over again, chances are you can automate those steps with a script and save yourself a lot of time!
 
 Node.js is a great solution for writing CLI apps. Node.js itself has built-in libraries for reading and writing files, launching other applications, and basic network communication. Beyond that, there are thousands of packages available on `npm` for just about any kind of task imaginable.
 
 In this tutorial, you will learn how to create a Command Line Application with Node.js that can be used on Windows, macOS, or Linux. You will also learn how to style the output of a Node.js CLI application, accept arguments (parameters), and how to authenticate an API from the command line using OAuth 2.0 and PKCE.
+
+{% include integrator-org-warning.html %}
 
 ## Build Your First Node.js Command Line Application
 

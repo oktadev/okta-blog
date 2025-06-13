@@ -15,8 +15,6 @@ tweets:
 type: conversion
 ---
 
-{% include integrator-org-warning.html %}
-
 Even with all the hype around ASP.NET Core, many .NET developers continue to develop applications with ASP.NET 4.x. The ASP.NET 4.X framework is still being developed, and will be supported for a long time to come. It's a battle-tested web framework that has existed for over 15 years and is supported by a mature ecosystem.
 
 On the client side, many developers prefer Angular, and it is outstanding for building enterprise-level, feature rich, applications.
@@ -24,6 +22,8 @@ On the client side, many developers prefer Angular, and it is outstanding for bu
 The application we will be creating is a simple CRUD Sugar Level Tracker. First, we will learn how to build a REST service with our framework of choice, ASP.NET Web API 2. After that, we will implement SPA that will consume our API. Also, let's not forget about security! We will learn how to easily secure our application with an external provider like Okta. In the end, we will have fully functional, and secure application for measuring sugar level.
 
 We will be using .NET Framework 4.7.1 and Visual Studio 2017. Also, you should have Node and npm installed.
+
+{% include integrator-org-warning.html %}
 
 ## Get Started with ASP.NET
 

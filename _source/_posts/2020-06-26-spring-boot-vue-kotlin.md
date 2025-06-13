@@ -19,8 +19,6 @@ changelog:
 - 2020-08-31: Updated GitHub repo to have proper starter files and fixed logout in Vue. You can see the changes in the [example app on GitHub](https://github.com/oktadeveloper/okta-kotlin-spring-boot-vue-example/pull/4). Changes to this article can be viewed in [oktadeveloper/okta-blog#392](https://github.com/oktadeveloper/okta-blog/pull/392).
 ---
 
-{% include integrator-org-warning.html %}
-
 Much like React or Angular, Vue.js is a JavaScript view library. When coupled with a state management library like MobX, Vue.js becomes a full-featured application framework. Vue.js is designed to be incrementally adoptable, so you can use as much or as little of it as you like. Like React, Vue.js utilizes a virtual DOM to streamline processing so that it renders as little as possible on each state update. 
 
 In my experience, Vue is far simpler to use and learn than React and Angular and is particularly great on small projects where you don't need a full web application framework (or don't want to write a bunch of sagas, actions, and action creators just to manage a few state variables). That said, Vue.js is also increasingly being used for larger projects. 
@@ -44,6 +42,8 @@ The example application you're going to build here is a todo app. The client-sid
 **Table of Contents**{: .hide }
 * Table of Contents
 {:toc}
+
+{% include integrator-org-warning.html %}
 
 ## Create a Vue + Spring Boot Application
 

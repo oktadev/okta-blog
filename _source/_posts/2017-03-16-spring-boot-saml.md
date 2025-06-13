@@ -24,8 +24,6 @@ changelog:
   - 2017-04-20: Thanks to [Alexey Soshin](https://github.com/AlexeySoshin) for contributing a [pull request](https://github.com/oktadeveloper/okta-spring-boot-saml-example/pull/2) to make the code in this blog post more bootiful!
 ---
 
-{% include integrator-org-warning.html %}
-
 Today I'd like to show you how build a Spring Boot application that leverages Okta's Platform API for authentication via SAML. SAML (Security Assertion Markup Language) is an XML-based standard for securely exchanging authentication and authorization information between entities—specifically between identity providers, service providers, and users. Well-known IdPs include Salesforce, Okta, OneLogin, and Shibboleth.
 
 My Okta developer experience began a couple years ago (in December 2014) when I worked for a client that was adopting it. I was tasked with helping them decide on a web framework to use, so I built prototypes with Node, Ruby, and Spring. I documented my findings in [a blog post](https://raibledesigns.com/rd/entry/integrating_node_js_ruby_and). Along the way, [I tweeted](https://twitter.com/mraible/status/550057304331001856) my issues with Spring Boot, and [asked how to fix it](http://stackoverflow.com/questions/27713524/how-do-i-configure-spring-security-saml-to-work-with-okta?stw=2) on Stack Overflow. I ended up figuring out the solution through trial-and-error and my findings made it into the [official Spring documentation](http://docs.spring.io/autorepo/docs/spring-security-saml/1.0.x-SNAPSHOT/reference/html/chapter-idp-guide.html#d5e1816)[.](http://docs.spring.io/autorepo/docs/spring-security-saml/1.0.x-SNAPSHOT/reference/html/chapter-idp-guide.html#d5e1816) Things have changed a lot since then and now Spring Security 4.2 has support for auto-loading custom DSLs. And guess what, there's even a DSL for SAML configuration!
@@ -35,6 +33,8 @@ Ready to get started? You can follow along in with the written tutorial below, [
 <div style="text-align: center">
 <iframe width="600" height="338" style="max-width: 100%" src="https://www.youtube.com/embed/kBaitgdcNWo" frameborder="0" allowfullscreen></iframe>
 </div>
+
+{% include integrator-org-warning.html %}
 
 ## Sign Up for an Okta Developer Account
 

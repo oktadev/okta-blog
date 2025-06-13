@@ -17,8 +17,6 @@ image: blog/featured/okta-java-short-skew.jpg
 type: conversion
 ---
 
-{% include integrator-org-warning.html %}
-
 JavaServer Faces (JSF) is a Java framework for building Web applications, centered on components as the building blocks for the user interface. JSF benefits from a rich ecosystem of tools and vendors, as well as out of the box components and libraries that add even more power. 
 
 Why use JSF instead of JavaServer Pages (JSP)? There are two primary reasons: First, JSF has more templating capabilities, since it doesn't write your view directly as it encounters the tag. Instead, you build a view as XML that can be preprocessed before output to HTML. This means you can reuse and better organize your code as your app grows. Second, JSF provides an entire MVC architecture for you, while JSP is just a scripting language that abstracts writing a Servlet by hand.
@@ -28,6 +26,8 @@ With that background, let's create a simple application that shows the power of 
 **Table of Contents**{: .hide }
 * Table of Contents
 {:toc}
+
+{% include integrator-org-warning.html %}
 
 ## Create a CRUD Application With JSF
 

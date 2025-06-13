@@ -16,11 +16,11 @@ image: blog/add-authentication-and-personalization-to-vuepress/add-authenticatio
 type: conversion
 ---
 
-{% include integrator-org-warning.html %}
-
 There are several advantages to using a static site generator such as VuePress. With VuePress, you can focus on writing content using markdown, and the VuePress application generates static HTML files. VuePress also turns your content into a single-page application (SPA), so transitions between pages seem instant and seamless. The generated static files can be cached and distributed across a content delivery network (CDN) for even more performance. For the reader, VuePress creates a great experience.
 
 However, a "static" site does not mean you cannot add dynamic touches to your content. In this tutorial, you will learn how to customize VuePress to create a personalized experience based on the person currently viewing the content.
+
+{% include integrator-org-warning.html %}
 
 ## Install VuePress
 

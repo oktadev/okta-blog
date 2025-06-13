@@ -15,8 +15,6 @@ type: conversion
 github: https://github.com/oktadev/okta-net-maui-example
 ---
 
-{% include integrator-org-warning.html %}
-
 Have you ever been inspired by a colleague's work and decided to explore a new tool or technology? That's what happened to me when my colleague, Andrea Chiarelli, wrote a blog post "[Add Authentication to .NET MAUI Apps with Auth0](https://auth0.com/blog/add-authentication-to-dotnet-maui-apps-with-auth0/)." As someone who is always looking for ways to improve my skills and stay up-to-date with the latest trends in technology, I was intrigued by his post and decided to try MAUI, but this time using Okta for user authentication.
 
 In this tutorial, I'll walk you through the steps of integrating Okta into a MAUI application, including a few troubleshooting tips for issues I encountered. Hopefully, my experience will inspire and help others who want to make their MAUI applications more secure with Okta.
@@ -32,6 +30,8 @@ If you are getting started with .NET MAUI Apps, you can find all the requirement
 > [Okta](https://developer.okta.com/) has Authentication and User Management APIs that reduce development time with instant-on, scalable user infrastructure.
 
 {% include toc.md %}
+
+{% include integrator-org-warning.html %}
 
 ## Create a new .NET MAUI Application
 

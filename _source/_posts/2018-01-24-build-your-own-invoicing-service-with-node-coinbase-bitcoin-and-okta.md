@@ -15,8 +15,6 @@ tweets:
 type: conversion
 ---
 
-{% include integrator-org-warning.html %}
-
 
 I got into Bitcoin back in 2011. Since then, I've been a fan of cryptocurrencies and have always had an interest in them. I've also built several Bitcoin projects over the years (an information website, an ecommerce site, and several others) to help promote the usage of the cryptocurrency (while having some fun).
 
@@ -32,6 +30,8 @@ I do a bit of consulting work myself and will be using this in the future. =)
 
 {% img blog/node-invoicing-service/crypto-invoicer.png alt:"Crypto Invoicer" width:"620" %}{: .center-image }
 
+
+{% include integrator-org-warning.html %}
 
 ## Get Started with Coinbase, Okta, and Node.js
 

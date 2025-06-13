@@ -17,8 +17,6 @@ image: blog/nestjs-react/social-image.png
 type: conversion
 ---
 
-{% include integrator-org-warning.html %}
-
 NestJS is a node.js framework that boasts the ability to build efficient, reliable, and scalable applications.  A NestJS application can serve as the backend for your SPA.  
 
 In this tutorial, you will use React, one of the most popular javascript front-end libraries available to build your SPA, and then use NestJS for your server.  To secure everything, you will level Okta's simple and powerful single sign-on provider.  
@@ -26,6 +24,8 @@ In this tutorial, you will use React, one of the most popular javascript front-e
 You will learn how to authenticate a user to React using Okta.  Okta will then issue a JWT to your SPA, which you can relay to the NestJS application.  NestJS is built with external libraries in mind, meaning it's straightforward to use Okta's JWT verifier to validate the JWT and ensure the user is authorized to access the resources on your server.  
 
 {% img blog/nestjs-react/app-diagram.png alt:"Application Diagram" width:"800" %}{: .center-image }
+
+{% include integrator-org-warning.html %}
 
 ## Create your Okta Application
 

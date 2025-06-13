@@ -14,8 +14,6 @@ image: blog/native-sso/native-sso-social.jpg
 type: conversion
 ---
 
-{% include integrator-org-warning.html %}
-
 When you hear SSO (Single Sign-On), you probably immediately think of web apps, and how you only need to sign into one web app first, then all other web apps give you seamless access. Unfortunately, for desktop and mobile applications (often referred to as "native apps"), the seamless web SSO experience (also referred to as native SSO) has not caught on. This is partly due to the lack of an industry standard or best practice on how to accomplish native SSO.
 
 Although there is no standard yet, there's been growing demand for a solution, due to the continued expansion of native apps, both desktop and mobile. In 2020, a report from RiskIQ counted [8.9 million mobile apps](https://www.forbes.com/sites/johnkoetsier/2020/02/28/there-are-now-89-million-mobile-apps-and-china-is-40-of-mobile-app-spending/?sh=33b7e96721dd). There are also a large number of internal native apps available to employees within an enterprise.
@@ -23,6 +21,8 @@ Although there is no standard yet, there's been growing demand for a solution, d
 In comparison with desktop or web apps, it's even more critical to enable SSO for mobile apps, due to the smaller keyboard and screen on a mobile device, which makes password input more painful. To date, complex proprietary solutions have not proven interoperable with the variety of native applications an enterprise installs on employee devices. Thus, there is still a dire need for an industry-standard solution.
 
 Fortunately, this problem is widely recognized, and an OIDC draft spec [Native SSO for Mobile Apps](https://openid.net/specs/openid-connect-native-sso-1_0.html) has been released to address the issue using a token-exchange approach. Okta recently added support for this draft spec. In this article, we describe the solution and compare it to an existing approach. We also share an example app to demonstrate how you can use the token-exchange solution to build SSO for your apps, not only within the same device, but also across devices. Specifically, the example demonstrates how you can *single-sign-on* with Okta to a mobile app on one device (such as your iPhone), then have access to all your apps on another desktop device (such as your Mac).
+
+{% include integrator-org-warning.html %}
 
 ## Sharing web sessions with native apps
 

@@ -19,8 +19,6 @@ changelog:
 - 2021-04-17: Upgraded to Spring Boot 2.4 and streamlined setup with the Okta CLI. See changes in [okta-blog#734](https://github.com/oktadeveloper/okta-blog/pull/734); example app changes can be viewed in [this pull request](https://github.com/oktadeveloper/okta-spring-boot-custom-actuator-example/pull/1).
 ---
 
-{% include integrator-org-warning.html %}
-
 Have you worked with Spring Boot Actuator yet? It's an immensely helpful library that helps you monitor app health and interactions with the app - perfect for going to production! Spring Boot Actuator includes a built-in endpoint for tracing HTTP calls to your application - very useful for monitoring OpenID Connect (OIDC) requests - but unfortunately the default implementation does not trace body contents. In this post, I'll show you how to extend the httptrace endpoint for capturing contents and tracing the OIDC flow.
 
 Let's get started!
@@ -28,6 +26,8 @@ Let's get started!
 **Table of Contents**{: .hide }
 * Table of Contents
 {:toc}
+
+{% include integrator-org-warning.html %}
 
 ## Create an OpenID Connect App with Spring Initializr and Okta
 

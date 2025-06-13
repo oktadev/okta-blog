@@ -21,8 +21,6 @@ changelog:
   - 2019-10-31: Removed Trusted Origin (CORS) section since it's no longer needed. Changes to this post can be viewed in [okta-blog#69](https://github.com/oktadeveloper/okta-blog/pull/69).
 ---
 
-{% include integrator-org-warning.html %}
-
 <div class="alert alert-info" role="alert">
   <p class="title">
     <a class="close" aria-label="Close" title="Close"
@@ -58,6 +56,8 @@ You can also watch this tutorial as a [video on YouTube](https://youtu.be/uPFira
 <div style="text-align: center; margin-bottom: 1.25rem">
 <iframe width="700" height="394" style="max-width: 100%" src="https://www.youtube.com/embed/uPFirakhBtQ" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 </div>
+
+{% include integrator-org-warning.html %}
 
 ## Create an Okta Account
 

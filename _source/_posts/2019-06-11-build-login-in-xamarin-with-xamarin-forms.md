@@ -16,8 +16,6 @@ image: blog/featured/okta-dotnet-headphones.jpg
 type: conversion
 ---
 
-{% include integrator-org-warning.html %}
-
 Chuck Norris could easily make a single app run on all of the platforms iOS, Android, and Windows - without any frameworks or tools. Most of the rest of us could probably do with some help.
 
 Happily, Xamarin Forms is the perfect tool for the job, and makes it a breeze to create an app! With Xamarin Forms your app will run on all three platforms from a single codebase. Xamarin Forms comes free with Visual Studio 2019 community edition from Microsoft. Let's try it out - and have some fun. We'll make a simple app that fetches Chuck Norris facts and collects your favorites.
@@ -39,6 +37,8 @@ If you forget, no problem! Just open "Visual Studio Installer" from your start m
 When you continue, it will open the Windows Settings window to turn on developer mode. Make sure to turn it on (it's not defaulted).
 
 You may also use Visual Studio 2017, but it would be wise to update it - to make sure you have the latest version of Xamarin.Forms. Start the Visual Studio installer and select Update if that is an option.
+
+{% include integrator-org-warning.html %}
 
 ## Scaffold Your Xamarin App for Secure Login
 

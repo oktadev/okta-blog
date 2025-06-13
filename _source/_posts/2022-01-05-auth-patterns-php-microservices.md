@@ -13,8 +13,6 @@ image: blog/auth-patterns-php-microservices/social.jpg
 type: conversion
 ---
 
-{% include integrator-org-warning.html %}
-
 Microservices are an increasingly popular architecture, as they allow you to split application development into smaller, easier-to-manage pieces. However, microservices introduce complexity when it comes to implementing authentication. Generally, you only need to worry about one point of ingress for auth with a traditional monolithic application. Still, there are multiple ways to set things up with microservices and just as many authentication patterns to suit. 
 
 In this tutorial, you'll see how to build a small demo application consisting of four microservices and a simple API gateway. I'll share some handy patterns for securing access to the microservices. Here is a rough diagram of the intended architecture and a sequence diagram showing the flow of communication between components.
@@ -26,6 +24,8 @@ Rough architecture:
 Sequence diagram:
 
 {% img blog/auth-patterns-php-microservices/sequence-diagram.png alt:"Diagram showing the sequence flow in the demo app with 4 microservices, an API gateway, and Okta auth" width:"600" %}{: .center-image }
+
+{% include integrator-org-warning.html %}
 
 ## Implementation
 

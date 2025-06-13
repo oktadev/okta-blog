@@ -16,13 +16,13 @@ image: blog/featured/okta-php-headphones.jpg
 type: conversion
 ---
 
-{% include integrator-org-warning.html %}
-
 Laravel is one of the hottest frameworks for backend and full-stack development of Web applications today. It boasts a large number of quality features out-of-the-box, but it's still easy to learn the basics. The community is vast, and there are tons of free resources available on the Internet.
 
 This sample application will use Postgres as the backend database system, Okta for user authentication, and Heroku for quick deployment to a scalable platform. Heroku is a Platform-as-a-Service (PaaS) that allows you to get started and go live faster because it handles the underlying infrastructure automatically. It also helps your application grow elastically by managing the available resources according to the load. Heroku is also probably the cheapest option for low-traffic sites – you can't beat free!
 
 You'll need PHP, Composer, and Postgres. You will also need an [Okta developer account](https://developer.okta.com/) and a [Heroku account](https://signup.heroku.com/) – you can sign up for free on both sites.
+
+{% include integrator-org-warning.html %}
 
 ## Okta For Identity Management
 

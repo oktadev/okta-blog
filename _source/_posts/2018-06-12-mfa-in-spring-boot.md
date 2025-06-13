@@ -15,8 +15,6 @@ tweets:
 type: conversion
 ---
 
-{% include integrator-org-warning.html %}
-
 OAuth 2.0 has quickly become an industry standard for third party authentication for web applications. It's a super secure strategy, when implemented properly, but getting it right can be hard. Fortunately, you don't have to go it alone. Okta has done it for you. This is one place where it's definitely not worth re-inventing the wheel.
 
 And further, with all of the cybersecurity attacks today, just using a password, even a hard password, is not always enough. To truly secure your data and accounts, you need to use multi-factor authentication (or MFA).
@@ -24,6 +22,8 @@ And further, with all of the cybersecurity attacks today, just using a password,
 The most common factor used in MFA is an email or a text (SMS). This type of MFA is also called two-factor authentication, a subtype of MFA, because it uses two factors: a password and an email or an SMS.
 
 In this tutorial, we are going to show you how easy Okta makes setting up a Spring Boot application with two-factor authentication using SMS.
+
+{% include integrator-org-warning.html %}
 
 ## Why Okta?
 

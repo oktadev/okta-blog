@@ -16,11 +16,11 @@ image: blog/featured/okta-php-headphones.jpg
 type: conversion
 ---
 
-{% include integrator-org-warning.html %}
-
 Building a user authentication system for your Web application from scratch can be a deceptively tricky job. It seems easy at first, but there are so many details you have to consider - hashing the passwords properly, securing the user sessions, providing a way to reset forgotten passwords. Most modern frameworks offer boilerplate code for dealing with all of these issues but even if you're not using a framework, do not despair. In this article, I'll show you how to build a PHP application from scratch (with just a single dependence on an external library - DotEnv, so we can store our secrets in a .env file outside the code repository). The application will provide user login/logout, new user registration, and a 'Forgot Password' form by taking advantage of Okta's simple OAuth 2.0 API.
 
 All you'll need to follow the tutorial is an Okta developer account ([you can create one for free](https://developer.okta.com/signup/)), PHP and Composer.
+
+{% include integrator-org-warning.html %}
 
 ## Why Use Okta for Authentication?
 

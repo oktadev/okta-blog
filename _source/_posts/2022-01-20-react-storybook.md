@@ -14,8 +14,6 @@ type: conversion
 github: https://github.com/oktadev/okta-react-storybook-example
 ---
 
-{% include integrator-org-warning.html %}
-
 UI designers and front-end developers are tasked with creating clean and consistent user interfaces. At the same time, testing is a cornerstone of software development. Each part of a software project is tested individually and isolated from the other elements in unit tests. This practice has been challenging to achieve in the context of user interfaces. 
 
 Now [Storybook](https://storybook.js.org/) provides an open-source framework that lets you test UI components in isolation from the rest of the website. Storybook presents you with a browser of all the components in your web application. You can test each component independently and in different configurations. The tool runs as a separate application outside your main application, which means that you can test your components without worrying about application-specific dependencies or requirements. 
@@ -31,6 +29,8 @@ In this tutorial, I will show you how to use Storybook to create a simple [React
 **Table of Contents**{: .hide }
 * Table of Contents
 {:toc}
+
+{% include integrator-org-warning.html %}
 
 ## Creating React components with Storybook
 

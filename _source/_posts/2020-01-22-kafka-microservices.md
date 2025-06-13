@@ -19,8 +19,6 @@ redirect_to:
   - "/blog/2022/09/15/kafka-microservices"
 ---
 
-{% include integrator-org-warning.html %}
-
 One of the traditional approaches for communicating between [microservices](https://www.okta.com/blog/2021/02/microservices/) is through their REST APIs. However, as your system evolves and the number of microservices grows, communication becomes more complex, and the architecture might start resembling our old friend the spaghetti anti-pattern, with services depending on each other or tightly coupled, slowing down development teams. This model can exhibit low latency but only works if services are made highly available.
 
 To overcome this design disadvantage, new architectures aim to decouple senders from receivers, with asynchronous messaging. In a Kafka-centric architecture, low latency is preserved, with additional advantages like message balancing among available consumers and centralized management.
@@ -36,6 +34,8 @@ In this tutorial you will learn how to:
 **Table of Contents**{: .hide }
 * Table of Contents
 {:toc}
+
+{% include integrator-org-warning.html %}
 
 ## What is Kafka?
 

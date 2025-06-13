@@ -17,11 +17,11 @@ image: blog/featured/okta-node-skew.jpg
 type: conversion
 ---
 
-{% include integrator-org-warning.html %}
-
 There are so many options when it comes to building out a simple CRUD (Create, Read, Update, Delete) app. The most refreshing data access layer to work with recently by far has been GraphQL. It's great because the developer can use a simple, strongly typed language to define models and their relationships, then provide functions to define how each piece should be resolved. The user can then pick and choose which pieces they want and the GraphQL server pulls together just the information necessary to service the request.
 
 GraphQL is not only a really powerful tool, but it's fun for both backend and frontend developers to use. Today I'll show you how to create a simple CRUD app using GraphQL to be able to query and edit a set of quotes. Using Okta, I'll also show you how to authenticate users within GraphQL to prevent anonymous users from editing existing quotes.
+
+{% include integrator-org-warning.html %}
 
 ## Create the GraphQL Server for Your Node.js App
 

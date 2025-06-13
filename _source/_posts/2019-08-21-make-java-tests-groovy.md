@@ -16,13 +16,13 @@ image: blog/featured/okta-java-short-skew.jpg
 type: conversion
 ---
 
-{% include integrator-org-warning.html %}
-
 My favorite way to test Java code is with Groovy.  Specifically, writing tests in Groovy with Hamcrest.  In this post, I'll walk through how to test a simple Spring Boot application with these tools.
 
 Groovy is an optionally typed dynamic language for the JVM, and can be compiled statically.  That is a mouthful and I'll explain this as we go, but for now think of Groovy as Java with lots of sugar.
 
 Groovy is a great language for writing tests because it is close enough to the Java syntax that your typical Java developer can pick it up right away (unlike other JVM languages). It is **MUCH** less verbose then it's older cousin, you can access private and protected elements from your tests (more on that below), and the sugar!
+
+{% include integrator-org-warning.html %}
 
 ## Pour Some Sugar On Me
 

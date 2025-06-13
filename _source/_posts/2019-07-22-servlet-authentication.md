@@ -17,8 +17,6 @@ image: blog/featured/okta-java-headphones.jpg
 type: conversion
 ---
 
-{% include integrator-org-warning.html %}
-
 It can be very satisfying to build an application "the hard way", using few conveniences. This approach helps you understand core development principles and the inner workings of everyday abstractions. That's why today, you'll build an application from the ground up using Java Servlets with a login form.
 
 There are more modern, technologically savvy ways to handle authentication within your application, namely OAuth 2.0 and OIDC, which I will touch upon later. However, this post is for those who want nothing handed to them!  Well, except for some sample code.
@@ -35,6 +33,8 @@ Let's get started!
 * Table of Contents
 {:toc}
   
+{% include integrator-org-warning.html %}
+
 ## Create an Unsecured JSP Application
 
 To get started, we'll use a simple application I wrote that shares secret family recipes. The code that powers this app can be found on my [GitHub](https://github.com/oktadeveloper/servlet-authn-example/tree/StarterBranch).

@@ -17,8 +17,6 @@ image: blog/react-hooks/react-hooks.png
 type: conversion
 ---
 
-{% include integrator-org-warning.html %}
-
 If you have been developing React applications, then you probably know that there are two ways of creating React components. You can create a component class that extends from `React.Component`. You then have to implement specific methods such as `render()` that renders the component. The alternative is to create a functional component. This type of component is simply a JavaScript function that returns a rendered element. 
 
 Functional components are much shorter, they contain less boilerplate code, and everything is contained in one function. Until recently, there was another big difference between class components and functional components. Functional components could not contain any state. These stateless components are lightweight, and they encourage separating the presentation from the application logic.
@@ -30,6 +28,8 @@ In this tutorial, I will be showing you how to create a simple React application
 **Table of Contents**{: .hide }
 * Table of Contents
 {:toc}
+
+{% include integrator-org-warning.html %}
 
 ## Creating a React Application with Hooks
 

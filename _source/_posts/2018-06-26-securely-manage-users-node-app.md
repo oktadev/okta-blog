@@ -15,8 +15,6 @@ tweets:
 type: conversion
 ---
 
-{% include integrator-org-warning.html %}
-
 If you're building a non-trivial website, chances are you'll want some way to keep track of users. This can be quite complex and require a good deal of infrastructure, but one of the most secure and scalable ways is also one of the easiest. Using an OAuth 2.0 provider allows you to offload these tasks to an external provider, making your life as a developer so much simpler.
 
 When using an OAuth provider, it's simple to sign up and maintain users securely, but usually the only information you have about your users is their name and email address. This leaves you having to keep a separate database of information about your users, but isn't that part of what you were trying to avoid?
@@ -24,6 +22,8 @@ When using an OAuth provider, it's simple to sign up and maintain users securely
 Luckily, there's a better way! Using Okta, you can not only connect users to your app, you can also store as much extra metadata as you'd like about your users. What site have you logged into recently that doesn't give you the option of changing your profile information (name, date of birth, avatar, etc.)? There aren't many these days.
 
 In this post, I'll show you how to create an app in Node that provides a dashboard for your users and gives them the ability to edit their profile information, all without ever setting up a database.
+
+{% include integrator-org-warning.html %}
 
 ## What is Okta?
 

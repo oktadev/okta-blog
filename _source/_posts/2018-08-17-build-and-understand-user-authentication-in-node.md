@@ -16,8 +16,6 @@ tweets:
 type: conversion
 ---
 
-{% include integrator-org-warning.html %}
-
 Building websites with user authentication and management (login, registration, password reset, etc.), can be a huge pain. As a developer there are a million little things you need to worry about:
  
 * Storing the users in your database
@@ -35,6 +33,8 @@ Today I'm not only going to show you how to quickly build a Node.js website that
 If you've ever been curious about how web authentication and user security works, you will enjoy this. =)
  
  
+{% include integrator-org-warning.html %}
+
 ## What We're Building
  
 As I mentioned above, today we'll be building a simple Node.js site that supports a few key user flows:

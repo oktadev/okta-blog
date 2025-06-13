@@ -17,11 +17,11 @@ tweets:
 type: awareness
 ---
 
-{% include integrator-org-warning.html %}
-
 With the release of ASP.NET Core, there are several templates in the DotNet CLI. One of those templates is an Angular template that scaffolds a single page application built with Angular and ASP.NET Core. The problem with that template is that it scaffolds an Angular 4.2.5 project and Angular released Angular 6 in May of 2018!
 
 In this post, not only will I show you how to build a base CRUD app with ASP.NET Core 2.1 and Angular, but I will show you how to update the Angular project to the latest and greatest, which is Angular 6 as of this writing! Let's get right to it!
+
+{% include integrator-org-warning.html %}
 
 ## Update the DotNet CLI Angular Project to Angular 6
 

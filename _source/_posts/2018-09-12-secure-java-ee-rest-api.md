@@ -16,8 +16,6 @@ image: blog/javaee-rest-api/javaee+okta=love.png
 type: conversion
 ---
 
-{% include integrator-org-warning.html %}
-
 Java EE allows you to build Java REST APIs quickly and easily with JAX-RS and JPA. Java EE is an umbrella standards specification that describes a number of Java technologies, including EJB, JPA, JAX-RS, and many others. It was originally designed to allow portability between Java application servers, and flourished in the early 2000s. Back then, application servers were all the rage and provided by many well-known companies such as IBM, BEA, and Sun. JBoss was a startup that disrupted the status quo and showed it was possible to develop a Java EE application server as an open source project, and give it away for free. JBoss was bought by RedHat in 2006.
 
 In the early 2000s, Java developers used servlets and EJBs to develop their server applications. Hibernate and Spring came along in 2002 and 2004, respectively. Both technologies had a huge impact on Java developers everywhere, showing them it was possible to write distributed, robust applications without EJBs. Hibernate's POJO model was eventually adopted as the JPA standard and heavily influenced EJB as well.
@@ -25,6 +23,8 @@ In the early 2000s, Java developers used servlets and EJBs to develop their serv
 Fast forward to 2018, and Java EE certainly doesn't look like it used to! Now, it's mostly POJOs and annotations and far simpler to use.
 
 {% include toc.md %}
+
+{% include integrator-org-warning.html %}
 
 ## Why Build a Java REST API with Java EE and Not Spring Boot?
 

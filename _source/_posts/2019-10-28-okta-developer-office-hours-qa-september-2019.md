@@ -16,8 +16,6 @@ image: blog/okta-developer-office-hours/okta-dev-office-hours.jpg
 type: awareness
 ---
 
-{% include integrator-org-warning.html %}
-
 On September 19, 2019, we held our first Okta Developer office hours. Our goal was to host a live Q&A with developers that use Okta. Over 150 developers attended!
 
 We [streamed the session live on YouTube](https://youtu.be/nGi8x5XppHI), so you can watch it below if you like.
@@ -37,6 +35,8 @@ Since we couldn't answer all the questions in real-time, we decided to write up 
 * [**Matt Raible**](https://twitter.com/mraible): Java Champion and Open Source Developer @oktadev with a passion for skiing, mtn biking, VWs, & good 🍺. Driving a '66 21-window & a '90 Syncro. Made in Montana.
 
 Without further ado, here's the list of questions and answers. If we answered it during the session, I added a link to the location in the video.
+
+{% include integrator-org-warning.html %}
 
 ## Okta Developer Q&A
 

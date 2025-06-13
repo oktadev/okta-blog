@@ -15,8 +15,6 @@ type: conversion
 github: https://github.com/oktadev/okta-react-routing-example
 ---
 
-{% include integrator-org-warning.html %}
-
 When building an SPA (single page application) with React, routing is one of the fundamental processes a developer must handle. React routing is the process of building routes, determining the content at the route, and securing it under authentication and authorization. There are many tools available to manage and secure your routes in React. The most commonly used one is `react-router`. However, many developers are not in a situation where they can use the `react-router` library. Because of this, they may need to use Reach Router, Wouter, or maybe even no router at all.
 
 This tutorial will show you how to quickly build a secure SPA using React, Okta, and Wouter. Okta easily enables you to manage access to your SPAs (or any application for that matter). By using the `@okta/okta-react` library you can quickly build secure applications with React. At the time of writing this article, [reach-router does not support React version 17+](https://github.com/reach/router/issues/429).
@@ -29,6 +27,8 @@ This tutorial will show you how to quickly build a secure SPA using React, Okta,
 **Table of Contents**{: .hide }
 * Table of Contents
 {:toc}
+
+{% include integrator-org-warning.html %}
 
 ## Create an Okta OIDC application
 

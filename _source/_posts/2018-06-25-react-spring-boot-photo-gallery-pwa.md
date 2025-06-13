@@ -16,8 +16,6 @@ image: blog/featured/okta-react-bottle-headphones.jpg
 type: conversion
 ---
 
-{% include integrator-org-warning.html %}
-
 At its core, React is just a UI toolkit, ala GWT, but it has a _very_ healthy ecosystem around it that provides everything you need to build a kick-ass progressive web app (PWA). PWAs are cool because if they're done right, they can offer a native-like experience for your users, allowing them to install your app, and use it when it's offline.
 
 But, "why React?" is what you're probably asking yourself right now, right? Well, you might've heard that Angular can be a gateway drug for Java developers wanting to learn JavaScript. If you're an experienced Java developer that knows Angular, chances are you started with AngularJS. AngularJS has similar concepts to Java MVC frameworks, like controllers, services, and directives (which I believe are similar to JSP tags IMHO). If you're still doing Angular development, you probably learned TypeScript along the way. You like TypeScript because it has types like Java, and it's a pretty nice language too!
@@ -25,6 +23,8 @@ But, "why React?" is what you're probably asking yourself right now, right? Well
 I'm betting that if you already know Angular, you might want to learn about React, its main competitor. There's always going to be several ways to write web apps, and React provides an entirely different way to do it, and you can use TypeScript with it too!
 
 In this post, I'll show you how to build a secure PWA that uploads and processes images, displays them in a Flickr-like grid, and uses Spring Boot for its backend.
+
+{% include integrator-org-warning.html %}
 
 ## Get Started with React and Spring Boot
 

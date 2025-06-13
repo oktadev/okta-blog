@@ -12,8 +12,6 @@ tags: [asp-dot-net, aspnetcore, authz, authorization]
 type: conversion
 ---
 
-{% include integrator-org-warning.html %}
-
 Authorization is the oft-forgotten piece of identity and access management. The fact is, almost every app needs more than just "are they signed in?" for authorization. Most times, you need to not only know _who_ "they" are, but what access they are supposed to have. For instance, "are they in the administrator group?" or "are they in a group with some special privileges?" Today, you'll learn how to do this with Okta in an ASP.NET Core MVC application.
 
 In the Okta world, users are separated into `Groups`. By default however, ASP.NET only has handling for the `Authorize` attribute to handle authorization using `Roles`. There are a couple of ways you could go about handling authorization using the `Groups` that come from Okta:
@@ -24,6 +22,8 @@ In the Okta world, users are separated into `Groups`. By default however, ASP.NE
 This second approach is far easier to implement, so that's the approach this article will take.
 
 Start by cloning the application at <https://github.com/oktadeveloper/aspnetcore-oidc-okta-example>. This is the base application with authentication covered in [my previous post](/blog/2017/06/29/oidc-user-auth-aspnet-core). You'll add authorization to this application.
+
+{% include integrator-org-warning.html %}
 
 ## Let ASP.NET Know Where Your Roles Are
 In the `startup.cs` file, where the `OpenIdConfigurationOptions` are set, one of the items being set is the `TokenValidationParameters`. In the new `TokenValidationParameters` add a property called `RoleClaimType` with a value of `ClaimTypes.Role`. This is an enumeration in the `System.Security.Claims` namespace that holds the URL that describes the "role" claim type. Ultimately, your `TokenValidationParameters` property should look like this.

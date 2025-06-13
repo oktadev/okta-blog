@@ -17,13 +17,13 @@ image: blog/featured/okta-node-tile-books-mouse.jpg
 type: conversion
 ---
 
-{% include integrator-org-warning.html %}
-
 Authentication on the internet has evolved quite a bit over the years. There are many ways to do it, but what worked well enough in the 90s doesn't quite cut it today. In this tutorial, I'll briefly cover some older, simpler forms of authentication, then show you how a more modern and more secure approach. By the end of this post, you'll be able to create and verify JWTs yourself in Node. I'll also show you how you can leverage Okta to do it all for you behind the scenes.
 
 Traditionally, the simplest way to do authorization is with a username and password. This is called Basic Authorization and is done by just sending `username:password` as an encoded string that can be decoded by anybody looking. You could think of that string as a "token". The problem is, you're sending your password with every request. You could also send your username and password a single time, and let the server create a session ID for you. The client would then send that ID along with every request instead of a username and password. This method works as well, but it can be a hassle for the client to store and maintain sessions, especially for large sets of users.
 
 The third method for managing authorization is via JSON Web Tokens, or JWTs. JWTs have become the de facto standard over the last few years. A JWT makes a set of claims, (e.g. "I'm Abe Froman, the Sausage King of Chicago") that can be verified. Like Basic Authorization, the claims can be read by anybody. Unlike Basic Auth, however, you wouldn't be sharing your password with anyone listening in. Instead, it's all about trust.
+
+{% include integrator-org-warning.html %}
 
 ## Trust, but Verify... Your JWTs
 {% img blog/node-jwt/it-must-be-true.jpg alt:"it must be true" width:"600" %}{: .center-image }

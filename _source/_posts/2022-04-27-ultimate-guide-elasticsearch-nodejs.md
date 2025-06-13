@@ -14,8 +14,6 @@ github: https://github.com/oktadev/okta-elasticsearch-node-example
 type: conversion
 ---
 
-{% include integrator-org-warning.html %}
-
 [Elasticsearch](https://www.elastic.co/) is one of the most powerful and popular search engines on the market. Elasticsearch lets you search through vast amounts of data, whether you're implementing real-time search experiences or doing in-depth data analysis.
 
 In this tutorial, you'll learn how to integrate Elasticsearch into your Node.js app. You'll see how to connect it with the front-end and how to secure your entire API and data with Okta.
@@ -23,6 +21,8 @@ In this tutorial, you'll learn how to integrate Elasticsearch into your Node.js 
 You can follow along with [this GitHub repository](https://github.com/oktadev/okta-elasticsearch-node-example).
 
 {% include toc.md %}
+
+{% include integrator-org-warning.html %}
 
 ## What is Elasticsearch?
 

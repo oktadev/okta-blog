@@ -15,8 +15,6 @@ tweets:
 type: conversion
 ---
 
-{% include integrator-org-warning.html %}
-
 As recently as seven short years ago, building video applications on the web was a massive pain. Remember the days of using Flash and proprietary codecs (*which often required licensing*)? Yuck. In the last few years, video chat technology has dramatically improved and Flash is no longer required.
 
 Today, the video chat landscape is much simpler thanks to [WebRTC](https://webrtc.org/): an open source project built and maintained by Google, Mozilla, Opera, and others. WebRTC allows you to easily build real-time communication software in your browser and is being standardized at the W3C and IETF levels. Using WebRTC, you can build real-time video chat applications in the browser that actually work *well*! It's pretty amazing.
@@ -30,6 +28,8 @@ By the time you've gone through this guide, you'll have a much better understand
 Let's get started.
 
 **NOTE**: Want to play around with the chat app in real-time? You can do so here: https://naughty-bhabha-908faa.netlify.com You can also view the source code for the app we'll be building [on GitHub](https://github.com/rdegges/chatapp).
+
+{% include integrator-org-warning.html %}
 
 ## Create the Web Page
 

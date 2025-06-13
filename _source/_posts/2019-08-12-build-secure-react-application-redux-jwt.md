@@ -17,13 +17,13 @@ image: blog/featured/okta-node-bottle-headphones.jpg
 type: conversion
 ---
 
-{% include integrator-org-warning.html %}
-
 If you've worked with React at all, chances are you've at least heard of Redux. But you may not know what it is, how it fits in with React, or how to use it in your app. It can sometimes be complicated to set up but can be a very useful addition to a React app depending on your use cases.
 
 And if you've done much work with web apps, you also probably know how hard it can be to deal with user authentication - storing usernames and passwords safely and securely is tough to do right. Using a third party you trust for authentication means you can rely on their backbone to make sure your app is secure. When a user authenticates with someone else, your app receives a JSON Web Token (JWT) that makes it really easy to know who someone is and verify their claims without any of the hassles that normally come with storing user information.
 
 In this tutorial, I'll show you how to create a React app that uses Redux for state management, how to secure your application using Okta, and how to decode the JWT in the client to make authorization decisions without relying on another call to the server. You'll be able to use the token's payload in order to determine what type of access to permit to a user. For this app, I'll just have you build a search bar for a set of users.
+
+{% include integrator-org-warning.html %}
 
 ## What is Redux?
 

@@ -17,8 +17,6 @@ image: blog/spring-boot-test-slices/spring-boot-test-slices.png
 type: conversion
 ---
 
-{% include integrator-org-warning.html %}
-
 We know unit testing is a vital part of the software development process. We also know us developers love to debate techniques, frameworks, strategies, and how different layers and components need testing. Unit tests are the most valuable when they are stable, fast, and reproducible.
 
 Spring Boot is known to reduce boilerplate code and make development extremely efficient, but it can come with a cost when it comes down to the testing. Without prior optimization, tests can run for a considerable time—most of it is wasted on unnecessary initialization of the application, significantly delaying the feedback loop.
@@ -28,6 +26,8 @@ In this tutorial, you'll learn about Spring Boot testing capabilities to optimiz
 **Table of Contents**{: .hide }
 * Table of Contents
 {:toc}
+
+{% include integrator-org-warning.html %}
 
 ## Write Tests with the `@SpringBootTest` Annotation
 

@@ -19,13 +19,13 @@ changelog:
   - 2021-12-10: Updated GitHub repo and blog post with dependency updates. You can see the changes in the [example app on GitHub](https://github.com/oktadev/okta-deno-auth-example/pull/3). Changes to this article can be viewed in [oktadev/okta-blog#991](https://github.com/oktadev/okta-blog/pull/991).
 ---
 
-{% include integrator-org-warning.html %}
-
 The creator of Node.js, Ryan Dahl, has authored a new framework for designing web applications. He went back and fixed some mistakes he made in hindsight, taking advantage of new technologies that were not available at the time he originally wrote Node. The result is [Deno](https://deno.land) (pronounced DEH-no), a framework for writing "Node-like" web applications in TypeScript. Here, I will walk you through creating a basic web application with authentication.
 
 You can find almost all the information you need at the Deno website—along with information on all the third-party libraries that are currently available for Deno. That is really the biggest drawback to the framework right now. It just hit version 1.0 on May 13th of 2020, so even though there are quite a few essential libraries, there are not nearly as many libraries as there are for Node. For those who are proficient in Node however, the transition to Deno should be pretty easy.
 
 You can find the installation instructions at [https://deno.land/#installation](https://deno.land/#installation).
+
+{% include integrator-org-warning.html %}
 
 ## Create Your Deno Application
 

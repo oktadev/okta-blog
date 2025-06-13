@@ -13,8 +13,6 @@ type: conversion
 github: https://github.com/oktadev/okta-react-fastify-postgresql-example
 ---
 
-{% include integrator-org-warning.html %}
-
 The National Aeronautics and Space Administration (NASA) is an independent agency of the US federal government, responsible for space exploration and research, with field facilities across the United States. In this tutorial, we'll set up an app to keep track of what NASA facilities we've visited and which ones we still want to check out. 
 
 Our app will be a [monorepo](https://en.wikipedia.org/wiki/Monorepo) with Okta authentication, using React for the frontend and Fastify for the backend. [Fastify](https://www.fastify.io/) is a highly performant web framework with low overhead that we'll connect to a PostgreSQL database. We'll also use [Lerna](https://lerna.js.org/) to manage the frontend and backend apps in a monorepo.
@@ -26,6 +24,8 @@ Our app will be a [monorepo](https://en.wikipedia.org/wiki/Monorepo) with Okta a
 A [Docker installation](https://docs.docker.com/engine/install/) is required as well.
 
 {% include toc.md %}
+
+{% include integrator-org-warning.html %}
 
 ### Set up OAuth2 and OpenID Connect (OIDC)
 

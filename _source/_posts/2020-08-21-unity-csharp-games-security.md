@@ -17,8 +17,6 @@ image: blog/featured/okta-dotnet-tile-mouse.jpg
 type: conversion
 ---
 
-{% include integrator-org-warning.html %}
-
 Unity is a cross-platform game engine developed by [Unity Technologies](https://en.wikipedia.org/wiki/Unity_Technologies). The engine is able to create three-dimensional, two-dimensional, virtual reality, and augmented reality games, as well as simulations and other experiences. The engine has been adopted by industries outside video gaming such as film, automotive, architecture, engineering, and construction.
 
 Identity security is a key concept that is mostly missing in Unity. In fact, most engines today do not provide solutions for securing identity, authenticating users, and authorizing users. The industry has instead traditionally relied on custom-built solutions and/or delegated auth from other products, like game stores. As the industry advances beyond anonymous consumption of video games, into massively interconnected online projects, or professional XR use cases such as ArchViz and simulation, new requirements have appeared for authentication and authorization.
@@ -28,6 +26,8 @@ In gaming, use cases tend to depend on the project itself. A single-player game 
 With XR use cases, the concept is similar to what is described above for gaming—especially if the project is a VR game—however professional XR projects open up a whole new area of interest. Professional projects such as ArchViz, or simulations done for security or scientific application, need to protect the intellectual property within the project itself, and the user identity, just like games. However, more is potentially needed to handle authorization to specific aspects of the project results, as well as professional requirements to integrate or federate with other technologies used by these professionals.
 
 The level of effort to build identity security from scratch is massive. Just to build a secure store for identity, authentication with basic username/password, authorization via OAuth, and basic security policy, it takes a large team months. When you account for keeping the tech up to date with new standards, compliance with standards such as PCI, compliance with GDPR, complex multi-factor authentication, and complex authorization rules, it becomes apparent that the work is not a one-time effort and it is not easy. Rather than spend countless development cycles focusing on identity security—when the team should be focused on the core project itself—it is much easier and more secure to leave it to the experts. Okta is the most advanced identity platform on the market today and represents the best of breed solution for developers, including Game/XR developers creating within Unity.
+
+{% include integrator-org-warning.html %}
 
 ## Prerequisites
 

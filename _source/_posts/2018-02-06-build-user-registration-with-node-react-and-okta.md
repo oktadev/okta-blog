@@ -18,11 +18,11 @@ changelog:
   - 2019-09-18: Updated to use the latest versions of dependencies. You can see the example app changes in [okta-node-react-registration-example#1](https://github.com/oktadeveloper/okta-node-react-registration-example/pull/1); changes to this post can be viewed in [okta-blog#20](https://github.com/oktadeveloper/okta-blog/pull/20).
 ---
 
-{% include integrator-org-warning.html %}
-
 Today's internet users expect a personalized experience. Developers must learn to develop websites that provide that personalized experience while keeping their user's information private. Modern web applications also tend to have a server-side API and a client-side user interface. it can be challenging to get make both ends aware of the currently logged in user. In this tutorial, I will walk you through setting up a Node API that feeds a React UI, and build a user registration that keeps the user's information private and personal.
 
 In this tutorial, I won't use any state management libraries like Redux or ReduxThunk. In a more robust application, you'll probably want to do that, but it will be easy to wire up Redux and ReduxThunk and then add the `fetch` statements used here as your thunks. For the sake of simplicity, and to keep this article focused on adding user management, I'll be adding fetch statements into `componentDidMount` functions.
+
+{% include integrator-org-warning.html %}
 
 ## Install the Node and React Prerequisites
 

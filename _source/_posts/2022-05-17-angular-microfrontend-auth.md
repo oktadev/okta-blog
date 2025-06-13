@@ -14,8 +14,6 @@ type: conversion
 github: https://github.com/oktadev/okta-angular-microfrontend-example
 ---
 
-{% include integrator-org-warning.html %}
-
 The demands placed on front-end web applications continue to grow.  As consumers, we expect our web applications to be feature-rich and highly performant. As developers, we worry about how to provide quality features and performance while keeping good development practices and architecture in mind.
 
 Enter micro-frontend architecture. Micro frontends are modeled after the same concept as microservices, as a way to decompose monolithic frontends. You can combine micro-sized frontends  to form a fully-featured web app. Since each micro frontend can be developed and deployed independently, you have a powerful way of scaling out frontend applications.
@@ -45,6 +43,8 @@ In this first post, we'll explore a starter project and understand how the diffe
 - [Okta CLI](https://cli.okta.com)
 
 {% include toc.md %}
+
+{% include integrator-org-warning.html %}
 
 ## Micro-frontend starter using Webpack 5 and Module Federation
 

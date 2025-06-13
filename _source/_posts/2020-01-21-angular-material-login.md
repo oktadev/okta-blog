@@ -21,8 +21,6 @@ changelog:
 - 2020-03-30: Updated to use Angular 11 and the Okta Auth JS 4.8.0. You can see the changes in the [example app on GitHub](https://github.com/oktadeveloper/okta-angular-material-login-example/pull/3). Changes to this article can be viewed in [oktadeveloper/okta-blog#637](https://github.com/oktadeveloper/okta-blog/pull/637).
 ---
 
-{% include integrator-org-warning.html %}
-
 Usability is a key aspect to consider when creating a web application, and that means designing a clean, easy-to-understand user interface. Leveraging common design languages can help make that goal a reality with their recognizable components that many users will understand right away. However, unlike desktop apps where the operating system provides a set of uniform widgets, there has historically been no common design language to lean on for web app developers. 
 
 That was until Google released its Material Design in 2014. Material Design was born from the desire to create a common user experience across Android devices and web applications and consists of a number of components that are available for both Android and JavaScript applications.
@@ -38,6 +36,8 @@ In this tutorial, I'll show you how to create a login form like the one above. Y
 **Table of Contents**{: .hide }
 * Table of Contents
 {:toc}
+
+{% include integrator-org-warning.html %}
 
 ## Build an Angular Material App with Secure Login
 

@@ -16,8 +16,6 @@ tweets:
 type: conversion
 ---
 
-{% include integrator-org-warning.html %}
-
 
 Today I'm going to walk you through building a simple Flask web app (a blog) complete with user management (login, registration, etc.), database models, and everything else that goes along with it.
 
@@ -32,6 +30,8 @@ Through this post you'll learn about and use the following tools:
 * [python-slugify](https://github.com/un33k/python-slugify) — a simple Python library that generates web-friendly URLs. We'll use this to convert blog post titles into URLs that look nice.
 
 If you'd like to skip the tutorial and check out the fully built project, you can go [view it on GitHub](https://github.com/rdegges/okta-flask-blog).
+
+{% include integrator-org-warning.html %}
 
 ## Initialize Authentication for Your Flask + Python App with Okta
 

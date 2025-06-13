@@ -17,8 +17,6 @@ image: blog/react-sass/sass-react.png
 type: conversion
 ---
 
-{% include integrator-org-warning.html %}
-
 When you are developing web applications with React, you know that writing the JavaScript code is only half of the story. The other half is implementing the design using style sheets. When your application becomes larger, using plain CSS style sheets can become tedious and unmaintainable. Sass is one of the most popular alternatives to CSS. It extends the CSS language with variables, mixins, and many other features. It also lets you divide up the style sheets into multiple files.
 
 {% img blog/react-sass/sass-logo.png alt:"The Sass Language" width:"400" %}{: .center-image }
@@ -26,6 +24,8 @@ When you are developing web applications with React, you know that writing the J
 Sass source files come in two flavors. The older `.sass` format has now almost completely replaced by the `.scss` syntax. The latter is a superset of CSS and lets you paste existing CSS code into the SCSS file without problems. Sass compiles the SCSS source files into a single CSS file with the option of minifying the resulting output. The resulting file can be included in your web page just like any other CSS style sheet.
 
 Many CSS frameworks use Sass to generate their stylesheets. In this tutorial, I will show you how to integrate Zurb's Foundation framework using Sass mixins. Using this approach keeps the size of your CSS to a minimum. It also gives you the opportunity of more semantic markup.
+
+{% include integrator-org-warning.html %}
 
 ## Create Your React Application with Sass
 

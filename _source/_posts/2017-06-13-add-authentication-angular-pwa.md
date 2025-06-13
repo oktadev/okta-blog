@@ -19,11 +19,11 @@ changelog:
   - 2018-02-23: Updated to use Spring Boot 1.5.10, Angular CLI 1.6.7, and remove Stormpath SDKs. See the code changes in the [example app on GitHub](https://github.com/oktadeveloper/okta-spring-boot-angular-pwa-example/pull/7). You can see changes to this article in [oktadeveloper/okta.github.io#1794](https://github.com/oktadeveloper/okta.github.io/pull/1794).
 ---
 
-{% include integrator-org-warning.html %}
-
 You're developing a Progressive Web Application (PWA), and your service worker and web app manifest are working swimmingly. You've even taken the time to deploy it to a server with HTTPS, and you're feeling pretty good about things. But wait, you don't have any way of knowing who your users are! Don't you want to provide them with an opportunity to authenticate and tell you who they are? Once you know who they are, you can give them all kinds of personalization options, inspire them to ❤️ your app, and maybe even support your work!
 
 In this article, I'll show you how you can lock down a Spring Boot app, then use a modern authentication protocol, in this case, OpenID Connect (OIDC), to authenticate and gain access to its APIs.
+
+{% include integrator-org-warning.html %}
 
 ## Secure Your Spring Boot App
 

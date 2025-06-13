@@ -15,8 +15,6 @@ type: conversion
 github: https://github.com/oktadev/okta-spring-boot-jetty-example
 ---
 
-{% include integrator-org-warning.html %}
-
 Jetty is a small, highly-scalable Java-based web server and servlet engine. It supports HTTP/2, WebSockets, and many other protocols. It powers websites and frameworks, both large and small, such as Google AppEngine. Because it is an Eclipse project, its open source project is called Eclipse Jetty. It is standards-compliant and open source, as well as commercially usable. It is the main alternative to Tomcat when hosting Java applications. Like Tomcat, you can use Jetty both embedded and stand-alone.
 
 By default, Spring Boot creates applications with embedded web servers, which means that the server is embedded within the application code itself, so you don't have to run a separate web server to publish Java web applications. However, with a little configuration, you can also publish a WAR file to a separate Jetty or Tomcat servlet container (old-school application server style). Spring also uses Tomcat by default, but you can easily change this, as you'll see.
@@ -24,6 +22,8 @@ By default, Spring Boot creates applications with embedded web servers, which me
 In this tutorial, you will build a simple web service with Jetty embedded. After that, you will create the same web service in Spring Boot and Jetty. Finally, you'll add JWT (JSON Web Token) authentication and authorization to the web service using method-level security with Okta as the OAuth/OIDC provider.
 
 {% include toc.md %}
+
+{% include integrator-org-warning.html %}
 
 ## Install the prerequisites
 

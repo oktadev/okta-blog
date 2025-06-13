@@ -19,8 +19,6 @@ changelog:
   - 2020-12-31: Updated Spring Boot to version 2.4.0. Updated Okta Auth JS to version 4.0.0. Update Tone.js library link. See the code changes in the [example app on GitHub](https://github.com/oktadeveloper/okta-java-websockets-example/pull/2). Changes to this post can be viewed in [oktadeveloper/okta-blog#495](https://github.com/oktadeveloper/okta-blog/pull/495).
 ---
 
-{% include integrator-org-warning.html %}
-
 WebSockets is a modern transport layer technology that establishes a two-way communication channel between a client and a server, perfect for low-latency, high-frequency interactions. WebSockets tend to be used in collaborative, real-time or event-driven applications, where traditional client-server request-response architecture or long polling would not satisfy requirements. Use cases include stock trading and shared dashboard applications.
 
 In this tutorial, I'll give you a quick overview of the WebSockets protocol and how it handles messages with STOMP. Then you'll create an application that uses the WebSockets API to configure a Java/Spring Boot message broker and authenticate a JavaScript STOMP client during the WebSocket handshake. We'll add some nifty helper frameworks, so the application is actually cool and plays music loops, and also use Okta for authentication and access tokens, rather than building it ourselves.
@@ -30,6 +28,8 @@ If you would rather follow along by watching a video, check out the screencast b
 <div style="text-align: center; margin-bottom: 1.25rem">
 <iframe width="700" height="394" style="max-width: 100%" src="https://www.youtube.com/embed/OJMBg2bSXIU" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 </div>
+
+{% include integrator-org-warning.html %}
 
 ## The WebSocket Protocol and HTTP
 

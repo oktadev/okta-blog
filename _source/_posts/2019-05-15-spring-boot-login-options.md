@@ -17,8 +17,6 @@ image: blog/featured/okta-java-short-headphones.jpg
 type: conversion
 ---
 
-{% include integrator-org-warning.html %}
-
 In this post, you're going to work through various options for implementing a login feature using Spring Boot 2.1. You'll start with the most simple, basic auth, which you'd likely never want to use except for perhaps an internal backend tool, and move on to a simple form-based authentication page. Next, you'll customize the default, auto-generated form by overriding some default templates and controllers. Finally, you'll move on to adding Single Sign-on using OAuth 2.0. You'll see how to allow the user to sign in using GitHub and Okta. 
 
 The assumptions for this tutorial are pretty basic. I'm assuming that you've got a basic familiarity with Spring and Spring Boot, but not necessarily an in-depth understanding of Spring Security or Spring's various security features. You'll want to have `git` installed, and `gradle` would be nice, but you can use the Gradle wrapper for all of the `gradle` commands, so that's not strictly necessary.
@@ -43,6 +41,8 @@ This repository contains five subdirectories:
  - `oauth-okta-starter`
 
 These correspond to the four sections of this tutorial (with three for the last section, the OAuth section). Except for the `oauth-start`, these are fully functional applications. In this tutorial, you'll walk through what the code means and how to build them.
+
+{% include integrator-org-warning.html %}
 
 ## Build HTTP Basic Login in Spring Boot
 

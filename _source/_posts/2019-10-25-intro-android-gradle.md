@@ -16,8 +16,6 @@ tweets:
 image: blog/featured/okta-android-skew.jpg
 type: conversion
 ---
-
-{% include integrator-org-warning.html %}
 Interested in Android development? Then you should get familiar with Gradle, the only Android development build system that Google officially supports.
 
 Gradle manages all aspects of the Android development process, making it easy to:
@@ -51,6 +49,8 @@ What you will also need:
 * [Android Studio](https://developer.android.com/studio)
 
 Let's get started!
+
+{% include integrator-org-warning.html %}
 
 ## Set Up Your Android App to work With Okta and Gradle
 

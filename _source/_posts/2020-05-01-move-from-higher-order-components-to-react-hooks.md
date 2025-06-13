@@ -19,8 +19,6 @@ changelog:
   - 2020-05-06: Updated to use the v3.0.1 version of the Okta React SDK and add a GitHub repo. Changes to this article can be viewed in [oktadeveloper/okta-blog#285](https://github.com/oktadeveloper/okta-blog/pull/285).
 ---
 
-{% include integrator-org-warning.html %}
-
 Let's face it. Higher-Order Components (HOCs) allow developers to really take advantage and extend the functionality of their React components, but they can be cumbersome once you have more than one that you want to use within a component. It's mostly because of the way they're used. Not only do you have to use a class component in order, but you also use the HOC by wrapping them around your components. Wrapping the component code forces you to either end up with:
 
 ```js
@@ -42,6 +40,8 @@ export default withThis(withThat(withTheOther(MyComponent)));
 Neither is IDEAL, but the second is definitely cleaner. It does have the problem of misleading developers into believing that there aren't any HOC being used when looking at the top of the file. You'd need to KNOW to look at the bottom of the file to know what HOCs are being used.
 
 React 16.8.0 introduced a new feature called "Hooks" that allows you to "hook" into other components from inside your React components. No need for wrapping!
+
+{% include integrator-org-warning.html %}
 
 ## Scaffold a React Application
 

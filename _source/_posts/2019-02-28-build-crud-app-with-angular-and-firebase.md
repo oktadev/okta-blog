@@ -17,11 +17,11 @@ image: blog/featured/okta-angular-headphones.jpg
 type: conversion
 ---
 
-{% include integrator-org-warning.html %}
-
 Storage as a Service (SaaS) is becoming ever more popular with many businesses. The advantages are clear. Instead of maintaining your own backend server you can outsource the service to a different provider. This can result in a significant increase in productivity, as well as a reduction in development and maintenance costs. In addition, the worry about server security is offloaded to the storage provider. SaaS is an option whenever the server part of your application can be reduced to storage of object data, optionally with access control. There are a number of different SaaS providers available. Arguably, one of the biggest players in the field is Google with the Firebase service.
 
 In this tutorial, I will be showing you how to create your own Wiki using Angular for the frontend client and Firebase for storing the Wiki documents. You'll see that it's easy to create a complete application in minutes.
+
+{% include integrator-org-warning.html %}
 
 ## Set Up the Firebase Database
 

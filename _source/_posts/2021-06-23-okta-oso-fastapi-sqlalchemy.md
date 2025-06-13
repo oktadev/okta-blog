@@ -16,8 +16,6 @@ tweets:
 image: blog/oso-fastapi-sqlalchemy/card.png
 type: conversion
 ---
-
-{% include integrator-org-warning.html %}
 FastAPI is really fast and SQLAlchemy is really...SQL-y. But what good is a fast and SQL-y application if it isn't **secure**?
 
 In this post, we're going to show you how to secure a fast and SQL-y app!
@@ -34,6 +32,8 @@ The full example is available on [GitHub][]. Clone the repo and follow along!
 **Table of Contents**{: .hide }
 * Table of Contents
 {:toc}
+
+{% include integrator-org-warning.html %}
 
 ## Bear Management Service Architecture
 

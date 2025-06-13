@@ -16,10 +16,10 @@ tweets:
 type: conversion
 ---
 
-{% include integrator-org-warning.html %}
-
 Keeping an eye on your daily calorie intake can be crucial to healthy lifestyle. There are a ton of apps on the market that will help you do this, but may be bloated with extra features or just full of ads. The app we'll build today is a bare-bones stand-in for any of those, as a demonstration of these technologies, and a great stand-in if simple calorie tracking is all you really need.
 
+
+{% include integrator-org-warning.html %}
 
 ## Why ASP.NET Core and Vue?
 

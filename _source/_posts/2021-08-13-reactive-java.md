@@ -18,8 +18,6 @@ type: conversion
 github: https://github.com/oktadev/okta-reactive-service-example
 ---
 
-{% include integrator-org-warning.html %}
-
 Modern applications must work smoothly on high loads and with a high number of concurrent users. Traditional Java applications run blocking code and a common approach for scaling is to increase the number of available threads. When latency comes into the picture, many of these additional threads sit idle, wasting resources.
 
 A different approach increases efficiency by writing asynchronous non-blocking code that lets the execution switch to another task while the asynchronous process completes.
@@ -37,6 +35,8 @@ In this post, we'll summarize some core Reactor concepts, introduce the Schedule
 **Table of Contents**{: .hide }
 * Table of Contents
 {:toc}
+
+{% include integrator-org-warning.html %}
 
 ## Reactor Execution Model
 

@@ -13,9 +13,9 @@ type: conversion
 github: https://github.com/oktadev/okta-angular-nestjs-stepup-auth-example
 ---
 
-{% include integrator-org-warning.html %}
-
 The applications you work on expect good authentication as a secure foundation. In the past, we treated authentication as binary. You are either authenticated or not. You had to set the same authentication mechanism for access to your application without a standard way to change authentication mechanisms conditionally. Consider the case where sensitive actions warrant verification, such as making a large financial transaction or modifying top-secret data. Those actions require extra scrutiny!
+
+{% include integrator-org-warning.html %}
 
 ## Use Step Up Authentication Challenge to protect resources
 

@@ -19,8 +19,6 @@ changelog:
 - 2021-04-01: Updated to use Okta Angular SDK v3.0.1. You can see the changes in the [example app on GitHub](https://github.com/oktadeveloper/okta-angular-webpack-example/pull/2). Changes to this article can be viewed in [oktadeveloper/okta-blog#652](https://github.com/oktadeveloper/okta-blog/pull/652).
 ---
 
-{% include integrator-org-warning.html %}
-
 If you're a frontend dev in the world today you've probably heard of (and possibly even used) **webpack**. The Angular build process uses webpack behind the scenes to transpile TypeScript to JavaScript, transform Sass files to CSS, and many other tasks. To understand the importance of this build tool, it helps to understand why it exists. 
 
 Browsers have very limited support for JavaScript modules. In practice, any JavaScript application loaded into the browser should be contained in a single source file. On the other hand, it is good software development practice to separate out code into modules contained in separate files. When deploying a JavaScript application for the browser, the modules must then be built into a single source file. Bundling multiple modules into a single file is the main purpose of webpack.
@@ -34,6 +32,8 @@ In earlier versions of Angular, it was possible to eject the webpack configurati
 **Table of Contents**{: .hide }
 * Table of Contents
 {:toc}
+
+{% include integrator-org-warning.html %}
 
 ## Set Up Angular With Webpack
 

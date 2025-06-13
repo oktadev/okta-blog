@@ -19,7 +19,6 @@ changelog:
   - 2019-05-10: Updated to use JHipster 6.0 GA release and embed screencast. Changes to this post can be viewed in [okta.github.io#2869](https://github.com/oktadeveloper/okta.github.io/pull/2869).
 ---
 
-{% include integrator-org-warning.html %}
 :page-liquid:
 :toc: macro
 
@@ -38,6 +37,8 @@ If you'd rather watch a video, https://youtu.be/Ktnvqoouulg[I created a screenca
 <iframe width="700" height="394" style="max-width: 100%" src="https://www.youtube.com/embed/Ktnvqoouulg" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 </div>
 ++++
+
+{% include integrator-org-warning.html %}
 
 toc::[]
 

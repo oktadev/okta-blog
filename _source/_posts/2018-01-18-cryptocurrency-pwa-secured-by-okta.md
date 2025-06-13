@@ -17,8 +17,6 @@ changelog:
   - 2018-04-10: Updated dependencies in the example app to their latest versions using [npm-check-updates](https://www.npmjs.com/package/npm-check-updates). See the code changes in the [example app on GitHub](https://github.com/oktadeveloper/okta-ionic-crypto-pwa/pull/2). Changes to this article can be viewed in [oktadeveloper/okta.github.io#1940](https://github.com/oktadeveloper/okta.github.io/pull/1940).
 ---
 
-{% include integrator-org-warning.html %}
-
 Cryptocurrencies are all the rage. Over the last year, the value of Bitcoin alone has risen 1,603%, driving more and more people to wonder if they're missing out on the "next big thing." Because of the massive influx of money into cryptocurrencies like Bitcoin, Ethereum, Monero, and Ripple &mdash; blockchain technology (which is the foundation of all cryptocurrency) has become an area of intense technical study. At its core, blockchain technology does nothing more than maintain a decentralized log of transactions that can be easily shared across many nodes (miners).
 
 {% img blog/cryptocurrency-pwa/cryptocurrency-so-hot.jpg alt:"So Hot Right Now" width:"620" %}{: .center-image }
@@ -31,6 +29,8 @@ About a month ago, I received an email from Josh advertising his Crypto PWA seri
 
 You can also see his finished app at <https://cryptopwa.com> and find it [on GitHub](https://github.com/joshuamorony/ionic-crypto-pwa).
 I thought it'd be fun to add authentication to Josh's app and show you how I did it. It wasn't too hard thanks to the fact that Ionic uses Angular and it has excellent OIDC support &mdash; thanks to [Manfred Steyer's](https://twitter.com/manfredsteyer) awesome [angular-oauth2-oidc](https://github.com/manfredsteyer/angular-oauth2-oidc) library.
+
+{% include integrator-org-warning.html %}
 
 ## Setup the Crypto PWA
 

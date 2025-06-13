@@ -19,8 +19,6 @@ changelog:
 - 2021-03-31: Updated to use Nuxt/Auth. Setup now uses Okta CLI. You can see changes made in the [example app on GitHub](https://github.com/oktadeveloper/okta-universals-apps-with-nuxt/pull/16) and [this blog post](https://github.com/oktadeveloper/okta-blog/pull/647).
 ---
 
-{% include integrator-org-warning.html %}
-
 Reducing the time between a user clicking your application and the content being displayed is vital. Optimized images? Check! Minified CSS? Check! Minified JS? Check! But if your application is a single page app (or SPA) there is a large bundle of JavaScript that must reach the user before the site can be rendered.
 
 Universal applications address this problem by executing as much as possible on your server and sending only the finished page to the client. Nuxt.js is a framework built on top of Vue designed to provide opinionated defaults to address a lot of the issues developers encounter as they develop universal applications.
@@ -92,6 +90,8 @@ This content is immediately more readable and is easy for bots to index without 
 Nuxt.js provides three deployment options for your application; traditional SPA, server rendered, and statically generated. Depending on your deployment option Nuxt includes intelligently bundles Vue 2, Vue Router, Vuex, Vue Server Renderer, and Vue-meta all into a 60kB package with `webpack`, `vue-loader`, and `babel-loader` to support bundling and ES6/7 transpilation. 
 
 Can you do all of this in Vue without using Nuxt? Absolutely! There is an [entire guide](https://ssr.vuejs.org) on building SSR applications with Vue. Nuxt only provides convention over configuration with sensible defaults for project structure. If you want to jump directly to building your application logic without as much wiring then an opinionated framework like Nuxt is a great place to start.
+
+{% include integrator-org-warning.html %}
 
 ## Zero to One
 

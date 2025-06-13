@@ -17,8 +17,6 @@ image: blog/featured/okta-dotnet-half.jpg
 type: conversion
 ---
 
-{% include integrator-org-warning.html %}
-
 So you're interested in using single sign-on (SSO) for your ASP.NET MVC apps? You've come to the right place. There are lots of reasons for using SSO for custom apps owned by the same organization. Better user experience. Less development time. Improved security. Those are all great reasons.
 
 Another thing I love about SSO is that it can enable upgrading a large codebase a piece at a time instead of all at once.
@@ -26,6 +24,8 @@ Another thing I love about SSO is that it can enable upgrading a large codebase 
 How so? Imagine you want to migrate an app written in ASP.NET MVC 5 to ASP.NET Core MVC. Instead of rewriting the whole thing at once, you could migrate one service at a time. Then, by implementing SSO between the two apps, you can effectively link them together as if they were one.
 
 In this tutorial, we'll simulate such a scenario by implementing SSO for an MVC 5 app and a .NET Core app. Along the way, you'll also learn some of the differences between how the two platforms implement authentication.
+
+{% include integrator-org-warning.html %}
 
 ## Get the ASP.NET MVC 5 App
 

@@ -22,7 +22,6 @@ changelog:
 - 2021-03-25: Upgraded to JHipster 7.0.0 from beta 1. You can see the changes in the [example app on GitHub](https://github.com/oktadev/java-microservices-examples/pull/17). Changes to this article can be viewed in [oktadev/okta-blog#627](https://github.com/oktadev/okta-blog/pull/627).
 ---
 
-{% include integrator-org-warning.html %}
 :toc: macro
 :page-liquid:
 :experimental:
@@ -34,6 +33,8 @@ Spring Boot 2.0 introduced a new web framework called Spring WebFlux. Previous v
 image::{% asset_path 'blog/reactive-java-microservices/diagram-boot-reactor.svg' %}[alt=Spring Boot 2.0,width=700,align=center]
 
 // Above image is from https://web.archive.org/web/20180803181804/http://spring.io/
+
+{% include integrator-org-warning.html %}
 
 toc::[]
 

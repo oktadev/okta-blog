@@ -16,8 +16,6 @@ image: blog/python-serverless/python-serverless-social.png
 type: conversion
 ---
 
-{% include integrator-org-warning.html %}
-
 Modern authentication systems generate JSON Web Tokens (JWT). While there are several types of JWTs, we're concentrating on access tokens. When a user successfully logs in to an application, a JWT is generated. The token is then passed in all requests to the backend. The backend can then validate the token and reject all requests with invalid or missing tokens.
 
 Today, we are going to build a simple web application that uses the Okta authentication widget to log users in. The access token will be generated and sent to an API written in Python and deployed as an AWS Lambda function, which will validate the token. Let's get started!
@@ -27,6 +25,8 @@ Today, we are going to build a simple web application that uses the Okta authent
 {:toc}
 
 **NOTE**: The code for this project can be found on [GitHub](https://github.com/oktadev/okta-aws-python-example).
+
+{% include integrator-org-warning.html %}
 
 ## Install AWS Serverless CLI, Python 3, and Tornado
 

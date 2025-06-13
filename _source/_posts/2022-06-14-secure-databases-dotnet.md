@@ -15,8 +15,6 @@ image: blog/featured/okta-dotnet-sql-closeup.jpg
 type: conversion
 ---
 
-{% include integrator-org-warning.html %}
-
 [Cosmos DB](https://azure.microsoft.com/en-us/services/cosmos-db/) is a cloud database product from Microsoft that offers scalable and high-performance services. The core product runs on a proprietary NoSQL database that should look familiar to experienced MongoDB developers. Microsoft offers several APIs in addition to the core Cosmos DB API. These include APIs for:
 
 - SQL
@@ -27,6 +25,8 @@ type: conversion
 The shift to serverless database operations is one of the most obvious advantages of migrating. Cosmos DB can automatically scale your throughput based on load, rather than the traditional provisioning of throughput in advance.  
 
 As developers, we need to be mindful of how we can protect data at rest. In this article, you will learn how Cosmos DB helps to protect data at rest and what you can do to remove sensitive data like personally identifiable information (PII) from data that you intend to store in Cosmos DB.  
+
+{% include integrator-org-warning.html %}
 
 ### A secure application for PII
 

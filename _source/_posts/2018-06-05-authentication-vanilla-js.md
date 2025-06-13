@@ -19,8 +19,6 @@ changelog:
   - 2022-01-24: Updated dependencies, code, and screenshots. See this post's changes in [okta-blog#1020](https://github.com/oktadev/okta-blog/pull/1020) and the example app changes in [okta-vanilla-js-example#2](https://github.com/oktadev/okta-vanilla-js-example/pull/2). 
 ---
 
-{% include integrator-org-warning.html %}
-
 *"Sometimes nothing is good enough"* is a phrase that software engineers don't speak or hear often. In the fast-changing world of web development, there is no shortage of bleeding-edge JavaScript frameworks promising to make your life easier or inch out its predecessors. You may ask yourself if it is even possible to build a modern web application without one of these frameworks, let alone add secure authentication. Well, it is!
 
 Vanilla JavaScript is frequently used to describe ordinary JavaScript leveraging the browser and DOM APIs. Yes, you read that correctly. No Angular, React, Vue, or even jQuery. And even better, it's not as complicated as you might assume.
@@ -30,6 +28,8 @@ There are many reasons you may decide to forgo the framework bloat for vanilla J
 Along with a simple build process for your application, I'll demonstrate how simple it is to add secure user authentication with Okta. Before we get started, let me tell you what Okta is and why I think Okta is a no-brainer choice for your next front-end project.
 
 {% include toc.md %}
+
+{% include integrator-org-warning.html %}
 
 ## What is Okta?
 

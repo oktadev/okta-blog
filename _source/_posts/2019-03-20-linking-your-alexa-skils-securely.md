@@ -16,8 +16,6 @@ image: blog/featured/okta-node-skew.jpg
 type: conversion
 ---
 
-{% include integrator-org-warning.html %}
-
 We are moving toward a 'SMART' world where everything is interconnected and almost all things or devices are interactive. From a gesture-driven by an actual human being to automated interactions from another device or application, a lot of developers and even non-computer savvy users are trying to explore this space.
 
 {% img blog/alexa-okta/voice-automation.png alt:"Voice Automation" width:"800" %}{: .center-image }
@@ -31,6 +29,8 @@ For this project, you'll need several components and these are:
 1. A Voice Command Enabled Device which will be Amazon Alexa
 2. Register for a [Free Amazon Developer Account](https://developer.amazon.com).
 3. Sign up for a [Free-forever Okta environment](https://developer.okta.com/signup/).
+
+{% include integrator-org-warning.html %}
 
 ## Set Up Your First Alexa Skill Set
 

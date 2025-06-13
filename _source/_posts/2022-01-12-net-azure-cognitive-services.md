@@ -14,8 +14,6 @@ type: conversion
 github: https://github.com/oktadev/okta-dotnet-azure-cognitive-services-example
 ---
 
-{% include integrator-org-warning.html %}
-
 [Azure Cognitive Services](https://azure.microsoft.com/en-us/services/cognitive-services/) is a collection of cloud-based AI products from Microsoft Azure to add cognitive intelligence into your applications quickly. With Azure Cognitive Services, you can add AI capabilities using pre-trained models, so you don't need machine learning or data science experience. Azure Cognitive Services has vision, speech, language, and decision-making services.
 
 In this article, you will learn how to use the Vision [Face API](https://docs.microsoft.com/en-us/azure/cognitive-services/face/) to perform facial analysis in a .NET MVC application and store user profile pictures in [Azure Blob Container Storage](https://azure.microsoft.com/en-us/services/storage/blobs/). You'll also authenticate with Okta and store user data as custom profile attributes.
@@ -34,6 +32,8 @@ At the end of this post, you'll be able to upload a profile picture in your app 
 * Your favorite IDE that supports .NET projects, such as [Visual Studio](https://visualstudio.microsoft.com/downloads/), [Visual Studio for Mac](https://visualstudio.microsoft.com/vs/mac/), [VS Code](https://code.visualstudio.com/), or [JetBrains Rider](https://www.jetbrains.com/rider/)
 * [Okta CLI](https://cli.okta.com/)
 * A [Microsoft Azure Account](https://azure.microsoft.com/en-us/free/) (Azure free account)
+
+{% include integrator-org-warning.html %}
 
 ## Create a new ASP.NET project
 

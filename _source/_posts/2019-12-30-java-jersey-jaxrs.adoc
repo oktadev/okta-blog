@@ -17,7 +17,6 @@ image: blog/featured/okta-java-short-headphones.jpg
 type: conversion
 ---
 
-{% include integrator-org-warning.html %}
 :toc: macro
 :page-liquid:
 :experimental:
@@ -25,6 +24,8 @@ type: conversion
 REST is one of the most used architectural styles when it comes to developing web services. In Java, we have the JAX-RS specification that defines how to create a RESTful application. To show the power of the spec, Jersey, the reference implementation of JAX-RS was created. Building JAX-RS endpoints only requires adding annotations to your code.  Keep reading to see how easy it is!
 
 In this tutorial you'll create a TODO list service that will perform all four CRUD functions (Create, Retrieve, Update, and Delete), using the Jersey API. In the end, you'll add security to make sure only authenticated users can call your services.
+
+{% include integrator-org-warning.html %}
 
 **Prerequisites:**
 

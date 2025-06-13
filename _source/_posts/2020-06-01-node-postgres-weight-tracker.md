@@ -17,8 +17,6 @@ image: blog/node-postgres-weight-tracker/nodejs-weight-tracker-featured-image.pn
 type: conversion
 ---
 
-{% include integrator-org-warning.html %}
-
 Did you make any resolutions this year? One resolution I seem to make *every* year is to lose weight and exercise. Sometimes I even stick to it.
 
 A good way I have found to keep on track with any resolution is to record progress. There's something about visualizing progress that helps me stay motivated.
@@ -38,6 +36,8 @@ Before we begin, let's first check some requirements.
 * [Node.js](https://nodejs.org/) version 12.x or higher.
 * [A PostgreSQL database](https://www.postgresql.org/). If you don't already have PostgreSQL, you can install it using Docker. More details on this later in the tutorial!
 * [A free Okta developer account](https://developer.okta.com/) for account registration, login, and security.
+
+{% include integrator-org-warning.html %}
 
 ## Create Your Node.js Project
 

@@ -17,11 +17,11 @@ image: blog/first-nestjs-application/social-image.png
 type: conversion
 ---
 
-{% include integrator-org-warning.html %}
-
 NestJs is a popular Node.js framework that is built with typescript and makes use of object-oriented programming, functional programming, and functional reactive programming. NestJs boasts that it provides a framework for building scalable server-side applications. 
 
 NestJs integrates nicely with Okta's single sign-on provider. Okta makes securing a web service, such as the one you will build, quick and easy. 
+
+{% include integrator-org-warning.html %}
 
 ## Create Your Okta Application with the CLI
 

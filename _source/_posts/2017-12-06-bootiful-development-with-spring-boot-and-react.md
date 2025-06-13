@@ -21,8 +21,6 @@ changelog:
   - 2018-04-10: "Updated to use Spring Boot 1.5.12, Okta Spring Boot Starter 0.4.0, and Okta React 1.0.0. You can see the code changes in the example app via pull requests on GitHub: [spring-boot-react-example#3](https://github.com/oktadeveloper/spring-boot-react-example/pull/3), [spring-boot-react-example#2](https://github.com/oktadeveloper/spring-boot-react-example/pull/2). Changes to this article can be viewed in [oktadeveloper/okta.github.io#1942](https://github.com/oktadeveloper/okta.github.io/pull/1942)."
 ---
 
-{% include integrator-org-warning.html %}
-
 React has been getting a lot of positive press in the last couple years, making it an appealing frontend option for Java developers! Once you learn how it works, it makes a lot of sense and can be fun to develop with. Not only that, but it's *wicked fast!* If you've been following me, or if you've read this blog for a bit, you might remember my [Bootiful Development with Spring Boot and Angular](/blog/2017/04/26/bootiful-development-with-spring-boot-and-angular) tutorial. Today, I'll show you how to build the same application, except with React this time. Before we dive into that, let's talk some more about what React is great for, and why I chose to explore it in this post.
 
 First of all, React isn't a full-fledged web framework. It's more of a toolkit for developing UIs, a la GWT. If you want to make an HTTP request to fetch data from a server, React doesn't provide any utilities for that. However, it does have a *huge* ecosystem that offers many libraries and components. What do I mean by huge? Put it this way: According to npmjs.com, [Angular has 17,938 packages](https://www.npmjs.com/search?q=angular). React has almost [three times as many](https://www.npmjs.com/search?q=react) at 42,428!
@@ -32,6 +30,8 @@ Angular is a good friend of mine and has been for a long time. I'm not abandonin
 This post shows how you can build a UI and an API as separate apps. You'll learn how to create REST endpoints with Spring MVC, configure Spring Boot to allow CORS, and create a React app to display its data. This app will show a list of beers from the API, then fetch a GIF from [GIPHY](https://giphy.com/) that matches the beer's name. I'll also show you how to integrate Okta and its OpenID Connect (OIDC) support to lock down your API and add authentication to your UI.
 
 Let's get started!
+
+{% include integrator-org-warning.html %}
 
 ## Build an API with Spring Boot
 

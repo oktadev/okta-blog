@@ -17,8 +17,6 @@ type: conversion
 image: blog/featured/okta-dotnet-half.jpg
 ---
 
-{% include integrator-org-warning.html %}
-
 Let's face it: developing good security is hard, unglamorous, and time-intensive. People tend to think about it as an afterthought instead of a priority. What if there were a way to make all your new projects more secure out of the box, and also make your company's development processes easier and more repeatable in the process? Good news everyone, I have just the thing: .NET templates. You are going to love how much time and energy this saves you and your team.
 
 Before we get started, you'll need a couple of things.
@@ -27,6 +25,8 @@ Before we get started, you'll need a couple of things.
 * [Visual Studio Code](https://code.visualstudio.com/)
 * [Nuget Package Manager](https://www.nuget.org/downloads)
 * An [Okta Developer Account](https://developer.okta.com/) (free forever, to handle your OAuth needs)
+
+{% include integrator-org-warning.html %}
 
 ## Project Setup
 

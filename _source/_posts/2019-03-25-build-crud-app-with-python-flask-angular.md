@@ -16,8 +16,6 @@ image: blog/featured/okta-angular-headphones.jpg
 type: conversion
 ---
 
-{% include integrator-org-warning.html %}
-
 Developers all have their favorite GitHub repositories. They have software projects that they love and watch closely for the latest changes. In this tutorial, you'll create a simple CRUD application to save and to display your favorite GitHub open source projects. You will use Angular to implement the user interface features and Python for the backend.
 
 These days it is not uncommon to have an API that is responsible not only for persisting data to the database, but also dealing with business requirements like permissions, data flow, data visibility, and so on. Python is a natural choice for the API because of its simplicity and power. For the same reasons, Angular is a great choice on the client side. Angular's use of TypeScript makes it easy to get started with and still powerful enough to handle your most advanced scenarios.
@@ -35,6 +33,8 @@ You will start by creating the backend in Python.
 **Table of Contents**{: .hide }
 * Table of Contents
 {:toc}
+
+{% include integrator-org-warning.html %}
 
 ## Set Up Your Python + Angular Environment
 

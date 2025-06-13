@@ -17,8 +17,6 @@ image: blog/jhipster-quarkus-oidc/jhipster-quarkus.png
 type: conversion
 ---
 
-{% include integrator-org-warning.html %}
-
 Quarkus is a Kubernetes-native, Java framework for building high-performance web, serverless, and native apps. It uses Ahead of Time (AOT) compilation and aggressive optimizations like classpath scanning, configuration reloading, and application bootstrap pre-configuration during the build process. This results in impressive startup performance. In other words, a Quarkus app starts up super fast!
 
 Like Spring and Micronaut, Quarkus can take advantage of GraalVM to transform a JVM-based application into a native executable, improving the overall performance even more! 
@@ -26,6 +24,8 @@ Like Spring and Micronaut, Quarkus can take advantage of GraalVM to transform a 
 Such performance gains allow the Java platform to be competitive in serverless, cloud, and Kubernetes environments by building Supersonic Subatomic Java applications.
 
 Quarkus uses Java standards (like [MicroProfile](https://projects.eclipse.org/projects/technology.microprofile), [JAX-RS](https://github.com/jax-rs)) and best of breed libraries (such as [Hibernate](https://hibernate.org/) and [Vert.x](https://vertx.io/)). It even has support for [Spring](https://spring.io/)'s annotations.
+
+{% include integrator-org-warning.html %}
 
 ## Quarkus + JHipster = Fast Java Made Easy
 

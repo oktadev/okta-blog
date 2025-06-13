@@ -15,8 +15,6 @@ image: blog/offline-apps-antarctica/elephantisland.jpg
 type: awareness
 ---
 
-{% include integrator-org-warning.html %}
-
 {% img blog/offline-apps-antarctica/antarcticaphoto.jpg alt:"Antarctic Peninsula" width:"800" %}{: .center-image }
 
 In January of 2020, I was fortunate enough to join a 16 day voyage to Antarctica, and speak at a tech mastermind conference called [AntarctiConf](https://antarcticonf.com/). Going to see the seventh continent was one of the coolest experiences of my life, and to top it all off I was joined by other incredible like-minded tech geeks and coders! I highly recommend adding Antartica to your travel bucket list as well, it is such a life-changing place to visit.
@@ -36,6 +34,8 @@ While on this cruise, we had ample time to discuss changes in the tech industry 
 So many questions that I didn't really consider until having that experience. The Drake Passage isn't the only place devoid of strong internet connections. Access that is very poor or missing completely from other places in the world, including villages and small cities, is still a huge work in progress. Remote research stations aren't the only outlier here. Ever try to get a signal from inside of a steel building or underground in a basement or bunker? The more we looked into this, the more common it appeared to be that the internet was not as available as it is with my Google Fiber lightning fast wifi back home in Kansas City. Time to explore some modern pitfalls for developers in this cloud-obsessed world, and how to be more mindful going forward. Let's avoid the internet iceberg that stops your software ship!
 
 {% img blog/offline-apps-antarctica/icebergphoto.jpg alt:"Iceberg in Antarctica" width:"500" %}{: .center-image }
+
+{% include integrator-org-warning.html %}
 
 ## Check software use cases for intermittent connectivity
 

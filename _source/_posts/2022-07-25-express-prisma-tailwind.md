@@ -13,8 +13,6 @@ github: https://github.com/oktadev/okta-express-prisma-tailwind-example
 type: conversion
 ---
 
-{% include integrator-org-warning.html %}
-
 [Prisma](https://www.prisma.io/) is an ORM (object–relational mapping) tool for Node.js using TypeScript.  The software integrates with many of the most popular databases today, including MySQL, SQL Server, SQLite, and MongoDB, and emphasizes a human-readable schema with a type-safe database client.  Prisma also includes other features such as migrations, seed data, and a virtual database browser.   
 
 In this project, you will use Prisma to connect your [Express](https://expressjs.com/) application to a database server.  You will build a schema to model a workout tracker application.  Then you'll create some seed data and use Prisma to run migrations and seed your database.  Finally, you'll create the web application using [Pug](https://pugjs.org/api/getting-started.html) and [Tailwind CSS](https://tailwindcss.com/) to build the application frontend.  
@@ -31,6 +29,8 @@ This tutorial uses the following technologies but doesn't require any prior expe
 - [Okta CLI](https://cli.okta.com)
 
 If you'd like to skip the tutorial and check out the fully built project, you can go [view it on GitHub](https://github.com/oktadev/okta-express-prisma-tailwind-example).
+
+{% include integrator-org-warning.html %}
 
 ## Create your OAuth2 authorization server
 

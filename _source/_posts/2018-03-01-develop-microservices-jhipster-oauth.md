@@ -24,8 +24,6 @@ changelog:
   - 2018-08-14: Updated to use JHipster 5.1.0 and Spring Boot 2.0.3. Removed Elasticsearch from blog and store apps since it doesn't work on Heroku. See the example app changes in [okta-jhipster-microservices-oauth-example#2](https://github.com/oktadeveloper/okta-jhipster-microservices-oauth-example/pull/2); changes to this post can be viewed in [okta.github.io#2254](https://github.com/oktadeveloper/okta.github.io/pull/2254).
 ---
 
-{% include integrator-org-warning.html %}
-
 JHipster is a development platform to generate, develop, and deploy Spring Boot + Angular web applications and Spring microservices. It supports using many types of authentication: JWT, session-based, and OAuth 2.0. In its 5.0 release, it added React as a UI option. 
 
 {% img blog/microservices-jhipster-oauth/jhipster-5.png alt:"Spring Boot + (Angular | React) + Bootstrap  = JHipster" width:"800" %}{: .center-image }
@@ -33,6 +31,8 @@ JHipster is a development platform to generate, develop, and deploy Spring Boot 
 In addition to having two popular UI frameworks, JHipster also has modules that support generating mobile applications. If you like Ionic, which currently leverages Angular, you can use [Ionic for JHipster](/blog/2018/01/30/jhipster-ionic-with-oidc-authentication). If you're a React aficionado, you can use [Ignite JHipster](/blog/2018/10/10/react-native-spring-boot-mobile-app).
 
 [JHipster](http://www.jhipster.tech) is 🔥, and so are microservices! Follow the instructions in this tutorial to create an API gateway, a blog microservice, and a companion store microservice.
+
+{% include integrator-org-warning.html %}
 
 ## Install JHipster
 

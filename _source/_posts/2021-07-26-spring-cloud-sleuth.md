@@ -19,8 +19,6 @@ changelog:
 - 2021-09-17: Based on feedback in comments, fixed a typo, updated the sleuth-example-diagram.png file, and more clearly explained about custom spans. See the updates in [okta-blog#889](https://github.com/oktadev/okta-blog/pull/889).
 ---
 
-{% include integrator-org-warning.html %}
-
 Spring Cloud Sleuth allows you to aggregate and track log entries as requests move through a distributed software system. In a monolithic system, it's relatively easy to track requests as they move through the codebase because all requests can easily be logged to the same log file. You can generally just filter the log by the thread ID. But in a distributed system, a single client request may sprawl across any number of discrete cloud services. Any given service may have multiple instances handling different parts of the request. There is no single log file, with a request spread across multiple server instances. How do you use logs in this situation? How do you trace a request flow across a service mesh?
 
 In this tutorial, you will see how Spring Cloud Sleuth can be integrated into a Spring Boot application. The Spring Boot application will be secured using Okta as an OAuth 2.0 & OIDC provider. You'll use the Okta CLI to configure Okta and Spring Boot. You'll also download and run a Zipkin server to collect the Spring Cloud Sleuth entires and visualize them.
@@ -28,6 +26,8 @@ In this tutorial, you will see how Spring Cloud Sleuth can be integrated into a 
 **Table of Contents**{: .hide }
 * Table of Contents
 {:toc}
+
+{% include integrator-org-warning.html %}
 
 ## What is Spring Cloud Sleuth?
 

@@ -17,8 +17,6 @@ image: blog/featured/okta-dotnet-books-quarter.jpg
 type: conversion
 ---
 
-{% include integrator-org-warning.html %}
-
 Nowadays, using a password for authentication is becoming less and less secure. Password attacks are becoming more sophisticated, and data breaches occur more frequently. [Have I Been Pwned](https://haveibeenpwned.com/), the website where you can check if your account has been compromised in a data breach, contains more than **10 billion** accounts and more than **600 million** passwords. With [62% of users reusing passwords](https://www.darkreading.com/informationweek-home/password-reuse-abounds-new-survey-shows/d/d-id/1331689), a successful attack on one of the websites gives the attacker access to your accounts on other sites as well. What's more, the Director of Identity Security at Microsoft warns that [long and complex passwords mostly don't help either](https://techcommunity.microsoft.com/t5/azure-active-directory-identity/your-pa-word-doesn-t-matter/ba-p/731984). Using multi-factor authentication is one of the easiest ways to secure your account but is still suspectable to some types of attacks.
 
 In this tutorial, you will learn about how passwordless authentication works, why it is more secure, and how to implement passwordless authentication with WebAuthn in ASP.NET Core together with Okta.
@@ -30,6 +28,8 @@ To continue, you will need:
 - [.NET Core 3.1 SDK](https://dotnet.microsoft.com/download/dotnet-core)
 - Windows 10 Anniversary Update or newer and a computer with either a fingerprint reader, a Near-Infrared webcam, or a USB security key.
 - An [Okta Developer Account](https://developer.okta.com/) (free forever, to handle your OAuth needs)
+
+{% include integrator-org-warning.html %}
 
 ## Introduction to Passwordless Authentication with WebAuthn
 

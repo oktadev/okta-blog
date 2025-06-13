@@ -16,8 +16,6 @@ tweets:
 type: conversion
 ---
 
-{% include integrator-org-warning.html %}
-
 
 Flask is my favorite Python web framework. It's minimal, it's fast, and most of all: *it's fun*. I love almost everything about Flask development, with one exception: user management.
 
@@ -32,6 +30,8 @@ Follow along below and you'll learn how to:
 * Use Okta as your authorization server to store and manage your user accounts in a simple, straightforward way
 
 If you'd like to skip the tutorial and just check out the fully built project, you can go [view it on GitHub](https://github.com/rdegges/okta-flask-example).
+
+{% include integrator-org-warning.html %}
 
 ## Initialize Authentication for Your Flask App with Okta
 

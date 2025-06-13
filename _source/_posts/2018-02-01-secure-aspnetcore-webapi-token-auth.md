@@ -19,14 +19,14 @@ changelog:
 - 2021-04-06: Updated post to use the Okta CLI for setup. See changes in [okta-blog#678](https://github.com/oktadeveloper/okta-blog/pull/678).
 ---
 
-{% include integrator-org-warning.html %}
-
 API security can be complex. In many cases, just because you've built an API that you want to make public, it doesn't mean that you want just anybody accessing it. In most cases, you want fine-grained control over who can access the API, but setting up that kind of user management can be a daunting task: you'd have to create your own authorization service that can create API credentials for your users and have the ability to exchange those API credentials for an access token using OAuth 2.0. I've got good news! With just a few lines of code, Okta can handle all the complicated and time-consuming security elements and let you concentrate on creating a stellar API. =)
 
 **Table of Contents**{: .hide }
 * Table of Contents
 {:toc}
   
+{% include integrator-org-warning.html %}
+
 ## Understand the Basic Flow
 
 When handling authentication for a server-to-server API, you really only have two options: HTTP basic auth or OAuth 2.0 client credentials.

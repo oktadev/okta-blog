@@ -17,8 +17,6 @@ image: blog/featured/okta-dotnet-books-quarter.jpg
 type: conversion
 ---
 
-{% include integrator-org-warning.html %}
-
 Amazon Web Services is one of the most popular cloud computing platforms on the planet. There's a good chance you will need to work in an AWS environment, which means publishing to one of their web server services like Elastic Beanstalk. The AWS platform is enormous, and this can be an intimidating task for a developer. Luckily, Amazon has released their AWS Toolkit for Visual Studio 2013-2015 and AWS Toolkit for Visual Studio 2017-2019, which make publishing your web applications to Elastic Beanstalk a snap.
 
 In this article, you will build an ASP.Net MVC web application on .Net 5 using Visual Studio 2019. You will secure this application using Okta. Okta makes it easy to create a secure application with their SSO provider. Once your application is complete you will publish it to a production Elastic Beanstalk instance using the AWS Toolkit.
@@ -26,6 +24,8 @@ In this article, you will build an ASP.Net MVC web application on .Net 5 using V
 **Table of Contents**{: .hide }
 * Table of Contents
 {:toc}
+
+{% include integrator-org-warning.html %}
 
 ### What You'll Need
 

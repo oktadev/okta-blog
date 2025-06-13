@@ -19,8 +19,6 @@ changelog:
 - 2020-04-14: Updated to use Spring Boot 2.4.5 and use the Okta CLI. You can see [changes in the example on GitHub](https://github.com/oktadeveloper/kotlin-spring-boot-tutorial/pull/1); changes in this article are in [okta-blog#715](https://github.com/oktadeveloper/okta-blog/pull/715).
 ---
 
-{% include integrator-org-warning.html %}
-
 Kotlin is a modern, statically typed language within the JVM. Kotlin is a cross-platform, multi-purpose, free and open-source language developed by JetBrains under the Apache 2.0 license and has constructs for both Object Oriented and Functional programming styles, which can be mixed. It can be used for web development, server and client, and mobile development, using most Java IDEs.
 
 Kotlin is an awesome option for Java developers because it is concise, expressive, and safe. According to JetBrains estimates, it can cut the total lines of code in your app by up to 40%. Kotlin also helps prevent `NullPointerException`s as it provides **non-nullable** types
@@ -40,6 +38,8 @@ In order to complete the full tutorial, you'll need the following tools:
 Before we dive into the tutorial, let's talk a little about why Kotlin might be the right choice for your next project.
 
 {% img blog/tutorial-kotlin-beginners-guide/kotlin-logo.png alt:"Kotlin logo" width:"400" %}{: .center-image }
+
+{% include integrator-org-warning.html %}
 
 ## Kotlin vs. Java, aka Why this Tutorial?
 

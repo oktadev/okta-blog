@@ -17,7 +17,6 @@ image: blog/vaadin-spring-boot/vaadin-spring-boot.png
 type: conversion
 ---
 
-{% include integrator-org-warning.html %}
 :toc: macro
 :page-liquid:
 
@@ -36,6 +35,8 @@ I collaborated on this post with https://twitter.com/marcushellberg[Marcus Hellb
 You might notice we keep saying "Vaadin Fusion" instead of "Vaadin." I've always thought Vaadin was a web framework based on Google's GWT (Google Web Toolkit). I asked Marcus about this, and he explained to me there are now two products—Vaadin Flow and Vaadin Fusion.
 
 The classic Vaadin server-side Java API is now called Vaadin Flow. Vaadin Fusion is a new TypeScript frontend framework designed for Java backends. Both offer full-stack type safety and use the same set of UI components. Vaadin is no longer based on GWT. Instead, its components use web component standards.
+
+{% include integrator-org-warning.html %}
 
 **Prerequisites**
 

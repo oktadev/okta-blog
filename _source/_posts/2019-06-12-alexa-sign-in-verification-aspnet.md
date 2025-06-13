@@ -17,8 +17,6 @@ image: blog/featured/okta-dotnet-skew.jpg
 type: conversion
 ---
 
-{% include integrator-org-warning.html %}
-
 Authentication for voice, specifically Amazon's Alexa, has its limitations. The initial Account Linking process Amazon provides for identification works for many scenarios, but it is only done once (signing into the skill via the Alexa mobile app or website), and all subsequent sessions with the skill are linked - *no log-in screen presented again*. I've often been asked what the options are for verifying every time a user engages with an Alexa skill. For example; a financial institution with access to sensitive user data might want to ensure that a specific person in the household is accessing it, and not others in the home. 
 
 Another case is for purchases in skills, where verification might be useful to keep kids from buying something a parent has not agreed to. Don't worry, Okta has you covered! This tutorial will guide you through an interaction-based authentication step that you can present to your users at any point, managed in Okta. 
@@ -26,6 +24,8 @@ Another case is for purchases in skills, where verification might be useful to k
 To make it more user-friendly, this example will demonstrate a voice-only verification - no phone or computer required for screen access. Let's get started making voice experiences more secure and hands-free at the same time!
 
 {% img blog/alexa-sign-in-verification-aspnet/alexa-family.png alt:"Family Alexa Access" width:"800" %}{: .center-image }
+
+{% include integrator-org-warning.html %}
 
 ## Create an Alexa Skill in ASP.NET Web API for Account Linking
 

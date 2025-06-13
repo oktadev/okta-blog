@@ -15,9 +15,9 @@ type: conversion
 github: https://github.com/oktadev/okta-angular-standalone-runtime-config-example
 ---
 
-{% include integrator-org-warning.html %}
-
 Are you ready to hear about the ultimate flexibility in configuring authentication properties in the Okta Angular SDK? You'll want to check out this excellent new feature and walk through the steps of adding authentication using Okta to Angular applications.
+
+{% include integrator-org-warning.html %}
 
 ## Configuring authentication properties using Okta in Angular applications
 

@@ -16,8 +16,6 @@ image: blog/featured/okta-node-tile-books-mouse.jpg
 type: conversion
 ---
 
-{% include integrator-org-warning.html %}
-
 `NodeJS` + `Express` is a popular technology stack for building APIs and backend services. Often times a backend database is required. There are several popular relational databases used in both enterprise and hobby projects. MySQL's spike in popularity came with the rise of PHP during the early 2000s and today - more than 20 years after the initial release - it's used on a wide array of technology stacks.
 
 In this post, you'll learn how to build a basic CRUD (Create, Read, Update, Delete) application and secure the application using Okta. You'll be making a simple Yelp-style backend to rate restaurants called "FeedMeWell." Every restaurant will have a list of dishes it offers, and all registered users will be able to rate the restaurants. The system will then calculate the average rating for each restaurant based on the ratings.
@@ -35,6 +33,8 @@ During the `npm install` phase, you will install the following dependencies:
 - `TypeScript` (Typed superset of `JavaScript`)
 - `TypeORM` (Object Relational Mapper for `TypeScript` and `JavaScript`)
 - `Express` (Fast, unopinionated, minimalist web framework for Node)
+
+{% include integrator-org-warning.html %}
 
 ## Initialize the Node + Express Project and Add Dependencies
 

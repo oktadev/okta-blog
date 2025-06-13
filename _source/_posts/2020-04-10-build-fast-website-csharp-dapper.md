@@ -16,13 +16,13 @@ tweets:
 type: conversion
 image: blog/featured/okta-dotnet-mouse-down.jpg
 ---
-
-{% include integrator-org-warning.html %}
 If you have been doing .NET development professionally for any length of time, you are probably familiar with Entity Framework for data access. At the time of this post, both Entity Framework and Entity Framework Core have over 85 million downloads on Nuget so it is definitely a popular framework.
 
 People love Entity Framework because it abstracts the way you interact with the database to make development easier. The problem, though, is that you trade that easier development experience for heavy operations and very little control over the way you interact with your data.
 
 Sometimes you need to be able to be specific about how you access data or you need a lightweight solution for getting data. Dapper was born out of this need, and today we'll be exploring how you can use Dapper to make working with databases easy, while getting a significant boost in performance.
+
+{% include integrator-org-warning.html %}
 
 ## Prerequisites
 

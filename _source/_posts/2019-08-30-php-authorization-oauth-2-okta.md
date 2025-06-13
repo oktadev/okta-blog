@@ -16,8 +16,6 @@ image: blog/featured/okta-php-headphones.jpg
 type: conversion
 ---
 
-{% include integrator-org-warning.html %}
-
 User account management, authorization, and access control can be difficult to implement for many web developers. At the same time, they are critical cornerstones of application security – any mistake can lead to data leaks, financial losses, and legal troubles.
 
 Successful web applications inevitably grow to a stage where simple user authorization is no longer sufficient and certain features have to be made available only to certain users. There are a variety of ways to achieve this, usually via some combination of access-control lists that limit access to the system based on the user's role, group assignments, or even individual permissions. Depending on your choice of programming language/framework, you will likely have multiple implementation options for authorization available out-of-the-box.
@@ -29,6 +27,8 @@ I previously showed you how to [build simple login in PHP](/blog/2018/12/28/simp
 <div markdown="1" style="border: 1px #eedeaa solid; background: #ffffee; padding: 20px; border-radius: 8px;">
 **Prerequisites:** Please ensure you have already installed PHP, Composer, and have signed up for a [free Okta developer account](https://developer.okta.com/signup/).
 </div>
+
+{% include integrator-org-warning.html %}
 
 ## Set Up a Simple PHP App and Add Okta
 

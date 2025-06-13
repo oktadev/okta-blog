@@ -17,8 +17,6 @@ image: blog/featured/okta-java-skew.jpg
 type: conversion
 ---
 
-{% include integrator-org-warning.html %}
-
 Serverless is the next iteration in cloud management. First, we let go of having physical hardware servers and moved all of our servers into the cloud because, hey, why bother managing all that hardware? This created cloud infrastructure providers that resulted in behemoths like Amazon and Google. Now, they're saying, why bother managing a server at all? What you really want to do is run code, right? Serverless is an architecture where code is run in a managed service container that is totally isolated from server-level concerns like operating systems, web servers, and updates.
 
 In truth, this creates a whole host of trade-offs. The promised benefits are simplicity, automatic scaling, and low cost. The idea is that to create an application, all you have to do is upload your code and you're off! Because the service provider is managing provisioning for you automatically, scaling is fast and transparent. And because you're only paying for time you actually use - instead of paying a fixed cost - you save money. Sounds perfect. Indeed, it sounds like a great sell to managers and corporate executives. But while in some use cases, serverless is fantastic, it's not that simple.
@@ -34,6 +32,8 @@ Serverless functions should also be stateless (there's no disk to write to) and 
 **Table of Contents**{: .hide }
 * Table of Contents
 {:toc}
+
+{% include integrator-org-warning.html %}
 
 ## Choose Between Java Serverless Options
 
