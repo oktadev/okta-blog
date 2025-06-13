@@ -10,7 +10,7 @@ image: blog/sohail-pathan-intro/sohail-pathan-social-image.png
 type: awareness
 ---
 
-## Hello okta community 👋
+## Hello OktaDev community 👋
 
 Let me tell you a story – a story of dreams, passion, and the continuous pursuit of curiosity. My name is Sohail Pathan, and I'm thrilled to join Okta as a Senior Developer Advocate. 
 
