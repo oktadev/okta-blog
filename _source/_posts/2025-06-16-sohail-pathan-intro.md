@@ -10,6 +10,8 @@ image: blog/sohail-pathan-intro/sohail-pathan-social-image.png
 type: awareness
 ---
 
+> *“Sometimes, all it takes is a spark of curiosity to ignite a lifelong journey.”*
+
 ## Hello OktaDev community 👋
 
 Let me tell you a story – a story of dreams, passion, and the continuous pursuit of curiosity. My name is Sohail Pathan, and I'm thrilled to join Okta as a Senior Developer Advocate. 
@@ -65,7 +67,7 @@ With every sample app, tutorial, and user conversation, my passion for APIs grew
 
 I'm beyond excited to be at Okta, a place where security isn't just a department – it's part of our DNA. Our customers come first, and every decision we make is guided by a single goal: to give people safe, seamless access to the tools they love. Whether you're a startup building your first app or an enterprise rolling out AI solutions, Okta's mission is to keep you secure without slowing you down.
 
-I'm excited to dive in, share what I've learned about APIs and identity, and learn from this amazing community. Together, we'll build a world where technology empowers everyone – safely, simply, and smartly.
+Ready to dive in! I'm excited to share my knowledge of APIs and identity, and even more so to learn from this amazing community. Our collective efforts can build a future where technology empowers everyone – securely, effortlessly, and intelligently.
 
 {% img blog/sohail-pathan-intro/image4.jpeg alt:"A photo captured on my first day at the Okta Campus in Bengaluru, near my workstation" width:"782" %}{: .center-image }
 <cite style="display: block; text-align: center;">Image: A photo captured on my first day at the Okta Campus in Bengaluru, near my workstation.</cite>
