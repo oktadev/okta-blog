@@ -10,7 +10,7 @@ image: blog/sohail-pathan-intro/sohail-pathan-social-image.png
 type: awareness
 ---
 
-> *“Sometimes, all it takes is a spark of curiosity to ignite a lifelong journey.”*
+> *"Sometimes, all it takes is a spark of curiosity to ignite a lifelong journey."*
 
 ## Hello OktaDev community 👋
 
