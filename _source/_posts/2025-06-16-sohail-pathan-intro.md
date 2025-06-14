@@ -37,8 +37,8 @@ The DevRel adventure deepened when I joined a deeptech startup that aimed to sol
 
 So, it was time to roll up my sleeves. I organized virtual and inperson meetups where developers could share their struggles and ideas. We even hosted hackathons, challenging participants to push the tool's limits and tell us what worked and what didn't. Week after week, I collected feedback, sifting through every comment and suggestion.
 
-{% img blog/sohail-pathan-intro/image3.jpeg alt:"Session post of live building a Disco Diwane app in Android Study Jam in Nagpur" width:"782" %}{: .center-image }
-<cite style="display: block; text-align: center;">Image: The session post is about building a Disco Diwane app live in Android Study Jam in Nagpur.</cite>
+{% img blog/sohail-pathan-intro/image3.jpeg alt:"Live session building the Disco Diwane app during an Android Study Jam in Nagpur" width:"782" %}{: .center-image }
+<cite style="display: block; text-align: center;">Image:Live session on building the Disco Diwane app during an Android Study Jam in Nagpur.</cite>
 
 For four intense months, we listened, iterated, and tried to find product market fit. Unfortunately, despite our best efforts, technical roadblocks and limited demand meant we couldn't go forward. The founders made the tough call to shut down the company. While it wasn't the happy ending I'd hoped for, this chapter taught me lessons money can't buy: **the value of listening closely to your community, the courage to make hard decisions, and the resilience to keep moving forward.**
 
