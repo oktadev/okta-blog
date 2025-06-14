@@ -46,9 +46,9 @@ With these lessons etched in my mind, I was ready for whatever came next.
 
 ## Crafting the API universe at Apyhub
 
-My next stop was [ApyHub](https://apyhub.com), where I joined as the Developer Advocate (early team). ApyHub was building an API Marketplace for both coders and nocode devs – a place where anyone could discover, consume, and Monetize APIs.
+My next stop was [ApyHub](https://apyhub.com), where I joined as the Developer Advocate (early team). ApyHub was building an API Marketplace for both developers and no-code builders – a place where anyone could discover, consume, and Monetize APIs.
 
-I still remember helping in the first public launch on Product Hunt. Working side by side with Engineering and Marketing, I helped create sample apps, write tutorials in Go and Node.js, and craft blog posts to spread the word. Single-handedly, I produced code examples that developers could copy, tweak, and run immediately.
+I still remember the excitement of helping the team prepare for very first public launch on Product Hunt. Working side by side with Engineering and Marketing, I helped create sample apps, write tutorials in Go and Node.js, and craft blog posts to spread the word. Single-handedly, I produced code examples that developers could copy, tweak, and run immediately.
 
 Every week brought new adventures: I delivered talks on API design, cataloged hundreds of APIs, and explained API specifications in simple terms. We sponsored hackathon tracks that challenged participants to build real projects using our APIs, and rewarded the best ideas.
 
