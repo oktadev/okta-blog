@@ -14,7 +14,7 @@ type: awareness
 
 Let me tell you a story – a story of dreams, passion, and the continuous pursuit of curiosity. My name is Sohail Pathan, and I'm thrilled to join Okta as a Senior Developer Advocate. 
 
-It all started in Nagpur, a quaint city nestled in central Ind`ia. As a child, I eagerly peered through my window, convinced superheroes were real and that someday Superman himself would swing by. While superheroes never appeared, another hero soon took their place – **technology**.
+It all started in Nagpur, a quaint city nestled in central India. As a child, I eagerly peered through my window, convinced superheroes were real and that someday Superman himself would swing by. While superheroes never appeared, another hero soon took their place – **technology**.
 
 School never captivated me much, but the computer lab was a magical place. Recognizing this spark, my parents gifted me my first desktop computer – a moment that forever changed my life. A formal education in Computer Science followed, where I fell in love with Java and the vibrant Android ecosystem. When [Google introduced Kotlin support in 2017](https://android-developers.googleblog.com/2017/05/android-announces-support-for-kotlin.html), weekends turned into coding marathons, building Android apps for everyday use.
 
