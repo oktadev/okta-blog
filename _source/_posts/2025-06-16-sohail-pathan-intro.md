@@ -55,7 +55,7 @@ Every week brought new adventures: I delivered talks on API design, cataloged hu
 
 Living in a startup meant wearing many hats. One moment, I was designing microservices used by over 40,000+ developers; the next, I was learning the ins and outs of API gateway, containers, and load balancing – things that require a backend to run smoothly. This hands-on experience deepened my expertise in REST architecture and DevOps practices.
 
-But the heart of my role was listening. Eventually, I became the first responder for our users(paid and free) collecting feedback, identifying what mattered most, and working with the team to make it happen. **There's nothing like seeing a user's face light up when a tricky bug is fixed, or a feature is added based on their own suggestion**.
+But the heart of my role was listening. Eventually, I became the first responder for our users (paid and free), collecting feedback, identifying what mattered most, and working with the team to make it happen. **There's nothing like seeing a user's face light up when a tricky bug is fixed, or a feature is added based on their own suggestion**.
 
 Through APIs, I also discovered the power of OAuth and identity management. I saw how a few lines of code could secure entire apps and protect user data. It was a revelation that pointed me straight to Okta.
 
