@@ -9,7 +9,7 @@ tags: [advocacy, javascript, kotlin, okta]
 image: blog/sohail-pathan-intro/sohail-pathan-social-image.png
 type: awareness
 ---
-> *"Sometimes, all it takes is a spark of curiosity to ignite a lifelong journey."*
+> *"Sometimes, all it takes is a spark of curiosity to ignite a lifelong journey."* - Unknown
 
 Hello OktaDev community 👋! Let me tell you a story – a story of dreams, passion, and the continuous pursuit of curiosity. My name is Sohail Pathan, and I'm thrilled to join Okta as a Senior Developer Advocate. 
 
