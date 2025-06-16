@@ -17,7 +17,6 @@ image: blog/android-login/android-login.png
 type: conversion
 ---
 
-{% include integrator-org-warning.html %}
 :toc: macro
 :page-liquid:
 :experimental:
@@ -29,6 +28,8 @@ Implementing a secure login process on Android can be challenging to achieve sin
 Here is where the https://github.com/okta/okta-oidc-android[Okta OIDC SDK] comes to the rescue! It's a mobile SDK developed by industry-leading security experts, designed to provide a simple way for your users to log in into your app. This is done by using OAuth 2.0 and OpenID Connect (OIDC), which are the security industry's standards for authorization and authentication. A fun guide to these technologies can be found in link:/blog/2019/10/21/illustrated-guide-to-oauth-and-oidc[An Illustrated Guide to OAuth and OpenID Connect].
 
 This post will show you how easy it is to set up the Okta OIDC SDK on Android and leave you with a working app that allows users to securely login!
+
+{% include integrator-org-warning.html %}
 
 toc::[]
 

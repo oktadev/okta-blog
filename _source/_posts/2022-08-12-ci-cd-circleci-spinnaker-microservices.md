@@ -14,8 +14,6 @@ image: blog/jhipster-ci-cd/ci-cd-baby.jpg
 type: conversion
 ---
 
-{% include integrator-org-warning.html %}
-
 Continuous integration and delivery (CI/CD) are essential practices for modern software development. In this post we cover the basics of how to add CI/CD for a JHipster microservices architecture and Kubernetes as the target cloud deployment environment.
 
 Briefly, *continuous integration* is the practice of integrating code into the main branch of a shared repository early and often. Instead of integrating features at the end of a development cycle, code is integrated with the shared repository multiple times throughout the day. Each commit triggers automated tests, so issues are detected and fixed earlier and faster, improving team confidence and productivity. The chosen continuous integration platform is from CircleCI, a company founded in 2011 and headquartered in San Francisco. They offer a free cloud to test their services.
@@ -36,6 +34,8 @@ This tutorial was created with the following frameworks and tools:
 - [Docker 20.10.12](https://docs.docker.com/engine/install/)
 
 {% include toc.md %}
+
+{% include integrator-org-warning.html %}
 
 ## Create a Java microservices architecture
 

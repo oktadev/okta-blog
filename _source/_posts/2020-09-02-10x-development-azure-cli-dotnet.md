@@ -17,13 +17,13 @@ image: blog/featured/okta-dotnet-skew.jpg
 type: conversion
 ---
 
-{% include integrator-org-warning.html %}
-
 Back in the days of [DOS](https://en.wikipedia.org/wiki/DOS), software developers couldn't count much on fancy tools. There were no graphical interfaces, and everything was purely text-based. I remember using [brief](http://www.briefeditor.com/index.htm) as an editor for my C source files (C++ didn't exist yet), and compiling the code from the command line with the [Aztec C](https://en.wikipedia.org/wiki/Aztec_C) compiler. The most advanced concept of a non-trivial software project was based on [makefiles](https://opensource.com/article/18/8/what-how-makefile). The idea of grabbing a mouse and moving it around the desk to operate a computer would have been hilarious (or disgusting maybe!). No clicks or taps, only keystrokes - and a lot of them.
 
 With the appearance of the graphical OSs, and point-and-click devices, we grew bored of hitting keys; it annoys us when there is no reason to click or tap, and we are forced to go back to the keyboard. The annoyance escalates sometimes to anger if there is not a shortcut or a copy-and-paste solution and we have to write down the full command, character-by-character!
 
 While graphical interfaces are very convenient and user-friendly, they are not ideal with repetitive sequences of operations. Modern [DevOps](https://en.wikipedia.org/wiki/DevOps) aims to make faster infrastructure configuration and application deployment. The availability of a tooling system that allows scripting these operations on automated and streamlined workflows is paramount to achieve better performances.
+
+{% include integrator-org-warning.html %}
 
 ### Command-Line? Discover Why
 

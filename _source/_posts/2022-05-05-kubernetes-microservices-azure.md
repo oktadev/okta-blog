@@ -15,8 +15,6 @@ type: conversion
 github: https://github.com/oktadev/okta-azure-kubernetes-cosmosdb-example
 ---
 
-{% include integrator-org-warning.html %}
-
 In this tutorial, you'll learn how to deploy a JHipster-based reactive microservice to Azure Kubernetes Service (AKS). You'll use Azure's Cosmos DB as a persistent store for one of the services. For security, you'll use Okta as an OAuth 2.0 and OpenID Connect (OIDC) provider. You'll also securely encrypt all secrets in the project configuration files using Kubernetes secrets and `kubeseal`. This tutorial focuses on deploying an already generated project to Azure AKS. It does not go into great detail about generating the project. To see how the project was generated using JHipster, take a look at [Reactive Java Microservices with Spring Boot and JHipster](/blog/2021/01/20/reactive-java-microservices).
 
 The project has a few different pieces:
@@ -33,6 +31,8 @@ This tutorial has a lot of different technologies in it. I've tried to make it a
 If you're already familiar with all the tech in this tutorial, you can skip ahead to the prerequisites section. If not, I'm going to explain them a little before we move on.
 
 {% include toc.md %}
+
+{% include integrator-org-warning.html %}
 
 ## JHipster microservices architecture overview
 

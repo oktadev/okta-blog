@@ -19,11 +19,11 @@ changelog:
 - 2021-04-13: Updated to streamline setup with the Okta CLI and add to add screenshots. [okta-blog#706](https://github.com/oktadeveloper/okta-blog/pull/706) shows what changed.
 ---
 
-{% include integrator-org-warning.html %}
-
 For years the go-to HTML/CSS framework of choice for developers was Bootstrap. A new contender has appeared in the form of Ant Design. Ant should feel familiar to veteran developers but it's built on new principles. Their [site](https://ant.design/) spends a good amount of effort distinguishing between good and bad design. There is an emphasis on clarity and meaning. Ant Design is heavily based on psychological principles to anticipate—and be customized for—user behavior.
 
 Ant Design is built for React. In this tutorial, you will build a small React app that displays transactions to the user based on the Ant Design principles. You will use Okta to secure your web application. Okta is very easy to set up and using the libraries for integrating into React is simple. You will learn how to secure your app with Okta and how to put certain pages under authentication.
+
+{% include integrator-org-warning.html %}
 
 ## What is Ant Design?
 

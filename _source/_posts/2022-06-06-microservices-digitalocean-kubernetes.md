@@ -14,8 +14,6 @@ image: blog/jhipster-digital-ocean/digitalocean-kubernetes.png
 type: conversion
 ---
 
-{% include integrator-org-warning.html %}
-
 Cloud adoption continues to increase rapidly worldwide, and not only in the software industry. Every year more and more companies move their applications to the cloud. In the last JHipster community survey, from December 2021, participants valued JHipster's ability to get them to production faster, and requested more tutorials on deployment to cloud platforms. DigitalOcean is among the most popular "other" cloud vendors, according to some surveys. This post is a quick walk-through of the deployment of a JHipster microservices architecture to a Kubernetes cluster in DigitalOcean's cloud.
 
 This tutorial was created with the following frameworks and tools:
@@ -32,6 +30,8 @@ This tutorial was created with the following frameworks and tools:
 **Table of Contents**{: .hide }
 * Table of Contents
 {:toc}
+
+{% include integrator-org-warning.html %}
 
 ## About DigitalOcean
 

@@ -27,9 +27,6 @@ changelog:
   - 2020-01-30: Updated to use Spring Boot 2.2.4 and Angular CLI 9.0 RC11 (with Angular 9.0 RC11). See the code changes in the [example app on GitHub](https://github.com/oktadeveloper/okta-spring-boot-2-angular-9-example/pull/1). Changes to this article can be viewed in [oktadeveloper/okta-blog#175](https://github.com/oktadeveloper/okta-blog/pull/175).
 ---
 
-{% include integrator-org-warning.html %}
-
-{% include integrator-org-warning.html %}
 :toc: macro
 :page-liquid:
 :experimental:
@@ -43,6 +40,8 @@ Spring Boot 1.0 was released on April 1, 2014, and revolutionized the way Java d
 Long story short, they're a match made in heaven!
 
 image::{% asset_path 'blog/spring-boot-2-angular-9/bootiful-angular.png' %}[alt=Bootiful Angular,width=800,align=center]
+
+{% include integrator-org-warning.html %}
 
 toc::[]
 

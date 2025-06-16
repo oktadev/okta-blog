@@ -13,8 +13,6 @@ image: blog/python-okta/social.jpg
 type: conversion
 ---
 
-{% include integrator-org-warning.html %}
-
 Okta is a customizable, secure solution that lets you add authentication and access management to your applications. Since this can be a complex topic, we recommend setting up your first project with our CLI. In this walkthrough, we will:
 - Configure the Okta CLI
 - Teach you how to create your first application
@@ -31,6 +29,8 @@ This tutorial uses the following technologies but doesn't require any prior expe
 We will go over how to install the CLI during this tutorial. 
 
 {% include toc.md %}
+
+{% include integrator-org-warning.html %}
 
 ## Overview concepts
 

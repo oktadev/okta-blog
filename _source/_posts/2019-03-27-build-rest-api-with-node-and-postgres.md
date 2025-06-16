@@ -17,11 +17,11 @@ image: blog/featured/okta-node-tile-books-mouse.jpg
 type: conversion
 ---
 
-{% include integrator-org-warning.html %}
-
 If you haven't heard of PostgreSQL (often called Postgres), today's your lucky day. It's a robust, open source relational database that powers some of the world's largest applications. In this post, I'll show you how to create a REST API in Node that uses Postgres as a data store. I'll walk you through setting everything up, so if you're not familiar with Postgres, *don't worry*.
 
 Specifically, I'm going to walk you through building an API that will keep track of movies you own (or have access to) via various sources (such as DVDs and Netflix). You'll then be able to query this API to see what app (or cupboard?) you need to open to access the movie you feel like watching. By the end of this post, you'll learn how to build this API using Node and Postgres, and how to secure your API using OAuth 2.
+
+{% include integrator-org-warning.html %}
 
 ## Set Up Your Node + Postgres Dependencies
 

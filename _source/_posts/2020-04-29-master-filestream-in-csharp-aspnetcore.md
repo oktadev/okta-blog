@@ -17,8 +17,6 @@ image: blog/featured/okta-dotnet-half.jpg
 type: conversion
 ---
 
-{% include integrator-org-warning.html %}
-
 We live in a world that moves **fast**. Compared to the mid 90s through early 2000s, we have incredibly intelligent technology. Effectively, we have super-computers in our pockets. Our *actual*, modern supercomputers would have seemed like works of fiction just two decades ago. Not only is our ability to compute fast, but so is our data - with cellular 4G averaging 18.1 Mbps and 5G coming in at an average of 111.8 Mbps, at the time of writing this.
 
 With all this speed, there has been abstraction after abstraction placed on top of our data and connections to make development easier, but there is a cost to that ease. We send *a lot* of data over the wire. For all of the assets on a webpage, websites targeting desktops send almost 2.1Mb of data, while mobile sends nearly 1.9Mb. These speeds were not always this ubiquitous. Perhaps it's time to look back at how applications were able to provide relatively fast interaction with data in a world long forgotten: The world of 56Kbps.
@@ -32,6 +30,8 @@ To follow along with this guide you'll need these **prerequisites**:
 * An [Okta Developer Account](https://developer.okta.com/) (free forever, to handle your OAuth needs)
 * [An AWS account (we'll be using a free tier product)](https://aws.amazon.com/free)
 * [AWS Toolkit for Visual Studio](https://aws.amazon.com/visualstudio/)
+
+{% include integrator-org-warning.html %}
 
 ## How Developers Approach the C# Filestream
 

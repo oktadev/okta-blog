@@ -16,8 +16,6 @@ tweets:
 type: conversion
 ---
 
-{% include integrator-org-warning.html %}
-
 Today's Web users are a lot more sophisticated than just a few years ago. They expect applications to be fast, secure, and work equally well on their desktops and phones. Meeting these expectations requires a great deal of work so you can provide a reliable backend and a fully dynamic frontend, while keeping the whole system secure and scalable.
 
 However, with the right set of tools, you can get started quickly and become productive in no time at all. In this article, I'll show you how to build a single-page application using Symfony 4.3 at the backend and Vue.js at the frontend, without spending hours configuring your environment or build tools.
@@ -27,6 +25,8 @@ Symfony is a great framework, consisting of a large set of reusable, loosely cou
 Vue.js is one of the hottest JavaScript frameworks in the past two years because of its small size, gentle learning curve, fantastic performance, and flexibility. It also integrates out of the box with some of the most popular backend frameworks like Laravel and Rails.
 
 If you want to follow this tutorial, you'll need a PHP 7 and Node/npm/yarn development environment. You'll also need a [free Okta account](https://developer.okta.com/signup/).
+
+{% include integrator-org-warning.html %}
 
 ## Single Page App with Symphony and Vue
 

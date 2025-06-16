@@ -19,11 +19,11 @@ changelog:
   - 2020-06-05: Updated to use the latest versions of all dependencies. You can see the example app changes in [okta-node-express-typescript-react-example#7](https://github.com/oktadeveloper/okta-node-express-typescript-react-example/pull/7); changes to this post can be viewed in [okta-blog#315](https://github.com/oktadeveloper/okta-blog/pull/315).
 ---
 
-{% include integrator-org-warning.html %}
-
 JavaScript has been turning into more and more of a robust language and is no longer just seen in browsers. Server-side JavaScript has become quite relevant. However, one major thing that JavaScript is _not_, is a strongly typed language. Being explicit with what types to expect from function parameters or object and class properties can help prevent bugs from creeping into the code. It can also help make the code easier to understand if you know exactly what types of values you need to pass into an API call, for example.
 
 If you're both a fan of JavaScript and strongly typed languages, then you're in luck. TypeScript is a superset of JavaScript that provides some extra syntax for defining types. Today I'll show you how to write a simple API for a real-time chat app using TypeScript. The catch will be messages will expire after a short amount of time and get deleted from both the server and the client, so you have to pay attention if you want to keep up on the conversation. I'll also show you how to create a simple frontend using React to interface with the API. You'll also be using Okta to add user authentication so that you don't just have a bunch of anonymous messages.
+
+{% include integrator-org-warning.html %}
 
 ## Set Up Your TypeScript + Node.js Server
 

@@ -17,8 +17,6 @@ image: blog/featured/okta-php-headphones.jpg
 type: conversion
 ---
 
-{% include integrator-org-warning.html %}
-
 JSON Web Tokens (JWTs) have turned into the de-facto standard for stateless authentication of mobile apps, single-page web applications, and machine-to-machine communication. They have mostly superseded the traditional authentication method (server-side sessions) because of some key benefits:
 
 - They are decentralized and portable (you can request a token from a dedicated service, and then use it with multiple backends)
@@ -30,6 +28,8 @@ Before you start working with JWTs, it's important to understand that JWTs are e
 There are a large number of libraries designed to help you work with JWTs in your application. In this article, I will first walk you through building and verifying your own JWTs using the [firebase/php-jwt](https://github.com/firebase/php-jwt) package. Then I will show you how to create a machine-to-machine app in Okta, and use the Client Credentials Flow to get a JWT access token from your Okta server.
 
 The requirements for completing the examples are: Okta account (free), PHP, Composer, and `openssl` command line tools.
+
+{% include integrator-org-warning.html %}
 
 ## Why Okta?
 

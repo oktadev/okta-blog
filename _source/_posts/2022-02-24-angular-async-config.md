@@ -14,8 +14,6 @@ type: awareness
 github: https://github.com/oktadev/okta-angular-async-load-example
 ---
 
-{% include integrator-org-warning.html %}
-
 Configurations are part of a developer's life. Configuration data is information your app needs to run and may include tokens for third-party systems or settings you pass into libraries. There are different ways to load configuration data as part of application initialization in [Angular](https://angular.io/). Your requirements for configuration data might change based on needs. For example, you may have one unchanging configuration for your app, or you may need a different configuration based on the environment where the app is running. We'll cover a few different ways to load configuration values and identify when you should use each method.
 
 > We're covering specific use cases using Angular, so this post assumes you have some experience developing Angular apps. If you're interested in learning more about building your first Angular app, check out the [Angular Getting Started](https://angular.io/guide/what-is-angular) docs or the [links to tutorials](#learn-more) that walk you through integrating Okta into Angular apps.
@@ -28,6 +26,8 @@ In this post, we'll cover the following forms of configuration:
 We'll show examples, including how to integrate with Okta, for each method. Also, we'll identify when to use each technique and what to watch out for.
 
 {% include toc.md %}
+
+{% include integrator-org-warning.html %}
 
 ## Set up Angular and Okta in a sample project
 

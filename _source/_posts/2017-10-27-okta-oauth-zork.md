@@ -12,8 +12,6 @@ tags: [oauth, oauth2, oidc, spring, spring-boot, spring-security, rbac]
 type: awareness
 ---
 
-{% include integrator-org-warning.html %}
-
 {% img blog/okta-oauth-zork/zork.jpg alt:"Default AS" width:"150" align:"right" %}
 
 In the early '80s, some of the best "video" games were text-based adventures. These games would print out descriptive text of your surroundings and you would interact with the game using simple, but natural language commands like: "go north" or "take sword". Fast forward some 30 years and a specification for an authorization framework called [OAuth 2.0](https://oauth.net/2/) was published. This framework allows an application to receive a token from an external party (like [Okta](https://okta.com)) that indicates a user is authorized to use the application. What do these two things have in common? Absolutely nothing. But, I thought it would be fun to mash them together to demonstrate how OAuth works by playing a text-based game.
@@ -21,6 +19,8 @@ In the early '80s, some of the best "video" games were text-based adventures. Th
 [Infocom](http://www.infocom-if.org/company/company.html) was a popular producer of text-based games and they standardized a file format and interpreter for them called [zMachine](https://en.wikipedia.org/wiki/Z_machine). There's a great [zMachine interpreter written in Java](http://zmpp.sourceforge.net/). I incorporated this into a Spring Boot / Spring Security application that interacts with Okta for OAuth so that you can play [Zork](https://en.wikipedia.org/wiki/Zork) - one of the most iconic of these games. The application is available on the [Okta Developer GitHub account](https://github.com/oktadeveloper/okta-zork-oauth-example).
 
 Let's jump right in so you can see it in action and then we'll break down how everything works.
+
+{% include integrator-org-warning.html %}
 
 ## Play Zork in 3 Clicks
 

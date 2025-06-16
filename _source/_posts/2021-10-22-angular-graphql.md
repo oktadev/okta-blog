@@ -18,8 +18,6 @@ type: conversion
 github: https://github.com/oktadev/okta-angular-graphql-example
 ---
 
-{% include integrator-org-warning.html %}
-
 Over the past five years, GraphQL has established itself as the most popular alternative to REST APIs. GraphQL has several advantages over traditional REST-based services. First of all, GraphQL makes the query schema available to the clients. A client that reads the schema immediately knows what services are available on the server. On top of that, the client is able to perform a query on a subset of the data.
 
 Both of these features make the API much more flexible. The server can freely extend the API or make different parts of it available to different clients without breaking any client code. Another major advantage is the ability to perform complex queries. This reduces the number of API calls a client has to perform, and therefore improves performance.
@@ -34,6 +32,8 @@ In this tutorial, I will show you how to consume GraphQL in an Angular client. F
 **Table of Contents**{: .hide }
 * Table of Contents
 {:toc}
+
+{% include integrator-org-warning.html %}
 
 ## Implement a GraphQL server with Express
 

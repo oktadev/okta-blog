@@ -19,8 +19,6 @@ changelog:
 - 2021-03-31: Updated to use Okta React SDK 5.0.0, Auth JS 4.8.0, and Okta Sign-In Widget 5.5.0. You can see the changes in the [example app on GitHub](https://github.com/oktadeveloper/okta-react-login-example/pull/2). Changes to this article can be viewed in [oktadeveloper/okta-blog#619](https://github.com/oktadeveloper/okta-blog/pull/619).
 ---
 
-{% include integrator-org-warning.html %}
-
 Almost any web app needs some sort of access control, usually implemented by user login. Choosing how user authentication is implemented depends on the type of application and its audience. In this post, I want to show you a few different ways of creating a login feature in a single-page React application using Okta.
 
 I will start with a login redirect. This is the easiest option to implement and is a good choice for some use cases. On the other hand, hosting the login form inside the application can provide a more seamless user experience. The Okta Sign-In Widget can be used as a simple out-of-the-box login form. To have more control over the appearance of the user login, you can also implement your own form and use Okta's authentication service to verify the user's credentials.
@@ -35,6 +33,8 @@ For this tutorial, I will assume that you are familiar with JavaScript and have 
 **Table of Contents**{: .hide }
 * Table of Contents
 {:toc}
+
+{% include integrator-org-warning.html %}
 
 ## Create a React Application for Login
 

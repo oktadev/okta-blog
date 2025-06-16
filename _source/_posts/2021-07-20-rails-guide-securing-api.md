@@ -17,8 +17,6 @@ image: blog/rubyonrails6/railstrain.png
 type: conversion
 ---
 
-{% include integrator-org-warning.html %}
-
 In this tutorial we are going down a different track then our last [Ruby Post](/blog/2020/09/25/easy-auth-ruby-on-rails-6-login) (bad pun intended). Instead diving into building a very simple API that, of course, we will secure with access tokens minted by our very own Okta OAuth server. We'll make requests to this API via Postman to keep things nice and simple. Now let's get chugging along. (OK, that's the last pun for a bit.)
 
 Prerequisites for this blog post include:
@@ -29,6 +27,8 @@ Prerequisites for this blog post include:
 - An [Okta Developer Account](https://developer.okta.com/) (free forever, to handle your OAuth needs)
 
 Now let's get started!
+
+{% include integrator-org-warning.html %}
 
 ## Build the API
 

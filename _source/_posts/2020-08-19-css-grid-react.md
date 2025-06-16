@@ -17,8 +17,6 @@ image: blog/css-grid-react/css-grid-layout.png
 type: conversion
 ---
 
-{% include integrator-org-warning.html %}
-
 Do you remember the days when people used tables to arrange content on websites? HTML tables were ideal for arranging content in a grid-style layout. But they had a serious problem. They mixed content with style, prohibited semantic markup, and made it hard for screen readers to sort the information in a meaningful way. 
 
 After dropping the use of tables, the first solution was to use the CSS `float` to position elements on a web page. But floats are clumsy, fragile, and generally hard to work with. CSS frameworks—like Bootstrap or Zurb Foundation—sprung up to help with the difficulties of creating a responsive grid layout. But these frameworks have their own learning curve and often introduce significant overhead in unused CSS code. 
@@ -32,6 +30,8 @@ In this tutorial, I will show you how to create a single page application that u
 **Table of Contents**{: .hide }
 * Table of Contents
 {:toc}
+
+{% include integrator-org-warning.html %}
 
 ## Create a Unicode Browser App with React
 

@@ -14,8 +14,6 @@ changelog:
 - 2023-04-26: Embedded a link to a [companion YouTube video](https://youtu.be/UZQ_ke8BuRU).
 ---
 
-{% include integrator-org-warning.html %}
-
 Adding authentication to public clients such as Single Page Applications (SPA) and JavaScript applications can be a source of confusion. Identity Providers like Okta try to help you via multiple support systems. Still, it can feel like a lot of work. Especially since you're responsible for way more than authentication alone in the applications you work on!
 
 As part of authentication, your client application makes multiple calls to an authorization server, and you get back several strings, which are tokens. Let's demystify what's going on behind the scenes and closely examine what those tokens are and how you use them within your client application.
@@ -25,6 +23,8 @@ As part of authentication, your client application makes multiple calls to an au
 There's a [companion video for this post](https://youtu.be/UZQ_ke8BuRU) if you want to check out how to run a SPA sample application, look at browser storage, and inspect network calls. 
 
 {% youtube UZQ_ke8BuRU %}
+
+{% include integrator-org-warning.html %}
 
 ## Authentication and Authorization using OAuth 2.0 + OpenID Connect (OIDC)
 OAuth 2.0 with OIDC is the best practice for adding authentication and authorization to your software applications. Authentication verifies the identity of who you claim to be, and authorization verifies you have access to data you want to see or actions you want to perform. It is lightweight with less effort to set up and use than Security Assertion Markup Language (SAML), an alternate authentication and authorization mechanism that pre-existing systems may use. For newer systems, you'll want to use OAuth 2.0 + OIDC.

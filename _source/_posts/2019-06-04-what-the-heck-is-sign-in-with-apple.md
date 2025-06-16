@@ -15,13 +15,13 @@ image: blog/sign-in-with-apple/sign-in-with-apple.jpg
 type: awareness
 ---
 
-{% include integrator-org-warning.html %}
-
 This week at Apple's developer conference WWDC, Apple announced a new feature, "Sign In with Apple" enabling users to sign in to apps using their Apple ID. This new feature is positioned as a secure and privacy-friendly way for users to create an account in apps. Most iOS and Mac users already have an Apple ID, and this new feature lets them use that Apple ID to sign in to other apps and websites.
 
 If this sounds a lot like "Sign in with Facebook" or "Sign in with Twitter", that's because it is! This is Apple's way of providing a way for users to sign in to apps without having to rely on an external identity provider like Facebook or Twitter.
 
 Apple is taking a firm stance to protect user's privacy with this new feature. Rather than letting apps see the user's real email address, they will provide the app with a proxy email address unique to each app. App developers will still be able to send emails to the proxy addresses, it just means developers won't be able to use the email addresses to correlate users between apps, and it also means users can shut off email forwarding per app.
+
+{% include integrator-org-warning.html %}
 
 ## The Sign In with Apple Flow
 

@@ -18,8 +18,6 @@ changelog:
 - 2021-04-15: Updated to use Okta Vue 3.1.0 and the Okta CLI for OIDC app creation. Updated Laravel CORS library from barryvdh to fruitcake. See changes in [okta-blog#679](https://github.com/oktadeveloper/okta-blog/pull/679). Changes to the example app can be viewed in [okta-php-laravel-vue-crud-example#20](https://github.com/oktadeveloper/okta-php-laravel-vue-crud-example/pull/20).
 ---
 
-{% include integrator-org-warning.html %}
-
 Laravel is one of the most popular web frameworks today because of its elegance, simplicity, and readability. It also boasts one of the largest and most active developer communities. The Laravel community has produced a ton of valuable educational resources, including this one! In this tutorial, you'll build a trivia game as two separate projects: a Laravel API and a Vue frontend (using vue-cli). This approach offers some important benefits:
 
 * It allows you to separate your backend and frontend and deploy them independently, using different strategies and schedules for testing and deployment
@@ -29,6 +27,8 @@ Laravel is one of the most popular web frameworks today because of its elegance,
 Before you start, you'll need to set up a development environment with PHP 7 and Node.js 8+/npm. You will also need an [Okta developer account](https://developer.okta.com/) so you can add user registration, user login, and all the other user related functionalities.
 
 **FUN FACT**: Did you know that Vue owes much of its current popularity to Laravel? Vue comes pre-packaged with Laravel (along with Laravel Mix, an excellent build tool based on webpack) and allows developers to start building complex single-page applications without worrying about transpilers, code packaging, source maps, or any other 'dirty' aspects of modern frontend development.
+
+{% include integrator-org-warning.html %}
 
 ## Create an OpenID Connect App
 

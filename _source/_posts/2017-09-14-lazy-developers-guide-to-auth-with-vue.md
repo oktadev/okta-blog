@@ -20,11 +20,11 @@ changelog:
   - 2018-11-01: Updated to use Vue CLI 2.9.6, Vue 2.5.2, and Vue Okta Auth SDK 2.1. You can see the example app changes in [okta-vue-auth-example#4](https://github.com/oktadeveloper/okta-vue-auth-example/pull/4); changes to this post can be viewed in [okta.github.io#2453](https://github.com/oktadeveloper/okta.github.io/pull/2453).
 ---
 
-{% include integrator-org-warning.html %}
-
 I'll happily admit that like many of you, I'm a lazy developer. I tend to look for solutions someone else has already built before I try to build them myself. In the "old days" of the early 2000s, I used to spend a lot more time coding solutions myself. But today many solutions to coding problems are just a keyword search away. In that spirit, I approached this tutorial using keywords – looking for existing solutions first, then fitting my favorite solution on top of it. I think you'll like the results!
 
 When I started writing this article, I wanted to show you how to add authentication to a Vue.js app. I started learning Vue.js back in April while authoring my [Front End Development for Back End Developers presentation](https://speakerdeck.com/mraible/front-ends-for-back-end-developers-spring-io-2017). I bought a pro subscription to Egghead.io and watched [Build Vue.js Apps with the Vue-CLI and Nuxt.js](https://egghead.io/lessons/vue-build-vue-js-apps-with-the-vue-cli-and-nuxt-js) by [@johnlindquist](https://twitter.com/johnlindquist).
+
+{% include integrator-org-warning.html %}
 
 ## Vue CLI + PWA!
 

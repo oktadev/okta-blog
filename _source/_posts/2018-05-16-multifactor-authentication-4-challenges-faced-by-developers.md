@@ -12,11 +12,11 @@ tags: [multi-factor, authentication, developer]
 type: awareness
 ---
 
-{% include integrator-org-warning.html %}
-
 Multi-factor authentication (MFA) is the most reliable way to ensure the security of your users' PII (personally identifiable information), and with Okta it's easier than ever to implement in your application! Why is MFA super-secure? It's simple: While a user may have a terrible password, many additional factors are inherently immutable. Some common second factors of authentication include a text message with a one-time use code, called SMS verification, a code that refreshes regularly in an app like Google Authenticator a push notification app like Okta Verify, or a USB hardware device that must be plugged into the user's computer, like a Yubikey.
 
 MFA is rapidly gaining in adoption, and more and more organizations are interested in deploying it to protect their applications and users. That widespread adoption doesn't mean MFA has gotten any easier to build or implement. You have to consider how secure your approach is, how you'll test it, and how you will support it. In this post we'll walk through four reasons building MFA remains tough for modern developers, and how Okta can help! But first, what is Okta?
+
+{% include integrator-org-warning.html %}
 
 ## What is Okta?
 

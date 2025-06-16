@@ -17,9 +17,9 @@ image: blog/featured/okta-dotnet-mouse-down.jpg
 type: conversion
 ---
 
-{% include integrator-org-warning.html %}
-
 There has been a cut-throat competition between cloud hosts in the past few years - each attempting to earn the sympathy of developers and dev-ops by rolling out shiny new tools, plugins, and integrations. There are a gazillion how-to tutorials and guides in the community on using these tools. Sometimes when looking for a solution, it is hard to find the newest and simplest way. I never know if an article written last year is still valid using today's tools. In this article, I'm going to walk you through the deployment of a .NET Core 3.1 application to the major cloud hosts (Microsoft Azure App Service, AWS Beanstalk, Google Cloud App Engine) in the simplest possible way. After deployment, I'll take a few steps forward and configure Okta Authentication in the example application to show how to add a login flow at once.
+
+{% include integrator-org-warning.html %}
 
 ## How to Secure Your .NET App for Major Cloud Hosts
 

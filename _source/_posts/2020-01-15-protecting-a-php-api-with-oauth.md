@@ -16,8 +16,6 @@ image: blog/featured/okta-php-bottle-headphones-close.jpg
 type: conversion
 ---
 
-{% include integrator-org-warning.html %}
-
 REST APIs are a big part of today's Internet. Some of the everyday use cases of REST APIs are:
 
 * driving the backend of single-page Web applications/mobile applications
@@ -30,6 +28,8 @@ REST API security is essential because an API can expose powerful, mission-criti
 Most Web application frameworks provide tools to build secure REST APIs quickly using industry-standard solutions like JSON Web Tokens (JWT) and OAuth 2.0. However, it pays to understand what goes under the hood and how to authenticate and authorize your API users securely. In this tutorial, I'll walk you through building a simple API in PHP from scratch and integrating it with [Okta](https://developer.okta.com/product/user-management/) to provide user authentication. Okta is an API service that allows you to create, edit, and securely store user accounts and user account data, and connect them with one or more applications.
 
 The tutorial will not rely on any external libraries to implement the Okta integration or to work with the JWT access tokens. The only prerequisites are PHP, Composer, and a [free Okta developer account](https://developer.okta.com/signup/).
+
+{% include integrator-org-warning.html %}
 
 ## Create the REST API Skeleton
 

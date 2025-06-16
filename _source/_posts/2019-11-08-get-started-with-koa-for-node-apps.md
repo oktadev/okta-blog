@@ -17,8 +17,6 @@ image: blog/featured/okta-node-tile-books-mouse.jpg
 type: conversion
 ---
 
-{% include integrator-org-warning.html %}
-
 Ever since JavaScript made its giant leap from frontend to backend more than 10 years ago, Express has been the go-to library for writing server-side javascript and  virtually synonymous with Node.js. It was (and in many aspects it still is) a modern and simple approach backend APIs. Declarative tree-like structure of routes, native support for middleware, asynchronous request processing and a miniature memory footprint all make Express very robust for a backend.
 
 As good as it might be, Express does show some signs of old age:
@@ -29,6 +27,8 @@ As good as it might be, Express does show some signs of old age:
 - Inclusion of features such as templating, sending files and JSONP support in the library's core
 
 Even though Express and Koa do almost the same thing and share the same author, they have  different approaches to how middleware and routing are handled.  You can think of Koa.js as a new and improved Express.
+
+{% include integrator-org-warning.html %}
 
 ## Build a Sample App with Koa.js
 

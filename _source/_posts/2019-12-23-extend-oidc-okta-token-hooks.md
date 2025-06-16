@@ -17,8 +17,6 @@ image: blog/token-hooks/crochet.png
 type: awareness
 ---
 
-{% include integrator-org-warning.html %}
-
 OpenID Connect (OIDC) and OAuth 2.0 are already recognized as powerful tools for incorporating authentication and authorization into modern web applications.
 
 Okta has enhanced the capabilities of these standards by introducing our Inline Hooks feature. There are a number of different types of inline hooks that Okta supports. In this post, I focus on hooks that allow you to patch information into the tokens you get back from Okta via OIDC and OAuth.
@@ -33,6 +31,8 @@ To get ready for the hands-on parts of this post, set yourself up with the follo
 * Optional: Create a free Heroku account at [https://signup.heroku.com/](https://signup.heroku.com/)
 
 To start, let's take a step back and talk a little more about OIDC and OAuth.
+
+{% include integrator-org-warning.html %}
 
 ## Three Minute Overview of OpenID Connect and OAuth 2.0
 

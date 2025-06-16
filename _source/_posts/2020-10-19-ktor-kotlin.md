@@ -17,8 +17,6 @@ image: blog/ktor-kotlin/ktor-and-kotlin.png
 type: conversion
 ---
 
-{% include integrator-org-warning.html %}
-
 In this tutorial, you will build your very own Nano Blogging Service (**nabl** for short) using a modern JVM stack. This includes using the Kotlin programming language, the Ktor web framework, and securing it with Okta. Users can log in or sign up, post updates, and browse specific or global _chronological_ feed without _advertisements_.
 The blogging service displays posts from the selected user or everyone in the _chronological_ feed.
  
@@ -37,6 +35,8 @@ Kotlin is often considered a "better Java" and often becomes an easy, efficient 
 * Table of Contents
 {:toc}
  
+{% include integrator-org-warning.html %}
+
 ## Build a Ktor Application with Kotlin
  
 As with any web application framework, Ktor provides several libraries and imposes some conventions. Don't worry—it doesn't tell you how to write your code. The conventions are mostly for the HTTP layer and you're free to write other lower layers the way you want. A few of the most notable things include:

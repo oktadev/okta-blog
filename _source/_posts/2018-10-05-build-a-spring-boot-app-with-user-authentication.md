@@ -19,8 +19,6 @@ update-title: "OAuth 2.0 Java Guide: Secure Your App in 5 Minutes"
 update-url: /blog/2019/10/30/java-oauth2
 ---
 
-{% include integrator-org-warning.html %}
-
 When's the last time you had fun building a web application?  We love Spring Boot because it makes it super easy to build a rich Java web application, and it can even be pretty fun. By combining Spring, Spring Boot, and Gradle, we have a complete build system that can develop, test, run, and deploy Spring applications in minutes.
 
 But what about user authentication and authorization, you're probably thinking. Maybe with a sneer. Surely *that's* not easy. That's never easy. A morass of boilerplate code, subtle opportunities for horrendous bugs, and security flaws. Let's not even mention IE 8. Bottom line? Web application security is a real pain.. Or it can be. Or it was. 
@@ -44,6 +42,8 @@ You'll also want to go ahead and download the project code from our [GitHub repo
 ```bash
 git clone -b start https://github.com/oktadeveloper/okta-spring-boot-app-with-auth-example.git
 ```
+
+{% include integrator-org-warning.html %}
 
 ## Start with Spring Boot and Thymeleaf
 

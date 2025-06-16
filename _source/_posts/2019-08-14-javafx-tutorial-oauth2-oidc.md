@@ -17,8 +17,6 @@ image: blog/featured/okta-java-tile-books-mouse.jpg
 type: conversion
 ---
 
-{% include integrator-org-warning.html %}
-
 JavaFX, a library of user interaction controls, allows Java developers to build cross-platform desktop applications and internet application. It was intended as a replacement for Swing (if you're old like me and remember that). 
 
 Implementing an authorization flow with OAuth 2.0 can be tricky with a desktop framework like JavaFX. Typically, OAuth flows require a browser and redirecting to specific URLs. Detecting a redirect in JavaFX's default browser is impossible. The default Java browser (`java.awt.Desktop.browse(URI)`) has no way to communicate with external processes. 
@@ -26,6 +24,8 @@ Implementing an authorization flow with OAuth 2.0 can be tricky with a desktop f
 In this tutorial, we'll be using the Microsoft OAuth 2.0 User Agent library. This library's `InterceptingBrowser` class detects the redirect and intercepts the request to complete the OAuth flow. You can take a look at [the project page](https://github.com/microsoft/oauth2-useragent) to read a little more about it. Besides JavaFX, there's also a Standard Widget Toolkit driver that we won't be using here.
 
 OAuth 2.0 authorization requires an OAuth provider. Fun fact: OAuth stands for **O**pen **Auth**orization. OpenID Connect is an authentication layer built on top of OAuth, which was only designed for authorization. Both are open standards and not implementations, so to actually use OAuth 2.0 and OIDC, you need an implementation. The OAuth server implementation you'll be using in this tutorial is provided by Okta, a software-as-service identity management provider. 
+
+{% include integrator-org-warning.html %}
 
 ## Requirements for Your JavaFX Application
 

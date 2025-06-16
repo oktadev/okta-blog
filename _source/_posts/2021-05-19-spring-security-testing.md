@@ -21,8 +21,6 @@ changelog:
 
 {% include integrator-org-warning.html %}
 
-{% include integrator-org-warning.html %}
-
 Integration testing in modern Spring Boot microservices has become easier since the release of Spring Framework 5 and Spring Security 5. Spring Framework's `WebTestClient` for reactive web, and `MockMvc` for servlet web, allow for testing controllers in a lightweight fashion without running a server. Both frameworks leverage Spring Test mock implementations of requests and responses, allowing you to verify most of the application functionality using targeted tests.
 
 With Spring Security 5, security test support provides new request mutators that avoid simulating a grant flow or building an access token when verifying method security in web testing.
@@ -46,6 +44,8 @@ In this tutorial, you will explore security mocking with `SecurityMockServerConf
 If you prefer to learn visually, you can [watch a screencast of this tutorial](https://youtu.be/H1Un1eDEfGY).
 
 {% youtube H1Un1eDEfGY %}
+
+{% include integrator-org-warning.html %}
 
 ## Test a WebFlux Gateway with `mockOidcLogin()`
 

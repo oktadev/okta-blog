@@ -16,13 +16,13 @@ image: blog/featured/okta-php-headphones.jpg
 type: conversion
 ---
 
-{% include integrator-org-warning.html %}
-
 CodeIgniter is a simple, lightweight PHP framework that remains a popular option for many developers. It might lack the sophisticated architecture and advanced features of Symfony or Laravel, but it compensates with a small footprint and a shallow learning curve.
 
 In this tutorial, I will show you how to build a simple application for creating/viewing news items. We will extend the [standard CodeIgniter tutorial](https://codeigniter.com/user_guide/tutorial/index.html) to add user authentication to the application, require a logged-in user in the 'Create Item' route, and associate new entries with the user who created them. During the process, you will also improve the default setup of new CodeIgniter projects to manage dependencies through Composer, and store application secrets/configuration variables in `.env` files.
 
 If you want to follow the tutorial, you'll need PHP, MySQL, Composer, and a free [Okta developer account](https://developer.okta.com/signup/).
+
+{% include integrator-org-warning.html %}
 
 ## Initialize a CodeIgniter Project 
 

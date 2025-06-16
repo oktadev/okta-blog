@@ -17,8 +17,6 @@ image: blog/featured/okta-php-headphones.jpg
 type: conversion
 ---
 
-{% include integrator-org-warning.html %}
-
 With the increasing popularity of single-page apps and the growing API economy, JSON Web Tokens (JWTs) are becoming a very popular method for authenticating users. Rather than relying on the server to store the user's state, JWTs encode information in a keyed payload stored on the client.
 
 JWTs are not inherently less secure than server-side session storage. But developers should understand the tradeoffs and know what to do [if a JWT is compromised](/blog/2018/06/20/what-happens-if-your-jwt-is-stolen). You should expire JWTs frequently and always [validate them before trusting them in your application](https://developer.okta.com/docs/guides/validate-access-tokens/go/overview/).
@@ -28,6 +26,8 @@ If you're using JWTs properly, they provide several benefits. For single-page ap
 {% img blog/protecting-a-laravel-api-with-jwt/architecture.jpg alt:"Traditional session-based authentication vs. JWT-based authentication" width:"800" %}{: .center-image }
 
 In this tutorial, you'll create a Laravel API that uses JWTs provided by [Okta](https://developer.okta.com/) to authenticate users. You'll use custom [Laravel middleware](https://laravel.com/docs/middleware) and the [Okta JWT Verifier package](https://github.com/okta/okta-jwt-verifier-php) to verify requests and restrict access to your API to authenticated users. If you'd like to download the final codebase, [it's available on GitHub](https://github.com/oktadeveloper/okta-laravel-jwt-example). Otherwise, read on for the step-by-step process.
+
+{% include integrator-org-warning.html %}
 
 ## Using JWT Authentication to Secure a Laravel API
 

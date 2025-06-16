@@ -17,8 +17,6 @@ image: blog/featured/okta-react-headphones.jpg
 type: conversion
 ---
 
-{% include integrator-org-warning.html %}
-
 Apple's App Store is the holy grail for mobile developers. With React Native you can develop native apps for Android and iOS using a single code-base but getting things ready for publishing can be tricky, especially if you are starting with an originally Android-only application.
 
 Here you'll be starting with the code from a [previous monster Okta blog post](/blog/2018/12/26/react-native-android-play-store) designing and publishing a calculator-like app on the Android Play store, which includes authentication via Okta.
@@ -40,6 +38,8 @@ npm install
 ```
 
 From here you should be able to say `react-native run-android` to deploy to an emulator or attached Android phone. Everything should work fine.
+
+{% include integrator-org-warning.html %}
 
 ## Configure Authentication for Your React Native iOS App
 

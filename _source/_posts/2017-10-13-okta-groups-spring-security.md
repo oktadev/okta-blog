@@ -12,8 +12,6 @@ tags: [oauth, oauth2, oidc, spring, spring-boot, spring-security, rbac]
 type: conversion
 ---
 
-{% include integrator-org-warning.html %}
-
 User management functions are required by a wide variety of apps and APIs, and it's a common use-case to partition access to parts of an application according to roles assigned to a user. This is the basis of role-based access control (RBAC). Okta manages these roles with groups. Users can belong to one or more groups. With the Okta Spring Security integration, these groups are automatically mapped to roles that can be called out in your application to grant or deny access. This is all done using common Spring Security annotations as you'll see below.
 
 Okta's Java dev team is working hard on our next generation SDK and integrations. With Okta's [integration for Spring Boot and Spring Security](https://github.com/okta/okta-spring-boot) you can wire up your Okta tenant to a Spring Boot application and take advantage of the built in RBAC.
@@ -21,6 +19,8 @@ Okta's Java dev team is working hard on our next generation SDK and integrations
 In this post, you'll walk through a simple example that has some unprotected pages, some pages that can only be accessed by authenticated users and some pages that can only be accessed by users who belong to a particular group.
 
 All the code used in this demo can be found [in this GitHub repo](https://github.com/oktadeveloper/okta-spring-security-roles-example).
+
+{% include integrator-org-warning.html %}
 
 ## Configure Okta
 

@@ -19,8 +19,6 @@ changelog:
 - 2021-04-18: Upgraded to use Spring Boot 2.4.5 and streamline setup with the Okta CLI. You can see changes to this blog post in [okta-blog#736](https://github.com/oktadeveloper/okta-blog/pull/736); changes to the example app can be viewed in [okta-spring-boot-mysql-example#3](https://github.com/oktadeveloper/okta-spring-boot-mysql-example/pull/3).
 ---
 
-{% include integrator-org-warning.html %}
-
 In this post, we will walk through how to build a simple CRUD application using Spring Boot, MySQL, JPA/Hibernate and Okta OpenID Connect (OIDC) Single Sign-On (SSO). 
 
 The **Java Persistence API (JPA)** provides a specification for persisting, reading, and managing data from your Java object to relational tables in the database. The default implementation of JPA via Spring Boot is **Hibernate**. Hibernate saves you a lot of time writing code to persist data to a database, allowing you to focus on the business logic. 
@@ -36,6 +34,8 @@ The application you will build will have two main parts. The first is the authen
 **Table of Contents**{: .hide }
 * Table of Contents
 {:toc}
+
+{% include integrator-org-warning.html %}
 
 ## Summary of CRUD actions
 **C**RUD - Create

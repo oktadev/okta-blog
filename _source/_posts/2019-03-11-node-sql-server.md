@@ -17,13 +17,13 @@ image: blog/node-sql-server/node-sql-server.jpg
 type: conversion
 ---
 
-{% include integrator-org-warning.html %}
-
 I am a long-time relational database nerd, specifically SQL Server. At times in my career, I've focused on database design, deployments, migrations, administration, query optimization, and carefully crafting stored procedures, triggers, and views.
 
 I've written applications on top of SQL Server using Visual Basic, "Classic" ASP, ASP.NET, and, in recent years, Node.js. Yes, it's true. You *can* build Node.js applications with SQL Server!
 
 In this tutorial, you will learn the basics of creating a Node.js web application using SQL Server by creating a simple calendar application.
+
+{% include integrator-org-warning.html %}
 
 ## Set Up Your Node.js Development Environment
 

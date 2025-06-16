@@ -17,8 +17,6 @@ image: blog/featured/okta-react-skew.jpg
 type: conversion
 ---
 
-{% include integrator-org-warning.html %}
-
 If your application consumes a ReST API from React, the default setup will give you ALL the data for a resource. But if you want to specify what data you need, GraphQL can help! Specifying exactly the data you want can reduce the amount of data sent over the wire, and the React applications you write can have less code filtering out useless data from data you need.
 
 There are a lot of GraphQL clients to choose from. Two of the most popular are Apollo and Relay, but both are powerful and might be too complex for a beginner. Luckily, eachoffers a preconfigured "light" option: Apollo Boost and Relay Modern.
@@ -30,6 +28,8 @@ git clone https://github.com/oktadeveloper/okta-dotnet-react-graphql-example.git
 ```
 
 This backend uses EntityFramework Core and that powers  an in-memory database with books and authors so you can keep a reading list. It is based on another Okta blog post, [Build a GraphQL API with ASP.NET Core](/blog/2019/04/16/graphql-api-with-aspnetcore), so follow that post to understand more of what happens in the backend. One caveat: that backend is made with `dotnet new webapi`, while the close we use in this post is made with `dotnet new react`. This adds a starter React frontend application, and it also sets up hot reloading, which works straight out of the box when running it in Visual Studio or with the `dotnet` command.
+
+{% include integrator-org-warning.html %}
 
 ## Add Apollo Boost to the React Frontend
 

@@ -18,8 +18,6 @@ changelog:
   - 2022-01-05: Updated dependencies, code, and screenshots. See this post's changes in [okta-blog#1017](https://github.com/oktadev/okta-blog/pull/1017).
 ---
 
-{% include integrator-org-warning.html %}
-
 If you're building a web application, chances are you're going to want to serve different content depending on the user. Authenticating users can be complex for many reasons. The most straightforward route is to allow users to sign in with a username and password. The problem with this is, no matter how strongly you hash passwords, there's no stopping someone from guessing that your user's password is `hunter2`, `letmein`, or `correct horse battery staple`.
 
 Maybe you implement some requirements so that your users must have uppercase and lowercase characters, a number, a special character, and at least ten characters total. Still, you can't keep them from writing their password down on a sticky note next to their computer. What happens when they reuse the same username and password on every site, and one of those sites has a database leak? Or perhaps they access your site from a public computer with a password manager, and now their secure password is there for the next person to use.
@@ -27,6 +25,8 @@ Maybe you implement some requirements so that your users must have uppercase and
 This is where multi-factor authentication (MFA) comes into play. By adding an extra level of security, even if someone manages to phish your user's login information, they still won't be able to sign in without access to another device such as their mobile phone or a U2F key. You might be thinking, _managing passwords is hard enough; securely keeping track of various devices will be a nightmare_.
 
 To simplify, we will use Okta to add basic authentication and MFA. Before we dive in, I'd like to give you a quick overview of what Okta does and how it can simplify the development process while ensuring best-in-class security for both you and your users.
+
+{% include integrator-org-warning.html %}
 
 ## What is Okta?
 

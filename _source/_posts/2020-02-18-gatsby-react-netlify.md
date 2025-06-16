@@ -19,8 +19,6 @@ changelog:
 - 2021-04-14: Updated to use Gatsby CLI 3.3 and Okta Sign-In Widget v5.5. See the example app changes in [gatsby-netlify-okta-example#3](https://github.com/oktadeveloper/gatsby-netlify-okta-example/pull/3) and this post's changes in [okta-blog#671](https://github.com/oktadeveloper/okta-blog/pull/671).
 ---
 
-{% include integrator-org-warning.html %}
-
 Gatsby is a tool for creating static websites with React. It allows you to pull your data from virtually anywhere: content management systems (CMSs), Markdown files, APIs, and databases. Gatsby leverages GraphQL and webpack to combine your data and React code to generate static files for your website.
 
 JAM - JavaScript, APIs, and Markup - apps are delivered by pre-rendering files and serving them directly from a CDN, removing the requirement to manage or run web servers. You may have heard of JAM apps as the JAMstack.
@@ -46,6 +44,8 @@ If you'd prefer to watch a video, you can [watch this tutorial as a screencast](
 <div style="text-align: center; margin-bottom: 1.25rem">
 <iframe width="700" height="394" style="max-width: 100%" src="https://www.youtube.com/embed/T5a5nmbV_g4" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 </div>
+
+{% include integrator-org-warning.html %}
 
 ## Install Gatsby CLI
 

@@ -17,13 +17,13 @@ image: blog/symfony-react-php-crud-app/movie-list.png
 type: conversion
 ---
 
-{% include integrator-org-warning.html %}
-
 Building a modern single-page application can be a daunting task for a sole developer because of the sheer amount of different components you need to get in place – you need a backend API, a dynamic frontend, a decent user interface, and everything has to be secure and scalable. However, with the right tools in place, you can get started quickly without compromising quality or performance. Today I'll show you how to create an app using Symfony 4 as the backend API with a React frontend (and the [React version of Semantic UI](https://react.semantic-ui.com/)) for a hassle-free user interface – I promise you we will write only the bare minimum of HTML, and not a single line of CSS.
 
 Getting security right is extremely important when building a web application. When it comes to such a critical part of your product, the best approach is to rely on tested and well-documented solutions. We'll go with Okta for user authentication and authorization in our app, which will also save us a considerable amount of development time.
 
 Before you start, you'll need to set up a development environment with PHP 7 and Node.js 8+/npm. You will also need an [Okta developer account](https://developer.okta.com/).
+
+{% include integrator-org-warning.html %}
 
 ## Why Okta?
 

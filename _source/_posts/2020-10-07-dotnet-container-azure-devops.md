@@ -17,8 +17,6 @@ image: blog/featured/okta-dotnet-mouse-down.jpg
 type: conversion
 ---
 
-{% include integrator-org-warning.html %}
-
 When I began programming (in the '80s), computers weren't equipped with a network card by default. The internet was almost unknown and modems were slow and noisy. The software was installed from stacks of flexible floppy disks.
 
 Today, computing resources are virtual. The internet is vital and there is an URL for everything. We live in the *\*aaS (\* as a Service) era*, where if you want *something*, there is likely one or more *something as a Service* providers you can easily get out of your favorite search engine.
@@ -26,6 +24,8 @@ Today, computing resources are virtual. The internet is vital and there is an UR
 In the software industry, a new type of figure has emerged and is gaining more and more importance; I am speaking of the \*aaS expert, a.k.a. **DevOps**.
 
 In this post, you'll put on your DevOps suit and set up a CI/CD automation solution!
+
+{% include integrator-org-warning.html %}
 
 ## The Application
 

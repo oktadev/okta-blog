@@ -16,8 +16,6 @@ tweets:
 type: conversion
 ---
 
-{% include integrator-org-warning.html %}
-
 These days it's prevalent to have a "back-end" and a "front-end" allowing two (or more) teams to work on a project. Microsoft's latest version of the ASP.NET Core framework is cross-platform and performant. Pairing it with the power and flexibility of Facebook's React framework makes it a pretty stable platform. In this tutorial, I will show you how to build a secure CRUD (Create, Read, Update, and Delete) application using these two powerful technologies.
 
 When conferences need speakers, they sometimes put out a public speaker "Call for Presentations" or CFP. Potential speakers then submit talks that they'd like to give at the conference, and the organizers pick from those submissions which talks they'd like to have presented at their conference.
@@ -25,6 +23,8 @@ When conferences need speakers, they sometimes put out a public speaker "Call fo
 The application you'll be building is a speaker submission page. It will allow users to register for an account, log in and submit potential conference sessions. They will also need to be able to log in later and update their submissions or, if they then are unable to present that talk, delete the submission.
 
 The architecture for the application will be a React front-end application fed data from an ASP.NET Core Web API. For demonstration purposes, you'll use Entity Framework's in-memory database option. It is an excellent option for proof-of-concept applications. You can change it to use a SQL Server or PostgreSQL database later by just changing one line of configuration code!
+
+{% include integrator-org-warning.html %}
 
 ## What You'll Need to Get Started
 There are a few tools you will need to get, develop and run the application.

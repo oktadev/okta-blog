@@ -17,11 +17,11 @@ image: blog/featured/okta-php-bottle-headphones-close.jpg
 type: conversion
 ---
 
-{% include integrator-org-warning.html %}
-
 With [Laravel 8's release in September 2020](https://laravel.com/docs/8.x/releases), the popular PHP framework continues to offer new features and improvements. After version 5, Laravel moved to semantic versioning and the more frequent releases have meant smaller changes between each one. That said, there are still several exciting updates in this version of the framework.
 
 While Laravel will continue to offer security fixes for version 7 until early 2021, no more bug fixes will be released after October 2020, so you should upgrade to Laravel 8 as soon as possible. In this article, you'll see all the new features and changes released in Laravel 8. After going through the new features, I'll show you how to add authentication to your Laravel 8 application using Okta.
+
+{% include integrator-org-warning.html %}
 
 ## Jetstream
 

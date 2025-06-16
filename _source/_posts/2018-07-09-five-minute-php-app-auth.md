@@ -15,8 +15,6 @@ Tweets:
 type: conversion
 ---
 
-{% include integrator-org-warning.html %}
-
 Have you ever found yourself building an app and needing to add authentication, dreading the thought of setting up yet another username and password database? In this post, I'll show you how easy it is to use Okta to add authentication to a simple PHP app in 5 minutes. By leveraging Okta's simple OAuth API, we can breeze past most of the challenges involved in authenticating users by letting Okta take care of the hard parts.
 
 <div style="text-align: center;">
@@ -26,6 +24,8 @@ Have you ever found yourself building an app and needing to add authentication, 
 To follow this tutorial, you'll first need an Okta Developer account. If you don't yet have an account, [sign up for free](https://developer.okta.com/signup/) and come back here when you're done. We won't use any external PHP libraries or dependencies in this example just to keep things simple.
 
 We'll start with a single PHP file to demonstrate the logged in/logged out state of our application. Then we'll integrate the Okta API to authenticate users and find their username after they're logged in. You can use this guide as the basis of adding authentication to your own real application.
+
+{% include integrator-org-warning.html %}
 
 ## Set Up the Sample PHP App
 

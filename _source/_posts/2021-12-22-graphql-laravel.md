@@ -13,11 +13,11 @@ image: blog/graphql-laravel/graphql-laravel-social.jpg
 type: conversion
 ---
 
-{% include integrator-org-warning.html %}
-
 GraphQL's popularity has grown among frontend and backend developers alike. It allows frontend teams to request only the data they need while preventing an explosion of backend endpoints, since all operations can go through one simple endpoint for all models being worked on.
 
 In this tutorial, you will learn how to set up a GraphQL API with Laravel, a free open-source PHP web application framework. You'll then secure the API so that it's only accessible to authorized users logging in with Okta.
+
+{% include integrator-org-warning.html %}
 
 ## Building the project
 

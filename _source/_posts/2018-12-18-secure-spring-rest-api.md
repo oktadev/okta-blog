@@ -18,8 +18,6 @@ update-url: /blog/2020/11/20/spring-data-jpa
 update-title: "Build a Secure Spring Data JPA Resource Server"
 ---
 
-{% include integrator-org-warning.html %}
-
 _"If it is useful, it will be modified."_ Those words of wisdom came from a QA teacher of mine, to explain that all software evolves when it becomes useful to someone, and for as long as it is useful. We all know this. Users ask us for new features, bug fixes and changes in domain logic every day. As any project (especially a monolith) grows it can begin to become difficult to maintain, and the barrier to entry for anyone new just gets higher and higher. In this tutorial, I'm excited to walk you through building a secure Spring REST API that tries to solve for some of these pain points using a microservices architecture.
 
 In a microservices architecture, you logically divide your application into several apps that can be more easily maintained and scaled, use different stacks, and support more teams working in parallel. But microservices are the simple solution to every scaling and maintenance problem.
@@ -32,6 +30,8 @@ Microservices also present a number of architectural challenges that must be add
 * And, how should you handle user authorization to access a single service?
 
 Let's dig in and find out how to address these challenges when building a Spring REST API.
+
+{% include integrator-org-warning.html %}
 
 ## Secure Your Spring REST API with OAuth 2.0
 

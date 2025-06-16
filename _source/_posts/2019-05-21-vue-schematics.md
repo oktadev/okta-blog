@@ -19,8 +19,6 @@ changelog:
 - 2021-04-14: Updated to use Vue CLI 4.5 and OktaDev Schematics v3.4.1. You can see the changes to this post in [okta-blog#707](https://github.com/oktadeveloper/okta-blog/pull/707); example app changes are in [vue-schematics-example#1](https://github.com/oktadeveloper/vue-schematics-example/pull/1).
 ---
 
-{% include integrator-org-warning.html %}
-
 Schematics is a tool from the Angular team that allows you to manipulate projects with code. You can create files, update existing files, and add dependencies to any project that has a `package.json` file. That's right, Schematics aren't only for Angular projects! 
 
 In this post, I'll show you how to use Schematics to modify a project created with Vue CLI. Why Vue? Because it's fast and efficient. Its default bundle size is smaller than Angular and React too! 
@@ -34,6 +32,8 @@ Bootstrap is a popular CSS framework, and Vue has support for it via [BootstrapV
 **Table of Contents**{: .hide }
 * Table of Contents
 {:toc}
+
+{% include integrator-org-warning.html %}
 
 ## Schematics: Manipulate Projects with Code
 

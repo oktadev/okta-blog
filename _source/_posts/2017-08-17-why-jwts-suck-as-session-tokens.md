@@ -15,8 +15,6 @@ tweets:
 type: awareness
 ---
 
-{% include integrator-org-warning.html %}
-
 {% img blog/why-jwts-suck-as-session-tokens/jwts-so-hot-right-now.jpg alt:"JWTs: So Hot Right Now" %}
 
 JSON Web Tokens (JWTs) are *so* hot right now. They're all the rage in web
@@ -33,6 +31,8 @@ train headed straight for Stack Overflow fame and fortune!
 
 But... today I'm here to talk with you about the downsides of using JWTs.
 Specifically, why it's a bad idea to use JWTs as session tokens for most people.
+
+{% include integrator-org-warning.html %}
 
 ## What are JWTs?
 

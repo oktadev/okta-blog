@@ -12,8 +12,6 @@ image: blog/signin-custom-domain/social.jpg
 type: awareness
 ---
 
-{% include integrator-org-warning.html %}
-
 Creating secure applications requires authentication. Delegating all the tedious details of the sign-in process to Okta is the most secure method to authenticate, not to mention speedier for development. So you'll see us advocating for and using the Okta-hosted sign-in page in our blog posts.
 
 But the default sign-in page can look too different from the personality you have in your application. And the login URL redirects to a domain outside your application, which is also different from what we want. Fortunately, you can add some flair to your Okta-hosted sign-in page, allowing your application's character to carry through in the user authentication process while maintaining the highest level of security. In other words, winning with the best of both worlds.
@@ -33,6 +31,8 @@ The process outlined in this post is not Angular-dependent, so feel free to subs
 - ***Optional** Domain name you own and access to administrate DNS of the domain
 
 {% include toc.md %}
+
+{% include integrator-org-warning.html %}
 
 ## Prepare your Okta account and Okta application
 You'll need an Okta account. If you already have one and an Okta application you want to use for this tutorial, feel free to skip this section. Otherwise, let's continue!

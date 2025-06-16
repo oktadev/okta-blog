@@ -19,9 +19,9 @@ update-url: /blog/2022/01/19/deploy-dotnet-container-aws-fargate
 update-title: "How to Deploy a .NET Container with AWS ECS Fargate"
 ---
 
-{% include integrator-org-warning.html %}
-
 In the last article I wrote, I showed you [how to host a serverless .NET application using AWS Lambda](/blog/2020/06/08/serverless-lambda-functions-csharp). In the article, we talked about the history of serverless and how companies are using these types of technology to simplify the process of delivering APIs and functionality faster than traditional methods. There are some problems that will start to arise in this type of application when you need more capability than your standard HTTP protocols GET, POST, PUT, DELETE, etc. A great example of this is Web Sockets.
+
+{% include integrator-org-warning.html %}
 
 ## Understanding Containers vs Virtual Machines
 

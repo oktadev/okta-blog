@@ -17,8 +17,6 @@ image: blog/featured/okta-react-headphones.jpg
 type: conversion
 ---
 
-{% include integrator-org-warning.html %}
-
 Serverless architecture with AWS Lambdas is quickly becoming a popular option for companies looking to deploy applications without the overhead of maintaining servers. AWS Lambda functions are event-driven and serverless—triggered to process a piece of code and return a result. AWS Lambdas can be written in most common languages today on a variety of platforms including .NET Core, Java, Go and, in the case of this post, Node.js.
 
 The example in this post uses Node.js 12.x, the latest version available on AWS to date. You'll be using AWS APIs to access AWS Lambdas from your application. This post will teach you how to write your API documentation in YAML and import it into AWS APIs. Additionally, you'll learn how to deploy that API and enable CORS so that your application can access it.
@@ -26,6 +24,8 @@ The example in this post uses Node.js 12.x, the latest version available on AWS 
 For this project, you'll be using React.js for the front end. React.js is one of the most popular JavaScript front end frameworks. React makes creating interactive UIs simple and intuitive. To authenticate users, you'll be using Okta's Single Sign-on Provider as well as Okta's React libraries, which make handling authentication very simple, allowing you more time to focus on your business code.
 
 This post outlines how to make a simple version of one of my favorite game shows as a kid, Card Sharks. The premise of the game is simple enough: A player is shown six cards, one face-up and five face-down. The player must guess if the first face-down card is higher or lower than the current face-up card. If the player is correct they gain a point and move to the next card. If the card has the same rank, no point is awarded and the game continues. If the player is incorrect, the game is over. If the player gets all the cards correct they are allowed to reshuffle the deck and draw a fresh set of 6 cards. At the end of the game, the player can submit their high score.
+
+{% include integrator-org-warning.html %}
 
 ## Get Started with Okta
 

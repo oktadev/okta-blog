@@ -16,8 +16,6 @@ tweets:
 image: blog/featured/okta-dotnet-bottle-headphones.jpg
 type: conversion
 ---
-
-{% include integrator-org-warning.html %}
 **"It works on my machine."**
 
 If you're a developer, or you work with developers, you've heard this phrase one too many times. If you've been in the industry for a while, you may even have the coffee mug, tee shirt, or mouse pad. It's fair to say that if Bart Simpson decides to embark on a career in software, "It works on my machine" will be the new "Eat my shorts".
@@ -30,6 +28,8 @@ However, all is not lost! It doesn't have to be this way. There is a growing rec
 >* [Free Okta Developer Account](https://developer.okta.com/signup/)
 >* [ASP.NET Core SDK](https://dotnet.microsoft.com/download) and a suitable IDE (such as [VS Code](https://code.visualstudio.com/) or [Visual Studio](https://visualstudio.microsoft.com/vs/))
 >* [Jenkins installation](https://jenkins.io/download/) - choose the Long-term Support version for your platform
+
+{% include integrator-org-warning.html %}
 
 ## Install the Jenkins Continuous Integration Server
 
