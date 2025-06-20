@@ -1,11 +1,11 @@
 ---
 layout: blog_post
 title: "Integrate Your Enterprise AI Tools with Cross App Access"
-author: [aaron-parecki, semona-igama]
+author: [semona-igama]
 by: advocate
 communities: [devops,security,mobile,.net,java,javascript,go,php,python,ruby]
 description: "Manage user and non-human identities including AI in the enterprise with Cross App Access"
-tags: [enterprise-ai, enterprise-ready, mcp, sso]
+tags: [enterprise-ai, enterprise-ready, mcp, sso, oauth]
 tweets:
 - ""
 - ""
@@ -13,26 +13,28 @@ tweets:
 image: blog/enterprise-ai/enterprise-ai-social-image.jpg
 type: awareness
 ---
+SaaS apps not only have to meet the rigorous demands of managing users at an enterprise level but must also be **secure and resilient by design**.
+
 In ["An Open Letter to Third-party Suppliers"](https://www.jpmorgan.com/technology/technology-blog/open-letter-to-our-suppliers), Patrick Opet, Chief Information Security Officer of JPMorgan Chase, writes:
 
 > *"Modern integration patterns, however, dismantle these essential boundaries, relying heavily on modern identity protocols (e.g., OAuth) to create direct, often unchecked interactions between third-party services and firms' sensitive internal resources."*
 
-This means that SaaS apps not only have to meet the rigorous demands of managing users at an enterprise level but must also be **secure and resilient by design**. Modern identity secure standards can help with user lifecycle maintenance of SaaS apps, e.g., provisioning and deactivating employees, and everything else in between. These solutions include adhering to protocols that facilitate single sign-on (SSO), user lifecycle management, entitlements, and full session logout across all applications. On top of managing user and non-human identities, e.g., service apps, adding AI access to work applications will bring another level of complexity unprecedented. We don't have a way to manage these AI tools, but there is a standard solution that aims to solve this problem. First, let's go over how AI is currently set up to integrate across work applications.
+Modern identity secure standards can help with user lifecycle maintenance of SaaS apps, e.g., provisioning and deactivating employees, and everything else in between. These solutions include adhering to protocols that facilitate single sign-on (SSO), user lifecycle management, entitlements, and full session logout across all applications. On top of managing user and non-human identities, e.g., service apps, adding AI access to work applications will bring another level of complexity unprecedented. We don't have a way to manage these AI tools, but there is a standard solution that aims to solve this problem. First, let's go over how AI is currently set up to integrate across work applications.
 
 ## OAuth for Enterprise AI
 More AI tools are using protocols like Model Context Protocol (MCP) to connect their AI learning models to make external requests to relevant data and apps within the enterprise. With growing demand and popularity for adopting AI in the workplace, how can we safely integrate AI into the enterprise?
 
-Solution: There is no need to reinvent how we authenticate and authorize AI to protected resources. With recent updates to the [MCP authorization spec](https://modelcontextprotocol.io/specification/2025-06-18/basic/authorization), we can continue to rely on OAuth and authorization servers from external Identity Providers (IdPs) such as Okta, separate from MCP servers, to authenticate/authorize non-human identities, including AI.
+Solution: There is no need to reinvent how we authenticate and authorize AI to protected resources. With recent updates to the [MCP authorization spec](https://modelcontextprotocol.io/specification/2025-06-18/basic/authorization), we can continue to rely on OAuth and authorization servers from external providers like Auth0, separate from MCP servers, to authenticate/authorize non-human identities, including AI.
 
 ## Enterprise AI connecting to external apps
-Right now, app-to-app connections happen behind the scenes from the IdP and per user consent. Naturally, AI-to-app connections follow the same setup, which is not ideal because we need a way to move the connections between the applications, including non-human identities, into the IdP, where they can be visible and managed by the enterprise admin. How can we make this possible?
+Right now, app-to-app connections require interactive user consent and happen invisibly to the enterprise IdP. Naturally, AI-to-app connections follow the same setup, which is not ideal because we need a way to move the connections between the applications, including non-human identities, into the IdP, where they can be visible and managed by the enterprise admin. How can we make this possible?
 
-Solution: By leveraging a new (in-progress) OAuth extension called ["Identity and Authorization Chaining Across Domains"](https://datatracker.ietf.org/doc/draft-ietf-oauth-identity-chaining/) which we'll refer to as "Cross-App Access" for short. This extension enables the enterprise IdP to sit in the middle of the OAuth exchange between the two apps or AI-to-app.
+Solution: By combining new and in-progress OAuth extensions called ["Identity and Authorization Chaining Across Domains"](https://datatracker.ietf.org/doc/draft-ietf-oauth-identity-chaining/) and ["Identity Assertion Authorization Grant"](https://datatracker.ietf.org/doc/draft-parecki-oauth-identity-assertion-authz-grant/) which we'll refer to as "Cross-App Access" for short. These extensions enable the enterprise IdP to sit in the middle of the OAuth exchange between the two apps or AI-to-app.
 
 ## A brief intro to Cross-App Access
-In this example, we'll use Agent0 (hypothetical MCP client) as the Enterprise AI application trying to connect to a resource application called Todo0 and its (hypothetical) MCP server. We'll start with a high-level overview of the flow and later go over the detailed protocol.
+In this example, we'll use Agent0 (a hypothetical MCP client) as the Enterprise AI application trying to connect to a resource application called Todo0 and its (hypothetical) MCP server. We'll start with a high-level overview of the flow and later go over the detailed protocol.
 
-First, the user logs in to Agent0 through the IdP as normal. This results in Agent0 getting either an ID token or SAML assertion from the IdP, which tells Agent0 who the user is. (This works the same for SAML assertions or ID tokens, so I'll use ID tokens in the example from here out.) This is no different than what the user would do today when signing in to Agent0.
+First, the user logs in to Agent0 through the IdP as normal. This results in Agent0 getting either an ID token or SAML assertion from the IdP, which tells Agent0 who the user is. (This works the same for SAML assertions or ID tokens, so we'll use ID tokens in the example from here out.) This is no different than what the user would do today when signing in to Agent0.
 
 {% img blog/enterprise-ai/agent0-auth-okta.jpeg alt:"A digram flow of cross-app auth to Okta." width:"800" %}{: .center-image }
 
@@ -49,7 +51,7 @@ This solves the two big problems:
 
 The exchange happens entirely without user interaction, so the user never sees prompts or OAuth consent screens.
 
-Since the IdP sits between the exchange, the enterprise admin can configure the policies governing which applications are allowed to use this direct connection.
+Since the IdP sits between the exchange, the enterprise admin can configure the policies to determine which applications are allowed to use this direct connection.
 The other nice side effect of this is that since no user interaction is required, the first time a new user logs in to Agent0, all their enterprise apps will be automatically connected without them having to click any buttons!
 
 ## OAuth's Cross-App Access protocol
