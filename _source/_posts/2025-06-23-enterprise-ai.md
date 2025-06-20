@@ -1,10 +1,10 @@
 ---
 layout: blog_post
-title: "Integrate Your Enterprise AI Tools with Cross App Access"
+title: "Integrate Your Enterprise AI Tools with Cross-App Access"
 author: [semona-igama]
 by: advocate
 communities: [devops,security,mobile,.net,java,javascript,go,php,python,ruby]
-description: "Manage user and non-human identities including AI in the enterprise with Cross App Access"
+description: "Manage user and non-human identities, including AI in the enterprise with Cross App Access"
 tags: [enterprise-ai, enterprise-ready, mcp, sso, oauth]
 tweets:
 - ""
@@ -19,7 +19,7 @@ In ["An Open Letter to Third-party Suppliers"](https://www.jpmorgan.com/technolo
 
 > *"Modern integration patterns, however, dismantle these essential boundaries, relying heavily on modern identity protocols (e.g., OAuth) to create direct, often unchecked interactions between third-party services and firms' sensitive internal resources."*
 
-Modern identity secure standards can help with user lifecycle maintenance of SaaS apps, e.g., provisioning and deactivating employees, and everything else in between. These solutions include adhering to protocols that facilitate single sign-on (SSO), user lifecycle management, entitlements, and full session logout across all applications. On top of managing user and non-human identities, e.g., service apps, adding AI access to work applications will bring another level of complexity unprecedented. We don't have a way to manage these AI tools, but there is a standard solution that aims to solve this problem. First, let's go over how AI is currently set up to integrate across work applications.
+Modern identity secure standards can help with user lifecycle maintenance of SaaS apps, e.g., provisioning and deactivating employees, and everything else in between. These solutions include adhering to protocols that facilitate single sign-on (SSO), user lifecycle management, entitlements, and full session logout across all applications. On top of managing user and non-human identities, e.g., service apps, adding AI access to work applications will bring unprecedented complexity. We don't have a way to manage these AI tools, but there is a standard solution that aims to solve this problem. First, let's go over how AI is currently set up to integrate across work applications.
 
 ## OAuth for Enterprise AI
 More AI tools are using protocols like Model Context Protocol (MCP) to connect their AI learning models to make external requests to relevant data and apps within the enterprise. With growing demand and popularity for adopting AI in the workplace, how can we safely integrate AI into the enterprise?
@@ -29,23 +29,23 @@ Solution: There is no need to reinvent how we authenticate and authorize AI to p
 ## Enterprise AI connecting to external apps
 Right now, app-to-app connections require interactive user consent and happen invisibly to the enterprise IdP. Naturally, AI-to-app connections follow the same setup, which is not ideal because we need a way to move the connections between the applications, including non-human identities, into the IdP, where they can be visible and managed by the enterprise admin. How can we make this possible?
 
-Solution: By combining new and in-progress OAuth extensions called ["Identity and Authorization Chaining Across Domains"](https://datatracker.ietf.org/doc/draft-ietf-oauth-identity-chaining/) and ["Identity Assertion Authorization Grant"](https://datatracker.ietf.org/doc/draft-parecki-oauth-identity-assertion-authz-grant/) which we'll refer to as "Cross-App Access" for short. These extensions enable the enterprise IdP to sit in the middle of the OAuth exchange between the two apps or AI-to-app.
+Solution: By combining new and in-progress OAuth extensions called ["Identity and Authorization Chaining Across Domains"](https://datatracker.ietf.org/doc/draft-ietf-oauth-identity-chaining/) and ["Identity Assertion Authorization Grant"](https://datatracker.ietf.org/doc/draft-parecki-oauth-identity-assertion-authz-grant/), which we'll refer to as "Cross-App Access" for short. These extensions enable the enterprise IdP to sit in the middle of the OAuth exchange between the two apps or AI-to-app.
 
 ## A brief intro to Cross-App Access
 In this example, we'll use Agent0 (a hypothetical MCP client) as the Enterprise AI application trying to connect to a resource application called Todo0 and its (hypothetical) MCP server. We'll start with a high-level overview of the flow and later go over the detailed protocol.
 
 First, the user logs in to Agent0 through the IdP as normal. This results in Agent0 getting either an ID token or SAML assertion from the IdP, which tells Agent0 who the user is. (This works the same for SAML assertions or ID tokens, so we'll use ID tokens in the example from here out.) This is no different than what the user would do today when signing in to Agent0.
 
-{% img blog/enterprise-ai/agent0-auth-okta.jpeg alt:"A digram flow of cross-app auth to Okta." width:"800" %}{: .center-image }
+{% img blog/enterprise-ai/agent0-auth-okta.jpeg alt:"A diagram flow of cross-app auth to Okta." width:"800" %}{: .center-image }
 
 Then, instead of prompting the user to connect to Todo0, Agent0 takes the ID token back to the IdP in a request that says, "Agent0 is requesting access to this user's Todo0 account."
 The IdP validates the ID token, sees that it was issued to Agent0, and verifies that the admin has allowed Agent0 to access Todo0 on behalf of the given user. Assuming everything checks out, the IdP issues a new token back to Agent0.
 
-{% img blog/enterprise-ai/cross-domain-jwt.jpeg alt:"A digram flow of cross-app jwt returned." width:"800" %}{: .center-image }
+{% img blog/enterprise-ai/cross-domain-jwt.jpeg alt:"A diagram flow of cross-app jwt returned." width:"800" %}{: .center-image }
 
 Agent0 takes the intermediate token from the IdP to Todo0, saying, "Hi, I would like an access token for the Todo0 MCP server. The IdP gave me this token with the details of the user to issue the access token for." Todo0 validates the token the same way it would have validated an ID token. (Remember, Todo0 is already configured for SSO to the IdP for this customer as well, so it already has a way to validate these tokens.) Todo0 is able to issue an access token giving Agent0 access to this user's resources in its MCP server.
 
-{% img blog/enterprise-ai/jwt-validation.jpeg alt:"A digram flow of cross-app jwt return." width:"800" %}{: .center-image }
+{% img blog/enterprise-ai/jwt-validation.jpeg alt:"A diagram flow of cross-app jwt return." width:"800" %}{: .center-image }
 
 This solves the two big problems:
 
@@ -62,7 +62,7 @@ Let's go through it step by step. For this example, we'll use the following enti
 - Todo0 - the "Resource Application", which has the resources being accessed through MCP
 - Okta - the enterprise identity provider that users at the example company can use to sign in to both apps
 
-{% img blog/enterprise-ai/full-sequence-diagram.jpeg alt:"A digram flow of cross-app jwt return." width:"800" %}{: .center-image }
+{% img blog/enterprise-ai/full-sequence-diagram.jpeg alt:"A diagram flow of cross-app jwt return." width:"800" %}{: .center-image }
 
 ### Single Sign-On
 First, Agent0 gets the user to sign in using a standard OpenID Connect (or SAML) flow in order to obtain an ID token. There isn't anything unique to this spec regarding this first stage, so we will skip the details of the OpenID Connect flow, and we'll start with the ID token as the input to the next step.
@@ -175,12 +175,4 @@ Here's the flow again, this time as a sequence diagram.
 ## Next steps
 So, with stringent expectations set for buying SaaS apps, this also applies to AI tools accessing these SaaS apps now more than ever. Cross-App Access aims to help manage ALL identity access, including AI, especially in the workplace. You can read more about how Cross-App Access plays a key role in securing AI agents on this [blog by Okta's Chief Product Officer Arnab Bose](https://www.okta.com/newsroom/articles/understanding-the-ai-agent-identity-challenge/). And for a more detailed step-by-step explanation of the flow, see [Appendix A.3](https://www.ietf.org/archive/id/draft-parecki-oauth-identity-assertion-authz-grant-03.html#appendix-A.3) of the Identity Assertion Authorization Grant. Interested in integrating your Cross App Access with Okta? You can apply to our [early access offering](https://www.okta.com/saas-security/sign-up/)!
 
-
-
-Follow OktaDev on [X](https://twitter.com/oktadev) and subscribe to our [YouTube channel](https://www.youtube.com/c/OktaDev/) to learn about additional enterprise-ready AI resources as soon as they're available. We also want to hear from you about topics you want to see and questions you may have. Leave us a comment below!
-
-
-
-
-
-
+Follow us on OktaDev on [X](https://twitter.com/oktadev) and subscribe to our [YouTube channel](https://www.youtube.com/c/OktaDev/) to learn about additional enterprise-ready AI resources as soon as they're available. We also want to hear from you about topics you want to see and questions you may have. Leave us a comment below!
