@@ -171,11 +171,11 @@ Here's the flow again, this time as a sequence diagram.
 - The MCP server returns the response
 
 ## Next steps
-So, with stringent expectations set for buying SaaS apps, this also applies to AI tools accessing these SaaS apps now more than ever. Cross-App Access aims to help manage ALL identity access, including AI, especially in the workplace. You can read more about the advantages of Cross-App Access here [Arnab's blog](). And for a more detailed step-by-step explanation of the flow, see [Appendix A.3](https://www.ietf.org/archive/id/draft-parecki-oauth-identity-assertion-authz-grant-03.html#appendix-A.3) of the Identity Assertion Authorization Grant. Interested in integrating your Cross App Access with Okta? You acan apply to our [early access offering](https://www.okta.com/saas-security/sign-up/)!
+So, with stringent expectations set for buying SaaS apps, this also applies to AI tools accessing these SaaS apps now more than ever. Cross-App Access aims to help manage ALL identity access, including AI, especially in the workplace. You can read more about the advantages of Cross-App Access here [Arnab's blog](). And for a more detailed step-by-step explanation of the flow, see [Appendix A.3](https://www.ietf.org/archive/id/draft-parecki-oauth-identity-assertion-authz-grant-03.html#appendix-A.3) of the Identity Assertion Authorization Grant. Interested in integrating your Cross App Access with Okta? You can apply to our [early access offering](https://www.okta.com/saas-security/sign-up/)!
 
 
 
-Follow OktaDev on X and subscribe to our YouTube channel to learn about additional enterprise-ready AI resources as soon as they're available. We also want to hear from you about topics you want to see and questions you may have. Leave us a comment below!
+Follow OktaDev on [X](https://twitter.com/oktadev) and subscribe to our [YouTube channel](https://www.youtube.com/c/OktaDev/) to learn about additional enterprise-ready AI resources as soon as they're available. We also want to hear from you about topics you want to see and questions you may have. Leave us a comment below!
 
 
 
