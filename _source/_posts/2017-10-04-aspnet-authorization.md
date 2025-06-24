@@ -23,6 +23,8 @@ This second approach is far easier to implement, so that's the approach this art
 
 Start by cloning the application at <https://github.com/oktadeveloper/aspnetcore-oidc-okta-example>. This is the base application with authentication covered in [my previous post](/blog/2017/06/29/oidc-user-auth-aspnet-core). You'll add authorization to this application.
 
+{% include integrator-org-warning.html %}
+
 ## Let ASP.NET Know Where Your Roles Are
 In the `startup.cs` file, where the `OpenIdConfigurationOptions` are set, one of the items being set is the `TokenValidationParameters`. In the new `TokenValidationParameters` add a property called `RoleClaimType` with a value of `ClaimTypes.Role`. This is an enumeration in the `System.Security.Claims` namespace that holds the URL that describes the "role" claim type. Ultimately, your `TokenValidationParameters` property should look like this.
 

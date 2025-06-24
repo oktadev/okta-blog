@@ -30,6 +30,8 @@ Spring Boot 2.0 provided reactive web technology by integrating with [WebFlux](h
 * Table of Contents
 {:toc}
   
+{% include integrator-org-warning.html %}
+
 ## What is R2DBC?
 
 [R2DBC](https://r2dbc.io/) is an API which provides reactive, non-blocking APIs for relational databases. Using this, you can have your reactive APIs in Spring Boot read and write information to the database in a reactive/asynchronous way.

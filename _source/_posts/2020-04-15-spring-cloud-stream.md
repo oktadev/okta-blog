@@ -23,6 +23,8 @@ You'll create an application that contains a **publisher**, a **processor**, and
 
 If all of that technical jargon made sense to you, feel free to skip to the requirements section. Otherwise, I'm going to take a few paragraphs to introduce the technologies.
 
+{% include integrator-org-warning.html %}
+
 ## What is Spring Cloud Stream?
 
 Spring describes **Spring Cloud Stream** as "a framework for building highly scalable event-driven microservices connected with shared messaging systems." This means that the Spring team created Spring Cloud Stream to work with messaging services like RabbitMQ or Apache Kafka. It works in distributed microservices that respond to streams of incoming data (data being the "events" in "event-driven"). It's built on top of Spring Boot, works well with Spring MVC or Spring WebFlux, and can be used to create highly scalable messaging and stream processing applications.

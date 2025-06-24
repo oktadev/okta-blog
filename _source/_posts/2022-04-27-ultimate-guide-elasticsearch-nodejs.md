@@ -22,6 +22,8 @@ You can follow along with [this GitHub repository](https://github.com/oktadev/ok
 
 {% include toc.md %}
 
+{% include integrator-org-warning.html %}
+
 ## What is Elasticsearch?
 
 At its core, Elasticsearch is a NoSQL analytics database with an extensive JSON-centric REST API used for querying and indexing data. It's built in Java, on top of [Apache Lucene](https://lucene.apache.org/), providing a scalable and performant search experience.

@@ -13,6 +13,7 @@ image: blog/featured/okta-react-bottle-headphones.jpg
 type: conversion
 github: https://github.com/oktadev/okta-spring-boot-react-crud-example
 changelog:
+- 2025-05-19: Added warning about org type name change
 - 2023-04-26: Updated to use the Okta Spring Boot starter, which supports Auth0 in v3.0.3. You can find the changes to this post in [okta-blog#1364](https://github.com/oktadev/okta-blog/pull/1364) and the example app's changes in [okta-spring-boot-react-crud-example#59](https://github.com/oktadev/okta-spring-boot-react-crud-example#59).
 - 2022-12-09: Updated to use Spring Boot 3 and Spring Security 6. You can find the changes to this post in [okta-blog#1319](https://github.com/oktadev/okta-blog/pull/1319) and the example app's changes in [okta-spring-boot-react-crud-example#54](https://github.com/oktadev/okta-spring-boot-react-crud-example/pull/54).
 - 2022-11-04: Updated to use H2 version 2 and Spring Boot 2.7.5. You can find the changes to this post in [okta-blog#1301](https://github.com/oktadev/okta-blog/pull/1301) and the example app's changes in [okta-spring-boot-react-crud-example#50](https://github.com/oktadev/okta-spring-boot-react-crud-example/pull/50).
@@ -34,6 +35,8 @@ This tutorial is also available [as a screencast](https://youtu.be/B5tcZoNyqGI).
 You will need [Java 17](http://sdkman.io) and [Node 18](https://nodejs.org/) installed to complete this tutorial.
 
 {% include toc.md %}
+
+{% include integrator-org-warning.html %}
 
 ## Create an API app with Spring Boot
 

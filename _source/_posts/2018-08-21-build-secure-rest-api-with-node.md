@@ -23,6 +23,8 @@ JavaScript can also be used outside the context of a browser, for anything from 
 
 Today, I'll show you how to create a REST API using Node.js, and secure it with OAuth 2.0 to prevent unwarranted requests. REST APIs are all over the web, but without the proper tools require a ton of boilerplate code. I'll show you how to use a couple of amazing tools that make it all a breeze, including Okta to implement the Client Credentials Flow, which securely connects two machines together without the context of a user.
 
+{% include integrator-org-warning.html %}
+
 ## Build a RESTful Node API Server
 
 Setting up a web server in Node is quite simple using the [Express JavaScript library](https://expressjs.com/). Make a new folder that will contain your server.

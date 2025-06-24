@@ -31,6 +31,8 @@ To follow along with this guide you'll need these **prerequisites**:
 * [An AWS account (we'll be using a free tier product)](https://aws.amazon.com/free)
 * [AWS Toolkit for Visual Studio](https://aws.amazon.com/visualstudio/)
 
+{% include integrator-org-warning.html %}
+
 ## How Developers Approach the C# Filestream
 
 How do you eat a 1Gb file? One byte at a time! While funny - in a terrible, dad pun kind of way - it is absolutely true. A large number of developers today think of data as moving over the network in its final transactional form. For example, you as a developer input a URL and get back a JSON object, an image, a CSS file, or one of the countless other types of objects.

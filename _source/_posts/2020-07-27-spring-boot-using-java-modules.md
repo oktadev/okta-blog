@@ -32,6 +32,8 @@ While we have the visibility modifiers—public, private, protected, and _defaul
 * Table of Contents
 {:toc}
 
+{% include integrator-org-warning.html %}
+
 ## Introduction 
 
 When Java 9 was created, the JDK went under a major refactoring to modularize its content. It created various modules  to organize the contents.  Some examples include:  `java.base`, `java.sql`, and `java.xml`(along with many others). To date, there are a total of 60 modules in Java 14 JDK.

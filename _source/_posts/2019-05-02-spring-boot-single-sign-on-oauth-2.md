@@ -25,6 +25,8 @@ Now, with standards like OAuth 2.0 and OpenID Connect and service providers, lik
 
 In this post, I'll introduce OpenID Connect - the key enabling technology for delegated authentication and SSO - and then jump into a code example with Spring Boot where you can see SSO in action across multiple applications.
 
+{% include integrator-org-warning.html %}
+
 ## Approaches to Single Sign-On with OAuth 2.0 and OpenID Connect
 
 With OIDC, SSO is often accomplished by linking multiple applications through a single defined OpenID Connect application:

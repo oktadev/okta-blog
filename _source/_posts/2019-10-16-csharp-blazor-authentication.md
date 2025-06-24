@@ -28,6 +28,8 @@ In order to build with Blazor and ASP.NET Core 3.0, you need the following prere
 * [C# Intellisense extension](https://code.visualstudio.com/docs/languages/csharp) (if using VS Code)
 * An [Okta Developer Account](https://developer.okta.com/) (free forever, to handle your OAuth needs)
 
+{% include integrator-org-warning.html %}
+
 ## Build a Basic Website with ASP.NET Core 3.0 + Blazor
 
 Now that you have your dev environment handy, let's get familiar with what a basic website walkthrough would be like. There are two ways you can utilize this technology: [client-side or server-side Blazor](https://docs.microsoft.com/en-us/aspnet/core/blazor/hosting-models?view=aspnetcore-3.0). For this example, the server-side option is the best choice for stability, as client-side Blazor is still new and working on the final release. Stay tuned for that implementation!

@@ -78,6 +78,8 @@ export OKTA_API_TOKEN={apiToken}
 export OKTA_AUTHORIZATIONSERVER_ID=default
 ```
 
+{% include integrator-org-warning.html %}
+
 ## Add Stormpath's Zuul Support to the Edge Service
 
 > **NOTE:** I'm using Stormpath's Java SDK in this example. It has been updated to work with Okta's API. If you'd like to see how to do this same tutorial using Spring Security and its OAuth support, please [Secure a Spring Microservices Architecture with OAuth 2.0](/blog/2018/02/13/secure-spring-microservices-with-oauth).

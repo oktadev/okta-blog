@@ -26,6 +26,8 @@ Today, we are going to build a simple web application that uses the Okta authent
 
 **NOTE**: The code for this project can be found on [GitHub](https://github.com/oktadev/okta-aws-python-example).
 
+{% include integrator-org-warning.html %}
+
 ## Install AWS Serverless CLI, Python 3, and Tornado
 
 If you haven't already got an AWS account, create an [AWS Free Tier Account](https://aws.amazon.com/free).

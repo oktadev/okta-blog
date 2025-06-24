@@ -37,6 +37,8 @@ Nowadays it is widely recommended to never store secret values in code. Therefor
 
 {% include toc.md %}
 
+{% include integrator-org-warning.html %}
+
 ## Use environment variables for secrets; a precursor to Spring Vault
 
 Spring Boot applications can bind property values from environment variables. To demonstrate, create a `vault-demo-app` with OpenID Connect (OIDC) authentication, using the Spring Initializr. Then add `web`, `okta`, and `cloud-config-client` dependencies, some of which will be required later in the tutorial:

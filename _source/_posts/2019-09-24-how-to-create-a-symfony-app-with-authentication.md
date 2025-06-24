@@ -22,6 +22,8 @@ One of the most common features of Web applications is user authentication/autho
 
 To follow this tutorial, you'll need PHP, MySQL, Composer, and a free [Okta developer account](https://developer.okta.com/signup/).
 
+{% include integrator-org-warning.html %}
+
 ## Symfony Architecture
 
 The previous versions of Symfony (2 and 3) were standard, full-stack frameworks that assumed you would build heavy applications with frontend, backend, database access, a templating system, email delivery, and everything else you might need. 

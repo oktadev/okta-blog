@@ -44,6 +44,8 @@ git clone -b testing-start https://github.com/oktadeveloper/okta-ionic-crypto-ja
 
 The instructions below assume you're operating from the `okta-ionic-crypto-java-sdk-example` directory of this cloned project.
 
+{% include integrator-org-warning.html %}
+
 ## Set Up Okta
 
 First off, what is Okta? Simply put, we're an API service that allows developers to create, edit, and securely store user accounts and user account data, and connect them with one or multiple applications. Our API enables you to:

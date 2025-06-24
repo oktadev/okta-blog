@@ -26,6 +26,8 @@ To continue, you will need:
 - An [Okta Developer Account](https://developer.okta.com/) (free forever, to handle your OAuth needs)
 - An Android or iPhone device, or an emulator for testing (For the article, we show Android as an example, but this will work for either platform.)
 
+{% include integrator-org-warning.html %}
+
 ## Create a Xamarin.Forms App with Xamarin's Community Toolkit
 
 [Xamarin](https://docs.microsoft.com/en-us/xamarin/) is a framework from Microsoft used to build cross-platform mobile apps from one shared source code; it's written in C# and compiled for each platform's runtime. Xamarin.Forms is an abstraction on that, enabling developers to share the UI code as well.

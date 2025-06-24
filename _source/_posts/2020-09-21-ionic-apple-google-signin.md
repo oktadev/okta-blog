@@ -32,6 +32,8 @@ Today I'd like to show you how to develop a mobile application with Ionic, add O
 * Table of Contents
 {:toc}
 
+{% include integrator-org-warning.html %}
+
 ## Create an Ionic App
 
 To begin, you'll need to install the [Ionic CLI](https://ionicframework.com/docs/cli/). 

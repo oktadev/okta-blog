@@ -32,6 +32,8 @@ The backend will be written with [Express](https://www.expressjs.com/) as a serv
 * Table of Contents
 {:toc}
 
+{% include integrator-org-warning.html %}
+
 ## Why React?
 
 React has been one of the most popular JavaScript libraries for the past few years. One of the biggest concepts behind it, and what makes it so fast, is to use a virtual DOM (the Document Object Model, or DOM, is what describes the layout of a web page) and make small updates in batches to the real DOM. React isn't the first library to do this, and there are quite a few now, but it certainly made the idea popular. The idea is that the DOM is slow, but JavaScript is fast, so you just say what you want the final output to look like and React will make those changes to the DOM behind the scenes. If no changes need to be made, then it doesn't affect the DOM. If only a small text field changes, it will just patch that one element.

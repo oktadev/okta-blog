@@ -26,6 +26,8 @@ To get started building a PWA using Stencil, clone the starter application and d
 
 **WARNING**: Stencil is not at a 1.0 release yet (as of this writing). So be aware that if you continue, you're in early-adopter territory. If you find bugs, [submit an issue](https://github.com/ionic-team/stencil/issues).
 
+{% include integrator-org-warning.html %}
+
 ## Set Up the Starter Application
 
 ```bash

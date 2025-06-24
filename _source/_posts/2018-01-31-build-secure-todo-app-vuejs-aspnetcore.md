@@ -19,6 +19,8 @@ I love lists. I keep everything I need to do (too many things, usually) in a big
 
 There are hundreds of to-do apps out there, but today I'll show you how to build your own from scratch. Why? It's the perfect exercise for learning a new language or framework! A to-do app is more complex than "Hello World", but simple enough to build in an afternoon or on the weekend. Building a simple app is a great way to stretch your legs and try a language or framework you haven't used before.
 
+{% include integrator-org-warning.html %}
+
 ## Why Vue.js and ASP.NET Core?
 In this article, I'll show you how to build a lightweight, secure to-do app with a Vue.js frontend and an ASP.NET Core backend. Not familiar with these frameworks? That's fine! You'll learn everything as you go. Here's a short introduction to both:
 

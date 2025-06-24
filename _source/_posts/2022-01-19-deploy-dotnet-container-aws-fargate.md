@@ -18,6 +18,8 @@ In a previous article, we learned [how to host a serverless .NET application usi
 
 {% include toc.md %}
 
+{% include integrator-org-warning.html %}
+
 ## Understanding containers vs. virtual machines
 
 In 2013, [Docker](https://www.docker.com/) was released, beginning a shift in how we think about hosting applications and managing infrastructure. Infrastructure teams and operations had been leveraging _virtual machines_ with great success for decades, so you may be tempted to think, "isn't this just a virtual machine?" In spirit, yes; in application, no.

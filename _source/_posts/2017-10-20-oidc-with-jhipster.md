@@ -39,6 +39,8 @@ A week later, it won an honorable bronze at the [JAX Innovation Awards 2017](htt
 
 I've been a committer on the JHipster project ever since I [started writing the JHipster Mini-Book for InfoQ in June of 2015](http://www.jhipster-book.com/#!/news/entry/welcome-to-the-jhipster-mini-book). After developing a couple of apps with it, finding and fixing bugs along the way, I was invited to be a part of the project. Fast forward two years later, and version 4.0 of the book is [available for download](https://www.infoq.com/minibooks/jhipster-4-mini-book), and I've spoken about JHipster around the world at several conferences including Devoxx Belgium, Devoxx France, Angular Summit, and JavaOne.
 
+{% include integrator-org-warning.html %}
+
 ## Enter OAuth 2.0
 
 I'm a fan of [OAuth 2.0](https://oauth.net/) and [OpenID Connect](http://openid.net/connect/) (OIDC). It helps that I work for Okta, where we implement both options in our API and allow developers to use our libraries &mdash; or third party libraries &mdash; to connect. I like how OAuth will enable me to use my existing credentials at an Identity Provider (e.g., Google, Facebook, or even Okta) to log in to applications without creating a new account.

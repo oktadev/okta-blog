@@ -33,6 +33,8 @@ Serverless functions should also be stateless (there's no disk to write to) and 
 * Table of Contents
 {:toc}
 
+{% include integrator-org-warning.html %}
+
 ## Choose Between Java Serverless Options
 
 Broadly speaking, two main options for running a serverless code base are: 1) to use a commercial function-as-service (FaaS) provider, or 2) use an open-source serverless platform and deploy it in one of the many options for deploying containerized code. The example application you're going to write in this tutorial uses the first option, specifically Amazon AWS Lambda. But before you get started, I'm going to quickly look at a few of the other options.

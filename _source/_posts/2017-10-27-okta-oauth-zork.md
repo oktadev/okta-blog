@@ -20,6 +20,8 @@ In the early '80s, some of the best "video" games were text-based adventures. Th
 
 Let's jump right in so you can see it in action and then we'll break down how everything works.
 
+{% include integrator-org-warning.html %}
+
 ## Play Zork in 3 Clicks
 
 Navigate to: [https://okta-oidc-fun.herokuapp.com](https://okta-oidc-fun.herokuapp.com). Click `token`. Then, click the link at the bottom of the page. (It starts with: `https://micah.okta.com/oauth2/aus2yrcz7aMrmDAKZ1t7/v1/authorize`.)

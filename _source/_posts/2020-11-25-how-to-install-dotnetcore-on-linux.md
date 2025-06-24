@@ -21,6 +21,8 @@ As a big fan of open source, I'm loving the fact that .NET Core is cross-platfor
 
 I'm going to guide you through the steps on how to set up a .NET Core runtime environment, and how to deploy a .NET Core web application with Okta authentication, once you've got an Ubuntu VPS, all using nothing more than the Terminal.
 
+{% include integrator-org-warning.html %}
+
 ## The Benefits of Using Okta
 
 Okta is a cloud service that allows developers to create, edit, and securely store user accounts and user account data, and connect them with one or multiple applications. Using Okta, you don't have to worry about implementing sign up, login and logout flows manually. In our sample app, we will set up Okta to handle our user management for OAuth sign-in. There are a few tricks to set up .NET Core to work on Linux (especially when it comes to containerization on a host like AWS or Azure), but don't worry - you will get a good overview in this tutorial.

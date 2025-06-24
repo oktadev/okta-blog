@@ -16,6 +16,7 @@ tweets:
 image: blog/java-microservices-cloud-config/java-microservices-jhipster.jpg
 type: conversion
 ---
+
 :page-liquid:
 :toc: macro
 
@@ -24,6 +25,8 @@ Developing a microservice architecture with Java and Spring Boot is quite popula
 Spring Boot provided a much-needed spark to the Spring ecosystem when it was first released in 2014. Instead of making Java developers configure all aspects of their Spring beans, it provided "starters" that contained pre-configured beans with the default settings. This led to less Java code, and also provided the ability to override the defaults via an `application.properties` file. Yes, there are many ways to modify the defaults in a Spring Boot application, but I'll skip over that for now.
 
 In a link:/blog/2019/05/22/java-microservices-spring-boot-spring-cloud[previous tutorial on Java Microservices with Spring Boot and Spring Cloud], I showed how you can use OAuth 2.0 and OpenID Connect to secure everything. One of the problems with this example is that you have to configure the OIDC properties in each application. This can be a real pain if you have hundreds of microservices. Yes, you could define them as environment variables and this would solve the problem. However, if you have different microservices stacks using different OIDC client IDs, this approach will be difficult.
+
+{% include integrator-org-warning.html %}
 
 toc::[]
 

@@ -20,6 +20,8 @@ changelog:
   - 2020-11-02: Updated to use Flask-OIDC and React 17. See the code changes in [python-flask-react-crud-example#4](https://github.com/oktadeveloper/python-flask-react-crud-example/pull/4) and the article changes in [okta-blog#458](https://github.com/oktadeveloper/okta-blog/pull/458).
 ---
 
+{% include integrator-org-warning.html %}
+
 Today's modern web applications are often built with a server-side language serving data via an API and a front-end javascript framework that presents the data in an easy-to-use manner to the end user. Python is a dynamic language widely adopted by companies and developers. The language states on its core values that software should simple, readable making developers more productive and happier. You'll also use Flask to help you to quickly put together a ReST API. React is a declarative, efficient, and flexible JavaScript library developed at Facebook for building user interfaces. It facilitates the creation of complex, interactive, and stateful UIs from small and isolated pieces of code called components.
 
 In this tutorial you are going to build a JavaScript application using React in the front-end and we are also going to build a ReST API written in Python which is going to persist. Our app will be a GitHub open source bookmark project (a.k.a `kudo`).
@@ -36,6 +38,8 @@ To complete this tutorial, there are few things you will need:
 * A free-forever Okta account
 
 You will start by creating the back-end.
+
+{% include integrator-org-warning.html %}
 
 ## Create a ReST API with Python
 Make sure you have Python 3 installed. Check the version of Python installed by running the following command:

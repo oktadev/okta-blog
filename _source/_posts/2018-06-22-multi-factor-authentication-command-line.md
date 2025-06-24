@@ -21,6 +21,8 @@ Why would you ever want to do this? A) Because you can, and B) see A. Additional
 
 **Note:** At this time, the instructions below are organized around the Apple Mac platform. However, it is a simple Bash shell script with few dependencies. It should run on any \*nix platform style platform. It should also run on Windows with the [Linux Subsystem](https://docs.microsoft.com/en-us/windows/wsl/install-win10), which includes bash.
 
+{% include integrator-org-warning.html %}
+
 ## Get Started with Okta + Okta Verify for MFA
 
 Okta Verify is just a part of the suite of tools Okta provides, and it's the focus of this tutorial. Okta makes it super-simple to add [all kinds of secure user management features](https://developer.okta.com/product/user-management/), including MFA, to any application. Okta is a cloud service that allows developers to create, edit, and securely store user accounts and user account data, and connect them with one or multiple applications. Our API enables you to:

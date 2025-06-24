@@ -33,6 +33,8 @@ At the end of this post, you'll be able to upload a profile picture in your app 
 * [Okta CLI](https://cli.okta.com/)
 * A [Microsoft Azure Account](https://azure.microsoft.com/en-us/free/) (Azure free account)
 
+{% include integrator-org-warning.html %}
+
 ## Create a new ASP.NET project
 
 Let's create a new ASP.NET project. We'll use the [.NET CLI](https://docs.microsoft.com/en-us/dotnet/core/tools/) to scaffold the project.

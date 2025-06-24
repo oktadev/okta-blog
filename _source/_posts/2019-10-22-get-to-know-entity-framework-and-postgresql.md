@@ -32,6 +32,8 @@ To show how Entity Framework uses the domain model to interact with databases di
 
 Let's get started!
 
+{% include integrator-org-warning.html %}
+
 ## Create a PostgreSQL Instance
 
 [Elephantsql.com] offers free managed PostgreSQL for up to 5 concurrent connections and 20 Mb data, so it's perfect for this sample app. You can also easily download and install PostgreSQL locally on your computer. Visit [the PostgreSQL site](https://www.postgresql.org/download/) for Windows, Linux, Max and other operating system installers .

@@ -23,6 +23,8 @@ In this tutorial, you will build a simple web service with Jetty embedded. After
 
 {% include toc.md %}
 
+{% include integrator-org-warning.html %}
+
 ## Install the prerequisites
 
 Before you start, please make sure you have the following prerequisites installed (or install them now).

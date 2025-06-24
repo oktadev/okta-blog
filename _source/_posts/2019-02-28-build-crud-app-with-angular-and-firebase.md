@@ -21,6 +21,8 @@ Storage as a Service (SaaS) is becoming ever more popular with many businesses. 
 
 In this tutorial, I will be showing you how to create your own Wiki using Angular for the frontend client and Firebase for storing the Wiki documents. You'll see that it's easy to create a complete application in minutes.
 
+{% include integrator-org-warning.html %}
+
 ## Set Up the Firebase Database
 
 Firebase offers different methods for storing data. I will be using the new Firestore service instead of the more established Real-time Database. Firestore allows you to set up a more structured database together with a more powerful query API. To get started, open your browser and navigate to the Firebase console at `https://console.firebase.google.com/`. Log in using your Google account and accept all terms and conditions. In the Firebase console, you can see an overview of all your projects.

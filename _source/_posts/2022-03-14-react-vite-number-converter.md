@@ -30,6 +30,8 @@ Vite was originally developed for Vue, but you can also create React and Svelte 
 {:toc}
 
 
+{% include integrator-org-warning.html %}
+
 ## Using Vite to create the TypeScript React application
 
 Before you start, you should have recent versions of Node and npm installed on your system. The first step is to use the Vite command to create a new application. This can be done using the `npm init` command without installing any additional software. Open a terminal in a folder of your choice and run the following command.

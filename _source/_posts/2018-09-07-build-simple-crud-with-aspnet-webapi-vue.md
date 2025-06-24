@@ -41,6 +41,8 @@ After that, make sure you have the latest Visual Studio 2017 installed with .NET
 Create a root folder for all of your source files, including backend and frontend code, and name the folder `WeightTracker`. After that, inside of that folder create a folder named `Vue` and folder named `AspNetWebApi`.
 
 
+{% include integrator-org-warning.html %}
+
 ## Get Started with ASP.NET Web API
 
 First, create an API using a built-in template within Visual Studio from scratch.

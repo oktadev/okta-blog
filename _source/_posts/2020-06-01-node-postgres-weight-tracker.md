@@ -37,6 +37,8 @@ Before we begin, let's first check some requirements.
 * [A PostgreSQL database](https://www.postgresql.org/). If you don't already have PostgreSQL, you can install it using Docker. More details on this later in the tutorial!
 * [A free Okta developer account](https://developer.okta.com/) for account registration, login, and security.
 
+{% include integrator-org-warning.html %}
+
 ## Create Your Node.js Project
 
 Let's dive straight into creating the Node.js project. Open your terminal or command prompt, change to the folder where you store projects, and create a new folder for this project.

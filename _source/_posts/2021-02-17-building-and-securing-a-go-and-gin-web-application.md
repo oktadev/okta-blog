@@ -21,6 +21,8 @@ Today, we are going to build a simple web application that implements a *to-do* 
 
 **PS**: The code for this project can be found on [GitHub](https://github.com/oktadeveloper/okta-go-gin-vue-example) if you'd like to check it out.
 
+{% include integrator-org-warning.html %}
+
 ## Prerequisites to Building a Go, Gin, and Vue Application
 
 First things first, if you don't already have Go installed on your computer you will need to [Download and install - The Go Programming Language](https://golang.org/doc/install).

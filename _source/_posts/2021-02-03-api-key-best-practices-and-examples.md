@@ -23,6 +23,8 @@ Today, we are going to create an API key for three different APIs. We will show,
 
 **PS**: The code examples for this project can be found on [GitHub](https://github.com/oktadeveloper/api-key-best-practices-and-examples).
 
+{% include integrator-org-warning.html %}
+
 ## How to Obtain and Use an Okta API Token
 
 {% include setup/cli.md type="token" %}

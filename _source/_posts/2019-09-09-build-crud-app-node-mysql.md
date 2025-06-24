@@ -34,6 +34,8 @@ During the `npm install` phase, you will install the following dependencies:
 - `TypeORM` (Object Relational Mapper for `TypeScript` and `JavaScript`)
 - `Express` (Fast, unopinionated, minimalist web framework for Node)
 
+{% include integrator-org-warning.html %}
+
 ## Initialize the Node + Express Project and Add Dependencies
 
 Open a terminal and cd into a directory where you want your project created.

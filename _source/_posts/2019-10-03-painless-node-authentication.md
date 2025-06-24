@@ -21,6 +21,8 @@ User authentication is a critical component of just about every web application.
 
 In this article I'm going to explain how to build a Node.js application that authenticates users in a best practices way. I'll also explain what authentication options exist, and why you may (or may not) want to use them.
 
+{% include integrator-org-warning.html %}
+
 ## Authentication Options in Node.js
 
 There are three main ways to authenticate users in Node.js apps:

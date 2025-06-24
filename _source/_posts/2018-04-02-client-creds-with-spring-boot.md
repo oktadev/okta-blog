@@ -22,6 +22,8 @@ Most OAuth 2.0 guides are focused around the context of a user, i.e., login to a
 
 The OAuth 2 client credentials grant type is exclusively used for scenarios in which no user exists (CRON jobs, scheduled tasks, other data workloads, etc.). This flow is less *showy* than other OAuth flows as there is no end user or browser to deal with, but is far easier to understand than the more complicated user-centric OAuth 2.0 grant types.
 
+{% include integrator-org-warning.html %}
+
 ## OAuth 2.0 Client Credentials Grant
 
 The goal of the [client credentials](https://www.oauth.com/oauth2-servers/access-tokens/client-credentials/) grant is to allow two machines to communicate securely. In this grant type you have a client (think of this as your application) making API requests to another service (this is your resource server).

@@ -35,6 +35,8 @@ However, even if you're not going to write your own custom TCP protocol, you can
 
 In this tutorial, you are going to create a basic "Hello world" application in Netty. Next, you're going to create the same "Hello world" application in Spring Boot WebFlux. Finally, you're going to add OAuth 2.0 login to the application using Okta as the OAuth 2.0 provider.
 
+{% include integrator-org-warning.html %}
+
 ## Install the Project Dependencies
 
 This project has a few required tools to install before you get started.

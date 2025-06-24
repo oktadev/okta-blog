@@ -40,6 +40,8 @@ In this tutorial, you will learn how to:
 * Table of Contents
 {:toc}
 
+{% include integrator-org-warning.html %}
+
 ## Create a Secure Microservice with Okta Authentication
 
 Start by building a simple microservice that returns the total count of a GitHub code search by keyword. The third-party service in this example is [GitHub REST API](https://docs.github.com/en/rest).

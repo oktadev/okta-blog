@@ -23,6 +23,8 @@ Spring Boot allows you to create standalone web apps, CLIs, batch processes, and
 
 As we all know by now, pretty much every application depends upon a secure identity management system. For most developers who are getting started with new Spring Boot 2.0 apps, there's a decision to be made between rolling your own authentication and authorization system or plugging in a service like Okta. Before we dive into our Spring Boot 2.0 application, I want to tell you a bit about Okta, and why I think it's an excellent solution for all Java developers.
 
+{% include integrator-org-warning.html %}
+
 ## What is Okta?
 
 In short, we make [identity management](https://developer.okta.com/product/user-management/) a lot easier, more secure, and more scalable than what you're probably used to. Okta is a cloud service that allows developers to create, edit, and securely store user accounts and user account data, and connect them with one or multiple applications. Our API enables you to:

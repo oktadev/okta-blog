@@ -26,6 +26,8 @@ Before we get started, you'll need a couple of things.
 * [Nuget Package Manager](https://www.nuget.org/downloads)
 * An [Okta Developer Account](https://developer.okta.com/) (free forever, to handle your OAuth needs)
 
+{% include integrator-org-warning.html %}
+
 ## Project Setup
 
 With that in place, open up Visual Studio Code and click on File in the toolbar. Then click Open Folder, and then select somewhere on your computer you want to do your work.

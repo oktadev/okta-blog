@@ -21,6 +21,8 @@ REST APIs are often written for enterprise-level companies as a way of allowing 
 
 {% img blog/alexa-aspnet-linking/alexabracelet.png alt:"Alexa + C# + Okta Bracelet" width:"800" %}{: .center-image }
 
+{% include integrator-org-warning.html %}
+
 ## Create an Alexa Skill for Your Account Linking Demo
 
 You will need an Amazon developer account to set up your skill. After your account is created and you are logged in, navigate to https://developer.amazon.com/alexa/console/ask and click on **Create Skill**. For this example, call it "My Company Skill". Leave the default language. Be sure the **Custom** skill type is selected, and set the method to host your skill's backend resources to **Provision your own**. Click **Create Skill**.

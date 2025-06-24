@@ -31,6 +31,8 @@ This tutorial was created with the following frameworks and tools:
 * Table of Contents
 {:toc}
 
+{% include integrator-org-warning.html %}
+
 ## About DigitalOcean
 
 DigitalOcean is a cloud services company founded in 2011 by brothers Ben and Moisey Uretsky. Their headquarters are in New York City in the United States, and they also have offices in Massachusetts and Bangalore. Last March 2022, DigitalOcean reached its IPO (Initial Public Offering), and some press articles describe it as the cloud services provider for small businesses: "Cloud services for the Little Guy".

@@ -29,6 +29,8 @@ This tutorial looks specifically at authentication, leaving authorization for an
 * Table of Contents
 {:toc}
   
+{% include integrator-org-warning.html %}
+
 ## Requirements and Assumptions for Authentication with Spring Security
 
 This tutorial assumes a basic familiarity with Java and Spring Boot. The project utilizes the Gradle build system (because I find Groovy DSL endlessly preferable to XML). You do not need Gradle installed, however, since all projects include the Gradle wrapper.

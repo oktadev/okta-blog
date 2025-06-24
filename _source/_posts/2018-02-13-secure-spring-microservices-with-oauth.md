@@ -28,6 +28,8 @@ With Spring Security and its OAuth 2.0 support, you have everything you need to 
 
 This tutorial shows you how to use Spring Security with OAuth and Okta to lock down your microservices architecture. You might remember a similar post I wrote back in August: [Secure a Spring Microservices Architecture with Spring Security, JWTs, Juiser, and Okta](/blog/2017/08/08/secure-spring-microservices). The difference in this post is you won't be using any Okta SDKs; Spring Security OAuth has everything you need!
 
+{% include integrator-org-warning.html %}
+
 ## Microservices Architectures with Spring Boot + Spring Cloud
 
 This tutorial shows you how to add security to a previous tutorial I wrote, [Build a Microservices Architecture for Microbrews with Spring Boot](/blog/2017/06/15/build-microservices-architecture-spring-boot). A basic microservices architecture with Spring Boot and Spring Cloud looks like the graphic below.

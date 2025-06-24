@@ -26,6 +26,8 @@ So, if you allow your users to register and authenticate with a social media acc
 
 OK, so, social login is awesome! Right? Do you know what's not awesome? Having to re-implement the login API every time Facebook or Google decides to update their specifications. Not to mention having to implement different login specs for different social providers, and style and manage all of the different login buttons. That's where Okta steps in. 
 
+{% include integrator-org-warning.html %}
+
 ## Why Okta for Social Login in Spring Boot?
 
 If you deploy Okta to handle your social login, when Linkedin decides to update their login API spec for the third time in a week to combat Russian hackers, you won't even know about it. It'll already be handled.

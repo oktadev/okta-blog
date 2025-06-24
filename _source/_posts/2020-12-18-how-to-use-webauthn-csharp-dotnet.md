@@ -29,6 +29,8 @@ To continue, you will need:
 - Windows 10 Anniversary Update or newer and a computer with either a fingerprint reader, a Near-Infrared webcam, or a USB security key.
 - An [Okta Developer Account](https://developer.okta.com/) (free forever, to handle your OAuth needs)
 
+{% include integrator-org-warning.html %}
+
 ## Introduction to Passwordless Authentication with WebAuthn
 
 The Web Authentication (also known as WebAuthn) is a [World Wide Web Consortium](https://www.w3.org/) specification of an API that allows web applications creation and authentication using public-key cryptography instead of using passwords. The specification is the official web standard for passwordless login since March 2019 and [is supported by all major desktop and mobile browsers](https://caniuse.com/?search=webauthn).

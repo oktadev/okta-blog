@@ -27,6 +27,8 @@ In this tutorial, I will show you how to implement secure login in a client appl
 * Table of Contents
 {:toc}
 
+{% include integrator-org-warning.html %}
+
 ## Build an Angular SPA with Login
 
 In this tutorial, I will focus purely on client-side security. I will not delve into the topic of server-side authentication or authorization. The application you will be implementing is a simple server-less online calculator. Access to the calculator will be restricted users which have logged in. Naturally, real-life applications will communicate with the server and authenticate themselves with the server to gain access to restricted resources.

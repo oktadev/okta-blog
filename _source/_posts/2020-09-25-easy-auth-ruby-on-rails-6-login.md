@@ -26,6 +26,8 @@ To get rocking and rolling with this tutorial you will need:
 - [Rails 6](https://github.com/rails/rails)
 - An [Okta Developer Account](https://developer.okta.com/) (free forever, to handle your OAuth needs)
 
+{% include integrator-org-warning.html %}
+
 ## Create a Rails Application for Login
 
 Open up the terminal and create a brand new rails application:

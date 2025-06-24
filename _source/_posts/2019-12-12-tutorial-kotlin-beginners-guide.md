@@ -39,6 +39,8 @@ Before we dive into the tutorial, let's talk a little about why Kotlin might be 
 
 {% img blog/tutorial-kotlin-beginners-guide/kotlin-logo.png alt:"Kotlin logo" width:"400" %}{: .center-image }
 
+{% include integrator-org-warning.html %}
+
 ## Kotlin vs. Java, aka Why this Tutorial?
 
 Kotlin was designed to fix a number of Java's issues:

@@ -21,6 +21,8 @@ Common table expressions are a powerful feature of Microsoft SQL Server. They al
 
 In this article, you will learn how to write common table expressions using Microsoft SQL Server. You will then learn how to use that statement in a .NET Core MVC web application that is secured using Okta. Okta is a powerful yet easy to use single sign-on provider. By making use of Okta's `Okta.AspNetCore` package from Nuget, you will learn how to secure your application and any data from your CTEs properly.
 
+{% include integrator-org-warning.html %}
+
 ## Secure Your SQL CTE with an Okta Application
 
 The first thing you want to do is set up your Okta application to handle your authentication. If you haven't done so yet, you can sign up for a free developer account [here](https://developer.okta.com/signup/).

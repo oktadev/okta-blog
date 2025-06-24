@@ -24,6 +24,8 @@ I'll happily admit that like many of you, I'm a lazy developer. I tend to look f
 
 When I started writing this article, I wanted to show you how to add authentication to a Vue.js app. I started learning Vue.js back in April while authoring my [Front End Development for Back End Developers presentation](https://speakerdeck.com/mraible/front-ends-for-back-end-developers-spring-io-2017). I bought a pro subscription to Egghead.io and watched [Build Vue.js Apps with the Vue-CLI and Nuxt.js](https://egghead.io/lessons/vue-build-vue-js-apps-with-the-vue-cli-and-nuxt-js) by [@johnlindquist](https://twitter.com/johnlindquist).
 
+{% include integrator-org-warning.html %}
+
 ## Vue CLI + PWA!
 
 Every web app that has mobile users should add PWA support so the app loads faster and works offline. Vue.js has [excellent PWA support](https://github.com/vuejs-templates/pwa). You might recognize me as a fan of PWAs if you've read my [Ultimate Guide to Progressive Web Applications](/blog/2017/07/20/the-ultimate-guide-to-progressive-web-applications).

@@ -8,6 +8,8 @@ description: "Integrator Free Plan replaces Okta Developer Edition in 2025"
 tags: [javascript, python, advocacy, okta]
 image: blog/developer-edition-changes/social.png
 type: awareness
+changelog:
+- 2025-05-28: Added info on determining org type
 ---
 
 
@@ -32,9 +34,19 @@ By moving to an Integrator organization, you'll get an environment that's aligne
 
 This new organization structure will come with a number of benefits, such as improving integrator access to Okta support resources and expanding developer access to Okta product offerings for testing purposes. 
 
+The features available in the Integrator Free Plan are listed in [our reference docs](/docs/reference/org-defaults/). 
+
 ## Deprecating Okta Developer Edition organizations 
 
-In July 2025, existing Okta Developer Edition organization will be deactivated. At this time, you will lose access to your old Okta Developer Edition organization and all resources in it.. 
+In July 2025, existing Okta Developer Edition organization will be deactivated. At this time, you will lose access to your old Okta Developer Edition organization and all resources in it.
+
+### How to tell whether your organization is affected
+
+To check whether an organization is in Okta Developer Edition, navigate to **Applications** > **Applications** in the Okta Admin Console. If you're on Developer Edition, large text will inform you that "Developer Edition provides a limited number of apps". This message appears below the Applications heading and above the Create App Integration button. 
+
+{% img blog/developer-edition-changes/dev-org-banner.jpg alt:"Screenshot of developer edition app limit banner" width:"800" %}
+
+Organizations in which this banner is absent from the Applications list are not part of Developer Edition, and are unaffected by the Developer Edition deprecation. 
 
 ## How to migrate your resources from Okta Developer Edition to Integrator Free Plan
 
@@ -56,7 +68,7 @@ If you created resources in your Okta Developer Edition organization by hand and
 
 ### Use our migration tool for one-off organization backup
 
-If you'd like to capture a snapshot of your current Okta Developer Edition configuration, try [our migration tool](https://github.com/oktadev/okta-dev-account-migration-tool). It wraps the [Okta CLI Client](https://github.com/okta/okta-cli-client) to create files representing all supported objects in your Developer Edition organization, and can use these backup files to automatically re-create many of the objects in your new Integrator Free Plan organization. 
+If you'd like to capture a snapshot of your current Okta Developer Edition configuration, try [our EnvSync migration tool](https://github.com/oktadev/okta-dev-account-migration-tool). It wraps the [Okta CLI Client](https://github.com/okta/okta-cli-client) to create files representing all supported objects in your Developer Edition organization, and can use these backup files to automatically re-create many of the objects in your new Integrator Free Plan organization. 
 
 ## Migrate your public OIN Integration
 
@@ -84,5 +96,7 @@ If you have submitted an OIN integration from an Okta Developer Edition organiza
 ## Plan your migration now! 
 
 If you've used Okta Developer Edition organizations in the past, check now to see if any contain configurations that you'd like to keep. You can check whether you have an organization by checking your password manager for credentials saved on [the login page](https://developer.okta.com/login/), or searching your email for a welcome message from `<noreply@test-account.dev>`. 
+
+
 
 If you have any questions, don't hesitate to contact us in the comments below. 

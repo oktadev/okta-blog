@@ -35,6 +35,8 @@ So many questions that I didn't really consider until having that experience. Th
 
 {% img blog/offline-apps-antarctica/icebergphoto.jpg alt:"Iceberg in Antarctica" width:"500" %}{: .center-image }
 
+{% include integrator-org-warning.html %}
+
 ## Check software use cases for intermittent connectivity
 
 When I worked at a mobile app startup, offline capabilities were a commonly outlined use case that my development team was used to handling. Once I moved to other companies and began working on web based software and APIs, I noticed the assumption was that connectivity would obviously just be available, and if it wasn't, it was not the engineering team's problem. While it's true that without connectivity we don't get data shuttling back and forth, I'd argue that offline functionality needs to be taken into consideration. This doesn't have to be a long, drawn out ordeal. Take any use case that is given and ask the question:

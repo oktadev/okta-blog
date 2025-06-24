@@ -25,6 +25,8 @@ Okta can host your login page and allow you to edit the look and feel of it. Thi
 
 Using your own custom domain further adds a layer of professionalism. Instead of seeing the default Okta auth server domain, you can use the hosted login page with whatever domain or subdomain you choose.
 
+{% include integrator-org-warning.html %}
+
 ## Create a Spring Boot + Angular App with JHipster 
 
 [JHipster](https://www.jhipster.tech) is an open source project that allows you to generate a Spring Boot and Angular application quickly and easily. It even contains support for Okta out of the box! To use JHipster, you'll need to have [Node.js 10](https://nodejs.org/en/) and [Java 8](https://adoptopenjdk.net/) installed. Then run the following command to install JHipster:

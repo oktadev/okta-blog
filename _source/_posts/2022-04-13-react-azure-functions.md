@@ -41,6 +41,8 @@ If you want to see the code, you can download it or fork it [from the example on
 * Table of Contents
 {:toc}
 
+{% include integrator-org-warning.html %}
+
 ## Create your Okta application
 
 {% include setup/cli.md type="spa" framework="React" loginRedirectUri="http://localhost:4280/login/callback" %}

@@ -25,6 +25,8 @@ To follow this tutorial, you'll first need an Okta Developer account. If you don
 
 We'll start with a single PHP file to demonstrate the logged in/logged out state of our application. Then we'll integrate the Okta API to authenticate users and find their username after they're logged in. You can use this guide as the basis of adding authentication to your own real application.
 
+{% include integrator-org-warning.html %}
+
 ## Set Up the Sample PHP App
 
 If you want to skip to the finished project, check out the [source code on GitHub](https://github.com/aaronpk/quick-php-authentication). This post builds up the code in the finished project and explains it step by step.

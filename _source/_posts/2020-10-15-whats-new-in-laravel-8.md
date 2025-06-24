@@ -21,6 +21,8 @@ With [Laravel 8's release in September 2020](https://laravel.com/docs/8.x/releas
 
 While Laravel will continue to offer security fixes for version 7 until early 2021, no more bug fixes will be released after October 2020, so you should upgrade to Laravel 8 as soon as possible. In this article, you'll see all the new features and changes released in Laravel 8. After going through the new features, I'll show you how to add authentication to your Laravel 8 application using Okta.
 
+{% include integrator-org-warning.html %}
+
 ## Jetstream
 
 The biggest new feature available in Laravel 8 is an application scaffolding tool called [Jetstream](https://jetstream.laravel.com/1.x/introduction.html). Long-time Laravel users are probably familiar with [Laravel Spark](https://spark.laravel.com/), which adds authentication, billing, teams, and improved security options to Laravel for a small fee. Jetstream now offers _almost all_ of Spark's features (without the billing) **for free**.

@@ -42,6 +42,8 @@ So here is what you will learn to do today:
 
 {% include toc.md %}
 
+{% include integrator-org-warning.html %}
+
 ## Why Terraform, why not CloudFormation?
 
 At this point, the first question that might pop up in your mind would be, "Why not use [CloudFormation](https://aws.amazon.com/cloudformation/)?". It's a good question; after all, CloudFormation is built by AWS and hence sounds like an excellent solution to manage AWS resources. But anyone who has tried both CloudFormation and Terraform will probably tell you to forget that CloudFormation even exists. I think CloudFormation is far more complex and less developer-friendly than Terraform. You also need to write a lot more boilerplate with CloudFormation in YAML or JSON. Yikes! And most importantly, Terraform is far more powerful and flexible than CloudFormation. It's cross-platform, which means you can take care of all your infrastructure management needs on any platform with one tool.

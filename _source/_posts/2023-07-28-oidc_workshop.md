@@ -40,7 +40,7 @@ For an in-depth walkthrough of developing and troubleshooting the code in this w
 
 Follow the [getting started guide](/blog/2023/07/27/enterprise-ready-getting-started) to set up the Todo app and its dependencies. Make sure you can run the app locally and view the login page in your browser. Launch Prisma Studio (`npx prisma studio`) to examine the database, as well. 
 
-You will also need a free [Okta Developer Account](https://developer.okta.com/login/), to test the setup steps your customer will follow when integrating their OpenID Connect server with your application. 
+You will also need a free [Okta Integrator Free Plan account](https://developer.okta.com/login/), to test the setup steps your customer will follow when integrating their OpenID Connect server with your application. 
 
 ## Why use OpenID Connect (OIDC) to authenticate users
 
@@ -48,7 +48,7 @@ The Todo app currently only supports password login, but your enterprise custome
 
 Since you value flexibility and maintainability, you want to use a library to let your app integrate with arbitrary OpenID Connect servers. 
 
-Introducing these features will require adding logic to the application's backend to handle user accounts and org memberships appropriately, and frontend code to authenticate users with their organization's identity provider when appropriate while supporting password authentication for users who aren't signing in via OIDC. To use these features of your app, you will set it up with an OIDC integration in your Okta Developer Account.
+Introducing these features will require adding logic to the application's backend to handle user accounts and org memberships appropriately, and frontend code to authenticate users with their organization's identity provider when appropriate while supporting password authentication for users who aren't signing in via OIDC. To use these features of your app, you will set it up with an OIDC integration in your Okta Integrator Account.
 
 ## Support OIDC in the Prisma database schema
 
@@ -487,11 +487,11 @@ What kinds of problem is this code anticipating? Where will the user be sent if 
 
 ## Connect to the Identity Provider
 
-Now the app is ready for customers to connect their identity providers! This workshop will use an Okta Developer Account as the OIDC provider, to simulate a customer using Okta to connect with your app. 
+Now the app is ready for customers to connect their identity providers! This workshop will use an Okta Integrator Account as the OIDC provider, to simulate a customer using Okta to connect with your app. 
 
 In a production setting, you would have your customers provide you with information about their identity providers. But in this workshop, you're pretending to be your own customer, so you'll gather the OIDC provider information in this step.
 
-Visit [developer.okta.com](developer.okta.com) and log in to your Developer Account, or sign up if you don't have an account yet. Open the admin console if you're redirected to your user account dashboard. 
+Visit [developer.okta.com](developer.okta.com) and log in to your Integrator Account, or sign up if you don't have an account yet. Open the admin console if you're redirected to your user account dashboard. 
 
 ## Create an authorization server
 
@@ -517,7 +517,7 @@ This commands launches a website that allows you to manage your database.
 
 Open the model for `Org`, press the green **Add record** button, and press the green **Save 1 change**. You should have an `org` record where the ID is 1. Now that you have an `org`, edit the columns as specified below:
 
-  1. **Domain** - Enter the domain name of this organization. It should match the domain name of the email address they'll use. For example, if your customer's organization domain is `whiterabbit.fake`, the domain record is "whiterabbit.fake". Since we are testing with made-up customers, use the email domain you used when you signed up for the Okta Developer Edition organization.
+  1. **Domain** - Enter the domain name of this organization. It should match the domain name of the email address they'll use. For example, if your customer's organization domain is `whiterabbit.fake`, the domain record is "whiterabbit.fake". Since we are testing with made-up customers, use the email domain you used when you signed up for the Okta Integrator organization.
   1. **Client ID** and **Client Secret** - Fill out the `client_id` and `client_secret` for the org with ID 1, using the values from Okta. 
   2. **Issuer**, **Authorization endpoint**, and **Token endpoint** - Visit your Okta org authorization server **Metadata URI** directly through the browser by visiting this URL `https://{yourOktaOrg}/.well-known/openid-configuration` – be sure to add your specific Okta org URL. For more information, refer to this documentation on the [Okta org authorization server](https://developer.okta.com/docs/concepts/auth-servers/#org-authorization-server). From this authorization server metadata, copy the `issuer` to the `issuer` field, then the `authorization_endpoint` to the `authorization_endpoint` field in your app's database, and finally the `token_endpoint` to the corresponding field in the database as well.
 
@@ -548,7 +548,7 @@ The OIDC support that you added to the sample app today allows information flow 
 
 OIDC offers a one-way stream of information: Your application can't change a user's records in the upstream identity provider. To support this two-way flow of information between your app and the IDP, you can use SCIM, the System for Cross-Domain Identity Management. Our SCIM workshop builds on the OIDC support implemented in this workshop! 
 
-To set up users and groups in your Okta Developer Account, try our Terraform workshop! 
+To set up users and groups in your Okta Integrator Free Plan account, try our Terraform workshop! 
 
 |Posts in the enterprise-ready workshop series|
 | --- |

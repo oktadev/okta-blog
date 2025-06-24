@@ -36,6 +36,8 @@ In this post, we'll summarize some core Reactor concepts, introduce the Schedule
 * Table of Contents
 {:toc}
 
+{% include integrator-org-warning.html %}
+
 ## Reactor Execution Model
 
 Reactor is an API for doing asynchronous programming. You describe your data processing as a flow of operators, composing a data-processing pipeline.

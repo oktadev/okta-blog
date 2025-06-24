@@ -21,6 +21,8 @@ The Open Web Interface for .NET (OWIN) is a standard that defines the interface 
 
 In this tutorial you'll learn about the basic concepts of OWIN, and then apply this acquired knowledge in the implementation of user authentication within your very own ASP.NET web application. All you'll need to follow along is a copy of [Visual Studio](https://visualstudio.microsoft.com/downloads/).
 
+{% include integrator-org-warning.html %}
+
 ## Understand The OWIN Contract
 
 The contract defined by OWIN for application/server communication can be found within the `IAppBuilder` interface and at its core is boiled down into two pieces: the environment dictionary and a function to register middleware.

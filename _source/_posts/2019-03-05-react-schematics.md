@@ -39,6 +39,8 @@ While that process completes, create an OIDC app on Okta.
 
 Why Okta? Because friends don't let friends write authentication! Okta has Authentication and User Management APIs that greatly reduce your development time. Our API and SDKs make it easy for developers to authenticate, manage, and secure users in any application. Not only that, theirs a free level for developers that gets you up to 1000 active user per month.
 
+{% include integrator-org-warning.html %}
+
 ### Create an OIDC App on Okta
 
 {% include setup/cli.md type="spa" framework="React" loginRedirectUri="http://localhost:3000/callback" %}

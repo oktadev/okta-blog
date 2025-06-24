@@ -23,6 +23,8 @@ The application we will be creating is a simple CRUD Sugar Level Tracker. First,
 
 We will be using .NET Framework 4.7.1 and Visual Studio 2017. Also, you should have Node and npm installed.
 
+{% include integrator-org-warning.html %}
+
 ## Get Started with ASP.NET
 
 First, let's create an API using a built-in template within Visual Studio. Let's start from a scratch.

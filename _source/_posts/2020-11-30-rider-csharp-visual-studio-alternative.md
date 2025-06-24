@@ -33,6 +33,8 @@ To continue you will need:
 - [.NET Core 3.1 SDK](https://dotnet.microsoft.com/download/dotnet-core)
 - An [Okta Developer Account](https://developer.okta.com/) (free forever, to handle your OAuth needs)
 
+{% include integrator-org-warning.html %}
+
 ## Rider Installation and Customization
 
 Rider only has a paid version available, but it comes with a 30-day free trial, so  [download](https://www.jetbrains.com/rider/download/), and install that. When you launch it for the first time, a *Customize JetBrains Rider* window will appear where you can customize the UI theme, editor color schemes, Keymaps, and setup necessary environments and plugins.

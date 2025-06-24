@@ -27,6 +27,8 @@ In [Identity Security for Games in C# with Unity](/blog/2020/08/21/unity-csharp-
 
 {% img blog/unity-webgl-playfab-authorization/p_Unity_Playfab_Auth.png alt:"PlayFab SDK" width:"800" %}{: .center-image }
 
+{% include integrator-org-warning.html %}
+
 ## Prerequisites
 
 - Sign up for a free [Azure Playfab account](https://developer.playfab.com/en-US/sign-up).

@@ -35,6 +35,8 @@ Start by downloading Visual Studio 2019 Community Edition from [visualstudio.mic
 
 If you forget, no problem. Just open "Visual Studio Installer" from your start menu, select **Modify**, and then you are back at the screen where you can tick off the workloads you want. You may also use Visual Studio 2017, but it would be wise to update it - to make sure you have the latest version of ASP.NET Core and .NET Core. Start the Visual Studio installer and select **Update** if that is an option.
 
+{% include integrator-org-warning.html %}
+
 ## Scaffold Your C# Blockchain Application
 
 Start Visual Studio, then select **Create a new project**, and select the template **ASP.NET Core Web Application** and click **Next**:

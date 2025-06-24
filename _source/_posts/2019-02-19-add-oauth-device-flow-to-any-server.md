@@ -37,6 +37,8 @@ This device not only doesn't have a browser, it barely has a screen! Text entry 
 
 So now that we know what the OAuth 2.0 Device Flow is, let's look at how it works.
 
+{% include integrator-org-warning.html %}
+
 ## How the OAuth 2.0 Device Flow Works
 
 The OAuth 2.0 Device Flow works quite different from the other OAuth flows, since it doesn't involve a browser redirect on the device.

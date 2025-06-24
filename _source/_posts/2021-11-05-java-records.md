@@ -33,6 +33,8 @@ While code generators can be used to reduce boilerplate code, the goals of the `
 * Table of Contents
 {:toc}
 
+{% include integrator-org-warning.html %}
+
 ## The `record` keyword
 
 The `record` is a new type of declaration, a restricted form of class that acts as a transparent carrier for immutable data. Let's start the exploration by defining a simple data type `EndOfGame` as a `record`:

@@ -21,6 +21,8 @@ ASP.NET Core is entirely open source, free, has built-in DI and logging, works s
 
 Lots of folks keep a daily journal that is essentially a detailed log that you can use to compare your plans with your achievements. In this tutorial, I will show you how to build a REST API for keeping track of simple daily journal.
 
+{% include integrator-org-warning.html %}
+
 ## Prerequisites for Your ASP.NET Core REST API
 
 It would be best if you had the latest .NET Core SDK. You can install it from here [.NET Core SDK](https://www.microsoft.com/net/download).

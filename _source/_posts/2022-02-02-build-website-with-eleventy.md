@@ -24,6 +24,8 @@ This tutorial will teach how to secure your 11ty site using Okta. 11ty will prod
 - [Node.js 10 or newer](https://nodejs.org/en/download/)
 - [Okta CLI](https://cli.okta.com)
 
+{% include integrator-org-warning.html %}
+
 ## Create your Okta application
 
 {% include setup/cli.md type="spa" framework="Vue"

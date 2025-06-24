@@ -30,6 +30,8 @@ The tools I'll be using that are available for all platforms are:
 
 Once you've got all the tools installed for your platform, let's rock and roll!
 
+{% include integrator-org-warning.html %}
+
 ## Scaffold Your ASP.NET Core 2.2 Application
 
 No matter the platform you're on, the `dotnet` CLI is available. The commands used here should be the same for everyone. To scaffold the ASP.NET Core 2.2 MVC application, create a new folder for it:

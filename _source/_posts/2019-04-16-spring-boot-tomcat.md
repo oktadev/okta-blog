@@ -23,6 +23,8 @@ Deploying applications is hard. Often you need console access to the server from
 
 Since version 9, Oracle has decreased the Java release cadence to six months so major version numbers are increasing at a much faster rate than before. The latest release is **Java SE 11** (Standard Edition) which came out in September 2018. The biggest licensing change in this new release has led to one clear takeaway: to use the OpenJDK from now on. Open JDK is the free version of Java that you can now also get from Oracle. Also, Java 11 has long term support so this is the version you should be using for new projects going forward.
 
+{% include integrator-org-warning.html %}
+
 ## Start Your Java 11 App
 
 Open up a console and run `java -version` to see what version of Java you are using.

@@ -27,6 +27,8 @@ We've created a proof of concept WordPress plugin that replaces the WordPress lo
 Any users that exist in your Okta account will be able to log in, and a WordPress user will be created for them automatically. If your users have multi-factor authentication enabled, they'll be prompted for that too when they log in!
 
 
+{% include integrator-org-warning.html %}
+
 ## Get Started with Okta's WordPress Login Plugin
 
 To get started, [sign up for a free Okta Developer account](https://developer.okta.com/signup/).

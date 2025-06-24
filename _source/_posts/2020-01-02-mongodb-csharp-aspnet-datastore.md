@@ -23,6 +23,8 @@ Another major advantage of MongoDB, and most document databases, is that they sc
 
 In this post, you will build an ASP.NET Core MVC application that reads data from and writes data to a MongoDB database in the cloud. You are going to use MongoDB Atlas, which is a cloud database service with a free tier.
 
+{% include integrator-org-warning.html %}
+
 ## Create a MongoDB Database for Your C# Application
 
 Go to [the MongoDB Atlas website](https://www.mongodb.com/cloud/atlas), and click **Start Free**. Enter your email address, first name, last name, and a password you want to use for this service. Check **I agree to the terms of service and privacy policy** and click **Get started free**.

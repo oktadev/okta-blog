@@ -23,6 +23,8 @@ In this tutorial, you're going to use Apache Kafka and Quarkus to create a secur
 
 The architects of both Apache Kafka and Quarkus designed them for use in scalable clusters. Quarkus is a container-first Kubernetes Java framework that you'll use to create a scalable, Java-based REST service and client application. It's a high-performing tool for serverless and microservice environments. The container-first design packages the runtime environment along with the compiled code, allowing you to tightly optimize both and avoid the unwelcome surprises that can come along with operating system updates on servers. Developers build Quarkus apps with Java standard technologies, such as JAX-RS for REST interfaces, JPA for data modeling and persistence, and CDI for dependency injection. 
 
+{% include integrator-org-warning.html %}
+
 ## Exploring Kafka Streams
 
 Apache Kafka describes itself as a "distributed streaming platform" that has three capabilities: 

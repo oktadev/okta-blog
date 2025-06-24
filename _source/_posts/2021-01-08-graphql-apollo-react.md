@@ -29,6 +29,8 @@ If you prefer to watch the demo, you can view this walk through.
 <iframe width="560" height="315" src="https://www.youtube.com/embed/RmFU2CLdsEU" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 </div>
 
+{% include integrator-org-warning.html %}
+
 ## Create your Okta Application
 
 {% include setup/cli.md type="spa" framework="React" loginRedirectUri="http://localhost:3000/callback" %}

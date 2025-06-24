@@ -25,6 +25,8 @@ To walk through this post, you'll need:
 - [DotNet.Core SDK 3.0](https://dotnet.microsoft.com/download/dotnet-core/3.0)
 - [Okta Developer Account](https://developer.okta.com/signup/)
 
+{% include integrator-org-warning.html %}
+
 ## How the WebSocket Protocol Works
 
 By design, WebSocket runs on the same servers that support standard HTTP.  To make that possible, WebSocket sessions begin with an HTTP request for a WebSocket session. For example: `http://localhost:5000/game`. The web server then responds with an HTTP 101 status code (switching protocols), and a two-way channel is set up between the client and the server on `ws://localhost:5000/game`. This TCP channel can then be used for communications by code on either the client or the server-side.

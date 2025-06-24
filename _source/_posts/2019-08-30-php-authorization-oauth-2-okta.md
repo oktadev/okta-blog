@@ -28,6 +28,8 @@ I previously showed you how to [build simple login in PHP](/blog/2018/12/28/simp
 **Prerequisites:** Please ensure you have already installed PHP, Composer, and have signed up for a [free Okta developer account](https://developer.okta.com/signup/).
 </div>
 
+{% include integrator-org-warning.html %}
+
 ## Set Up a Simple PHP App and Add Okta
 
 Before you start, clone the original project from [https://github.com/oktadeveloper/okta-php-core-login-example](https://github.com/oktadeveloper/okta-php-core-login-example) and install the dependencies:

@@ -30,6 +30,8 @@ In this tutorial post, you will learn how to ...
 * Table of Contents
 {:toc}
 
+{% include integrator-org-warning.html %}
+
 ## The Evolution of the Elastic Stack
 
 The acronym ELK stands for *Elasticsearch, Logstash, and Kibana*, three open-source projects that form a powerful stack for log ingestion and visualization, log search, event analysis, and helpful visual metrics for monitoring applications.

@@ -30,6 +30,8 @@ This tutorial uses the following technologies but doesn't require any prior expe
 
 If you'd like to skip the tutorial and check out the fully built project, you can go [view it on GitHub](https://github.com/oktadev/okta-express-prisma-tailwind-example).
 
+{% include integrator-org-warning.html %}
+
 ## Create your OAuth2 authorization server
 
 Create a new directory for your application.  Use the `cd` command to navigate to that folder. 

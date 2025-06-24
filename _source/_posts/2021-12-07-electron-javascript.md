@@ -24,6 +24,8 @@ Matt Raible wrote a blog post [about using Electron with Okta](/blog/2018/09/17/
 
 Both of these approaches require a callback path where Okta can send the authentication code to be processed by your application. For some companies, allowing `localhost` to receive the response from Okta may pose a security concern. There are many ways to handle this, but in this article, you will use [Okta's Auth JS SDK](https://www.npmjs.com/package/@okta/okta-auth-js). This SDK exposes a `signInWithCredentials()` method that you can use to authenticate your users.
 
+{% include integrator-org-warning.html %}
+
 ## Create an OpenID Connect application
 
 {% include setup/cli.md type="native"

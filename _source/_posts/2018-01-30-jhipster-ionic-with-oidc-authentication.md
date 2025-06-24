@@ -35,6 +35,8 @@ As a project, JHipster's goal is to generate an app that unifies:
 
 Since I wrote the first version (in 2015) of the [JHipster Mini-Book](https://www.infoq.com/minibooks/jhipster-4-mini-book), I've always wanted to add support for generating an Ionic client. I'm happy to report that my dreams have finally come true!
 
+{% include integrator-org-warning.html %}
+
 ## Introducing the Ionic Module for JHipster! 🎉
 
 Ionic is a framework that allows you to create mobile applications using the web technologies you know and love. It currently has Angular support, but its development team has been working on adding support for React and Vue as well. They're doing this via their [Stencil](https://stenciljs.com) project. Stencil allows you to build web components rather than framework-specific components. Since web components are standards-compliant, they can be used in a vanilla JavaScript application, or with many popular framework out-of-the-box.

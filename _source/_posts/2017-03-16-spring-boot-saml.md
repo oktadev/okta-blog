@@ -34,6 +34,8 @@ Ready to get started? You can follow along in with the written tutorial below, [
 <iframe width="600" height="338" style="max-width: 100%" src="https://www.youtube.com/embed/kBaitgdcNWo" frameborder="0" allowfullscreen></iframe>
 </div>
 
+{% include integrator-org-warning.html %}
+
 ## Sign Up for an Okta Developer Account
 
 Fast forward two years, and I find myself as an Okta employee. To start developing with Okta, I created a new developer account at [https://developer.okta.com](https://developer.okta.com). Make sure you take a screenshot or write down your Okta URL after you've signed up. You'll need this URL to get back to Okta user interface.

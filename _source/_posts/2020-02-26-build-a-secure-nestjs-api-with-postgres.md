@@ -28,6 +28,8 @@ In this tutorial, you will build a small Instagram clone named **Instamiligram**
 - Like a Photo
 - API Auto-Documentation
 
+{% include integrator-org-warning.html %}
+
 ## What You Need to Build a NestJS and Postgres API
 
 - [Node.js](https://nodejs.org) version 8+

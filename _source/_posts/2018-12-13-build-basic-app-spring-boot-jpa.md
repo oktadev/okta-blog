@@ -31,6 +31,8 @@ A **resource server** is a programmatic access point for your server's functions
 
 [**Spring Data JPA**](https://spring.io/projects/spring-data-jpa) is a wrapper around JPA providers such as Hibernate. As you'll see, it makes persisting your Java classes as simple as adding some annotations and creating a simple repository interface. No need to actually write persistence or retrieval methods! Another great benefit is that you can change the underlying database implementation transparently without having to change any code. For example, in this tutorial, you'll be using Postgres, but later if you decided you'd rather use MySQL, all you'd have to do is change out some dependencies.
 
+{% include integrator-org-warning.html %}
+
 ## Install PostgreSQL for JPA Persistence
 
 You'll need to have PostgreSQL installed for this tutorial. If you don't already have it installed, go to [their downloads page](https://www.postgresql.org/download/) and install it.

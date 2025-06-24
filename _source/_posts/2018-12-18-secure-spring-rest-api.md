@@ -31,6 +31,8 @@ Microservices also present a number of architectural challenges that must be add
 
 Let's dig in and find out how to address these challenges when building a Spring REST API.
 
+{% include integrator-org-warning.html %}
+
 ## Secure Your Spring REST API with OAuth 2.0
 
 In [OAuth 2.0](https://www.oauth.com/oauth2-servers/the-resource-server/), a resource server is a service designed to handle _domain-logic_ requests and does not have any kind of login workflow or complex authentication mechanism: it receives a pre-obtained access token that guarantees a user have grant permission to access the server and delivers the expected response.

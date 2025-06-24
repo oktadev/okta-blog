@@ -16,9 +16,13 @@ image: blog/featured/okta-java-short-skew.jpg
 type: conversion
 ---
 
+{% include integrator-org-warning.html %}
+
 In this tutorial, you are going to learn more about PostgreSQL and how to integrate it with a Spring Boot application. You will learn how to install a simple PostgreSQL instance using Docker and how to connect a Spring Boot application to it. After that, you'll create a simple database schema and add some data to it. Next, I'll show you how to create SQL files to deliver database changes, which are more suitable for enterprise applications. To finish, you will learn how to use PostgreSQL JSONB data structure and use PostgreSQL as a NoSQL database.
 
 Let's dig in!
+
+{% include integrator-org-warning.html %}
 
 ## Get Started with PostgreSQL via Docker
 

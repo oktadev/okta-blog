@@ -28,6 +28,8 @@ To build this app, you will need:
 - A [Firebase](https://firebase.google.com/) Real-Time Database
 - The `create-react-app` [command-line tool](https://create-react-app.dev/)
 
+{% include integrator-org-warning.html %}
+
 ## Scaffold Your React Application
 
 To get this thing kicked off, scaffold a basic React application by running the following command in the terminal in a folder where you'd like to store your code:

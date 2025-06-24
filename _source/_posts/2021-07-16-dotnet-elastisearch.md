@@ -21,6 +21,8 @@ Implementing search functionality in your .NET Core apps doesn't have to be hard
 
 In this post, I'll walk you through building a simple web application using [Okta](https://www.okta.com) (for user authentication), [Elastic Cloud](https://www.elastic.co/cloud/) (the official Elasticsearch hosting provider), and the fabulous [Elasticsearch NEST SDK](https://www.elastic.co/guide/en/elasticsearch/client/net-api/current/nest.html).
 
+{% include integrator-org-warning.html %}
+
 ## Why Use Elasticsearch?
 
 Elasticsearch is an analytics and search engine based on the [Apache Lucene](https://lucene.apache.org) library. It is developed in Java, following an open-core business model. Deep down within Elasticsearch lays a schema-free, JSON document-oriented database. This means that data is stored as documents, similar to rows in a relational database like MySQL. A document's data is separated into fields, like columns in a relational database. Documents are essentially just JSON objects. Elasticsearch indexes these documents and searches them quickly. So, even if you have to search through millions of documents, searches are still going to be lightning fast.

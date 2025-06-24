@@ -19,6 +19,8 @@ type: conversion
 
 A common practice in web applications is to have a restricted area for registered users, and perhaps another for administrators. Whether this restricted access area is premium content, or simply the order history for your e-commerce site's users, it's important that it be properly secured. OpenID Connect (OIDC) makes it easy, but it can be tricky to set up in ASP.NET MVC framework. In this post, I'll show you how to create groups and use the authorization framework that comes with ASP.NET.
 
+{% include integrator-org-warning.html %}
+
 ## Set Up the Base ASP.NET MVC 4.x Application
 
 For the base application, start by downloading our [ASP.NET MVC example from GitHub](https://github.com/oktadeveloper/okta-aspnet-mvc-example). You'll also need to set up your application in Okta. Start by creating a [forever-free developer account](https://developer.okta.com/signup/), or logging in if you already have one. Once you're at the dashboard in the Okta developer console, create an application with the following settings:

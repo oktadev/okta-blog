@@ -30,6 +30,8 @@ For this project, you'll need several components and these are:
 2. Register for a [Free Amazon Developer Account](https://developer.amazon.com).
 3. Sign up for a [Free-forever Okta environment](https://developer.okta.com/signup/).
 
+{% include integrator-org-warning.html %}
+
 ## Set Up Your First Alexa Skill Set
 
 If you already have an existing Amazon Alexa Skill which you want to integrate Okta with then you can skip this step and go directly to the Setup Okta section.

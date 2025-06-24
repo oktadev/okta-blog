@@ -25,6 +25,8 @@ How so? Imagine you want to migrate an app written in ASP.NET MVC 5 to ASP.NET C
 
 In this tutorial, we'll simulate such a scenario by implementing SSO for an MVC 5 app and a .NET Core app. Along the way, you'll also learn some of the differences between how the two platforms implement authentication.
 
+{% include integrator-org-warning.html %}
+
 ## Get the ASP.NET MVC 5 App
 
 Rather than creating a project from scratch, we'll grab an existing MVC 5 app from GitHub. [Clone or download this project](https://github.com/oktadeveloper/aspnet-mvc-crud-example ), and open the solution in Visual Studio.

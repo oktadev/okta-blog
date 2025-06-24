@@ -30,6 +30,8 @@ In this tutorial, I will show you how to use Storybook to create a simple [React
 * Table of Contents
 {:toc}
 
+{% include integrator-org-warning.html %}
+
 ## Creating React components with Storybook
 
 In this section, I will show you how to create a React application and implement components displayed in Storybook. These components will serve as the basis for the unit conversion application. To start, open a terminal in a folder of your choice and run the following command to create a new React application.

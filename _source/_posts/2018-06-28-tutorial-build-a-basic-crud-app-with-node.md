@@ -36,6 +36,8 @@ This tutorial uses the following technologies but doesn't require any prior expe
 
 If you'd like to skip the tutorial and just check out the fully built project, you can go [view it on GitHub](https://github.com/oktadev/okta-express-basic-crud-app-example).
 
+{% include integrator-org-warning.html %}
+
 ## About Express.js
 
 Express.js is the most popular web framework in the Node.js ecosystem. It's incredibly simple and minimalistic. Furthermore, thousands of developer libraries work with Express, making developing with it fun and flexible.

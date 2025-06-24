@@ -28,6 +28,8 @@ Prerequisites for this blog post include:
 
 Now let's get started!
 
+{% include integrator-org-warning.html %}
+
 ## Build the API
 
 Open up the terminal and create a brand new Rails application:

@@ -34,6 +34,8 @@ However, what if you want to combine both database and SAML authentication metho
 * Table of Contents
 {:toc}
 
+{% include integrator-org-warning.html %}
+
 ## SAML Authentication with Spring Security
 
 There are several benefits to using SAML to handle authentication for your application:

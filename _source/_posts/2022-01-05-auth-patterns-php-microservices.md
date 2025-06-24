@@ -25,6 +25,8 @@ Sequence diagram:
 
 {% img blog/auth-patterns-php-microservices/sequence-diagram.png alt:"Diagram showing the sequence flow in the demo app with 4 microservices, an API gateway, and Okta auth" width:"600" %}{: .center-image }
 
+{% include integrator-org-warning.html %}
+
 ## Implementation
 
 Before you get started, there are some dependencies you will need to install in order to follow along. First, you'll need [Docker](https://www.docker.com/) and [Docker Compose](https://docs.docker.com/compose/), as this tutorial relies heavily on containers to run the microservices. If you do not already have Docker installed on your machine, please follow [Docker's setup instructions](​​https://docs.docker.com/get-started/) for your OS of choice.

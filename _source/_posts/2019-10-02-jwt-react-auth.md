@@ -22,6 +22,8 @@ Although authentication is a common requirement for web apps, it can be difficul
 
 Today I'll shed some light on what exactly a JWT is, and how to use one in practice. If you follow along, you'll learn how to create an app in React with Okta as a third-party to authenticate users. You'll learn how to decode the JWT and use it to make decisions about what to display on the screen.
 
+{% include integrator-org-warning.html %}
+
 ## Understand JWTs
 
 If you're wondering, "I don't know what a JWT is, or even how to pronounce it."   The official [RFC specification](https://tools.ietf.org/html/rfc7519#section-1) says to just pronounce it like the word "jot." As far as what a JWT is? Put simply, it's a way to make a set of easily readable and verifiable claims that cannot be easily recreated without a secret key.

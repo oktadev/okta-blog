@@ -27,6 +27,8 @@ By the way, a full walkthrough of this tutorial is also available on our [YouTub
 <iframe width="700" height="394" style="max-width: 100%" src="https://www.youtube.com/embed/J2DV_H23lEs" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 </div>
 
+{% include integrator-org-warning.html %}
+
 ## Requirements
 
 To complete this tutorial, you need the following.

@@ -27,6 +27,8 @@ This tutorial uses the following technologies but doesn't require any prior expe
 
 Of course, if you want to just see the code feel free [to view it on GitHub](https://github.com/oktadev/okta-node-heroku-app-example).
 
+{% include integrator-org-warning.html %}
+
 ## Create your Okta application
 
 {% include setup/cli.md type="web" framework="node"

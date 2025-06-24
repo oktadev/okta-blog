@@ -35,6 +35,8 @@ In this tutorial you will learn how to:
 * Table of Contents
 {:toc}
 
+{% include integrator-org-warning.html %}
+
 ## What is Kafka?
 
 **Apache Kafka** is a distributed streaming platform. It was initially conceived as a message queue and open-sourced by LinkedIn in 2011. Its community evolved Kafka to provide key capabilities:

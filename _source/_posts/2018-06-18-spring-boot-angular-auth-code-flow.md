@@ -19,6 +19,8 @@ I've written several posts on this blog that show you how to develop an Angular 
 
 What if you could combine the two applications for production, and still get all the benefits of separate applications during development? That's what I'm here to show you today! You'll learn how to take an existing Angular PWA (progressive web app) and a Spring Boot API, combine them with the Maven Frontend Plugin and switch from using OAuth 2.0's implicit flow to its gold standard: authorization code flow.
 
+{% include integrator-org-warning.html %}
+
 ## Get the Source for Angular PWA and Spring Boot API
 
 To begin, please clone the following project to your hard drive.

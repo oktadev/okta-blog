@@ -32,6 +32,8 @@ Nowadays it is widely recommended to never store secret values in code. Therefor
 
 **Prerequisites**: [Java 8](https://adoptopenjdk.net/)+ and [Docker](https://docs.docker.com/engine/install/).
 
+{% include integrator-org-warning.html %}
+
 ## Use Environment Variables for Secrets; a Precursor to Spring Vault
 
 Spring Boot applications can bind property values from environment variables. To demonstrate, create a `vault-demo-app` with OpenID Connect authentication, using the Spring Initializr. Then add `web`, `okta`, and `cloud-config-client` dependencies, some of which will be required later in the tutorial:

@@ -26,6 +26,8 @@ In this article, we'll be building an MVC task management form with .NET Core 2.
 > - [MySQL installed](https://dev.mysql.com/downloads/windows/) and will need to know your host and access credentials momentarily.
 > - A [Twilio Account](https://www.twilio.com/try-twilio)
 
+{% include integrator-org-warning.html %}
+
 ## Scaffold Your ASP.NET Core MVC App
 
 Let's get started with some basic scaffolding and dependencies. To start, open Visual Studio and create a new **ASP.NET Core Web Application** named `TextTasks` and select the **Web Application (Model-View-Controller)** template, configured for ASP.NET Core 2.2. Click the **Start Debugging** icon or hit F5 to start the application and keep track of the URL for use in a moment.

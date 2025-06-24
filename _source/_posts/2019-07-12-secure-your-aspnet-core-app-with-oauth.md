@@ -19,6 +19,8 @@ type: conversion
 
 Do you ever wish you had a virtual scrap of paper you could use to write notes in the cloud? I'll show you how to build a simple ASP.NET Core app to keep track of your notes, plus how to use .NET Core's OAuth 2 authentication middleware to secure access to your app so your personal notes are kept private.
 
+{% include integrator-org-warning.html %}
+
 ## My Private Notes App
 
 Your note-keeping app will be a simple of an ASP.NET app. You will just transform the home page into a list of recent notes. If you add more than three notes, the oldest note will be discarded to make room for the most recent note.

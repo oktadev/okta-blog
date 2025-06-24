@@ -23,6 +23,8 @@ You're developing a Progressive Web Application (PWA), and your service worker a
 
 In this article, I'll show you how you can lock down a Spring Boot app, then use a modern authentication protocol, in this case, OpenID Connect (OIDC), to authenticate and gain access to its APIs.
 
+{% include integrator-org-warning.html %}
+
 ## Secure Your Spring Boot App
 
 You might've heard that [Stormpath joined forces with Okta](https://www.okta.com/blog/2017/03/stormpath-welcome-to-Okta/) a few months ago (February 2017). Since the transition, we've been working hard to make the Stormpath SDKs work with Okta's API. The good news is we've made significant progress!

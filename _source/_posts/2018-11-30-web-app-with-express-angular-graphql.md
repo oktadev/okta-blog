@@ -21,6 +21,8 @@ During the past 10 years or so, the concept of REST APIs for web services has be
 
 In this tutorial, I will be showing you how to develop a simple GraphQL web application. The server will run using Node and Express and the client will be based on Angular 7. You will see how easy it is to prepare the server for responding to different queries. This removes much of the work needed compared to implementing REST-style APIs. To provide an example I will create a service in which users can browse through the ATP Tennis players and rankings.
 
+{% include integrator-org-warning.html %}
+
 ## Build Your Express Server using GraphQL
 
 I will start by implementing the server. I will assume that you have **Node** installed on your system and that the `npm` command is available. I will also be using SQLite to store the data. In order to create the database tables and import the data, I will be making use of the `sqlite3` command line tool. If you haven't got `sqlite3` installed, head over to the [SQLite download page](https://www.sqlite.org/download.html) and install the package that contains the _command-line shell_.

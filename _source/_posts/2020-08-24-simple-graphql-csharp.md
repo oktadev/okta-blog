@@ -28,6 +28,8 @@ To continue you will need:
 - [.NET Core 3.1 SDK](https://dotnet.microsoft.com/download/dotnet-core)
 - An [Okta Developer Account](https://developer.okta.com/) (free forever, to handle your OAuth needs)
 
+{% include integrator-org-warning.html %}
+
 ## Benefits of GraphQL
 
 [GraphQL](https://graphql.org/) is an open-source technology developed by Facebook that allows API developers to create a type system for the data—allowing clients to write queries against these types—and a server-side runtime for executing these queries. GraphQL allows you to query exactly the fields you need, so you can avoid fetching extra data that you don't need. It also is strongly typed so it validates all your queries before running them. GraphQL isn't tied to any specific web framework or database engine and can be used with any technology that supports it.

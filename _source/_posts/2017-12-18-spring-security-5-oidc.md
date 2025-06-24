@@ -48,6 +48,8 @@ Spring Security makes authentication with OAuth 2.0 pretty darn easy. It also pr
 >
 > {% img blog/oauth/oidc-flow.png alt:"OIDC Flow" width:"800" %}{: .center-image }
 
+{% include integrator-org-warning.html %}
+
 ## Create a Spring Boot App
 
 Open [start.spring.io](https://start.spring.io) in your browser. Spring Initialzr is a site that allows you to create new Spring Boot applications quickly and easily. Set the Spring Boot version (in the top right corner) to `2.0.0.M7`. Type in a group and artifact name. As you can see from the screenshot below, I chose `com.okta.developer` and `oidc`. For dependencies, select **Web**, **Reactive Web**, **Security**, and **Thymeleaf**.

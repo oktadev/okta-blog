@@ -23,6 +23,8 @@ In this tutorial, you will build an ASP.NET Core app with client-side scripting 
 
 Ready to learn how to use TypeScript in Visual Studio 2017? Let's get started!
 
+{% include integrator-org-warning.html %}
+
 ## Create an ASP.NET MVC Project
 
 In Visual Studio, go to **File** > **New** > **Project...**, select the **Visual C#** project category and then select **ASP.NET Core Web Application**. Name your project `AspNetCoreTypeScript` and click **OK**.

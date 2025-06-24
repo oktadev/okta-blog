@@ -22,6 +22,8 @@ This sample application will use Postgres as the backend database system, Okta f
 
 You'll need PHP, Composer, and Postgres. You will also need an [Okta developer account](https://developer.okta.com/) and a [Heroku account](https://signup.heroku.com/) – you can sign up for free on both sites.
 
+{% include integrator-org-warning.html %}
+
 ## Okta For Identity Management
 
 Okta is an API Identity service that allows you to create, edit, and securely store user accounts and user account data, and connect them with one or more applications. We might be biased, but we think Okta makes [identity management](https://developer.okta.com/product/user-management/) easier, more secure, and more scalable than what you're used to.

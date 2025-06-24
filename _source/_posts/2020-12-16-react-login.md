@@ -34,6 +34,8 @@ For this tutorial, I will assume that you are familiar with JavaScript and have 
 * Table of Contents
 {:toc}
 
+{% include integrator-org-warning.html %}
+
 ## Create a React Application for Login
 
 Now you are ready to create the React application. Open a terminal in a folder of your choice and run `npx`, the Node.js Package Runner included with npm.

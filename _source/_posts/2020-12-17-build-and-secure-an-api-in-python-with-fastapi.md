@@ -22,6 +22,8 @@ First released [in late 2018](https://github.com/tiangolo/fastapi/releases?after
 
 In this post, you'll learn more about FastAPI, and why it might be the right choice for your next project. You'll see how to set up a new FastAPI project and use [Okta](https://www.okta.com/) to secure the API.
 
+{% include integrator-org-warning.html %}
+
 ## What Sets FastAPI Apart?
 
 Unlike many web frameworks, FastAPI is built to support REST APIs first. As [single-page applications become increasingly common](https://w3-lab.com/web-development/single-page-applications-pros-2020/), separate backends like those created with FastAPI are an essential part of web application architecture. With this in mind, FastAPI incorporates several features meant to support HTTP API-driven application development.

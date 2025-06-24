@@ -19,6 +19,8 @@ type: conversion
 
 React has gained a lot of popularity over the last few years, and Redux is a term often heard in combination with it. While technically separate concepts, they do work quite nicely together. React is a component-based framework, often used to create a Single-Page App (SPA), but can also be used to add any amount of independent components to any website. Redux is a state management system with a great set of dev tools useful for debugging. Today I'll show you how to create a simple app using React and Redux, and how to secure your app using Okta for authentication.
 
+{% include integrator-org-warning.html %}
+
 ## When To Use Redux With React
 
 React components can accept properties as well as manage their own state. Redux provides a global app state that any component can link into.

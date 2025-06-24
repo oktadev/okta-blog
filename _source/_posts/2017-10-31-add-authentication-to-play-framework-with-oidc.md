@@ -20,6 +20,8 @@ Play has continued to evolve over the past several years, becoming a [staple fra
 
 {% img blog/play-oidc-pac4j/stackoverflow-trends.png alt:"Stack Overflow Tag Trends" width:"600" %}{: .center-image }
 
+{% include integrator-org-warning.html %}
+
 ## My Experiences with Play
 
 I first started using the Play framework back in 2011, and have followed it ever since. I spoke about HTML5 with Play Scala, CoffeeScript, and Jade at Devoxx 2011. To create that presentation, I had to learn all these technologies. Not only did I learn them all, but I also created a "Play More" application that helped me figure out many issues with developing an HTML5-based mobile app along the way. You can see the presentation and demo video [on my website](http://raibledesigns.com/rd/entry/my_html5_with_play_scala).

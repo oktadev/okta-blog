@@ -25,6 +25,8 @@ Express is one of the most popular Node.js frameworks today. Clean and simple, i
 
 You will also need to ensure that your API is protected by proper authentication. For this task, you will use Okta's easy and secure Single Sign-on provider to create an authorization server. This server will supply the client with a JWT that can be validated by the Express server to ensure the user has permission to access the API. To validate the token, you will use Okta's `jwt-verifier`. This library from Okta makes authenticating the requests to your GraphQL server quick and painless.
 
+{% include integrator-org-warning.html %}
+
 ## Set up Your Okta Authentication Server
 
 {% include setup/cli.md type="service" %}

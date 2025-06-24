@@ -31,6 +31,8 @@ Follow along below and you'll learn how to:
 
 If you'd like to skip the tutorial and just check out the fully built project, you can go [view it on GitHub](https://github.com/rdegges/okta-flask-example).
 
+{% include integrator-org-warning.html %}
+
 ## Initialize Authentication for Your Flask App with Okta
 
 Okta is a free-to-use API service that stores user accounts, and makes handling user authentication, authorization, social login, password reset, etc. — simple. Okta utilizes open standards like OpenID Connect to make integration seamless.

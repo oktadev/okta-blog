@@ -22,6 +22,8 @@ In this tutorial, I will show you how to build a simple application for creating
 
 If you want to follow the tutorial, you'll need PHP, MySQL, Composer, and a free [Okta developer account](https://developer.okta.com/signup/).
 
+{% include integrator-org-warning.html %}
+
 ## Initialize a CodeIgniter Project 
 
 The [CodeIgniter installation instructions](https://codeigniter.com/user_guide/installation/index.html) require you to download and unzip the project files to get started. However, you can more easily use Composer to handle the new project setup instead. There is a handy [GitHub project](https://github.com/kenjis/codeigniter-composer-installer) to help you with this: 

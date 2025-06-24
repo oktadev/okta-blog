@@ -16,6 +16,8 @@ Multi-factor authentication (MFA) is the most reliable way to ensure the securit
 
 MFA is rapidly gaining in adoption, and more and more organizations are interested in deploying it to protect their applications and users. That widespread adoption doesn't mean MFA has gotten any easier to build or implement. You have to consider how secure your approach is, how you'll test it, and how you will support it. In this post we'll walk through four reasons building MFA remains tough for modern developers, and how Okta can help! But first, what is Okta?
 
+{% include integrator-org-warning.html %}
+
 ## What is Okta?
 
 Okta is a cloud service that allows developers to create, edit, and securely store user accounts and user account data, and connect them with one or multiple applications. Our API enables you to:

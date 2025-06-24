@@ -27,6 +27,8 @@ At this point, we need to talk about trusted and untrusted applications. A trust
 
 For more information on OAuth and its history, check out this video on [OAuth and OpenID Connect in Plain English](https://youtu.be/996OiexHze0).
 
+{% include integrator-org-warning.html %}
+
 ### OAuth Glossary
 
 | OAuth Term           | Definition                                                                                                                                              |

@@ -23,6 +23,8 @@ Its journey to becoming a standard was largely facilitated by all the big player
 
 This is great for developers because it provides a single way to package applications (in a Docker container) and deploy it on any Kubernetes cluster.
 
+{% include integrator-org-warning.html %}
+
 ## High-Performance Development with CI/CD, Kubernetes, and Jenkins X
 
 High performing teams are almost always a requirement for success in technology, and continuous integration, continuous deployment (CI/CD), small iterations, plus fast feedback are the building blocks. CI/CD can be difficult to set up for your cloud native app. By automating everything, developers can spend their precious time delivering actual business value.

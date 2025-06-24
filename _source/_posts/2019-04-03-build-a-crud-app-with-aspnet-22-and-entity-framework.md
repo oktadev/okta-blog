@@ -21,6 +21,8 @@ If you're like me, you love music. Music is always streaming somewhere in my hou
 
 ASP.NET Core 2.2 is a cross-platform version of Microsoft's ASP.NET Framework that run on any platform. For example, I'll be developing this on an Ubuntu laptop using Visual Studio Code. I'll also be using Entity Framework Core for interacting with the data store. Entity Framework Core is the easiest way by far for .NET developers to interact with a database which for expedience sake will be SQLite, a super light-weight database.  Let's get to it!
 
+{% include integrator-org-warning.html %}
+
 ## Scaffold an ASP.NET Core 2.2 Web Application
 
 Start by creating the base application. In a terminal shell run:

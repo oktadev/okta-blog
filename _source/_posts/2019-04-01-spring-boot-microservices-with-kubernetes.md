@@ -33,6 +33,8 @@ We're going to assume you're familiar with Spring Boot and Java. If not, take a 
 * Table of Contents
 {:toc}
   
+{% include integrator-org-warning.html %}
+
 ## Requirements for Spring Boot and Kubernetes
 
 **HTTPie**: Install HTTPie from [their website](https://httpie.org/) so that we can run HTTP requests easily from the terminal.

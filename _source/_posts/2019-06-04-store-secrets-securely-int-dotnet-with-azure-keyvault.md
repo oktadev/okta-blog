@@ -27,6 +27,8 @@ To work through this post, you'll need a few things:
 * [Azure Subscription](https://signup.azure.com)
 * [ASP.NET Core SDK](https://dotnet.microsoft.com/download) and a suitable IDE
 
+{% include integrator-org-warning.html %}
+
 ## Create an Azure KeyVault
 
 To get started you'll need an Azure Subscription and a CLI session. This walkthrough was created using a bash session on [Azure cloud shell](https://shell.azure.com). However, if you have the Azure CLI installed locally or prefer to use a PowerShell session, you should be able to run these commands with minor modifications except where noted.

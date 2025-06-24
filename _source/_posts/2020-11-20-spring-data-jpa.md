@@ -29,6 +29,8 @@ Before you get started on the actual application, however, let's take a look at 
 * Table of Contents
 {:toc}
 
+{% include integrator-org-warning.html %}
+
 ## What is Spring Data?
 
 Spring Data is a behemoth. Spring calls it an "umbrella" framework. It ties together a large number of different sub-projects that aim to provide a consistent programming interface for everything from SQL and Postgres, to NoSQL databases like MongoDB, Cassandra, and Redis. It also natively supports technologies such as Hibernate, JDBC, LDAP, KeyValue stores, Geode, and GemFire. Community modules add support for many other projects, such as Couchbase, DynamoDB, Elasticsearch, Neo4j, and Apache Solr. The idea is to bring all of these technologies together with a consistent and familiar (to Spring developers, anyway) interface that makes it easy to implement and maintain applications using these technologies.

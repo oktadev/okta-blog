@@ -26,6 +26,8 @@ Software development is about files and in this tutorial we're going to go throu
 
 Note: I'll be doing this on Windows but most instructions should work on other platforms.
 
+{% include integrator-org-warning.html %}
+
 ## Break Down Your Android Studio Project
 
 This is what Android Studio creates when you start a completely bare project.

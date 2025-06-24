@@ -19,6 +19,8 @@ A lot of applications today are built with an API on the backend, and then a sin
 
 Today you'll use ASP.NET Core 2.0 on the server side, and Angular 5 on the client side to build a basic CRUD app to track workouts, specifically jogging! You will create a **Backend** folder for the ASP.NET Core 2.0 project, and a **Frontend** folder for the Angular part of the project.
 
+{% include integrator-org-warning.html %}
+
 ## Create a REST API in ASP.NET Core 2.0
 Let's start by building the back end first. For my IDE I am using Visual Studio 2017, so all the screenshots will be from there. If you're using something else, you should be able to easily find similar options.
 

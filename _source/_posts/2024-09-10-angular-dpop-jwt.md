@@ -47,6 +47,8 @@ You'll need the following tools:
   * [Git](https://git-scm.com/) and an optional [GitHub account](https://github.com/) if you want to track your changes using a source control manager
   * An HTTP client that shows the HTTP requests and responses, such as the [Http Client VS Code extension](https://marketplace.visualstudio.com/items?itemName=Aaron00101010.http-client) or [curl](https://curl.se/)
 
+{% include integrator-org-warning.html %}
+
 ## Get the starting Angular, React, or Vue project
 
 You'll use a starter project. These instructions are for the Angular sample project. If you are following along in [React](https://github.com/okta-samples/okta-react-sample) or [Vue](https://github.com/okta-samples/okta-vue-sample), replace the GitHub repo location with the URL for the sample you're using. 
@@ -81,7 +83,7 @@ You'll use Okta to handle authentication and authorization in this project secur
 
 Note the `Issuer` and the `Client ID`. You'll need those values for your authentication configuration, which is coming soon.
 
-There's one manual change to make in the Okta Admin Console. Add the **Refresh Token** grant type to your Okta Application. Open a browser tab to sign in to your [Okta developer account](https://developer.okta.com/login/). Navigate to **Applications** > **Applications** and find the Okta Application you created. Select the name to edit the application. Find the **General Settings** section and press the **Edit** button to add a Grant type. Activate the **Refresh Token** checkbox and press **Save**.
+There's one manual change to make in the Okta Admin Console. Add the **Refresh Token** grant type to your Okta Application. Open a browser tab to sign in to your [Okta Integrator Free Plan Account](https://developer.okta.com/login/). Navigate to **Applications** > **Applications** and find the Okta Application you created. Select the name to edit the application. Find the **General Settings** section and press the **Edit** button to add a Grant type. Activate the **Refresh Token** checkbox and press **Save**.
 
 Leave the Okta Admin console open. You'll continue making changes in there.
 

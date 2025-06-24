@@ -17,6 +17,8 @@ type: awareness
 
 The trend I've seen in web applications is a backend API written in a server-side technology like Node, with a front-end single-page application written in something like React. The problem with these stacks is that it can be hard to run and deploy them as a single unit. The API and UI will need to be started, stopped and deployed separately. That can be a bit of a pain when developing, and if you are writing the API to only be consumed by that single front end, the extra steps can be unnecessary. If this sounds like you, I'll show you the two main paths I found for setting up a MERN (Mongo, Express, React, and Node) stack application to run and deploy as a single code base.
 
+{% include integrator-org-warning.html %}
+
 ## 1. Roll Your Own
 
 I found a great [couple](https://daveceddia.com/create-react-app-express-backend/) of [articles](https://daveceddia.com/create-react-app-express-production/) on setting up React and Node to run together by [Dave Ceddia](https://daveceddia.com/) who writes a **lot** about React.

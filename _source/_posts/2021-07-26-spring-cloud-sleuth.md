@@ -27,6 +27,8 @@ In this tutorial, you will see how Spring Cloud Sleuth can be integrated into a 
 * Table of Contents
 {:toc}
 
+{% include integrator-org-warning.html %}
+
 ## What is Spring Cloud Sleuth?
 
 Spring Cloud Sleuth's solution is to inject **span** and **trace** IDs into log entries. A **trace** ID is the unique identifier that an entire request flow will share. It's like the glue that sticks all of the log entries together. A **span** is more local and is defined for each request received for each request sent event. They define particular interaction points. Spans can also be created for separate, discrete units of work within a process. These are called **custom spans**. Think of a span as a discrete chunk of processing or communication to be tracked.

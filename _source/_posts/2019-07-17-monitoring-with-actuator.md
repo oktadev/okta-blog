@@ -27,6 +27,8 @@ Let's get started!
 * Table of Contents
 {:toc}
 
+{% include integrator-org-warning.html %}
+
 ## Create an OpenID Connect App with Spring Initializr and Okta
 
 You can use the excellent [Spring Initializr](https://start.spring.io/) website or API for creating a sample OIDC application with Okta integration:

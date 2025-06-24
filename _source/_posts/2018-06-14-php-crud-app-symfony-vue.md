@@ -24,6 +24,8 @@ I would like to show you how to set up a 'quick and dirty' modern application us
 
 We'll use Okta for user authentication and authorization. You'll need a development environment with PHP 7 and Node.js/npm/Yarn. You will also need an [Okta developer account](https://developer.okta.com/).
 
+{% include integrator-org-warning.html %}
+
 ## Why Okta?
 Well, we might be biased, but we think Okta makes [identity management](https://developer.okta.com/product/user-management/) easier, more secure, and more scalable than what you're used to. Okta is an API service that allows you to create, edit, and securely store user accounts and user account data, and connect them with one or more applications. Our API enables you to:
 

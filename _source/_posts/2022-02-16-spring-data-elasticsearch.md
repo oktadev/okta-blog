@@ -33,6 +33,8 @@ How can be Elasticsearch integrated into a Spring Boot application? What are the
 * Table of Contents
 {:toc}
 
+{% include integrator-org-warning.html %}
+
 ## Elasticsearch integration options for Spring Boot
 
 For Java applications including Spring Boot applications, Elasticsearch provides the following [clients](https://www.elastic.co/guide/en/elasticsearch/client/index.html) for integration:

@@ -20,6 +20,8 @@ Spring Boot 1.5.x made it easier than ever before to integrate Spring Security w
 
 In this post, you start with Spring Boot 1.5.19 and Spring Security 4.2.x. You integrate it with Okta's OAuth service. From there, you move onto Spring Boot 2.1.3 and Spring Security 5.1. You'll see how integrating with Okta is even easier. Finally, you use Okta's Spring Boot Starter with Spring Boot 2.1.3 to reduce code and configuration even further.
 
+{% include integrator-org-warning.html %}
+
 ## Three Minute Overview of OpenID Connect and OAuth 2.0
 
 In the beginning there were siloed web sites that didn't talk to each other, and it was sad.

@@ -25,6 +25,8 @@ In this article, you will build an ASP.Net MVC web application on .Net 5 using V
 * Table of Contents
 {:toc}
 
+{% include integrator-org-warning.html %}
+
 ### What You'll Need
 
 - [Visual Studio 2019](https://visualstudio.microsoft.com/downloads/)

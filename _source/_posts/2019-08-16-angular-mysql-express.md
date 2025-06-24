@@ -33,6 +33,8 @@ I will assume that you have some familiarity with Node and the `npm` package man
 * Table of Contents
 {:toc}
 
+{% include integrator-org-warning.html %}
+
 ## Setting up MySQL
 
 If you don't have installed MySQL on your system, follow the instructions on the [MySQL website](https://dev.mysql.com/downloads/) to do so. Depending on your operating system, you might be able to use the system's package manager to install the MySQL server.

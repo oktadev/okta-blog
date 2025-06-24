@@ -21,6 +21,8 @@ GraphQL has become an immensely popular alternative to REST APIs. The flexibilit
 
 In this tutorial, I'll show you how to write a custom GraphQL API using Node and Express. I'll also show you how to secure parts of the API while making other parts open to the public.
 
+{% include integrator-org-warning.html %}
+
 ## Create the GraphQL API with Express
 
 If you're in a hurry and would rather cut to the chase, you can find the final sample code [on GitHub](https://github.com/oktadeveloper/okta-express-graphql-example). However, if you want to follow along to get more detail and see how the code was put together, keep reading.

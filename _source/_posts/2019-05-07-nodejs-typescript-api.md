@@ -23,6 +23,8 @@ JavaScript has been turning into more and more of a robust language and is no lo
 
 If you're both a fan of JavaScript and strongly typed languages, then you're in luck. TypeScript is a superset of JavaScript that provides some extra syntax for defining types. Today I'll show you how to write a simple API for a real-time chat app using TypeScript. The catch will be messages will expire after a short amount of time and get deleted from both the server and the client, so you have to pay attention if you want to keep up on the conversation. I'll also show you how to create a simple frontend using React to interface with the API. You'll also be using Okta to add user authentication so that you don't just have a bunch of anonymous messages.
 
+{% include integrator-org-warning.html %}
+
 ## Set Up Your TypeScript + Node.js Server
 
 If you don't have Node installed yet, you'll need to do that first. That's the only real prerequisite for this tutorial. To see if you have it installed, try typing `node --version` in a terminal. You'll want to get a response back with something like `v8` or higher. If you get an error, you may need to install it. I recommend installing via [nvm](https://github.com/creationix/nvm). The install should look something like this:

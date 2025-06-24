@@ -22,6 +22,8 @@ People love Entity Framework because it abstracts the way you interact with the 
 
 Sometimes you need to be able to be specific about how you access data or you need a lightweight solution for getting data. Dapper was born out of this need, and today we'll be exploring how you can use Dapper to make working with databases easy, while getting a significant boost in performance.
 
+{% include integrator-org-warning.html %}
+
 ## Prerequisites
 
 * [Visual Studio Code or Visual Studio 2019](https://visualstudio.microsoft.com/downloads/)

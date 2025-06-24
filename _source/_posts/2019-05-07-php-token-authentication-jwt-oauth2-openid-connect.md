@@ -29,6 +29,8 @@ There are a large number of libraries designed to help you work with JWTs in you
 
 The requirements for completing the examples are: Okta account (free), PHP, Composer, and `openssl` command line tools.
 
+{% include integrator-org-warning.html %}
+
 ## Why Okta?
 
 Okta is an API service that allows you to create, edit, and securely store user accounts and user account data, and connect them with one or more applications. [Register for a forever-free developer account](https://developer.okta.com/signup/), and when you're done, come back to learn more about token authentication in PHP.

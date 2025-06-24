@@ -43,6 +43,8 @@ You'll also want to go ahead and download the project code from our [GitHub repo
 git clone -b start https://github.com/oktadeveloper/okta-spring-boot-app-with-auth-example.git
 ```
 
+{% include integrator-org-warning.html %}
+
 ## Start with Spring Boot and Thymeleaf
 
 The starting point of the project is a very simple Spring Boot application without any Okta integration (we'll add this later). The important files are:

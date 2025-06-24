@@ -53,6 +53,8 @@ While Cosmos is powerful, data with complex relationships may be better off in a
 > - [Visual Studio 2019](https://visualstudio.microsoft.com/vs/)
 > - A free [Azure account](https://azure.microsoft.com/en-us/free/)
 
+{% include integrator-org-warning.html %}
+
 ## Scaffold Your ASP.NET Web Project
 
 Let's get started! Open Visual Studio and add a new **ASP.NET Web Application (.NET Framework)** project. Give your new project a name that is meaningful to you, I'm calling mine `ExpenseWebApp`. Then select **MVC** as the ASP.NET 4.6.1 Template.

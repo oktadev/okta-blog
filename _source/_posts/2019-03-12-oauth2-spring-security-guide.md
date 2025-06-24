@@ -31,6 +31,8 @@ Let's get started!
 * Table of Contents
 {:toc}
 
+{% include integrator-org-warning.html %}
+
 ## Create an OAuth 2.0 Server
 
 Start by going to the [Spring Initializr](https://start.spring.io/) and creating a new project with the following settings:

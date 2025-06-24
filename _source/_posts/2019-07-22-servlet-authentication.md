@@ -33,6 +33,8 @@ Let's get started!
 * Table of Contents
 {:toc}
   
+{% include integrator-org-warning.html %}
+
 ## Create an Unsecured JSP Application
 
 To get started, we'll use a simple application I wrote that shares secret family recipes. The code that powers this app can be found on my [GitHub](https://github.com/oktadeveloper/servlet-authn-example/tree/StarterBranch).

@@ -32,6 +32,8 @@ The process outlined in this post is not Angular-dependent, so feel free to subs
 
 {% include toc.md %}
 
+{% include integrator-org-warning.html %}
+
 ## Prepare your Okta account and Okta application
 You'll need an Okta account. If you already have one and an Okta application you want to use for this tutorial, feel free to skip this section. Otherwise, let's continue!
 

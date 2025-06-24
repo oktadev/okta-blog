@@ -26,6 +26,8 @@ In this tutorial, you will build a small web application that retrieves some pos
 - An [Okta Developer Account](https://developer.okta.com/signup/)
 - The [Okta CLI](https://cli.okta.com/) tool
 
+{% include integrator-org-warning.html %}
+
 ## Set up your Okta application
 
 {% include setup/cli.md type="spa" framework="Vue"

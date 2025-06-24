@@ -20,6 +20,8 @@ Building a user authentication system for your Web application from scratch can 
 
 All you'll need to follow the tutorial is an Okta developer account ([you can create one for free](https://developer.okta.com/signup/)), PHP and Composer.
 
+{% include integrator-org-warning.html %}
+
 ## Why Use Okta for Authentication?
 
 Okta makes [identity management](https://developer.okta.com/product/user-management/) easier, more secure, and more scalable than what you're used to. Okta is an API service that allows you to create, edit, and securely store user accounts and user account data, and connect them with one or more applications. Our API enables you to:

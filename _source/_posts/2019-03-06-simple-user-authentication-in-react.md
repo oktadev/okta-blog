@@ -21,6 +21,8 @@ update-url: /blog/2020/12/16/react-login
 
 In 2019, it's quite easy to find React components for pretty much everything. For example, if you want to add user authentication to your app, you can do so easily with Okta's React component. Here I'll walk you through creating a simple, fun React app that fetches random Chuck Norris jokes. I'll then show you how you can add user authentication and customize your user experience, so the jokes will replace Chuck Norris' name with their own.
 
+{% include integrator-org-warning.html %}
+
 ## Bootstrap Your React App
 
 To get React up and running quickly without a lot of hassle, you can use React's create-react-app script. React also prefers `yarn` if you have it installed. You can install those both with this command:

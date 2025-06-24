@@ -31,6 +31,8 @@ In this tutorial, I will show you how to create a single page application that u
 * Table of Contents
 {:toc}
 
+{% include integrator-org-warning.html %}
+
 ## Create a Unicode Browser App with React
 
 I will assume that you have some familiarity with JavaScript and that you have a recent version of Node installed on your computer. You will first create a React project using the `npx` command that comes with the Node installation. In a terminal, navigate into a directory of your choice and run the following command.

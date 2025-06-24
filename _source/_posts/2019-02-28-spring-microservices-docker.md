@@ -20,6 +20,8 @@ In this post, you'll learn about microservices architecture and how to implement
 
 But first, let's talk about microservices.
 
+{% include integrator-org-warning.html %}
+
 ## Understand a Modern Microservice Architecture
 
 Microservices, as opposed to a monolith architecture, dictates you have to divide your application into small, logically related, pieces. These pieces are independent software that communicates with other pieces using HTTP or messages, for example. 

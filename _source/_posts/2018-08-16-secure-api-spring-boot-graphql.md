@@ -30,6 +30,8 @@ There has to be a better way, a more generalized way to allow a front end to req
 
 This is why Facebook developed GraphQL. It provides a framework to describe your data model and allow consumers of the data to ask for exactly what they want and to retrieve predictable results.
 
+{% include integrator-org-warning.html %}
+
 ## When Would I Use GraphQL?
 
 GraphQL is enormously powerful and flexible, and when used at internet scale, can provide a significant performance improvement over traditional REST APIs. So why **wouldn't** you use it? Well, in my experience, on smaller projects, I felt like I was often just moving a lot of REST logic into GraphQL schema definitions, where validation and authorization code ended up being nested into a fairly ugly gigantic schema. I also felt like I was duplicating my data type definitions: once in GraphQL and another time in my ORM (this may not be a problem with all implementations). 

@@ -25,6 +25,8 @@ While managing your own infrastructure can be beneficial and rewarding, it often
 
 This is great for businesses large and small. For small businesses, there is a good chance you'll have a small enough amount of traffic that your costs will be incredibly low or free. For businesses with lots of traffic, it gives the ability to rapidly test ideas without having to commit to a lot of resources upfront, yet flexible enough to deal with bursts of traffic as they occur.
 
+{% include integrator-org-warning.html %}
+
 ## The Challenges of Serverless with C# Lambda Functions + Auth
 
 While serverless can be awesome, it also comes with some challenges. The first is cognitive load. For purely functional serverless offerings, there is a sort of 'tax' in the form of managing hundreds of individual endpoints - which sounds fine until you have to do it in a production environment. Not much fun.

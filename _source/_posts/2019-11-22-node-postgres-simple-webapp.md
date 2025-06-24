@@ -25,6 +25,8 @@ To connect the two you will use an ORM (Object-Relational Mapper) called Sequeli
 
 Finally, to power authentication, you will use [Okta](https://www.okta.com/) , and its Okta OIDC Middleware and the Node.js SDK.
 
+{% include integrator-org-warning.html %}
+
 ## Set Up PostgreSQL
 
 Postgres is incredibly simple to set up. First, you will need to [download the distribution](https://www.postgresql.org/download/) that matches your server's operating system. I installed [version 12 on Windows 10 - 64bit](https://www.enterprisedb.com/downloads/postgres-postgresql-downloads). Follow the instructions in the installer, and you're just about ready to go.

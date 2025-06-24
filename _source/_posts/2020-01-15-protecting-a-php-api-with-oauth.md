@@ -29,6 +29,8 @@ Most Web application frameworks provide tools to build secure REST APIs quickly 
 
 The tutorial will not rely on any external libraries to implement the Okta integration or to work with the JWT access tokens. The only prerequisites are PHP, Composer, and a [free Okta developer account](https://developer.okta.com/signup/).
 
+{% include integrator-org-warning.html %}
+
 ## Create the REST API Skeleton
 
 Start by creating a blank project with a `/src` directory and a `composer.json` file on the top level:

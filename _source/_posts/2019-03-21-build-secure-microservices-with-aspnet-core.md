@@ -28,6 +28,8 @@ There are a few things you will need to follow this tutorial.
 Visual Studio 2017 If you don't have it, you can [download Visual Studio Community](https://visualstudio.microsoft.com/downloads) for free.
 An AWS Account. If you don't already have one, you can [create one here](https://aws.amazon.com/).
 
+{% include integrator-org-warning.html %}
+
 ## Create Your ASP.NET Core Microservice
 
 Create a new **AWS Serverless Application (.NET Core)** project as shown below. If you do not have this option you need to install [the AWS Toolkit for Visual Studio](https://aws.amazon.com/visualstudio/).

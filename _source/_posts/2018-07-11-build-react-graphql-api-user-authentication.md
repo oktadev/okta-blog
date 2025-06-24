@@ -19,6 +19,8 @@ I think you'll like the story I'm about to tell you. I'm going to show you how t
 
 Why focus on secure authentication? Well, aside from the fact that I work for Okta, I think we can all agree that pretty much every application depends upon a secure identity management system. For most developers who are building React apps, there's a decision to be made between rolling your own authentication/authorization or plugging in a service like Okta. Before I dive into building a React app, I want to tell you a bit about Okta, and why I think it's an excellent solution for all JavaScript developers.
 
+{% include integrator-org-warning.html %}
+
 ## What is Okta?
 
 In short, we make [identity management](https://developer.okta.com/product/user-management/) a lot easier, more secure, and more scalable than what you're used to. Okta is a cloud service that allows developers to create, edit, and securely store user accounts and user account data, and connect them with one or multiple applications. Our API enables you to:

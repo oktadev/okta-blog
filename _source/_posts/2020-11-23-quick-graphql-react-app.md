@@ -27,6 +27,8 @@ In React, you will learn to build an application using the public GraphQL API pr
 * Table of Contents
 {:toc}
 
+{% include integrator-org-warning.html %}
+
 ## Set Up GraphQL Server as a Service
 
 The first thing you need to do is sign up for an Everbase account and option an API Key.  This can be done on the [API Keys](https://www.everbase.co/account/keys) section of their site.  You can log in with your GitHub account or create an account on their site.  

@@ -20,6 +20,8 @@ changelog:
 Local Storage is a JavaScript API technically known as `localStorage` that arrived with HTML5. It allows you to store information on a user's browser quickly and easily. There are many debates on the web as to whether it's better than cookies. Some say it's faster (because it doesn't send data with every request like cookies do) and more secure.
 Whether it's more secure or not is debatable, especially when compared with secure cookies that have an [HttpOnly flag](https://www.owasp.org/index.php/HttpOnly). It does, however, offer the ability to store a lot more data than cookies. Cookies [can hold up to 4KB](http://browsercookielimits.squawky.net/), while local storage [can hold 5MB or more](https://www.html5rocks.com/en/tutorials/offline/quota-research/), depending on your browser.
 
+{% include integrator-org-warning.html %}
+
 ## The Local Storage API
 
 The local storage API is simple in that it only has a couple of methods to set and get data. In a [previous article](/blog/2018/01/18/cryptocurrency-pwa-secured-by-okta), I showed you how to build a PWA that stores your cryptocurrency holdings. In its `src/providers/holdings/holdings.ts` service, you can see how the local storage API works.

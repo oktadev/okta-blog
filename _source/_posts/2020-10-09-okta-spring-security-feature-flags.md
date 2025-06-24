@@ -27,6 +27,8 @@ In this post, I start with setting up an Okta org and configuring an OpenID Conn
 * Table of Contents
 {:toc}
 
+{% include integrator-org-warning.html %}
+
 ## Get Started with Okta
 
 OpenID Connect (OIDC) rides on top of OAuth 2.0 for a modern Single Sign-on, authentication and authorization standard. Okta provides these standards as a service. Don't know anything about these standards yet? Good news - You don't have to! By following some simple instructions to provision an Okta org and setup a hosted instance of OIDC, you can easily integrate a Spring Boot app with just configuration. Let's get started with 3 easy steps:

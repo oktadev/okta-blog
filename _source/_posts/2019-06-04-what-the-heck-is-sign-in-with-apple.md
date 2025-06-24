@@ -21,6 +21,8 @@ If this sounds a lot like "Sign in with Facebook" or "Sign in with Twitter", tha
 
 Apple is taking a firm stance to protect user's privacy with this new feature. Rather than letting apps see the user's real email address, they will provide the app with a proxy email address unique to each app. App developers will still be able to send emails to the proxy addresses, it just means developers won't be able to use the email addresses to correlate users between apps, and it also means users can shut off email forwarding per app.
 
+{% include integrator-org-warning.html %}
+
 ## The Sign In with Apple Flow
 
 Let's take a look at how this new flow works using your Apple ID to sign in to a website.

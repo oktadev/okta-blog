@@ -25,6 +25,8 @@ To follow along, you will need:
 - I am using [Visual Studio Code](https://code.visualstudio.com/download) on Linux, but you should be able to follow along with [Visual Studio 2019](https://visualstudio.microsoft.com/downloads/)
 - A [free forever Okta developer account](https://developer.okta.com/signup/)
 
+{% include integrator-org-warning.html %}
+
 ## Scaffold an ASP.NET Core 3.0 MVC Application
 
 To scaffold your new ASP.NET Core 3.0 MVC application, open a terminal window to where you want to store your source code and run:

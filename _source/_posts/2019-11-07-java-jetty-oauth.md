@@ -29,6 +29,8 @@ In this tutorial, you will build a simple web service with Jetty embedded. After
 * Table of Contents
 {:toc}
 
+{% include integrator-org-warning.html %}
+
 ## Install the Project Dependencies
 
 You'll need to install a few things before you get started.

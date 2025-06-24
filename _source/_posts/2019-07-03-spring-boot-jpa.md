@@ -35,6 +35,8 @@ The application you will build will have two main parts. The first is the authen
 * Table of Contents
 {:toc}
 
+{% include integrator-org-warning.html %}
+
 ## Summary of CRUD actions
 **C**RUD - Create
 When any user visits the application with a new session, they will be issued a new token. When this token is issued, a `userEvent` will be generated and persisted in the MySQL database. 

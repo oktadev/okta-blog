@@ -35,6 +35,8 @@ This tutorial was created with the following frameworks and tools:
 
 {% include toc.md %}
 
+{% include integrator-org-warning.html %}
+
 ## Create a Java microservices architecture
 
 If you haven't tried JHipster yet, you can do the classical local installation with npm.

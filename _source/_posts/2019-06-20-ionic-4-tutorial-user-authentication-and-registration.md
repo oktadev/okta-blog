@@ -33,6 +33,8 @@ If you don't want to code along, feel free to grab the [source code from GitHub]
 * Table of Contents
 {:toc}
 
+{% include integrator-org-warning.html %}
+
 ## Get Started with Ionic 4
 
 To set up your environment to develop with Ionic, complete the following steps:

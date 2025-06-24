@@ -33,6 +33,8 @@ If you don't want to code along, feel free to grab the [source code from GitHub]
 <iframe width="600" height="338" style="max-width: 100%" src="https://www.youtube.com/embed/TaZqDrwBWwA" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
 </div>
 
+{% include integrator-org-warning.html %}
+
 ## Get Started with Spring Cloud
 
 Spring Cloud Security is a project from the good folks at Pivotal that "offers a set of primitives for building secure applications and services with minimum fuss". Not only is it easy to use in platforms like Cloud Foundry, but it builds on Spring Boot, Spring Security, and [OAuth](https://www.oauth.com/). Because it builds on OAuth, it's easy to integrate it with an authentication API like Okta's.

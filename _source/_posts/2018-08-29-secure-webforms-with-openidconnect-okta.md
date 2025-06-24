@@ -21,6 +21,8 @@ We talk a lot about ASP.NET Core on this blog, but the .NET ecosystem is much mu
 To follow along, you'll need .NET Framework 4.7.1 and Visual Studio 2017.
 
 
+{% include integrator-org-warning.html %}
+
 ## Get Started with ASP.NET and Web Forms
 
 First, you need to create a new Web Forms application using one of the built-in templates that ship with Visual Studio. Choose the Web Forms template with Individual User Accounts authentication.  

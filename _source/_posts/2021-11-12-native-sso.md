@@ -22,6 +22,8 @@ In comparison with desktop or web apps, it's even more critical to enable SSO fo
 
 Fortunately, this problem is widely recognized, and an OIDC draft spec [Native SSO for Mobile Apps](https://openid.net/specs/openid-connect-native-sso-1_0.html) has been released to address the issue using a token-exchange approach. Okta recently added support for this draft spec. In this article, we describe the solution and compare it to an existing approach. We also share an example app to demonstrate how you can use the token-exchange solution to build SSO for your apps, not only within the same device, but also across devices. Specifically, the example demonstrates how you can *single-sign-on* with Okta to a mobile app on one device (such as your iPhone), then have access to all your apps on another desktop device (such as your Mac).
 
+{% include integrator-org-warning.html %}
+
 ## Sharing web sessions with native apps
 
 Before we describe the token-exchange solution, let's explore how to build a native SSO solution based on web SSO. If we could share web login sessions with native apps, we could leverage the advance in browser SSO technology. Web session sharing has become more restrictive due to the continued increase in privacy restrictions on mobile devices. Apple leads the charge on adding more privacy restrictions, but Android is quickly following suit.

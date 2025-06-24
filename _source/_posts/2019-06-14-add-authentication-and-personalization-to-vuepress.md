@@ -20,6 +20,8 @@ There are several advantages to using a static site generator such as VuePress. 
 
 However, a "static" site does not mean you cannot add dynamic touches to your content. In this tutorial, you will learn how to customize VuePress to create a personalized experience based on the person currently viewing the content.
 
+{% include integrator-org-warning.html %}
+
 ## Install VuePress
 
 > Note: To complete this tutorial, you must have [Node.js](https://nodejs.org) version 8 or higher installed, and a good text/code editor such as [Visual Studio Code](https://code.visualstudio.com/).

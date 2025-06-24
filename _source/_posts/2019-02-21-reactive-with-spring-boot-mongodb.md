@@ -30,6 +30,8 @@ I just threw a handful of terms at you. Let's go over them.
 
 **NOTE:** The first part of this series demonstrated how to use Spring Boot and Spring Data with a relational database, PostgreSQL. You can check out that post [here](/blog/2018/12/13/build-basic-app-spring-boot-jpa).
   
+{% include integrator-org-warning.html %}
+
 ## What is NoSQL and Why MongoDB?
   
 **NoSQL** is a term for any non-relational database. In relational databases (think SQL, MySQL, etc...), data is stored in tables with strong typing and well-defined relationships between table columns. The tight, well-defined structure of relational databases is both their strength and their weakness. It's a trade-off. NoSQL databases explode this model and provide other models that allow for more flexibility and ease of scaling.   

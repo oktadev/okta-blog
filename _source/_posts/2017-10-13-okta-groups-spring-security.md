@@ -20,6 +20,8 @@ In this post, you'll walk through a simple example that has some unprotected pag
 
 All the code used in this demo can be found [in this GitHub repo](https://github.com/oktadeveloper/okta-spring-security-roles-example).
 
+{% include integrator-org-warning.html %}
+
 ## Configure Okta
 
 To get started, let's get your Okta tenant set up. You'll then be able to fire up the sample app and see it in action. Head on over to [https://developer.okta.com](https://developer.okta.com) and sign up for a developer account.

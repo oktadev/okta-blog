@@ -24,6 +24,8 @@ I'm betting that if you already know Angular, you might want to learn about Reac
 
 In this post, I'll show you how to build a secure PWA that uploads and processes images, displays them in a Flickr-like grid, and uses Spring Boot for its backend.
 
+{% include integrator-org-warning.html %}
+
 ## Get Started with React and Spring Boot
 
 One of the easiest ways to get started with React is by using [Create React App](https://github.com/facebookincubator/create-react-app) (CRA). You install it locally, then run `create-react-app $projectName` to generate a skeleton React application with minimal dependencies. It uses webpack under-the-covers to build the project, launch a web server, and run its tests.

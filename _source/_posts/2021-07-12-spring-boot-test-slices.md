@@ -27,6 +27,8 @@ In this tutorial, you'll learn about Spring Boot testing capabilities to optimiz
 * Table of Contents
 {:toc}
 
+{% include integrator-org-warning.html %}
+
 ## Write Tests with the `@SpringBootTest` Annotation
 
 The `@SpringBootTest` annotation automagically spins up your application with **all dependencies** instrumenting it for use in tests. It can replace dependencies and provide customized properties for the application context. This annotation is a great tool and an easy way to get your application ready for testing.

@@ -25,6 +25,8 @@ A [Docker installation](https://docs.docker.com/engine/install/) is required as 
 
 {% include toc.md %}
 
+{% include integrator-org-warning.html %}
+
 ### Set up OAuth2 and OpenID Connect (OIDC)
 
 We'll be using [Okta's SPA redirect model](https://developer.okta.com/docs/guides/sign-into-spa-redirect/react/main/) to authenticate.

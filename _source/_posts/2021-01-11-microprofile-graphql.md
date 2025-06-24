@@ -27,6 +27,8 @@ In this tutorial, the runtime you are going to use is Open Liberty. Open Liberty
 * Table of Contents
 {:toc}
 
+{% include integrator-org-warning.html %}
+
 ## Why Use GraphQL Instead of REST?
 
 The application you're going to write is a surf report generator. Why? Because people seem to like weather apps for their example apps, and I thought a surf report generator was more fun. The surf reports, unfortunately, will just be randomly generated. However, you'll use GraphQL to query and return data instead of a traditional REST API.

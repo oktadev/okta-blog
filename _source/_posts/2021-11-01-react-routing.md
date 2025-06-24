@@ -28,6 +28,8 @@ This tutorial will show you how to quickly build a secure SPA using React, Okta,
 * Table of Contents
 {:toc}
 
+{% include integrator-org-warning.html %}
+
 ## Create an Okta OIDC application
 
 {% include setup/cli.md type="spa" framework="React" loginRedirectUri="http://localhost:3000/callback" logoutRedirectUri="http://localhost:3000" %}

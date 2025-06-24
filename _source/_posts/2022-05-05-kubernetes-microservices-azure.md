@@ -32,6 +32,8 @@ If you're already familiar with all the tech in this tutorial, you can skip ahea
 
 {% include toc.md %}
 
+{% include integrator-org-warning.html %}
+
 ## JHipster microservices architecture overview
 
 **[JHipster](https://www.jhipster.tech/)** is a development platform that streamlines the generation, development, and deployment of both monolithic and microservice applications. It supports a dizzying array of frontend (Angular, React, and Vue) and backend (Spring Boot, Micronaut, Quarkus, Node.js, and .NET) technologies. It's designed to be deployed using Docker and Kubernetes, and can easily deploy to all the major cloud platforms, such as AWS, Azure, Heroku, Cloud Foundry, Google Cloud Platform, and OpenShift. 

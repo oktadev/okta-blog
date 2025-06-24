@@ -28,6 +28,8 @@ Before you start, you'll need to set up a development environment with PHP 7 and
 
 **FUN FACT**: Did you know that Vue owes much of its current popularity to Laravel? Vue comes pre-packaged with Laravel (along with Laravel Mix, an excellent build tool based on webpack) and allows developers to start building complex single-page applications without worrying about transpilers, code packaging, source maps, or any other 'dirty' aspects of modern frontend development.
 
+{% include integrator-org-warning.html %}
+
 ## Create an OpenID Connect App
 
 Before we get into the code, let's set up our Okta account so it's ready when we need it. Okta is an API service that allows you to create, edit, and securely store user accounts and user account data, and connect them with one or more applications.

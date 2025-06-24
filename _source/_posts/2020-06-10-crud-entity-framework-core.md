@@ -24,6 +24,8 @@ One of the most popular tools on ASP.NET was the powerful ORM Entity Framework. 
 
 In this article, you will build a small app that allows users to vote on movies.  To compile the list of movies the app will allow users to add, update, or delete movies from the database.  You will use Visual Studio 2019, ASP.NET Core, Entity Framework Core,  Microsoft SQL Server, and Okta for Authentication.
 
+{% include integrator-org-warning.html %}
+
 ## Scaffold Your ASP.NET Core and Entity Framework Core Application
 
 To start, open Visual Studio and click **Create a new Project.**  From the next menu,  search for `ASP.NET Core Web Application` and click **Next**.  You can name your project whatever you want (I named mine `V_Okta`), then press **Create**.  This will bring you to the next menu where you'll select `Web Application (Model-View-Controller)`.  For this application, you are using the MVC Application type rather than the new Razor Pages Application.  Uncheck `Configure for HTTPS` and leave Authentication as `No Authentication` since you will manually add it with Okta.  Press **Create** and let Visual Studio scaffold your project.

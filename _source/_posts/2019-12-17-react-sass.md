@@ -25,6 +25,8 @@ Sass source files come in two flavors. The older `.sass` format has now almost c
 
 Many CSS frameworks use Sass to generate their stylesheets. In this tutorial, I will show you how to integrate Zurb's Foundation framework using Sass mixins. Using this approach keeps the size of your CSS to a minimum. It also gives you the opportunity of more semantic markup.
 
+{% include integrator-org-warning.html %}
+
 ## Create Your React Application with Sass
 
 You will be using the Create React App command-line tool to create the application. First of all, make sure that you have installed Node on your system with a version greater than 10. If you are unsure which Node version you have, open a terminal and run the following command.

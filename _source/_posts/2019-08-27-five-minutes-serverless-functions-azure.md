@@ -28,6 +28,8 @@ If you'd rather watch a video, [I created a screencast of this blog post](https:
 <iframe width="700" height="394" style="max-width: 100%" src="https://www.youtube.com/embed/Db4g34a0Vf4" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 </div>
 
+{% include integrator-org-warning.html %}
+
 ## What is an Azure Function HTTP trigger?
 
 The HTTP trigger lets you invoke a function with an HTTP request. You can use an HTTP trigger to build serverless APIs and respond to webhooks.

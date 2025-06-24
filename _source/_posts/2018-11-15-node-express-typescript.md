@@ -25,6 +25,8 @@ Today, building JavaScript applications _at scale_ remains a challenge. More and
 
 Node.js server applications can benefit from using TypeScript, as well. The goal of this tutorial is to show you how to build a new Node.js application using TypeScript and Express.
 
+{% include integrator-org-warning.html %}
+
 ## The Case for TypeScript
 
 As a web developer, I long ago stopped resisting JavaScript, and have grown to appreciate its flexibility and ubiquity. Language features added to ES2015 and beyond have significantly improved its utility and reduced common frustrations of writing applications.

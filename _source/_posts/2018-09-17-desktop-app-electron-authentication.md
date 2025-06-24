@@ -40,6 +40,8 @@ Do you have web development skills? Great! You have what's needed to build a des
 
 In this article, I'll show you how to create an [Electron](https://electronjs.org/) app with TypeScript, AppAuth-JS, and OpenID Connect (OIDC). You'll learn how to add authentication and secure an Electron app for your users.
 
+{% include integrator-org-warning.html %}
+
 ## What is AppAuth?
 
 [AppAuth](https://appauth.io/) is a project that aims to create client SDKs for native apps. It makes it possible to implement authentication and authorization in your apps using OIDC and OAuth 2.0. It has SDKs available for iOS, macOS, Android, and JavaScript environments. AppAuth-JS is the SDK for JavaScript clients. AppAuth also supports the [PKCE extension](https://developer.okta.com/authentication-guide/auth-overview/#authorization-code-with-pkce-flow) to OAuth to make public clients more secure.

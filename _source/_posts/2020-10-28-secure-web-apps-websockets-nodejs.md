@@ -21,6 +21,8 @@ WebSockets is a technology for communicating between the client and the server i
 
 In this tutorial, you will learn how to create a small chat room web application that will keep track of the users in the room and send messages using WebSockets. For the server, you will use Express on Node.js. Node.js is an event-driven JavaScript runtime that has made JavaScript one of the most popular back end languages. Express is the most popular web framework for Node.js. You will also learn how to set up Okta for authentication. To authenticate the socket communication, you will issue a JSON Web Token (JWT) to the client, and validate it when the client attempts to open the socket.
 
+{% include integrator-org-warning.html %}
+
 ## Create Your Okta App
 
 {% include setup/cli.md type="web" loginRedirectUri="http://localhost:8080/authorization-code/callback" %}

@@ -19,6 +19,8 @@ type: conversion
 
 Ah, migration! Let's say you have an ASP.NET application that has been running fine for years. You have kept up with the various .NET Framework updates and then suddenly you get told that you need to migrate to the latest and greatest, ASP.NET Core using .NET Core. .NET Core is the successor to the .NET Framework we've been using for years. It is open-source and supports cross-platform applications. To a veteran .NET developer it should look relatively similar to ASP.NET applications but there are some differences. In this article, we will migrate an existing ASP.NET application to ASP.NET Core that has an external auth provider - like Okta!
 
+{% include integrator-org-warning.html %}
+
 ### Requirements
 
 - A computer with .NET Framework and .NET Core-compatible operating system

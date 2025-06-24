@@ -25,6 +25,8 @@ JAMstack does not dictate you switch to any particular technology. You can use a
 
 {% img blog/secure-and-scalable-an-introduction-to-jamstack/secure-and-scalable-introduction-to-jamstack.png alt:"JAMStack" width:"800" %}{: .center-image }
 
+{% include integrator-org-warning.html %}
+
 ## JAMstack is Fast, Scalable, and Less Expensive
 
 Traditional web applications and Content Management Systems (CMS) rely on server-side code to render and return HTML on every request. Often times, these systems include a database or other type of dynamic storage, adding another layer of latency. Scaling a traditional system with more servers and ensuring high availability is no trivial task. Add to this the complexity of caching, such as invalidating the cache when content or code changes, and it's a recipe for heartburn.

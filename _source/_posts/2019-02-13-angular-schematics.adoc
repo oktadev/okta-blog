@@ -18,6 +18,7 @@ type: conversion
 changelog:
 - 2021-04-15: Updated to use Angular 11 and OktaDev Schematics v3.4.1. You can see the changes to this post in [okta-blog#707](https://github.com/oktadeveloper/okta-blog/pull/707); example app changes are in [okta-angular-schematics-example#2](https://github.com/oktadeveloper/okta-angular-schematics-example/pull/2).
 ---
+
 :toc: macro
 :page-liquid:
 
@@ -32,6 +33,8 @@ If you'd rather watch a video, I https://youtu.be/ANwZIt3Ni2s[created a screenca
 <iframe width="700" height="394" style="max-width: 100%" src="https://www.youtube.com/embed/ANwZIt3Ni2s" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 </div>
 ++++
+
+{% include integrator-org-warning.html %}
 
 toc::[]
 

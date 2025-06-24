@@ -25,6 +25,8 @@ For this project, you'll be using React.js for the front end. React.js is one of
 
 This post outlines how to make a simple version of one of my favorite game shows as a kid, Card Sharks. The premise of the game is simple enough: A player is shown six cards, one face-up and five face-down. The player must guess if the first face-down card is higher or lower than the current face-up card. If the player is correct they gain a point and move to the next card. If the card has the same rank, no point is awarded and the game continues. If the player is incorrect, the game is over. If the player gets all the cards correct they are allowed to reshuffle the deck and draw a fresh set of 6 cards. At the end of the game, the player can submit their high score.
 
+{% include integrator-org-warning.html %}
+
 ## Get Started with Okta
 
 First thing's first, create an [Okta developer account](https://developer.okta.com) and register an application. Log in to your Okta admin portal and navigation to **Applications**. Click the button labeled **Add Application**, select **Single-Page App**, then click **Next**. Name your application something that will represent its role for you. In my case, I used "Card Sharks."  If your application uses port 8080, you can continue to use `http://localhost:8080` for your URLs. However, if you aren't planning on specifically designating port 8080 for your application you will most likely use port 3000 for the application and will need to change these URLs to reflect that.

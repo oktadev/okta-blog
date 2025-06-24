@@ -24,6 +24,8 @@ As with any good example app, you'll want to deploy it securely, so I'll show yo
 
 Phew! That's a lot of buzzwords for one article. Don't worry, I've confirmed it's possible to develop this app in even less time than it takes to deploy and secure it. And developing is fun, so let's get started!
 
+{% include integrator-org-warning.html %}
+
 ## Build a Notes API with Kotlin and Spring Boot
 
 Start building the API for your application by navigating your favorite browser to [start.spring.io](https://start.spring.io). Select Kotlin as your language, and choose Web, H2, JPA, Rest Repositories, and DevTools. You'll notice in the screenshot below that I changed the group and artifact names too. Please use these same names, so your package and class names match this tutorial.

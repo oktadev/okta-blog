@@ -29,6 +29,8 @@ Another way to solve this issue is with session-based authentication and cookies
 * Table of Contents
 {:toc}
 
+{% include integrator-org-warning.html %}
+
 ## Session vs JWT Authentication in Angular 
 
 If you're like me, you have been developing for the web for some time. You might have come across different ways of resolving this problem. The traditional approach uses sessions to keep the state. When a user visits a website and logs in, the server will store the authentication state in a session. It then returns a unique session ID to the client which is usually stored in a browser cookie. Every time the client makes a request to the server the cookie is sent in the request header and the server can look up the session data from the session ID. While this approach has been applied successfully for many years, it has some drawbacks.

@@ -30,6 +30,8 @@ Let's dig in!
 You will create an API that will be in charge of validating the tokens with the help of Okta services. Our test client will be simple console application that will access the API.
 Inside of your root project folder create two folders: `Api` and `Client`.
 
+{% include integrator-org-warning.html %}
+
 ## Create Your ASP.NET Core API for Your GraphQL Architecture
 
 Inside of your `api` folder run the following:

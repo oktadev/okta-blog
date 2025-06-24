@@ -43,6 +43,8 @@ The example application you're going to build here is a todo app. The client-sid
 * Table of Contents
 {:toc}
 
+{% include integrator-org-warning.html %}
+
 ## Create a Vue + Spring Boot Application
 
 Rather than creating an app from scratch, go ahead and download the example application from [this tutorial's GitHub repository](https://github.com/oktadeveloper/okta-kotlin-spring-boot-vue-example).

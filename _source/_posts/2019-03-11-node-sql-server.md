@@ -23,6 +23,8 @@ I've written applications on top of SQL Server using Visual Basic, "Classic" ASP
 
 In this tutorial, you will learn the basics of creating a Node.js web application using SQL Server by creating a simple calendar application.
 
+{% include integrator-org-warning.html %}
+
 ## Set Up Your Node.js Development Environment
 
 Before you get started, you'll need a couple of things:

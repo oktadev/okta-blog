@@ -19,6 +19,8 @@ type: conversion
 
 One of the improvements in the latest version of ASP.NET Core (MVC ) is a new and simplified authentication integration. However, managing authentication on your own is still a considerable burden. Not only do you need to handle signup and login, but you also have to set up the database, manage security aspects of registration and login, and take care of session management. Since the integration of external auth providers has never been more comfortable, let's see an example of how to do this with an existing application by adding Okta.
 
+{% include integrator-org-warning.html %}
+
 ## Set Up Your ASP.NET Core MVC Project
 First, make sure you have the .NET Core 2.1 SDK installed - [Download link](https://www.microsoft.com/net/download). This demo will use [VS Code](https://code.visualstudio.com/), but feel free to use your preferred editor. 
 

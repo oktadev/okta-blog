@@ -29,6 +29,8 @@ Let's get started.
 
 **NOTE**: Want to play around with the chat app in real-time? You can do so here: https://naughty-bhabha-908faa.netlify.com You can also view the source code for the app we'll be building [on GitHub](https://github.com/rdegges/chatapp).
 
+{% include integrator-org-warning.html %}
+
 ## Create the Web Page
 
 The first thing you'll do is create a simple HTML web page for the app.

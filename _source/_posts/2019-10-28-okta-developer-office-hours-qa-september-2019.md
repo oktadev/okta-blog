@@ -36,6 +36,8 @@ Since we couldn't answer all the questions in real-time, we decided to write up 
 
 Without further ado, here's the list of questions and answers. If we answered it during the session, I added a link to the location in the video.
 
+{% include integrator-org-warning.html %}
+
 ## Okta Developer Q&A
 
 Q: I'm thinking about migrating my users from my custom application to Okta. What do I need to know? [Watch Q&A on YouTube](https://youtu.be/nGi8x5XppHI?t=225).

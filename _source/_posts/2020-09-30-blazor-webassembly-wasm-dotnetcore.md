@@ -37,6 +37,8 @@ Requirements:
 
 Ready to go blazing fast through hooking up external authentication? Start your engines and don't blink - here we go!
 
+{% include integrator-org-warning.html %}
+
 ## Build a Blazor WASM Progressive Web App Project
 
 Let's start from the beginning with a fresh application. You can also use the [.NET CLI](https://docs.microsoft.com/en-us/dotnet/core/tools/) to create your app, but for this tutorial, I will walk you through the IDE and portal steps.

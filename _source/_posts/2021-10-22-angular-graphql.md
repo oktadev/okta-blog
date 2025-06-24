@@ -33,6 +33,8 @@ In this tutorial, I will show you how to consume GraphQL in an Angular client. F
 * Table of Contents
 {:toc}
 
+{% include integrator-org-warning.html %}
+
 ## Implement a GraphQL server with Express
 
 In this section, I will show you how to implement the GraphQL server using the Express framework. To start, open your terminal in an empty folder of your choice. This will be the folder that will contain the server project. Inside that folder, run the following command to initialize your Express project.

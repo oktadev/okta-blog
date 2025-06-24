@@ -30,6 +30,8 @@ The application also uses the [BootstrapVue](https://bootstrap-vue.js.org/) proj
 
 Later, you'll make use of the Vuex library for formal management of data stores. You'll see how we can use these data stores to manage login and logout with Okta. First, let's look at: Why use Okta?
 
+{% include integrator-org-warning.html %}
+
 ## Why Use Okta for Authentication?
 
 While the example app in this post is focused on data binding, you're going to be building a real-world application. The application includes authentication using the OpenID Connect standard in conjunction with Okta and stores the results of the authentication in the advanced data store for Vue.js.

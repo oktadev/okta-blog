@@ -26,6 +26,8 @@ As of the time of this publication, *Create React App* requires Node >= 14.0.0 a
 **NOTE:** Redux also recommends you install the [React Developer Tools Chrome extension](https://chrome.google.com/webstore/detail/react-developer-tools/fmkadmapgofadopljbjfkapdkoienihi?hl=en).
 
 {% include toc.md %}
+{% include integrator-org-warning.html %}
+
 ## Create the React app using TypeScript
 
 We'll get started with the built-in React template for [Create React App](https://github.com/facebook/create-react-app) that uses Redux and TypeScript. This includes the recommended Redux Toolkit and Redux's integration with React components. You can also [clone the GitHub repo](https://github.com/oktadev/okta-react-typescript-redux-example) and follow the instructions there to configure it instead of building the project.

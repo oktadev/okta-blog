@@ -16,9 +16,13 @@ image: blog/featured/okta-java-short-bottle-headphones.jpg
 type: conversion
 ---
 
+{% include integrator-org-warning.html %}
+
 Java developers typically encounter the need to store data on a regular basis. If you've been developing for more than 15 years, you probably remember the days of JDBC in Java. Using JDBC can be tedious if you don't like writing SQL. Not only that, but there's nothing in JDBC that helps you create your database. Hibernate came along and changed everything by allowing you to map POJOs (plain ol' Java objects) to database tables. Not only that, but it had a very Java-esque API that made it easy to create CRUD POJOs. Shortly after, Spring came along and added abstractions for Hibernate that took API simplification even further. Fast forward to today, and most Java applications use both Spring and Hibernate.
 
 For some time now, developers have operated under one of two separate but distinct models to represent business entities. The relational model, which is prevalent in databases, and the object-oriented model. These two models are similar in that both work using similar structures to represent business logic, and they are distinct in that they were designed for different purposes: one to store data, other to describe behavior.
+
+{% include integrator-org-warning.html %}
 
 ## Use Hibernate Old Fashioned Way, without Spring
 

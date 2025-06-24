@@ -21,6 +21,8 @@ Instead of storing and managing API keys for your clients (other servers), you c
 
 {% img blog/node-client-credentials/client-credentials-flow.png alt:"Client Credentials Flow" width:"600" %}{: .center-image }
 
+{% include integrator-org-warning.html %}
+
 ## How the Client Credentials Flow Verification Works
 
 One way to verify tokens you receive to your API service is to forward the token to the OAuth server to ask if it is valid. The downside to this method is each API request sent to your server requires a request sent to the OAuth server as well, which increases the time it takes for you to respond to your client. An alternative is to use something called local validation, a strategy popularized by JSON Web Tokens (JWT). A JWT contains your claims (client data) in unencrypted, machine-readable JSON.

@@ -30,6 +30,8 @@ If you would rather follow along by watching a video, check out our [YouTube cha
 * [Java 8+](https://adoptopenjdk.net/)
 * [A free Okta Developer account](https://developer.okta.com/signup)
 
+{% include integrator-org-warning.html %}
+
 ## Should I Validate Access Tokens Locally or Remote?
 
 Whether you should validate access tokens locally (e.g., a JWT) or remotely (per spec) is a question of how much security you need. Often, people jump to, "I need all of the securities!" This statement simply isn't true—how much security you need should be balanced with other factors like ease of use, cost, and performance.

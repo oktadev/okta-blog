@@ -21,6 +21,8 @@ User authentication and authorization are common features in web applications, b
 
 In this post, we'll walk through how Okta simplifies this process for us and set up a simple integration for an ASP.NET Core MVC app using the Okta NuGet package. We'll build functionality for users to register for new accounts and login with their Okta credentials.
 
+{% include integrator-org-warning.html %}
+
 ## Scaffold Your ASP.NET Project
 To follow along with this tutorial start by creating a new app in the console:
 

@@ -26,6 +26,8 @@ The shift to serverless database operations is one of the most obvious advantage
 
 As developers, we need to be mindful of how we can protect data at rest. In this article, you will learn how Cosmos DB helps to protect data at rest and what you can do to remove sensitive data like personally identifiable information (PII) from data that you intend to store in Cosmos DB.  
 
+{% include integrator-org-warning.html %}
+
 ### A secure application for PII
 
 One of my first jobs in development was writing applications that would perform a `scrubbing` process on personal data coming from clients. Effectively we would receive data that included the person's name, social security number, and address. This data would then be sent out for verification to a consumer reporting corporation,  and that company would return a result letting us know if the address was current and if the information we'd received was correct. Once the data returned we could import the result into our software and if the scrub came back successful then the account was a valid contact.  

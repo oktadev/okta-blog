@@ -29,6 +29,8 @@ However, all is not lost! It doesn't have to be this way. There is a growing rec
 >* [ASP.NET Core SDK](https://dotnet.microsoft.com/download) and a suitable IDE (such as [VS Code](https://code.visualstudio.com/) or [Visual Studio](https://visualstudio.microsoft.com/vs/))
 >* [Jenkins installation](https://jenkins.io/download/) - choose the Long-term Support version for your platform
 
+{% include integrator-org-warning.html %}
+
 ## Install the Jenkins Continuous Integration Server
 
 Jenkins is a Java-based application and as such can run on any platform that has the appropriate Java runtime. There are also installer packages for many major operating systems as well as virtual machine templates that you can deploy to your favourite cloud provider. The steps required will vary depending on your operating system, and you can find specific details at `https://jenkins.io/doc/book/installing/`

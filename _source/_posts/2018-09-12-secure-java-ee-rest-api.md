@@ -24,6 +24,8 @@ Fast forward to 2018, and Java EE certainly doesn't look like it used to! Now, i
 
 {% include toc.md %}
 
+{% include integrator-org-warning.html %}
+
 ## Why Build a Java REST API with Java EE and Not Spring Boot?
 
 Spring Boot is one of my favorite technologies in the Java ecosystem. It's drastically reduced the configuration necessary in a Spring application and made it possible to whip up REST APIs in just a few lines of code. However, I've had a lot of API security questions lately from developers that *aren't* using Spring Boot. Some of them aren't even using Spring!

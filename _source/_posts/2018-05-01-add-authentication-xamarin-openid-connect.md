@@ -27,6 +27,8 @@ If you want to skip straight to a demo, you can download our whole [Xamarin auth
 
 Let's get started. First, you'll need to create an Okta developer account to store your users.
 
+{% include integrator-org-warning.html %}
+
 ## What is Okta?
 
 Okta is an API service that allows developers to create, edit, and securely store user accounts and user account data, and connect them with one or multiple applications. Our API enables you to:

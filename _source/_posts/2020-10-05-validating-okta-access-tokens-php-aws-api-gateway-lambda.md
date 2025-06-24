@@ -21,6 +21,8 @@ Running REST APIs with AWS Lambda and AWS API Gateway has recently become a very
 
 Today we'll talk about how you can use Okta as the authentication and authorization layer of your REST API hosted in AWS Lambda, validating Okta access tokens using a Lambda authorizer function implemented in PHP.
 
+{% include integrator-org-warning.html %}
+
 ## About Lambda authorizers
 
 Lambda authorizers are the method provided by AWS API Gateway to manage authorization and authentication features. They are independent AWS Lambda methods that are called by the AWS API Gateway in order to validate the provided credentials and provide information about the authorized access level. Like other AWS Lambda methods, Authorizers can be implemented in any language and are run in a limited, managed environment. 

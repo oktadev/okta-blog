@@ -23,6 +23,8 @@ In this tutorial, you'll learn the basic concepts behind Apache Kafka and build 
 
 **Prerequisites:** Java 8+, an internet connection, and a [free Okta developer account](https://developer.okta.com/signup).
 
+{% include integrator-org-warning.html %}
+
 ## A Brief Overview of Apache Kafka
 
 Apache Kafka is a distributed streaming platform that utilizes the publish/subscribe message pattern to interact with applications, and it's designed to create durable messages.

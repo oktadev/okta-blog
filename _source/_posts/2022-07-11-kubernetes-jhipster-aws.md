@@ -59,6 +59,8 @@ Just so you have a general idea of what you're going to do, the basic steps in t
 5. Deploy the microservice stack to EKS (which will pull your Docker images and deploy them to AWS EKS)
 6. Test the app
 
+{% include integrator-org-warning.html %}
+
 ## Generate the application using the JHipster generator
 
 The JHipster generator makes it easy to bootstrap complex applications, including microservices with multiple services and domain models. You can read more about it in [the JHipster docs](https://www.jhipster.tech/creating-an-app/). In this tutorial, you are going to create a microservice using the JHipster Domain Language.

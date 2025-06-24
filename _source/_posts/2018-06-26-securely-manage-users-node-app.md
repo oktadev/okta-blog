@@ -23,6 +23,8 @@ Luckily, there's a better way! Using Okta, you can not only connect users to you
 
 In this post, I'll show you how to create an app in Node that provides a dashboard for your users and gives them the ability to edit their profile information, all without ever setting up a database.
 
+{% include integrator-org-warning.html %}
+
 ## What is Okta?
 
 Okta is a flexible service that makes it super easy for developers to connect users to all kinds of apps. Okta handles login, logout, registration, multi-factor authentication, as well as storing user information. You also get an amazing admin experience that lets you get up and running in a few minutes but can still be configured to your heart's desire! From the developer console, you can disable users, create groups of users, edit user profiles, create admin tokens, require certain regions of users to use multi-factor authentication, and so much more.

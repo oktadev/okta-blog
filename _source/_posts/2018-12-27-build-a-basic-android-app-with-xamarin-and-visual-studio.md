@@ -23,6 +23,8 @@ Xamarin has two main flavors: Xamarin platform (Xamarin.iOS and Xamarin.Android)
 
 In this tutorial, I'll be looking more closely at the Xamarin platform and the Android operating system toolset known as Xamarin.Android. The overall aim is to enable you to create a simple native Android app with basic user authentication included.
 
+{% include integrator-org-warning.html %}
+
 ## Set Up Visual Studio and Your Environment
 To follow along you'll need a copy of [Visual Studio](https://visualstudio.microsoft.com/downloads/), plus the 'Mobile development with .NET' workload. You can either enable this feature from first installation of Visual Studio or access it from the 'Tools -> Get Tools and Features...' menu item:
 

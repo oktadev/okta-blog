@@ -36,6 +36,8 @@ In this tutorial, you will create a simple Java class file to model your data, y
 Once you have created an unsecured REST API, you are going to use Okta and Spring Security (along with Okta's Spring Boot Starter) to quickly and easily at JSON Web Token (JWT) authentication to your web service.
 
 
+{% include integrator-org-warning.html %}
+
 ## Install Java, Spring Boot, MongoDB, and Other Project Dependencies
 
 You'll need to install a few things before you get started.

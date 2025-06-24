@@ -39,6 +39,8 @@ npm install
 
 From here you should be able to say `react-native run-android` to deploy to an emulator or attached Android phone. Everything should work fine.
 
+{% include integrator-org-warning.html %}
+
 ## Configure Authentication for Your React Native iOS App
 
 Right now when you click Login you will be taken to an Okta login page. This is connected to an Okta account I used for development. You need to create your own account and configure this app to use it.

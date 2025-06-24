@@ -24,6 +24,8 @@ The application you'll be building is a speaker submission page. It will allow u
 
 The architecture for the application will be a React front-end application fed data from an ASP.NET Core Web API. For demonstration purposes, you'll use Entity Framework's in-memory database option. It is an excellent option for proof-of-concept applications. You can change it to use a SQL Server or PostgreSQL database later by just changing one line of configuration code!
 
+{% include integrator-org-warning.html %}
+
 ## What You'll Need to Get Started
 There are a few tools you will need to get, develop and run the application.
 

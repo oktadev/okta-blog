@@ -28,6 +28,8 @@ redirect_from:
 * Table of Contents
 {:toc}
 
+{% include integrator-org-warning.html %}
+
 ## What Is Identity Authentication
 
 Identity Authentication verifies a user's identity by specific means. We obtain detailed user metadata from the Identity Provider (IdP) to determine whether a user has access to particular resources.

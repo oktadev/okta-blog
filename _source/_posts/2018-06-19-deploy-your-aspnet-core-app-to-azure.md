@@ -22,6 +22,8 @@ One of the scariest features of Visual Studio is without a doubt right-click to 
 So, let's dive in. In this tutorial we'll add secure identity management to your ASP.NET Core app with Okta, and then deploy to Azure.
 
 
+{% include integrator-org-warning.html %}
+
 ## What is Okta?
 
 Why does Okta matter if this post is all about deploying my .NET app to Azure? Well, you wouldn't mail a letter without sealing the envelope, would you? Similarly, you shouldn't ship your new app out to the Internet without secure [identity management](https://developer.okta.com/product/user-management/), and Okta makes that a lot easier and more scalable than what you're probably used to. Okta is a cloud service that allows developers to create, edit, and securely store user accounts and user account data, and connect them with one or multiple applications. Our API enables you to:

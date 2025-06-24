@@ -33,6 +33,8 @@ This tutorial will take you step by step through scaffolding a Vue.js project, o
 * Table of Contents
 {:toc}
 
+{% include integrator-org-warning.html %}
+
 ## About Vue.js
 
 Vue.js is a robust but simple JavaScript framework. It has one of the lowest barriers to entry of any modern framework while providing all the required features for high performance web applications.

@@ -23,6 +23,8 @@ Web development has evolved a lot in recent years. Browsers have become more pow
 
 Maintaining the back end and front end in two different languages comes with a cost. There isn't much code reuse, tools and frameworks are different, and it's challenging to keep up with constantly evolving technologies.
 
+{% include integrator-org-warning.html %}
+
 ## Introduction to Blazor
 
 WebAssembly and [Blazor](https://dotnet.microsoft.com/apps/aspnet/web-apps/blazor) come into play to address the challenge of managing front-end and back-end development effectively. WebAssembly is a new open standard of byte code for the Web that runs in every modern browser. Blazor is a C# based client-side UI framework that runs directly in the browser via WebAssembly. It can also run on the server-side and process user interaction over a real-time connection with the browser.

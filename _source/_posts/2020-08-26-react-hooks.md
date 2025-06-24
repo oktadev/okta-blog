@@ -29,6 +29,8 @@ In this tutorial, I will be showing you how to create a simple React application
 * Table of Contents
 {:toc}
 
+{% include integrator-org-warning.html %}
+
 ## Creating a React Application with Hooks
 
 In the following, I will assume that you have some knowledge of JavaScript and that you have Node installed on your system. You do not need any experience with React, and I will be explaining all the major concepts. A typical Node installation comes together with two command-line tools, `npm` and `npx`. 

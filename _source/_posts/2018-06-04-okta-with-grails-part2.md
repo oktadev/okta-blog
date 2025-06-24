@@ -26,6 +26,8 @@ Grails and Groovy can be a great alternative to Spring Boot, in some specific us
 
 Before we dive in, let's talk a little about why authentication and user management with Okta makes sense for any application
 
+{% include integrator-org-warning.html %}
+
 ## User Management with Okta
 
 If you've built a web or mobile app before, you know that all the user management pieces are a royal pain. With Okta, you can have all that user management "stuff" out-of-the-box so you can get on with what you really care about – your app! By the time you're done with this tutorial (less than 30 minutes, I promise), you'll have a fully-functional Grails app with user management via Okta.

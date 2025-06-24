@@ -29,6 +29,8 @@ If you would rather follow along by watching a video, check out the screencast b
 <iframe width="700" height="394" style="max-width: 100%" src="https://www.youtube.com/embed/OJMBg2bSXIU" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 </div>
 
+{% include integrator-org-warning.html %}
+
 ## The WebSocket Protocol and HTTP
 
 The WebSocket protocol, defined in [RFC 6455](https://tools.ietf.org/html/rfc6455), consists of an opening **handshake**, followed by basic message framing, all over TCP. Although it is not HTTP, WebSockets works over HTTP and  begins with a client HTTP request with an `Upgrade` header to switch to the WebSocket protocol:

@@ -35,6 +35,8 @@ Here are the libraries you'll be using for the client and the server:
 * __Express:__ A routing library for responding to server requests and building REST APIs
 * __TypeORM:__ A database ORM library for TypeScript
 
+{% include integrator-org-warning.html %}
+
 ## Start Your Basic Angular Client Application
 
 Let's get started by implementing a basic client using Angular. The goal is to develop a product catalog which lets you manage products, their prices, and their stock levels. At the end of this section, you will have a simple application consisting of a top bar and two views, Home and Products. The Products view will not yet have any content and nothing will be password protected. This will be covered in the following sections.

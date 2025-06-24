@@ -32,6 +32,8 @@ To get ready for the hands-on parts of this post, set yourself up with the follo
 
 To start, let's take a step back and talk a little more about OIDC and OAuth.
 
+{% include integrator-org-warning.html %}
+
 ## Three Minute Overview of OpenID Connect and OAuth 2.0
 
 In the beginning, there were siloed websites that didn't talk to each other, and everyone was sad.

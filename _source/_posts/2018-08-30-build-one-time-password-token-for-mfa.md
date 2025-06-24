@@ -39,6 +39,8 @@ This is a fun way to learn a little about TOTP and see it working against a real
 
 In "real life", you'll want to use the Okta Verify mobile app (available on [iOS](https://itunes.apple.com/us/app/okta-verify/id490179405?mt=8) and [Android](https://play.google.com/store/apps/details?id=com.okta.android.auth&hl=en_US)). There's a lot less manual labor involved.
 
+{% include integrator-org-warning.html %}
+
 ## Get Up and Running with an Okta Verify Token
 
 The source code (including a pre-built binary) can be found on the [GitHub repository](https://github.com/oktadeveloper/okta-ardu-token-example).

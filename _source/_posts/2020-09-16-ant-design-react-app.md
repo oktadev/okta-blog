@@ -23,6 +23,8 @@ For years the go-to HTML/CSS framework of choice for developers was Bootstrap. A
 
 Ant Design is built for React. In this tutorial, you will build a small React app that displays transactions to the user based on the Ant Design principles. You will use Okta to secure your web application. Okta is very easy to set up and using the libraries for integrating into React is simple. You will learn how to secure your app with Okta and how to put certain pages under authentication.
 
+{% include integrator-org-warning.html %}
+
 ## What is Ant Design?
 
 Ant Design principles were developed for Ali Baba. Ali Baba is one of the largest companies in the world who's B2B E-Commerce site is the backbone of a multinational Chinese corporation. Ant Design of React is a set of React components using the Ant Design principles. 

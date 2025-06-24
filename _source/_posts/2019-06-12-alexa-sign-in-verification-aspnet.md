@@ -25,6 +25,8 @@ To make it more user-friendly, this example will demonstrate a voice-only verifi
 
 {% img blog/alexa-sign-in-verification-aspnet/alexa-family.png alt:"Family Alexa Access" width:"800" %}{: .center-image }
 
+{% include integrator-org-warning.html %}
+
 ## Create an Alexa Skill in ASP.NET Web API for Account Linking
 
 Since this post focuses on how to set up voice-only verification, a great place to get started is to follow the tutorial on [User Account Linking in Alexa with Web API](/blog/2019/04/23/user-account-linking-alexa-aspnet-web-api) and when you have that working, continue here. This will be an enhancement to the security flow for your users within Okta. You can also use this flow for .NET Core as well.

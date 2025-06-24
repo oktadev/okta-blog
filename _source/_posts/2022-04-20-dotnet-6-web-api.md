@@ -15,7 +15,10 @@ type: conversion
 github: https://github.com/oktadev/okta-dotnet6-webapi-example
 ---
 
+
 .NET 6 is here and many of us are making preparations to update .NET 5 codebases to .NET 6. As part of this review, today you will learn how to implement the client credentials flow in ASP.NET Core Web API.
+
+{% include integrator-org-warning.html %}
 
 ## What is the client credentials flow
 

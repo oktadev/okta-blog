@@ -21,6 +21,8 @@ changelog:
 
 When you create React applications, at some point you have to make a decision on how to organize your CSS styles. For larger applications, you'll have to modularize the stylesheets. Tools such as Sass and Less let you divide up your styles into separate files and provide lots of other features that make writing CSS files more productive. But some problems remain. The tools separate your styles from your components, and keeping the styles up-to-date with the rest of your code can be difficult. It is hard to figure out if a large application that has been developed and modified for several years still uses a particular CSS class. It is also not easy to make sure that changing a style in one part of your application doesn't affect the appearance of some other unrelated component.
 
+{% include integrator-org-warning.html %}
+
 ## Styled Components to the Rescue
 
 The solution to these problems is a concept known as scoped styles. Here you write CSS styles that apply only within a well-defined context. For example, you could write styles that apply only to a single React component. The **Styled Components** library implements this concept. You can create CSS styles directly in your JavaScript code and attach the style to an HTML tag or an existing component to create a new Styled Component. The styles are scoped and apply only that component. This has a number of advantages.

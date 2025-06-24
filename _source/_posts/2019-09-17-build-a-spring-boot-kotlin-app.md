@@ -29,6 +29,8 @@ In this tutorial, you will build a Spring Boot application from scratch, using K
 * Table of Contents
 {:toc}
 
+{% include integrator-org-warning.html %}
+
 ## Create the Kotlin Application with Spring Initializr
 
 Let's start by creating the project using Spring Initializr.

@@ -38,6 +38,8 @@ When you continue, it will open the Windows Settings window to turn on developer
 
 You may also use Visual Studio 2017, but it would be wise to update it - to make sure you have the latest version of Xamarin.Forms. Start the Visual Studio installer and select Update if that is an option.
 
+{% include integrator-org-warning.html %}
+
 ## Scaffold Your Xamarin App for Secure Login
 
 Start Visual Studio, select **Create a new project**, and select the template **Mobile App (Xamarin.Forms)** and then click **Next**:

@@ -23,6 +23,8 @@ Spring Boot with Spring Security is a fantastic solution for Java-based web deve
 
 In this tutorial, you will build a very simple "Hello World" app in Spring Boot with OAuth 2.0 / OpenID Connect and Okta as the OAuth provider. It will use AWS as the cloud provider, deploying through AWS Elastic Beanstalk.
 
+{% include integrator-org-warning.html %}
+
 ## Why AWS Elastic Beanstalk?
 
 When it comes to cloud infrastructure providers, AWS has always been the market leader and their services make it fast and easy to deploy a cloud application. Elastic Beanstalk is a deployment and provisioning service that allows you to deploy an entire infrastructure with a few clicks by automating the process of getting applications set up on AWS infrastructure. Additionally, it helps manage the resource utilization of your app with automatic Provisioning, load balancing, autoscaling, and health monitoring. 

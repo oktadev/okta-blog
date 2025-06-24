@@ -21,6 +21,8 @@ type: conversion
 
 You're invited to participate in the Okta Identity Early Access Hackathon, which is happening now! Our virtual hackathon began on August 3 and will run till September 14, 2021. You still have more than a month to take the new Okta Identity Engine (OIE) out for a spin and share your skills. We'll have a total of more than USD $18,000 in prizes to distribute to the winners! Plus, cool swag prizes for our most supportive and collaborative hackers.  
 
+{% include integrator-org-warning.html %}
+
 ## Rules, Requirements, and Prizes for the Hackathon
 
 Check out all the [Hackathon details](https://okta-hackathon-2021.devpost.com/) including rules, requirements, prizes, and how to register.  

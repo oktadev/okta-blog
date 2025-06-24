@@ -24,6 +24,8 @@ There's a [companion video for this post](https://youtu.be/UZQ_ke8BuRU) if you w
 
 {% youtube UZQ_ke8BuRU %}
 
+{% include integrator-org-warning.html %}
+
 ## Authentication and Authorization using OAuth 2.0 + OpenID Connect (OIDC)
 OAuth 2.0 with OIDC is the best practice for adding authentication and authorization to your software applications. Authentication verifies the identity of who you claim to be, and authorization verifies you have access to data you want to see or actions you want to perform. It is lightweight with less effort to set up and use than Security Assertion Markup Language (SAML), an alternate authentication and authorization mechanism that pre-existing systems may use. For newer systems, you'll want to use OAuth 2.0 + OIDC.
 

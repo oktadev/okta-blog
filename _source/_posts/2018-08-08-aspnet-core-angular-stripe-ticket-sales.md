@@ -18,6 +18,8 @@ type: conversion
 
 Buying things on the Internet has become a daily activity and is a feature many new projects require. In this tutorial, I will show you how to build an app to sell tickets using an Angular 6 single page app (SPA) using an ASP.NET Core 2.1 backend API. You'll build both the Angular and ASP.NET Core applications and run them from within VS Code. Let's get to it!
 
+{% include integrator-org-warning.html %}
+
 ## Upgrade to Angular 6
 
 I love to use the latest and greatest when starting a new project. But when you use a project generator (like Angular-CLI, or the DotNetCLI), you may be at the mercy of the latest version the authors of those libraries have added. Right now, the DotNet CLI generates an Angular application with `dotnet new angular` gives you an Angular app at about version 4.5, which is about two versions behind the latest. Let me show you how to upgrade the templates and the generated application so that you're using Angular 6, which is the latest as of the time of this article.

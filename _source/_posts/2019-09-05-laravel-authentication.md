@@ -26,6 +26,8 @@ In this article, I'll show you how to get started with Laravel and quickly build
 **Prerequisites:** Please ensure you have already installed PHP, Composer, and have signed up for a [free Okta developer account](/signup/).
 </div>
 
+{% include integrator-org-warning.html %}
+
 ## Understand the Laravel Model-View-Controller (MVC) Architecture and Middlewares
 
 Laravel's architecture is based on the Model-View-Controller (MVC) pattern. MVC emerged from research of the development of graphical user interfaces and it's not particularly suited to Web applications which are based on a request-response cycle with a noticeable latency and a strict delineation between the frontend and backend. There are certain shortcomings of the pattern when applied to the Web:

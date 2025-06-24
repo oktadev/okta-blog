@@ -42,6 +42,8 @@ This repository contains five subdirectories:
 
 These correspond to the four sections of this tutorial (with three for the last section, the OAuth section). Except for the `oauth-start`, these are fully functional applications. In this tutorial, you'll walk through what the code means and how to build them.
 
+{% include integrator-org-warning.html %}
+
 ## Build HTTP Basic Login in Spring Boot
 
 Basic authentication is, well, basic. It's a simple scheme built directly into the HTTP protocol. It comes from pastoral times before massive amounts of data and money flowed through the various pipes and tubes of the internet. As such, it's really not incredibly secure. According to the spec, the password and username are encoded using Base64 in the HTTP `authorization` header. Because Base64 might as well be plain text, if you are going to use basic auth for anything, make sure that you're always using HTTPS/SSL because you're sending your authentication credentials with every request.

@@ -44,6 +44,8 @@ In this first post, we'll explore a starter project and understand how the diffe
 
 {% include toc.md %}
 
+{% include integrator-org-warning.html %}
+
 ## Micro-frontend starter using Webpack 5 and Module Federation
 
 There's a lot in this web app! We'll use a starter code to make sure we focus on the code that's specific to the micro frontend. If you're dismayed that you're using a starter and not starting from scratch, don't worry. I'll provide the Angular CLI commands to recreate the structure of this starter app on the repository's README.md so you have all the instructions.

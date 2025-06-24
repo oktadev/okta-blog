@@ -27,6 +27,8 @@ AngularJS reigned as king of JavaScript MVC frameworks for several years. Howeve
 
 In this article, I'll show you a quick way to get started with Angular, and add user authentication with [Okta's Sign-In Widget](/code/javascript/okta_sign-in_widget). If you're just getting started with Angular, you might want to read my [Angular tutorial](http://gist.asciidoctor.org/?github-mraible%2Fng-demo%2F41d9526dbc0a35131118f7f101938dfe75a0e212%2F%2FREADME.adoc). If you'd like to get the source code used in this article, you can [find it on GitHub](https://github.com/oktadeveloper/okta-angular-sign-in-widget-example).
 
+{% include integrator-org-warning.html %}
+
 ## Why User Authentication with Okta?
 
 Okta provides an API service that allows developers to create, edit, and securely store user accounts and user account data, and connect them with one or multiple applications. We make user account management easier, more secure, and scalable so you can get to production sooner.

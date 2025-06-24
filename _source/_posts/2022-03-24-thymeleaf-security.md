@@ -29,6 +29,8 @@ In this tutorial you will learn how to create a simple Spring WebFlux applicatio
 * Table of Contents
 {:toc}
 
+{% include integrator-org-warning.html %}
+
 ## What is Thymeleaf?
 
 {% img blog/thymeleaf-security/thymeleaf-logo-white.png alt:"Thymeleaf Logo" width:"350" %}{: .pull-right}

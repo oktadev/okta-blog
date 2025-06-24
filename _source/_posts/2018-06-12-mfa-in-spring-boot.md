@@ -23,6 +23,8 @@ The most common factor used in MFA is an email or a text (SMS). This type of MFA
 
 In this tutorial, we are going to show you how easy Okta makes setting up a Spring Boot application with two-factor authentication using SMS.
 
+{% include integrator-org-warning.html %}
+
 ## Why Okta?
 
 Well, we're biased, we know... But, we think Okta makes [identity management](https://developer.okta.com/product/user-management/) easier, more secure, and more scalable than what you're used to. Okta is an API service that allows you to create, edit, and securely store user accounts and user account data, and connect them with one or more applications. Our API enables you to:

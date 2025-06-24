@@ -41,6 +41,8 @@ Neither is IDEAL, but the second is definitely cleaner. It does have the problem
 
 React 16.8.0 introduced a new feature called "Hooks" that allows you to "hook" into other components from inside your React components. No need for wrapping!
 
+{% include integrator-org-warning.html %}
+
 ## Scaffold a React Application
 
 First, you'll scaffold a basic React app using the `create-react-app` package. Instead of installing it globally, you can just use `npx` for it:

@@ -21,6 +21,8 @@ ASP.NET has been around for a long time. When Microsoft introduced ASP.NET MVC, 
 
 You will be using .NET Framework 4.7.1, and you should have the latest version of Visual Studio 2017 installed. Also, you should have Node and npm installed since you will use Angular tools that require Node and npm.
 
+{% include integrator-org-warning.html %}
+
 ## Get Started with ASP.NET MVC
 Create an API using a built-in template within Visual Studio. You'll start from a scratch.
 

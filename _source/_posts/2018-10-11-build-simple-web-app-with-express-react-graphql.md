@@ -21,6 +21,8 @@ GraphQL and React have both become quite popular in the last few years, and it's
 
 GraphQL is a relatively new standard for defining types and querying data, and there are quite a few different implementations of it, both server-side and client-side. Today I'll show you how to use Express to create a GraphQL server, as well as how to create a single-page app in React that uses Apollo's client to query the server.
 
+{% include integrator-org-warning.html %}
+
 ## Create the React App
 
 The quickest way to get started with a React app is to use [Create React App](https://github.com/facebook/create-react-app). If you don't already have Node, Yarn, and Create React App installed, you can run the following commands:

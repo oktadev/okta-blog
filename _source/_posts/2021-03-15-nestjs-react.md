@@ -25,6 +25,8 @@ You will learn how to authenticate a user to React using Okta.  Okta will then i
 
 {% img blog/nestjs-react/app-diagram.png alt:"Application Diagram" width:"800" %}{: .center-image }
 
+{% include integrator-org-warning.html %}
+
 ## Create your Okta Application
 
 To start, you will need a forever-free Okta developer's account.  If you don't have one, you can [sign up here](https://developer.okta.com/developer/signup/).  For this tutorial, you will be creating your application using Okta's new CLI tool.  If you haven't used it before, I highly encourage you to check out [this tutorial](/blog/2020/12/10/introducing-okta-cli) or check out the [official documentation](https://cli.okta.com/).

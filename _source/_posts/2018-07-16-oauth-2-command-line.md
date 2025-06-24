@@ -19,6 +19,8 @@ So you've found yourself writing a command line script and needing to talk to an
 
 In this tutorial, I'll show you how to write a command line script which is able to complete the OAuth exchange all without any copying and pasting long strings! Why? Because it's mildly useful, but most importantly, because it's fun!
 
+{% include integrator-org-warning.html %}
+
 ## Get Started with Okta
 
 We're going to write this sample app to talk to the Okta API, but it should be easily adapted to any OAuth 2.0 service you're using. To get started, [sign up for a free developer account](https://developer.okta.com/signup/), and come back here when you've made your account.

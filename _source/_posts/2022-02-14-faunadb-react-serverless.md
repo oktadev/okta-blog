@@ -23,6 +23,8 @@ In this tutorial, you will learn how to create a new Okta application, a new aut
 
 {% include toc.md %}
 
+{% include integrator-org-warning.html %}
+
 ## Create an OpenID Connect application and authorization server
 
 {% include setup/cli.md type="spa" framework="React" loginRedirectUri="http://localhost:3000/callback" %}

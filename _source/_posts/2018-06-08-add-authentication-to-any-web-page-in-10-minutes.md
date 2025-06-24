@@ -57,6 +57,8 @@ You can also watch this tutorial as a [video on YouTube](https://youtu.be/uPFira
 <iframe width="700" height="394" style="max-width: 100%" src="https://www.youtube.com/embed/uPFirakhBtQ" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 </div>
 
+{% include integrator-org-warning.html %}
+
 ## Create an Okta Account
 
 The first thing you'll need to do is [create a free Okta developer account](https://developer.okta.com/signup/).

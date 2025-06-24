@@ -32,6 +32,8 @@ In addition to having two popular UI frameworks, JHipster also has modules that 
 
 [JHipster](http://www.jhipster.tech) is 🔥, and so are microservices! Follow the instructions in this tutorial to create an API gateway, a blog microservice, and a companion store microservice.
 
+{% include integrator-org-warning.html %}
+
 ## Install JHipster
 
 There are six different ways to [install JHipster](http://www.jhipster.tech/installation/). The first way, [JHipster Online](https://start.jhipster.tech/), doesn't even require you to install anything. It'll generate the application and push it to a GitHub repository for you. While this works nicely, I like to have my example apps in a single repository for easier discoverability.

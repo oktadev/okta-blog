@@ -27,6 +27,8 @@ We'll show examples, including how to integrate with Okta, for each method. Also
 
 {% include toc.md %}
 
+{% include integrator-org-warning.html %}
+
 ## Set up Angular and Okta in a sample project
 
 First we'll set up the base project and Okta resources so you can follow along with the post.

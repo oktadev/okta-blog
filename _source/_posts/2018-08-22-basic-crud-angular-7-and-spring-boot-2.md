@@ -32,6 +32,8 @@ This article describes how to build a simple CRUD application that displays a li
 
 You will need [Java 8](http://www.oracle.com/technetwork/java/javase/downloads/jdk8-downloads-2133151.html) and [Node.js 8+](https://nodejs.org/) installed to complete this tutorial. For Java 10+, you'll need to change the `java.version` property and `jaxb-api` as a dependency. Hat tip to Josh Long's [spring-boot-and-java-10](https://github.com/joshlong/spring-boot-and-java-10) project on GitHub.
 
+{% include integrator-org-warning.html %}
+
 ## Build an API with Spring Boot 2.1
 
 To get started with [Spring Boot](https://projects.spring.io/spring-boot/) 2.1, head on over to [start.spring.io](https://start.spring.io) and create a new project that uses Java, Spring Boot version 2.1.0, and options to create a simple API: JPA, H2, Rest Repositories, Lombok, and Web. In this example, I've added Actuator as well, since it's a [very cool feature](https://dzone.com/articles/spring-boot-actuator-a-complete-guide) of Spring Boot.

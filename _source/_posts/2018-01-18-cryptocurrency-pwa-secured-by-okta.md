@@ -30,6 +30,8 @@ About a month ago, I received an email from Josh advertising his Crypto PWA seri
 You can also see his finished app at <https://cryptopwa.com> and find it [on GitHub](https://github.com/joshuamorony/ionic-crypto-pwa).
 I thought it'd be fun to add authentication to Josh's app and show you how I did it. It wasn't too hard thanks to the fact that Ionic uses Angular and it has excellent OIDC support &mdash; thanks to [Manfred Steyer's](https://twitter.com/manfredsteyer) awesome [angular-oauth2-oidc](https://github.com/manfredsteyer/angular-oauth2-oidc) library.
 
+{% include integrator-org-warning.html %}
+
 ## Setup the Crypto PWA
 
 To begin, clone Josh's finished repository.

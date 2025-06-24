@@ -35,6 +35,8 @@ Kotlin is often considered a "better Java" and often becomes an easy, efficient 
 * Table of Contents
 {:toc}
  
+{% include integrator-org-warning.html %}
+
 ## Build a Ktor Application with Kotlin
  
 As with any web application framework, Ktor provides several libraries and imposes some conventions. Don't worry—it doesn't tell you how to write your code. The conventions are mostly for the HTTP layer and you're free to write other lower layers the way you want. A few of the most notable things include:

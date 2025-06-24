@@ -23,6 +23,8 @@ What is Grails, what is Groovy, and why would we choose them over Spring Boot? I
 
 **Update:** See [part two](/blog/2018/06/04/okta-with-grails-part2) of this series which flushes which adds additional controllers and authorization.
 
+{% include integrator-org-warning.html %}
+
 ## Why Use Grails Over Spring Boot?
 
 If Grails is built on Spring Boot, why not just use that? Good question! The answer depends on your goals and your background (ie, do you already know and love Spring?).

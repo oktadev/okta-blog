@@ -25,6 +25,8 @@ API security can be complex. In many cases, just because you've built an API tha
 * Table of Contents
 {:toc}
   
+{% include integrator-org-warning.html %}
+
 ## Understand the Basic Flow
 
 When handling authentication for a server-to-server API, you really only have two options: HTTP basic auth or OAuth 2.0 client credentials.

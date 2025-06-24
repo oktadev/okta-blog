@@ -23,6 +23,8 @@ Traditionally, the simplest way to do authorization is with a username and passw
 
 The third method for managing authorization is via JSON Web Tokens, or JWTs. JWTs have become the de facto standard over the last few years. A JWT makes a set of claims, (e.g. "I'm Abe Froman, the Sausage King of Chicago") that can be verified. Like Basic Authorization, the claims can be read by anybody. Unlike Basic Auth, however, you wouldn't be sharing your password with anyone listening in. Instead, it's all about trust.
 
+{% include integrator-org-warning.html %}
+
 ## Trust, but Verify... Your JWTs
 {% img blog/node-jwt/it-must-be-true.jpg alt:"it must be true" width:"600" %}{: .center-image }
 

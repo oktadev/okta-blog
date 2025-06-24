@@ -35,6 +35,8 @@ If you'd prefer to watch a video, you can [watch this tutorial as a screencast](
 * Table of Contents
 {:toc}
 
+{% include integrator-org-warning.html %}
+
 ## Install Kotlin and React Project Dependencies
 
 You'll need to install a few things before you get started.

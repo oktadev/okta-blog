@@ -26,6 +26,8 @@ Before we get started, let me tell you what Okta is and why I think Okta is a no
 
 {% include toc.md %}
 
+{% include integrator-org-warning.html %}
+
 ## What is Okta?
 
 Okta is a cloud service that allows developers to create, edit, and securely store user accounts and user account data and connect them with multiple applications. Our API enables you to:

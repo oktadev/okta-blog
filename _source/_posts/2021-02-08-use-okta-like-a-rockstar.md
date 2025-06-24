@@ -59,6 +59,8 @@ Once your export is completed, you should see a downloaded file in Chrome with a
 
 Note that rockstar is able to export more than just users, groups, and apps from Okta. Rockstar can also export other types of data like group members, group rules, directory users, apps, app users, app groups, app notes, network zones, YubiKeys, mappings, admins, and more.
 
+{% include integrator-org-warning.html %}
+
 ## Exporting Apps
 
 For another example of exporting data from Okta using rockstar; here is how you can use rockstar to export a list of your Okta apps. This is useful when you want to have a holistic view of what apps are currently being used, what type of sign-on Method they're using (SAML, OIDC, SWA, etc), and whether the app is active. On a deeper level, you can see what the template of the user name is. 

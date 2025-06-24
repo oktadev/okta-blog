@@ -31,6 +31,8 @@ If you are getting started with .NET MAUI Apps, you can find all the requirement
 
 {% include toc.md %}
 
+{% include integrator-org-warning.html %}
+
 ## Create a new .NET MAUI Application
 
 I will use Visual Studio 2022 for this article, but you can use the .NET CLI or any IDE of your choice.

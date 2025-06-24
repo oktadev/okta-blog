@@ -50,6 +50,8 @@ What you will also need:
 
 Let's get started!
 
+{% include integrator-org-warning.html %}
+
 ## Set Up Your Android App to work With Okta and Gradle
 
 First, clone the [Okta Android sample app repo](https://github.com/okta/okta-oidc-android/blob/master/app/README.md) and open it with Android Studio:

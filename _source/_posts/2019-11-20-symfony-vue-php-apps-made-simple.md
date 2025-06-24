@@ -26,6 +26,8 @@ Vue.js is one of the hottest JavaScript frameworks in the past two years because
 
 If you want to follow this tutorial, you'll need a PHP 7 and Node/npm/yarn development environment. You'll also need a [free Okta account](https://developer.okta.com/signup/).
 
+{% include integrator-org-warning.html %}
+
 ## Single Page App with Symphony and Vue
 
 In this tutorial, you'll build a simple application that allows you to keep track of the count of various items (e.g. the number of times someone says a certain line in a TV show, as you watch it):

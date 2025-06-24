@@ -62,6 +62,8 @@ This tutorial uses the following technologies but doesn't require any prior expe
 - [Okta CLI](https://cli.okta.com/)
 
 
+{% include integrator-org-warning.html %}
+
 ## Initialize authentication with Okta
 
 Dealing with user authentication in web apps can be a massive pain for every developer. This is where Okta shines: it helps you secure your web applications with minimal effort. 

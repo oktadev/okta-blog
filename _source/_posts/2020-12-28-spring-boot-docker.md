@@ -43,6 +43,8 @@ If you'd rather watch a video of this tutorial, check out the screencast below f
 <iframe width="700" height="394" style="max-width: 100%" frameborder="0" src="https://www.youtube.com/embed/ChYIhEEOfrk"  allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 </div>
 
+{% include integrator-org-warning.html %}
+
 ## Bootstrap a Secure Spring Boot Application
 
 Start by creating a Spring Boot application using [Spring Boot Initializr](https://start.spring.io/).

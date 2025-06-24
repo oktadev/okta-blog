@@ -47,7 +47,7 @@ Here is a video walkthrough on creating your SCIM provisioning instance for OIN 
 {% youtube xbX0Kxi9wik %}
 
 **Prerequisites**
-- [Okta Developer Account](https://developer.okta.com/signup/)
+- [Okta Integrator Free Plan](https://developer.okta.com/signup/)
 - Runscope test links (2): [CRUD](https://developer.okta.com/docs/guides/submit-oin-app/scim/main/#runscope-crud-tests) and [SPEC](https://developer.okta.com/docs/guides/scim-provisioning-integration-prepare/main/#test-your-scim-api) tests
 - [Manual Okta SCIM integration tests](https://developer.okta.com/docs/guides/submit-oin-app/scim/main/#manual-okta-scim-integration-tests)
 - Provisioning-enabled instance and confirmation

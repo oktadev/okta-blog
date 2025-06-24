@@ -19,6 +19,8 @@ type: conversion
 Keeping an eye on your daily calorie intake can be crucial to healthy lifestyle. There are a ton of apps on the market that will help you do this, but may be bloated with extra features or just full of ads. The app we'll build today is a bare-bones stand-in for any of those, as a demonstration of these technologies, and a great stand-in if simple calorie tracking is all you really need.
 
 
+{% include integrator-org-warning.html %}
+
 ## Why ASP.NET Core and Vue?
 
 You are probably asking why should we go with Vue if there are trusted, established players like Angular and React. Well, it turns out that Vue is a lot easier to get started with and you don't have to learn JSX or TypeScript, it is simply a pure, vanilla JavaScript. In my opinion, Vue is as fast as React and simpler than original AngularJS (Angular 1). Vue is also a lot less opinionated about the way you approach your code. Furthermore, it's bundle size is much smaller when compared to Angular and React.

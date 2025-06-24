@@ -23,6 +23,8 @@ With the appearance of the graphical OSs, and point-and-click devices, we grew b
 
 While graphical interfaces are very convenient and user-friendly, they are not ideal with repetitive sequences of operations. Modern [DevOps](https://en.wikipedia.org/wiki/DevOps) aims to make faster infrastructure configuration and application deployment. The availability of a tooling system that allows scripting these operations on automated and streamlined workflows is paramount to achieve better performances.
 
+{% include integrator-org-warning.html %}
+
 ### Command-Line? Discover Why
 
 With .NET Core and Azure Microsoft aiming to gain a bigger share in the software development industry, non-Windows operating system's ban policy adopted in the past by the Redmond giant gave way to a new era where different mainstream operating systems and devices (like Linux, macOS, iOS and Android) are embraced as allied, instead of fought against as competitors in the software business.

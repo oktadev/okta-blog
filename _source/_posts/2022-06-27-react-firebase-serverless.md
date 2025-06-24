@@ -33,6 +33,8 @@ If you wish, you can follow along with the [GitHub repository found here](https:
 
 {% include toc.md %}
 
+{% include integrator-org-warning.html %}
+
 ## Add authentication using OIDC
 
 {% include setup/cli.md type="spa" framework="React" loginRedirectUri="http://localhost:3000/login/callback" %}

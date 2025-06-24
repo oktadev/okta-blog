@@ -25,6 +25,8 @@ In this tutorial, we'll be using the Microsoft OAuth 2.0 User Agent library. Thi
 
 OAuth 2.0 authorization requires an OAuth provider. Fun fact: OAuth stands for **O**pen **Auth**orization. OpenID Connect is an authentication layer built on top of OAuth, which was only designed for authorization. Both are open standards and not implementations, so to actually use OAuth 2.0 and OIDC, you need an implementation. The OAuth server implementation you'll be using in this tutorial is provided by Okta, a software-as-service identity management provider. 
 
+{% include integrator-org-warning.html %}
+
 ## Requirements for Your JavaFX Application
 
 There are two requirements for this tutorial. First, you have to use **Oracle Java 8**, not a Java version greater than 8 and not OpenJDK. The Microsoft OAuth 2.0 User Agent library actually has a hard-coded requirement check in its code for this. Why? OpenJDK does not include JavaFX, which the Microsoft User Agent requires, and Oracle JDK only includes JavaFX up to Java 8. (Technically, you could use an earlier version. Don't.)

@@ -28,6 +28,8 @@ There are a couple of things you'll need to work through this tutorial.
 
 Let's get started!
 
+{% include integrator-org-warning.html %}
+
 ## Create an ASP.NET Web API 2 Project
 
 In Visual Studio...

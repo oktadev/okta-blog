@@ -21,6 +21,8 @@ In this post, you will learn how to build a simple REST API using Eclipse MicroP
 
 That was a lot of jargon. Let's define a few of the terms (and introduce a few more!). 
 
+{% include integrator-org-warning.html %}
+
 ## What is Eclipse MicroProfile?
 
 It's an Enterprise Java platform for developing microservices that port across different runtimes. The current version at the time of writing this is 2.2, but the project is under active development; Eclipse MicroProfile 3.0 was released just a few weeks ago! Some of its key technologies are Java EE, JAX-RS, CDI, and JSON-P. 

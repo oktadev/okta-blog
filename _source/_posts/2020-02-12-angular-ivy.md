@@ -37,6 +37,8 @@ In this tutorial, I'll show you how to upgrade an existing application from Angu
 * Table of Contents
 {:toc}
 
+{% include integrator-org-warning.html %}
+
 ## Install the Angular Material Tic-Tac-Toe Game
 
 For this tutorial, I will assume that you have some knowledge of TypeScript and Angular and that you have Git and Node 10.13+ installed on your system. 

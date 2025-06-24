@@ -25,6 +25,8 @@ There are different authentication flows in OAuth 2.0, depending on if the clien
 * Table of Contents
 {:toc}
   
+{% include integrator-org-warning.html %}
+
 ## Create the PHP Project Skeleton for Your REST API
 
 We'll start by creating a `/src` directory and a simple `composer.json` file in the top directory with just one dependency (for now): the DotEnv library which will allow us to keep our Okta authentication details in a `.env` file outside our code repository:

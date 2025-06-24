@@ -23,6 +23,8 @@ And if you've done much work with web apps, you also probably know how hard it c
 
 In this tutorial, I'll show you how to create a React app that uses Redux for state management, how to secure your application using Okta, and how to decode the JWT in the client to make authorization decisions without relying on another call to the server. You'll be able to use the token's payload in order to determine what type of access to permit to a user. For this app, I'll just have you build a search bar for a set of users.
 
+{% include integrator-org-warning.html %}
+
 ## What is Redux?
 
 Redux is a state management tool that helps keep your app organized. While it can be used on its own or with another view library, it's quite commonly used with React. You might not need it in your app, and there are some downsides to using it, but it also has many advantages. It would be worth weighing the pros and cons before deciding on using it for your app.

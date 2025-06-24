@@ -21,6 +21,8 @@ JSON Web Tokens have quickly become the standard for securing web applications, 
 
 JSON Web Tokens are an open standard, and there are various libraries available that allow the creation, verification, and inspection of JWTs. You're going to be using [Java JWT](https://github.com/jwtk/jjwt) (a.k.a., JJWT), a Java library that provides end-to-end JWT creation and verification. JJWT was created by [Les Hazlewood](https://twitter.com/lhazlewood), lead committer to Apache Shiro, former co-founder, and CTO at Stormpath, and currently Okta's very own Senior Architect. It's open source under the Apache 2.0 License.
 
+{% include integrator-org-warning.html %}
+
 ## Understand JWTs and their Role in Authentication
 
 Let's first examine what `authentication` and `token` mean in this context.

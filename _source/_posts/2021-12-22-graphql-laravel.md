@@ -17,6 +17,8 @@ GraphQL's popularity has grown among frontend and backend developers alike. It a
 
 In this tutorial, you will learn how to set up a GraphQL API with Laravel, a free open-source PHP web application framework. You'll then secure the API so that it's only accessible to authorized users logging in with Okta.
 
+{% include integrator-org-warning.html %}
+
 ## Building the project
 
 The recommended way to create a new Laravel project is to use Laravel Sail, a command-line interface designed for Laravel's Docker environment. First, create a directory to hold both sets of code for this project—one set for the backend and one for the frontend. Make sure you have the latest versions of Docker and Docker Compose set up as well. If you need help, check [Docker's guide](https://docs.docker.com/get-started/) as well as the documentation for [Docker Compose](https://docs.docker.com/compose/install/).

@@ -25,6 +25,8 @@ In the software industry, a new type of figure has emerged and is gaining more a
 
 In this post, you'll put on your DevOps suit and set up a CI/CD automation solution!
 
+{% include integrator-org-warning.html %}
+
 ## The Application
 
 You are going to start by using [this already existing ASP.NET Core MVC Web application](https://github.com/okta/samples-aspnetcore/tree/master/samples-aspnetcore-3x/okta-hosted-login). This post is not about the application itself though, so here I will only refer to some aspects that are needed to complete the topic. You can find more information in GitHub and in the Okta developers' blog.

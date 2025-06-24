@@ -26,6 +26,8 @@ There are plenty of options to deploy Spring Boot applications. In this article.
 
 We will use a simple application to demonstrate deployment for each of the options. 
 
+{% include integrator-org-warning.html %}
+
 ## Build Your Spring Boot Sample App
 
 I've created a [very simple Spring Boot application](https://github.com/oktadeveloper/okta-spring-boot-deploy) you can download from GitHub. The app consists of a single controller and a small form to submit. So, clone the repository, build and run it:

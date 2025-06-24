@@ -31,6 +31,8 @@ I do a bit of consulting work myself and will be using this in the future. =)
 {% img blog/node-invoicing-service/crypto-invoicer.png alt:"Crypto Invoicer" width:"620" %}{: .center-image }
 
 
+{% include integrator-org-warning.html %}
+
 ## Get Started with Coinbase, Okta, and Node.js
 
 Before I walk you through building the application, there are a few things you'll need to do.

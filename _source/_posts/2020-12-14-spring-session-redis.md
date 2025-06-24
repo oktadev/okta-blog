@@ -40,6 +40,8 @@ You can also [watch a video of this tutorial](https://youtu.be/3kGrkVUZ_Fo).
 
 {% youtube 3kGrkVUZ_Fo %}
 
+{% include integrator-org-warning.html %}
+
 ## Build a Microservices Architecture with Spring Session and Redis
 
 Let's start by building a microservices architecture. With JHipster and [JHipster Domain Languange](https://www.jhipster.tech/jdl/getting-started#deployments) (JDL) you can generate a microservices architecture from a file that describes the applications and entities.

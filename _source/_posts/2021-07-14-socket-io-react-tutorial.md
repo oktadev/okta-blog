@@ -43,6 +43,8 @@ If you would rather follow along by watching a video, check out the screencast b
 
 {% youtube 449z_p6rkP8 %}
 
+{% include integrator-org-warning.html %}
+
 ## Create a Chat Server with Express and Socket.IO
 
 I will start by showing you how to implement the server. In a folder of your choice, open a terminal. Execute the following command to create a chat server project.

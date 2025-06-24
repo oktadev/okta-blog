@@ -45,6 +45,8 @@ If you'd prefer to watch a video, you can [watch this tutorial as a screencast](
 <iframe width="700" height="394" style="max-width: 100%" src="https://www.youtube.com/embed/T5a5nmbV_g4" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 </div>
 
+{% include integrator-org-warning.html %}
+
 ## Install Gatsby CLI
 
 To create a Gatsby site, you'll need to install the Gatsby CLI. This tool gets you up and running with a Gatsby app in no time. It also runs a development server and builds your Gatsby application for production.

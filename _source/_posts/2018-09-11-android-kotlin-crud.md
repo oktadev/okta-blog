@@ -25,6 +25,8 @@ Here is the [complete code](https://github.com/oktadeveloper/okta-android-kotlin
 
 Before we start, let's talk a bit about Kotlin.
 
+{% include integrator-org-warning.html %}
+
 ## Kotlin vs Java
 
 Kotlin looks strange to newcomers. It resembles other languages you may have seen but some things look off, often because it is so concise!

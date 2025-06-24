@@ -26,6 +26,8 @@ Token authentication is the hottest way to authenticate users to your web applic
 {:toc}
 
 
+{% include integrator-org-warning.html %}
+
 ## What Is Token Authentication?
 
 Token authentication is a way to authenticate users into an application using a temporary token (typically a JSON Web Token) instead of actual credentials.

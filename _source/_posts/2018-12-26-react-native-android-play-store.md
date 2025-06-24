@@ -26,6 +26,8 @@ This is what the eventual app will look like:
 
 For this tutorial, I checked out Karan Goel's [Mega Project List](https://github.com/karan/Projects#mega-project-list) for project inspiration. You'll be building the **Prime Factorization** problem which takes a number and returns its prime factors.
 
+{% include integrator-org-warning.html %}
+
 ## Determine Interface Theming for Your React Native App
 Outside of application logic, UI and theming decisions are some of the most important that you'll make for your app This includes the controls like dropdowns and buttons, as well as the layout on the screen. Since we are using a React-based technology, we're going to use [Styled Components](https://www.styled-components.com/) which is a popular, light-weight approach to theming React applications (and it also [works great on React Native](https://www.styled-components.com/docs/basics#react-native)). There's an [entire page](https://github.com/styled-components/awesome-styled-components#built-with-styled-components) listing components and component-systems based on Styled Components. In this tutorial, you'll be using Styled Components to build up components yourself.
 

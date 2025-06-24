@@ -17,6 +17,7 @@ type: conversion
 changelog:
 - 2019-02-26: Fixed Spanish translation and simplified `Locale` resolution in `LoginController`. Thanks to [Daniel Fern&aacute;ndez](https://twitter.com/danfenz/status/1100322287386062849) and [Sam Brannen](https://twitter.com/sam_brannen/status/1100339463329333250) for their help. You can see the example app changes in [okta-java-i18n-example#1](https://github.com/oktadeveloper/okta-java-i18n-example/pull/1); changes to this post can be viewed in [okta.github.io#2740](https://github.com/oktadeveloper/okta.github.io/pull/2740).
 ---
+
 :page-liquid:
 
 What are i18n and l10n? Internationalization (i18n) is the process of making your application _capable_ of rendering its text in multiple languages. Localization (l10n) means your application has been coded in such a way that it meets language, cultural, or other requirements of a particular locale. These requirements can include formats for date, time, and currency, as well as symbols, icons, and colors, among many other things. i18n enables l10n.
@@ -24,6 +25,8 @@ What are i18n and l10n? Internationalization (i18n) is the process of making you
 Why is i18n and l10n important? Because you want to make your app accessible to as many users as possible! If you're a native English speaker, you're spoiled because English is currently the language of business, and many apps offer an English translation. Internationalizing your Java app is relatively straightforward, thanks to built-in mechanisms. Same goes for Spring Boot - it's there by default!
 
 This tutorial will show you how to internationalize a simple Java app, a Spring Boot app with Thymeleaf, and a JavaScript Widget.
+
+{% include integrator-org-warning.html %}
 
 If you'd rather watch a video, https://youtu.be/nw4X42CefbI[I created a screencast of this tutorial].
 

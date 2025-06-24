@@ -23,6 +23,8 @@ In the Java world, there are two main build systems: Gradle and Maven.  A build 
 * Table of Contents
 {:toc}
 
+{% include integrator-org-warning.html %}
+
 ## Pros and Cons of Building with Gradle
 
 I personally love Gradle; I hate XML and spent several years working on a large, complex Java/Groovy project that would have been impossible without Gradle. Aside from the lack of XML, Gradle offers flexibility and build speed, using build files written in Groovy or Kotlin. 

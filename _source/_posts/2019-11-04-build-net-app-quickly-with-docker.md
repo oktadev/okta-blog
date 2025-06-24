@@ -31,6 +31,8 @@ For this post, we'll build a CRUD application that uses ASP.NET MVC and Entity F
 - [An Okta Developer account](https://developer.okta.com/)
 - [Git for Windows](https://git-scm.com/downloads)
 
+{% include integrator-org-warning.html %}
+
 ## Build a .Net Framework Application
 
 To help you get started quickly, I've added some sample code to a Git repo. Clone by entering this in your command line:

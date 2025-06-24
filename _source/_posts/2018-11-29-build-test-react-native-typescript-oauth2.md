@@ -23,6 +23,8 @@ One requirement of many mobile apps is authentication (aka authn - confirming us
 
 In this tutorial you'll create an empty React Native project, add OAuth capabilities with [React Native App Auth](https://github.com/FormidableLabs/react-native-app-auth), port the project over to TypeScript, and finally add testing using the [React Test Renderer](https://reactjs.org/docs/test-renderer.html).
 
+{% include integrator-org-warning.html %}
+
 ## Create a React Native Project
 
 The latest version of the [official getting started guide](https://facebook.github.io/react-native/docs/getting-started.html) recommends using [Expo](https://expo.io/) to create initial projects, but I found Expo to be quirky to setup. The old way is using the command-line tool (CLI). Check out the **Building Projects with Native Code** tab in the aforementioned guide to get details of setting this up.

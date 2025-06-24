@@ -18,6 +18,7 @@ type: conversion
 changelog:
 - 2021-04-20: Updated code for `RestTemplate` so there are no thread-safety issues between clients. See [okta-blog#773](https://github.com/oktadeveloper/okta-blog/pull/773) to see what changed. Changes to the example app can be viewed in [okta-spring-microservices-https-example#1](https://github.com/oktadeveloper/okta-spring-microservices-https-example/pull/1).
 ---
+
 :page-liquid:
 :toc: macro
 
@@ -26,6 +27,8 @@ Building a microservices architecture is possible with minimal code if you use S
 But what happens if someone accidentally exposes the ports of your microservice apps? Will they still be secure or can anyone access their data?
 
 In this post, I'll show you how to use HTTPS and OAuth 2.0 to secure service-to-service communication.
+
+{% include integrator-org-warning.html %}
 
 toc::[]
 

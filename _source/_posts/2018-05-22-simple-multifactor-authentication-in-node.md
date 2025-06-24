@@ -26,6 +26,8 @@ This is where multi-factor authentication (MFA) comes into play. By adding an ex
 
 To simplify, we will use Okta to add basic authentication and MFA. Before we dive in, I'd like to give you a quick overview of what Okta does and how it can simplify the development process while ensuring best-in-class security for both you and your users.
 
+{% include integrator-org-warning.html %}
+
 ## What is Okta?
 
 Okta is a cloud service that allows developers to create, edit, and securely store user accounts and user account data and connect them with multiple applications. Our API enables you to:

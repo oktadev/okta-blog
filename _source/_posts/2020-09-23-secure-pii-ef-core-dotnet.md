@@ -28,6 +28,8 @@ To continue you will need:
 - [.NET Core 3.1 SDK](https://dotnet.microsoft.com/download/dotnet-core)
 - An [Okta Developer account](https://developer.okta.com/) (free forever, to handle your OAuth needs)
 
+{% include integrator-org-warning.html %}
+
 ## Create an ASP.NET Core MVC Web App with Entity Framework Core
 
 Let's build a web app for tracking personal expenses. Fire up Visual Studio and create a new project by clicking **File>New Project** select **ASP.NET Core Web Application**, and click **Next**. Name the app *ExpenseTracker* and click **Create**. On the next window, select **Web Application (Model-View-Controller)**. As we need to create and store user accounts, click **Change** under *Authentication* on the right side of the window, select **Individual User Accounts** and click **OK**. Now, click **Create** and Visual Studio will create a new web project with Entity Framework Core and ASP.NET Core Identity.

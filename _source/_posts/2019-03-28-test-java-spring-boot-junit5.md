@@ -29,6 +29,8 @@ The main advantage of using the Spring Framework is the ability to inject your d
 * Table of Contents
 {:toc}
  
+{% include integrator-org-warning.html %}
+
 ## Create a Spring Boot App for Testing with JUnit 5
 
 For this tutorial, the structure of the project is as shown below. I will only discuss the file names, but you can find their path using the below structure, looking through the full source, or paying attention to the package.

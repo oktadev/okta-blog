@@ -21,6 +21,8 @@ If you haven't heard of PostgreSQL (often called Postgres), today's your lucky d
 
 Specifically, I'm going to walk you through building an API that will keep track of movies you own (or have access to) via various sources (such as DVDs and Netflix). You'll then be able to query this API to see what app (or cupboard?) you need to open to access the movie you feel like watching. By the end of this post, you'll learn how to build this API using Node and Postgres, and how to secure your API using OAuth 2.
 
+{% include integrator-org-warning.html %}
+
 ## Set Up Your Node + Postgres Dependencies
 
 For this tutorial, I'm using Node 10.5.3. You'll probably be fine if you're on a later version, or even on Node 8, but if you're running 0.12 you might run into some issues. If you don't have Node installed yet, the easiest way is to use [NVM](https://github.com/creationix/nvm), which lets you install multiple versions simultaneously, and makes upgrading to the latest version as simple as `nvm install node`. If you don't have Node or NVM installed, use the following command to install NVM:

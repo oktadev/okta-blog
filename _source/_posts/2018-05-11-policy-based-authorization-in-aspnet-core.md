@@ -21,6 +21,8 @@ If you've built a web or mobile app before, you know that even without these cha
 
 _Just getting started with authentication in ASP.NET Core? Check out our [quick start documentation](/quickstart/#/okta-sign-in-page/dotnet/aspnetcore)!_
 
+{% include integrator-org-warning.html %}
+
 ## Why Okta?
 
 Before we dig into building our project, I want to tell you a little more about why Okta is the right choice for your ASP.NET Core app. Okta is an API service that allows developers to create, edit, and securely store user accounts and user account data, and connect them with one or multiple applications. Our API enables you to:

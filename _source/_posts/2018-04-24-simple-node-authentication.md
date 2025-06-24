@@ -19,6 +19,8 @@ Authenticating users for Node.js/Express.js web apps can be difficult. You have 
 
 Using Okta's API service, however, you can easily register and log in users to your Node website using our OpenID Connect integration.
 
+{% include integrator-org-warning.html %}
+
 ## Set Up Your Node Environment
 
 If you're new to Node and don't already have it installed, you'll need to do that first. To keep things simple, let's assume a \*nix-based environment (e.g. Mac, \*nix, or [Linux on Windows](https://docs.microsoft.com/en-us/windows/wsl/about)).

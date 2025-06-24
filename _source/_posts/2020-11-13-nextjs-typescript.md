@@ -30,6 +30,8 @@ Finally, you will secure your application with Okta Single Sign-On and the built
 * Table of Contents
 {:toc}
 
+{% include integrator-org-warning.html %}
+
 ## Create a Next.js Application with TypeScript
 
 Open your favorite IDE. For this tutorial, I used Visual Studio Code. Navigate to the folder where you wish to keep your application. Next, use the `create-next-app` task runner by using the command `npx create-next-app` and follow the instructions. When prompted, name your application `movies`. After the runner is complete, open the folder it created for you.

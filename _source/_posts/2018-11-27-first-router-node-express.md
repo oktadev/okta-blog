@@ -23,6 +23,8 @@ One of the key features in Express is the ability to create routes. An infinite 
 
 In this tutorial, I'll walk you through creating a server and teach you all you need to know about routes in Express.
 
+{% include integrator-org-warning.html %}
+
 ## What is a Route in Express?
 
 Routes determine what data should be delivered given any URL. Let's take the most basic file server as an example. Say you have a file structure of:

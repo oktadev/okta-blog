@@ -28,6 +28,8 @@ As good as it might be, Express does show some signs of old age:
 
 Even though Express and Koa do almost the same thing and share the same author, they have  different approaches to how middleware and routing are handled.  You can think of Koa.js as a new and improved Express.
 
+{% include integrator-org-warning.html %}
+
 ## Build a Sample App with Koa.js
 
 To get better acquainted with Koa, you'll make a web app called FamiliarFaces. It will allow users to upload photos of faces and then recognize those faces on other photos. It might seem hard at first glance, but actually, all you need is:

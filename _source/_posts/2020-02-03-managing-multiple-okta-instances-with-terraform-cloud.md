@@ -27,6 +27,8 @@ In this post, you'll learn how to manage multiple Okta instances using [Terrafor
 
 {% include toc.md %}
 
+{% include integrator-org-warning.html %}
+
 ## Use Terraform to Manage Okta State
 
 You have many options when it comes to picking a solution in the configuration management space: Chef, Puppet, Ansible, Salt, etc. Throughout this post, you'll be working with Terraform as it sits in the [sweet spot between orchestration and automation](https://www.okta.com/blog/2019/08/better-together-using-the-okta-integration-with-hashicorp-terraform/).

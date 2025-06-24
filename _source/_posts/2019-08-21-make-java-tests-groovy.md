@@ -22,6 +22,8 @@ Groovy is an optionally typed dynamic language for the JVM, and can be compiled 
 
 Groovy is a great language for writing tests because it is close enough to the Java syntax that your typical Java developer can pick it up right away (unlike other JVM languages). It is **MUCH** less verbose then it's older cousin, you can access private and protected elements from your tests (more on that below), and the sugar!
 
+{% include integrator-org-warning.html %}
+
 ## Pour Some Sugar On Me
 
 Syntactic sugar is syntax that makes code easier to read and comprehend; and Groovy is sweet! Writing clear, succinct code saves time when writing tests and doubly so when maintaining them.

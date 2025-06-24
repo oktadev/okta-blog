@@ -21,6 +21,8 @@ Ever found yourself wanting to put an application behind a login form, but dread
 
 **Tip:** If you want to add login (and URL based authorization) to more apps via a UI, integrate with more complex apps like Oracle or SAP, or replace legacy Single Sign-On on-prem, check the [Okta Access Gateway](https://www.okta.com/products/access-gateway/).
 
+{% include integrator-org-warning.html %}
+
 ## Why Authenticate at the Web Server?
 
 Imagine you use nginx to run a small private wiki for your team. At first, you probably start out with adding a wiki user account for each person. It's not too bad, adding new accounts for new hires, and removing them when they leave.
