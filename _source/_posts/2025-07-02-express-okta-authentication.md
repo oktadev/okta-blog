@@ -3,7 +3,7 @@ layout: blog_post
 title: "How to Build a Secure Expense Dashboard with Express and Okta"
 author: akanksha-bhasin 
 by: advocate
-communities: [devops,security,mobile,.net,java,javascript,go,php,python,ruby]
+communities: [security,javascript,go,python,mobile,java]
 description: "Build a secure expense dashboard using Express, Okta, and Passport with custom claims"
 tags: [okta, express, node, passport, oidc, oauth, javascript]
 image: blog/express-okta-authentication/express-okta-authentication-social-image.jpeg
@@ -19,7 +19,7 @@ Every web application needs authentication, but building it yourself is risky an
 
 ## Why use Okta for authentication 
 
-Building an authentication system and handling credentials, sessions, and tokens are highly insecure and exposes your application to serious vulnerabilities.
+Building an authentication system and handling credentials, sessions, and tokens is highly insecure and exposes your application to serious vulnerabilities.
 
 Okta provides a secure, scalable, and standards-based solution using OpenID Connect (OIDC) and OAuth 2.0. It also integrates seamlessly with Node.js and Passport, supports passwordless login FIDO2 (WebAuthn), and allows you to customise ID tokens with team-specific claims.
 
@@ -27,7 +27,7 @@ With Okta, you can easily implement modern authentication features and focus on 
 
 ##  Team-based expense dashboard using Express and Okta 
 
-For any growing organization, tracking expenses by team isn't just helpful, it's essential. Let's build an expense dashboard where users log in with Okta and view spending data. Whether Finance, Marketing or Support, each team sees a scoped view of expenses tied to their role. The users get clear visibility into what's being spent, by whom, and why.
+For any growing organization, tracking expenses by team isn't just helpful, it's essential. Let's build an expense dashboard where users log in with Okta and view spending data. Whether in Finance, Marketing or Support, each team sees a scoped view of expenses tied to their role. The users get clear visibility into what's being spent, by whom, and why.
 
 Managers get transparency into their team's spending. At the same time, admins maintain a secure, centralized overview across all teams to track budgets, spending patterns, and ensure accountability, all without the headache of building authentication and security from scratch.
 
@@ -120,13 +120,13 @@ You'll get these values from your Okta dashboard in the next step.
 
    * **Assignments:** Allow everyone in your organisation to access.
 
-6. Once the app is created, under the general tab and copy the **Client ID**, **Client Secret**, and **Okta Domain** to your `.env` file.
+6. Once the app is created, under the General tab, copy the **Client ID**, **Client Secret**, and **Okta Domain** to your `.env` file.
 
 ## Set up passwordless login
 
 Add the FIDO2 (WebAuthn) authenticator in Okta to enable passwordless login and follow the [Okta documentation](https://help.okta.com/oie/en-us/content/topics/identity-engine/authenticators/configure-webauthn.htm) for complete enrollment and policy configuration instructions.
 
->  **Note:** When logging in for the first time, make sure you, as the admin, and all assigned users enroll in FIDO authentication. To simplify this process, you can create a user group containing all team members and assign it to the Web App. The group can then be included in your enrollment policy, which you can customize as needed.
+>  **Note:** When logging in for the first time, make sure you, as the admin, and all assigned users enroll in FIDO authentication. To simplify this process, you can create a user group containing all team members and assign it to the Web App. Then include the group in your enrollment policy, which you can customize as needed.
 
 ## Set up access policies
 
@@ -139,13 +139,13 @@ The most interesting part is to create and include custom attributes from the us
 >  **Note:** Avoid overloading ID tokens with too many custom claims. ID tokens should remain compact and efficient. Including unnecessary or excessive data can bloat the token and lead to performance issues.
 
 1. **Add custom attributes to the Okta user profile**   
-   1. First, create the custom `department` attribute in your Okta user profile. Navigate to **Directory \> Profile Editor**. Click the application's user profile that you created earlier. (For eg. *My Web App User* in our case)   
+   1. Create the custom `department` attribute in your Okta user profile. Navigate to **Directory \> Profile Editor**. Click the application's user profile that you created earlier. (For eg. *My Web App User* in our case)   
    2. Click **Add attribute**, mention **Data type** as "string", **Display name** as "department" and **Variable name** as "department" and click save.  
 
 2. **Map the Custom Attribute to Your Application**  
    Next, **map** this new `department` attribute from the Okta user profile to your specific application's user profile.  
    1. Under the Attributes section, click **Mappings.** Select **Okta User to \[Your App Name\].**   
-   2. Locate the department string, enter "**user.departmen**t" as the value, click the arrow dropdown, select "**Apply mapping on user create and update**," and then click **Save Mappings**.
+   2. Locate the department string, enter "**user.department**" as the value, click the arrow dropdown, select "**Apply mapping on user create and update**," and then click **Save Mappings**.
 
 3. **Assign Departments to Users**   
    1. Go to **Directory** \> **People**   
@@ -156,7 +156,7 @@ The most interesting part is to create and include custom attributes from the us
 4. **Configuring Custom Claim**   
 1. Navigate to **Security \> API \> Authorization Servers**. Create a custom claim and configure the claim with the following details:   
    1. **Name**: `department`  
-   2. **Include in token type**: Select `ID Token` and Select `Always`.  
+   2. **Include in token type**: Select `ID Token` and select `Always`.  
    3. **Value type**: Select `Expression` from the dropdown.  
    4. **Value**: Enter `appuser.department` in the field.  
       **Note:** Since you mapped the Okta User Profile to the App User Profile in the mapping section, use `appuser.department` as the expression.  
@@ -209,7 +209,7 @@ app.listen(3000, () => {
 
 ### Create an auth.js file
 
-The authentication logic is kept in a separate file, `auth.js`, to keep your server organised and maintainable. This file configures Passport to use the passport-openidconnect strategy, which connects your app to Okta's OIDC implementation. 
+The authentication logic is kept in a separate file, `auth.js`, to keep your server organized and maintainable. This file configures Passport to use the passport-openidconnect strategy, which connects your app to Okta's OIDC implementation. 
 
 ```javascript
 import passport from "passport";
@@ -281,7 +281,7 @@ export default setupOIDC;
 
 Now things start to come together and feel like a real app. This is where we define all the important routes, from login and logout to viewing your profile, the expense dashboard, and individual team pages. The `routes.js` file handles the core logic for these endpoints, including checking if a user is authenticated before letting them access protected pages.
 
-It's essentially the traffic controller of our app, making sure users are sent to the right pages and that only logged-in users can see sensitive information like the expense dashboard or group details. This keeps our app organized and secure, setting the foundation for a smooth user experience. 
+It acts as the traffic controller of our app, directing users to the right pages and ensuring that only logged-in users can view sensitive information like the expense dashboard or group details. This structure keeps our app organized and secure, and lays the foundation for a smooth user experience.
 
 ```javascript
 import express from "express";
@@ -472,9 +472,8 @@ Create a folder named `views`, then add the following EJS files:
 ```
 
 **expenses.ejs**
-
-This is the view template that displays the expenses for a selected team in a table format.   
-This is the EJS template used to render the team expenses view. It receives the team info and expense data from the server and displays it in a table.
+  
+This is the EJS template used to render the team expenses view. It receives the team info and expense data from the server and displays it in a tabular format.
 
 ```javascript
 <h1><%= team.label %></h1>
@@ -580,13 +579,13 @@ Here's a quick rundown of the features I used in this project to build a secure 
 
 * **OpenID Connect (OIDC)** is an identity and authentication layer built on OAuth 2.0.
 
-* **Authorization Code Flow** which is the most secure flow for server-side web apps.
+* **Authorization Code Flow**, which is the most secure flow for server-side web apps.
 
 * **Custom claim in the tokens**, fetching departments (e.g. Marketing, Finance & Support Teams).
 
 And that's it\! You've now built a secure Expense Dashboard and connected your Express application to Okta using OpenID Connect (OIDC) and Passport, layered in FIDO2 (WebAuthn) for modern, passwordless login using passkeys and flexible, team-specific authorization with custom claims. 
 
-**If you'd like to explore the full project or skip setting it up from scratch, check out the complete source code on GitHub.**
+**If you'd like to explore the full project and skip setting it up from scratch, check out the complete source code on GitHub.**
 
 ## Learn more\!
 
