@@ -13,7 +13,7 @@ type: awareness
 
 Every web application needs authentication, but building it yourself is risky and time-consuming. Instead of starting from scratch, you can integrate Okta to manage user identity and use Passport with Express to simplify and secure the login flow. In this tutorial, you'll build a secure, passwordless, role-based expense dashboard where users can view their expenses tailored to their team.
 
-Check out the complete source code on Github to explore the full project and skip setting it up from scratch.
+Check out the complete source code on Github and get started without setting it up from scratch. 
 
 **Table of Contents**{: .hide }
 * Table of Contents
@@ -21,7 +21,7 @@ Check out the complete source code on Github to explore the full project and ski
 
 ## Why use Okta for authentication 
 
-Building an authentication system and handling credentials, sessions, and tokens is highly insecure and exposes your application to serious vulnerabilities.
+Building an authentication system and handling credentials, sessions, and tokens is highly insecure and expose your application to serious vulnerabilities.
 
 Okta provides a secure, scalable, and standards-based solution using OpenID Connect (OIDC) and OAuth 2.0. It also integrates seamlessly with Node.js and Passport, supports passwordless login FIDO2 (WebAuthn), and allows you to customise ID tokens with team-specific claims.
 
@@ -53,7 +53,7 @@ Initialize a new Node.js project:
 
 Install the required packages:
 
-`npm install express passport passport-openidconnect jsonwebtoken express-session dotenv ejs express-ejs-layouts`
+`npm install express passport openid-client@5 jsonwebtoken express-session dotenv ejs express-ejs-layouts`
 
 Now, install the development dependencies:
 
@@ -67,7 +67,7 @@ These installed packages become your Express project's dependencies.
 
 * **`passport`**: Provides a flexible authentication framework
 
-* **`passport-openidconnect`**: Adds OpenID Connect strategy support to Passport
+* **`openid-client`**: A server-side OpenID Relying Party implementation for Node.js runtime, including PKCE support
 
 * **`jsonwebtoken`**:  Enables decoding JSON Web Tokens (JWT) to extract user claims
 
@@ -120,7 +120,10 @@ You'll get these values from your Okta Admin Console in the next step.
 
    * **Assignments:** Allow everyone in your organization to access.
 
-6. Once the OIDC app is created, under the General tab, copy the **Client ID**, **Client Secret**, and **Okta Domain** to your `.env` file.
+6. After creating the app, click the edit button under Client Credentials and enable **Require PKCE as additional verification**.
+
+
+7. Copy the **Client ID**, **Client Secret**, and **Okta Domain** and add them to your `.env` file.
 
 ## Set up passwordless login using FIDO2 with Okta
 
@@ -150,7 +153,7 @@ The most interesting part is to create and include custom attributes from the us
 3. **Assign Departments to Users**   
    1. Go to **Directory** \> **People**   
    2. Select a user from the list and click **Profile**.   
-   3. Set the **`department`** attribute field to the user's team (e.g., **`Finance`**,  **`Marketing`**,  **`Support`**) and **`all`** if the user is an admin.  
+   3. Set the **department** attribute field to the user's team (e.g., **`Finance`**,  **`Marketing`**,  **`Support`**) and **`all`** if the user is an admin.  
    **Note:** Ensure you update the department for all user profiles associated with different teams. Also, replace the placeholder team names in the .env file with the team names you want. 
 
 4. **Configuring Custom Claim in the ID Token**   
@@ -176,8 +179,7 @@ Create an `index.js` file in your project root. This serves as the main entry po
 ```javascript
 import express from 'express';
 import session from 'express-session';
-import passport from 'passport';
-import setupOIDC from './auth.js';
+import passport from 'passport'; 
 import routes from './routes.js';
 import expressLayouts from 'express-ejs-layouts';
 
@@ -197,7 +199,13 @@ app.use(session({
 app.use(passport.initialize());
 app.use(passport.session());
 
-setupOIDC();
+passport.serializeUser(function (user, done) {
+  done(null, user);
+});
+
+passport.deserializeUser(function (obj, done) {
+  done(null, obj);
+});
 
 app.use('/', routes);
 
@@ -208,72 +216,141 @@ app.listen(3000, () => {
 
 ### Create an auth file
 
-The authentication logic is kept in a separate file, `auth.js`, to keep your server organized and maintainable. This file configures Passport to use the [passport-openidconnect](https://www.passportjs.org/packages/passport-openidconnect) strategy, which connects your app to Okta's OIDC implementation. 
+The authentication logic is kept in a separate file, `auth.js`, to keep your server organized and maintainable. This file manages OpenID Connect authentication with [openid-client](https://www.passportjs.org/packages/openid-client), including PKCE support. It sets up the OIDC client, handles login and logout, processes callbacks, and provides middleware to protect routes.
+
 
 ```javascript
-import passport from "passport";
-import { Strategy as OIDCStrategy } from "passport-openidconnect";
+import { Issuer, generators } from "openid-client";
 import jwt from "jsonwebtoken";
 import "dotenv/config";
 
 const ALL_TEAMS_NAME = process.env.ALL_TEAMS_NAME;
 
-function setupOIDC() {
-  passport.use(
-    "oidc",
-    new OIDCStrategy(
-      {
-        issuer: process.env.OKTA_ISSUER,
-        authorizationURL: `${process.env.OKTA_ISSUER}/v1/authorize`,
-        tokenURL: `${process.env.OKTA_ISSUER}/v1/token`,
-        userInfoURL: `${process.env.OKTA_ISSUER}/v1/userinfo`,
-        clientID: process.env.OKTA_CLIENT_ID,
-        clientSecret: process.env.OKTA_CLIENT_SECRET,
-        callbackURL: `${process.env.APP_BASE_URL}/authorization-code/callback`,
-        scope: "openid profile email offline_access department",
-      },
-      function (issuer, profile, context, idToken, accessToken, refreshToken, done) {
-        const decoded = jwt.decode(idToken);
-        const departmentVal = decoded.department;
-
-        const departmentObject =
-          departmentVal === "all"
-            ? ALL_TEAMS_NAME.split(",").map((teamName) => ({
-                id: teamName.trim().toLowerCase().split(" ").join("-"),
-                label: teamName,
-              }))
-            : [
-                {
-                  id: departmentVal.split(" ").join("-").toLowerCase(),
-                  label: departmentVal,
-                },
-              ];
-
-        profile = {
-          ...profile,
-          department: departmentVal,
-          teams: departmentObject,
-          accessToken,
-          idToken,
-          refreshToken,
-        };
-
-        console.dir(profile, { depth: null });
-
-        return done(null, { profile });
-      }
-    )
-  );
-
-  passport.serializeUser(function (user, done) {
-    done(null, user);
-  });
-  passport.deserializeUser(function (obj, done) {
-    done(null, obj);
-  });
+export function ensureAuthenticated(req, res, next) {
+  if (req.isAuthenticated()) {
+    return next();
+  }
+  res.redirect("/login");
 }
 
-export default setupOIDC;
+let client = null;
+async function getOidcClient() {
+  if (!client) {
+    try {
+      const issuer = await Issuer.discover(process.env.OKTA_ISSUER);
+
+      client = new issuer.Client({
+        client_id: process.env.OKTA_CLIENT_ID,
+        client_secret: process.env.OKTA_CLIENT_SECRET,
+        redirect_uris: [`${process.env.APP_BASE_URL}/authorization-code/callback`],
+        response_types: ["code"],
+
+      });
+
+      console.log("OIDC client initialized successfully.");
+    } catch (error) {
+      console.error("Failed to discover OIDC issuer:", error);
+      throw error;
+    }
+  }
+
+  return client;
+}
+
+export async function login(req, res) {
+  try {
+    const client = await getOidcClient();
+
+    const code_verifier = generators.codeVerifier();
+    const state = generators.state();
+    req.session.pkce = { code_verifier, state };
+    req.session.save();
+
+    const authUrl = client.authorizationUrl({
+      scope: "openid profile email offline_access department",
+      state: state,
+      code_challenge: generators.codeChallenge(code_verifier),
+      code_challenge_method: "S256",
+    });
+
+    res.redirect(authUrl);
+  } catch (error) {
+    res.status(500).send("OIDC client is not configured correctly.");
+  }
+}
+
+export async function authCallback(req, res, next) {
+  try {
+    const client = await getOidcClient();
+    const { pkce } = req.session;
+
+    if (!pkce || !pkce.code_verifier || !pkce.state) {
+      throw new Error("Login session expired or invalid. Please try logging in again.");
+    }
+
+    const params = client.callbackParams(req);
+
+    const tokenSet = await client.callback(
+      `${process.env.APP_BASE_URL}/authorization-code/callback`,
+      params,
+      {
+        code_verifier: pkce.code_verifier,
+        state: pkce.state,
+      }
+    );
+
+    const userInfo = await client.userinfo(tokenSet.access_token);
+
+    const decodedIdToken = jwt.decode(tokenSet.id_token);
+    const departmentVal = decodedIdToken.department;
+
+    const departmentObject =
+      departmentVal === "all"
+        ? ALL_TEAMS_NAME.split(",").map((teamName) => ({
+            id: teamName.trim().toLowerCase().split(" ").join("-"),
+            label: teamName,
+          }))
+        : [
+            {
+              id: departmentVal.split(" ").join("-").toLowerCase(),
+              label: departmentVal.charAt(0).toUpperCase() + departmentVal.slice(1),
+            },
+          ];
+
+    const userProfile = {
+      profile: {
+        ...userInfo,
+        idToken: tokenSet.id_token,
+        teams: departmentObject,
+        department: departmentVal,
+      },
+    };
+
+    delete req.session.pkce;
+
+    req.logIn(userProfile, (err) => {
+      if (err) {
+        return next(err);
+      }
+
+      return res.redirect("/dashboard");
+    });
+  } catch (error) {
+    console.error("Authentication error:", error.message);
+    return res.status(500).send(`Authentication failed: ${error.message}`);
+  }
+}
+
+export function logout(req, res) {
+  const id_token = req.user?.profile?.idToken;
+
+  req.logout(() => {
+    req.session.destroy(() => {
+      const logoutUrl = `${process.env.OKTA_ISSUER}/v1/logout?id_token_hint=${id_token}&post_logout_redirect_uri=${process.env.POST_LOGOUT_URL}`;
+      res.redirect(logoutUrl);
+    });
+  });
+}
 ```
 
 ### Set up the routes file 
@@ -284,33 +361,20 @@ It acts as the traffic controller of our app, directing users to the right pages
 
 ```javascript
 import express from "express";
-import passport from "passport";
-import "dotenv/config"; 
+import "dotenv/config";
 
-import { expensesByTeam } from './expensesData.js';
+import { authCallback, ensureAuthenticated, login, logout } from "./auth.js";
+import { expensesByTeam } from "./expensesData.js";
 
 const router = express.Router();
-
-function ensureAuthenticated(req, res, next) {
-  if (req.isAuthenticated()) {
-    return next();
-  }
-  res.redirect("/login");
-}
 
 router.get("/", (req, res) => {
   res.render("home", { title: "Home", user: req.user });
 });
 
-router.get("/login", passport.authenticate("oidc"));
+router.get("/login", login);
 
-router.get(
-  "/authorization-code/callback",
-  passport.authenticate("oidc", { failureRedirect: "/login", failureMessage: true }),
-  function (req, res) {
-    res.redirect("/");
-  }
-);
+router.get("/authorization-code/callback", authCallback);
 
 router.get("/profile", ensureAuthenticated, (req, res) => {
   res.render("profile", { title: "Profile", user: req.user });
@@ -322,7 +386,7 @@ router.get("/dashboard", ensureAuthenticated, (req, res) => {
   res.render("dashboard", {
     title: "Dashboard",
     user: req.user,
-    teams
+    teams,
   });
 });
 
@@ -336,7 +400,6 @@ router.get("/teams/:id", ensureAuthenticated, (req, res) => {
   }
 
   const expenses = expensesByTeam[teamId];
-
   const total = expenses.reduce((sum, exp) => sum + exp.amount, 0);
 
   res.render("expenses", {
@@ -348,17 +411,10 @@ router.get("/teams/:id", ensureAuthenticated, (req, res) => {
   });
 });
 
-router.get("/logout", (req, res) => {
-  const id_token = req.user?.profile.idToken;
-  req.logout(() => {
-    req.session.destroy(() => {
-      const logoutUrl = `${process.env.OKTA_ISSUER}/v1/logout?id_token_hint=${id_token}&post_logout_redirect_uri=${process.env.POST_LOGOUT_URL}`;
-      res.redirect(logoutUrl);
-    });
-  });
-});
+router.get("/logout", logout);
 
 export default router;
+
 ```
 
 ### Add views in the app
@@ -371,7 +427,7 @@ Create a folder named `views`, then add the following EJS files:
 
 ```javascript
 <% if (user) { %>
-<h1>Welcome, <%= user.profile.displayName || user.profile.name || 'User' %>!</h1>
+<h1>Welcome, <%= user.profile.name || 'User' %>!</h1>
 <% } else { %>
 <h1>Welcome</h1>
 <% } %>
@@ -390,8 +446,9 @@ Create a folder named `views`, then add the following EJS files:
 
 ```javascript
 <h1>Profile</h1>
-<p><h6 style="display: inline-block; margin: 0;">Name:</h6> <%= user.profile.displayName || user.name %></p>
-<p><h6 style="display: inline-block; margin: 0;">Email:</h6> <%= user.profile.username %></p>
+<p><h6 style="display: inline-block; margin: 0;">Name:</h6> <%= user.profile.name %></p>
+<p><h6 style="display: inline-block; margin: 0;">Email:</h6> <%= user.profile.email %></p>
+
 
 ```
 
@@ -452,7 +509,7 @@ Create a folder named `views`, then add the following EJS files:
 
 ```javascript
 <h1>Dashboard</h1>
-<p>Welcome, <%= user.profile.displayName || user.profile.name %></p>
+<p>Welcome, <%= user.profile.name || 'User' %></p>
 
 <h3>Your Teams</h3>
 <% if (teams && teams.length > 0) { %>
