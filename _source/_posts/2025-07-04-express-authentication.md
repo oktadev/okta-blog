@@ -637,7 +637,7 @@ Here's a quick rundown of the features I used in this project to build a secure 
 
 * **OpenID Connect (OIDC)** is an identity and authentication layer built on OAuth 2.0.
 
-* **Authorization Code Flow**, which is the most secure flow for server-side web apps.
+* **Authorization Code Flow with PKCE**, which is the most secure flow for server-side web apps.
 
 * **Custom claim in the tokens**, fetching departments (e.g. Marketing, Finance, and Support Teams).
 
