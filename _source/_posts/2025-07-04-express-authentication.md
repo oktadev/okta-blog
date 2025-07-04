@@ -214,7 +214,7 @@ app.listen(3000, () => {
 });
 ```
 
-### Create an auth file
+### Create an auth file to handle authentication
 
 The authentication logic is kept in a separate file, `auth.js`, to keep your server organized and maintainable. This file manages OpenID Connect authentication with [openid-client](https://www.passportjs.org/packages/openid-client), including PKCE support. It sets up the OIDC client, handles login and logout, processes callbacks, and provides middleware to protect routes.
 
