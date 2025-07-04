@@ -13,6 +13,8 @@ type: awareness
 
 Every web application needs authentication, but building it yourself is risky and time-consuming. Instead of starting from scratch, you can integrate Okta to manage user identity and use Passport with Express to simplify and secure the login flow. In this tutorial, you'll build a secure, passwordless, role-based expense dashboard where users can view their expenses tailored to their team.
 
+Check out the complete source code on Github to explore the full project and skip setting it up from scratch.
+
 **Table of Contents**{: .hide }
 * Table of Contents
 {:toc}
@@ -43,8 +45,7 @@ Along the way, you'll use OpenID Connect (OIDC), configure a custom authorizatio
 
 Open your terminal, create a new project folder, and install the necessary packages:
 
-`mkdir express-project-okta`  
-`cd express-project-okta`
+`mkdir express-project-okta && cd express-project-okta`  
 
 Initialize a new Node.js project:
 
@@ -82,10 +83,9 @@ These installed packages become your Express project's dependencies.
 
 Create a `.env` file in the root directory with placeholders for your Okta configuration.
 
-**Important Notes:** 
-
-* We will use a **Custom Authorization Server** to fetch custom claims from Okta.   
-* Write team names, e.g., Finance, Marketing, and Support. Make sure all are comma-separated, and if it's a two-word team name, you can add a space in between too. 
+> **Important Notes:** 
+> * We will use a **Custom Authorization Server** to fetch custom claims from Okta.   
+> * Write team names, e.g., Finance, Marketing, and Support. Make sure all are comma-separated, and if it's a two-word team name, you can add a space in between too. 
 
 ```
 OKTA_ISSUER=https://{yourOktaDomain}/oauth2/default 
@@ -96,9 +96,9 @@ POST_LOGOUT_URL=http://localhost:3000
 ALL_TEAMS_NAME=TeamName1,TeamName2,Team Name3
 ```
 
-You'll get these values from your Okta dashboard in the next step.
+You'll get these values from your Okta Admin Console in the next step.
 
-## Create your Okta OpenID Connect application
+## Create the Okta OIDC application
 
 1. Sign up for a free [Integrator Free Plan](https://developer.okta.com/signup/). If you already have an account, [login](https://developer.okta.com/login/) to the [Okta Developer Console](https://developer.okta.com/signup/). 
 
@@ -118,61 +118,60 @@ You'll get these values from your Okta dashboard in the next step.
 
    * **Sign-out redirect URIs:** `http://localhost:3000`
 
-   * **Assignments:** Allow everyone in your organisation to access.
+   * **Assignments:** Allow everyone in your organization to access.
 
-6. Once the app is created, under the General tab, copy the **Client ID**, **Client Secret**, and **Okta Domain** to your `.env` file.
+6. Once the OIDC app is created, under the General tab, copy the **Client ID**, **Client Secret**, and **Okta Domain** to your `.env` file.
 
-## Set up passwordless login
+## Set up passwordless login using FIDO2 with Okta
 
-Add the FIDO2 (WebAuthn) authenticator in Okta to enable passwordless login and follow the [Okta documentation](https://help.okta.com/oie/en-us/content/topics/identity-engine/authenticators/configure-webauthn.htm) for complete enrollment and policy configuration instructions.
+Add the **FIDO2 (WebAuthn)** authenticator in Okta to enable passwordless login and follow the [Okta documentation](https://help.okta.com/oie/en-us/content/topics/identity-engine/authenticators/configure-webauthn.htm) for complete enrollment and policy configuration instructions.
 
 >  **Note:** When logging in for the first time, make sure you, as the admin, and all assigned users enroll in FIDO authentication. To simplify this process, you can create a user group containing all team members and assign it to the Web App. Then include the group in your enrollment policy, which you can customize as needed.
 
-## Set up access policies
+## Set up access policies in the Authorization Server
 
 You'll need to create an access policy and a corresponding rule in your Authorization Server. Refer to Okta's [documentation](https://developer.okta.com/docs/guides/configure-access-policy/main/) for complete instructions on configuring access policies.
 
 ## Set up custom claims for department information
 
-The most interesting part is to create and include custom attributes from the user profile, as Okta claims in your tokens. For example, you'll add the user's `department` information as a claim and display it as a team name on the expense dashboard.
+The most interesting part is to create and include custom attributes from the user profile, as Okta claims in your tokens. For example, you'll add the user's **`department`** information as a claim and display it as a team name on the expense dashboard.
 
->  **Note:** Avoid overloading ID tokens with too many custom claims. ID tokens should remain compact and efficient. Including unnecessary or excessive data can bloat the token and lead to performance issues.
+>  **Warning:** Avoid overloading ID tokens with too many custom claims. Keep ID tokens compact and efficient. Including unnecessary or excessive data can bloat the token and lead to network performance issues.
 
 1. **Add custom attributes to the Okta user profile**   
-   1. Create the custom `department` attribute in your Okta user profile. Navigate to **Directory \> Profile Editor**. Click the application's user profile that you created earlier. (For eg. *My Web App User* in our case)   
-   2. Click **Add attribute**, mention **Data type** as "string", **Display name** as "department" and **Variable name** as "department" and click save.  
+   1. Create the custom **`department`** attribute in your Okta user profile. Navigate to **Directory \> Profile Editor**. Click the application's user profile that you created earlier. (For eg. *My Web App User* in our case)   
+   2. Click **Add attribute**, mention **Data type** as **`string`**, **Display name** as **`department`** and **Variable name** as **`department`**, and click Save.  
 
 2. **Map the Custom Attribute to Your Application**  
-   Next, **map** this new `department` attribute from the Okta user profile to your specific application's user profile.  
+   Next, **map** this new **`department`** attribute from the Okta user profile to your specific application's user profile.  
    1. Under the Attributes section, click **Mappings.** Select **Okta User to \[Your App Name\].**   
-   2. Locate the department string, enter "**user.department**" as the value, click the arrow dropdown, select "**Apply mapping on user create and update**," and then click **Save Mappings**.
+   2. Locate the department string, enter **user.department** as the value, click the arrow dropdown, select **Apply mapping on user create and update**, and then click Save Mappings.
 
 3. **Assign Departments to Users**   
    1. Go to **Directory** \> **People**   
    2. Select a user from the list and click **Profile**.   
-   3. Set the `department` attribute field to the user's team (e.g., `Finance`,  `Marketing`,  `Support`, `all` (for admin))  
+   3. Set the **`department`** attribute field to the user's team (e.g., **`Finance`**,  **`Marketing`**,  **`Support`**) and **`all`** if the user is an admin.  
    **Note:** Ensure you update the department for all user profiles associated with different teams. Also, replace the placeholder team names in the .env file with the team names you want. 
 
-4. **Configuring Custom Claim**   
+4. **Configuring Custom Claim in the ID Token**   
 1. Navigate to **Security \> API \> Authorization Servers**. Create a custom claim and configure the claim with the following details:   
-   1. **Name**: `department`  
-   2. **Include in token type**: Select `ID Token` and select `Always`.  
-   3. **Value type**: Select `Expression` from the dropdown.  
-   4. **Value**: Enter `appuser.department` in the field.  
-      **Note:** Since you mapped the Okta User Profile to the App User Profile in the mapping section, use `appuser.department` as the expression.  
-   5. **Include in**: Select `The following scopes` and enter the `department` in the blank field below. Click **Save**.  
+   1. **Name**: **`department`**  
+   2. **Include in token type**: Select **`ID Token`** and select **`Always`**.  
+   3. **Value type**: Select **`Expression`** from the dropdown.  
+   4. **Value**: Enter **`appuser.department`** in the field.  
+      **Note:** Since you mapped the Okta User Profile to the App User Profile in the mapping section, use **`appuser.department`** as the expression.  
+   5. **Include in**: Select **`The following scopes`** and enter the **`department`** in the blank field below. Click Save.  
 2. **Optional Step for Testing:** Under the authorization servers, click default. Under Token preview, proceed with the following steps:   
    1. **OAuth/OIDC client** \- Enter your app name (In our case, My Web App)  
       2. **Select Grant type** as Authorization Code  
       3. Enter your email in the **User** field  
-      4. Select **scopes** as openid and department
-
-Click **Preview Token** to view the department claim. If it's visible, the setup is correct, and the claim will be included in the ID token.  
+      4. Select **scopes** as **openid** and **department**
+      5. Click **Preview Token** to view the department claim. If it's visible, the setup is correct, and the claim will be included in the ID token.  
  
 
 ## Building the Express app 
 
-Create an `index.js` file in your project root. This serves as the main entry point for your application. Use it to initialize the Express app, configure session handling, set up Passport to use OIDC, and set up the routes. 
+Create an `index.js` file in your project root. This serves as the main entry point for your application. Use it to initialize the Express app, configure session handling, set up [Passport](https://www.passportjs.org/) to use OIDC, and set up the routes. 
 
 ```javascript
 import express from 'express';
@@ -207,9 +206,9 @@ app.listen(3000, () => {
 });
 ```
 
-### Create an auth.js file
+### Create an auth file
 
-The authentication logic is kept in a separate file, `auth.js`, to keep your server organized and maintainable. This file configures Passport to use the passport-openidconnect strategy, which connects your app to Okta's OIDC implementation. 
+The authentication logic is kept in a separate file, `auth.js`, to keep your server organized and maintainable. This file configures Passport to use the [passport-openidconnect](https://www.passportjs.org/packages/passport-openidconnect) strategy, which connects your app to Okta's OIDC implementation. 
 
 ```javascript
 import passport from "passport";
@@ -277,7 +276,7 @@ function setupOIDC() {
 export default setupOIDC;
 ```
 
-### Set up [routes.js](http://routes.js) file 
+### Set up the routes file 
 
 Now things start to come together and feel like a real app. This is where we define all the important routes, from login and logout to viewing your profile, the expense dashboard, and individual team pages. The `routes.js` file handles the core logic for these endpoints, including checking if a user is authenticated before letting them access protected pages.
 
@@ -362,7 +361,7 @@ router.get("/logout", (req, res) => {
 export default router;
 ```
 
-### Add views
+### Add views in the app
 
 Now it's time to give the app a user interface. We'll use EJS templates to build pages that respond dynamically to who's logged in and what data they see. The app uses `ejs` templates to render the pages, plus `express-ejs-layouts` for common layout structures.
 
@@ -508,7 +507,7 @@ This is the EJS template used to render the team expenses view. It receives the 
 
 ### Create the expense data file 
 
-Create an `expensedata.js` file that serves as a data module for your project. This file dynamically generates sample expense data for each team based on environment variables, eliminating the need to hardcode values. It automatically produces realistic dummy expenses for all teams configured, making your web app more flexible and easier to maintain.
+Create an `expensedata.js` file that serves as a data module for your project. This file dynamically generates sample expense data for each team based on environment variables. It automatically produces dummy expenses for all teams configured for testing in your web app.
 
 ```javascript
 import 'dotenv/config';
@@ -552,7 +551,7 @@ export const expensesByTeam = teams.reduce((acc, team) => {
 }, {});
 ```
 
-## Run your App
+## Run the app
 
 In your terminal, start the server:
 
@@ -561,6 +560,8 @@ In your terminal, start the server:
 Open your browser and navigate to [http://localhost:3000](http://localhost:3000).
 
 Click **Login**, and authenticate with your Okta account. If everything is configured correctly, you'll see your profile and have the option to log out.
+
+> **Note:** If you currently use your Developer Console as an admin, you already have a session for your org; you will be automatically logged into your application.. To test other user accounts, use an incognito tab to test the flow from a blank slate.
 
 #### Admin view:   
 
@@ -581,13 +582,13 @@ Here's a quick rundown of the features I used in this project to build a secure 
 
 * **Authorization Code Flow**, which is the most secure flow for server-side web apps.
 
-* **Custom claim in the tokens**, fetching departments (e.g. Marketing, Finance & Support Teams).
+* **Custom claim in the tokens**, fetching departments (e.g. Marketing, Finance, and Support Teams).
 
 And that's it\! You've now built a secure Expense Dashboard and connected your Express application to Okta using OpenID Connect (OIDC) and Passport, layered in FIDO2 (WebAuthn) for modern, passwordless login using passkeys and flexible, team-specific authorization with custom claims. 
 
 **If you'd like to explore the full project and skip setting it up from scratch, check out the complete source code on GitHub.**
 
-## Learn more\!
+## Learn more
 
 To explore further, check out these official Okta resources to learn more about the key concepts. 
 
@@ -598,3 +599,5 @@ To explore further, check out these official Okta resources to learn more about 
 * [Authorization Servers in Okta](https://developer.okta.com/docs/concepts/auth-servers) 
 
 * [Sign users into a Node \+ Express app](https://developer.okta.com/docs/guides/sign-into-web-app-redirect/node-express/main) 
+
+Follow us on [Twitter](https://twitter.com/oktadev) and subscribe to our [YouTube](https://www.youtube.com/c/oktadev) channel to see more content like this. If you have any questions, please comment below! 
