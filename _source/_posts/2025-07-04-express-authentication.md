@@ -53,7 +53,7 @@ Initialize a new Node.js project:
 
 Install the required packages:
 
-`npm install express passport openid-client@5 jsonwebtoken express-session dotenv ejs express-ejs-layouts`
+`npm install express passport openid-client express-session dotenv ejs express-ejs-layouts`
 
 Now, install the development dependencies:
 
@@ -68,8 +68,6 @@ These installed packages become your Express project's dependencies.
 * **`passport`**: Provides a flexible authentication framework
 
 * **`openid-client`**: A server-side OpenID Relying Party implementation for Node.js runtime, including PKCE support
-
-* **`jsonwebtoken`**:  Enables decoding JSON Web Tokens (JWT) to extract user claims
 
 * **`express-session`**: Manages user sessions on the server
 
@@ -220,8 +218,7 @@ The authentication logic is kept in a separate file, `auth.js`, to keep your ser
 
 
 ```javascript
-import { Issuer, generators } from "openid-client";
-import jwt from "jsonwebtoken";
+import * as client from "openid-client";
 import "dotenv/config";
 
 const ALL_TEAMS_NAME = process.env.ALL_TEAMS_NAME;
@@ -233,95 +230,83 @@ export function ensureAuthenticated(req, res, next) {
   res.redirect("/login");
 }
 
-let client = null;
-async function getOidcClient() {
-  if (!client) {
-    try {
-      const issuer = await Issuer.discover(process.env.OKTA_ISSUER);
+function getCallbackUrlWithParams(req) {
+  const host = req.headers["x-forwarded-host"] || req.headers.host || "localhost";
+  const protocol = req.headers["x-forwarded-proto"] || req.protocol;
+  const currentUrl = new URL(`${protocol}://${host}${req.originalUrl}`);
+  return currentUrl;
+}
 
-      client = new issuer.Client({
-        client_id: process.env.OKTA_CLIENT_ID,
-        client_secret: process.env.OKTA_CLIENT_SECRET,
-        redirect_uris: [`${process.env.APP_BASE_URL}/authorization-code/callback`],
-        response_types: ["code"],
+function getModifiedDepartment(departmentVal) {
+  return departmentVal?.trim()
+    ? departmentVal === "all"
+      ? ALL_TEAMS_NAME.split(",").map((teamName) => ({
+          id: teamName.trim().toLowerCase().split(" ").join("-"),
+          label: teamName,
+        }))
+      : [
+          {
+            id: departmentVal.split(" ").join("-").toLowerCase(),
+            label: departmentVal.charAt(0).toUpperCase() + departmentVal.slice(1),
+          },
+        ]
+    : [];
+}
 
-      });
-
-      console.log("OIDC client initialized successfully.");
-    } catch (error) {
-      console.error("Failed to discover OIDC issuer:", error);
-      throw error;
-    }
-  }
-
-  return client;
+async function getClientConfig() {
+  return await client.discovery(new URL(process.env.OKTA_ISSUER), process.env.OKTA_CLIENT_ID, process.env.OKTA_CLIENT_SECRET);
 }
 
 export async function login(req, res) {
   try {
-    const client = await getOidcClient();
+    const openIdClientConfig = await getClientConfig();
 
-    const code_verifier = generators.codeVerifier();
-    const state = generators.state();
+    const code_verifier = client.randomPKCECodeVerifier();
+    const code_challenge = await client.calculatePKCECodeChallenge(code_verifier);
+    const state = client.randomState();
+
     req.session.pkce = { code_verifier, state };
     req.session.save();
 
-    const authUrl = client.authorizationUrl({
+    const authUrl = client.buildAuthorizationUrl(openIdClientConfig, {
       scope: "openid profile email offline_access department",
-      state: state,
-      code_challenge: generators.codeChallenge(code_verifier),
+      state,
+      code_challenge,
       code_challenge_method: "S256",
+      redirect_uri: `${process.env.APP_BASE_URL}/authorization-code/callback`,
     });
 
     res.redirect(authUrl);
   } catch (error) {
-    res.status(500).send("OIDC client is not configured correctly.");
+    res.status(500).send("Something failed during the authorization request");
   }
 }
 
 export async function authCallback(req, res, next) {
   try {
-    const client = await getOidcClient();
+    const openIdClientConfig = await getClientConfig();
+
     const { pkce } = req.session;
 
     if (!pkce || !pkce.code_verifier || !pkce.state) {
       throw new Error("Login session expired or invalid. Please try logging in again.");
     }
 
-    const params = client.callbackParams(req);
+    const tokenSet = await client.authorizationCodeGrant(openIdClientConfig, getCallbackUrlWithParams(req), {
+      pkceCodeVerifier: pkce.code_verifier,
+      expectedState: pkce.state,
+    });
 
-    const tokenSet = await client.callback(
-      `${process.env.APP_BASE_URL}/authorization-code/callback`,
-      params,
-      {
-        code_verifier: pkce.code_verifier,
-        state: pkce.state,
-      }
-    );
+    const { sub } = tokenSet.claims();
+    const userInfo = await client.fetchUserInfo(openIdClientConfig, tokenSet.access_token, sub);
 
-    const userInfo = await client.userinfo(tokenSet.access_token);
-
-    const decodedIdToken = jwt.decode(tokenSet.id_token);
-    const departmentVal = decodedIdToken.department;
-
-    const departmentObject =
-      departmentVal === "all"
-        ? ALL_TEAMS_NAME.split(",").map((teamName) => ({
-            id: teamName.trim().toLowerCase().split(" ").join("-"),
-            label: teamName,
-          }))
-        : [
-            {
-              id: departmentVal.split(" ").join("-").toLowerCase(),
-              label: departmentVal.charAt(0).toUpperCase() + departmentVal.slice(1),
-            },
-          ];
+    const departmentVal = userInfo.department || "";
 
     const userProfile = {
       profile: {
         ...userInfo,
         idToken: tokenSet.id_token,
-        teams: departmentObject,
+        teams: getModifiedDepartment(departmentVal),
         department: departmentVal,
       },
     };
