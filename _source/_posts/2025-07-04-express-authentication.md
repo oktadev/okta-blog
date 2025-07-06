@@ -23,7 +23,9 @@ Check out the complete source code on Github and get started without setting it 
 
 Building an authentication system and handling credentials, sessions, and tokens is highly insecure and expose your application to serious vulnerabilities.
 
-Okta provides a secure, scalable, and standards-based solution using OpenID Connect (OIDC) and OAuth 2.0. It also integrates seamlessly with Node.js and Passport, supports passwordless login FIDO2 (WebAuthn), and allows you to customise ID tokens with team-specific claims.
+Okta provides a secure, scalable, and standards-based solution using OpenID Connect (OIDC) and OAuth 2.0. It also integrates seamlessly with Node.js and Passport, supports passwordless login FIDO2 (WebAuthn), and allows you to customise ID tokens with team-specific claims. 
+
+To further strengthen security, this project uses PKCE (Proof Key for Code Exchange), defined in [RFC 7636](https://www.rfc-editor.org/rfc/rfc7636). PKCE is a security extension to the Authorization Code flow. Originally designed for mobile apps, PKCE is now recommended for all OAuth clients, including web apps. It helps prevent CSRF and authorization code injection attacks and makes it useful for every type of OAuth client, even web apps that use client authentication.
 
 With Okta, you can easily implement modern authentication features and focus on your application logic without worrying about authentication infrastructure.
 
@@ -638,8 +640,8 @@ To explore further, check out these official Okta resources to learn more about 
      
 * [OAuth 2.0 and OpenID Connect overview](https://developer.okta.com/docs/concepts/oauth-openid)
 
+* [Implement Authorization Code with PKCE](https://developer.okta.com/docs/guides/implement-grant-type/authcodepkce/main)
+
 * [Authorization Servers in Okta](https://developer.okta.com/docs/concepts/auth-servers) 
 
-* [Sign users into a Node \+ Express app](https://developer.okta.com/docs/guides/sign-into-web-app-redirect/node-express/main) 
-
-Follow us on [Twitter](https://twitter.com/oktadev) and subscribe to our [YouTube](https://www.youtube.com/c/oktadev) channel to see more content like this. If you have any questions, please comment below! 
+Follow us on [LinkedIn](https://www.linkedin.com/company/oktadev), [Twitter](https://twitter.com/oktadev) and subscribe to our [YouTube](https://www.youtube.com/c/oktadev) channel to see more content like this. If you have any questions, please comment below! 
