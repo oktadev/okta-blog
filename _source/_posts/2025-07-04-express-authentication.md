@@ -13,7 +13,7 @@ type: awareness
 
 Every web application needs authentication, but building it yourself is risky and time-consuming. Instead of starting from scratch, you can integrate Okta to manage user identity and use Passport with Express to simplify and secure the login flow. In this tutorial, you'll build a secure, passwordless, role-based expense dashboard where users can view their expenses tailored to their team.
 
-Check out the complete source code on Github and get started without setting it up from scratch. 
+Check out the complete source code on [GitHub](https://github.com/oktadev/okta-express-expense-dashboard-example) and get started without setting it up from scratch. 
 
 **Table of Contents**{: .hide }
 * Table of Contents
@@ -25,7 +25,7 @@ Building an authentication system and handling credentials, sessions, and tokens
 
 Okta provides a secure, scalable, and standards-based solution using OpenID Connect (OIDC) and OAuth 2.0. It also integrates seamlessly with Node.js and Passport, supports passwordless login FIDO2 (WebAuthn), and allows you to customise ID tokens with team-specific claims. 
 
-To further strengthen security, this project uses PKCE (Proof Key for Code Exchange), defined in [RFC 7636](https://www.rfc-editor.org/rfc/rfc7636). PKCE is a security extension to the Authorization Code flow. Originally designed for mobile apps, PKCE is now recommended for all OAuth clients, including web apps. It helps prevent CSRF and authorization code injection attacks and makes it useful for every type of OAuth client, even web apps that use client authentication.
+To further strengthen security, this project uses PKCE (Proof Key for Code Exchange), defined in [RFC 7636](https://www.rfc-editor.org/rfc/rfc7636). PKCE is a security extension to the Authorization Code flow. Originally designed for mobile apps, PKCE is now recommended for all OAuth clients, including web apps. It helps prevent CSRF and authorization code injection attacks and makes it useful for every type of OAuth client, even web apps that use client authentication. As the OAuth 2.0 and OIDC have steadily evolved over time, their security best practices have also advanced. [RFC 9700: Best Current Practice for OAuth 2.0 Security](https://www.rfc-editor.org/rfc/rfc9700.html) captures the current consensus on the most effective and secure implementation strategies.
 
 With Okta, you can easily implement modern authentication features and focus on your application logic without worrying about authentication infrastructure.
 
@@ -609,16 +609,17 @@ Click **Login**, and authenticate with your Okta account. If everything is confi
 
 #### Admin view:   
 
-{% img blog/express-okta-authentication/admin-view.jpeg alt:"User View Dashboard." width:"800" %}{: .center-image }
+{% img blog/express-okta-authentication/admin-view.jpeg alt:"User View Dashboard." width:"1000" %}{: .center-image }
 
 #### User view: 
 
-{% img blog/express-okta-authentication/user-view.jpeg alt:"User View Dashboard." width:"800" %}{: .center-image }
+{% img blog/express-okta-authentication/user-view.jpeg alt:"User View Dashboard." width:"1000" %}{: .center-image }
 
 #### Expenses view: 
 
-{% img blog/express-okta-authentication/expenses.jpeg alt:"User View Dashboard." width:"800" %}{: .center-image }
+{% img blog/express-okta-authentication/expenses.jpeg alt:"User View Dashboard." width:"1000" %}{: .center-image }
 
+## Recap and learn more
 
 Here's a quick rundown of the features I used in this project to build a secure expense dashboard:
 
@@ -630,9 +631,7 @@ Here's a quick rundown of the features I used in this project to build a secure 
 
 And that's it\! You've now built a secure Expense Dashboard and connected your Express application to Okta using OpenID Connect (OIDC) and Passport, layered in FIDO2 (WebAuthn) for modern, passwordless login using passkeys and flexible, team-specific authorization with custom claims. 
 
-**If you'd like to explore the full project and skip setting it up from scratch, check out the complete source code on GitHub.**
-
-## Learn more
+If you'd like to explore the full project and skip setting it up from scratch, check out the complete source code on [GitHub](https://github.com/oktadev/okta-express-expense-dashboard-example).
 
 To explore further, check out these official Okta resources to learn more about the key concepts. 
 
