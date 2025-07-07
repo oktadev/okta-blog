@@ -5,7 +5,7 @@ author: akanksha-bhasin
 by: advocate
 communities: [security,javascript,go,python,mobile,java]
 description: "Build a secure expense dashboard using Express, Okta, and Passport with custom claims"
-tags: [okta]
+tags: [okta, express, node, passport, oidc, oauth, javascript]
 image: blog/express-okta-authentication/express-okta-authentication-social-image.jpeg
 type: awareness
 ---
