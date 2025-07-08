@@ -436,7 +436,6 @@ Create a folder named `views`, then add the following EJS files:
 <p><h6 style="display: inline-block; margin: 0;">Name:</h6> <%= user.profile.name %></p>
 <p><h6 style="display: inline-block; margin: 0;">Email:</h6> <%= user.profile.email %></p>
 
-
 ```
 
 **layout.ejs**
@@ -460,6 +459,12 @@ Create a folder named `views`, then add the following EJS files:
       }
       .content {
         flex: 1;
+      }
+      .team-heading {
+        display: inline-block;
+        font-weight: 600;
+        color: #2c3e50; 
+        margin-bottom: 1rem;
       }
     </style>
   </head>
@@ -520,7 +525,7 @@ This is the EJS template used to render the team expenses view. It receives the 
 
 ```javascript
 <h1><%= team.label %></h1>
-<div>Welcome to the <h6 style="display: inline-block; margin: 0;"><%= team.label %></h6> team page.</div>
+<div>Welcome to the <p class="team-heading"><%= team.label %></p> team page.</div>
 <br/>
 <% if (expenses && expenses.length > 0) { %>
 <h3>Expenses</h3>
