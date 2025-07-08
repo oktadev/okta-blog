@@ -83,7 +83,7 @@ Host: acme.okta.com
 Content-Type: application/x-www-form-urlencoded
 grant_type=urn:ietf:params:oauth:grant-type:token-exchange
 &requested_token_type=urn:ietf:params:oauth:token-type:id-jag
-&resource=https://mcp.todo0.com/
+&audience=https://mcp.todo0.com/
 &subject_token=eyJraWQiOiJzMTZ0cVNtODhwREo4VGZCXzdrSEtQ...
 &subject_token_type=urn:ietf:params:oauth:token-type:id_token
 &client_assertion_type=urn:ietf:params:oauth:client-assertion-type:jwt-bearer
