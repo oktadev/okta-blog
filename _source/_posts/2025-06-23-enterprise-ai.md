@@ -71,7 +71,7 @@ First, Agent0 gets the user to sign in using a standard OpenID Connect (or SAML)
 Agent0, the requesting application, then makes a Token Exchange request (RFC 8693) to the IdP's token endpoint with the following parameters:
 
 - requested_token_type: The value `urn:ietf:params:oauth:token-type:id-jag` indicates that an ID Assertion JWT is being requested.
-- resource: The Issuer URL of the Resource Application's authorization server.
+- audience: The Issuer URL of the Resource Application's authorization server.
 - subject_token: The identity assertion (e.g., the OpenID Connect ID Token or SAML assertion) for the target end-user.
 - subject_token_type: Either `urn:ietf:params:oauth:token-type:id_token` or `urn:ietf:params:oauth:token-type:saml2` as defined by RFC 8693.
 
