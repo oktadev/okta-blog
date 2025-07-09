@@ -34,7 +34,9 @@ image::{% asset_path 'blog/reactive-java-microservices/diagram-boot-reactor.svg'
 
 // Above image is from https://web.archive.org/web/20180803181804/http://spring.io/
 
+++++
 {% include integrator-org-warning.html %}
+++++
 
 toc::[]
 

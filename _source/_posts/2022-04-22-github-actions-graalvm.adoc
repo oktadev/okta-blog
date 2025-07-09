@@ -26,7 +26,9 @@ After a few days of euphoria, I thought it'd be easy to create native builds for
 
 If you'd like to follow along and learn how to configure GitHub Actions to create native binaries, you'll need a few prerequisites.
 
+++++
 {% include integrator-org-warning.html %}
+++++
 
 *Prerequisites*:
 

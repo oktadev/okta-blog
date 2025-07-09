@@ -33,7 +33,9 @@ Then, along came https://www.graalvm.org/[GraalVM]. It's gained support from man
 
 Today, I'm proud to announce that this same capability is now available for your JHipster 7+ apps!
 
+++++
 {% include integrator-org-warning.html %}
+++++
 
 *Prerequisites*:
 

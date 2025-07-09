@@ -31,7 +31,9 @@ The Okta OIDC SDK can help with this in many ways:
 
 This post will show you a simple example of how you can use Okta OIDC SDK to create a (Kotlin) Android app with authentication.
 
+++++
 {% include integrator-org-warning.html %}
+++++
 
 toc::[]
 

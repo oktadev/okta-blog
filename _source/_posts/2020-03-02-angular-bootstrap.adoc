@@ -42,7 +42,9 @@ Together, these frameworks have had quite a run. It's hard to believe that they'
 
 image::{% asset_path 'blog/angular-bootstrap/angular-bootstrap.png' %}[alt=Beautiful Angular Apps with Bootstrap,width=800,align=center]
 
+++++
 {% include integrator-org-warning.html %}
+++++
 
 toc::[]
 

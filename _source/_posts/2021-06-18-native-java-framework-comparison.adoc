@@ -41,7 +41,9 @@ This post will show you how to run a secure, OAuth 2.0-protected, Java REST API 
 
 // The order of frameworks is intentional as I found Micronaut the easiest to make work and Spring Boot the most difficult.
 
+++++
 {% include integrator-org-warning.html %}
+++++
 
 **Prerequisites**
 
