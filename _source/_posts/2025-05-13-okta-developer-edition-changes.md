@@ -10,6 +10,7 @@ image: blog/developer-edition-changes/social.png
 type: awareness
 changelog:
 - 2025-05-28: Added info on determining org type
+- 2025-07-09: Added "Migrating published integrations" section 
 ---
 
 
@@ -53,6 +54,16 @@ Organizations in which this banner is absent from the Applications list are not 
 Creating an Integrator Free Plan organization will give you a clean slate to test and develop in. However, you might want to replicate setup steps that you've performed in your Okta Developer Edition organization to continue work in progress. Several options are available for migrating your configuration from your Okta Developer Edition organization to your Integrator Free Plan  organization. 
 
 {% img blog/developer-edition-changes/flowchart.jpg alt:"flowchart for deciding if and how to migrate data" width:"800" %}
+
+### Migrating published integrations
+
+When you submit an integration to [the Okta Integration Network (OIN)](https://www.okta.com/integrations/), Okta makes its own copy of the integration for distribution to users. The integration is displayed in your account so you can update it and submit the updates, but users who install the app from the OIN get a copy of the latest accepted submission.
+
+If you have a published integration in the OIN, it'll remain available to users without interruption. To update your published integration from your integrator account, email
+`oin@okta.com` with your integrator account ID and a link to your app in the OIN catalog. The OIN team will verify that you can move the integration and then link it to the integrator account you specified.
+
+You can make this request at any time, even after Developer Edition orgs are no longer available. Getting your integration linked to your Integrator account may take several days.
+ 
 
 ### Migrating data is optional
 
