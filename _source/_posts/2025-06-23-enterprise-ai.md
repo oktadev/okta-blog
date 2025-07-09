@@ -12,6 +12,8 @@ tweets:
 - ""
 image: blog/enterprise-ai/enterprise-ai-social-image.jpg
 type: awareness
+changelog:
+- 2025-07-08: Changed the resource parameter to audience in the token exchange request per spec update (https://www.ietf.org/archive/id/draft-ietf-oauth-identity-chaining-05.html#name-token-exchange)
 ---
 SaaS apps not only have to meet the rigorous demands of managing users at an enterprise level but must also be **secure and resilient by design**.
 
@@ -71,7 +73,7 @@ First, Agent0 gets the user to sign in using a standard OpenID Connect (or SAML)
 Agent0, the requesting application, then makes a Token Exchange request (RFC 8693) to the IdP's token endpoint with the following parameters:
 
 - requested_token_type: The value `urn:ietf:params:oauth:token-type:id-jag` indicates that an ID Assertion JWT is being requested.
-- resource: The Issuer URL of the Resource Application's authorization server.
+- audience: The Issuer URL of the Resource Application's authorization server.
 - subject_token: The identity assertion (e.g., the OpenID Connect ID Token or SAML assertion) for the target end-user.
 - subject_token_type: Either `urn:ietf:params:oauth:token-type:id_token` or `urn:ietf:params:oauth:token-type:saml2` as defined by RFC 8693.
 
@@ -83,7 +85,7 @@ Host: acme.okta.com
 Content-Type: application/x-www-form-urlencoded
 grant_type=urn:ietf:params:oauth:grant-type:token-exchange
 &requested_token_type=urn:ietf:params:oauth:token-type:id-jag
-&resource=https://mcp.todo0.com/
+&audience=https://auth.todo0.com/
 &subject_token=eyJraWQiOiJzMTZ0cVNtODhwREo4VGZCXzdrSEtQ...
 &subject_token_type=urn:ietf:params:oauth:token-type:id_token
 &client_assertion_type=urn:ietf:params:oauth:client-assertion-type:jwt-bearer
