@@ -3,11 +3,12 @@ layout: blog_post
 title: "How to Build a Secure Expense Dashboard with Express and Okta"
 author: akanksha-bhasin 
 by: advocate
-communities: [security,javascript,go,python,mobile,java]
+communities: [javascript]
 description: "Build a secure expense dashboard using Express, Okta, and Passport with custom claims"
-tags: [okta, express, node, passport, oidc, oauth, javascript]
+tags: [express, node, passport, oidc, oauth, pkce, javascript]
 image: blog/express-okta-authentication/express-okta-authentication-social-image.jpeg
-type: awareness
+type: conversion
+github: https://github.com/oktadev/okta-express-expense-dashboard-example
 ---
 
 
@@ -23,21 +24,21 @@ Check out the complete source code on [GitHub](https://github.com/oktadev/okta-e
 
 Building an authentication system and handling credentials, sessions, and tokens is highly insecure and expose your application to serious vulnerabilities.
 
-Okta provides a secure, scalable, and standards-based solution using OpenID Connect (OIDC) and OAuth 2.0. It also integrates seamlessly with Node.js and Passport, supports passwordless login FIDO2 (WebAuthn), and allows you to customise ID tokens with team-specific claims. 
+Okta provides a secure, scalable, and standards-based solution using OpenID Connect (OIDC) and OAuth 2.0. It also integrates seamlessly with Express and Passport, supports passwordless login using FIDO2 and WebAuthn, and allows you to customise ID tokens with team-specific claims.
 
-To further strengthen security, this project uses PKCE (Proof Key for Code Exchange), defined in [RFC 7636](https://www.rfc-editor.org/rfc/rfc7636). PKCE is a security extension to the Authorization Code flow. Originally designed for mobile apps, PKCE is now recommended for all OAuth clients, including web apps. It helps prevent CSRF and authorization code injection attacks and makes it useful for every type of OAuth client, even web apps that use client authentication. As the OAuth 2.0 and OIDC have steadily evolved over time, their security best practices have also advanced. [RFC 9700: Best Current Practice for OAuth 2.0 Security](https://www.rfc-editor.org/rfc/rfc9700.html) captures the current consensus on the most effective and secure implementation strategies.
+To further strengthen security, this project uses PKCE (Proof Key for Code Exchange), defined in [RFC 7636](https://www.rfc-editor.org/rfc/rfc7636). PKCE is a security extension to the Authorization Code flow. Originally designed for mobile apps, PKCE is now recommended for all OAuth clients, including web apps. It helps prevent CSRF and authorization code injection attacks and makes it useful for every type of OAuth client, even web apps that use client authentication. As OAuth 2.0 has steadily evolved over time, security best practices have also advanced. [RFC 9700: Best Current Practice for OAuth 2.0 Security](https://www.rfc-editor.org/rfc/rfc9700.html) captures the current consensus on the most effective and secure implementation strategies. Additionally, the upcoming OAuth 2.1 draft requires PKCE for all authorization code flows, reinforcing it as a baseline security standard.
 
-With Okta, you can easily implement modern authentication features and focus on your application logic without worrying about authentication infrastructure.
+With Okta, you can implement modern authentication features and focus on your application logic without worrying about authentication infrastructure.
 
-##  Team-based expense dashboard using Express and Okta 
+##  Team-based expense dashboard using Express, Passport, and OAuth 2.0
 
-For any growing organization, tracking expenses by team isn't just helpful, it's essential. Let's build an expense dashboard where users log in with Okta and view spending data. Whether in Finance, Marketing or Support, each team sees a scoped view of expenses tied to their role. The users get clear visibility into what's being spent, by whom, and why.
+For any growing organization, tracking expenses by team isn't just helpful, it's essential. Let's build an expense dashboard where users log in with Okta and view spending data. Whether in Finance, Marketing, or Support, each team sees a scoped view of expenses tied to their role. The users get clear visibility into what's being spent, by whom, and why.
 
 Managers get transparency into their team's spending. At the same time, admins maintain a secure, centralized overview across all teams to track budgets, spending patterns, and ensure accountability, all without the headache of building authentication and security from scratch.
 
 Along the way, you'll use OpenID Connect (OIDC), configure a custom authorization server, define custom claims for team-based access view, enforce role-based access directly from ID tokens, and integrate all the components into an Express application.
 
-### Prerequisites 
+**Prerequisites**
 
 * Node.js installed (v22+ recommended)
 
@@ -45,21 +46,26 @@ Along the way, you'll use OpenID Connect (OIDC), configure a custom authorizatio
 
 ## Create your Express project and install dependencies
 
-Open your terminal, create a new project folder, and install the necessary packages:
-
-`mkdir express-project-okta && cd express-project-okta`  
+Create a new project folder named 'express-project-okta`, and open a terminal window in the project folder.
 
 Initialize a new Node.js project:
 
-`npm init -y`
+```sh
+npm init -y
+```
 
 Install the required packages:
 
-`npm install express passport openid-client express-session dotenv ejs express-ejs-layouts`
+```sh
+npm install express@5.1 passport@0.7 openid-client@6.6 express-session@1.18 ejs@3.1 express-ejs-layouts@2.5 dotenv
+```
+
 
 Now, install the development dependencies:
 
-`npm install --save-dev nodemon`
+```sh
+npm install --save-dev nodemon
+``` 
 
 **What do these dependencies do?** 
 
@@ -79,13 +85,12 @@ These installed packages become your Express project's dependencies.
 
 * **`express-ejs-layouts`**: Adds layout support to EJS, helping manage common layout structures across views
 
-## Create your .env file
+## Configure environment variables for OIDC authentication
 
 Create a `.env` file in the root directory with placeholders for your Okta configuration.
 
-> **Important Notes:** 
-> * We will use a **Custom Authorization Server** to fetch custom claims from Okta.   
-> * Write team names, e.g., Finance, Marketing, and Support. Make sure all are comma-separated, and if it's a two-word team name, you can add a space in between too. 
+> **Note:** 
+> We will use a **Custom Authorization Server** to fetch custom claims from Okta.   
 
 ```
 OKTA_ISSUER=https://{yourOktaDomain}/oauth2/default 
@@ -93,7 +98,6 @@ OKTA_CLIENT_ID={yourClientId}
 OKTA_CLIENT_SECRET={clientSecret}
 APP_BASE_URL=http://localhost:3000
 POST_LOGOUT_URL=http://localhost:3000
-ALL_TEAMS_NAME=TeamName1,TeamName2,Team Name3
 ```
 
 You'll get these values from your Okta Admin Console in the next step.
@@ -102,7 +106,7 @@ You'll get these values from your Okta Admin Console in the next step.
 
 1. Sign up for a free [Integrator Free Plan](https://developer.okta.com/signup/). If you already have an account, [login](https://developer.okta.com/login/) to the [Okta Developer Console](https://developer.okta.com/signup/). 
 
-2. Navigate to **Applications** \> **Create App Integration**.
+2. In the Okta Admin Console, navigate to **Applications** \> **Create App Integration**.
 
 3. Choose:
    * **Sign-in method:** OIDC \- OpenID Connect
@@ -125,51 +129,44 @@ You'll get these values from your Okta Admin Console in the next step.
 
 7. Copy the **Client ID**, **Client Secret**, and **Okta Domain** and add them to your `.env` file.
 
-## Set up passwordless login using FIDO2 with Okta
+## Set up passwordless login using FIDO2 and WebAuthn with Okta 
 
 Add the **FIDO2 (WebAuthn)** authenticator in Okta to enable passwordless login and follow the [Okta documentation](https://help.okta.com/oie/en-us/content/topics/identity-engine/authenticators/configure-webauthn.htm) for complete enrollment and policy configuration instructions.
 
 >  **Note:** When logging in for the first time, make sure you, as the admin, and all assigned users enroll in FIDO authentication. To simplify this process, you can create a user group containing all team members and assign it to the Web App. Then include the group in your enrollment policy, which you can customize as needed.
 
-## Set up access policies in the Authorization Server
+## Set up access policies in the OAuth authorization server
 
 You'll need to create an access policy and a corresponding rule in your Authorization Server. Refer to Okta's [documentation](https://developer.okta.com/docs/guides/configure-access-policy/main/) for complete instructions on configuring access policies.
 
-## Set up custom claims for department information
+## Configure custom claims in Okta for team-based access
 
 The most interesting part is to create and include custom attributes from the user profile, as Okta claims in your tokens. For example, you'll add the user's **`department`** information as a claim and display it as a team name on the expense dashboard.
 
->  **Warning:** Avoid overloading ID tokens with too many custom claims. Keep ID tokens compact and efficient. Including unnecessary or excessive data can bloat the token and lead to network performance issues.
+>  **Warning:** Only include custom claims in the ID token if they are essential for establishing the user identity. Claims used solely for access control or business logic must be retrieved securely from the /userinfo endpoint or backend APIs after authentication.
+Keep ID tokens compact as adding unnecessary claims bloats tokens, increases exposure risk, and may lead to performance issues.
 
-1. **Add custom attributes to the Okta user profile**   
-   1. Create the custom **`department`** attribute in your Okta user profile. Navigate to **Directory \> Profile Editor**. Click the application's user profile that you created earlier. (For eg. *My Web App User* in our case)   
-   2. Click **Add attribute**, mention **Data type** as **`string`**, **Display name** as **`department`** and **Variable name** as **`department`**, and click Save.  
-
-2. **Map the Custom Attribute to Your Application**  
-   Next, **map** this new **`department`** attribute from the Okta user profile to your specific application's user profile.  
-   1. Under the Attributes section, click **Mappings.** Select **Okta User to \[Your App Name\].**   
-   2. Locate the department string, enter **user.department** as the value, click the arrow dropdown, select **Apply mapping on user create and update**, and then click Save Mappings.
-
-3. **Assign Departments to Users**   
-   1. Go to **Directory** \> **People**   
+1. **Assign Departments to Users**   
+   1. In the Okta Admin Console, go to **Directory** \> **People**   
    2. Select a user from the list and click **Profile**.   
-   3. Set the **department** attribute field to the user's team (e.g., **`Finance`**,  **`Marketing`**,  **`Support`**) and **`all`** if the user is an admin.  
+   3. Set the **department** attribute field to the user's team (e.g., **`Finance`**,  **`Marketing`**,  **`Support`**) and **`admin`** if the user is an admin.  
    **Note:** Ensure you update the department for all user profiles associated with different teams. Also, replace the placeholder team names in the .env file with the team names you want. 
 
-4. **Configuring Custom Claim in the ID Token**   
-1. Navigate to **Security \> API \> Authorization Servers**. Create a custom claim and configure the claim with the following details:   
-   1. **Name**: **`department`**  
-   2. **Include in token type**: Select **`ID Token`** and select **`Always`**.  
-   3. **Value type**: Select **`Expression`** from the dropdown.  
-   4. **Value**: Enter **`appuser.department`** in the field.  
-      **Note:** Since you mapped the Okta User Profile to the App User Profile in the mapping section, use **`appuser.department`** as the expression.  
-   5. **Include in**: Select **`The following scopes`** and enter the **`department`** in the blank field below. Click Save.  
-2. **Optional Step for Testing:** Under the authorization servers, click default. Under Token preview, proceed with the following steps:   
-   1. **OAuth/OIDC client** \- Enter your app name (In our case, My Web App)  
-      2. **Select Grant type** as Authorization Code  
-      3. Enter your email in the **User** field  
-      4. Select **scopes** as **openid** and **department**
-      5. Click **Preview Token** to view the department claim. If it's visible, the setup is correct, and the claim will be included in the ID token.  
+2. **Configure Okta custom claims for team-based access** 
+    1. In the Okta Admin Console, navigate to **Security \> API \> Authorization Servers**. Select the default Authorization Server. 
+    2. Go to the Claims tab and click **Add Claim** to create a custom claim and configure it with the following details:   
+        1. **Name**: **`department`**  
+        2. **Include in token type**: Select **`ID Token`** and select **`Userinfo / id_token request`** from the dropdown.  
+        3. **Value type**: Select **`Expression`** from the dropdown.  
+        4. **Value**: Enter **`user.department`** in the field.  
+        5. **Include in**: Select **`Any scope`** and click Save.  
+
+3. **Optional Step for Testing:** Under the authorization servers, click default. Under Token preview, proceed with the following steps:   
+    1. **OAuth/OIDC client** \- Enter your app name (In our case, My Web App)  
+    2. **Select Grant type** as Authorization Code  
+    3. Enter your email in the **User** field  
+    4. Enter **scopes** as **openid**
+    5. Click **Preview Token** to check if the department claim appears. If it does, your setup is complete.
  
 
 ## Building the Express app 
@@ -219,11 +216,14 @@ app.listen(3000, () => {
 The authentication logic is kept in a separate file, `auth.js`, to keep your server organized and maintainable. This file manages OpenID Connect authentication with [openid-client](https://www.passportjs.org/packages/openid-client), including PKCE support. It sets up the OIDC client, handles login and logout, processes callbacks, and provides middleware to protect routes.
 
 
+In this file, you'll define a constant called **ALL_TEAMS_NAME** that includes all possible team names (e.g., Finance, Marketing, and Support). Make sure the names are comma-separated, and if a team name has two words, include a space between them.
+
+
 ```javascript
 import * as client from "openid-client";
 import "dotenv/config";
 
-const ALL_TEAMS_NAME = process.env.ALL_TEAMS_NAME;
+const ALL_TEAMS_NAME = "Advocacy, Support, Dev Success"
 
 export function ensureAuthenticated(req, res, next) {
   if (req.isAuthenticated()) {
@@ -241,7 +241,7 @@ function getCallbackUrlWithParams(req) {
 
 function getModifiedDepartment(departmentVal) {
   return departmentVal?.trim()
-    ? departmentVal === "all"
+    ? departmentVal === "admin"
       ? ALL_TEAMS_NAME.split(",").map((teamName) => ({
           id: teamName.trim().toLowerCase().split(" ").join("-"),
           label: teamName,
@@ -271,7 +271,7 @@ export async function login(req, res) {
     req.session.save();
 
     const authUrl = client.buildAuthorizationUrl(openIdClientConfig, {
-      scope: "openid profile email offline_access department",
+      scope: "openid profile email offline_access",
       state,
       code_challenge,
       code_challenge_method: "S256",
@@ -308,7 +308,7 @@ export async function authCallback(req, res, next) {
       profile: {
         ...userInfo,
         idToken: tokenSet.id_token,
-        teams: getModifiedDepartment(departmentVal),
+        team: getModifiedDepartment(departmentVal),
         department: departmentVal,
       },
     };
@@ -338,6 +338,7 @@ export function logout(req, res) {
     });
   });
 }
+
 ```
 
 ### Set up the routes file 
@@ -368,20 +369,20 @@ router.get("/profile", ensureAuthenticated, (req, res) => {
 });
 
 router.get("/dashboard", ensureAuthenticated, (req, res) => {
-  const teams = req.user?.profile?.teams || [];
+  const team = req.user?.profile?.team || [];
 
   res.render("dashboard", {
     title: "Dashboard",
     user: req.user,
-    teams,
+    team,
   });
 });
 
-router.get("/teams/:id", ensureAuthenticated, (req, res) => {
+router.get("/team/:id", ensureAuthenticated, (req, res) => {
   const teamId = req.params.id;
-  const teams = req.user?.profile?.teams || [];
+  const teamList = req.user?.profile?.team || [];
 
-  const team = teams.find((team) => team.id === teamId);
+  const team = teamList.find((team) => team.id === teamId);
   if (!team) {
     return res.status(404).send("Team not found");
   }
@@ -406,7 +407,7 @@ export default router;
 
 ### Add views in the app
 
-Now it's time to give the app a user interface. We'll use EJS templates to build pages that respond dynamically to who's logged in and what data they see. The app uses `ejs` templates to render the pages, plus `express-ejs-layouts` for common layout structures.
+Now it's time to give the app a user interface. You'll use EJS templates to build pages that respond dynamically to who's logged in and what data they see. The app uses `ejs` templates to render the pages, plus `express-ejs-layouts` for common layout structures.
 
 Create a folder named `views`, then add the following EJS files:
 
@@ -504,12 +505,12 @@ Create a folder named `views`, then add the following EJS files:
 <p>Welcome, <%= user.profile.name || 'User' %></p>
 
 <h3>Your Teams</h3>
-<% if (teams && teams.length > 0) { %>
+<% if (team && team.length > 0) { %>
 <ul class="list-group">
-  <% teams.forEach(team => { %>
+  <% team.forEach(team => { %>
   <li class="list-group-item d-flex justify-content-between align-items-center">
     <%= team.label %>
-    <a href="/teams/<%= team.id %>" class="btn btn-primary btn-sm">View</a>
+    <a href="/team/<%= team.id %>" class="btn btn-primary btn-sm">View</a>
   </li>
   <% }) %>
 </ul>
@@ -558,10 +559,15 @@ This is the EJS template used to render the team expenses view. It receives the 
 
 Create an `expensedata.js` file that serves as a data module for your project. This file dynamically generates sample expense data for each team based on environment variables. It automatically produces dummy expenses for all teams configured for testing in your web app.
 
+For consistent configuration across your app, define the ALL_TEAMS_NAME constant here with the same value used in the auth.js file.
+
+
 ```javascript
 import 'dotenv/config';
 
-const teams = (process.env.ALL_TEAMS_NAME || '').split(',').map((name) => name.trim().toLowerCase().split(' ').join('-'));
+const ALL_TEAMS_NAME = "Advocacy, Support, Dev Success";
+
+const teams = (ALL_TEAMS_NAME || '').split(',').map((name) => name.trim().toLowerCase().split(' ').join('-'));
 
 const sampleNames = ['Alex', 'Jordan', 'Taylor', 'Morgan', 'Casey', 'Riley'];
 
@@ -574,9 +580,8 @@ const sampleItems = [
   'Team Lunch',
   'Event Booth',
   'Promotional Material',
-  'Recruitment Drive',
   'Payroll Processing',
-  'Financial Audit',
+  'Team Offsite',
   'Compliance Training',
 ];
 
@@ -598,6 +603,7 @@ export const expensesByTeam = teams.reduce((acc, team) => {
   acc[team] = generateDummyExpenses();
   return acc;
 }, {});
+
 ```
 
 ## Run the app
@@ -648,4 +654,4 @@ To explore further, check out these official Okta resources to learn more about 
 
 * [Authorization Servers in Okta](https://developer.okta.com/docs/concepts/auth-servers) 
 
-Follow us on [LinkedIn](https://www.linkedin.com/company/oktadev), [Twitter](https://twitter.com/oktadev) and subscribe to our [YouTube](https://www.youtube.com/c/oktadev) channel to see more content like this. If you have any questions, please comment below! 
+Follow us on [LinkedIn](https://www.linkedin.com/company/oktadev), [Twitter](https://twitter.com/oktadev), and subscribe to our [YouTube](https://www.youtube.com/c/oktadev) channel to see more content like this. If you have any questions, please comment below!
