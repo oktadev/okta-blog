@@ -23,10 +23,16 @@ changelog:
   - 2021-04-07: Changed Okta OIDC app creation instructions to use the Okta CLI. See changes in [okta-blog#670](https://github.com/oktadeveloper/okta-blog/pull/670).
   - 2020-05-18: Updated to remove `/implicit` from Login redirect URI. See the code changes in the [example app on GitHub](https://github.com/oktadeveloper/okta-angular-bootstrap-example/pull/4). Changes to this article can be viewed in [oktadeveloper/okta-blog#298](https://github.com/oktadeveloper/okta-blog/pull/298).
 ---
+:page-liquid:
+
+++++
+{% include integrator-org-warning.html %}
+++++
+
 
 :toc: macro
-:page-liquid:
 :experimental:
+
 
 I've been a longtime fan of CSS frameworks since 2005. I led an open-source project called AppFuse at the time and wanted a way to provide themes for our users. We used Mike Stenhouse's CSS Framework and held a design content to gather some themes we liked for our users. A couple of other CSS frameworks came along in the next few years, namely Blueprint in 2007 and Compass in 2008.
 
@@ -41,8 +47,6 @@ Another web framework took the world by storm the following year: AngularJS. Ang
 Together, these frameworks have had quite a run. It's hard to believe that they've lasted so long, especially considering both projects have had major rewrites!
 
 image::{% asset_path 'blog/angular-bootstrap/angular-bootstrap.png' %}[alt=Beautiful Angular Apps with Bootstrap,width=800,align=center]
-
-{% include integrator-org-warning.html %}
 
 toc::[]
 

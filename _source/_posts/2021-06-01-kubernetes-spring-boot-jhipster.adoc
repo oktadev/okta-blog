@@ -20,16 +20,19 @@ changelog:
 - 2022-08-12: Added link to [CI/CD Java Microservices with CircleCI and Spinnaker](/blog/2022/08/12/ci-cd-circleci-spinnaker-microservices) as a downstream blog post. Changes can be viewed in [okta-blog#1241](https://github.com/oktadev/okta-blog/pull/1241).
 - 2021-08-11: Fixed missing namespace parameters and Ingress definition. See the code changes in the [example on GitHub](https://github.com/oktadev/java-microservices-examples/pull/24). Changes to this post can be viewed in [okta-blog#857](https://github.com/oktadev/okta-blog/pull/857).
 ---
-
 :page-liquid:
+
+++++
+{% include integrator-org-warning.html %}
+++++
+
 :toc: macro
 :experimental:
+
 
 When your business or application is successful, it needs to scale. Not just technology-wise, but human-wise. When you're growing rapidly, it can be difficult to hire developers fast enough. Using a microservices architecture for your apps can allow you to divide up ownership and responsibilities, and scale teams along with your code.
 
 Kubernetes is an open-source platform for managing containerized workloads and services. Kubernetes traces its lineage https://kubernetes.io/blog/2015/04/borg-predecessor-to-kubernetes/[directly from Borg], Google's long-rumored internal container-oriented cluster-management system.
-
-{% include integrator-org-warning.html %}
 
 Spring Boot and Spring Cloud were some of the pioneering frameworks in Javaland. However, even they stood on the shoulders of giants when they leveraged Netflix's open-source projects to embrace and extend. In 2018, https://netflixtechblog.com/netflix-oss-and-spring-boot-coming-full-circle-4855947713a0[Netflix OSS announced they'd come full circle], and adopted Spring Boot.
 

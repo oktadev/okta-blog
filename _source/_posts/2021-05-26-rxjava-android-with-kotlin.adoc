@@ -16,10 +16,16 @@ tweets:
 image: blog/rxjava-android/rxjava-android.png
 type: conversion
 ---
+:page-liquid:
+
+++++
+{% include integrator-org-warning.html %}
+++++
+
 
 :toc: macro
-:page-liquid:
 :experimental:
+
 
 Modern-day mobile apps do so much. They communicate with different back-ends via network APIs. They store and retrieve data from the local database, do heavy media processing, and communicate with web sockets. It's hard to keep track of all the information from different asynchronous data sources, especially knowing that the users are accustomed to constantly having a fluid experience with the apps they use.
 
@@ -30,8 +36,6 @@ Many of those problems were solved by releasing the Java version of the Reactive
 In this post, you'll learn the basics of RxJava on Android by building a real-world example of server-client communication. Then, you'll create a production-ready back-end app that will provide an API to authorized users from the Android app. The OIDC authorization will be implemented with the help of Okta OIDC SDKs on both apps.
 
 Fasten your seatbelt; your reactive journey starts here!
-
-{% include integrator-org-warning.html %}
 
 toc::[]
 

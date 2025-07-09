@@ -16,15 +16,19 @@ tweets:
 image: blog/oauth-sessions-with-java/social.png
 type: conversion
 ---
+:page-liquid:
+
+++++
+{% include integrator-org-warning.html %}
+++++
+
 
 
 :toc: macro
-:page-liquid:
 :experimental:
 
-A common OAuth 2.0 question we get: "How do I deal with OAuth in a load-balanced application?" The short answer: There's nothing specific about session clustering for OAuth. The longer answer is—you likely still need to worry about cluster session management. This post will discuss how an OAuth login relates to your application's session. And we'll build a simple, secure, load-balanced application to demonstrate.
 
-{% include integrator-org-warning.html %}
+A common OAuth 2.0 question we get: "How do I deal with OAuth in a load-balanced application?" The short answer: There's nothing specific about session clustering for OAuth. The longer answer is—you likely still need to worry about cluster session management. This post will discuss how an OAuth login relates to your application's session. And we'll build a simple, secure, load-balanced application to demonstrate.
 
 toc::[]
 

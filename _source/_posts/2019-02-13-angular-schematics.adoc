@@ -18,9 +18,14 @@ type: conversion
 changelog:
 - 2021-04-15: Updated to use Angular 11 and OktaDev Schematics v3.4.1. You can see the changes to this post in [okta-blog#707](https://github.com/oktadeveloper/okta-blog/pull/707); example app changes are in [okta-angular-schematics-example#2](https://github.com/oktadeveloper/okta-angular-schematics-example/pull/2).
 ---
+:page-liquid:
+
+++++
+{% include integrator-org-warning.html %}
+++++
 
 :toc: macro
-:page-liquid:
+
 
 When I first started to learn Angular (it was called Angular 2 at the time), I was appalled by the number of files you needed to create to get a basic "Hello, World" example working. As Angular matured, a lot of this pain went away thanks to Angular CLI. Angular CLI is a command-line tool that generates a basic Angular project for you. In its 7.0 release, it started asking you questions about your application. Based on your responses, it chooses to add routing and determines a stylesheet format.
 
@@ -33,8 +38,6 @@ If you'd rather watch a video, I https://youtu.be/ANwZIt3Ni2s[created a screenca
 <iframe width="700" height="394" style="max-width: 100%" src="https://www.youtube.com/embed/ANwZIt3Ni2s" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 </div>
 ++++
-
-{% include integrator-org-warning.html %}
 
 toc::[]
 

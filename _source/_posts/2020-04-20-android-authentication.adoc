@@ -18,10 +18,15 @@ type: conversion
 changelog:
 - 2020-12-24: Updated to Okta OIDC for Android v1.0.17. See the code changes in the [example app on GitHub](https://github.com/oktadeveloper/okta-oidc-android-example/pull/2). Changes to this article can be viewed in [oktadeveloper/okta-blog#510](https://github.com/oktadeveloper/okta-blog/pull/510).
 ---
+:page-liquid:
+
+++++
+{% include integrator-org-warning.html %}
+++++
 
 :toc: macro
-:page-liquid:
 :experimental:
+
 
 With mobile apps becoming ever-present in users' lives, following best security practices has become essential in protecting your users and your apps. Implementing security alone and from the ground up can be costly for your development team, create a less-than-ideal user experience, and be susceptible to design/implementation errors. The easiest path to strong security, and a positive user experience, is to turn to the experts.
 
@@ -30,8 +35,6 @@ The Okta OIDC SDK can help with this in many ways:
 - OAuth 2.0 and OpenID Connect allows your users to easily authenticate on your app with social login, using industry-standard secure protocols
 
 This post will show you a simple example of how you can use Okta OIDC SDK to create a (Kotlin) Android app with authentication.
-
-{% include integrator-org-warning.html %}
 
 toc::[]
 

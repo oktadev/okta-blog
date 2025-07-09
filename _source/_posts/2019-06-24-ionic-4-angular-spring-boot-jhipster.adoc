@@ -20,9 +20,15 @@ changelog:
   - 2020-05-20: Updated to remove `/implicit` from redirect URIs since auth code flow is used. Changes to this post can be viewed in [okta-blog#302](https://github.com/oktadeveloper/okta-blog/pull/302). Updates to the example application are in [okta-ionic4-jhipster-example#10](https://github.com/oktadeveloper/okta-ionic4-jhipster-example/pull/10).
   - 2019-10-30: Updated to use JHipster 6.4.1 and Ionic for JHipster 4.3.0. Changes to this post can be viewed in [okta-blog#64](https://github.com/oktadeveloper/okta-blog/pull/64). Updates to the example application are in [okta-ionic4-jhipster-example#7](https://github.com/oktadeveloper/okta-ionic4-jhipster-example/pull/7).
 ---
-
 :page-liquid:
+
+++++
+{% include integrator-org-warning.html %}
+++++
+
+
 :toc: macro
+
 
 I'm a big fan of Ionic. I started using it several years ago when it was based on AngularJS. As a developer, I really liked it because I knew Angular. I found didn't have to learn much more to be a productive developer with Ionic.
 
@@ -33,8 +39,6 @@ Technically, this is called a "hybrid" app because it's not using native SDKs. H
 Not only that, but Ionic supports PWAs! This means you can deploy the same app to the web that you package up and ship to an app store. Maximum discoverability FTW!
 
 If you know me, you'll know I'm a big fan of Java, Spring Boot, and JHipster as well. If you don't know what JHipster is, I'm sorry. That's my fault. I've been doing my best to spread the word, but you somehow missed it. It's the best thing ever! If you know me from AppFuse, or you're familiar with Ruby on Rails, it's that times 10. JHipster is an application generator, and platform, for building Java apps with JavaScript frontends.
-
-{% include integrator-org-warning.html %}
 
 toc::[]
 

@@ -17,10 +17,15 @@ changelog:
 - 2022-04-22: Updated to use JHipster Native 1.1.2. See this post's changes in [okta-blog#1152](https://github.com/oktadev/okta-blog/pull/1152) and the example app changes in [auth0-full-stack-java-example#17](https://github.com/oktadev/auth0-full-stack-java-example/pull/17).
 - 2022-04-15: Updated to use JHipster 7.8.1 and JHipster Native 1.1.1. See this post's changes in [okta-blog#1137](https://github.com/oktadev/okta-blog/pull/1137) and the example app changes in [auth0-full-stack-java-example#15](https://github.com/oktadev/auth0-full-stack-java-example/pull/15).
 ---
-
 :page-liquid:
+
+++++
+{% include integrator-org-warning.html %}
+++++
+
 :toc: macro
 :experimental:
+
 :commandkey: &#8984;
 
 Over the years, I've developed a lot of Java applications. I started writing Java code in the late 90s and spent several years doing Java before I tried another server-side language. I was impressed when I first tried building apps in Ruby on Rails, Python, and Node.js - they all started super-fast!
@@ -32,8 +37,6 @@ I scoffed at serverless when it first came out. Mostly because I was a Java deve
 Then, along came https://www.graalvm.org/[GraalVM]. It's gained support from many Java frameworks in the last few years and has made their apps start in milliseconds!
 
 Today, I'm proud to announce that this same capability is now available for your JHipster 7+ apps!
-
-{% include integrator-org-warning.html %}
 
 *Prerequisites*:
 

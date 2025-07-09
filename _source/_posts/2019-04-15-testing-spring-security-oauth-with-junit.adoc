@@ -16,9 +16,14 @@ tweets:
 image: blog/testing-jhipster-6/social.png
 type: conversion
 ---
-
 :page-liquid:
+
+++++
+{% include integrator-org-warning.html %}
+++++
+
 :toc: macro
+
 
 Using unit and integration tests to verify your code quality is an excellent way to show you care about your code. I recently did a bunch of work in the popular JHipster open source project to upgrade it to use the latest release of Spring Security.
 
@@ -27,8 +32,6 @@ Spring Security 5.1+ adds OAuth 2.0 and OIDC as first-class citizens that you ca
 I added OAuth 2.0 support to JHipster in the fall of 2017. The experience influenced me greatly. I learned a ton about Keycloak, Docker Compose, and how to switch between identity providers (IdPs).
 
 I spent the last month upgrading https://www.jhipster.tech[JHipster] to use Spring Security 5.1 (the default in Spring Boot 2.1). I experienced some frustrations along the way, shook my fist at Travis CI, and rejoiced when I figured out solutions. I also learned quite a bit in the process. I'm going to share those experiences with you today.
-
-{% include integrator-org-warning.html %}
 
 toc::[]
 

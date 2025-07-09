@@ -13,10 +13,15 @@ tweets:
 image: blog/github-actions-graalvm/github-actions-graalvm.png
 type: conversion
 ---
-
 :page-liquid:
+
+++++
+{% include integrator-org-warning.html %}
+++++
+
 :toc: macro
 :experimental:
+
 
 Getting something to work is one of the greatest feelings you can have as a developer. Especially when you've spent hours, days, or months trying to make it happen. The last mile can be one of the most painful and rewarding experiences, all wrapped into the same day or two.
 
@@ -25,8 +30,6 @@ I experienced this recently with link:/blog/2022/03/03/spring-native-jhipster[Sp
 After a few days of euphoria, I thought it'd be easy to create native builds for each operating system (Linux, macOS, and Windows) using GitHub Actions. I was wrong.
 
 If you'd like to follow along and learn how to configure GitHub Actions to create native binaries, you'll need a few prerequisites.
-
-{% include integrator-org-warning.html %}
 
 *Prerequisites*:
 
