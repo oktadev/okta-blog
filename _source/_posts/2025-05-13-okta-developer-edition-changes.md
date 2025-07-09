@@ -59,7 +59,7 @@ Creating an Integrator Free Plan organization will give you a clean slate to tes
 
 When you submit an integration to [the Okta Integration Network (OIN)](https://www.okta.com/integrations/), Okta makes its own copy of the integration for distribution to users. The integration is displayed in your account so you can update it and submit the updates, but users who install the app from the OIN get a copy of the latest accepted submission.
 
-If you have a published integration in the OIN, it’ll remain available to users without interruption. To update your published integration from your integrator account, email
+If you have a published integration in the OIN, it'll remain available to users without interruption. To update your published integration from your integrator account, email
 `oin@okta.com` with your integrator account ID and a link to your app in the OIN catalog. The OIN team will verify that you can move the integration and then link it to the integrator account you specified.
 
 You can make this request at any time, even after Developer Edition orgs are no longer available. Getting your integration linked to your Integrator account may take several days.
