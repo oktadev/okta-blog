@@ -25,7 +25,9 @@ REST is one of the most used architectural styles when it comes to developing we
 
 In this tutorial you'll create a TODO list service that will perform all four CRUD functions (Create, Retrieve, Update, and Delete), using the Jersey API. In the end, you'll add security to make sure only authenticated users can call your services.
 
+++++
 {% include integrator-org-warning.html %}
+++++
 
 **Prerequisites:**
 

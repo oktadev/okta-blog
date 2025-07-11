@@ -29,7 +29,9 @@ When your business or application is successful, it needs to scale. Not just tec
 
 Kubernetes is an open-source platform for managing containerized workloads and services. Kubernetes traces its lineage https://kubernetes.io/blog/2015/04/borg-predecessor-to-kubernetes/[directly from Borg], Google's long-rumored internal container-oriented cluster-management system.
 
+++++
 {% include integrator-org-warning.html %}
+++++
 
 Spring Boot and Spring Cloud were some of the pioneering frameworks in Javaland. However, even they stood on the shoulders of giants when they leveraged Netflix's open-source projects to embrace and extend. In 2018, https://netflixtechblog.com/netflix-oss-and-spring-boot-coming-full-circle-4855947713a0[Netflix OSS announced they'd come full circle], and adopted Spring Boot.
 
