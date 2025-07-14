@@ -41,7 +41,9 @@ Long story short, they're a match made in heaven!
 
 image::{% asset_path 'blog/spring-boot-2-angular-9/bootiful-angular.png' %}[alt=Bootiful Angular,width=800,align=center]
 
+++++
 {% include integrator-org-warning.html %}
+++++
 
 toc::[]
 

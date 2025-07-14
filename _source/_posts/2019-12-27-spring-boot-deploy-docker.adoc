@@ -29,7 +29,9 @@ image::{% asset_path 'blog/spring-boot-deploy-docker/app-docker-host.png' %}[alt
 
 In this tutorial, you'll see how to leverage Docker to deploy your Spring Boot application.
 
+++++
 {% include integrator-org-warning.html %}
+++++
 
 toc::[]
 

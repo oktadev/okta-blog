@@ -29,7 +29,9 @@ Implementing a microservices architecture in Java isn't for everyone. For that m
 
 The Java ecosystem has some well-established patterns for developing microservice architectures. If you're familiar with Spring, you'll feel right at home developing with Spring Boot and Spring Cloud. Since that's one of the quickest ways to get started, I figured I'd walk you through a quick tutorial.
 
+++++
 {% include integrator-org-warning.html %}
+++++
 
 toc::[]
 

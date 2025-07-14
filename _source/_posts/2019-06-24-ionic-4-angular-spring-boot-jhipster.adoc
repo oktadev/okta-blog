@@ -34,7 +34,9 @@ Not only that, but Ionic supports PWAs! This means you can deploy the same app t
 
 If you know me, you'll know I'm a big fan of Java, Spring Boot, and JHipster as well. If you don't know what JHipster is, I'm sorry. That's my fault. I've been doing my best to spread the word, but you somehow missed it. It's the best thing ever! If you know me from AppFuse, or you're familiar with Ruby on Rails, it's that times 10. JHipster is an application generator, and platform, for building Java apps with JavaScript frontends.
 
+++++
 {% include integrator-org-warning.html %}
+++++
 
 toc::[]
 

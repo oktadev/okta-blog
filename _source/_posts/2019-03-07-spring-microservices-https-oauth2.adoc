@@ -28,7 +28,9 @@ But what happens if someone accidentally exposes the ports of your microservice 
 
 In this post, I'll show you how to use HTTPS and OAuth 2.0 to secure service-to-service communication.
 
+++++
 {% include integrator-org-warning.html %}
+++++
 
 toc::[]
 

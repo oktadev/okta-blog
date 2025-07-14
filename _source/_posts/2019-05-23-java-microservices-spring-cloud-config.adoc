@@ -26,7 +26,9 @@ Spring Boot provided a much-needed spark to the Spring ecosystem when it was fir
 
 In a link:/blog/2019/05/22/java-microservices-spring-boot-spring-cloud[previous tutorial on Java Microservices with Spring Boot and Spring Cloud], I showed how you can use OAuth 2.0 and OpenID Connect to secure everything. One of the problems with this example is that you have to configure the OIDC properties in each application. This can be a real pain if you have hundreds of microservices. Yes, you could define them as environment variables and this would solve the problem. However, if you have different microservices stacks using different OIDC client IDs, this approach will be difficult.
 
+++++
 {% include integrator-org-warning.html %}
+++++
 
 toc::[]
 
