@@ -132,6 +132,7 @@ OKTA_OAUTH2_CLIENT_SECRET="NEVER-SHOW-SECRETS"
 ```
 
 Your Okta domain is the first part of your issuer, before `/oauth2/default`.
+    {% endif %}
   {% endif %}
 {% endif %}
 
@@ -174,7 +175,7 @@ https://developer.okta.com/docs/guides/sign-into-
 {%- endif -%}
 {%- endcapture -%}
 
-**NOTE**: You can also use the [Okta CLI Client](https://github.com/okta/okta-cli-client) or [Okta PowerShell Module](https://github.com/okta/okta-powershell-cli) to automate this process. See [Create a{% if (include.framework == "Angular" or include.type == "token") %}n{% endif %} {{ oktaAppType }} on Okta{% endif %}]({{ docsLink }}) for more information about setting up your app.
+**NOTE**: You can also use the [Okta CLI Client](https://github.com/okta/okta-cli-client) or [Okta PowerShell Module](https://github.com/okta/okta-powershell-cli) to automate this process. See [this guide]({{ docsLink }}) for more information about setting up your app.
 {% endcapture %}
 
 {% if include.type == "token" %}
@@ -184,7 +185,7 @@ https://developer.okta.com/docs/guides/sign-into-
 {% else %}
 {% if adoc %}++++{% endif %}
 <details>
-  <summary>What does manual setup accomplish?</summary>
+  <summary>Where are my new app's credentials?</summary>
 {{ details | markdownify }}
 </details>
 {% if adoc %}++++{% endif %}
