@@ -48,7 +48,7 @@ This will render the following HTML:
 
 ## Configuration Options
 
-Supported values for `type`: spa, web, native, service, token, and jhipster
+Supported values for `type`: spa, web, native, service, and token
 
 Other parameters you can pass in:
 
@@ -72,7 +72,6 @@ This section shows examples for different types of apps and frameworks.
 * [Spring Boot](#okta-spring-boot-starter)
 * [ASP.NET Core](#aspnet-core)
 * [Service](#service)
-* [JHipster](#jhipster)
 
 ### Angular
 
@@ -220,20 +219,6 @@ This will render the following HTML:
 {% include setup/integrator-cli.md type="service" %}
 <div class="separator"></div>
 
-### JHipster
-
-{% raw %}
-```
-{% include setup/integrator-cli.md type="jhipster" %}
-```
-{% endraw %}
-
-This will render the following HTML:
-
-<div class="separator"></div>
-{% include setup/integrator-cli.md type="jhipster" %}
-<div class="separator"></div>
-
 ### API Token
 
 {% raw %}
@@ -275,16 +260,3 @@ This will render the following HTML:
 <div class="separator"></div>
 {% include setup/oidcdebugger.md %}
 <div class="separator"></div>
-
-## Example Blog Posts
-
-Example code is in the following posts:
-
-- .NET: [10x-development-azure-cli-dotnet](/blog/2020/09/02/10x-development-azure-cli-dotnet)
-- JHipster: [spring-session-redis](/blog/2020/12/14/spring-session-redis)
-- Native with Ionic: [ionic-apple-google-signin](ionic-apple-google-signin)
-- Okta Spring Boot Starter: [spring-cloud-config](http://localhost:4000/blog/2020/12/07/spring-cloud-config)
-- Angular: [secure-angular-login](/blog/2019/02/12/secure-angular-login)
-- React: [react-login](/blog/2020/12/16/react-login)
-- Vue: [vue-login](/blog/2020/05/15/vue-login)
-- Service: [simple-rest-api-php](/blog/2019/03/08/simple-rest-api-php)

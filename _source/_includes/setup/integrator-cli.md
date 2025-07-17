@@ -21,21 +21,7 @@
   {%- assign baseUrl = parts[0] -%}
 {%- endif -%}
 
-{% if include.type == "jhipster" %}
-Then, in the Admin Console:
 
-1. Go to **Applications** > **Applications**
-2. Click **Create App Integration**
-3. Select **OIDC - OpenID Connect** as the sign-in method
-4. Select **Web Application** as the application type, then click **Next**
-5. Enter an app integration name or use the default
-  {% if include.loginRedirectUri and include.logoutRedirectUri %}6. Configure the redirect URIs:
-   - **Sign-in redirect URIs**: `{% if adoc %}\{% endif %}{{ include.loginRedirectUri }}`
-   - **Sign-out redirect URIs**: `{% if adoc %}\{% endif %}{{ include.logoutRedirectUri }}`
-  {% else %}6. Accept the default redirect URI values:
-   - **Sign-in redirect URIs**: `http://localhost:8080/login/oauth2/code/oidc` and `http://localhost:8761/login/oauth2/code/oidc`
-   - **Sign-out redirect URIs**: `http://localhost:8080` and `http://localhost:8761`
-  {% endif %}
 7. Click **Save**
 {% elsif include.type == "token" %}
 Next, create an API token in the Admin Console:
@@ -101,22 +87,7 @@ Next, create an API token in the Admin Console:
 {% endif %}
 
 {% capture details %}
-{%- if include.type == "jhipster" -%}
-Creating a JHipster app manually in the Admin Console accomplishes several things:
-
-1. Creates an OIDC app with the correct {% if include.loginRedirectUri %}(see above, below are the default values) {% endif %}redirect URIs: 
-  - login: `http://localhost:8080/login/oauth2/code/oidc` and `http://localhost:8761/login/oauth2/code/oidc`
-  - logout: `http://localhost:8080` and `http://localhost:8761`
-
-**NOTE**: The `http://localhost:8761*` redirect URIs are for the JHipster Registry, which is often used when creating microservices with JHipster.
-
-After creating the app, you'll also need to:
-2. Create `ROLE_ADMIN` and `ROLE_USER` groups in **Directory** > **Groups**
-3. Add your current user to both groups in **Directory** > **People**
-4. Add a `groups` claim to your default authorization server in **Security** > **API** > **Authorization Servers**
-
-You will see the configuration details when the app is created:
-{%- elsif include.type != "token" -%}
+{%- if include.type != "token" -%}
 Creating an {% if include.type == "service" %}OAuth 2.0{% else %}OIDC{% endif %} {% if include.type == "spa" %}Single-Page App{% else %}{{ include.type | capitalize }} App{% endif %} manually in the Admin Console configures your Okta Org with the application settings.{% if include.type != "service" %} It adds the redirect URIs you specified and grants access to the selected users or groups.{% if include.type == "spa" %} You may also need to configure trusted origins for `{% if include.logoutRedirectUri %}{{ include.logoutRedirectUri }}{% else %}{{ baseUrl }}{% endif %}` in **Security** > **API** > **Trusted Origins**.{% endif %}{% endif %} You will see the configuration details when the app is created:
 {%- endif -%}
    
@@ -130,7 +101,7 @@ After creating the app, you can find the configuration details on the app's **Ge
 Issuer:    https://dev-133337.okta.com/oauth2/default
 Client ID: 0oab8eb55Kb9jdMIr5d6
 ```
-{% elsif include.type contains "web" or include.type == "jhipster" or include.type == "service"  %}
+{% elsif include.type contains "web" or include.type == "service"  %}
 After creating the app, you can find the configuration details on the app's **General** tab:
 
 - **Client ID**: Found in the **Client Credentials** section
@@ -152,7 +123,7 @@ okta.oauth2.client-id=0oab8eb55Kb9jdMIr5d6
 okta.oauth2.client-secret=NEVER-SHOW-SECRETS
 ```
   {% elsif include.type != "token" %}
-You'll need these values for your application configuration{% if include.type == "jhipster" %} (environment variables){% endif %}:
+You'll need these values for your application configuration:
 
     {% if include.type == "web" or include.type == "service" %}
 ```shell
@@ -162,17 +133,9 @@ OKTA_OAUTH2_CLIENT_SECRET="NEVER-SHOW-SECRETS"
 ```
 
 Your Okta domain is the first part of your issuer, before `/oauth2/default`.
-    {% elsif include.type == "jhipster" %}
-```shell
-SPRING_SECURITY_OAUTH2_CLIENT_PROVIDER_OIDC_ISSUER_URI="https://{yourOktaDomain}/oauth2/default"
-SPRING_SECURITY_OAUTH2_CLIENT_REGISTRATION_OIDC_CLIENT_ID="{clientId}"
-SPRING_SECURITY_OAUTH2_CLIENT_REGISTRATION_OIDC_CLIENT_SECRET="{clientSecret}"
-```
-    {% endif %}
   {% endif %}
 {% endif %}
 
-{%- assign jhipsterDocs = 'https://www.jhipster.tech/security/#okta' -%}
 {%- assign tokenDocs = 'https://developer.okta.com/docs/guides/create-an-api-token/create-the-token/' -%}
 {%- capture oktaDocs -%}
 https://developer.okta.com/docs/guides/sign-into-
@@ -200,7 +163,6 @@ https://developer.okta.com/docs/guides/sign-into-
   {%- else -%}{{ include.framework }}
   {%- endif -%}
 {%- elsif (include.type == "spa" -%}Single-Page
-{%- elsif (include.type == "jhipster" -%}JHipster
 {%- elsif (include.type == "token" -%}API Token
 {%- else -%}{{ include.type | capitalize }}
 {%- endif -%}
@@ -208,13 +170,12 @@ https://developer.okta.com/docs/guides/sign-into-
 {%- endcapture -%}
 
 {%- capture docsLink %}
-{%- if include.type == "jhipster" -%}{{ jhipsterDocs }}
-{%- elsif include.type == "token" -%}{{ tokenDocs }}
+{%- if include.type == "token" -%}{{ tokenDocs }}
 {%- else -%}{{ oktaDocs }}
 {%- endif -%}
 {%- endcapture -%}
 
-**NOTE**: You can also use the [Okta CLI Client](https://github.com/okta/okta-cli-client) to automate this process. See [Create a{% if (include.framework == "Angular" or include.type == "token") %}n{% endif %} {{ oktaAppType }}{% if (include.type == "jhipster") %} on Okta{% endif %}]({{ docsLink }}) for more information.
+**NOTE**: You can also use the [Okta CLI Client](https://github.com/okta/okta-cli-client) to automate this process. See [Create a{% if (include.framework == "Angular" or include.type == "token") %}n{% endif %} {{ oktaAppType }} on Okta{% endif %}]({{ docsLink }}) for more information.
 {% endcapture %}
 
 {% if include.type == "token" %}
