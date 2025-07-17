@@ -20,7 +20,6 @@ comments: false
 
 This page is designed for authors of the Okta developer blog. However, these snippets of code might be useful for anyone wanting to set up Okta OIDC apps.
 
-{% img blog/cli/okta-cli-animated.svg alt:"Okta Admin Console" width:"300" %}{: .logo }
 
 **Table of Contents**{: .hide }
 * Table of Contents
