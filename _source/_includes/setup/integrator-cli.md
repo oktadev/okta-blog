@@ -22,9 +22,8 @@
 {%- endif -%}
 
 
-7. Click **Save**
-{% elsif include.type == "token" %}
-Next, create an API token in the Admin Console:
+{% if include.type == "token" %}
+Create an API token in the Admin Console:
 
 1. Go to **Security** > **API** > **Tokens**
 2. Click **Create Token**
