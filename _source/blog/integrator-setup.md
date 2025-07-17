@@ -3,7 +3,6 @@ layout: blog_post
 title: How to Create an OIDC App on Okta
 description: "Manual setup instructions for creating OIDC apps in the Okta Admin Console"
 permalink: /blog/integrator-setup
-image: blog/cli/okta-cli.png
 comments: false
 ---
 
