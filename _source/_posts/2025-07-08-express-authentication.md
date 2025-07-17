@@ -36,7 +36,7 @@ For any growing organization, tracking expenses by team isn't just helpful, it's
 
 Managers get transparency into their team's spending. At the same time, admins maintain a secure, centralized overview across all teams to track budgets and spending patterns and ensure accountability, all without the headache of building authentication and security from scratch.
 
-You’ll also use OpenID Connect (OIDC) through Passport and the openid-client library. Then, you’ll map each user’s email from the ID token to a team. The dashboard displays expenses by team, so each user sees only their department’s spending.
+You'll also use OpenID Connect (OIDC) through Passport and the openid-client library. Then, you'll map each user's email from the ID token to a team. The dashboard displays expenses by team, so each user sees only their department's spending.
 
 
 
@@ -181,13 +181,13 @@ app.listen(3000, () => {
 
 Create a `utils.js` file to serve as a data module for your project. This file includes a user-to-team mapping and has dummy expense data for each team, covering all teams configured for testing in your web app.
 
-The application determines the user’s team context from the email claim in the ID token and filters the expense list accordingly, so the dashboard displays only that team’s data.
+The application determines the user's team context from the email claim in the ID token and filters the expense list accordingly, so the dashboard displays only that team's data.
 
 To customize the data, open utils.js and update the following objects:
 
 ALL_TEAMS_NAME - an array listing all teams in your organization
 
-userTeamMap - maps each user’s email (or "admin" for full access) to a specific team
+userTeamMap - maps each user's email (or "admin" for full access) to a specific team
 
 dummyExpenseData - contains sample expense data for each team
 
@@ -466,7 +466,7 @@ export async function logout(req, res) {
 
 ### Set up the routes file 
 
-Now things start to come together and feel like a real app. The `routes.js` file defines all the essential routes, from login and logout to viewing your profile, the expense dashboard, and individual team pages. The app handles each endpoint’s core logic and checks a user’s authentication status before granting access to protected pages.
+Now things start to come together and feel like a real app. The `routes.js` file defines all the essential routes, from login and logout to viewing your profile, the expense dashboard, and individual team pages. The app handles each endpoint's core logic and checks a user's authentication status before granting access to protected pages.
 
 It acts as our app's traffic controller, directing users to the right pages and ensuring that only logged-in users can view sensitive information like the expense dashboard or group details. This structure keeps our app organized and secure and lays the foundation for a smooth user experience.
 
@@ -682,7 +682,7 @@ Open your browser and navigate to [http://localhost:3000](http://localhost:3000)
 
 Click **Login** and authenticate with your Okta account. The app then displays your Expense Dashboard, Profile, and a Log out option.
 
-> **Note:** When you’re signed in to the Developer Console as an admin, Okta keeps your org session active and automatically logs you into the app. To test other user accounts, use an incognito tab to test the flow from a blank slate.
+> **Note:** When you're signed in to the Developer Console as an admin, Okta keeps your org session active and automatically logs you into the app. To test other user accounts, use an incognito tab to test the flow from a blank slate.
 
 #### Admin view:   
 
