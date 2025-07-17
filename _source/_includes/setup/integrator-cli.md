@@ -1,6 +1,6 @@
 {%- if page.path contains '.adoc' -%}{% assign adoc = true %}{%- endif -%}
 {%- capture adminLink %}
-  {%- if adoc -%}https://developer.okta.com/login[Okta Admin Console]
+  {%- if adoc -%}https://developer.okta.com/login[Okta org]
   {%- else -%}[Okta Admin Console](https://developer.okta.com/login)
   {%- endif -%}
 {%- endcapture -%}
