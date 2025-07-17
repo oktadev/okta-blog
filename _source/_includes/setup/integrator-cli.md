@@ -175,7 +175,7 @@ https://developer.okta.com/docs/guides/sign-into-
 {%- endif -%}
 {%- endcapture -%}
 
-**NOTE**: You can also use the [Okta CLI Client](https://github.com/okta/okta-cli-client) to automate this process. See [Create a{% if (include.framework == "Angular" or include.type == "token") %}n{% endif %} {{ oktaAppType }} on Okta{% endif %}]({{ docsLink }}) for more information.
+**NOTE**: You can also use the [Okta CLI Client](https://github.com/okta/okta-cli-client) or [Okta PowerShell Module](https://github.com/okta/okta-powershell-cli) to automate this process. See [Create a{% if (include.framework == "Angular" or include.type == "token") %}n{% endif %} {{ oktaAppType }} on Okta{% endif %}]({{ docsLink }}) for more information about setting up your app.
 {% endcapture %}
 
 {% if include.type == "token" %}
