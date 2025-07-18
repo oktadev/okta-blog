@@ -105,7 +105,7 @@ After creating the app, you can find the configuration details on the app's **Ge
 
 - **Client ID**: Found in the **Client Credentials** section
 - **Client Secret**: Click **Show** in the **Client Credentials** section to reveal
-- **Issuer**: Found at **Security** > **API** > **Authorization Servers** > **default**
+- **Issuer**: Found in the dropdown menu when opening your profile menu
 
   {% if include.framework == "Spring Boot" %}
 You'll need these values for your `src/main/resources/application.properties` file:
