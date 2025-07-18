@@ -22,15 +22,6 @@
 {%- endif -%}
 
 
-{% if include.type == "token" %}
-Create an API token in the Admin Console:
-
-1. Go to **Security** > **API** > **Tokens**
-2. Click **Create Token**
-3. Give your token a name
-4. Click **Create Token**
-5. Copy the token value and store it somewhere safe. Make sure you don't check it into GitHub!
-{% else %}
 {% if include.install == "false" %}In the Admin Console:{% else %}Then, in the Admin Console:{% endif %}
 
 1. Go to **Applications** > **Applications**
@@ -79,16 +70,13 @@ Create an API token in the Admin Console:
 6. In the **Controlled access** section, select the appropriate access level
 7. Click **Save**
   {% endif %}
-{% endif %}
 
 {% if include.note %}
 {{ note }}
 {% endif %}
 
 {% capture details %}
-{%- if include.type != "token" -%}
 Creating an {% if include.type == "service" %}OAuth 2.0{% else %}OIDC{% endif %} {% if include.type == "spa" %}Single-Page App{% else %}{{ include.type | capitalize }} App{% endif %} manually in the Admin Console configures your Okta Org with the application settings.{% if include.type != "service" %} {% if include.type == "spa" %} You may also need to configure trusted origins for `{% if include.logoutRedirectUri %}{{ include.logoutRedirectUri }}{% else %}{{ baseUrl }}{% endif %}` in **Security** > **API** > **Trusted Origins**.{% endif %}{% endif %}
-{%- endif -%}
    
 {% if include.type == "spa" or include.type == "native" %}
 After creating the app, you can find the configuration details on the app's **General** tab:
@@ -96,10 +84,13 @@ After creating the app, you can find the configuration details on the app's **Ge
 - **Client ID**: Found in the **Client Credentials** section
 - **Issuer**: Found at **Security** > **API** > **Authorization Servers** > **default**
 
-```
+{% if adoc %}----
 Issuer:    https://dev-133337.okta.com
 Client ID: 0oab8eb55Kb9jdMIr5d6
-```
+----{% else %}```
+Issuer:    https://dev-133337.okta.com
+Client ID: 0oab8eb55Kb9jdMIr5d6
+```{% endif %}
 {% elsif include.type contains "web" or include.type == "service"  %}
 After creating the app, you can find the configuration details on the app's **General** tab:
 
@@ -109,40 +100,54 @@ After creating the app, you can find the configuration details on the app's **Ge
 
   {% if include.framework == "Spring Boot" %}
 You'll need these values for your `src/main/resources/application.properties` file:
-```properties
+{% if adoc %}[source,properties]
+----
 spring.security.oauth2.client.provider.okta.issuer-uri=https://dev-133337.okta.com/
 spring.security.oauth2.client.registration.okta.client-id=0oab8eb55Kb9jdMIr5d6
 spring.security.oauth2.client.registration.okta.client-secret=NEVER-SHOW-SECRETS
-```
+----{% else %}```properties
+spring.security.oauth2.client.provider.okta.issuer-uri=https://dev-133337.okta.com/
+spring.security.oauth2.client.registration.okta.client-id=0oab8eb55Kb9jdMIr5d6
+spring.security.oauth2.client.registration.okta.client-secret=NEVER-SHOW-SECRETS
+```{% endif %}
   {% elsif include.framework == "Okta Spring Boot Starter" %}
 You'll need these values for your `src/main/resources/application.properties` file:
-```properties
+{% if adoc %}[source,properties]
+----
 okta.oauth2.issuer=https://dev-133337.okta.com
 okta.oauth2.client-id=0oab8eb55Kb9jdMIr5d6
 okta.oauth2.client-secret=NEVER-SHOW-SECRETS
-```
-  {% elsif include.type != "token" %}
+----{% else %}```properties
+okta.oauth2.issuer=https://dev-133337.okta.com
+okta.oauth2.client-id=0oab8eb55Kb9jdMIr5d6
+okta.oauth2.client-secret=NEVER-SHOW-SECRETS
+```{% endif %}
+  {% else %}
 You'll need these values for your application configuration:
 
     {% if include.type == "web" or include.type == "service" %}
-```shell
+{% if adoc %}[source,shell]
+----
 OKTA_OAUTH2_ISSUER="https://dev-133337.okta.com"
 OKTA_OAUTH2_CLIENT_ID="0oab8eb55Kb9jdMIr5d6"
 OKTA_OAUTH2_CLIENT_SECRET="NEVER-SHOW-SECRETS"
-```
+----{% else %}```shell
+OKTA_OAUTH2_ISSUER="https://dev-133337.okta.com"
+OKTA_OAUTH2_CLIENT_ID="0oab8eb55Kb9jdMIr5d6"
+OKTA_OAUTH2_CLIENT_SECRET="NEVER-SHOW-SECRETS"
+```{% endif %}
 
 Your Okta domain is the first part of your issuer, before `/oauth2/default`.
     {% endif %}
   {% endif %}
 {% endif %}
 
-{%- assign tokenDocs = 'https://developer.okta.com/docs/guides/create-an-api-token/create-the-token/' -%}
 {%- capture oktaDocs -%}
 https://developer.okta.com/docs/guides/sign-into-
 {%- if include.type == "native" -%}mobile
 {%- else -%}{{ include.type }}
 {%- endif -%}
-{%- if {include.type != "spa" -%}-app/{% else %}/{%- endif -%}
+{%- if include.type != "spa" -%}-app/{% else %}/{%- endif -%}
 {%- if (include.framework) -%}
   {%- if (include.framework contains "Spring Boot") -%}springboot
   {%- elsif (include.framework contains "ASP.NET Core") -%}aspnetcore3
@@ -163,30 +168,18 @@ https://developer.okta.com/docs/guides/sign-into-
   {%- else -%}{{ include.framework }}
   {%- endif -%}
 {%- elsif (include.type == "spa" -%}Single-Page
-{%- elsif (include.type == "token" -%}API Token
 {%- else -%}{{ include.type | capitalize }}
-{%- endif -%}
-{% if include.type != "token" %} App{% endif %}
+{%- endif -%} App
 {%- endcapture -%}
 
-{%- capture docsLink %}
-{%- if include.type == "token" -%}{{ tokenDocs }}
-{%- else -%}{{ oktaDocs }}
-{%- endif -%}
-{%- endcapture -%}
+{%- assign docsLink = oktaDocs -%}
 
-**NOTE**: You can also use the [Okta CLI Client](https://github.com/okta/okta-cli-client) or [Okta PowerShell Module](https://github.com/okta/okta-powershell-cli) to automate this process. See [this guide]({{ docsLink }}) for more information about setting up your app.
+**NOTE**: You can also use the {% if adoc %}https://github.com/okta/okta-cli-client[Okta CLI Client]{% else %}[Okta CLI Client](https://github.com/okta/okta-cli-client){% endif %} or {% if adoc %}https://github.com/okta/okta-powershell-cli[Okta PowerShell Module]{% else %}[Okta PowerShell Module](https://github.com/okta/okta-powershell-cli){% endif %} to automate this process. See {% if adoc %}{{ docsLink }}[this guide]{% else %}[this guide]({{ docsLink }}){% endif %} for more information about setting up your app.
 {% endcapture %}
 
-{% if include.type == "token" %}
-{% if adoc %}++++{% endif %}
-{{ details | markdownify }}
-{% if adoc %}++++{% endif %}
-{% else %}
 {% if adoc %}++++{% endif %}
 <details>
   <summary>Where are my new app's credentials?</summary>
 {{ details | markdownify }}
 </details>
 {% if adoc %}++++{% endif %}
-{% endif %}
