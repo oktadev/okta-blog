@@ -82,7 +82,7 @@ Creating an {% if include.type == "service" %}OAuth 2.0{% else %}OIDC{% endif %}
 After creating the app, you can find the configuration details on the app's **General** tab:
 
 - **Client ID**: Found in the **Client Credentials** section
-- **Issuer**: Found at **Security** > **API** > **Authorization Servers** > **default**
+- **Issuer**: Found in the **Issuer URI** field for the authorization server that appears by selecting **Security** > **API** from the navigation pane.
 
 ```
 Issuer:    https://dev-133337.okta.com
@@ -93,7 +93,7 @@ After creating the app, you can find the configuration details on the app's **Ge
 
 - **Client ID**: Found in the **Client Credentials** section
 - **Client Secret**: Click **Show** in the **Client Credentials** section to reveal
-- **Issuer**: Found in the dropdown menu when opening your profile menu
+- **Issuer**: Found in the **Issuer URI** field for the authorization server that appears by selecting **Security** > **API** from the navigation pane.
 
   {% if include.framework == "Spring Boot" %}
 You'll need these values for your `src/main/resources/application.properties` file:
