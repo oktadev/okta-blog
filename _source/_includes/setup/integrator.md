@@ -21,6 +21,12 @@
   {%- assign baseUrl = parts[0] -%}
 {%- endif -%}
 
+{%- if include.customAuthServer -%}
+  {%- assign authServerPath = '/oauth2/' | append: include.customAuthServer -%}
+{%- else -%}
+  {%- assign authServerPath = '/oauth2/default' -%}
+{%- endif -%}
+
 
 {% if include.install != "false" %} Next, i{% else %}I{% endif %}n the Admin Console:
 
@@ -75,6 +81,27 @@
 {{ note }}
 {% endif %}
 
+{% if include.customAuthServer %}
+**NOTE**: When using a custom authorization server, you need to set up authorization policies. Complete these additional steps:
+
+1. In the Admin Console, go to **Security** > **API** > **Authorization Servers**
+2. Select your custom authorization server (`{{ include.customAuthServer }}`)
+3. On the **Access Policies** tab, ensure you have at least one policy:
+   - If no policies exist, click **Add Policy**
+   - Give it a name like "Default Policy" 
+   - Set **Assign to** to "All clients"
+   - Click **Create Policy**
+4. For your policy, ensure you have at least one rule:
+   - Click **Add Rule** if no rules exist
+   - Give it a name like "Default Rule"
+   - Set **Grant type is** to include "Authorization Code" and "Refresh Token"
+   - Set **User is** to "Any user assigned the app" 
+   - Set **Scopes requested** to include the scopes your app needs (typically "openid", "profile", "email")
+   - Click **Create Rule**
+
+For more details, see the [Custom Authorization Server](https://developer.okta.com/docs/concepts/auth-servers/#custom-authorization-server) documentation.
+{% endif %}
+
 {% capture details %}
 Creating an {% if include.type == "service" %}OAuth 2.0{% else %}OIDC{% endif %} {% if include.type == "spa" %}Single-Page App{% else %}{{ include.type | capitalize }} App{% endif %} manually in the Admin Console configures your Okta Org with the application settings.{% if include.type != "service" %} {% if include.type == "spa" %} You may also need to configure trusted origins for `{% if include.logoutRedirectUri %}{{ include.logoutRedirectUri }}{% else %}{{ baseUrl }}{% endif %}` in **Security** > **API** > **Trusted Origins**.{% endif %}{% endif %}
    
@@ -85,7 +112,7 @@ After creating the app, you can find the configuration details on the app's **Ge
 - **Issuer**: Found in the **Issuer URI** field for the authorization server that appears by selecting **Security** > **API** from the navigation pane.
 
 ```
-Issuer:    https://dev-133337.okta.com
+Issuer:    https://dev-133337.okta.com{{ authServerPath }}
 Client ID: 0oab8eb55Kb9jdMIr5d6
 ```
 {% elsif include.type contains "web" or include.type == "service"  %}
@@ -99,11 +126,11 @@ After creating the app, you can find the configuration details on the app's **Ge
 You'll need these values for your `src/main/resources/application.properties` file:
 {% if adoc %}[source,properties]
 ----
-spring.security.oauth2.client.provider.okta.issuer-uri=https://dev-133337.okta.com/
+spring.security.oauth2.client.provider.okta.issuer-uri=https://dev-133337.okta.com{{ authServerPath }}/
 spring.security.oauth2.client.registration.okta.client-id=0oab8eb55Kb9jdMIr5d6
 spring.security.oauth2.client.registration.okta.client-secret=NEVER-SHOW-SECRETS
 ----{% else %}```properties
-spring.security.oauth2.client.provider.okta.issuer-uri=https://dev-133337.okta.com/
+spring.security.oauth2.client.provider.okta.issuer-uri=https://dev-133337.okta.com{{ authServerPath }}/
 spring.security.oauth2.client.registration.okta.client-id=0oab8eb55Kb9jdMIr5d6
 spring.security.oauth2.client.registration.okta.client-secret=NEVER-SHOW-SECRETS
 ```{% endif %}
@@ -111,11 +138,11 @@ spring.security.oauth2.client.registration.okta.client-secret=NEVER-SHOW-SECRETS
 You'll need these values for your `src/main/resources/application.properties` file:
 {% if adoc %}[source,properties]
 ----
-okta.oauth2.issuer=https://dev-133337.okta.com
+okta.oauth2.issuer=https://dev-133337.okta.com{{ authServerPath }}
 okta.oauth2.client-id=0oab8eb55Kb9jdMIr5d6
 okta.oauth2.client-secret=NEVER-SHOW-SECRETS
 ----{% else %}```properties
-okta.oauth2.issuer=https://dev-133337.okta.com
+okta.oauth2.issuer=https://dev-133337.okta.com{{ authServerPath }}
 okta.oauth2.client-id=0oab8eb55Kb9jdMIr5d6
 okta.oauth2.client-secret=NEVER-SHOW-SECRETS
 ```{% endif %}
@@ -125,16 +152,16 @@ You'll need these values for your application configuration:
     {% if include.type == "web" or include.type == "service" %}
 {% if adoc %}[source,shell]
 ----
-OKTA_OAUTH2_ISSUER="https://dev-133337.okta.com"
+OKTA_OAUTH2_ISSUER="https://dev-133337.okta.com{{ authServerPath }}"
 OKTA_OAUTH2_CLIENT_ID="0oab8eb55Kb9jdMIr5d6"
 OKTA_OAUTH2_CLIENT_SECRET="NEVER-SHOW-SECRETS"
 ----{% else %}```shell
-OKTA_OAUTH2_ISSUER="https://dev-133337.okta.com"
+OKTA_OAUTH2_ISSUER="https://dev-133337.okta.com{{ authServerPath }}"
 OKTA_OAUTH2_CLIENT_ID="0oab8eb55Kb9jdMIr5d6"
 OKTA_OAUTH2_CLIENT_SECRET="NEVER-SHOW-SECRETS"
 ```{% endif %}
 
-Your Okta domain is the first part of your issuer, before `/oauth2/default`.
+Your Okta domain is the first part of your issuer, before `{{ authServerPath }}`.
     {% endif %}
   {% endif %}
 {% endif %}
