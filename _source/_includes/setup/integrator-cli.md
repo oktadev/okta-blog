@@ -97,7 +97,7 @@ After creating the app, you can find the configuration details on the app's **Ge
 - **Issuer**: Found at **Security** > **API** > **Authorization Servers** > **default**
 
 ```
-Issuer:    https://dev-133337.okta.com/oauth2/default
+Issuer:    https://dev-133337.okta.com
 Client ID: 0oab8eb55Kb9jdMIr5d6
 ```
 {% elsif include.type contains "web" or include.type == "service"  %}
