@@ -82,7 +82,7 @@ Creating an {% if include.type == "service" %}OAuth 2.0{% else %}OIDC{% endif %}
 After creating the app, you can find the configuration details on the app's **General** tab:
 
 - **Client ID**: Found in the **Client Credentials** section
-- **Issuer**: Found at **Security** > **API** > **Authorization Servers** > **default**
+- **Issuer**: Found at in the dropdown menu when opening your profile menu
 
 ```
 Issuer:    https://dev-133337.okta.com
