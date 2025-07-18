@@ -126,7 +126,7 @@ You'll need these values for your application configuration:
 
     {% if include.type == "web" or include.type == "service" %}
 ```shell
-OKTA_OAUTH2_ISSUER="https://dev-133337.okta.com/oauth2/default"
+OKTA_OAUTH2_ISSUER="https://dev-133337.okta.com"
 OKTA_OAUTH2_CLIENT_ID="0oab8eb55Kb9jdMIr5d6"
 OKTA_OAUTH2_CLIENT_SECRET="NEVER-SHOW-SECRETS"
 ```
