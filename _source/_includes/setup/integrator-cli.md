@@ -7,7 +7,7 @@
 
 {% if include.install != "false" %}
   {%- if include.signup == "false" -%}Sign in to your {{ adminLink }}.
-  {%- else -%}Before you begin, you'll need a free Okta Integrator Free Plan account. To get one, sign up for an {{ adminLink }}. Then, sign in to your {{ adminLink }}.
+  {%- else -%}Before you begin, you'll need a free Okta Integrator Free Plan account. To get one, sign up for an {{ adminLink }}. Then, sign in to your {{ adminLink }}. 
   {%- endif -%}
 {% endif %}
 
@@ -22,7 +22,7 @@
 {%- endif -%}
 
 
-{% if include.install == "false" %}In the Admin Console:{% else %}Then, in the Admin Console:{% endif %}
+{% if include.install == "false" %}In the Admin Console:{% else %}In the Admin Console:{% endif %}
 
 1. Go to **Applications** > **Applications**
 2. Click **Create App Integration**
