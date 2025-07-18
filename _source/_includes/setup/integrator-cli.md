@@ -7,7 +7,7 @@
 
 {% if include.install != "false" %}
   {%- if include.signup == "false" -%}Sign in to your {{ adminLink }}.
-  {%- else -%}Before you begin, you'll need a free Okta Integrator Free Plan account. Sign up at {{ adminLink }} to create a new account. If you already have an account, sign in to your {{ adminLink }}.
+  {%- else -%}Before you begin, you'll need a free Okta Integrator Free Plan account. To get one, sign up for an {{ adminLink }}. Then, sign in to your {{ adminLink }}.
   {%- endif -%}
 {% endif %}
 
