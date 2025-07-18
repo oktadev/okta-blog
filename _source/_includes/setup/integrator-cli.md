@@ -110,7 +110,7 @@ After creating the app, you can find the configuration details on the app's **Ge
   {% if include.framework == "Spring Boot" %}
 You'll need these values for your `src/main/resources/application.properties` file:
 ```properties
-spring.security.oauth2.client.provider.okta.issuer-uri=https://dev-133337.okta.com/oauth2/default
+spring.security.oauth2.client.provider.okta.issuer-uri=https://dev-133337.okta.com/
 spring.security.oauth2.client.registration.okta.client-id=0oab8eb55Kb9jdMIr5d6
 spring.security.oauth2.client.registration.okta.client-secret=NEVER-SHOW-SECRETS
 ```
