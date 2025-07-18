@@ -117,7 +117,7 @@ spring.security.oauth2.client.registration.okta.client-secret=NEVER-SHOW-SECRETS
   {% elsif include.framework == "Okta Spring Boot Starter" %}
 You'll need these values for your `src/main/resources/application.properties` file:
 ```properties
-okta.oauth2.issuer=https://dev-133337.okta.com/oauth2/default
+okta.oauth2.issuer=https://dev-133337.okta.com
 okta.oauth2.client-id=0oab8eb55Kb9jdMIr5d6
 okta.oauth2.client-secret=NEVER-SHOW-SECRETS
 ```
