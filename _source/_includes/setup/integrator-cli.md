@@ -1,13 +1,13 @@
 {%- if page.path contains '.adoc' -%}{% assign adoc = true %}{%- endif -%}
 {%- capture adminLink %}
   {%- if adoc -%}https://developer.okta.com/login[Okta org]
-  {%- else -%}[Okta org](https://developer.okta.com/login)
+  {%- else -%}[Integrator account](https://developer.okta.com/login)
   {%- endif -%}
 {%- endcapture -%}
 
 {% if include.install != "false" %}
   {%- if include.signup == "false" -%}Sign in to your {{ adminLink }}.
-  {%- else -%}Before you begin, you'll need a free Okta Integrator Free Plan account. To get one, sign up for an {{ adminLink }}. Then, sign in to your {{ adminLink }}. 
+  {%- else -%}Before you begin, you'll need an Okta Integrator Free Plan account. To get one, sign up for an {{ adminLink }}. Once you have an account, sign in to your {{ adminLink }}.
   {%- endif -%}
 {% endif %}
 
@@ -22,7 +22,7 @@
 {%- endif -%}
 
 
-{% if include.install == "false" %}In the Admin Console:{% else %}In the Admin Console:{% endif %}
+{% if include.install != "false" %} Next, i{% else %}I{% endif %}n the Admin Console:
 
 1. Go to **Applications** > **Applications**
 2. Click **Create App Integration**
@@ -84,13 +84,10 @@ After creating the app, you can find the configuration details on the app's **Ge
 - **Client ID**: Found in the **Client Credentials** section
 - **Issuer**: Found at **Security** > **API** > **Authorization Servers** > **default**
 
-{% if adoc %}----
+```
 Issuer:    https://dev-133337.okta.com
 Client ID: 0oab8eb55Kb9jdMIr5d6
-----{% else %}```
-Issuer:    https://dev-133337.okta.com
-Client ID: 0oab8eb55Kb9jdMIr5d6
-```{% endif %}
+```
 {% elsif include.type contains "web" or include.type == "service"  %}
 After creating the app, you can find the configuration details on the app's **General** tab:
 
@@ -174,7 +171,7 @@ https://developer.okta.com/docs/guides/sign-into-
 
 {%- assign docsLink = oktaDocs -%}
 
-**NOTE**: You can also use the {% if adoc %}https://github.com/okta/okta-cli-client[Okta CLI Client]{% else %}[Okta CLI Client](https://github.com/okta/okta-cli-client){% endif %} or {% if adoc %}https://github.com/okta/okta-powershell-cli[Okta PowerShell Module]{% else %}[Okta PowerShell Module](https://github.com/okta/okta-powershell-cli){% endif %} to automate this process. See {% if adoc %}{{ docsLink }}[this guide]{% else %}[this guide]({{ docsLink }}){% endif %} for more information about setting up your app.
+**NOTE**: You can also use the [Okta CLI Client](https://github.com/okta/okta-cli-client) or [Okta PowerShell Module](https://github.com/okta/okta-powershell-cli) to automate this process. See [this guide]({{ docsLink }}) for more information about setting up your app.
 {% endcapture %}
 
 {% if adoc %}++++{% endif %}
