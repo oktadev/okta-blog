@@ -26,7 +26,7 @@ This page is designed for authors of the Okta developer blog. However, these sni
 
 ## Use the Admin Console to Register Your App
 
-To describe how to set up a new application on Okta manually, you can use `integrator-cli.md`, `maven.md`, and `oidcdebugger.md` includes.
+To describe how to set up a new application on Okta manually, you can use `integrator.md`, `maven.md`, and `oidcdebugger.md` includes.
 
 These will render step-by-step Admin Console instructions for manual setup. You can optionally mention the [Okta CLI Client](https://github.com/okta/okta-cli-client) (or [Okta Maven Plugin](https://github.com/oktadev/okta-maven-plugin)) as alternatives for automation. Screenshots are discouraged because they're hard to keep up-to-date.
   
@@ -36,14 +36,14 @@ The basic syntax you will need to use manual setup instructions in your post is:
 
 {% raw %}
 ```
-{% include setup/integrator-cli.md type="spa" loginRedirectUri="http://localhost:3000/callback" %}
+{% include setup/integrator.md type="spa" loginRedirectUri="http://localhost:3000/callback" %}
 ```
 {% endraw %}
 
 This will render the following HTML:
 
 <div class="separator"></div>
-{% include setup/integrator-cli.md type="spa" loginRedirectUri="http://localhost:3000/callback" %}
+{% include setup/integrator.md type="spa" loginRedirectUri="http://localhost:3000/callback" %}
 <div class="separator"></div>
 
 ## Configuration Options
@@ -77,35 +77,35 @@ This section shows examples for different types of apps and frameworks.
 
 {% raw %}
 ```
-{% include setup/integrator-cli.md type="spa" framework="Angular" loginRedirectUri="http://localhost:4200/callback" %}
+{% include setup/integrator.md type="spa" framework="Angular" loginRedirectUri="http://localhost:4200/callback" %}
 ```
 {% endraw %}
 
 This will render the following HTML:
 
 <div class="separator"></div>
-{% include setup/integrator-cli.md type="spa" framework="Angular" loginRedirectUri="http://localhost:4200/callback" %}
+{% include setup/integrator.md type="spa" framework="Angular" loginRedirectUri="http://localhost:4200/callback" %}
 <div class="separator"></div>
 
 ### React
 
 {% raw %}
 ```
-{% include setup/integrator-cli.md type="spa" framework="React" loginRedirectUri="http://localhost:3000/callback" %}
+{% include setup/integrator.md type="spa" framework="React" loginRedirectUri="http://localhost:3000/callback" %}
 ```
 {% endraw %}
 
 This will render the following HTML:
 
 <div class="separator"></div>
-{% include setup/integrator-cli.md type="spa" framework="React" loginRedirectUri="http://localhost:3000/callback" %}
+{% include setup/integrator.md type="spa" framework="React" loginRedirectUri="http://localhost:3000/callback" %}
 <div class="separator"></div>
 
 ### Vue
 
 {% raw %}
 ```
-{% include setup/integrator-cli.md type="spa" framework="Vue"
+{% include setup/integrator.md type="spa" framework="Vue"
    loginRedirectUri="http://localhost:8080/callback" signup="false" %}
 ```
 {% endraw %}
@@ -113,7 +113,7 @@ This will render the following HTML:
 This will render the following HTML:
 
 <div class="separator"></div>
-{% include setup/integrator-cli.md type="spa" framework="Vue" 
+{% include setup/integrator.md type="spa" framework="Vue" 
    loginRedirectUri="http://localhost:8080/callback" signup="false" %}
 <div class="separator"></div>
 
@@ -121,21 +121,21 @@ This will render the following HTML:
 
 {% raw %}
 ```
-{% include setup/integrator-cli.md type="web" loginRedirectUri="http://localhost:8080/authorization-code/callback" %}
+{% include setup/integrator.md type="web" loginRedirectUri="http://localhost:8080/authorization-code/callback" %}
 ```
 {% endraw %}
 
 This will render the following HTML:
 
 <div class="separator"></div>
-{% include setup/integrator-cli.md type="web" loginRedirectUri="http://localhost:8080/authorization-code/callback" %}
+{% include setup/integrator.md type="web" loginRedirectUri="http://localhost:8080/authorization-code/callback" %}
 <div class="separator"></div>
 
 ### Ionic
 
 {% raw %}
 ```
-{% include setup/integrator-cli.md type="native" 
+{% include setup/integrator.md type="native" 
    loginRedirectUri="[http://localhost:8100/callback,com.okta.dev-133337:/callback]" 
    logoutRedirectUri="[http://localhost:8100/logout,com.okta.dev-133337:/logout]" %}
 ```
@@ -144,7 +144,7 @@ This will render the following HTML:
 This will render the following HTML:
 
 <div class="separator"></div>
-{% include setup/integrator-cli.md type="native" 
+{% include setup/integrator.md type="native" 
    loginRedirectUri="[http://localhost:8100/callback,com.okta.dev-133337:/callback]" 
    logoutRedirectUri="[http://localhost:8100/logout,com.okta.dev-133337:/logout]" %}
 <div class="separator"></div>
@@ -153,7 +153,7 @@ This will render the following HTML:
 
 {% raw %}
 ```
-{% include setup/integrator-cli.md type="native" 
+{% include setup/integrator.md type="native" 
    loginRedirectUri="com.okta.dev-133337:/callback" 
    logoutRedirectUri="com.okta.dev-133337:/callback" %}
 ```
@@ -162,7 +162,7 @@ This will render the following HTML:
 This will render the following HTML:
 
 <div class="separator"></div>
-{% include setup/integrator-cli.md type="native" 
+{% include setup/integrator.md type="native" 
    loginRedirectUri="com.okta.dev-133337:/callback" 
    logoutRedirectUri="com.okta.dev-133337:/callback" %}
 <div class="separator"></div>
@@ -171,14 +171,14 @@ This will render the following HTML:
 
 {% raw %}
 ```
-{% include setup/integrator-cli.md type="web" framework="Okta Spring Boot Starter" %}
+{% include setup/integrator.md type="web" framework="Okta Spring Boot Starter" %}
 ```
 {% endraw %}
 
 This will render the following HTML:
 
 <div class="separator"></div>
-{% include setup/integrator-cli.md type="web" framework="Okta Spring Boot Starter" %}
+{% include setup/integrator.md type="web" framework="Okta Spring Boot Starter" %}
 <div class="separator"></div>
 
 ### ASP.NET Core
@@ -188,7 +188,7 @@ This will render the following HTML:
 {% capture note %}
 > Note that the TCP port 5001 must be the same used by the application. You can see it in the messages displayed in the terminal when you start the application with **`dotnet run`**.
 {% endcapture %}
-{% include setup/integrator-cli.md type="web" note=note framework="ASP.NET Core"
+{% include setup/integrator.md type="web" note=note framework="ASP.NET Core"
    loginRedirectUri="http://localhost:5001/authorization-code/callback"
    logoutRedirectUri="http://localhost:5001/signout/callback" %}
 ```
@@ -200,7 +200,7 @@ This will render the following HTML:
 {% capture note %}
 > Note that the TCP port 5001 must be the same used by the application. You can see it in the messages displayed in the terminal when you start the application with **`dotnet run`**.
 {% endcapture %}
-{% include setup/integrator-cli.md type="web" note=note framework="ASP.NET Core"
+{% include setup/integrator.md type="web" note=note framework="ASP.NET Core"
    loginRedirectUri="http://localhost:5001/authorization-code/callback"
    logoutRedirectUri="http://localhost:5001/signout/callback" %}
 <div class="separator"></div>
@@ -209,14 +209,14 @@ This will render the following HTML:
 
 {% raw %}
 ```
-{% include setup/integrator-cli.md type="service" %}
+{% include setup/integrator.md type="service" %}
 ```
 {% endraw %}
 
 This will render the following HTML:
 
 <div class="separator"></div>
-{% include setup/integrator-cli.md type="service" %}
+{% include setup/integrator.md type="service" %}
 <div class="separator"></div>
 
 ### Maven
