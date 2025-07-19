@@ -60,6 +60,7 @@ Other parameters you can pass in:
 |`signup`|`false` reduces opening paragraph to one sentence|
 |`note`|Prints whatever you set. See .NET example below|
 |`install`|`false` removes 'Sign up for account' sentence|
+|`customAuthServer`|The name of your custom authorization server (e.g., `my-auth-server`)|
 
 ## Examples
 
@@ -245,4 +246,24 @@ This will render the following HTML:
 
 <div class="separator"></div>
 {% include setup/oidcdebugger.md %}
+<div class="separator"></div>
+
+### Custom Authorization Server
+
+When you need to use a custom authorization server instead of the default one, add the `customAuthServer` parameter:
+
+{% raw %}
+```
+{% include setup/integrator.md type="spa" framework="React" 
+   loginRedirectUri="http://localhost:3000/callback" 
+   customAuthServer="my-auth-server" %}
+```
+{% endraw %}
+
+This will render the following HTML:
+
+<div class="separator"></div>
+{% include setup/integrator.md type="spa" framework="React" 
+   loginRedirectUri="http://localhost:3000/callback" 
+   customAuthServer="my-auth-server" %}
 <div class="separator"></div>
