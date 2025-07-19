@@ -81,6 +81,12 @@
 {{ note }}
 {% endif %}
 
+{%- capture asLink %}
+  {%- if adoc -%}https://developer.okta.com/docs/concepts/auth-servers/#custom-authorization-server[Custom Authorization Server]
+  {%- else -%}[Custom Authorization Server](https://developer.okta.com/docs/concepts/auth-servers/#custom-authorization-server)
+  {%- endif -%}
+{%- endcapture -%}
+
 {% if include.customAuthServer %}
 **NOTE**: When using a custom authorization server, you need to set up authorization policies. Complete these additional steps:
 
@@ -99,7 +105,7 @@
    - Set **Scopes requested** to include the scopes your app needs (typically "openid", "profile", "email")
    - Click **Create Rule**
 
-For more details, see the [Custom Authorization Server](https://developer.okta.com/docs/concepts/auth-servers/#custom-authorization-server) documentation.
+For more details, see the {{ asLink }} documentation.
 {% endif %}
 
 {% capture details %}
