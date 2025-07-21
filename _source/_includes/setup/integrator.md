@@ -43,7 +43,7 @@
 ** as the application type, then click **Next**
 5. Enter an app integration name
   {% if include.type == "spa" %}
-6. In the **Grant type** section, ensure both **Authorization Code** and **Refresh Token** are selected
+6. In the **Grant type** section, ensure that **Authorization Code** is selected
 7. Configure the redirect URIs:
    - **Sign-in redirect URIs**: `{% if adoc %}\{% endif %}{{ include.loginRedirectUri }}`
    {% if include.logoutRedirectUri %}- **Sign-out redirect URIs**: `{% if adoc %}\{% endif %}{{ include.logoutRedirectUri }}`{% else %}- **Sign-out redirect URIs**: `{% if adoc %}\{% endif %}{{ baseUrl }}`{% endif %}
@@ -93,7 +93,7 @@
 1. In the Admin Console, go to **Security** > **API** > **Authorization Servers**
 2. Select your custom authorization server (`{{ include.customAuthServer }}`)
 3. On the **Access Policies** tab, ensure you have at least one policy:
-   - If no policies exist, click **Add Policy**
+   - If no policies exist, click **Add New Access Policy**
    - Give it a name like "Default Policy" 
    - Set **Assign to** to "All clients"
    - Click **Create Policy**
@@ -102,7 +102,7 @@
    - Give it a name like "Default Rule"
    - Set **Grant type is** to include "Authorization Code" and "Refresh Token"
    - Set **User is** to "Any user assigned the app" 
-   - Set **Scopes requested** to include the scopes your app needs (typically "openid", "profile", "email")
+   - Set **Scopes requested** to "Any scopes" 
    - Click **Create Rule**
 
 For more details, see the {{ asLink }} documentation.
