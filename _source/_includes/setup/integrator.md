@@ -100,7 +100,7 @@
 4. For your policy, ensure you have at least one rule:
    - Click **Add Rule** if no rules exist
    - Give it a name like "Default Rule"
-{% if include.type == "native" %}
+{% if include.type == "service" %}
    - Set **Grant type is** to "Client Credentials"
 {% else %}
    - Set **Grant type is** to "Authorization Code" 
