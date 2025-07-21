@@ -43,7 +43,7 @@
 ** as the application type, then click **Next**
 5. Enter an app integration name
   {% if include.type == "spa" %}
-6. In the **Grant type** section, ensure that **Authorization Code** is selected
+6. In the **Grant type** section, ensure that both **Authorization Code** and **Refresh Token** are selected
 7. Configure the redirect URIs:
    - **Sign-in redirect URIs**: `{% if adoc %}\{% endif %}{{ include.loginRedirectUri }}`
    {% if include.logoutRedirectUri %}- **Sign-out redirect URIs**: `{% if adoc %}\{% endif %}{{ include.logoutRedirectUri }}`{% else %}- **Sign-out redirect URIs**: `{% if adoc %}\{% endif %}{{ baseUrl }}`{% endif %}
@@ -100,7 +100,7 @@
 4. For your policy, ensure you have at least one rule:
    - Click **Add Rule** if no rules exist
    - Give it a name like "Default Rule"
-   - Set **Grant type is** to include "Authorization Code" and "Refresh Token"
+   - Set **Grant type is** to "Authorization Code" 
    - Set **User is** to "Any user assigned the app" 
    - Set **Scopes requested** to "Any scopes" 
    - Click **Create Rule**
