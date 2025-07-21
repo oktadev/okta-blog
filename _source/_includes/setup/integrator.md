@@ -100,7 +100,11 @@
 4. For your policy, ensure you have at least one rule:
    - Click **Add Rule** if no rules exist
    - Give it a name like "Default Rule"
+{% if include.type == "native" %}
+   - Set **Grant type is** to "Client Credentials"
+{% else %}
    - Set **Grant type is** to "Authorization Code" 
+{% endif %}
    - Set **User is** to "Any user assigned the app" 
    - Set **Scopes requested** to "Any scopes" 
    - Click **Create Rule**
