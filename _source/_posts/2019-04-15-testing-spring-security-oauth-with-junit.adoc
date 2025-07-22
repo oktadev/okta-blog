@@ -28,7 +28,9 @@ I added OAuth 2.0 support to JHipster in the fall of 2017. The experience influe
 
 I spent the last month upgrading https://www.jhipster.tech[JHipster] to use Spring Security 5.1 (the default in Spring Boot 2.1). I experienced some frustrations along the way, shook my fist at Travis CI, and rejoiced when I figured out solutions. I also learned quite a bit in the process. I'm going to share those experiences with you today.
 
+++++
 {% include integrator-org-warning.html %}
+++++
 
 toc::[]
 

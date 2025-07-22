@@ -35,7 +35,9 @@ Today, I'm going to put this statement to the test! First, I'll show you how to 
 
 My link:/blog/2021/06/18/native-java-framework-comparison[Build Native Java Apps with Micronaut, Quarkus, and Spring Boot] post compares startup times and memory usage of these three frameworks. How does Helidon perform? Read on!
 
+++++
 {% include integrator-org-warning.html %}
+++++
 
 **Prerequisites**
 

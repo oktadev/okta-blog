@@ -29,7 +29,9 @@ Here is where the https://github.com/okta/okta-oidc-android[Okta OIDC SDK] comes
 
 This post will show you how easy it is to set up the Okta OIDC SDK on Android and leave you with a working app that allows users to securely login!
 
+++++
 {% include integrator-org-warning.html %}
+++++
 
 toc::[]
 
