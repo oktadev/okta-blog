@@ -4,7 +4,7 @@ title: "Secure Your Express App with Okta and OAuth 2.0 Authentication"
 author: akanksha-bhasin 
 by: advocate
 communities: [javascript]
-description: "Build a secure expense dashboard using Express, Passport, and Okta using OIDC and OAuth 2.0 PKCE"
+description: "Build a secure Express App using Express, Passport, and Okta using OIDC and OAuth 2.0 PKCE"
 tags: [express, node, passport, oidc, oauth, pkce, javascript, authentication]
 image: blog/express-okta-authentication/express-okta-authentication-social-image.jpeg
 type: conversion
@@ -23,21 +23,18 @@ Check out the complete source code on [GitHub](https://github.com/oktadev/okta-e
 
 Building an authentication system and handling credentials, sessions, and tokens is highly insecure and exposes your application to serious vulnerabilities.
 
-Okta provides a secure, scalable, and standards-based solution using OpenID Connect (OIDC) and OAuth 2.0. It also integrates seamlessly with Express and Passport, supports passwordless login using FIDO2 and WebAuthn, and allows you to customise ID tokens with team-specific claims.
+Okta provides a secure, scalable, and standards-based solution using OpenID Connect (OIDC) and OAuth 2.0. It also integrates seamlessly with Express and Passport, and allows you to fetch tokens.
 
-### Why Use PKCE in OAuth 2.0
-To further strengthen security, this project uses PKCE (Proof Key for Code Exchange), defined in [RFC 7636](https://www.rfc-editor.org/rfc/rfc7636). PKCE is a security extension to the Authorization Code flow. Developers initially designed PKCE for mobile apps, but experts now recommend it for all OAuth clients, including web apps. It helps prevent CSRF and authorization code injection attacks and makes it useful for every type of OAuth client, even web apps that use client authentication. As OAuth 2.0 has steadily evolved, security best practices have also advanced. [RFC 9700: Best Current Practice for OAuth 2.0 Security](https://www.rfc-editor.org/rfc/rfc9700.html) captures the consensus on the most effective and secure implementation strategies. Additionally, the upcoming OAuth 2.1 draft requires PKCE for all authorization code flows, reinforcing it as a baseline security standard.
+### Why use PKCE in OAuth 2.0
+To further strengthen security, this project uses PKCE (Proof Key for Code Exchange), defined in [RFC 7636](https://www.rfc-editor.org/rfc/rfc7636). PKCE is a security extension to the Authorization Code flow. Developers initially designed PKCE for mobile apps, but experts now recommend it for all OAuth clients, including web apps. It helps prevent CSRF and authorization code injection attacks and makes it useful for every type of OAuth client, even confidential clients such as web apps that use client secrets. As OAuth 2.0 has steadily evolved, security best practices have also advanced. [RFC 9700: Best Current Practice for OAuth 2.0 Security](https://www.rfc-editor.org/rfc/rfc9700.html) captures the consensus on the most effective and secure implementation strategies. Additionally, the upcoming OAuth 2.1 draft requires PKCE for all authorization code flows, reinforcing it as a baseline security standard.
 
 With Okta, you can implement modern authentication features and focus on your application logic without worrying about authentication infrastructure.
 
-##  Team-based expense dashboard using Express, Passport, and OAuth 2.0
+## A secure app using Express, Passport, and OAuth 2.0
 
-For any growing organization, tracking expenses by team isn't just helpful, it's essential. Let's build an expense dashboard where users log in with Okta and view spending data. Whether in Finance, Marketing, or Support, each team sees a scoped view of expenses tied to their role. The users get clear visibility into what's being spent, by whom, and why.
+ Let's build an expense dashboard where users log in with Okta and view spending data. Whether in Finance, Marketing, or Support, each team sees a scoped view of expenses tied to their role. The users get clear visibility into what's being spent, by whom, and why.
 
-Managers get transparency into their team's spending. At the same time, admins maintain a secure, centralized overview across all teams to track budgets and spending patterns and ensure accountability, all without the headache of building authentication and security from scratch.
-
-You'll also use OpenID Connect (OIDC) through Passport and the openid-client library. Then, you'll map each user's email from the ID token to a team. The dashboard displays expenses by team, so each user sees only their department's spending.
-
+You'll also use OpenID Connect (OIDC) through Passport and the openid-client library. Then, you'll map each user's email from the ID token to a team. The dashboard applies principles of least privilege and displays expenses by team, so each user sees only their department's spending.
 
 
 **Prerequisites**
@@ -101,39 +98,9 @@ POST_LOGOUT_URL=http://localhost:3000
 
 In the next step, you'll get these values from your Okta Admin Console.
 
-## Create the Okta OIDC application
+## Create the Okta OIDC web application
 
-1. Sign up for a free [Integrator Free Plan](https://developer.okta.com/signup/). If you already have an account, [login](https://developer.okta.com/login/) to the [Okta Developer Console](https://developer.okta.com/signup/). 
-
-2. In the Okta Admin Console, navigate to **Applications** \> **Create App Integration**.
-
-3. Choose:
-   * **Sign-in method:** OIDC \- OpenID Connect
-
-   * **Application type:** Web Application
-
-4. Click **Next**.  
-                             
-5. Fill in:
-   * **App integration name:** (e.g., `My Web App`)
-
-   * **Sign-in redirect URIs:** `http://localhost:3000/authorization-code/callback`
-
-   * **Sign-out redirect URIs:** `http://localhost:3000`
-
-   * **Assignments:** Allow everyone in your organization to access.
-
-6. After creating the app, click the edit button under Client Credentials and enable **Require PKCE as additional verification**.
-
-
-7. Copy the **Client ID**, **Client Secret**, and **Okta Domain** and add them to your `.env` file.
-
-## Set up passwordless login using FIDO2 and WebAuthn with Okta 
-
-Add the **FIDO2 (WebAuthn)** authenticator in Okta to enable passwordless login and follow the [Okta documentation](https://help.okta.com/oie/en-us/content/topics/identity-engine/authenticators/configure-webauthn.htm) for complete enrollment and policy configuration instructions.
-
->  **Note:** When logging in for the first time, make sure you, as the admin, and all assigned users enroll in FIDO authentication. To simplify this process, you can create a user group containing all team members and assign it to the Web App. Then include the group in your enrollment policy, which you can customize as needed.
- 
+{% include setup/integrator.md type="web" loginRedirectUri="http://localhost:3000/authorization-code/callback" logoutRedirectUri="http://localhost:3000" %}
 
 ## Building the Express app 
 
@@ -185,23 +152,23 @@ The application determines the user's team context from the email claim in the I
 
 To customize the data, open utils.js and update the following objects:
 
-ALL_TEAMS_NAME - an array listing all teams in your organization
+* `ALL_TEAMS_NAME` - an array listing all teams in your organization
 
-userTeamMap - maps each user's email (or "admin" for full access) to a specific team
+* `userTeamMap` - maps each user's email (or "admin" for full access) to a specific team
 
-dummyExpenseData - contains sample expense data for each team
+* `dummyExpenseData` - contains sample expense data for each team
 
 
 ```javascript
 export const ALL_TEAMS_NAME = ["finance", "hr", "legal", "marketing", "dev advocacy"];
 
 export const userTeamMap = {
-  "hermoine.granger@company.com": "admin",
-  "grace.li@company.com": "legal",
-  "frank.wilson+@company.com": "dev advocacy",
-  "carol.lee@company.com": "finance",
-  "alice.johnson@company.com": "marketing",
-  "sarah.connor@company.com": "hr",
+  "hannah.smith@task-vantage.com": "admin",
+  "grace.li@task-vantage.com": "legal",
+  "frank.wilson+@task-vantage.com": "dev advocacy",
+  "carol.lee@task-vantage.com": "finance",
+  "alice.johnson@task-vantage.com": "marketing",
+  "sarah.morgan@task-vantage.com": "hr",
 };
 
 export const dummyExpenseData = {
@@ -464,7 +431,7 @@ export async function logout(req, res) {
 }
 ```
 
-### Set up the routes file 
+### Set up the express routes file 
 
 Now things start to come together and feel like a real app. The `routes.js` file defines all the essential routes, from login and logout to viewing your profile, the expense dashboard, and individual team pages. The app handles each endpoint's core logic and checks a user's authentication status before granting access to protected pages.
 
@@ -696,16 +663,15 @@ Click **Login** and authenticate with your Okta account. The app then displays y
 
 {% img blog/express-okta-authentication/expenses.jpeg alt:"User View Dashboard." width:"1000" %}{: .center-image }
 
-## Recap and learn more
+And that's it\! You've now built a secure Expense Dashboard and connected your Express application to Okta using OIDC, OAuth, and Passport. 
+
+## Learn more about OAuth 2.0, OIDC, and PKCE in Express
 
 Here's a quick rundown of the features I used in this project to build a secure expense dashboard:
 
 * **OpenID Connect (OIDC)** is an identity and authentication layer built on OAuth 2.0.
 
 * **Authorization Code Flow with PKCE**, is the most secure flow for server-side web apps.
-
-
-And that's it\! You've now built a secure Expense Dashboard and connected your Express application to Okta using OpenID Connect (OIDC) and Passport, layered in FIDO2 (WebAuthn) for modern, passwordless login using passkeys and flexible, team-specific authorization with custom claims. 
 
 If you'd like to explore the whole project and skip setting it up from scratch, check out the complete source code on [GitHub](https://github.com/oktadev/okta-express-expense-dashboard-example).
 
