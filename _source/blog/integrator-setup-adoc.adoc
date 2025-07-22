@@ -75,7 +75,7 @@ Other parameters you can pass in:
 |`false` removes 'Sign up for account' sentence
 
 |`customAuthServer`
-|The name of your custom authorization server (e.g., `my-auth-server`)
+|The name of your custom authorization server (e.g., `default`)
 |===
 
 == Examples
@@ -293,7 +293,7 @@ When you need to use a custom authorization server instead of the default one, a
 ----
 {% raw %}{% include setup/integrator.md type="spa" framework="React" 
    loginRedirectUri="http://localhost:3000/callback" 
-   customAuthServer="my-auth-server" %}{% endraw %}
+   customAuthServer="default" %}{% endraw %}
 ----
 
 This will render the following HTML:
@@ -303,7 +303,7 @@ This will render the following HTML:
 ++++
 {% include setup/integrator.md type="spa" framework="React" 
    loginRedirectUri="http://localhost:3000/callback" 
-   customAuthServer="my-auth-server" %}
+   customAuthServer="default" %}
 ++++
 <div class="separator"></div>
 ++++

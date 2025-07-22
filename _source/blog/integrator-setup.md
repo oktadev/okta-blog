@@ -256,7 +256,7 @@ When you need to use a custom authorization server instead of the default one, a
 ```
 {% include setup/integrator.md type="spa" framework="React" 
    loginRedirectUri="http://localhost:3000/callback" 
-   customAuthServer="my-auth-server" %}
+   customAuthServer="default" %}
 ```
 {% endraw %}
 
@@ -265,5 +265,5 @@ This will render the following HTML:
 <div class="separator"></div>
 {% include setup/integrator.md type="spa" framework="React" 
    loginRedirectUri="http://localhost:3000/callback" 
-   customAuthServer="my-auth-server" %}
+   customAuthServer="default" %}
 <div class="separator"></div>
