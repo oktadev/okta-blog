@@ -32,7 +32,7 @@ With Okta, you can implement modern authentication features and focus on your ap
 
 ## A secure app using Express, Passport, and OAuth 2.0
 
- Let's build an expense dashboard where users log in with Okta and view spending data. Whether in Finance, Marketing, or Support, each team sees a scoped view of expenses tied to their role. The users get clear visibility into what's being spent, by whom, and why.
+Let's build an expense dashboard where users log in with Okta and view spending data based on their role. Whether they work in Finance, Marketing, or HR, each team views only its own expenses. To keep things minimal in this demo project, we'll define roles and users directly in the app.
 
 You'll also use OpenID Connect (OIDC) through Passport and the openid-client library. Then, you'll map each user's email from the ID token to a team. The dashboard applies principles of least privilege and displays expenses by team, so each user sees only their department's spending.
 
