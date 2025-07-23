@@ -60,7 +60,7 @@ Other parameters you can pass in:
 |`signup`|`false` reduces opening paragraph to one sentence|
 |`note`|Prints whatever you set. See .NET example below|
 |`install`|`false` removes 'Sign up for account' sentence|
-|`customAuthServer`|The name of your custom authorization server (e.g., `my-auth-server`)|
+|`customAuthServer`|The name of your custom authorization server (e.g., `default`)|
 
 ## Examples
 
