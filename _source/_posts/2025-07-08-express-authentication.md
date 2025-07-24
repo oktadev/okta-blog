@@ -104,7 +104,7 @@ In the next step, you'll get these values from your Okta Admin Console.
 
 ## Build the Express app 
 
-Create an `index.js` file in your project root. It serves as the main entry point for your application. Use it to initialize the Express app, set up the routes, and configure Passport to manage user sessions by serializing and deserializing users on each request. [Passport](https://www.passportjs.org/)
+Create an `index.js` file in your project root. It serves as the main entry point for your application. Use it to initialize the Express app, set up the routes, and configure [Passport](https://www.passportjs.org/) to manage user sessions by serializing and deserializing users on each request. 
 
 ```javascript
 import express from 'express';
