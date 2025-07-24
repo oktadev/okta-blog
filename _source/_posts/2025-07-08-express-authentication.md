@@ -23,7 +23,7 @@ Check out the complete source code on [GitHub](https://github.com/oktadev/okta-e
 
 Building an authentication system and handling credentials, sessions, and tokens is highly insecure and exposes your application to serious vulnerabilities.
 
-Okta provides a secure, scalable, and standards-based solution using OpenID Connect (OIDC) and OAuth 2.0. It also integrates seamlessly with Express and Passport and allows you to fetch tokens.
+Okta provides a secure, scalable, and standards-based solution using OpenID Connect (OIDC) and OAuth 2.0. It also integrates seamlessly with Express and Passport, and allows you to fetch tokens.
 
 ### Why use PKCE in OAuth 2.0
 To further strengthen security, this project uses PKCE (Proof Key for Code Exchange), defined in [RFC 7636](https://www.rfc-editor.org/rfc/rfc7636). PKCE is a security extension to the Authorization Code flow. Developers initially designed PKCE for mobile apps, but experts now recommend it for all OAuth clients, including web apps. It helps prevent CSRF and authorization code injection attacks and makes it useful for every type of OAuth client, even confidential clients such as web apps that use client secrets. As OAuth 2.0 has steadily evolved, security best practices have also advanced. [RFC 9700: Best Current Practice for OAuth 2.0 Security](https://www.rfc-editor.org/rfc/rfc9700.html) captures the consensus on the most effective and secure implementation strategies. Additionally, the upcoming OAuth 2.1 draft requires PKCE for all authorization code flows, reinforcing it as a baseline security standard.
@@ -34,8 +34,7 @@ With Okta, you can implement modern authentication features and focus on your ap
 
 Let's build an expense dashboard where users log in with Okta and view spending data based on their role. Whether they work in Finance, Marketing, or HR, each team views only its own expenses. To keep things minimal in this demo project, we'll define roles and users directly in the app.
 
-You'll also use OpenID Connect (OIDC) through Passport and the openid-client library. Then, you'll map each user's email from the ID token to a team. The dashboard applies principles of least privilege and displays expenses by team, so each user sees only their department's spending.
-
+You'll also use OpenID Connect (OIDC) through openid-client library for authentication. Then, you'll map each user's email from the ID token to a team. The dashboard applies principles of least privilege and displays expenses by team, so each user sees only their department's spending.
 
 **Prerequisites**
 
@@ -150,7 +149,7 @@ Create a `utils.js` file to serve as a data module for your project. This file i
 
 The application determines the user's team context from the email claim in the ID token and filters the expense list accordingly, so the dashboard displays only that team's data.
 
-To customize the data, open utils.js and update the following objects:
+To customize the data, open `utils.js` and update the following objects:
 
 * `ALL_TEAMS_NAME` - an array listing all teams in your organization
 
@@ -433,7 +432,7 @@ export async function logout(req, res) {
 
 ### Set up the express routes file 
 
-Now things start to come together and feel like a real app. The `routes.js` file defines all the essential routes, from login and logout to viewing your profile, the expense dashboard, and individual team pages. The app handles each endpoint's core logic and checks a user's authentication status before granting access to protected pages.
+Now things start to come together and feel like a real app. The `routes.js` file defines all the essential routes, from login and logout to viewing your profile, the expense dashboard, and individual team expense pages. The app handles each endpoint's core logic and checks a user's authentication status before granting access to protected pages.
 
 It acts as our app's traffic controller, directing users to the right pages and ensuring that only logged-in users can view sensitive information like the expense dashboard or group details. This structure keeps our app organized and secure and lays the foundation for a smooth user experience.
 
