@@ -36,7 +36,7 @@ You can follow these steps on any computer where you're able to install the foll
 
 To use Terraform, you'll run commands in a terminal. You can even use a PowerShell window if you don't have a favorite terminal! 
 
-If this is your first time writing code, you might want to install an [IDE](https://en.wikipedia.org/wiki/Integrated_development_environment) like [Visual Studio](https://code.visualstudio.com/docs/introvideos/basics) so that you can navigate the files you're writing, detect errors using plugins, and execute commands using the built-in terminal. 
+If this is your first time writing code, you might want to install an [IDE](https://en.wikipedia.org/wiki/Integrated_development_environment) like [Visual Studio Code](https://code.visualstudio.com/docs/introvideos/basics) so that you can navigate the files you're writing, detect errors using plugins, and execute commands using the built-in terminal. 
 
 ## How to set up Terraform to manage your Okta org's configuration
 
