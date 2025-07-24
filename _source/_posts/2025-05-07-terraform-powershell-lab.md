@@ -282,7 +282,7 @@ For more examples of things you can do in Terraform, see the [Terraform Enterpri
 
 ### Extra credit 2
 
-Now that you are managing Terraform's Okta application in Terraform, you can modify it with your code. Add the scope `okta.groups.manage` to your Terraform provider. 
+Now that you're managing Terraform's Okta application in Terraform, you can modify it with your code. Add the scope `okta.groups.manage` to your Terraform provider. 
 
 Remember that the scopes configured in the provider block and those configured in the Okta application must match before Terraform can use them!
 
