@@ -4,16 +4,16 @@ title: "Secure Your Express App with Okta and OAuth 2.0 Authentication"
 author: akanksha-bhasin 
 by: advocate
 communities: [javascript]
-description: "Build a secure Express App using Express, Passport, and Okta using OIDC and OAuth 2.0 PKCE"
+description: "Build a secure Express app with Okta using OIDC and OAuth 2.0 PKCE"
 tags: [express, node, passport, oidc, oauth, pkce, javascript, authentication]
 image: blog/express-okta-authentication/express-okta-authentication-social-image.jpeg
 type: conversion
-github: https://github.com/oktadev/okta-express-expense-dashboard-example
+github: https://github.com/oktadev/okta-express-oauth-example
 ---
 
-Every web application needs authentication, but building it yourself is risky and time-consuming. Instead of starting from scratch, you can integrate Okta to manage user identity and use Passport with Express to simplify and secure the login flow. In this tutorial, you'll build a secure, passwordless, role-based expense dashboard where users can view their expenses tailored to their team.
+Every web application needs authentication, but building it yourself is risky and time-consuming. Instead of starting from scratch, you can integrate Okta to manage user identity and pair Passport with the openid-client library in Express to simplify and secure the login flow. In this tutorial, you'll build a secure, role-based expense dashboard where users can view their expenses tailored to their team.
 
-Check out the complete source code on [GitHub](https://github.com/oktadev/okta-express-expense-dashboard-example) and get started without setting it up from scratch. 
+Check out the complete source code on [GitHub](https://github.com/oktadev/okta-express-oauth-example) and get started without setting it up from scratch. 
 
 **Table of Contents**{: .hide }
 * Table of Contents
@@ -23,14 +23,14 @@ Check out the complete source code on [GitHub](https://github.com/oktadev/okta-e
 
 Building an authentication system and handling credentials, sessions, and tokens is highly insecure and exposes your application to serious vulnerabilities.
 
-Okta provides a secure, scalable, and standards-based solution using OpenID Connect (OIDC) and OAuth 2.0. It also integrates seamlessly with Express and Passport, and allows you to fetch tokens.
+Okta provides a secure, scalable, and standards-based solution using OpenID Connect (OIDC) and OAuth 2.0. It also integrates seamlessly with Express and Passport and allows you to fetch tokens.
 
 ### Why use PKCE in OAuth 2.0
 To further strengthen security, this project uses PKCE (Proof Key for Code Exchange), defined in [RFC 7636](https://www.rfc-editor.org/rfc/rfc7636). PKCE is a security extension to the Authorization Code flow. Developers initially designed PKCE for mobile apps, but experts now recommend it for all OAuth clients, including web apps. It helps prevent CSRF and authorization code injection attacks and makes it useful for every type of OAuth client, even confidential clients such as web apps that use client secrets. As OAuth 2.0 has steadily evolved, security best practices have also advanced. [RFC 9700: Best Current Practice for OAuth 2.0 Security](https://www.rfc-editor.org/rfc/rfc9700.html) captures the consensus on the most effective and secure implementation strategies. Additionally, the upcoming OAuth 2.1 draft requires PKCE for all authorization code flows, reinforcing it as a baseline security standard.
 
 With Okta, you can implement modern authentication features and focus on your application logic without worrying about authentication infrastructure.
 
-## A secure app using Express, Passport, and OAuth 2.0
+## A secure web app using Express, Okta, OAuth 2.0, and PKCE
 
 Let's build an expense dashboard where users log in with Okta and view spending data based on their role. Whether they work in Finance, Marketing, or HR, each team views only its own expenses. To keep things minimal in this demo project, we'll define roles and users directly in the app.
 
@@ -45,7 +45,7 @@ You'll also use OpenID Connect (OIDC) through Passport and the openid-client lib
 
 ## Create your Express project and install dependencies
 
-Create a new project folder named 'express-project-okta`, and open a terminal window in the project folder.
+Create a new project folder named `express-project-okta`, and open a terminal window in the project folder.
 
 Initialize a new Node.js project:
 
@@ -70,9 +70,9 @@ npm install --save-dev nodemon
 
 These installed packages become your Express project's dependencies.
 
-* **`express`**: Handles routing and HTTP middleware for your Node.js web app
+* **`express`**: Handles routing and HTTP middleware for your web app
 
-* **`passport`**: Provides a flexible authentication framework
+* **`passport`**: Sets up and maintains server-side sessions
 
 * **`openid-client`**: A server-side OpenID Relying Party implementation for Node.js runtime, including PKCE support
 
@@ -102,9 +102,9 @@ In the next step, you'll get these values from your Okta Admin Console.
 
 {% include setup/integrator.md type="web" loginRedirectUri="http://localhost:3000/authorization-code/callback" logoutRedirectUri="http://localhost:3000" %}
 
-## Building the Express app 
+## Build the Express app 
 
-Create an `index.js` file in your project root. It serves as the main entry point for your application. Use it to initialize the Express app, configure session handling, set up [Passport](https://www.passportjs.org/) to use OIDC, and set up the routes. 
+Create an `index.js` file in your project root. It serves as the main entry point for your application. Use it to initialize the Express app, set up the routes, and configure Passport to manage user sessions by serializing and deserializing users on each request. [Passport](https://www.passportjs.org/)
 
 ```javascript
 import express from 'express';
@@ -649,7 +649,7 @@ Open your browser and navigate to [http://localhost:3000](http://localhost:3000)
 
 Click **Login** and authenticate with your Okta account. The app then displays your Expense Dashboard, Profile, and a Log out option.
 
-> **Note:** When you're signed in to the Developer Console as an admin, Okta keeps your org session active and automatically logs you into the app. To test other user accounts, use an incognito tab to test the flow from a blank slate.
+> **Note:** When you're signed in to the Developer Console as an admin, Okta keeps your org session active and automatically logs you into the app. To test other user accounts, use an incognito tab to test the login flow.
 
 #### Admin view:   
 
@@ -663,17 +663,17 @@ Click **Login** and authenticate with your Okta account. The app then displays y
 
 {% img blog/express-okta-authentication/expenses.jpeg alt:"User View Dashboard." width:"1000" %}{: .center-image }
 
-And that's it\! You've now built a secure Expense Dashboard and connected your Express application to Okta using OIDC, OAuth, and Passport. 
+And that's it\! You've built a secure Expense Dashboard and connected your Express application to Okta using OIDC, OAuth, and Passport. 
 
-## Learn more about OAuth 2.0, OIDC, and PKCE in Express
+## Learn more about OAuth 2.0, OIDC, and PKCE
 
 Here's a quick rundown of the features I used in this project to build a secure expense dashboard:
 
 * **OpenID Connect (OIDC)** is an identity and authentication layer built on OAuth 2.0.
 
-* **Authorization Code Flow with PKCE**, is the most secure flow for server-side web apps.
+* **Authorization Code Flow with PKCE**, is the most secure flow for server-side and browser-based web apps.
 
-If you'd like to explore the whole project and skip setting it up from scratch, check out the complete source code on [GitHub](https://github.com/oktadev/okta-express-expense-dashboard-example).
+If you'd like to explore the whole project and skip setting it up from scratch, check out the complete source code on [GitHub](https://github.com/oktadev/okta-express-oauth-example).
 
 To explore further, check out these official Okta resources to learn more about the key concepts. 
 
