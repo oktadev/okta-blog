@@ -16,7 +16,7 @@ type: awareness
 
 At Oktane 2024, we offered a lab session to teach the basics of automating Okta administration tasks with Terraform and PowerShell. This post walks you through the lab content so you can follow along at your own pace to get some hands-on experience managing an Okta tenant with both tools. 
 
-This lab includes some Scenario sections to give realistic examples of a situation where you might perform each task. You can ignore these sections if you don't find them helpful. 
+Each task in this lab includes realistic scenarios of situations where you may want to consider applying these concepts. You can ignore these sections if you don't find them helpful. 
 
 ## Background
 PowerShell is an excellent introductory tool for general automation tasks. It is easier to set up but can require extensive customization to integrate with a more complete infrastructure-as-code solution. In this lab, the focus will be on reading data with PowerShell, but it is a general-purpose tool that can read from and write to Okta when configured with the appropriate scopes.
