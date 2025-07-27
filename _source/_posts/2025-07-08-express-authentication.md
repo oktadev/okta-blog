@@ -521,7 +521,7 @@ Create a folder named `views`, then add the following EJS files:
 <h1>Welcome</h1>
 <% } %>
 
-<p class="lead">Log your expenses and manage your team’s spending on the dashboard.</p>
+<p class="lead">Log your expenses and manage your team's spending on the dashboard.</p>
 
 <% if (user) { %>
 <a href="/dashboard" class="btn btn-primary">Go to Dashboard</a>
