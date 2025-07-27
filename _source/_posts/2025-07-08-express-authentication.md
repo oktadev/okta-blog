@@ -1,19 +1,19 @@
 ---
 layout: blog_post
-title: "Secure Your Express App with Okta and OAuth 2.0 Authentication"
+title: "Secure Your Express App with OAuth 2.0, OIDC, and PKCE"
 author: akanksha-bhasin 
 by: advocate
 communities: [javascript]
 description: "Build a secure Express app with Okta using OIDC and OAuth 2.0 PKCE"
-tags: [express, node, passport, oidc, oauth, pkce, javascript, authentication]
-image: blog/express-okta-authentication/express-okta-authentication-social-image.jpeg
+tags: [express, node, oidc, oauth, pkce, javascript, authentication]
+image: blog/express-okta-authentication/express-oauth-pkce-social-image.jpg
 type: conversion
-github: https://github.com/oktadev/okta-express-oauth-example
+github: https://github.com/oktadev/okta-express-oauth-pkce-example
 ---
 
 Every web application needs authentication, but building it yourself is risky and time-consuming. Instead of starting from scratch, you can integrate Okta to manage user identity and pair Passport with the openid-client library in Express to simplify and secure the login flow. In this tutorial, you'll build a secure, role-based expense dashboard where users can view their expenses tailored to their team.
 
-Check out the complete source code on [GitHub](https://github.com/oktadev/okta-express-oauth-example) and get started without setting it up from scratch. 
+Check out the complete source code on [GitHub](https://github.com/oktadev/okta-express-oauth-pkce-example) and get started without setting it up from scratch.
 
 **Table of Contents**{: .hide }
 * Table of Contents
@@ -23,18 +23,19 @@ Check out the complete source code on [GitHub](https://github.com/oktadev/okta-e
 
 Building an authentication system and handling credentials, sessions, and tokens is highly insecure and exposes your application to serious vulnerabilities.
 
-Okta provides a secure, scalable, and standards-based solution using OpenID Connect (OIDC) and OAuth 2.0. It also integrates seamlessly with Express and Passport, and allows you to fetch tokens.
+Okta provides a secure, scalable, and standards-based solution using OpenID Connect (OIDC) and OAuth 2.0. It also integrates seamlessly with OIDC client libraries for your favorite tech stack and allows you to fetch tokens.
 
 ### Why use PKCE in OAuth 2.0
+
 To further strengthen security, this project uses PKCE (Proof Key for Code Exchange), defined in [RFC 7636](https://www.rfc-editor.org/rfc/rfc7636). PKCE is a security extension to the Authorization Code flow. Developers initially designed PKCE for mobile apps, but experts now recommend it for all OAuth clients, including web apps. It helps prevent CSRF and authorization code injection attacks and makes it useful for every type of OAuth client, even confidential clients such as web apps that use client secrets. As OAuth 2.0 has steadily evolved, security best practices have also advanced. [RFC 9700: Best Current Practice for OAuth 2.0 Security](https://www.rfc-editor.org/rfc/rfc9700.html) captures the consensus on the most effective and secure implementation strategies. Additionally, the upcoming OAuth 2.1 draft requires PKCE for all authorization code flows, reinforcing it as a baseline security standard.
 
 With Okta, you can implement modern authentication features and focus on your application logic without worrying about authentication infrastructure.
 
-## A secure web app using Express, Okta, OAuth 2.0, and PKCE
+## A secure web app using Express, OAuth 2.0, and PKCE
 
 Let's build an expense dashboard where users log in with Okta and view spending data based on their role. Whether they work in Finance, Marketing, or HR, each team views only its own expenses. To keep things minimal in this demo project, we'll define roles and users directly in the app.
 
-You'll also use OpenID Connect (OIDC) through openid-client library for authentication. Then, you'll map each user's email from the ID token to a team. The dashboard applies principles of least privilege and displays expenses by team, so each user sees only their department's spending.
+You'll also use OpenID Connect (OIDC) through the openid-client library for authentication. Then, you'll map each user's email from the ID token to a team. The dashboard applies principles of least privilege and displays expenses by team, so each user sees only their department's spending.
 
 **Prerequisites**
 
@@ -73,7 +74,7 @@ These installed packages become your Express project's dependencies.
 
 * **`passport`**: Sets up and maintains server-side sessions
 
-* **`openid-client`**: A server-side OpenID Relying Party implementation for Node.js runtime, including PKCE support
+* **`openid-client`**: Node.js OIDC library with PKCE support; handles the OAuth handshake and token exchange.
 
 * **`express-session`**: Manages user sessions on the server
 
@@ -282,34 +283,8 @@ export const dummyExpenseData = {
     },
   ],
 };
-```
 
-### Create an auth file to handle authentication
-
-The authentication logic is kept in a separate file, `auth.js`, to keep your server organized and maintainable. This file manages OpenID Connect authentication with [openid-client](https://www.passportjs.org/packages/openid-client), including PKCE support. It sets up the OIDC client, handles login and logout, processes callbacks, and provides middleware to protect routes.
-
-
-```javascript
-import * as client from "openid-client";
-import "dotenv/config";
-
-import { userTeamMap, ALL_TEAMS_NAME } from './utils.js';
-
-export function ensureAuthenticated(req, res, next) {
-  if (req.isAuthenticated()) {
-    return next();
-  }
-  res.redirect("/login");
-}
-
-function getCallbackUrlWithParams(req) {
-  const host = req.headers["x-forwarded-host"] || req.headers.host || "localhost";
-  const protocol = req.headers["x-forwarded-proto"] || req.protocol;
-  const currentUrl = new URL(`${protocol}://${host}${req.originalUrl}`);
-  return currentUrl;
-}
-
-function getModifiedTeam(team) {
+export function getModifiedTeam(team) {
   if (!team?.trim()) return [];
 
   const toPascalCase = (str) =>
@@ -335,6 +310,21 @@ function getModifiedTeam(team) {
     },
   ];
 }
+```
+
+The file also defines `getModifiedTeam`, a helper that converts a team name into an array of objects. Each object has an id and a label. If the team is admin, the function returns an object for every entry in `ALL_TEAMS_NAME`; otherwise, it returns a single object for the specified team. Later in the project, the app calls this function to transform the user's team information.
+
+### Create a file to handle authentication
+
+Create an `auth.js` file for this step. This file uses the [openid-client](https://www.passportjs.org/packages/openid-client) library to handle the OIDC flow: it logs users in, exchanges the authorization code for tokens, and logs them out. It also defines a middleware that guards protected routes.
+
+In the auth.js file, add the following code:
+
+```javascript
+import * as client from "openid-client";
+import "dotenv/config";
+
+import { getModifiedTeam, userTeamMap } from './utils.js';
 
 async function getClientConfig() {
   return await client.discovery(new URL(process.env.OKTA_ISSUER), process.env.OKTA_CLIENT_ID, process.env.OKTA_CLIENT_SECRET);
@@ -363,6 +353,13 @@ export async function login(req, res) {
   } catch (error) {
     res.status(500).send("Something failed during the authorization request");
   }
+}
+
+function getCallbackUrlWithParams(req) {
+  const host = req.headers["x-forwarded-host"] || req.headers.host || "localhost";
+  const protocol = req.headers["x-forwarded-proto"] || req.protocol;
+  const currentUrl = new URL(`${protocol}://${host}${req.originalUrl}`);
+  return currentUrl;
 }
 
 export async function authCallback(req, res, next) {
@@ -428,9 +425,25 @@ export async function logout(req, res) {
     res.status(500).send('Something went wrong during logout.');
   }
 }
+
+export function ensureAuthenticated(req, res, next) {
+  if (req.isAuthenticated()) {
+    return next();
+  }
+  res.redirect("/login");
+}
 ```
 
-### Set up the express routes file 
+This file includes the following functions:
+
+1. **`getClientConfig`** - Discovers the authorization server's metadata and returns the associated metadata object.
+2. **`login`** - This function starts the Authorization Code + PKCE flow. It generates a **code_verifier**, derives a **code_challenge**, and creates a state value. It stores the **code_verifier** and **state** in the session, builds the authorize URL, and redirects the user to Okta to complete the login flow.
+3. **`getCallbackUrlWithParams`** - Reconstructs the complete callback URL, including protocol, host, path, and query.
+4. **`authCallback`** - Retrieves the **code_verifier** and **state** from the session and use it to obtain tokens. Combine them with the callback URL to obtain tokens. Map the user to a team and store the profile details and ID token in the session. If everything succeeds, redirect the user to the dashboard.
+5. **`logout`** - Logs the user out of the app and redirects to the post-logout URL.
+6. **`ensureAuthenticated`** - Middleware that allows authenticated users to proceed and redirects others to the login page.
+
+### Set up routing in Express
 
 Now things start to come together and feel like a real app. The `routes.js` file defines all the essential routes, from login and logout to viewing your profile, the expense dashboard, and individual team expense pages. The app handles each endpoint's core logic and checks a user's authentication status before granting access to protected pages.
 
@@ -493,7 +506,7 @@ router.get("/logout", logout);
 export default router;
 ```
 
-### Add views in the app
+### Add EJS views in Express
 
 Now it's time to give the app a user interface. You'll use EJS templates to build pages that respond dynamically to who's logged in and what data they see. The app uses `ejs` templates to render the pages, plus `express-ejs-layouts` for common layout structures.
 
@@ -508,7 +521,7 @@ Create a folder named `views`, then add the following EJS files:
 <h1>Welcome</h1>
 <% } %>
 
-<p class="lead">Log your expenses and manage your team/'s spending on the dashboard.</p>
+<p class="lead">Log your expenses and manage your team’s spending on the dashboard.</p>
 
 <% if (user) { %>
 <a href="/dashboard" class="btn btn-primary">Go to Dashboard</a>
@@ -592,10 +605,10 @@ Create a folder named `views`, then add the following EJS files:
 <h3>Your Teams</h3>
 <% if (team && team.length > 0) { %>
 <ul class="list-group">
-  <% teams.forEach(team => { %>
+  <% team.forEach(team => { %>
   <li class="list-group-item d-flex justify-content-between align-items-center">
     <%= team.label %>
-    <a href="/teams/<%= team.id %>" class="btn btn-primary btn-sm">View</a>
+    <a href="/team/<%= team.id %>" class="btn btn-primary btn-sm">View</a>
   </li>
   <% }) %>
 </ul>
@@ -638,7 +651,7 @@ The EJS template renders the team info and expenses data in a tabular format.
 <% } %>
 ```
 
-## Run the app
+## Run the Express app with authentication
 
 In your terminal, start the server:
 
@@ -652,17 +665,17 @@ Click **Login** and authenticate with your Okta account. The app then displays y
 
 #### Admin view:   
 
-{% img blog/express-okta-authentication/admin-view.jpeg alt:"User View Dashboard." width:"1000" %}{: .center-image }
+{% img blog/express-okta-authentication/admin-view.jpeg alt:"Admin View Dashboard" width:"1000" %}{: .center-image }
 
 #### User view: 
 
-{% img blog/express-okta-authentication/user-view.jpeg alt:"User View Dashboard." width:"1000" %}{: .center-image }
+{% img blog/express-okta-authentication/user-view.jpeg alt:"User View Dashboard" width:"1000" %}{: .center-image }
 
 #### Expenses view: 
 
-{% img blog/express-okta-authentication/expenses.jpeg alt:"User View Dashboard." width:"1000" %}{: .center-image }
+{% img blog/express-okta-authentication/expenses.jpeg alt:"Expenses View" width:"1000" %}{: .center-image }
 
-And that's it\! You've built a secure Expense Dashboard and connected your Express application to Okta using OIDC, OAuth, and Passport. 
+And that's it\! You've built a secure Expense Dashboard and connected your Express application to Okta using OIDC and OAuth. 
 
 ## Learn more about OAuth 2.0, OIDC, and PKCE
 
@@ -670,9 +683,9 @@ Here's a quick rundown of the features I used in this project to build a secure 
 
 * **OpenID Connect (OIDC)** is an identity and authentication layer built on OAuth 2.0.
 
-* **Authorization Code Flow with PKCE**, is the most secure flow for server-side and browser-based web apps.
+* **Authorization Code Flow with PKCE** is the most secure flow for server-side and browser-based web apps.
 
-If you'd like to explore the whole project and skip setting it up from scratch, check out the complete source code on [GitHub](https://github.com/oktadev/okta-express-oauth-example).
+If you'd like to explore the whole project and skip setting it up from scratch, check out the complete source code on [GitHub](https://github.com/oktadev/okta-express-oauth-pkce-example).
 
 To explore further, check out these official Okta resources to learn more about the key concepts. 
 
