@@ -6,7 +6,7 @@ by: advocate
 communities: [javascript]
 description: "Build a secure Express app with Okta using OIDC and OAuth 2.0 PKCE"
 tags: [express, node, oidc, oauth, pkce, javascript, authentication]
-image: blog/express-okta-authentication/express-oauth-pkce-social-image.jpg
+image: blog/express-oauth-pkce/express-oauth-pkce-social-image.jpeg
 type: conversion
 github: https://github.com/oktadev/okta-express-oauth-pkce-example
 ---
@@ -665,15 +665,15 @@ Click **Login** and authenticate with your Okta account. The app then displays y
 
 #### Admin view:   
 
-{% img blog/express-okta-authentication/admin-view.jpeg alt:"Admin View Dashboard" width:"1000" %}{: .center-image }
+{% img blog/express-oauth-pkce/admin-view.jpeg alt:"Admin View Dashboard" width:"1000" %}{: .center-image }
 
 #### User view: 
 
-{% img blog/express-okta-authentication/user-view.jpeg alt:"User View Dashboard" width:"1000" %}{: .center-image }
+{% img blog/express-oauth-pkce/user-view.jpeg alt:"User View Dashboard" width:"1000" %}{: .center-image }
 
 #### Expenses view: 
 
-{% img blog/express-okta-authentication/expenses.jpeg alt:"Expenses View" width:"1000" %}{: .center-image }
+{% img blog/express-oauth-pkce/expenses.jpeg alt:"Expenses View" width:"1000" %}{: .center-image }
 
 And that's it\! You've built a secure Expense Dashboard and connected your Express application to Okta using OIDC and OAuth. 
 
