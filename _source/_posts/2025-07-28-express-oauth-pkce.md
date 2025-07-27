@@ -439,7 +439,7 @@ This file includes the following functions:
 1. **`getClientConfig`** - Discovers the authorization server's metadata and returns the associated metadata object.
 2. **`login`** - This function starts the Authorization Code + PKCE flow. It generates a **code_verifier**, derives a **code_challenge**, and creates a state value. It stores the **code_verifier** and **state** in the session, builds the authorize URL, and redirects the user to Okta to complete the login flow.
 3. **`getCallbackUrlWithParams`** - Reconstructs the complete callback URL, including protocol, host, path, and query.
-4. **`authCallback`** - Retrieves the **code_verifier** and **state** from the session and use it to obtain tokens. Combine them with the callback URL to obtain tokens. Map the user to a team and store the profile details and ID token in the session. If everything succeeds, redirect the user to the dashboard.
+4. **`authCallback`** - Retrieves the **code_verifier** and **state** from the session and use it to obtain tokens. Map the user to a team and store the profile details and ID token in the session. If everything succeeds, redirect the user to the dashboard.
 5. **`logout`** - Logs the user out of the app and redirects to the post-logout URL.
 6. **`ensureAuthenticated`** - Middleware that allows authenticated users to proceed and redirects others to the login page.
 
