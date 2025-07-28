@@ -64,7 +64,15 @@ Now, install the development dependencies:
 
 ```sh
 npm install --save-dev nodemon
-``` 
+```
+
+In the package.json file, update the scripts property with the following:
+
+```js
+  "scripts": {
+    "start": "nodemon node index.js"
+  }
+```
 
 **What do these dependencies do?** 
 
