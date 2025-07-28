@@ -70,7 +70,7 @@ In the package.json file, update the scripts property with the following:
 
 ```js
   "scripts": {
-    "start": "nodemon node index.js"
+    "start": "nodemon index.js"
   }
 ```
 
