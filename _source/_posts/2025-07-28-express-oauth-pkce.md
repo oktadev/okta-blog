@@ -89,7 +89,7 @@ These installed packages become your Express project's dependencies.
 Create a `.env` file in the root directory with placeholders for your Okta configuration.
 
 ```
-OKTA_ISSUER=https://{yourOktaDomain}/oauth2/default 
+OKTA_ISSUER=https://{yourOktaDomain}
 OKTA_CLIENT_ID={yourClientId}
 OKTA_CLIENT_SECRET={clientSecret}
 APP_BASE_URL=http://localhost:3000
@@ -316,7 +316,7 @@ The file also defines `getModifiedTeam`, a helper that converts a team name into
 
 ### Create a file to handle authentication
 
-Create an `auth.js` file for this step. This file uses the [openid-client](https://www.passportjs.org/packages/openid-client) library to handle the OIDC flow: it logs users in, exchanges the authorization code for tokens, and logs them out. It also defines a middleware that guards protected routes.
+Create an `auth.js` file for this step. This file uses the [openid-client](https://www.npmjs.com/package/openid-client) library to handle the OIDC flow: it logs users in, exchanges the authorization code for tokens, and logs them out. It also defines a middleware that guards protected routes.
 
 In the auth.js file, add the following code:
 
@@ -436,10 +436,11 @@ export function ensureAuthenticated(req, res, next) {
 
 This file includes the following functions:
 
-1. **`getClientConfig`** - Discovers the authorization server's metadata and returns the associated metadata object.
-2. **`login`** - This function starts the Authorization Code + PKCE flow. It generates a **code_verifier**, derives a **code_challenge**, and creates a state value. It stores the **code_verifier** and **state** in the session, builds the authorize URL, and redirects the user to Okta to complete the login flow.
+1. **`getClientConfig`** - Retrieves the authorization server's metadata using authorization server's discovery endpoint.
+2. **`login`** - This function starts the Authorization Code + PKCE flow. It generates the required values to enable PKCE: the **code_verifier** and **code_challenge**. These values, along with the `state` value protect the user sign in process from attack vectors. [PKCE](https://datatracker.ietf.org/doc/html/rfc7636) protects against auth code interception attacks, and the state parameter protects against [Cross-Site Request Forgery (CSRF)](https://owasp.org/www-community/attacks/csrf). The openid-client builds the user sign in URL with these values and redirects the user to Okta to complete the authentication challenge.
 3. **`getCallbackUrlWithParams`** - Reconstructs the complete callback URL, including protocol, host, path, and query.
-4. **`authCallback`** - Retrieves the **code_verifier** and **state** from the session and use it to obtain tokens. Map the user to a team and store the profile details and ID token in the session. If everything succeeds, redirect the user to the dashboard.
+4. **`authCallback`** - This function runs when the user redirects back to the app after the authentication challenge succeeds. At this point, the redirect URL back into the application includes the auth code. The OIDC client verifies the auth code by checking that the **state** value matches the parameter in the first redirect. Once verified, the OIDC uses the auth code for the token exchange by adding the **code_verifier** to the token request. 
+Once we get back valid tokens, we handle the app's business logic, such as mapping the user to a team and storing the profile details and ID token in the session. If everything succeeds, it redirects the user to the dashboard.
 5. **`logout`** - Logs the user out of the app and redirects to the post-logout URL.
 6. **`ensureAuthenticated`** - Middleware that allows authenticated users to proceed and redirects others to the login page.
 
@@ -535,8 +536,8 @@ Create a folder named `views`, then add the following EJS files:
 
 ```javascript
 <h1>Profile</h1>
-<p><h6 style="display: inline-block; margin: 0;">Name:</h6> <%= user.name %></p>
-<p><h6 style="display: inline-block; margin: 0;">Email:</h6> <%= user.email %></p>
+<p><h2 style="display: inline-block; margin: 0; font-size: 16px;">Name:</h2> <%= user.name %></p>
+<p><h2 style="display: inline-block; margin: 0; font-size: 16px;">Email:</h2> <%= user.email %></p>
 ```
 
 **layout.ejs**
@@ -601,8 +602,7 @@ Create a folder named `views`, then add the following EJS files:
 ```javascript
 <h1>Dashboard</h1>
 <p>Welcome, <%= user.name || 'User' %></p>
-
-<h3>Your Teams</h3>
+<h2 style="font-size: 24px;">Your Teams</h2>
 <% if (team && team.length > 0) { %>
 <ul class="list-group">
   <% team.forEach(team => { %>
@@ -626,7 +626,7 @@ The EJS template renders the team info and expenses data in a tabular format.
 <div>Welcome to the <p class="team-heading"><%= team.label %></p> team page.</div>
 <br/>
 <% if (expenses && expenses.length > 0) { %>
-<h3>Expenses</h3>
+<h2 style="font-size: 24px;">Expenses</h2>
 <table class="table table-bordered">
   <thead>
     <tr>
