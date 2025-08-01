@@ -88,6 +88,7 @@ FIDO2 and WebAuthn combined are a strong authentication factor that utilizes bio
 **Pros**: Biometric-based FIDO authentication is secure, scales for public and consumer users, and there is no need to carry a security key or card
 
 **Cons**: Each app must support this authentication method, and consumers must own capable devices
+
 For the highest levels of identity security, use phishing-resistant factors.
 
 <h3 class="no_toc">Phishing-resistant factors decision tree</h3>
