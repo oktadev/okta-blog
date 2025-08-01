@@ -115,7 +115,7 @@ We no longer live in a world where passwords alone are good enough to secure sen
 
 <h3 class="no_toc">Avoid security questions as a factor</h3>
 
-Cybersecurity organizations do not recommend security questions, as they are neither secure nor reliable. It's best to avoid this method.
+Cybersecurity organizations do not recommend security questions, as they are neither secure nor reliable. Security questions are vulnerable to social engineering attacks. It's best to avoid this method.
 
 <h3 class="no_toc">SMS one-time codes are unsafe</h3>
 
