@@ -173,7 +173,7 @@ To best protect your application and free yourself from getting into the weeds o
 
 When you redirect the user to Okta for sign-in, you make authentication Okta's problem. And that's great because it provides you with the most security and the least amount of work. Your Okta administrator can configure authentication policies and add business rules to those authentication user challenges. You don't have to worry about how to implement WebAuthn in your app, ensuring you have all the user controls to handle push notifications, or track sign-in context to adapt authentication factors. It's all handled. All you need to know is whether the user completed authentication challenges, and then you can return to delivering features.
 
-If your application's use case demands a custom look and feel, you can customize the Okta-hosted Sign-In Widget's styles. When you combine a custom-branded Sign-In Widget with a custom domain, your users may never know they leave your site. We are continuing to build out capabilities in this area so you can deliver both secure identity and branding requirements. Be on the lookout for content in this area utilizing Okta SDK's capabilities.
+If you're concerned a browser redirect for sign in degrades user experience or if your application's use case demands a custom look and feel, you can customize the Okta-hosted Sign-In Widget's styles. When you combine a custom-branded Sign-In Widget with a custom domain, your users may never know they leave your site. We're continuing to build out capabilities in this area so you can deliver both secure identity and branding requirements. Be on the lookout for content about customizing sign in.
 
 <h3 class="no_toc">Use a vetted and well-maintained OIDC client library</h3>
 
