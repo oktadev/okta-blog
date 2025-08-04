@@ -111,7 +111,7 @@ sequenceDiagram
 
 ## Avoid weak authentication methods
 
-We no longer live in a world where passwords alone are good enough to secure sensitive resources. Studies have shown that over [80% of data breaches result from compromised credentials](https://www.verizon.com/business/resources/reports/dbir/). We must elevate authentication methods by avoiding weak credentials and preferring more substantial forms. Look towards industry leaders in cybersecurity, including companies such as Okta, nonprofit foundations such as OWASP, and government standards such as NIST and NCSC, to guide you towards strong factors and away from weak ones. In particular, be wary of legacy factors.
+We no longer live in a world where passwords alone are good enough to secure sensitive resources. Studies have shown that over [80% of data breaches result from compromised credentials](https://www.verizon.com/business/resources/reports/dbir/). We must elevate authentication methods by avoiding weak credentials and preferring more substantial forms. Look towards industry leaders in cybersecurity, including companies such as Okta, nonprofit foundations such as OWASP, and government standards such as [NIST](https://pages.nist.gov/800-63-4/) and [NCSC](https://www.ncsc.gov.uk/collection/10-steps/identity-and-access-management), to guide you towards strong factors and away from weak ones. In particular, be wary of legacy factors.
 
 <h3 class="no_toc">Avoid security questions as a factor</h3>
 
