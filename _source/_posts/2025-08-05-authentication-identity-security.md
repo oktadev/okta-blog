@@ -153,7 +153,7 @@ Identity security isn't a one-size-fits-all solution. FIDO2 with WebAuthn factor
 
 Complex use cases call for more tailoring. Your needs may change depending on use factors such as geographic location, IP addresses, device attributes, and threat detection. Identity Providers offer solutions that help you tailor authentication security. For example, Okta supports features such as [Adaptive MFA](https://www.okta.com/identity-101/adaptive-authentication/), which adjusts authentication requirements depending on context, and [Identity Threat Protection](https://help.okta.com/oie/en-us/content/topics/itp/overview.htm), which continuously monitors threats and can react by terminating authenticated sessions. If your industry requires the highest levels of identity security or your application contains highly sensitive resources, look to these options.
 
-<h3 class="no_toc">Verify identity for sensitive resource requests</h3>
+<h3 class="no_toc">Revalidate identity for sensitive resource requests</h3>
 
 Identity assurances don't have to happen only at application entry. When sensitive actions and data require elevated authentication, consider using the [Step Up Authentication Challenge](https://auth0.com/blog/what-is-step-up-authentication-when-to-use-it/) to protect resources. The Step Up Authentication Challenge is an OAuth standard for requiring secure factors or recent authentication when performing actions within the application.
 
