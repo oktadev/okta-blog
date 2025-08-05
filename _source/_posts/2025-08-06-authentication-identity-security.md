@@ -20,6 +20,7 @@ Identity-based attacks have become prevalent, and successful attacks are impactf
 * Table of Contents
 {% include toc.md %}
 
+
 ## Identity assurance is the goal
 
 When we think about authentication, we think of gaining access to sensitive resources. We want some level of barrier so the data isn't publicly available. It's not enough to merely add a barrier, though. Wouldn't it be more useful to have assurances that the user's credentials are uniquely theirs and that no one can impersonate them? It's more than a fence around the data; we also have assurances that the user accessing the data is who they say they are. It sounds great in theory.
@@ -186,7 +187,15 @@ Ideally, use a vetted, well-maintained OIDC client library that is [OIDC-certifi
 ## Join the identity security evolution
 
 Protect your workforce and customers by elevating authentication factors using phishing-resistant factors. Allow Okta to work for you by configuring strong authentication policies. Enable dynamic authentication factors and threat detection in your Okta org to mitigate data breaches and strengthen your reputation.
+
 In your software applications, leverage Okta SDKs to redirect users to the Okta-hosted Sign-in Widget to quickly gain access to the more secure authentication factors efficiently and seamlessly. Then, build more safety in your apps by adding the Step Up Authentication Challenge to maintain identity security. Staying updated with the latest security best practices and thoughtfully integrating OAuth specs are essential to secure identity management. 
+
+> **Apply these key takeaways**
+> 1. Use phishing-resistant factors for authentication wherever possible, preferring Passkeys and Okta FastPass depending on use case and target audience
+> 2. Offer strong MFA options as a backup authentication methods
+> 3. Delegate identity management and authentication to an Identity Provider (IDP) supporting OAuth 2.1 and OIDC
+> 4. Use an OIDC client library to redirect users to sign in through an Okta-hosted sign in page
+> 5. Consider using OAuth extension specs to elevate identity assurances continuously throughout the lifetime of a user session
 
 ## Learn more about phishing-resistant authentication, identity security, and protecting your applications
 
