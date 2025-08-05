@@ -4,13 +4,9 @@ title: "It's Time to Evolve Authentication Security"
 author: alisa-duncan
 by: advocate
 communities: [devops,security,mobile,.net,java,javascript,go,php,python,ruby]
-description: ""
+description: "Keep applications secure with strong authentication security. Apply actionable steps and learn key takeaways to securing and building apps that elevate identity assurances."
 tags: [identity, mfa, phishing-resistant, passwordless, passkey, webauthn, fido2]
-tweets:
-- ""
-- ""
-- ""
-image:
+image: blog/authentication-identity-security/social.jpg
 type: awareness
 ---
 
