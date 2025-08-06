@@ -140,7 +140,7 @@ The best way to ensure authentication security and reasonable identity assurance
 
 Okta's authentication policy builder can help you create strong authentication requirements to access Okta services and applications protected by Okta's sign-in while tailoring session lifetimes to your needs.
 
-**It's time we evolve our application's authentication security and favor phishing-resistant factors.**
+> **It's time we evolve our application's authentication security and favor phishing-resistant factors.**
 
 ## Customize authentication requirements dynamically
 
