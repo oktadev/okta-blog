@@ -28,11 +28,11 @@ Terraform is a specialized tool for developing infrastructure as code. Terraform
 You can follow these steps on any computer where you're able to install the following dependencies: 
 
 - Install [PowerShell](https://learn.microsoft.com/en-us/powershell/scripting/install/installing-powershell?view=powershell-7.4). This lab was tested on PowerShell 7.4.
-- Install the [official Okta PowerShell module](https://github.com/okta/okta-powershell-cli) from your preferred PowerShell module location. This lab weas tested on v1.0.3. 
+- Install the [official Okta PowerShell module](https://github.com/okta/okta-powershell-cli) from your preferred PowerShell module location. This lab was tested on v1.0.3. 
 - Install [Terraform](https://developer.hashicorp.com/terraform/tutorials/aws-get-started/install-cli). This lab was tested on v1.11.3. 
 - Create an Okta org by [signing up](https://developer.okta.com/signup/) for Workforce Identity Cloud.
 
-**Note:** Free trial accounts expire after 30 days, but developer accounts do not expire. 
+**Note:** Free trial organizations expire after 30 days, but Integrator Free Plan organizations do not expire. 
 
 To use Terraform, you'll run commands in a terminal. You can even use a PowerShell window if you don't have a favorite terminal! 
 
@@ -58,7 +58,7 @@ You'll save a private key alongside your code to simplify the lab. In production
 
 ## Set up your Terraform Application
 
-1. Go to Applications > Applications in the Okta admin console.
+1. Go to Applications > Applications in the Okta Admin Console.
 
 2. Create an app integration for the Terraform lab.
 
@@ -93,7 +93,7 @@ You'll save a private key alongside your code to simplify the lab. In production
 
 5. Complete the configuration steps.
     
-    a. From the Okta Admin console, select Done.
+    a. From the Okta Admin Console, select Done.
     
     b. Select Save.
     
@@ -112,7 +112,7 @@ You'll save a private key alongside your code to simplify the lab. In production
     
     b. Select Edit Assignments.
     
-    c. Select the role of Super Adminstrator from the dropdown menu.
+    c. Select the role of Super Administrator from the dropdown menu.
     
     d. Select Save Changes.
 
