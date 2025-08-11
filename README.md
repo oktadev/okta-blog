@@ -140,16 +140,16 @@ This section describes Markdown standards we like to use in our blog posts. Thes
 - [Add a Changelog](#add-a-changelog)
 - [Add a Canonical URL](#add-a-canonical-url)
 
-### Use the Okta CLI to Register Your App
+### Register Your App with Okta
 
-To describe how to setup a new application on Okta, please use the [`cli.md`](_source/_includes/setup/cli.md) or [`maven.md`](_source/_includes/setup/maven.md) includes.
+To describe how to setup a new application on Okta, please use the [`integrator.md`](_source/_includes/setup/integrator.md) include.
 
-These will render instructions using the [Okta CLI](https://cli.okta.com) (or [Okta Maven Plugin](https://github.com/oktadev/okta-maven-plugin)) and link to instructions for the Admin Console. Screenshots are discouraged because they're hard to keep up-to-date.
+These will render instructions using the Admin Console setup and link to the appropriate documentation. Screenshots are discouraged because they're hard to keep up-to-date.
 
-The basic syntax for using the Okta CLI to set up an app is:
+The basic syntax for using the integrator setup to create an app is:
 
 ```md
-{% include setup/cli.md type="spa" loginRedirectUri="http://localhost:8080/callback" %}
+{% include setup/integrator.md type="spa" loginRedirectUri="http://localhost:8080/callback" %}
 ```
 
 Supported values for `type`: spa, web, native, service, token, and jhipster
@@ -163,9 +163,9 @@ Other parameters you can pass in:
 | `logoutRedirectUri` | Prints whatever you set, or defaults if not set                                                     |
 | `signup`            | `false` reduces opening paragraph to one sentence                                                   |
 | `note`              | Prints whatever you set. See .NET example below                                                     |
-| `install`           | `false` removes 'Install the Okta CLI' sentence                                                     |
+| `install`           | `false` removes setup instructions for signing into your Okta account                               |
 
-See [How to Create an OIDC App on Okta](https://developer.okta.com/blog/setup) for this feature's documentation.
+See [Integrator Setup Examples](https://developer.okta.com/blog/integrator-setup) for examples and documentation on using the integrator setup.
 
 ### Blog Markdown Conventions
 
