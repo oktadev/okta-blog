@@ -1,6 +1,6 @@
 ---
 layout: blog_post
-title: "Scaling Okta App Management by Importing Data from PowerShell into Terraform"
+title: "How to Automate Okta Administration with Terraform and PowerShell"
 author: edunham
 by: advocate
 communities: [devops,.net]
@@ -14,7 +14,7 @@ image: blog/terraform-powershell-lab/image.jpg
 type: awareness
 ---
 
-At Oktane 2024, we offered a lab session to teach the basics of automating Okta administration tasks with Terraform and PowerShell. This post walks you through the lab content so you can follow along at your own pace to get some hands-on experience managing an Okta tenant with both tools. 
+Managing Okta administration tasks manually can be time-consuming and error-prone as your organization grows. This hands-on guide walks you through automating Okta administration using both Terraform and PowerShell, showing you how to leverage the strengths of each tool for different aspects of identity management. 
 
 Each task in this lab includes realistic scenarios of situations where you may want to consider applying these concepts. You can ignore these sections if you don't find them helpful. 
 
