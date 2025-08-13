@@ -6,7 +6,7 @@ by: advocate
 communities: [devops,security,mobile,.net,java,javascript,go,php,python,ruby]
 description: "Calling all developers! Join us at Oktane 2025 and get inspired on how you can create secure AI agents, follow security best practices, and elevate identity assurance."
 tags: []
-image:
+image: blog/oktane-ai-security/social.jpg
 type: awareness
 ---
 
