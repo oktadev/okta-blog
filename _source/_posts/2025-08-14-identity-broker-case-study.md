@@ -11,9 +11,9 @@ type: awareness
 canonical: https://www.securing.pl/en/identity-broker-case-study-how-to-prevent-tenant-isolation-vulnerabilities-with-oktas-account-auto-link/
 ---
 
-During a recent pentest, I analyzed a multitenant Software-as-a-Service application that used Okta as its Identity Broker. Because of a misconfiguration, I was able to pivot from one tenant’s perspective and gain access to every other tenant’s data, which completely undermined the intended isolation. **The root cause? Misconfigured Okta’s Account Auto-Linking settings**.
+During a recent pentest, I analyzed a multitenant Software-as-a-Service application that used Okta as its Identity Broker. Because of a misconfiguration, I was able to pivot from one tenant's perspective and gain access to every other tenant's data, which completely undermined the intended isolation. **The root cause? Misconfigured Okta's Account Auto-Linking settings**.
 
-When I look at this issue now, it seems deceptively simple. In reality, it highlights how subtle misconfigurations in Identity Broker setups, especially in multitenant environments, can have far-reaching consequences. This kind of vulnerability is easy to overlook during a pentest because it requires a deep understanding of how identity federation interacts with tenant isolation. It’s a reminder that even small configuration choices can critically impact security. I hope that sharing this case might help others spot similar issues, whether they are configuring an Identity Broker for the first time or reviewing existing setups.
+When I look at this issue now, it seems deceptively simple. In reality, it highlights how subtle misconfigurations in Identity Broker setups, especially in multitenant environments, can have far-reaching consequences. This kind of vulnerability is easy to overlook during a pentest because it requires a deep understanding of how identity federation interacts with tenant isolation. It's a reminder that even small configuration choices can critically impact security. I hope that sharing this case might help others spot similar issues, whether they are configuring an Identity Broker for the first time or reviewing existing setups.
 
 **Table of Contents**{: .hide }
 * Table of Contents
@@ -29,7 +29,7 @@ Our customer decided to use **Okta as an Identity Broker** for their SaaS platfo
 
 {% img blog/identity-broker-case-study/diagram1.png alt:"Okta as Identity Broker" width:"800" %}{: .center-image }
 
-From the end user’s perspective, the integration works as follows:
+From the end user's perspective, the integration works as follows:
 
 {% img blog/identity-broker-case-study/diagram2.png alt:"Okta as Identity Broker from end user's perspective" width:"800" %}{: .center-image }
 
@@ -43,11 +43,11 @@ Broadly speaking, Identity Providers fall into two categories:
 
 * **Corporate Identity Providers**: These are established and managed by organizations to authenticate their employees. Common examples include Azure Entra ID, Google Cloud Identity, Keycloak, Okta, AD FS, and custom enterprise implementations.
 
-With major **social Identity Providers**, you can generally trust the identity information returned via OpenID Connect. These providers (such as Google or Apple) have well-established security practices and consistent implementations of the protocol. However, it’s important to remember that anyone can create a web application and present themselves as an Identity Provider, so caution is essential when onboarding new integrations.
+With major **social Identity Providers**, you can generally trust the identity information returned via OpenID Connect. These providers (such as Google or Apple) have well-established security practices and consistent implementations of the protocol. However, it's important to remember that anyone can create a web application and present themselves as an Identity Provider, so caution is essential when onboarding new integrations.
 
 Even among reputable providers, **there can be subtle differences in how claims are structured or delivered**, despite using the same standard. That said, these variations are usually manageable and not the primary concern at this stage.
 
-With **corporate Identity Providers**, the situation is more complex. These systems are highly configurable to meet diverse organizational IAM requirements. Typically, administrators have full control over the claims delivered in both OIDC and SAML integrations, which means the information passed during authentication doesn’t necessarily have to be a verified email or a domain-bound identity. In fact, it can be **anything the administrator chooses to include**.
+With **corporate Identity Providers**, the situation is more complex. These systems are highly configurable to meet diverse organizational IAM requirements. Typically, administrators have full control over the claims delivered in both OIDC and SAML integrations, which means the information passed during authentication doesn't necessarily have to be a verified email or a domain-bound identity. In fact, it can be **anything the administrator chooses to include**.
 
 Let me share an interesting insight from the IAM world from the penetration testing perspective. When I perform a Single Sign-On pentest and I need to use my own Identity Provider, I usually choose Azure Entra ID, since it is also popular among our clients. Here is a standard Attributes & Claims configuration for SAML: 
 
@@ -57,11 +57,11 @@ However, I often configure Azure Entra ID to include the following attributes in
 
 {% img blog/identity-broker-case-study/scr2.png alt:"Entra ID: Attributes & Claims - modified" width:"800" %}{: .center-image }
 
-See anything unusual? That’s right – **instead of a User Principal Name, which has to contain a verified domain, I deliberately include a claim that’s not subject to any validation, e.g. user.city**. This attribute can carry any value I choose:
+See anything unusual? That's right – **instead of a User Principal Name, which has to contain a verified domain, I deliberately include a claim that's not subject to any validation, e.g. user.city**. This attribute can carry any value I choose:
 
 {% img blog/identity-broker-case-study/scr3.png alt:"Entra ID: Setting user.city to charlie@example.com" width:"700" %}{: .center-image }
 
-It doesn’t have to include a verified domain. In fact, it doesn’t even need to be an email address at all.
+It doesn't have to include a verified domain. In fact, it doesn't even need to be an email address at all.
 
 {% img blog/identity-broker-case-study/scr4.png alt:"Entra ID: Setting user.city to a malicious input" width:"700" %}{: .center-image }
 
@@ -77,13 +77,13 @@ And then we get the following SAML Response:
 
 Of course, the same outcome can be achieved using different Identity Providers, a custom implementation, or simply by manually signing assertions with a SAML certificate. However, what I find particularly compelling about this method is that it demonstrates how a trusted Identity Provider can still be leveraged to inject untrusted values into SAML authentication.
 
-On the other hand, I haven’t found any way to manipulate the email claim delivered by Azure Entra ID in OpenID Connect integrations. However, this isn’t a universal rule. With other Identity Providers, such as Okta, it’s entirely possible to deliver custom claims in OIDC responses. That means you can include any attribute you want, regardless of whether it’s verified or meaningful from a security standpoint.
+On the other hand, I haven't found any way to manipulate the email claim delivered by Azure Entra ID in OpenID Connect integrations. However, this isn't a universal rule. With other Identity Providers, such as Okta, it's entirely possible to deliver custom claims in OIDC responses. That means you can include any attribute you want, regardless of whether it's verified or meaningful from a security standpoint.
 
 {% img blog/identity-broker-case-study/scr5.png alt:"Okta: Web App User Profile Mappings" width:"800" %}{: .center-image }
 
 To sum up: In a shared, multitenant environment, we must be extremely cautious when integrating with external Identity Providers. **Trust boundaries should be clearly defined and strictly enforced** to prevent misconfigurations or abuse.
 
-Fortunately, **Okta provides the flexibility and control needed to implement these boundaries effectively**… as long as it’s configured properly. We’ll return to the specifics of that configuration shortly.
+Fortunately, **Okta provides the flexibility and control needed to implement these boundaries effectively**... as long as it's configured properly. We'll return to the specifics of that configuration shortly.
 
 # Identity Broker vs Multi-Factor Authentication
 
@@ -91,11 +91,11 @@ By default, my Okta environment enforced Multi-Factor Authentication (MFA) for e
 
 {% img blog/identity-broker-case-study/scr6.png alt:"Okta: Default Authentication Policy configuration" width:"800" %}{: .center-image }
 
-However, when using Okta as an Identity Broker for a SaaS platform, this default behavior can lead to poor user experience. Tenants typically already enforce MFA within their own IdPs, and requiring an additional MFA step just to access the application may introduce unnecessary friction. As a result, **MFA enforcement is often disabled for logins coming from external IdPs**, relying instead on the tenant’s own security controls.
+However, when using Okta as an Identity Broker for a SaaS platform, this default behavior can lead to poor user experience. Tenants typically already enforce MFA within their own IdPs, and requiring an additional MFA step just to access the application may introduce unnecessary friction. As a result, **MFA enforcement is often disabled for logins coming from external IdPs**, relying instead on the tenant's own security controls.
 
 # Case study: Misconfigured Okta Identity Broker in a multi-tenant environment
 
-Now let’s return to our customer’s case. I asked them to share a screenshot of any configuration they had set up for their tenants. Here’s the configuration they sent me, available under Security > Identity Providers in the Okta admin console:
+Now let's return to our customer's case. I asked them to share a screenshot of any configuration they had set up for their tenants. Here's the configuration they sent me, available under Security > Identity Providers in the Okta admin console:
 
 {% img blog/identity-broker-case-study/scr7.png alt:"Okta: Vulnerable External Identity Provider configuration" width:"800" %}{: .center-image }
 
@@ -116,14 +116,14 @@ The goal of the attack is to impersonate a user from a different organization by
 
 {% img blog/identity-broker-case-study/diagram-attack1.png alt:"Misconfigured Identity Broker" width:"800" %}{: .center-image }
 
-First, I need to enumerate the tenants of the SaaS application and update my user’s email in my IdP to impersonate the victim’s identity:
+First, I need to enumerate the tenants of the SaaS application and update my user's email in my IdP to impersonate the victim's identity:
 
 {% img blog/identity-broker-case-study/scr8.png alt:"Entra ID: Impersonating a different user" width:"700" %}{: .center-image }
 
-And now I can simply… log in to Victim’s tenant as victim@victim-tenant.com, since Okta MFA was disabled. 
+And now I can simply... log in to Victim's tenant as victim@victim-tenant.com, since Okta MFA was disabled. 
 
 # Privilege escalation to Okta Super Admin
-It’s important to note that other tenants might not be the only possible targets. Let’s pivot and attempt privilege escalation to an Okta Super Admin, enabling lateral movement across environments.
+It's important to note that other tenants might not be the only possible targets. Let's pivot and attempt privilege escalation to an Okta Super Admin, enabling lateral movement across environments.
 
 {% img blog/identity-broker-case-study/diagram-attack2.png alt:"Impersonating Okta Super Administrator" width:"800" %}{: .center-image }
 
@@ -133,19 +133,19 @@ The key question is: was MFA disabled solely for SaaS application logins, or was
 
 # Bypassing tenant isolation despite Okta MFA enforcement
 
-But what if Okta MFA wasn’t disabled? We still have two more options to explore.
-* **First-time logins**: In a default Okta environment, Multi-Factor Authentication is required for all logins, unless the user is signing in for the first time and hasn’t yet configured a second factor. This is a common setup to support onboarding workflows. If we can find such account and impersonate it, we can still achieve cross-tenant access.
-* **New accounts**: If Just-in-Time (JIT) provisioning is enabled, a new user account will be created when the SSO login doesn’t match any existing users in Okta, and it also won’t have any MFA in place. In that case, we might also be able to automatically access a different tenant's environment, depending on the email domain we use during login.
+But what if Okta MFA wasn't disabled? We still have two more options to explore.
+* **First-time logins**: In a default Okta environment, Multi-Factor Authentication is required for all logins, unless the user is signing in for the first time and hasn't yet configured a second factor. This is a common setup to support onboarding workflows. If we can find such account and impersonate it, we can still achieve cross-tenant access.
+* **New accounts**: If Just-in-Time (JIT) provisioning is enabled, a new user account will be created when the SSO login doesn't match any existing users in Okta, and it also won't have any MFA in place. In that case, we might also be able to automatically access a different tenant's environment, depending on the email domain we use during login.
 
 # Attack results by Okta configuration
 
-To check whether the attack works under different configurations, I’ve prepared a graph that breaks down the attack results based on different options used in Okta setup.
+To check whether the attack works under different configurations, I've prepared a graph that breaks down the attack results based on different options used in Okta setup.
 
 {% img blog/identity-broker-case-study/attack-graph.jpg alt:"Attack results by Okta configuration" width:"900" %}{: .center-image }
 
 # Okta as Identity Broker: Secure configuration
 
-Now let’s talk about mitigations. I’ll focus on setups that use automatic account linking. We’ll revisit the External Identity Provider settings mentioned earlier, and also look at possible Authentication Policy configurations.
+Now let's talk about mitigations. I'll focus on setups that use automatic account linking. We'll revisit the External Identity Provider settings mentioned earlier, and also look at possible Authentication Policy configurations.
 
 ## External Identity Provider: Filter
 
@@ -161,7 +161,7 @@ Another way to restrict which accounts can authenticate through an external IdP 
 String.substringAfter(user.login, "@") == "securing.pl"
 ```
 
-Please note that using basic conditions in group rules is not sufficient, as the only available operators are “equals”, “starts with”, and “contains”. These options do not allow you to verify how a user’s email address ends, which is necessary for enforcing domain-based access controls:
+Please note that using basic conditions in group rules is not sufficient, as the only available operators are "equals", "starts with", and "contains". These options do not allow you to verify how a user's email address ends, which is necessary for enforcing domain-based access controls:
 
 {% img blog/identity-broker-case-study/scr10.png alt:"Okta Groups Dynamic Rules" width:"800" %}{: .center-image }
 
@@ -169,14 +169,14 @@ Auto-Link filters can be enabled also for all types of integrations, not only SA
 
 ## Authentication Policy (MFA)
 
-If you need to disable Multi-Factor Authentication, make sure to do it only for a specific application where it’s absolutely necessary. Never disable MFA for access to the Okta Admin Console, as doing so exposes your entire identity infrastructure to unnecessary risk. Admin access should always be protected with strong MFA policies.
+If you need to disable Multi-Factor Authentication, make sure to do it only for a specific application where it's absolutely necessary. Never disable MFA for access to the Okta Admin Console, as doing so exposes your entire identity infrastructure to unnecessary risk. Admin access should always be protected with strong MFA policies.
 
 ## Accounts in multiple organizations
 
-Keep in mind that if your SaaS application allows user accounts to be associated with multiple organizations, logging in via one tenant’s Single Sign-On will grant access to all organizations the user is linked to, which again breaks the intended tenant isolation. To mitigate this, **consider enforcing a strict one-organization-per-user model**. This approach aligns well with linking each external Identity Providers to a specific company domain, which I recommended earlier in this article.
+Keep in mind that if your SaaS application allows user accounts to be associated with multiple organizations, logging in via one tenant's Single Sign-On will grant access to all organizations the user is linked to, which again breaks the intended tenant isolation. To mitigate this, **consider enforcing a strict one-organization-per-user model**. This approach aligns well with linking each external Identity Providers to a specific company domain, which I recommended earlier in this article.
 
 # Takeaways
-This issue is not limited to Okta. If you are using an Identity Broker in a multi-tenant SaaS environment, make sure to verify how company IdPs are integrated to control which users can authenticate and what resources they can access. Always review your IdP’s account linking behavior carefully to avoid accidental privilege escalation or tenant boundary violations.
+This issue is not limited to Okta. If you are using an Identity Broker in a multi-tenant SaaS environment, make sure to verify how company IdPs are integrated to control which users can authenticate and what resources they can access. Always review your IdP's account linking behavior carefully to avoid accidental privilege escalation or tenant boundary violations.
 
 # References
 - [Okta Developer: Multi-tenant solutions](/docs/concepts/multi-tenancy/)
