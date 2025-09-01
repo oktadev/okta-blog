@@ -37,10 +37,10 @@ If you'd rather watch a video of the setup and how XAA works, check this one out
    * If you don't know how to obtain the credentials, [follow this guide](https://github.com/oktadev/okta-cross-app-access-mcp/blob/main/guide/aws-bedrock.md).
 
 3. **Developer Tools:** These tools are essential for cloning, editing, building, and running your demo applications:  
-   * **Git** – to clone and manage the repository.  
-   * **VS Code** – for reading and modifying the sample source code.  
-   * **Dev Containers Extension (VS Code**) – recommended, as it automatically configures dependencies and environments when you open the project.  
-   * **Docker** – required by the Dev Container to build and run the sample applications in isolated environments
+   * **[Git](https://git-scm.com/downloads)** – to clone and manage the repository.  
+   * **[VS Code](https://code.visualstudio.com/Download)** – for reading and modifying the sample source code.  
+   * **[Dev Containers Extension (VS Code)](https://marketplace.visualstudio.com/items?itemName=ms-vscode-remote.remote-containers)** – recommended, as it automatically configures dependencies and environments when you open the project.  
+   * **[Docker](https://www.docker.com/products/docker-desktop/)** – required by the Dev Container to build and run the sample applications in isolated environments
 
 **Table of Contents**{: .hide }
 * Table of Contents
@@ -349,7 +349,7 @@ TODO - add image
 
 If you run into any issues while setting up or testing this project, feel free to post your queries to the forum: 👉 [Okta Developer Forum](https://devforum.okta.com)
 
-If you're interested in implementing **Cross App Access (XAA)** in your own application — whether as a **requesting app** or a **resource app** — and want to explore how Okta can support your use case, reach out to us at: 📩 **[Okta Cross App Access Team](mailto:xaa@okta.com)**
+If you're interested in implementing **Cross App Access (XAA)** in your own application — whether as a **requesting app** or a **resource app** — and want to explore how Okta can support your use case, reach out to us at: 📩 **[xaa@okta.com](mailto:xaa@okta.com)**
 
 ## Next Steps
 
