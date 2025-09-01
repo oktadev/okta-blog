@@ -5,7 +5,7 @@ author: sohail-pathan
 by: advocate
 communities: [devops,security,mobile,.net,java,javascript,go,php,python,ruby]
 description: "Learn how to securely connect agents to applications using Cross App Access (XAA) in this comprehensive guide."
-tags: [security, cross-app access, agent-to-app connections]
+tags: [xaa, cross-app-access, enterprise-ai, agentic-ai, mcp, oauth, sso]
 tweets:
 - ""
 - ""
