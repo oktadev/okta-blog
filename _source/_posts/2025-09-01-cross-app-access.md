@@ -12,7 +12,7 @@ tweets:
 - ""
 - ""
 image: blog/cross-app-access/social.jpg
-type: awareness|conversion
+type: conversion
 ---
 
 Secure access between independent applications that communicate with each other is a recognized gap in [OAuth 2.0](https://developer.okta.com/docs/concepts/oauth-openid/). Now, with the advent of AI agents that communicate across systems, the need to solve the gap is even greater.
