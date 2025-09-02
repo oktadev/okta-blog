@@ -48,7 +48,7 @@ If you'd rather watch a video of the setup and how XAA works, check this one out
 * Table of Contents
 {:toc}
 
-## Create applications in Okta Admin Console
+## Create applications in the Okta Admin Console
 
 Before we dive into the code, we need to register our apps with Okta. In this demo:
 
