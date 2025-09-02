@@ -31,7 +31,7 @@ If you'd rather watch a video of the setup and how XAA works, check this one out
 
 To set up secure agent-to-app connections with Cross App Access (XAA), you'll need the following:
 
-1. **Okta Developer Account (Integrator Free Plan):** You'll need an Okta Developer Account with the Integrator Free Plan. This account will act as your Identity Provider (IdP) for setting up Cross-App Access.  
+1. **Okta Developer Account (Integrator Free Plan):** You'll need an Okta Developer Account with the Integrator Free Plan. This account will act as your Identity Provider (IdP) for setting up Cross App Access.  
    * If you don't already have an account, sign up for a new one here: [Okta Integrator Free Plan](https://developer.okta.com/signup)  
    * Once created, log in to your new org.
 
@@ -360,12 +360,12 @@ If you run into any issues while setting up or testing this project, feel free t
 
 If you're interested in implementing **Cross App Access (XAA)** in your own application — whether as a **requesting app** or a **resource app** — and want to explore how Okta can support your use case, reach out to us at: 📩 **[xaa@okta.com](mailto:xaa@okta.com)**
 
-## Learn More About Cross-App Access, OAuth, and securing your applications
+## Learn More About Cross App Access, OAuth, and securing your applications
 
-If this walkthrough helped you understand how Cross-App Access works in practice, you might enjoy diving deeper into the standards and conversations shaping it. Here are some resources to continue your journey:
+If this walkthrough helped you understand how Cross App Access works in practice, you might enjoy diving deeper into the standards and conversations shaping it. Here are some resources to continue your journey:
 
-* 📘 [Cross-App Access Documentation](https://help.okta.com/oie/en-us/content/topics/apps/apps-cross-app-access.htm) – official guides and admin docs to configure and manage Cross-App Access in production.
-* 🎙️ [Developer Podcast on MCP and Cross-App Access](https://www.youtube.com/watch?v=qKs4k5Y1x_s) – hear the backstory, use cases, and why this matters for developers.
+* 📘 [Cross App Access Documentation](https://help.okta.com/oie/en-us/content/topics/apps/apps-cross-app-access.htm) – official guides and admin docs to configure and manage Cross App Access in production.
+* 🎙️ [Developer Podcast on MCP and Cross App Access](https://www.youtube.com/watch?v=qKs4k5Y1x_s) – hear the backstory, use cases, and why this matters for developers.
 * 📄 [OAuth Identity Assertion Authorization Grant (IETF Draft)](https://www.ietf.org/archive/id/draft-parecki-oauth-identity-assertion-authz-grant-05.html) – the emerging standard that powers this flow.
 
 If you're new to OAuth or want to understand the basics behind secure delegated access, check out these resources:
