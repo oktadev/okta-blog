@@ -27,7 +27,9 @@ If you'd rather watch a video of the setup and how XAA works, check this one out
 
 {% youtube vi5JpbGRATE %}
 
-## Prerequisites
+## Prerequisites for Cross App Access (XAA) Setup
+
+To set up secure agent-to-app connections with Cross App Access (XAA), you'll need the following:
 
 1. **Okta Developer Account (Integrator Free Plan):** You'll need an Okta Developer Account with the Integrator Free Plan. This account will act as your Identity Provider (IdP) for setting up Cross-App Access.  
    * If you don't already have an account, sign up for a new one here: [Okta Integrator Free Plan](https://developer.okta.com/signup)  
@@ -52,7 +54,7 @@ If you'd rather watch a video of the setup and how XAA works, check this one out
 
 Before we dive into the code, we need to register our apps with Okta. In this demo:
 
-* **Agent0** → the **requesting app** (makes the API call on behalf of the user).  
+* **Agent0** → the AI agent **requesting app** (makes the API call on behalf of the user).  
 * **Todo0** → the **resource app** (owns the protected API).  
 * **Managed connection** → the trust relationship between the two apps, created in Okta.
 
@@ -92,7 +94,7 @@ We'll create both apps in your Okta Integrator Free Plan account, grab their cli
 
 {% img blog/cross-app-access/image10.jpg alt:"View Client ID and Client Secret for Agent0 Requesting App in Okta Admin Console" width:"782" %}{: .center-image }
 
-### Connect Agent0 ↔ Todo0
+### Connect our AI Agent (Agent0) ↔ Todo0
 
 1. From the **Applications** page, select the **Agent0** app.  
 2. Go to the **Manage Connections** tab.  
@@ -133,7 +135,7 @@ This ensures Bob can log in to Agent0, and Agent0 can securely request access to
 
 > **⚠️ Note:** Bob will be the identity we use throughout this guide to demonstrate how Agent0 accesses Todo0's API through Cross App Access.
 
-## Clone and configure the project
+## Clone and configure the node project
 
 With your Okta environment (apps and user) ready, let's set up the local project. Before we dive into configs, here's a quick look at what you'll be working with.
 
@@ -358,7 +360,7 @@ If you run into any issues while setting up or testing this project, feel free t
 
 If you're interested in implementing **Cross App Access (XAA)** in your own application — whether as a **requesting app** or a **resource app** — and want to explore how Okta can support your use case, reach out to us at: 📩 **[xaa@okta.com](mailto:xaa@okta.com)**
 
-## Next Steps
+## Learn More About Cross-App Access, OAuth, and securing your applications
 
 If this walkthrough helped you understand how Cross-App Access works in practice, you might enjoy diving deeper into the standards and conversations shaping it. Here are some resources to continue your journey:
 
@@ -366,5 +368,13 @@ If this walkthrough helped you understand how Cross-App Access works in practice
 * 🎙️ [Developer Podcast on MCP and Cross-App Access](https://www.youtube.com/watch?v=qKs4k5Y1x_s) – hear the backstory, use cases, and why this matters for developers.
 * 📄 [OAuth Identity Assertion Authorization Grant (IETF Draft)](https://www.ietf.org/archive/id/draft-parecki-oauth-identity-assertion-authz-grant-05.html) – the emerging standard that powers this flow.
 
+If you’re new to OAuth or want to understand the basics behind secure delegated access, check out these resources:
 
-Follow us on [LinkedIn](https://www.linkedin.com/company/oktadev), [Twitter](https://twitter.com/oktadev), and subscribe to our [YouTube](https://www.youtube.com/c/oktadev) channel to see more content like this. If you have any questions, please comment below\!
+* [What the Heck is OAuth?](/blog/2017/06/21/what-the-heck-is-oauth) – a friendly introduction to OAuth for developers.
+* [Secure Your API with OAuth](/blog/2021/08/16/secure-your-api-with-oauth) – practical tips for API security using OAuth.
+* [Single Sign-On vs. OAuth: What’s the Difference?](/blog/2022/03/08/sso-vs-oauth)
+* [Build an OAuth 2.0 Authorization Server](/blog/2020/08/21/oauth-authorization-server)
+* [Spring Boot + OAuth: Secure Your Java Apps](/blog/2017/03/21/spring-boot-oauth)
+* [Intro to OAuth: What is it and why should you care?](/blog/2015-12-07-oauth)
+
+Follow us on [LinkedIn](https://www.linkedin.com/company/oktadev), [Twitter](https://twitter.com/oktadev), and subscribe to our [YouTube](https://www.youtube.com/c/oktadev) channel for more developer content. If you have any questions, please leave a comment below!
