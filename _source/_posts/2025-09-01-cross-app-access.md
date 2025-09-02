@@ -368,11 +368,11 @@ If this walkthrough helped you understand how Cross-App Access works in practice
 * 🎙️ [Developer Podcast on MCP and Cross-App Access](https://www.youtube.com/watch?v=qKs4k5Y1x_s) – hear the backstory, use cases, and why this matters for developers.
 * 📄 [OAuth Identity Assertion Authorization Grant (IETF Draft)](https://www.ietf.org/archive/id/draft-parecki-oauth-identity-assertion-authz-grant-05.html) – the emerging standard that powers this flow.
 
-If you’re new to OAuth or want to understand the basics behind secure delegated access, check out these resources:
+If you're new to OAuth or want to understand the basics behind secure delegated access, check out these resources:
 
 * [What the Heck is OAuth?](/blog/2017/06/21/what-the-heck-is-oauth) – a friendly introduction to OAuth for developers.
 * [Secure Your API with OAuth](/blog/2021/08/16/secure-your-api-with-oauth) – practical tips for API security using OAuth.
-* [Single Sign-On vs. OAuth: What’s the Difference?](/blog/2022/03/08/sso-vs-oauth)
+* [Single Sign-On vs. OAuth: What's the Difference?](/blog/2022/03/08/sso-vs-oauth)
 * [Build an OAuth 2.0 Authorization Server](/blog/2020/08/21/oauth-authorization-server)
 * [Spring Boot + OAuth: Secure Your Java Apps](/blog/2017/03/21/spring-boot-oauth)
 * [Intro to OAuth: What is it and why should you care?](/blog/2015-12-07-oauth)
