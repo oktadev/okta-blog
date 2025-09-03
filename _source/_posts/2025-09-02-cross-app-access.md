@@ -21,6 +21,8 @@ Cross App Access (XAA) is a new protocol that lets integrators enable secure age
 
 {% excerpt /blog/2025/06/23/enterprise-ai %}
 
+Or watch the video about Cross App Access:
+
 {% youtube 3VLzeT1EGrg %}
 
 In this post, we'll go hands-on with Cross App Access. Using **Todo0** (Resource App) and **Agent0** (Requesting App) as our sample applications, and **Okta as the enterprise Identity Provider (IdP)**, we'll show you how to set up trust, exchange tokens, and enable secure API calls between apps. By the end, you'll not only understand how the protocol works but also have a working example you can adapt to your own integrations.
