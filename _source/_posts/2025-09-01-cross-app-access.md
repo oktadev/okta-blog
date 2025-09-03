@@ -373,7 +373,7 @@ If this walkthrough helped you understand how Cross App Access works in practice
 If you're new to OAuth or want to understand the basics behind secure delegated access, check out these resources:
 
 * [What the Heck is OAuth?](/blog/2017/06/21/what-the-heck-is-oauth) 
-* [What’s the Difference Between OAuth, OpenID Connect, and SAML?](https://www.okta.com/identity-101/whats-the-difference-between-oauth-openid-connect-and-saml/)
+* [What's the Difference Between OAuth, OpenID Connect, and SAML?](https://www.okta.com/identity-101/whats-the-difference-between-oauth-openid-connect-and-saml/)
 * [OAuth 2.0 Java Guide: Secure Your App in 5 Minutes](/blog/2019/10/30/java-oauth2)
 * [Secure Your Express App with OAuth 2.0, OIDC, and PKCE](/blog/2025/07/28/express-oauth-pkce)
 * [How to Get Going with the On-Demand SaaS Apps Workshops](/blog/2023/07/27/enterprise-ready-getting-started)
