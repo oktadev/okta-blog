@@ -324,7 +324,7 @@ With everything configured, it's time to see Cross App Access in action.
 5. Select one of the tasks and mark it as complete to verify that the application updates the status accurately
 {% img blog/cross-app-access/image6.jpg alt:"Add and complete tasks in Todo0 Resource App UI" width:"800" %}{: .center-image }
 
-### Let AI agent access your todos
+### Let AI agent, the requesting app, access your todos
 
 1. Open the **Agent0** app in your browser
 {% img blog/cross-app-access/image2.jpg alt:"Initialize AWS Bedrock client in Agent0 Requesting App" width:"800" %}{: .center-image }
