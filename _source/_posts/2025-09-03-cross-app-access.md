@@ -279,6 +279,8 @@ Now both apps know where to redirect after authentication.
 
 ## Initialize the database and run the project
 
+With the apps and environment configuration in place, the next step is to prepare the local project, set up its databases, and bring both applications online.
+
 ### Bootstrap the project
 
 From the root of the repo, install all workspaces and initialize the databases:
