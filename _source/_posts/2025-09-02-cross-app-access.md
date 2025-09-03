@@ -64,7 +64,7 @@ Before we dive into the code, we need to register our apps with Okta. In this de
 
 We'll create both apps in your Okta Integrator Free Plan account, grab their client credentials, and then connect them.
 
-### Enable Cross App Access (early access)
+### Enable Cross App Access in your Okta org
 
 > ⚠️ **Note:** Cross App Access is currently a **self-service Early Access (EA) feature**. It must be enabled through the Admin Console before the apps appear in the catalog. If you don't see the option right away, refresh and confirm you have the necessary admin permissions. Learn more in the [Okta documentation on managing EA and beta features](https://help.okta.com/oie/en-us/content/topics/security/manage-ea-and-beta-features.htm).
 
