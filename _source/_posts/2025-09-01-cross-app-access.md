@@ -15,7 +15,7 @@ image: blog/cross-app-access/social.jpg
 type: conversion
 ---
 
-Secure access between independent applications that communicate with each other is a recognized gap in [OAuth 2.0](https://developer.okta.com/docs/concepts/oauth-openid/). Now, with the advent of AI agents that communicate across systems, the need to solve the gap is even greater.
+Secure access with enterprise IT oversight between independent applications that communicate with each other is a recognized gap in [OAuth 2.0](https://developer.okta.com/docs/concepts/oauth-openid/). Enterprises can't effectively regulate cross-app communication, as OAuth 2.0 consent screens rely on users granting access to their individual accounts. Now, with the advent of AI agents that communicate across systems, the need to solve the gap is even greater.
 
 Cross App Access (XAA) is a new protocol that lets integrators enable secure agent-to-app and app-to-app access. Instead of scattered integrations and repeated logins, enterprise IT admins gain centralized control: they can decide what connects, enforce security policies, and see exactly what's being accessed. This unlocks seamless, scalable integrations across apps — whether it's just two like Google Calendar and Zoom, or hundreds across the enterprise. Read more about Cross App access in this post:
 
