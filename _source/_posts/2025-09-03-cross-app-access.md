@@ -362,7 +362,7 @@ With everything configured, it's time to see Cross App Access in action.
 
 **🎉 Congratulations! You've successfully configured and run the Cross App Access project.**
 
-## Need help?
+## Need help setting up secure cross-domain enterprise AI application access?
 
 If you run into any issues while setting up or testing this project, feel free to post your queries to the forum: 👉 [Okta Developer Forum](https://devforum.okta.com)
 
