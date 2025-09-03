@@ -59,8 +59,8 @@ To set up secure agent-to-app connections with Cross App Access (XAA), you'll ne
 Before we dive into the code, we need to register our apps with Okta. In this demo:
 
 * **Agent0**: the AI agent **requesting app** (makes the API call on behalf of the user)
-* **Todo0** → the **resource app** (owns the protected API).  
-* **Managed connection** → the trust relationship between the two apps, created in Okta.
+* **Todo0**: the **resource app** (owns the protected API)
+* **Managed connection**: the trust relationship between the two apps, created in Okta
 
 We'll create both apps in your Okta Integrator Free Plan account, grab their client credentials, and then connect them.
 
@@ -69,7 +69,7 @@ We'll create both apps in your Okta Integrator Free Plan account, grab their cli
 > ⚠️ **Note:** Cross App Access is currently a **self-service Early Access (EA) feature**. It must be enabled through the Admin Console before the apps appear in the catalog. If you don't see the option right away, refresh and confirm you have the necessary admin permissions. Learn more in the [Okta documentation on managing EA and beta features](https://help.okta.com/oie/en-us/content/topics/security/manage-ea-and-beta-features.htm).
 
 1. Sign in to your Okta Integrator Free plan account 
-2. In the **Okta Admin Console**, select **Settings → Features**.  
+2. In the **Okta Admin Console**, select **Settings > Features**.  
 3. Navigate to **Early access**.  
 4. Find **Cross App Access** and select **Turn on** (enable the toggle).  
 5. Refresh the Admin Console.
@@ -78,7 +78,7 @@ We'll create both apps in your Okta Integrator Free Plan account, grab their cli
 
 ### Create the resource app (Todo0)
 
-1. In the Okta Admin console, navigate to **Applications → Applications**.  
+1. In the Okta Admin console, navigate to **Applications > Applications**.  
 2. Select **Browse App Catalog**.  
 3. Search for **Todo0 - Cross App Access (XAA) Sample Resource App**, and select it.  
 4. Select **Add Integration**.  
@@ -89,7 +89,7 @@ We'll create both apps in your Okta Integrator Free Plan account, grab their cli
 
 ### Create the requesting app (Agent0)
 
-1. Go back to **Applications → Applications**.  
+1. Go back to **Applications > Applications**.  
 2. Select **Browse App Catalog**.  
 3. Search for **Agent0 - Cross App Access (XAA) Sample Requesting App**, and select it.  
 4. Select **Add Integration**.  
@@ -264,7 +264,7 @@ Finally, we need to tell Okta where to send the authentication response for each
 **Repeat the same steps for Todo0:**
 
 1. Open the **Todo0** app.  
-2. Go to the **Sign On** tab → **Settings** → **Edit**.  
+2. Go to the **Sign On** tab > **Settings** > **Edit**.  
 3. In the **Redirect URIs** field, add:
 
     ```
