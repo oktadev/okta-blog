@@ -37,7 +37,7 @@ To set up secure agent-to-app connections with Cross App Access (XAA), you'll ne
 
 1. **Okta Developer Account (Integrator Free Plan):** You'll need an Okta Developer Account with the Integrator Free Plan. This account will act as your Identity Provider (IdP) for setting up Cross App Access.  
    * If you don't already have an account, sign up for a new one here: [Okta Integrator Free Plan](https://developer.okta.com/signup)  
-   * Once created, log in to your new org.
+   * Once created, sign in to your new org
 
 2. **AWS Credentials:** You'll need an **AWS Access Key ID** and **AWS Secret Access Key**.  
    * The IAM user or role associated with these credentials must have access to **Amazon Bedrock,** specifically the **Claude 3.7 Sonnet model,** enabled.  
