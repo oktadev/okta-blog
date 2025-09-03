@@ -351,7 +351,7 @@ With everything configured, it's time to see Cross App Access in action.
    - Refresh the Todo0 app — you'll see the changes reflected instantly
 {% img blog/cross-app-access/image4.jpg alt:"Add and complete tasks in Todo0 Resource App UI" width:"800" %}{: .center-image }
 
-## Behind the scenes: OAuth Identity Assertion Authorization Grant
+## Behind the scenes: OAuth 2.0 Identity Assertion Authorization Grant
 
 **✅ Bob Tables** logs in once with Okta  
 ⏩ **Agent0 (requesting app)** gets an identity assertion from Okta  
