@@ -68,7 +68,7 @@ We'll create both apps in your Okta Integrator Free Plan account, grab their cli
 
 > ⚠️ **Note:** Cross App Access is currently a **self-service Early Access (EA) feature**. It must be enabled through the Admin Console before the apps appear in the catalog. If you don't see the option right away, refresh and confirm you have the necessary admin permissions. Learn more in the [Okta documentation on managing EA and beta features](https://help.okta.com/oie/en-us/content/topics/security/manage-ea-and-beta-features.htm).
 
-1. Sign in to your Okta Developer Account.  
+1. Sign in to your Okta Integrator Free plan account 
 2. In the **Okta Admin Console**, select **Settings → Features**.  
 3. Navigate to **Early access**.  
 4. Find **Cross App Access** and select **Turn on** (enable the toggle).  
