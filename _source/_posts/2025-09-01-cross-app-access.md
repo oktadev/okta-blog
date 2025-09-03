@@ -27,7 +27,7 @@ If you'd rather watch a video of the setup and how XAA works, check this one out
 
 {% youtube vi5JpbGRATE %}
 
-## Prerequisites for Cross App Access (XAA) Setup
+## Prerequisites for Cross App Access (XAA) setup
 
 To set up secure agent-to-app connections with Cross App Access (XAA), you'll need the following:
 
@@ -60,7 +60,7 @@ Before we dive into the code, we need to register our apps with Okta. In this de
 
 We'll create both apps in your Okta Integrator Free Plan account, grab their client credentials, and then connect them.
 
-### Enable Cross App Access (Early Access)
+### Enable Cross App Access (early access)
 
 > ⚠️ **Note:** Cross App Access is currently a **self-service Early Access (EA) feature**. It must be enabled through the Admin Console before the apps appear in the catalog. If you don't see the option right away, refresh and confirm you have the necessary admin permissions. Learn more in the [Okta documentation on managing EA and beta features](https://help.okta.com/oie/en-us/content/topics/security/manage-ea-and-beta-features.htm).
 
@@ -72,7 +72,7 @@ We'll create both apps in your Okta Integrator Free Plan account, grab their cli
 
 {% img blog/cross-app-access/image9.jpg alt:"Enable Cross App Access feature in Okta Admin Console" width:"782" %}{: .center-image }
 
-### Create the Resource App (Todo0)
+### Create the resource app (Todo0)
 
 1. In the Okta Admin console, navigate to **Applications → Applications**.  
 2. Select **Browse App Catalog**.  
@@ -83,7 +83,7 @@ We'll create both apps in your Okta Integrator Free Plan account, grab their cli
 
 {% img blog/cross-app-access/image1.jpg alt:"View Client ID and Client Secret for Todo0 Resource App in Okta Admin Console" width:"782" %}{: .center-image }
 
-### Create the Requesting App (Agent0)
+### Create the requesting app (Agent0)
 
 1. Go back to **Applications → Applications**.  
 2. Select **Browse App Catalog**.  
@@ -94,7 +94,7 @@ We'll create both apps in your Okta Integrator Free Plan account, grab their cli
 
 {% img blog/cross-app-access/image10.jpg alt:"View Client ID and Client Secret for Agent0 Requesting App in Okta Admin Console" width:"782" %}{: .center-image }
 
-### Connect our AI Agent (Agent0) ↔ Todo0
+### Connect our AI agent (Agent0) ↔ Todo0
 
 1. From the **Applications** page, select the **Agent0** app.  
 2. Go to the **Manage Connections** tab.  
@@ -360,7 +360,7 @@ If you run into any issues while setting up or testing this project, feel free t
 
 If you're interested in implementing **Cross App Access (XAA)** in your own application — whether as a **requesting app** or a **resource app** — and want to explore how Okta can support your use case, reach out to us at: 📩 **[xaa@okta.com](mailto:xaa@okta.com)**
 
-## Learn More About Cross App Access, OAuth, and securing your applications
+## Learn more about Cross App Access, OAuth, and securing your applications
 
 If this walkthrough helped you understand how Cross App Access works in practice, you might enjoy diving deeper into the standards and conversations shaping it. Here are some resources to continue your journey:
 
