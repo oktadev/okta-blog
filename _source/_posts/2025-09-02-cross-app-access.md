@@ -54,7 +54,7 @@ To set up secure agent-to-app connections with Cross App Access (XAA), you'll ne
 * Table of Contents
 {:toc}
 
-## Create applications in the Okta Admin Console
+## Use Okta to secure AI applications with OAuth 2.0 and OpenID Connect (OIDC)
 
 Before we dive into the code, we need to register our apps with Okta. In this demo:
 
