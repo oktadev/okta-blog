@@ -324,7 +324,7 @@ With everything configured, it's time to see Cross App Access in action.
 5. Select one of the tasks and mark it as complete to verify that the application updates the status accurately
 {% img blog/cross-app-access/image6.jpg alt:"Add and complete tasks in Todo0 Resource App UI" width:"800" %}{: .center-image }
 
-### Let AI agent, the requesting app, access your todos
+### Let the AI agent, the requesting app, access your todos
 
 1. Open the **Agent0** app in your browser
 {% img blog/cross-app-access/image2.jpg alt:"Initialize AWS Bedrock client in Agent0 Requesting App" width:"800" %}{: .center-image }
@@ -351,7 +351,7 @@ With everything configured, it's time to see Cross App Access in action.
    - Refresh the Todo0 app — you'll see the changes reflected instantly
 {% img blog/cross-app-access/image4.jpg alt:"Add and complete tasks in Todo0 Resource App UI" width:"800" %}{: .center-image }
 
-## Behind the scenes: OAuth 2.0 Identity Assertion Authorization Grant
+## Behind the scenes: the OAuth 2.0 Identity Assertion Authorization Grant
 
 **✅ Bob Tables** logs in once with Okta  
 ⏩ **Agent0 (requesting app)** gets an identity assertion from Okta  
@@ -381,6 +381,7 @@ If you're new to OAuth or want to understand the basics behind secure delegated 
 * [What the Heck is OAuth?](/blog/2017/06/21/what-the-heck-is-oauth) 
 * [What's the Difference Between OAuth, OpenID Connect, and SAML?](https://www.okta.com/identity-101/whats-the-difference-between-oauth-openid-connect-and-saml/)
 * [Secure Your Express App with OAuth 2.0, OIDC, and PKCE](/blog/2025/07/28/express-oauth-pkce)
+* [Why You Should Migrate to OAuth 2.0 From Static API Tokens](/blog/2023/09/25/oauth-api-tokens)
 * [How to Get Going with the On-Demand SaaS Apps Workshops](/blog/2023/07/27/enterprise-ready-getting-started)
 
 Follow us on [LinkedIn](https://www.linkedin.com/company/oktadev), [Twitter](https://twitter.com/oktadev), and subscribe to our [YouTube](https://www.youtube.com/c/oktadev) channel for more developer content. If you have any questions, please leave a comment below!
