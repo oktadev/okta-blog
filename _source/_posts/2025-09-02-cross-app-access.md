@@ -135,7 +135,7 @@ Now that the apps are in place, we need a test user who will sign in and trigger
 
 {% img blog/cross-app-access/image5.jpg alt:"Assign Agent0 and Todo0 applications to Bob Tables user in Okta" width:"800" %}{: .center-image }
 
-This ensures Bob can log in to Agent0, and Agent0 can securely request access to Todo0 on his behalf.
+This ensures Bob can sign in to Agent0, and Agent0 can securely request access to Todo0 on his behalf.
 
 > **⚠️ Note:** Bob will be the identity we use throughout this guide to demonstrate how Agent0 accesses Todo0's API through Cross App Access.
 
