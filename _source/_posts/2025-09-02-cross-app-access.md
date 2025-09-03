@@ -58,7 +58,7 @@ To set up secure agent-to-app connections with Cross App Access (XAA), you'll ne
 
 Before we dive into the code, we need to register our apps with Okta. In this demo:
 
-* **Agent0** → the AI agent **requesting app** (makes the API call on behalf of the user).  
+* **Agent0**: the AI agent **requesting app** (makes the API call on behalf of the user)
 * **Todo0** → the **resource app** (owns the protected API).  
 * **Managed connection** → the trust relationship between the two apps, created in Okta.
 
