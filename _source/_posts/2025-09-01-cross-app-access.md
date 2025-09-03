@@ -372,11 +372,10 @@ If this walkthrough helped you understand how Cross App Access works in practice
 
 If you're new to OAuth or want to understand the basics behind secure delegated access, check out these resources:
 
-* [What the Heck is OAuth?](/blog/2017/06/21/what-the-heck-is-oauth) – a friendly introduction to OAuth for developers.
-* [Secure Your API with OAuth](/blog/2021/08/16/secure-your-api-with-oauth) – practical tips for API security using OAuth.
-* [Single Sign-On vs. OAuth: What's the Difference?](/blog/2022/03/08/sso-vs-oauth)
-* [Build an OAuth 2.0 Authorization Server](/blog/2020/08/21/oauth-authorization-server)
-* [Spring Boot + OAuth: Secure Your Java Apps](/blog/2017/03/21/spring-boot-oauth)
-* [Intro to OAuth: What is it and why should you care?](/blog/2015-12-07-oauth)
+* [What the Heck is OAuth?](/blog/2017/06/21/what-the-heck-is-oauth) 
+* [What’s the Difference Between OAuth, OpenID Connect, and SAML?](https://www.okta.com/identity-101/whats-the-difference-between-oauth-openid-connect-and-saml/)
+* [OAuth 2.0 Java Guide: Secure Your App in 5 Minutes](/blog/2017/03/21/spring-boot-oauth)
+* [Secure Your Express App with OAuth 2.0, OIDC, and PKCE](/blog/2025/07/28/express-oauth-pkce)
+* [How to Get Going with the On-Demand SaaS Apps Workshops](/blog/2023/07/27/enterprise-ready-getting-started)
 
 Follow us on [LinkedIn](https://www.linkedin.com/company/oktadev), [Twitter](https://twitter.com/oktadev), and subscribe to our [YouTube](https://www.youtube.com/c/oktadev) channel for more developer content. If you have any questions, please leave a comment below!
