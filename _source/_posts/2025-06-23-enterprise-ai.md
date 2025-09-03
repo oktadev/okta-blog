@@ -1,7 +1,7 @@
 ---
 layout: blog_post
 title: "Integrate Your Enterprise AI Tools with Cross-App Access"
-author: [semona-igama]
+author: semona-igama
 by: advocate
 communities: [devops,security,mobile,.net,java,javascript,go,php,python,ruby]
 description: "Manage user and non-human identities, including AI in the enterprise with Cross App Access"
