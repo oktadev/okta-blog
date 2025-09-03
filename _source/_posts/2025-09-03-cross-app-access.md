@@ -312,7 +312,7 @@ With everything configured, it's time to see Cross App Access in action.
 
 ### Interact with Todo0 by creating tasks
 
-1. In the **Work Email** field, enter: [bob@tables.fake](mailto:bob@tables.fake), and select **Continue**
+1. In the **Work Email** field, enter: `bob@tables.fake`, and select **Continue**
 {% img blog/cross-app-access/image14.jpg alt:"Sign in to Todo0 app using Bob Tables test user" width:"800" %}{: .center-image }
 2. You'll be redirected to the Okta Login page. Sign in with the test user credentials:  
     - **Username:** `bob@tables.fake`  
