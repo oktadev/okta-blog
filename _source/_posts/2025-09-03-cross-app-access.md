@@ -141,7 +141,7 @@ This ensures Bob can sign in to Agent0, and Agent0 can securely request access t
 
 > **⚠️ Note:** Bob will be the identity we use throughout this guide to demonstrate how Agent0 accesses Todo0's API through Cross App Access.
 
-## Clone and configure the Node.js project
+## Configure the Node.js Cross App Access project
 
 With your Okta environment (apps and user) ready, let's set up the local project. Before we dive into configs, here's a quick look at what you'll be working with.
 
@@ -164,7 +164,7 @@ With your Okta environment (apps and user) ready, let's set up the local project
 
 {% img blog/cross-app-access/image7.jpg alt:"Open project in VS Code Dev Container for local development" width:"800" %}{: .center-image }
 
-### What's in the repo (at a glance)
+### The Cross App Access MCP project at a glance
 
 ```shell
 okta-cross-app-access-mcp/
@@ -184,12 +184,12 @@ okta-cross-app-access-mcp/
 └─ tsconfig.json
 ```
 
-## Configure environment files for OAuth & AWS Bedrock Integration
+## Configure OAuth 2.0 and AI foundation models environment files
 
 At this point, you have:
 
 * **Client IDs and Client Secrets** for both **Agent0** and **Todo0** (from the Okta Admin Console)  
-* Your **Okta org URL**, visible in the top-right profile menu of the Admin Console. It usually looks like
+* Your **Okta org URL**, visible in the Okta Admin Console profile menu of the Admin Console. It usually looks like
 
     ```
     https://integrator-123456.okta.com
@@ -197,7 +197,7 @@ At this point, you have:
 
 This URL will be your **IdP issuer URL** and is shared across both apps.
 
-### Generate env files
+### Generate OIDC configuration and access token files
 
 From the project root, run:
 
@@ -211,7 +211,7 @@ This scaffolds the following files:
 * `packages/authorization-server/.env.agent`  
 * `packages/agent0/.env`
 
-### Fill required values
+### Configure AI and resource application connection values
 
 Open each file and update the placeholder with your org-specific values:
 
@@ -245,7 +245,7 @@ AWS_SECRET_ACCESS_KEY=<your AWS secret access key>
 > 2. The **Client ID/Client secret** values differ because they come from the respective apps you created  
 > 3. AWS credentials are required only for Agent0 (requesting app)
 
-### Register redirect URIs for both apps
+### Register OAuth 2.0 redirect URIs for both apps
 
 Finally, we need to tell Okta where to send the authentication response for each app.
 
@@ -310,7 +310,7 @@ At this point, both apps should be live and connected through Okta. 🎉
 
 With everything configured, it's time to see Cross App Access in action.
 
-### Interact with Todo0 by creating tasks
+### Interact with Todo0, the XAA resource app, by creating tasks
 
 1. In the **Work Email** field, enter: `bob@tables.fake`, and select **Continue**
 {% img blog/cross-app-access/image14.jpg alt:"Sign in to Todo0 app using Bob Tables test user" width:"800" %}{: .center-image }
