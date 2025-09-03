@@ -31,7 +31,7 @@ If you'd rather watch a video of the setup and how XAA works, check this one out
 
 {% youtube vi5JpbGRATE %}
 
-## Prerequisites for Cross App Access (XAA) setup
+## Prerequisites to set up the AI agent to app using Cross App Access (XAA)
 
 To set up secure agent-to-app connections with Cross App Access (XAA), you'll need the following:
 
