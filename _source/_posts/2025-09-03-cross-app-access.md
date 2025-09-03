@@ -84,7 +84,7 @@ We'll create both apps in your Okta Integrator Free Plan account, grab their cli
 2. Select **Browse App Catalog**  
 3. Search for **Todo0 - Cross App Access (XAA) Sample Resource App**, and select it  
 4. Select **Add Integration**  
-5. Enter **Todo0** in the Application label field and click **Done**  
+5. Enter "Todo0" in the Application label field and click **Done**  
 6. Click the **Sign On** tab to view the **Client ID** and **Client secret**. These are required to include in your `.env.todo`
 
 {% img blog/cross-app-access/image1.jpg alt:"View Client ID and Client Secret for Todo0 Resource App in Okta Admin Console" width:"800" %}{: .center-image }
