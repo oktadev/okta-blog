@@ -812,7 +812,7 @@ The remaining task is to customize the default Content Security Policy (CSP) to 
 - ✅ Ensure the libraries you use for DOM manipulation are safe from XSS and appropriately sanitize inputs (if this applies to you). We have several blog posts on this topic if you search for [XSS](https://developer.okta.com/search/#q=xss&f:@commonoktasource=[Developer%20blog]) in our content collection. 
 - ✅ And lastly, it never hurts to get a security review when dealing with code affecting authentication.
 
-CSP is located under the **Settings** tab on the **Sign-in page** section, **Customizations** > **Brands** > **[your custom brand]** > **Pages** > **Sign-in page** > **Settings**. Un the **Content Security Policy** section, click on the **edit** button and add the following **Trusted external resources**:
+CSP is located under the **Settings** tab on the **Sign-in page** section, **Customizations** > **Brands** > **[your custom brand]** > **Pages** > **Sign-in page** > **Settings**. In the **Content Security Policy** section, click on the **edit** button and add the following **Trusted external resources**:
 - https://code.jquery.com
 - https://cdnjs.cloudflare.com
 - https://fonts.googleapis.com
