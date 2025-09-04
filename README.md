@@ -8,7 +8,7 @@ This is the source code repository for [Okta's developer blog](https://developer
 
 ## Contributions
 
-While we are an open project, we're not open to contributions without prior conversation. If you want to contribute to OktaDev blog content, please reach out to us at `developer-advocacy@okta.com`. 
+While we are an open project, we're not open to contributions without prior conversation. If you want to contribute to OktaDev blog content, please reach out to us at `dev-advocacy@okta.com`. 
 
 PRs are the final step in our contributor's editorial process. PRs created without communication, approval, or outside the editorial process will be closed.
 
