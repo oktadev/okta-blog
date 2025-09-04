@@ -164,6 +164,7 @@ Other parameters you can pass in:
 | `signup`            | `false` reduces opening paragraph to one sentence                                                   |
 | `note`              | Prints whatever you set. See .NET example below                                                     |
 | `install`           | `false` removes setup instructions for signing into your Okta account                               |
+| `customAuthServer`  | Custom authorization server ID (e.g., `my-auth-server`). Adds setup instructions for authorization policies and rules |
 
 See [Integrator Setup Examples](https://developer.okta.com/blog/integrator-setup) for examples and documentation on using the integrator setup.
 
