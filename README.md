@@ -6,11 +6,13 @@ This is the source code repository for [Okta's developer blog](https://developer
 - If you have questions or need help with Okta's APIs or SDKs, please post to [StackOverflow](https://stackoverflow.com/questions/tagged/okta). If you think you've encountered a bug in one of our SDKs, please create a GitHub issue for that SDK.
 - If you are looking for Okta's developer documentation, that has moved to [@okta/okta-developer-docs](https://github.com/okta/okta-developer-docs).
 
-## Contribute
+## Contributions
 
-If you'd like to contribute to the blog, please [send us a pull request](#how-to-create-a-pull-request).
+While we are an open project, we're not open to contributions without prior conversation. If you want to contribute to OktaDev blog content, please reach out to us at `dev-advocacy@okta.com`. 
 
-This site is built using [Jekyll](http://jekyllrb.com/). Blog post updates, bug fixes, and PRs are all welcome! You can create articles using Markdown (it's quite simple).
+PRs are the final step in our contributor's editorial process. PRs created without communication, approval, or outside the editorial process will be closed.
+
+Once you have approval to contribute, learn more about getting set up.
 
 ### Requirements
 
@@ -48,7 +50,7 @@ Visit http://localhost:4000 in your browser.
 
 To simplify the running of the blog, you can also [use Docker](#docker-instructions).
 
-### How to Create a Pull Request
+### How to Create a Post
 
 First, you'll want to create a branch. The name of the branch should contain your post's keywords for readability. For example:
 
@@ -373,28 +375,4 @@ For example:
 
 ```markup
 {% excerpt /blog/2024/02/29/net-scim %}
-```
-
-**StackBlitz**
-
-This tag supports pre-created StackBlitz and auto-creating a StackBlitz directly from GitHub.
-
-Pass in either the pre-created StackBlitz id or your GitHub repo in the following format `gh_username/repo_name`. For GitHub repo import you can also specify directory path within the repo or the branch. You can read more about this on [StackBlitz's documentation](https://developer.stackblitz.com/docs/platform/importing-projects/).
-
-For example, you can use `okta-samples/okta-vue-sample/tree/vue-3`
-
-Optionally, you can also pass in the file to default to.
-
-```markup
-{% stackblitz <stackblitz-id> %}
-{% stackblitz <stackblitz-id> file=<path/filename.ext> %}
-{% stackblitz <gh_username/repo_name> %}
-{% stackblitz <gh_username/repo_name>|</tree/BRANCH> file=<path/filename.ext> %}
-```
-
-Examples
-```markup
-{% stackblitz angular %}
-{% stackblitz angular file=src/app/hello.component.ts %}
-{% stackblitz okta/samples-js-angular/tree/master/custom-login file=src/app/login/login.component.html %}
 ```
