@@ -1,3 +1,5 @@
+This repo does not accept open contributions without prior discussion. Please see the README.
+
 This blog post has the following features:
 
 - [ ] A GitHub Repository with a polished README
