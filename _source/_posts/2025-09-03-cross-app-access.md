@@ -374,7 +374,7 @@ If this walkthrough helped you understand how Cross App Access works in practice
 
 * 📘 [Cross App Access Documentation](https://help.okta.com/oie/en-us/content/topics/apps/apps-cross-app-access.htm) – official guides and admin docs to configure and manage Cross App Access in production
 * 🎙️ [Developer Podcast on MCP and Cross App Access](https://www.youtube.com/watch?v=qKs4k5Y1x_s) – hear the backstory, use cases, and why this matters for developers
-* 📄 [OAuth Identity Assertion Authorization Grant (IETF Draft)](https://www.ietf.org/archive/id/draft-parecki-oauth-identity-assertion-authz-grant-05.html) – the emerging standard that powers this flow
+* 📄 [OAuth Identity Assertion Authorization Grant (IETF Draft)](https://datatracker.ietf.org/doc/draft-ietf-oauth-identity-assertion-authz-grant/) – the emerging standard that powers this flow
 
 If you're new to OAuth or want to understand the basics behind secure delegated access, check out these resources:
 
