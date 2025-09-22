@@ -6,11 +6,13 @@ This is the source code repository for [Okta's developer blog](https://developer
 - If you have questions or need help with Okta's APIs or SDKs, please post to [StackOverflow](https://stackoverflow.com/questions/tagged/okta). If you think you've encountered a bug in one of our SDKs, please create a GitHub issue for that SDK.
 - If you are looking for Okta's developer documentation, that has moved to [@okta/okta-developer-docs](https://github.com/okta/okta-developer-docs).
 
-## Contribute
+## Contributions
 
-If you'd like to contribute to the blog, please [send us a pull request](#how-to-create-a-pull-request).
+While we are an open project, we're not open to contributions without prior conversation. If you want to contribute to OktaDev blog content, please reach out to us at `dev-advocacy@okta.com`. 
 
-This site is built using [Jekyll](http://jekyllrb.com/). Blog post updates, bug fixes, and PRs are all welcome! You can create articles using Markdown (it's quite simple).
+PRs are the final step in our contributor's editorial process. PRs created without communication, approval, or outside the editorial process will be closed.
+
+Once you have approval to contribute, learn more about getting set up.
 
 ### Requirements
 
@@ -48,7 +50,7 @@ Visit http://localhost:4000 in your browser.
 
 To simplify the running of the blog, you can also [use Docker](#docker-instructions).
 
-### How to Create a Pull Request
+### How to Create a Post
 
 First, you'll want to create a branch. The name of the branch should contain your post's keywords for readability. For example:
 
@@ -140,16 +142,16 @@ This section describes Markdown standards we like to use in our blog posts. Thes
 - [Add a Changelog](#add-a-changelog)
 - [Add a Canonical URL](#add-a-canonical-url)
 
-### Use the Okta CLI to Register Your App
+### Register Your App with Okta
 
-To describe how to setup a new application on Okta, please use the [`cli.md`](_source/_includes/setup/cli.md) or [`maven.md`](_source/_includes/setup/maven.md) includes.
+To describe how to setup a new application on Okta, please use the [`integrator.md`](_source/_includes/setup/integrator.md) include.
 
-These will render instructions using the [Okta CLI](https://cli.okta.com) (or [Okta Maven Plugin](https://github.com/oktadev/okta-maven-plugin)) and link to instructions for the Admin Console. Screenshots are discouraged because they're hard to keep up-to-date.
+These will render instructions using the Admin Console setup and link to the appropriate documentation. Screenshots are discouraged because they're hard to keep up-to-date.
 
-The basic syntax for using the Okta CLI to set up an app is:
+The basic syntax for using the integrator setup to create an app is:
 
 ```md
-{% include setup/cli.md type="spa" loginRedirectUri="http://localhost:8080/callback" %}
+{% include setup/integrator.md type="spa" loginRedirectUri="http://localhost:8080/callback" %}
 ```
 
 Supported values for `type`: spa, web, native, service, token, and jhipster
@@ -163,9 +165,10 @@ Other parameters you can pass in:
 | `logoutRedirectUri` | Prints whatever you set, or defaults if not set                                                     |
 | `signup`            | `false` reduces opening paragraph to one sentence                                                   |
 | `note`              | Prints whatever you set. See .NET example below                                                     |
-| `install`           | `false` removes 'Install the Okta CLI' sentence                                                     |
+| `install`           | `false` removes setup instructions for signing into your Okta account                               |
+| `customAuthServer`  | Custom authorization server ID (e.g., `my-auth-server`). Adds setup instructions for authorization policies and rules |
 
-See [How to Create an OIDC App on Okta](https://developer.okta.com/blog/setup) for this feature's documentation.
+See [Integrator Setup Examples](https://developer.okta.com/blog/integrator-setup) for examples and documentation on using the integrator setup.
 
 ### Blog Markdown Conventions
 
@@ -372,28 +375,4 @@ For example:
 
 ```markup
 {% excerpt /blog/2024/02/29/net-scim %}
-```
-
-**StackBlitz**
-
-This tag supports pre-created StackBlitz and auto-creating a StackBlitz directly from GitHub.
-
-Pass in either the pre-created StackBlitz id or your GitHub repo in the following format `gh_username/repo_name`. For GitHub repo import you can also specify directory path within the repo or the branch. You can read more about this on [StackBlitz's documentation](https://developer.stackblitz.com/docs/platform/importing-projects/).
-
-For example, you can use `okta-samples/okta-vue-sample/tree/vue-3`
-
-Optionally, you can also pass in the file to default to.
-
-```markup
-{% stackblitz <stackblitz-id> %}
-{% stackblitz <stackblitz-id> file=<path/filename.ext> %}
-{% stackblitz <gh_username/repo_name> %}
-{% stackblitz <gh_username/repo_name>|</tree/BRANCH> file=<path/filename.ext> %}
-```
-
-Examples
-```markup
-{% stackblitz angular %}
-{% stackblitz angular file=src/app/hello.component.ts %}
-{% stackblitz okta/samples-js-angular/tree/master/custom-login file=src/app/login/login.component.html %}
 ```
