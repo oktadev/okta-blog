@@ -53,7 +53,7 @@ Using the above operations as a base, complex real-life actions can also be perf
 
 ## Getting started with the Okta MCP Server
 
-Now that you know what the Okta MCP server is and why it's useful, let's dive into how to set it up and run it. Before you proceed, you will need VS Code, Python environment, and UV.
+Now that you know what the Okta MCP server is and why it's useful, let's dive into how to set it up and run it. Before you proceed, you will need VS Code, Python environment (Python 3.9 or above), and uv.
 
 ### Initializing the project
 
@@ -82,23 +82,24 @@ This flow is best if you're running the MCP server locally and want a quick, use
 
 Use this if you're experimenting, developing, or want the simplest way to authenticate.
 
-1. In your Okta org, create a new OIDC Native App Integration.
+{% include setup/integrator.md type="native" loginRedirectUri="com.oktapreview.java-oie-sdk:/callback" logoutRedirectUri="http://com.oktapreview.java-oie-sdk/" %}
 
-    {% img blog/okta-mcp-server/image6.png alt:" " width:"1000" %}{: .center-image }
-<br>
-2. Enable the Device Authorization grant type.  
+> **Note:** While creating the app integration, make sure to select the **Device Authorization** in the Grant type.
 
-    {% img blog/okta-mcp-server/image8.png alt:" " width:"1000" %}{: .center-image }
-<br>
-3. Grant API scopes (for example: `okta.users.read`, `okta.groups.manage`).
+Once the app is created, follow these steps:
+
+1. Grant API scopes (for example: `okta.users.read`, `okta.groups.manage`).
 
     {% img blog/okta-mcp-server/image10.png alt:" " width:"1000" %}{: .center-image }
 <br>
-4. Copy the Client ID for later use.
+
+2. Copy the Client ID for later use.
 
     {% img blog/okta-mcp-server/image14.png alt:" " width:"1000" %}{: .center-image }
 
-*Note 💬:  Why "Native App" and not "Service"?* Because Device Auth is designed for user-driven flows, it assumes someone is present to open the browser.
+> **Note:** Why "Native App" and not "Service"?  
+> Device Auth is designed for user-driven flows, so it assumes someone is present to open the browser.
+
 
 ##### **Option B: Private key JWT (best for automation, CI/CD, and "headless" environments)**
 
@@ -146,16 +147,11 @@ For this guide, we'll walk through the setup in Visual Studio Code with GitHub C
 
 ### Enable agent mode in GitHub Copilot
 
-The Okta MCP server integrates with VS Code through Copilot's agent mode. To enable it:
+The Okta MCP server integrates with VS Code through Copilot's agent mode. 
 
-1. Open the Copilot Chat view in VS Code.
+1. Install the [Github Copilot extension](https://marketplace.visualstudio.com/items?itemName=GitHub.copilot) Open the Copilot Chat view in VS Code.
 
-    {% img blog/okta-mcp-server/image1.png alt:" " width:"1000" %}{: .center-image }
-<br>
-2. Click on the dropdown menu at the top of the chat pane and select **Agent** to   
-   switch from regular Copilot to agent mode.
-
-    {% img blog/okta-mcp-server/image16.png alt:" " width:"1000" %}{: .center-image }
+2. To enable the Agent mode, checkout the steps mentioned in the [ VS Code docs](https://code.visualstudio.com/docs/copilot/chat/chat-agent-mode#_enable-agent-mode-in-vs-code).
 
 ### Update your VS Code settings
 
@@ -221,10 +217,10 @@ Running the server for the first time prompts you to enter the following informa
 * **Okta Organization URL**: Your Okta tenant URL.  
 * **Okta Client ID**: The client ID of the application you created in your Okta organization.  
 * **Okta Scopes**: The scopes you want to grant to the application, separated by spaces. For example: 
-    ```sh
-      "OKTA\_SCOPES": "${input:OKTA\_SCOPES \= `okta.users.read` `okta.users.manage okta.groups.read okta.groups.manage okta.logs.read okta.policies.read okta.policies.manage okta.apps.read okta.apps.manage`}"
-    ```
-      Add scopes only for the APIs that you will be using.
+```json
+    "OKTA_SCOPES": "${input:OKTA_SCOPES = okta.users.read okta.users.manage okta.groups.read okta.groups.manage okta.logs.read okta.policies.read okta.policies.manage okta.apps.read okta.apps.manage}"
+```
+> **Note:** Add scopes only for the APIs that you will be using.
 
 * **Okta Private Key and Key ID:** You only need to enter this key when using browserless authentication. If you're not using that method, just press **Enter** to skip this step and use the Device Authorization flow instead.
 
@@ -266,3 +262,15 @@ At this point, the MCP server has established a connection between VS Code and y
 {% img blog/okta-mcp-server/image5.png alt:" " width:"1000" %}{: .center-image }
 
 We invite you to try out our MCP server and experience the future of identity and access management. Meet us at Oktane, and if you run into issues, please open an issue in our [GitHub](https://github.com/okta/okta-mcp-server/) repository.
+
+
+## Read more about Cross-App Access, OAuth 2.0, and securing your applications
+
+* [Integrate Your Enterprise AI Tools with Cross-App Access](https://developer.okta.com/blog/2025/06/23/enterprise-ai)
+* [Cross-App Access (XAA): Secure Identity Flows for AI Agents](https://developer.okta.com/blog/2025/09/03/cross-app-access)  
+* [OAuth 2.0 and OpenID Connect overview](https://developer.okta.com/docs/concepts/oauth-openid)
+* [Why You Should Migrate to OAuth 2.0 From Static API Tokens](https://developer.okta.com/blog/2023/09/25/oauth-api-tokens)
+ * [How to Secure the SaaS Apps of the Future](https://sec.okta.com/articles/appsofthefuture/)
+
+
+Follow us on [LinkedIn](https://www.linkedin.com/company/oktadev), [Twitter](https://twitter.com/oktadev), and subscribe to our [YouTube](https://www.youtube.com/c/oktadev) channel for more developer content. If you have any questions, please leave a comment below!
