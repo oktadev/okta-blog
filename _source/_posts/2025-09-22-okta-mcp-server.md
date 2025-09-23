@@ -149,7 +149,7 @@ For this guide, we'll walk through the setup in Visual Studio Code with GitHub C
 
 The Okta MCP server integrates with VS Code through Copilot's agent mode. 
 
-1. Install the [Github Copilot extension](https://marketplace.visualstudio.com/items?itemName=GitHub.copilot) Open the Copilot Chat view in VS Code.
+1. Install the [GitHub Copilot extension](https://marketplace.visualstudio.com/items?itemName=GitHub.copilot) Open the Copilot Chat view in VS Code.
 
 2. To enable the Agent mode, checkout the steps mentioned in the [ VS Code docs](https://code.visualstudio.com/docs/copilot/chat/chat-agent-mode#_enable-agent-mode-in-vs-code).
 
@@ -266,10 +266,10 @@ We invite you to try out our MCP server and experience the future of identity an
 
 ## Read more about Cross-App Access, OAuth 2.0, and securing your applications
 
-* [Integrate Your Enterprise AI Tools with Cross-App Access](https://developer.okta.com/blog/2025/06/23/enterprise-ai)
-* [Cross-App Access (XAA): Secure Identity Flows for AI Agents](https://developer.okta.com/blog/2025/09/03/cross-app-access)  
+* [Integrate Your Enterprise AI Tools with Cross-App Access](/blog/2025/06/23/enterprise-ai)
+* [Cross-App Access (XAA): Secure Identity Flows for AI Agents](/blog/2025/09/03/cross-app-access)  
 * [OAuth 2.0 and OpenID Connect overview](https://developer.okta.com/docs/concepts/oauth-openid)
-* [Why You Should Migrate to OAuth 2.0 From Static API Tokens](https://developer.okta.com/blog/2023/09/25/oauth-api-tokens)
+* [Why You Should Migrate to OAuth 2.0 From Static API Tokens](/blog/2023/09/25/oauth-api-tokens)
  * [How to Secure the SaaS Apps of the Future](https://sec.okta.com/articles/appsofthefuture/)
 
 
