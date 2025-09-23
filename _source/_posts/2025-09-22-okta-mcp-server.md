@@ -3,15 +3,12 @@ layout: blog_post
 title: "Introducing the Okta MCP Server"
 author: swetha-selvanayagam
 by: advocate
-communities: [security,javascript,python]
-description: ""
-tags: [xaa, cross-app-access, enterprise-ai, agentic-ai, mcp, oauth, sso]
-tweets:
-- ""
-- ""
-- ""
+communities: [security,python]
+description: "Learn how the Okta MCP Server connects AI agents to Okta APIs, enabling secure automation of identity and access management tasks."
+tags: [enterprise-ai, agentic-ai, mcp, oauth, sso, cross-app-access]
 image: blog/okta-mcp-server/okta-mcp-server-social-image.jpeg
 type: conversion
+github: https://github.com/okta/okta-mcp-server
 ---
 
 As AI agents and AI threats proliferate at an unprecedented rate, it becomes imperative to enable them to communicate safely with the backend systems that matter the most.
@@ -263,14 +260,12 @@ At this point, the MCP server has established a connection between VS Code and y
 
 We invite you to try out our MCP server and experience the future of identity and access management. Meet us at Oktane, and if you run into issues, please open an issue in our [GitHub](https://github.com/okta/okta-mcp-server/) repository.
 
+## Read more about Cross App Access, OAuth 2.0, and securing your applications
 
-## Read more about Cross-App Access, OAuth 2.0, and securing your applications
-
-* [Integrate Your Enterprise AI Tools with Cross-App Access](/blog/2025/06/23/enterprise-ai)
-* [Cross-App Access (XAA): Secure Identity Flows for AI Agents](/blog/2025/09/03/cross-app-access)  
+* [Integrate Your Enterprise AI Tools with Cross App Access](/blog/2025/06/23/enterprise-ai)
+* [Build Secure Agent-to-App Connections with Cross App Access (XAA)](/blog/2025/09/03/cross-app-access)  
 * [OAuth 2.0 and OpenID Connect overview](https://developer.okta.com/docs/concepts/oauth-openid)
 * [Why You Should Migrate to OAuth 2.0 From Static API Tokens](/blog/2023/09/25/oauth-api-tokens)
- * [How to Secure the SaaS Apps of the Future](https://sec.okta.com/articles/appsofthefuture/)
-
+* [How to Secure the SaaS Apps of the Future](https://sec.okta.com/articles/appsofthefuture/)
 
 Follow us on [LinkedIn](https://www.linkedin.com/company/oktadev), [Twitter](https://twitter.com/oktadev), and subscribe to our [YouTube](https://www.youtube.com/c/oktadev) channel for more developer content. If you have any questions, please leave a comment below!
