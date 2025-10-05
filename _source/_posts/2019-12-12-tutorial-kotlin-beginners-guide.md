@@ -405,7 +405,9 @@ cd kotlin-spring-boot
 
 If you already have an Okta account, see the Create a Web Application in Okta sidebar below. Otherwise, we created a Maven plugin that configures a free Okta developer account + an OIDC app (in under a minute!).
 
-{% include setup/maven.md %}
+{% include setup/integrator.md type="native"
+loginRedirectUri="com.okta.dev-133337:/callback"
+logoutRedirectUri="com.okta.dev-133337:/callback" %}
 
 Edit `KotlinSpringBootApplication` located in the package `com.okta.developer` to add a controller mapping that will print a welcome message in the browser window.
 
