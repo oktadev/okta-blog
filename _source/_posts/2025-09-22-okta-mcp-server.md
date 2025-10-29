@@ -79,7 +79,7 @@ This flow is best if you're running the MCP server locally and want a quick, use
 
 Use this if you're experimenting, developing, or want the simplest way to authenticate.
 
-{% include setup/integrator.md type="native" loginRedirectUri="com.oktapreview.java-oie-sdk:/callback" logoutRedirectUri="http://com.oktapreview.java-oie-sdk/" %}
+{% include setup/integrator.md type="native" loginRedirectUri="com.oktapreview.{yourOktaDomain}:/callback" logoutRedirectUri="com.okta.{yourOktaDomain}:/" %}
 
 > **Note:** While creating the app integration, make sure to select the **Device Authorization** in the Grant type.
 
@@ -87,12 +87,12 @@ Once the app is created, follow these steps:
 
 1. Grant API scopes (for example: `okta.users.read`, `okta.groups.manage`).
 
-    {% img blog/okta-mcp-server/image10.png alt:" " width:"1000" %}{: .center-image }
+    {% img blog/okta-mcp-server/image10.jpeg alt:" " width:"700" %}{: .center-image }
 <br>
 
 2. Copy the Client ID for later use.
 
-    {% img blog/okta-mcp-server/image14.png alt:" " width:"1000" %}{: .center-image }
+    {% img blog/okta-mcp-server/image14.jpeg alt:" " width:"700" %}{: .center-image }
 
 > **Note:** Why "Native App" and not "Service"?  
 > Device Auth is designed for user-driven flows, so it assumes someone is present to open the browser.
@@ -112,27 +112,30 @@ Use this if you're automating, scheduling jobs, or integrating into infrastructu
 
 1. In your Okta org, create a new API Services App Integration.
 
-    {% img blog/okta-mcp-server/image11.png alt:" " width:"1000" %}{: .center-image }
+    {% img blog/okta-mcp-server/image11.jpeg alt:" " width:"700" %}{: .center-image }
 
-    {% img blog/okta-mcp-server/image18.png alt:" " width:"1000" %}{: .center-image }
+    {% img blog/okta-mcp-server/image18.jpeg alt:" " width:"700" %}{: .center-image }
 <br>
 2. Under Client Authentication, select Public Key / Private Key.
 
-    {% img blog/okta-mcp-server/image19.png alt:" " width:"1000" %}{: .center-image }
+    {% img blog/okta-mcp-server/image19.jpeg alt:" " width:"700" %}{: .center-image }
 <br>
 3. Add a public key: either generate it in Okta (recommended) and copy it in PEM format, or upload your own keys.
 
-    {% img blog/okta-mcp-server/image13.png alt:" " width:"1000" %}{: .center-image }
+    {% img blog/okta-mcp-server/image13.jpeg alt:" " width:"700" %}{: .center-image }
 <br>
 4. Copy the Client ID and Key ID (KID).
 
-    {% img blog/okta-mcp-server/image12.png alt:" " width:"1000" %}{: .center-image }
+    {% img blog/okta-mcp-server/image12.jpeg alt:" " width:"700" %}{: .center-image }
 <br>
-5. Grant the necessary API scopes (e.g., `okta.users.read`, `okta.groups.manage`) and provide Super Administrator access.
 
-    {% img blog/okta-mcp-server/image10.png alt:" " width:"1000" %}{: .center-image }
+5. Disable **Proof of Possession** in the General tab.
 
-    {% img blog/okta-mcp-server/image3.png alt:" " width:"1000" %}{: .center-image }
+6. Grant the necessary API scopes (e.g., `okta.users.read`, `okta.groups.manage`) and provide Super Administrator access.
+
+    {% img blog/okta-mcp-server/image10.jpeg alt:" " width:"700" %}{: .center-image }
+
+    {% img blog/okta-mcp-server/image3.jpeg alt:" " width:"700" %}{: .center-image }
 
 ### Configuring your client
 
@@ -152,62 +155,62 @@ The Okta MCP server integrates with VS Code through Copilot's agent mode.
 
 ### Update your VS Code settings
 
-Next, you'll tell VS Code how to start and communicate with the Okta MCP server. This is done in your `settings.json`. You can also create your own `mcp.json` and set this up.
+Next, you'll tell VS Code how to start and communicate with the Okta MCP server. Create a folder named `.vscode` in your project directory, then add a new file inside it called `mcp.json`. Copy and paste the configuration below into that file and save it.
 
 ```json
 {
-  "mcp": {
-    "inputs": [
-      {
-        "type": "promptString",
-        "description": "Okta Organization URL (e.g., https://trial-123456.okta.com)",
-        "id": "OKTA_ORG_URL"
-      },
-      {
-        "type": "promptString",
-        "description": "Okta Client ID",
-        "id": "OKTA_CLIENT_ID",
-        "password": true
-      },
-      {
-        "type": "promptString",
-        "description": "Okta Scopes (separated by whitespace, e.g., 'okta.users.read okta.groups.manage')",
-        "id": "OKTA_SCOPES"
-      },
-      {
-        "type": "promptString",
-        "description": "Okta Private Key. Required for 'browserless' auth.",
-        "id": "OKTA_PRIVATE_KEY",
-        "password": true
-      },
-      {
-        "type": "promptString",
-        "description": "Okta Key ID (KID) for the private key. Required for 'browserless' auth.",
-        "id": "OKTA_KEY_ID",
-        "password": true
-      }
-    ],
-    "servers": {
-      "okta-mcp-server": {
-        "command": "uv",
-        "args": [
-          "run",
-          "--directory",
-          "/path/to/the/okta-mcp-server",
-          "okta-mcp-server"
-        ],
-        "env": {
-          "OKTA_ORG_URL": "${input:OKTA_ORG_URL}",
-          "OKTA_CLIENT_ID": "${input:OKTA_CLIENT_ID}",
-          "OKTA_SCOPES": "${input:OKTA_SCOPES}",
-          "OKTA_PRIVATE_KEY": "${input:OKTA_PRIVATE_KEY}",
-          "OKTA_KEY_ID": "${input:OKTA_KEY_ID}"
-        }
+  "inputs": [
+    {
+      "type": "promptString",
+      "description": "Okta Organization URL (e.g., https://trial-123456.okta.com)",
+      "id": "OKTA_ORG_URL"
+    },
+    {
+      "type": "promptString",
+      "description": "Okta Client ID",
+      "id": "OKTA_CLIENT_ID",
+      "password": true
+    },
+    {
+      "type": "promptString",
+      "description": "Okta Scopes (separated by whitespace, e.g., 'okta.users.read okta.groups.manage')",
+      "id": "OKTA_SCOPES"
+    },
+    {
+      "type": "promptString",
+      "description": "Okta Private Key. Required for 'browserless' auth.",
+      "id": "OKTA_PRIVATE_KEY",
+      "password": true
+    },
+    {
+      "type": "promptString",
+      "description": "Okta Key ID (KID) for the private key. Required for 'browserless' auth.",
+      "id": "OKTA_KEY_ID",
+      "password": true
+    }
+  ],
+  "servers": {
+    "okta-mcp-server": {
+      "command": "uv",
+      "args": [
+        "run",
+        "--directory",
+        "/path/to/the/okta-mcp-server", // Replace this path with your own project directory
+        "okta-mcp-server"
+      ],
+      "env": {
+        "OKTA_ORG_URL": "${input:OKTA_ORG_URL}",
+        "OKTA_CLIENT_ID": "${input:OKTA_CLIENT_ID}",
+        "OKTA_SCOPES": "${input:OKTA_SCOPES}",
+        "OKTA_PRIVATE_KEY": "${input:OKTA_PRIVATE_KEY}",
+        "OKTA_KEY_ID": "${input:OKTA_KEY_ID}"
       }
     }
   }
 }
 ```
+
+> **Note:** Before running the server, make sure to replace the placeholder path `/path/to/the/okta-mcp-server` with the actual directory path of your local project
 
 Running the server for the first time prompts you to enter the following information:
 
@@ -227,12 +230,12 @@ When you open VS Code, you'll now see **okta-mcp-server** as an option to start.
 
 1. Click **Start** to launch the server in your `mcp.json` file.
 
-    {% img blog/okta-mcp-server/image2.png alt:" " width:"1000" %}{: .center-image }
+    {% img blog/okta-mcp-server/image2.jpeg alt:" " width:"700" %}{: .center-image }
  
 2. The server will check your authentication method:  
    * If using **Device Authorization**, it triggers a prompt to log in via your browser.
 
-        {% img blog/okta-mcp-server/image7.png alt:" " width:"1000" %}{: .center-image }
+        {% img blog/okta-mcp-server/image7.jpeg alt:" " width:"700" %}{: .center-image }
 
    * If using **Private Key JWT**, it will authenticate silently using your key.
 
@@ -244,19 +247,19 @@ At this point, the MCP server has established a connection between VS Code and y
 
 **1\. Listing Users**
 
-{% img blog/okta-mcp-server/image9.png alt:" " width:"1000" %}{: .center-image }
+{% img blog/okta-mcp-server/image9.jpeg alt:" " width:"700" %}{: .center-image }
 
 **2\. Creating Users**
 
-{% img blog/okta-mcp-server/image15.png alt:" " width:"1000" %}{: .center-image }
+{% img blog/okta-mcp-server/image15.jpeg alt:" " width:"700" %}{: .center-image }
 
 **3\. Group Assignment**
 
-{% img blog/okta-mcp-server/image4.png alt:" " width:"1000" %}{: .center-image }
+{% img blog/okta-mcp-server/image4.jpeg alt:" " width:"700" %}{: .center-image }
 
 **4\. Creating an Audit Report**
 
-{% img blog/okta-mcp-server/image5.png alt:" " width:"1000" %}{: .center-image }
+{% img blog/okta-mcp-server/image5.jpeg alt:" " width:"700" %}{: .center-image }
 
 We invite you to try out our MCP server and experience the future of identity and access management. Meet us at Oktane, and if you run into issues, please open an issue in our [GitHub](https://github.com/okta/okta-mcp-server/) repository.
 
