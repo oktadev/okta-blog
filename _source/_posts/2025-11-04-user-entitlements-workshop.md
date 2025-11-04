@@ -24,7 +24,7 @@ Managing users across domains is critical to making B2B apps enterprise-scalable
     <td style="font-size: 3rem;">️ℹ️</td>
     <td markdown="span">
       **Note** <br/>
-    This post requires Okta Identity Governance (OIG) features. 
+    This post requires Okta Identity Governance (OIG) features in your Okta org. Use your provisioned Okta org with OIG SKU added to the account. Reach out to support if you're unsure whether your Okta org has OIG capabilities.
     </td>
 </tr>
 </table>
