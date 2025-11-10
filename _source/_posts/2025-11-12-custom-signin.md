@@ -5,13 +5,10 @@ author: [emmanuel-folaranmi, alisa-duncan]
 by: advocate
 communities: [devops,mobile,.net,java,javascript,go,php,python,ruby]
 description: ""
-tags: []
-tweets:
-- ""
-- ""
-- ""
+tags: [javascript, html, css, sign-in-widget]
 image:
 type: conversion
+github: https://github.com/oktadev/okta-js-siw-customzation-example/tree/main/custom-signin-blog-post
 ---
 
 When you choose Okta as your IAM provider, one of the features you get access to is customizing your Okta-hosted Sign-In Widget (SIW), which is our recommended method for the highest levels of identity security. It's a customizable JavaScript component that provides a ready-made login interface you can use immediately as part of your web application. 
@@ -282,7 +279,7 @@ a[data-se="blogCustomLink"] {
 
 Save and publish the page to check out your changes.
 
-Now, let's say you want to style an Okta-provided HTML element. Use design tokens wherever possible, and make style changes cautiously. 
+Now, let's say you want to style an Okta-provided HTML element. Use design tokens wherever possible, and make style changes cautiously as doing so adds brittleness and security concerns. 
 
 Here's a terrible example of styling an Okta-provided HTML element that you shouldn't emulate, as it makes the text illegible. Let's say you want to change the background of the **Next** button to be a gradient. 🌈 
 
@@ -303,11 +300,11 @@ However, style the Okta-provided SIW elements with caution. The dangers with thi
  2. The Okta Sign-in widget is internationalized, and changing styles around text layout manually may break localization needs
  3. Okta can't guarantee that the data attributes or DOM elements remain unchanged, leading to customization breaks 
 
-If you do style an Okta-hosted widget element, always pin the SIW version so your customizations don't break from under you. Navigate to the **Settings** tab and find the **Sign-In Widget version** section. Select **Edit** and select the most recent version of the widget, as this one should be compatible with your code. We are using widget version 7.36 in this post.
+In the rare case where you style an Okta-provided SIW element you may need to pin the SIW version so your customizations don't break from under you. Navigate to the **Settings** tab and find the **Sign-In Widget version** section. Select **Edit** and select the most recent version of the widget, as this one should be compatible with your code. We are using widget version 7.36 in this post.
 
 > ⚠️ **Note**
 > 
-> When you pin the widget, you won't get the latest and greatest updates from the SIW without manually updating the version. For the most secure option, allow SIW to update automatically and avoid overly customizing the SIW with CSS. Use the design tokens wherever possible.
+> When you pin the widget, you won't get the latest and greatest updates from the SIW without manually updating the version. Pinning the version prevents any forward progress in the evolution and extensibility of the end-user experiences. For the most secure option, allow SIW to update automatically and avoid overly customizing the SIW with CSS. Use the design tokens wherever possible.
 
 ## Change the layout of the Okta-hosted Sign-in page
 
@@ -505,7 +502,7 @@ Your final code might look something like this:
 ```
 {% endraw %}
 
-You can also find the code in the GitHub repository for this blog post. With these code changes, you can connect this with an app to see how it works end-to-end. You'll need to update your Okta OpenID Connect (OIDC) application to work with the domain. In the Okta Admin Console, navigate to **Applications** > **Applications** and find the Okta application for your custom app. Navigate to the **Sign On** tab. You'll see a section for **OpenID Connect ID Token**. Select **Edit** and select **Custom URL** for your brand's sign-in URL as the **Issuer** value. 
+You can also find the code in the [GitHub repository for this blog post](https://github.com/oktadev/okta-js-siw-customzation-example/tree/main/custom-signin-blog-post). With these code changes, you can connect this with an app to see how it works end-to-end. You'll need to update your Okta OpenID Connect (OIDC) application to work with the domain. In the Okta Admin Console, navigate to **Applications** > **Applications** and find the Okta application for your custom app. Navigate to the **Sign On** tab. You'll see a section for **OpenID Connect ID Token**. Select **Edit** and select **Custom URL** for your brand's sign-in URL as the **Issuer** value. 
 
 You'll use the issuer value, which matches your brand's custom URL, and the Okta application's client ID in your custom app's OIDC configuration. If you want to try this and don't have a pre-built app, you can use one of our samples, such as the [Okta React sample](https://github.com/okta-samples/okta-react-sample).
 
