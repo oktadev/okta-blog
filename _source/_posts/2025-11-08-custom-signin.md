@@ -22,7 +22,13 @@ One of the perks of using the Okta SIW, especially with the 3rd Generation Stand
 
 ## Style the Okta Sign-In Widget to match your brand
 
-In this tutorial, we will customize the Sign In Widget for a fictional to-do app. Without any changes, when you try to sign in to your Okta account, you see something like this:
+In this tutorial, we will customize the Sign In Widget for a fictional to-do app. We'll make the following changes:
+  * Replace font selections
+  * Define border, error, and focus colors
+  * Remove elements from the SIW, such as the horizontal rule and add custom elements 
+  * Shift the control to the start of the site and add a background panel
+
+Without any changes, when you try to sign in to your Okta account, you see something like this:
 
 {% img blog/custom-signin/default-siw.jpeg alt:"Default Okta-hosted Sign-In Widget" width:"800" %}{: .center-image }
 
@@ -38,7 +44,7 @@ We'll use the SIW gen3 along with new recommendations to customize form elements
 
 **Prerequisites**
 To follow this tutorial, you need:
-* An Okta account with the Identity Engine, such as the [Integrator Free account](https://developer.okta.com/signup/)
+* An Okta account with the Identity Engine, such as the [Integrator Free account](https://developer.okta.com/signup/). The SIW version in the org we're using is 7.36.
 * Your own domain name
 * A basic understanding of HTML, CSS, and JavaScript
 * A brand design in mind. Feel free to tap into your creativity!
@@ -58,7 +64,8 @@ You can also follow this post if you prefer.
 Once you have a working brand with a custom domain, select your brand to configure it.
 First, navigate to **Settings** and select **Use third generation** to enable the SIW Gen3. **Save** your selection.
 
-> Note
+> ⚠️ **Note**
+> 
 > The code in this post relies on using SIW Gen3. It will not work on SIW Gen2.
 
 Navigate to **Theme**. You'll see a default brand page that looks something like this:
@@ -143,7 +150,11 @@ We explored how we can customize the widget elements. Now, let's add some flair.
 
 ## Organize your Sign-In Widget customizations with CSS Custom properties
 
-At its core, we're styling an HTML document. This means we operate on the SIW customization in the same way as we would any HTML page, and code organization principles still apply. We can define customization values as [CSS Custom properties](https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_cascading_variables/Using_CSS_custom_properties) (also known as CSS variables). Before jumping into code edits, identify the fonts you want for your customization. We found a header and body font to use.
+At its core, we're styling an HTML document. This means we operate on the SIW customization in the same way as we would any HTML page, and code organization principles still apply. We can define customization values as [CSS Custom properties](https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_cascading_variables/Using_CSS_custom_properties) (also known as CSS variables). 
+
+Defining styles using CSS variables keeps our code [DRY](https://en.wikipedia.org/wiki/Don%27t_repeat_yourself). Setting up style values for reuse even extends beyond the Okta-hosted sign-in page. If your organization hosts stylesheets with brand color defined as CSS custom properties publicly, you can use the colors defined there and link your stylesheet.
+
+Before making code edits, identify the fonts you want to use for your customization. We found a header and body font to use.
 
 Open the SIW code editor for your brand and select **Edit** to make changes. 
 
@@ -152,10 +163,10 @@ Import the fonts into the HTML. You can `<link>` or `@import` the fonts based on
 ```html
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Inter+Tight:ital,wght@0,100..900;1,100..900&family=Manrope:wght@200..800&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Inter+Tight:ital,wght@0,100..900;1,100..900&family=Poiret+One&display=swap" rel="stylesheet">
 ```
 
-Find the `<style nonce="{{nonceValue}}">` tag. Immediately within the tag, define your properties using the `:root` selector:
+Find the `<style nonce="{{nonceValue}}">` tag. Within the tag, define your properties using the `:root` selector:
 
 ```css
 :root {
@@ -169,8 +180,8 @@ Find the `<style nonce="{{nonceValue}}">` tag. Immediately within the tag, defin
     --color-white: #fefefe;
     --color-bright-white: #fff;
     --border-radius: 4px;
-    --font-header: 'Inter Tight', sans-serif;
-    --font-body: 'Manrope', sans-serif;
+    --font-header: 'Poiret One', sans-serif;
+    --font-body: 'Inter Tight', sans-serif;
  }
 ```
 
@@ -178,7 +189,7 @@ Feel free to add new properties or replace the property value for your brand. No
 
 Let's configure the SIW with our variables using design tokens.
 
-Find `var config = OktaUtil.getSignInWidgetConfig();`. Immediately after this line of code, set the values of the design tokens using your CSS Custom properties. You'll use the `var()` function to access your variables:
+Find `var config = OktaUtil.getSignInWidgetConfig();`. After this line of code, set the values of the design tokens using your CSS Custom properties. You'll use the `var()` function to access your variables:
 
 
 ```js
@@ -194,7 +205,7 @@ config.theme = {
     FocusOutlineColorPrimary: 'var(--color-azul)',
     TypographyFamilyBody: 'var(--font-body)',
     TypographyFamilyHeading: 'var(--font-header)',
-    TypographyFamilyButton: 'var(--font-header)',
+    TypographyFamilyButton: 'var(--font-body)',
     BorderColorDangerControl: 'var(--color-cherry)'
   }
 }
@@ -212,31 +223,6 @@ Navigate to the **Settings** tab for your brand's **Sign-in page**. Find the **C
 ```
 
 Press **Save to draft** and press **Publish** to view your changes. The SIW now displays the fonts you selected!
-
-### Use styles defined by your brand
-
-Defining styles using CSS variables keeps our code [DRY](https://en.wikipedia.org/wiki/Don%27t_repeat_yourself). Setting up style values for reuse even extends beyond the Okta-hosted sign-in page. If your organization hosts stylesheets with brand color defined as CSS custom properties publicly, you can use the colors defined there.
-
-For example, you can move the CSS for `:root{}` with the color, font, and border radius style definitions to a standalone CSS file accessible online. Then you can link that stylesheet into the SIW HTML.
-
-Since I don't want to set up a site on a cloud hosting platform, I'll demonstrate how this works for this post. I used [GitHub Codespaces](https://github.com/features/codespaces) to serve the file as a public URL for testing purposes. Codespaces are temporary development containers that anyone with a GitHub account can access. You'll use a real cloud-hosting environment for production cases.
-
-I created a GitHub repository and added a file named `styles.css` with the same styles defined previously, and created a Codespace. Once the container starts, I served the contents of the repository using an HTTP server, such as the one built into Python. I ran the following command in the Codespace terminal
-```sh
-python3 -m http.server 8080
-```
-
-Ensure the port visibility is public and add the URL to your CSP allowlist in Okta.
-
-I linked the styles in the `<head>` of the customization HTML:
-
-```html
- <link
-        href="https://{yourCodespaceName}-{port}.app.github.dev/styles.css"
-        rel="stylesheet">
-``` 
-
-Remove the hardcoded styles from the SIW customization page and verify everything still works. 🎊
 
 
 ## Extending the SIW theme with a custom color palette
@@ -296,7 +282,7 @@ a[data-se="blogCustomLink"] {
 
 Save and publish the page to check out your changes.
 
-Now, let's say you want to style an Okta-provided HTML element. Once again, if you can use design tokens, you should, but in select cases, we can do this carefully. 
+Now, let's say you want to style an Okta-provided HTML element. Use design tokens wherever possible, and make style changes cautiously. 
 
 Here's a terrible example of styling an Okta-provided HTML element that you shouldn't emulate, as it makes the text illegible. Let's say you want to change the background of the **Next** button to be a gradient. 🌈 
 
@@ -306,7 +292,7 @@ After the `blogCustomLink` style, add the following:
 
 ```css
 button[data-se="save"] {
-    background: var(--color-gradient);
+    background: linear-gradient(12deg, var(--color-fuchsia) 0%, var(--color-orange) 100%);
 }
 ```
 
@@ -315,12 +301,60 @@ Save and publish the site. The button background is now a gradient.
 However, style the Okta-provided SIW elements with caution. The dangers with this approach are two-fold: 
  1. The Okta Sign-in widget undergoes accessibility audits, and changing styles and behavior manually may decrease accessibility thresholds
  2. The Okta Sign-in widget is internationalized, and changing styles around text layout manually may break localization needs
- 2. Okta can't guarantee that the data attributes or DOM elements remain unchanged, leading to customization breaks 
+ 3. Okta can't guarantee that the data attributes or DOM elements remain unchanged, leading to customization breaks 
 
 If you do style an Okta-hosted widget element, always pin the SIW version so your customizations don't break from under you. Navigate to the **Settings** tab and find the **Sign-In Widget version** section. Select **Edit** and select the most recent version of the widget, as this one should be compatible with your code. We are using widget version 7.36 in this post.
 
-> Note!
+> ⚠️ **Note**
+> 
 > When you pin the widget, you won't get the latest and greatest updates from the SIW without manually updating the version. For the most secure option, allow SIW to update automatically and avoid overly customizing the SIW with CSS. Use the design tokens wherever possible.
+
+## Change the layout of the Okta-hosted Sign-in page
+
+We left the HTML nodes defined in the SIW customization unedited so far. You can change the layout of the default `<div>` containers to make a significant impact. Change the `display` CSS property to make an impactful change, such as using [Flexbox](https://developer.mozilla.org/en-US/docs/Learn_web_development/Core/CSS_layout/Flexbox) or [CSS Grid](https://developer.mozilla.org/en-US/docs/Learn_web_development/Core/CSS_layout/Grids). I'll use Flexbox in this example.
+
+Find the `div` for the background image container and the `okta-login-container`. Replace those `div` elements with this HTML snippet: 
+
+```html
+<div id="login-bg-image-id" class="login-bg-image tb--background">
+    <div class="login-container-panel">
+        <div id="okta-login-container"></div>
+    </div>
+</div>
+``` 
+
+We moved the `okta-login-container` div inside another parent container and made it a child of the background image container.
+
+Find `#login-bg-image` style. Add the `display: flex;` property. The styles should look like this:
+
+{% raw %}
+```css
+ #login-bg-image-id {
+     background-image: {{bgImageUrl}};
+     display: flex;
+}
+```
+{% endraw %}
+
+We want to style the `okta-login-container`'s parent `<div>` to set the background color and to center the SIW on the panel. Add new styles for the `login-container-panel` class:
+
+```css
+.login-container-panel {
+    background: var(--color-white);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 40%;
+    min-width: 400px;
+}
+```
+
+Save your changes and view the sign-in page. What do you think of the new layout? 🎊
+
+> ⚠️ **Note**
+> 
+> Flexbox and CSS Grid are responsive, but you may still need to add properties handling responsiveness or media queries to fit your needs.
+
 
 Your final code might look something like this:
 
@@ -339,16 +373,15 @@ Your final code might look something like this:
     <link rel="shortcut icon" href="{{faviconUrl}}" type="image/x-icon">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link
-        href="https://fonts.googleapis.com/css2?family=Inter+Tight:ital,wght@0,100..900;1,100..900&family=Manrope:wght@200..800&display=swap"
-        rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter+Tight:ital,wght@0,100..900;1,100..900&family=Poiret+One&display=swap" rel="stylesheet">    
+
     <title>{{pageTitle}}</title>
     {{{SignInWidgetResources}}}
 
     <style nonce="{{nonceValue}}">
         :root {
-            --font-header: 'Inter Tight', sans-serif;
-            --font-body: 'Manrope', sans-serif;
+            --font-header: 'Poiret One', sans-serif;
+            --font-body: 'Inter Tight', sans-serif;
             --color-gray: #4f4f4f;
             --color-fuchsia: #ff3fed;
             --color-orange: #ffac2f;
@@ -371,12 +404,16 @@ Your final code might look something like this:
 
         #login-bg-image-id {
             background-image: {{bgImageUrl}};
+            display: flex;
         }
-
-        div[data-se*="okta-sign-in-header"] {
-            &>h1:hover::after {
-                content: "\1F973";
-            }
+   
+       .login-container-panel {
+            background: var(--color-white);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            width: 40%;
+            min-width: 400px;
         }
 
         a[data-se="blogCustomLink"] {
@@ -386,8 +423,11 @@ Your final code might look something like this:
 </head>
 
 <body>
-    <div id="login-bg-image-id" class="login-bg-image tb--background"></div>
-    <div id="okta-login-container"></div>
+   <div id="login-bg-image-id" class="login-bg-image tb--background">
+        <div class="login-container-panel">
+            <div id="okta-login-container"></div>
+        </div>
+    </div>
 
 
 
@@ -417,7 +457,7 @@ Your final code might look something like this:
                 FocusOutlineColorPrimary: 'var(--color-azul)',
                 TypographyFamilyBody: 'var(--font-body)',
                 TypographyFamilyHeading: 'var(--font-header)',
-                TypographyFamilyButton: 'var(--font-header)',
+                TypographyFamilyButton: 'var(--font-body)',
                 BorderColorDangerControl: 'var(--color-cherry)'
             }
         }
