@@ -137,7 +137,7 @@ This `afterTransform` hook only runs before the 'identify' form. We can find and
 
 Let's take a look at what this looks like. Press **Save to draft** and **Publish**.
 
-Navigate to your sign-in URL for your brand to view your changes. When we compare to the default state, we no longer see the horizontal rule below the logo or the "Help" link. The account unlock element is no longer available.
+Navigate to your sign-in URL for your brand to view the changes you made. When we compare to the default state, we no longer see the horizontal rule below the logo or the "Help" link. The account unlock element is no longer available.
 
 We explored how we can customize the widget elements. Now, let's add some flair.
 
@@ -174,9 +174,9 @@ Find the `<style nonce="{{nonceValue}}">` tag. Immediately within the tag, defin
  }
 ```
 
-Feel free to add new properties or replace the property value for your brand. This is a good opportunity to add your own brand colors and customizations!
+Feel free to add new properties or replace the property value for your brand. Now is a good opportunity to add your own brand colors and customizations!
 
-Defining properties within variables keeps our code [DRY](https://en.wikipedia.org/wiki/Don%27t_repeat_yourself). Let's configure the SIW with our variables using design tokens.
+Let's configure the SIW with our variables using design tokens.
 
 Find `var config = OktaUtil.getSignInWidgetConfig();`. Immediately after this line of code, set the values of the design tokens using your CSS Custom properties. You'll use the `var()` function to access your variables:
 
@@ -212,6 +212,32 @@ Navigate to the **Settings** tab for your brand's **Sign-in page**. Find the **C
 ```
 
 Press **Save to draft** and press **Publish** to view your changes. The SIW now displays the fonts you selected!
+
+### Use styles defined by your brand
+
+Defining styles using CSS variables keeps our code [DRY](https://en.wikipedia.org/wiki/Don%27t_repeat_yourself). Setting up style values for reuse even extends beyond the Okta-hosted sign-in page. If your organization hosts stylesheets with brand color defined as CSS custom properties publicly, you can use the colors defined there.
+
+For example, you can move the CSS for `:root{}` with the color, font, and border radius style definitions to a standalone CSS file accessible online. Then you can link that stylesheet into the SIW HTML.
+
+Since I don't want to set up a site on a cloud hosting platform, I'll demonstrate how this works for this post. I used [GitHub Codespaces](https://github.com/features/codespaces) to serve the file as a public URL for testing purposes. Codespaces are temporary development containers that anyone with a GitHub account can access. You'll use a real cloud-hosting environment for production cases.
+
+I created a GitHub repository and added a file named `styles.css` with the same styles defined previously, and created a Codespace. Once the container starts, I served the contents of the repository using an HTTP server, such as the one built into Python. I ran the following command in the Codespace terminal
+```sh
+python3 -m http.server 8080
+```
+
+Ensure the port visibility is public and add the URL to your CSP allowlist in Okta.
+
+I linked the styles in the `<head>` of the customization HTML:
+
+```html
+ <link
+        href="https://{yourCodespaceName}-{port}.app.github.dev/styles.css"
+        rel="stylesheet">
+``` 
+
+Remove the hardcoded styles from the SIW customization page and verify everything still works. 🎊
+
 
 ## Extending the SIW theme with a custom color palette
 
@@ -272,23 +298,26 @@ Save and publish the page to check out your changes.
 
 Now, let's say you want to style an Okta-provided HTML element. Once again, if you can use design tokens, you should, but in select cases, we can do this carefully. 
 
-Here's a terrible example of styling an Okta-provided HTML element that you should never emulate, lest you get in trouble with your branding team. Let's say you want something to change when the user hovers over the logo, such as adding a party face emoji after the logo. 
+Here's a terrible example of styling an Okta-provided HTML element that you shouldn't emulate, as it makes the text illegible. Let's say you want to change the background of the **Next** button to be a gradient. 🌈 
 
-Inspect the SIW element you want to style. We want to style the `h2` element within the `div` with the data attribute `okta-sign-in-header`.
+Inspect the SIW element you want to style. We want to style the `button` with the data attribute `okta-sign-in-header`.
 
-Always use the data attribute in cases like this. Fortunately, the Gen3 SIW supports the SCSS format (Sassy CSS), making the CSS cleaner to read. After the `blogCustomLink` style, add the following:
+After the `blogCustomLink` style, add the following:
 
-```scss
-div[data-se*="okta-sign-in-header"] {
-  & > h1:hover::after {
-    content: "\1F973";
-  }
+```css
+button[data-se="save"] {
+    background: var(--color-gradient);
 }
 ```
 
-Save and publish the site. When you hover over the logo, you'll see 🥳 emoji. Such a party!
+Save and publish the site. The button background is now a gradient.
 
-The danger with this approach is that there are no guarantees that the data attribute remains unchanged. If you do style an Okta-hosted widget element, always pin the SIW version so your customizations don't break from under you. Navigate to the **Settings** tab and find the **Sign-In Widget version** section. Select **Edit** and select the most recent version of the widget, as this one should be compatible with your code. We are using widget version 7.36 in this post.
+However, style the Okta-provided SIW elements with caution. The dangers with this approach are two-fold: 
+ 1. The Okta Sign-in widget undergoes accessibility audits, and changing styles and behavior manually may decrease accessibility thresholds
+ 2. The Okta Sign-in widget is internationalized, and changing styles around text layout manually may break localization needs
+ 2. Okta can't guarantee that the data attributes or DOM elements remain unchanged, leading to customization breaks 
+
+If you do style an Okta-hosted widget element, always pin the SIW version so your customizations don't break from under you. Navigate to the **Settings** tab and find the **Sign-In Widget version** section. Select **Edit** and select the most recent version of the widget, as this one should be compatible with your code. We are using widget version 7.36 in this post.
 
 > Note!
 > When you pin the widget, you won't get the latest and greatest updates from the SIW without manually updating the version. For the most secure option, allow SIW to update automatically and avoid overly customizing the SIW with CSS. Use the design tokens wherever possible.
