@@ -163,7 +163,7 @@ Import the fonts into the HTML. You can `<link>` or `@import` the fonts based on
 <link href="https://fonts.googleapis.com/css2?family=Inter+Tight:ital,wght@0,100..900;1,100..900&family=Poiret+One&display=swap" rel="stylesheet">
 ```
 
-Find the `<style nonce="{{nonceValue}}">` tag. Within the tag, define your properties using the `:root` selector:
+Find the {% raw %} `<style nonce="{{nonceValue}}">` {% endraw %} tag. Within the tag, define your properties using the `:root` selector:
 
 ```css
 :root {
@@ -261,11 +261,13 @@ oktaSignIn.afterTransform('identify', ({formBag}) => {
 });
 ```
 
-We created a new element named `blogLink` and set properties such as the type, where the content resides, and options related to the `type`. We also added a `dataSe` property that adds the value `blogCustomLink` to an [HTML data attribute](https://developer.mozilla.org/en-US/docs/Web/HTML/How_to/Use_data_attributes). Doing so makes it easier for us to select the element for customization or for testing purposes.
+We created a new element named `blogLink` and set properties such as the type, where the content resides, and options related to the `type`. We also added a `dataSe` property that adds the value `blogCustomLink` to an [HTML data attribute](https://developer.mozilla.org/en-US/docs/Web/HTML/How_to/Use_data_attributes). Doing so makes it easier for us to select the element for customization or for testing purposes. 
+
+When you continue past the 'identify' form in the sign-in flow, you'll no longer see the link to the blog.
 
 ## Overriding Okta Sign-In Widget element styles
 
-We should utilize design tokens for customizations wherever possible. In cases where a design token isn't available for your styling needs, you can fall back to defining style manually.
+We should use design tokens for customizations wherever possible. In cases where a design token isn't available for your styling needs, you can fall back to defining style manually.
 
 Let's start with the element we added, the blog link. Let's say we want to display the text in capital casing. It's not good practice to define the label value using capital casing for accessibility. We should use CSS to transform the text.
 
