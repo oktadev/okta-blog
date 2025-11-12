@@ -308,7 +308,7 @@ In the rare case where you style an Okta-provided SIW element you may need to pi
 > 
 > When you pin the widget, you won't get the latest and greatest updates from the SIW without manually updating the version. Pinning the version prevents any forward progress in the evolution and extensibility of the end-user experiences. For the most secure option, allow SIW to update automatically and avoid overly customizing the SIW with CSS. Use the design tokens wherever possible.
 
-## Change the layout of the Okta-hosted Sign-in page
+## Change the layout of the Okta-hosted Sign-In page
 
 We left the HTML nodes defined in the SIW customization unedited so far. You can change the layout of the default `<div>` containers to make a significant impact. Change the `display` CSS property to make an impactful change, such as using [Flexbox](https://developer.mozilla.org/en-US/docs/Learn_web_development/Core/CSS_layout/Flexbox) or [CSS Grid](https://developer.mozilla.org/en-US/docs/Learn_web_development/Core/CSS_layout/Grids). I'll use Flexbox in this example.
 
