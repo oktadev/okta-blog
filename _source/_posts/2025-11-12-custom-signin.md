@@ -168,8 +168,8 @@ Find the `<style nonce="{{nonceValue}}">` tag. Within the tag, define your prope
 ```css
 :root {
     --color-gray: #4f4f4f;
-    --color-fuchsia: #ff3fed;
-    --color-orange: #ffac2f;
+    --color-fuchsia: #ea3eda;
+    --color-orange: #ffa738;
     --color-azul: #016fb9;
     --color-cherry: #ea3e84;
     --color-purple: #b13fff;
@@ -226,11 +226,11 @@ Press **Save to draft** and press **Publish** to view your changes. The SIW now 
 
 In our example, we selectively added colors. The SIW design system adheres to WCAG accessibility standards and relies on [Material Design](https://m2.material.io/) color palettes.
 
-Okta generates colors based on your primary color that conform to accessibility standards and contrast requirements. Check out [Understand Sign-In Widget color customization](https://help.okta.com/oie/en-us/content/topics/settings/branding-siw-color-contrast.htm) to learn more about color contrast and how Okta color generation works. You need to supply accessible colors to the configuration.
+Okta generates colors based on your primary color that conform to accessibility standards and contrast requirements. Check out [Understand Sign-In Widget color customization](https://help.okta.com/oie/en-us/content/topics/settings/branding-siw-color-contrast.htm) to learn more about color contrast and how Okta color generation works. You must supply accessible colors to the configuration.
 
 Material Design supports themes by customizing color palettes. The [list of all configurable design tokens](https://developer.okta.com/docs/guides/custom-widget-gen3/main/#use-design-tokens) displays all available options, including `Hue*` properties for precise color control. Consider exploring color palette customization options tailored to your brand's specific needs. You can use Material palette generators such as [this color picker](https://m2.material.io/inline-tools/color/) from the Google team or an open source [Material Design Palette Generator](https://materialpalettes.com/) that allows you to enter a HEX color value. 
 
-Don't forget to keep accessibility in mind. You can run an accessibility audit using [Lighthouse](https://developer.chrome.com/docs/lighthouse/overview) in the Chrome browser. Our selected primary color doesn't quite meet contrast requirements. 😅
+Don't forget to keep accessibility in mind. You can run an accessibility audit using [Lighthouse](https://developer.chrome.com/docs/lighthouse/overview) in the Chrome browser and the [WebAIM Contrast Checker](https://webaim.org/resources/contrastchecker/). Our selected primary color doesn't quite meet contrast requirements. 😅
 
 ## Add custom HTML elements to the Sign-In Widget
 
