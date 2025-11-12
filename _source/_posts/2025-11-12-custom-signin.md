@@ -115,7 +115,7 @@ To create the SIW, we need to pass in the configuration. The configuration inclu
 
 The `#okta-login-container` is a [CSS selector](https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_selectors). While any correct CSS selector works, we recommend you use the ID of the element. Element IDs must be unique within the HTML document, so this is the safest and easiest method.
 
-## Customize the UI elements within the Okta Sign-in Widget
+## Customize the UI elements within the Okta Sign-In Widget
 
 Now that we have a basic understanding of how the Okta Sign-In Widget works, let's start customizing the code. We'll start by customizing the elements within the SIW. To manipulate the Okta SIW DOM elements in Gen3, we use the `afterTransform` method. The `afterTransform` method allows us to remove or update elements for individual or all forms.
 
