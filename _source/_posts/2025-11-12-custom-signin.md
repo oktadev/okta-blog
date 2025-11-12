@@ -6,7 +6,7 @@ by: advocate
 communities: [devops,mobile,.net,java,javascript,go,php,python,ruby]
 description: "Customize your Gen3 Okta Sign-In Widget to match your brand. Learn to use design tokens, CSS, and JavaScript for a seamless user experience."
 tags: [javascript, html, css, sign-in-widget]
-image: 
+image: blog/custom-signin/social.jpg
 type: conversion
 github: https://github.com/oktadev/okta-js-siw-customzation-example/tree/main/custom-signin-blog-post
 ---
@@ -380,8 +380,8 @@ Your final code might look something like this:
             --font-header: 'Poiret One', sans-serif;
             --font-body: 'Inter Tight', sans-serif;
             --color-gray: #4f4f4f;
-            --color-fuchsia: #ff3fed;
-            --color-orange: #ffac2f;
+            --color-fuchsia: #ea3eda;
+            --color-orange: #ffa738;
             --color-azul: #016fb9;
             --color-cherry: #ea3e84;
             --color-purple: #b13fff;
