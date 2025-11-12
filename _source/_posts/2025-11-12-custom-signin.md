@@ -71,7 +71,7 @@ Navigate to **Theme**. You'll see a default brand page that looks something like
 
 Let's start making it more aligned with the theme we have in mind. Change the primary and secondary colors, then the logo and favicon images with your preferred options
 
-To change either color, click on the text field and enter the hex code for each. We're going for a bold and colorful approach, so we'll use `#ea3eda` as the primary color and `#ffa738` as the secondary color, and upload the logo and favicon images for the brand. Select **Save**..
+To change either color, click on the text field and enter the hex code for each. We're going for a bold and colorful approach, so we'll use `#ea3eda` as the primary color and `#ffa738` as the secondary color, and upload the logo and favicon images for the brand. Select **Save**.
 
 Take a look at your sign-in page now by navigating to the sign-in URL for the brand. With your configuration, the sign-in widget looks more interesting than the default view, but we can make things even more exciting. 
 
@@ -113,7 +113,7 @@ Let's take a closer look at how this code works. In the HTML, there's a designat
 
 To create the SIW, we need to pass in the configuration. The configuration includes properties like the theme elements and messages for labels. The method `renderEl()` identifies the HTML element to use for rendering the SIW. We're passing in `#okta-login-container` as the identifier.
 
-Note: "#okta-login-container" is a [CSS selector](https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_selectors). While any correct CSS selector works, we recommend you use the ID of the element. Element IDs must be unique within the HTML document, so this is the safest and easiest method.
+The `#okta-login-container` is a [CSS selector](https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_selectors). While any correct CSS selector works, we recommend you use the ID of the element. Element IDs must be unique within the HTML document, so this is the safest and easiest method.
 
 ## Customize the UI elements within the Okta Sign-in Widget
 
@@ -440,8 +440,6 @@ Your final code might look something like this:
     <script type="text/javascript" nonce="{{nonceValue}}">
         // "config" object contains default widget configuration
         // with any custom overrides defined in your admin settings.
-
-        const loginContainer = document.querySelector("#okta-login-container");
 
         const config = OktaUtil.getSignInWidgetConfig();
         config.theme = {
