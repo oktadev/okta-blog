@@ -6,8 +6,9 @@ by: contractor
 communities: [mobile]
 description: "Build native iOS authentication with Okta DirectAuth and push notifications. Secure, phishing-resistant MFA without browser redirects."
 tags: []
-image:
+image: blog/okta-ios-directauth/social.jpg
 type: conversion
+github: https://github.com/oktadev/okta-ios-swift-directauth-example
 ---
 
 Building secure and seamless sign-in experiences is a core challenge for today's iOS developers. Users expect authentication that feels instant, yet protects them with strong safeguards like multi-factor authentication (MFA). With Okta's DirectAuth and push notification support, you can achieve both–delivering native, phishing-resistant MFA flows without ever leaving your app.
@@ -21,7 +22,7 @@ In this post, we'll walk you through how to:
 
 Note: This guide assumes you're comfortable developing in Xcode using Swift and have basic familiarity with Okta's identity flows.
 
-If you want to skip the tutorial and run the project, you can [follow the instructions in the project's README](https://github.com/oktadev/okta-swift-mfa-redirect-example).  
+If you want to skip the tutorial and run the project, you can [follow the instructions in the project's README](https://github.com/oktadev/okta-ios-swift-directauth-example).  
 
 **Table of Contents**{: .hide }
 * Table of Contents
@@ -122,7 +123,7 @@ Follow these steps:
 
   1. Open your project in Xcode (or create a new one if needed)
   2. Go to **File** > **Add Package Dependencies**
-  3. In the search field at the top-right, enter: https://github.com/okta/okta-mobile-swift and press <kbd>Return</kbd>. Xcode will automatically fetch the available packages.
+  3. In the search field at the top-right, enter: `https://github.com/okta/okta-mobile-swift` and press <kbd>Return</kbd>. Xcode will automatically fetch the available packages.
   4. Select the **latest version** (recommended) or specify a compatible version with your setup
   5. When prompted to choose which products to add, ensure that you select your app target next to **OktaDirectAuth** and **AuthFoundation**
   6. Select **Add Package**
@@ -1310,7 +1311,7 @@ init() {
 ```
 ## Build your own secure native sign-in iOS app
 
-You've now built a fully native authentication flow on iOS using Okta DirectAuth with push notification MFA – no browser redirects required.
+You've now built a fully native authentication flow on iOS using Okta DirectAuth with push notification MFA – no browser redirects required. You can check your work against [the GitHub repo](https://github.com/oktadev/okta-ios-swift-directauth-example) for this project.
 
 Your app securely signs users in, handles multi-factor verification through Okta Verify, retrieves user profile details, displays token information, and refreshes tokens to maintain an active session.
 By combining `AuthFoundation` and `OktaDirectAuth`, you've implemented a modern, phishing-resistant authentication system that balances strong security with a seamless user experience – all directly within your SwiftUI app.
