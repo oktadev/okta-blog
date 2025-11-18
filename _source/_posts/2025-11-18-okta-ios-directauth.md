@@ -11,7 +11,7 @@ type: conversion
 github: https://github.com/oktadev/okta-ios-swift-directauth-example
 ---
 
-Building secure and seamless sign-in experiences is a core challenge for today's iOS developers. Users expect authentication that feels instant, yet protects them with strong safeguards like multi-factor authentication (MFA). With Okta's DirectAuth and push notification support, you can achieve both–delivering native, phishing-resistant MFA flows without ever leaving your app.
+Building secure and seamless sign-in experiences is a core challenge for today's iOS developers. Users expect authentication that feels instant, yet protects them with strong safeguards like multi-factor authentication (MFA). With Okta's DirectAuth and push notification support, you can achieve both – delivering native, phishing-resistant MFA flows without ever leaving your app.
 
 In this post, we'll walk you through how to:
   1. Set up your Okta developer account
