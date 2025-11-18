@@ -8,7 +8,7 @@ description: "Customize your Gen3 Okta Sign-In Widget to match your brand. Learn
 tags: [javascript, html, css, sign-in-widget]
 image: blog/custom-signin/social.jpg
 type: conversion
-github: https://github.com/oktadev/okta-js-siw-customzation-example/tree/main/custom-signin-blog-post
+github: https://github.com/oktadev/okta-js-siw-customization-example/tree/main/custom-signin-blog-post
 ---
 
 When you choose Okta as your IAM provider, one of the features you get access to is customizing your Okta-hosted Sign-In Widget (SIW), which is our recommended method for the highest levels of identity security. It's a customizable JavaScript component that provides a ready-made login interface you can use immediately as part of your web application. 
@@ -502,7 +502,7 @@ Your final code might look something like this:
 ```
 {% endraw %}
 
-You can also find the code in the [GitHub repository for this blog post](https://github.com/oktadev/okta-js-siw-customzation-example/tree/main/custom-signin-blog-post). With these code changes, you can connect this with an app to see how it works end-to-end. You'll need to update your Okta OpenID Connect (OIDC) application to work with the domain. In the Okta Admin Console, navigate to **Applications** > **Applications** and find the Okta application for your custom app. Navigate to the **Sign On** tab. You'll see a section for **OpenID Connect ID Token**. Select **Edit** and select **Custom URL** for your brand's sign-in URL as the **Issuer** value. 
+You can also find the code in the [GitHub repository for this blog post](https://github.com/oktadev/okta-js-siw-customization-example/tree/main/custom-signin-blog-post). With these code changes, you can connect this with an app to see how it works end-to-end. You'll need to update your Okta OpenID Connect (OIDC) application to work with the domain. In the Okta Admin Console, navigate to **Applications** > **Applications** and find the Okta application for your custom app. Navigate to the **Sign On** tab. You'll see a section for **OpenID Connect ID Token**. Select **Edit** and select **Custom URL** for your brand's sign-in URL as the **Issuer** value. 
 
 You'll use the issuer value, which matches your brand's custom URL, and the Okta application's client ID in your custom app's OIDC configuration. If you want to try this and don't have a pre-built app, you can use one of our samples, such as the [Okta React sample](https://github.com/okta-samples/okta-react-sample).
 
