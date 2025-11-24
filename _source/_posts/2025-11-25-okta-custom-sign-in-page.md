@@ -4,10 +4,11 @@ title: "Unlock the Secrets of a Custom Sign-in Page with Tailwind and JavaScript
 author: alisa-duncan
 by: advocate
 communities: [javascript]
-description: ""
-tags: []
-image:
+description: "Transform your Okta sign-in page! Learn to add Tailwind layouts and interactive elements with Alpine.js for a seamless, branded user experience."
+tags: [css, html, javascript, sign-in-widget, siw-customization ]
+image: blog/okta-custom-sign-in-page/social.jpg
 type: conversion
+github: https://github.com/oktadev/okta-js-siw-customization-example/tree/main/custom-signin-blog-post
 ---
 
 We recommend redirecting users to authenticate via the Okta-hosted sign-in page powered by the Okta Identity Engine (OIE) for your custom-built applications. It's the most secure method for authenticating. You don't have to manage credentials in your code and can take advantage of the strongest authentication factors without requiring any code changes. 
@@ -199,7 +200,7 @@ Navigate to the **Settings** tab for your brand's **Sign-in page**. Find the **C
 
 Select **Save to draft**, then **Publish** to view your changes. 
 
-The sign-in page looks more stylized than before. Let's use Tailwind CSS to add a responsive layout.
+The sign-in page looks more stylized than before. If you try resizing the browser window, we see it's not handling different form factors well. Let's use Tailwind CSS to add a responsive layout.
 
 ## Use Tailwind CSS to build a responsive layout
 
