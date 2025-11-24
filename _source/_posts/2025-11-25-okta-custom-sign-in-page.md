@@ -1,6 +1,6 @@
 ---
 layout: blog_post
-title: "Unlock the Secrets of a Custom Sign-in Page with Tailwind and JavaScript"
+title: "Unlock the Secrets of a Custom Sign-In Page with Tailwind and JavaScript"
 author: alisa-duncan
 by: advocate
 communities: [javascript]
