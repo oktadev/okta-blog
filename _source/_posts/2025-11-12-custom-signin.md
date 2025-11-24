@@ -5,7 +5,7 @@ author: [emmanuel-folaranmi, alisa-duncan]
 by: advocate
 communities: [devops,mobile,.net,java,javascript,go,php,python,ruby]
 description: "Customize your Gen3 Okta Sign-In Widget to match your brand. Learn to use design tokens, CSS, and JavaScript for a seamless user experience."
-tags: [javascript, html, css, sign-in-widget]
+tags: [javascript, html, css, sign-in-widget, siw-customization]
 image: blog/custom-signin/social.jpg
 type: conversion
 github: https://github.com/oktadev/okta-js-siw-customization-example/tree/main/custom-signin-blog-post
