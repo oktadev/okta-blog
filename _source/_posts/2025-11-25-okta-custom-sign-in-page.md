@@ -225,7 +225,7 @@ Loading external resources, like styles and scripts, requires a CSP nonce to mit
 >
 > Don't use Tailwind from NPM CDN for production use cases. The Tailwind documentation notes this is for experimentation and prototyping only, as the CDN has rate limits. If your brand uses Tailwind for other production sites, you've most likely defined custom mixins and themes in Tailwind. Therefore, reference your production Tailwind resources in place of the CDN we're using in this post.
 
-Remove the styles for `#okta-login-container` from the `<style></style>` section. We can use Tailwind to handle it. The `<style></style>` section should only contain the CSS custom properties defined in `:root`.
+Remove the styles for `#okta-auth-container` and `#okta-login-container` from the `<style></style>` section. We can use Tailwind to handle it. The `<style></style>` section should only contain the CSS custom properties defined in `:root` and the directive to use SIW Gen3.
 
 Add the styles for Tailwind. We'll add the classes to show the login container without the hero image in smaller form factors, then display the hero image with different widths depending on the breakpoints.
 
