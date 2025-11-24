@@ -265,7 +265,7 @@ Feel free to save and publish to check it out!
 
 ## Add custom interactivity on the Okta-hosted sign-in page using an external library
 
-Tailwind is great at styling HTML elements, but it's not a JavaScript library. If we want interactive elements on the sign-in page, we must rely on web APIs or libraries to assist us. Let's say we want to ensure that users who sign in to the to-do app agree to the terms and conditions. We want a modal that blocks interaction with the SIW until the user agrees. 
+Tailwind is great at styling HTML elements, but it's not a JavaScript library. If we want interactive elements on the sign-in page, we must rely on Web APIs or libraries to assist us. Let's say we want to ensure that users who sign in to the to-do app agree to the terms and conditions. We want a modal that blocks interaction with the SIW until the user agrees. 
 
 We'll use Alpine for the heavy lifting because it's a lightweight JavaScript library that suits this need. We add the library via the NPM CDN, as we have already allowed the domain in our CSP. Add the following to the `<head></head>` section of the HTML. I added mine directly after the Tailwind script.
 
@@ -347,7 +347,7 @@ We made the modal fixed even if the user presses <kbd>Esc</kbd> or selects the s
 
 ## Customize Okta-hosted sign-in page behavior using Web APIs
 
-We display the modal as soon as the webpage loads. It works, but we can also display the modal after the Sign-In Widget renders. Doing so allows us to use the nice enter and leave CSS transitions Alpine supports. We want to watch for changes to the DOM within the `<div id="okta-login-container"></div>`. This is the parent container that renders the SIW. We can use the [`MutationObserver` WebAPI](https://developer.mozilla.org/en-US/docs/Web/API/MutationObserver) and watch for DOM mutations within the `div`.
+We display the modal as soon as the webpage loads. It works, but we can also display the modal after the Sign-In Widget renders. Doing so allows us to use the nice enter and leave CSS transitions Alpine supports. We want to watch for changes to the DOM within the `<div id="okta-login-container"></div>`. This is the parent container that renders the SIW. We can use the [`MutationObserver` Web API](https://developer.mozilla.org/en-US/docs/Web/API/MutationObserver) and watch for DOM mutations within the `div`.
 
 In the `<script></script>` section, after the event listener for `alpine:init`, add the following code:
 
