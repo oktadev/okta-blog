@@ -65,7 +65,9 @@ On to the code. In the **Theme** tab:
 2. Select the **Customize** button
 3. On the **Page Design** tab, select the **Code editor**  toggle to see a HTML page
 
-> Note: You can only enable the code editor if you configure a [custom domain](https://developer.okta.com/docs/guides/custom-url-domain/).
+> **Note**
+> 
+> You can only enable the code editor if you configure a [custom domain](https://developer.okta.com/docs/guides/custom-url-domain/).
 
 You'll see the lightweight IDE already has code scaffolded. Press **Edit** and replace the existing code with the following.
 
@@ -211,9 +213,11 @@ https://cdn.jsdelivr.net
 
 Navigate to **Page Design**, then **Edit** the page. Add the script to load the Tailwind resources in the `<head>`. I added it after the `<style></style>` definitions before the `</head>`.
 
+{% raw %}
 ```html
 <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4" nonce="{{nonceValue}}"></script>
 ```
+{% endraw %}
 
 Loading external resources, like styles and scripts, requires a CSP nonce to mitigate cross-site scripting (XSS). You can read more about the CSP nonce on the [CSP Quick Reference Guide](https://content-security-policy.com/nonce/).
 
@@ -227,11 +231,13 @@ Add the styles for Tailwind. We'll add the classes to show the login container w
 
 The two `div` containers look like this:
 
+{% raw %}
 ```html
 <div id="okta-auth-container" class="h-screen flex bg-(--color-gray) bg-[{{bgImageUrl}}]">
   <div id="okta-login-container" class="w-full min-w-sm lg:w-2/3 xl:w-1/2 bg-(image:--color-gradient) lg:bg-none bg-(--color-white) flex justify-center items-center"></div>
 </div>
 ```
+{% endraw %}
 
 Save the file and publish the changes. Feel free to test it out!
 
@@ -241,6 +247,7 @@ Tailwind excels at adding styled HTML elements to websites. We can also take adv
 
 We want a footer pinned to the bottom of the view, so we'll need a new parent container with vertical stacking and ensure the height of the footer stays consistent. Replace the HTML node structure to look like this:
 
+{% raw %}
 ```html
 <div class="flex flex-col min-h-screen">        
   <div id="okta-auth-container" class="flex grow bg-(--color-gray) bg-[{{bgImageUrl}}]">
@@ -258,6 +265,7 @@ We want a footer pinned to the bottom of the view, so we'll need a new parent co
   </footer>
 </div>
 ```
+{% endraw %}
 
 Everything redirects to the Okta Developer sites. 😊 I also maintained the style of font, text colors, and text decoration styles to match the SIW elements. CSS custom properties make consistency manageable.
 
@@ -269,12 +277,19 @@ Tailwind is great at styling HTML elements, but it's not a JavaScript library. I
 
 We'll use Alpine for the heavy lifting because it's a lightweight JavaScript library that suits this need. We add the library via the NPM CDN, as we have already allowed the domain in our CSP. Add the following to the `<head></head>` section of the HTML. I added mine directly after the Tailwind script.
 
+{% raw %}
 ```html
 <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js" nonce="{{nonceValue}}"></script>
 ```
+{% endraw %}
+
+> **Note**
+> 
+> We're including Alpine from the NPM CDN for demonstration and experimentation. For production applications, use a CDN that supports production scale. The NPM CDN applies rate limiting to prevent production-grade use.
 
 Next, we add the HTML tags to support the modal. Replace the HTML node structure to look like this:
 
+{% raw %}
 ```html
 <div class="flex flex-col min-h-screen">
   <div id="modal"
@@ -318,6 +333,7 @@ Next, we add the HTML tags to support the modal. Replace the HTML node structure
   </footer>
 </div>
 ```
+{% endraw %}
 
 It's a lot to add, but I want the smooth transition animations. 😅 The built-in enter and leave states make adding the transition animation so much easier than doing it manually.
 
@@ -372,7 +388,7 @@ mutationObserver.observe(loginContainer, {
 });
 ```
 
-Let's walk through what the code does. First, we're creating a variable to reference the parent container for the SIW, as we'll use it as the root element to target our work. Mutation observers can negatively impact performance, so it is essential to limit the scope of the observer as much as possible.
+Let's walk through what the code does. First, we're creating a variable to reference the parent container for the SIW, as we'll use it as the root element to target our work. Mutation observers can negatively impact performance, so it's essential to limit the scope of the observer as much as possible.
 
 **Create the observer**
 
