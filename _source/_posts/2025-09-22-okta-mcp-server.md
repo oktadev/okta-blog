@@ -48,10 +48,6 @@ Using the above operations as a base, complex real-life actions can also be perf
 * **More Secure Credential Handling**: Your authentication details are managed through scoped API access and environment variables, keeping secrets out of code. Tokens are issued only with the permissions you explicitly grant, following least-privilege best practices.  
 * **Seamless Integration with Okta APIs**: Built on Okta's official SDK, the server is tightly integrated with Okta's Admin Management APIs. That means reliable performance, support for a wide range of identity management tasks, and an extensible foundation for adding more endpoints over time.
 
-**Watch the Okta MCP Server demo video below:**
-
-{% youtube T4qdPtLnxhQ %}
-
 ## Getting started with the Okta MCP Server
 
 Now that you know what the Okta MCP server is and why it's useful, let's dive into how to set it up and run it. Before you proceed, you will need VS Code, Python environment (Python 3.9 or above), and uv.
