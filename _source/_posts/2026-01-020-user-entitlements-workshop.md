@@ -24,7 +24,7 @@ Managing users across domains is critical to making B2B apps enterprise-scalable
     <td style="font-size: 3rem;">️ℹ️</td>
     <td markdown="span">
       **Note** <br/>
-    This post requires Okta Identity Governance (OIG) features in your Okta org. Use your provisioned Okta org with OIG SKU added to the account. Reach out to support if you're unsure whether your Okta org has OIG capabilities.
+    This post requires Okta Identity Governance (OIG) features in your Okta org. [Sign up for a new Integrator Free plan](https://developer.okta.com/signup/) to continue.
     </td>
 </tr>
 </table>
@@ -1006,9 +1006,9 @@ Since we last ran our user import with hardcoded roles, let's ensure we've synch
 
 Within the SCIM application tab, navigate to **Import** and press the **Import Now** button. Okta scans the users in the todo app, but since there are no new users, there's no confirmation process. The user scan synced the existing users and the roles! 
 
-Navigate to **Assignments**. Each user has a vertical 3-dot menu icon to display a context menu allowing you to **Edit user assignment**, **View entitlements**, and **Unassign**. Find "Trinity" and **View entitlements** on them. A panel shows you Trinity's role pre-assigned in the Todo app. 🎉 Exit the side panel by clicking outside the side panel.
+Navigate to **Assignments**. Each user has a vertical 3-dot menu icon to display a context menu allowing you to **Edit user assignment**, **View access details **, and **Unassign**. Find "Trinity" and **View access details ** on them. A panel shows you Trinity's role pre-assigned in the Todo app. 🎉 Exit the side panel by clicking outside the side panel.
 
-Let's assign a new role to "Somnus" using Okta.  Open the context menu for "Somnus" and **View entitlements**. Press the **Edit** button. You'll see a page titled **Edit entitlements**. Press the **Customize entitlements** button. You'll see a warning followed by a section called **Custom Entitlements**.
+Let's assign a new role to "Somnus" using Okta.  Open the context menu for "Somnus" and **View access details**. Press the **Edit access** button. You'll see a page titled **Edit access**. Press the **Customize entitlements** button. You'll see a warning followed by a section called **Custom Entitlements**.
 
 You'll see **Role** and a dropdown list with values. Select a role, such as "Todo-er," and press **Save** to add the role to the user. 
 
