@@ -22,7 +22,7 @@ Throughout the day, the theme stood out clearly: identity now sits at the inters
 
 Identity was discussed as foundational infrastructure, spanning users, applications, APIs, services, and AI agents. The conversations focused on how identity decisions ripple across systems as they become more interconnected, and why those decisions matter long after the first sign-in.
 
-The sessions balanced identity fundamentals with how teams are applying them today. Core identity standards and practices were discussed as the foundation for building secure, interoperable systems that scale. From there, the conversations expanded into modern use cases across Okta’s platform, including identity for AI-driven systems using the Okta MCP Server, Cross App Access, secure integrations through the Okta Integration Network, automation with Okta Workflows, lifecycle management, and emerging capabilities such as Verifiable Digital Credentials.
+The sessions balanced identity fundamentals with how teams are applying them today. Core identity standards and practices were discussed as the foundation for building secure, interoperable systems that scale. From there, the conversations expanded into modern use cases across Okta's platform, including identity for AI-driven systems using the Okta MCP Server, Cross App Access, secure integrations through the Okta Integration Network, automation with Okta Workflows, lifecycle management, and emerging capabilities such as Verifiable Digital Credentials.
 
 {% img blog/okta-developer-connect-recap/image-1.jpeg alt:"speakers" width:"1000" %}{: .center-image }
 
@@ -36,7 +36,7 @@ Okta Developer Connect Bengaluru marked the beginning of an ongoing series focus
 
 As identity continues to sit at the intersection of security, system architecture, and AI-driven automation, these conversations will only become more important.
 
-We’re excited to continue building this forum with the developer community, grounded in standards, informed by real-world systems, and focused on designing identity that scales with what comes next.
+We're excited to continue building this forum with the developer community, grounded in standards, informed by real-world systems, and focused on designing identity that scales with what comes next.
 
 
 Stay tuned for upcoming Okta Developer Connect events, and follow OktaDev on [LinkedIn](https://www.linkedin.com/company/oktadev) and [Twitter](https://twitter.com/oktadev) for the latest updates.
