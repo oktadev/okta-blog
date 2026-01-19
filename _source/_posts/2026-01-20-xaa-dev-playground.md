@@ -88,8 +88,8 @@ See the other side of the transaction. Watch how a resource server validates the
 ### Identity Provider
 We've built a simulated IdP with pre-configured test users. Log in, see how ID-JAGs are minted, and inspect the cryptographic claims that make XAA secure.
 
-### Token Debugger
-Decode and inspect JWTs in real-time. See exactly what's inside your ID tokens, ID-JAGs, and access tokens – no need for external tools like jwt.io.
+### Resource MCP Server
+Connect your AI agents using the Model Context Protocol (MCP). The playground provides a ready-to-use MCP server that acts as a resource application – letting you test how AI agents can securely access protected resources through the Cross App Access flow.
 
 ### Bring your own Requesting App
 The built-in Requesting App is great for learning, but the real power comes when you test with your own application. [Register a client](https://xaa.dev/developer/register) on the playground, grab the configuration, and integrate it into your local app. This lets you validate your XAA implementation against a working IdP and Resource App – without spinning up your own infrastructure. The [playground documentation](https://xaa.dev/docs) walks you through the setup step-by-step.
