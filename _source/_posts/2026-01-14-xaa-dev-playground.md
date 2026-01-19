@@ -10,7 +10,7 @@ tweets:
 - "Curious about Cross App Access (XAA)? Try xaa.dev – a free playground to explore secure app-to-app authentication for enterprise AI agents."
 - "No local setup. No infrastructure. Just xaa.dev – the fastest way to understand Cross App Access and ID-JAG tokens."
 - "Building AI agents that need enterprise app access? Learn how XAA works at xaa.dev – our new interactive playground."
-image:
+image: blog/xaa-dev-playground/social.jpg
 type: awareness
 ---
 
@@ -24,9 +24,13 @@ This is the problem **Cross App Access (XAA)** is designed to solve.
 
 Today, we're introducing **[xaa.dev](https://xaa.dev)** – a free, open playground that lets you explore Cross App Access end-to-end. **No local setup. No infrastructure to provision.** Just a working environment where you can see the protocol in action.
 
+{% img blog/xaa-dev-playground/xaa-dev-homepage.jpg alt:"xaa.dev playground homepage showing the Cross App Access flow" width:"800" %}{: .center-image }
+
+> **Note:** xaa.dev is currently in beta. We're actively developing new features for the next release – your feedback helps shape what comes next.
+
 ## What is Cross App Access?
 
-Cross App Access refers to a typical enterprise pattern: one **application accesses another application's resources on behalf of a user.**
+Cross App Access refers to a typical enterprise pattern: **one application accesses another application's resources on behalf of a user.**
 
 For example:
 
@@ -52,44 +56,89 @@ The result:
 
 For a deeper dive into why this matters for enterprise AI, read [Integrate Your Enterprise AI Tools with Cross App Access](/blog/2025/06/23/enterprise-ai).
 
-## Why we built xaa.dev
+## The problem: testing XAA is hard
 
-XAA is built on an emerging OAuth extension called the [Identity Assertion JWT Authorization Grant](https://datatracker.ietf.org/doc/html/draft-ietf-oauth-identity-assertion-authz-grant). It's powerful, but it's also new – and new protocols need experimentation.
+XAA is built on an emerging OAuth extension called the [Identity Assertion JWT Authorization Grant](https://datatracker.ietf.org/doc/html/draft-ietf-oauth-identity-assertion-authz-grant) – an IETF draft that Okta has been actively contributing to. It's powerful, but it's also new – and new protocols need experimentation.
 
-The problem? To test XAA locally, you'd need to spin up:
+Here's the challenge: to test XAA locally, you'd need to spin up:
 
 - An Identity Provider (IdP)
 - An Authorization Server for the resource application
 - The resource API itself
 - A requesting application (the agent or client app)
 
-That's a lot of moving pieces just to better understand the token flow.
+That's hours (or days) of configuration before you can even see a single token exchange. Most developers give up before getting to the interesting part.
 
-xaa.dev eliminates that friction. We pre-configured all the components so you can focus on understanding the flow, not debugging dev environments. **It's free, it's open, and you can start testing in seconds.**
+**xaa.dev changes that.**
+
+We pre-configured all the components so you can focus on understanding the flow, not debugging dev environments. Go from zero to a working XAA token exchange in under 60 seconds.
+
+**[Try xaa.dev now](https://xaa.dev)** – it's free and requires no signup.
 
 ## What you can do on xaa.dev
 
-The playground lets you explore every role in the Cross App Access flow:
+The playground gives you hands-on access to every role in the Cross App Access flow:
 
-- **Requesting App** – Step into the shoes of an AI agent or client application. Authenticate a user, obtain an ID-JAG, and exchange it for an access token.
-- **Resource App** – See the other side. Watch how a resource server validates the identity assertion and issues scoped access tokens.
-- **Identity Provider** – We've built a simulated IdP with pre-configured test users. Log in, see how tokens are minted, and inspect the claims.
-- **Token Debugger** – Decode and inspect JWTs in real-time. See exactly what's in your ID tokens, ID-JAGs, and access tokens.
+### Requesting App
+Step into the shoes of an AI agent or client application. Authenticate a user, request an ID-JAG from the IdP, and exchange it for an access token at the resource server.
+
+### Resource App
+See the other side of the transaction. Watch how a resource server validates the identity assertion, verifies the trust relationship, and issues scoped access tokens.
+
+### Identity Provider
+We've built a simulated IdP with pre-configured test users. Log in, see how ID-JAGs are minted, and inspect the cryptographic claims that make XAA secure.
+
+### Token Debugger
+Decode and inspect JWTs in real-time. See exactly what's inside your ID tokens, ID-JAGs, and access tokens – no need for external tools like jwt.io.
+
+### Bring your own Requesting App
+The built-in Requesting App is great for learning, but the real power comes when you test with your own application. [Register a client](https://xaa.dev/developer/register) on the playground, grab the configuration, and integrate it into your local app. This lets you validate your XAA implementation against a working IdP and Resource App – without spinning up your own infrastructure. The [playground documentation](https://xaa.dev/docs) walks you through the setup step-by-step.
+
+## How to get started
+
+Getting started with xaa.dev takes less than a minute:
+
+**Step 1: Open the playground**
+
+Visit [xaa.dev](https://xaa.dev) – no account required.
+
+**Step 2: Choose your role**
+
+Select whether you want to explore as the Requesting App, Resource App, or Identity Provider.
+
+**Step 3: Follow the guided flow**
+
+Each role walks you through the token exchange step-by-step. Watch the requests, inspect the responses, and see exactly how XAA works under the hood.
+
+That's it. No Docker containers, no environment variables, no CORS headaches.
+
+// TODO - Video of quickstart demo
+ 
+
+## Why we built this
+
+XAA is built on an emerging IETF specification – the Identity Assertion JWT Authorization Grant. As enterprise AI adoption accelerates, there's a clear need: developers want to understand XAA, but the barrier to entry is too high.
+
+xaa.dev is the answer. It helps you:
+
+- **Learn faster** – See the protocol in action before writing any code
+- **Build confidently** – Understand exactly what tokens to expect and validate
+- **Experiment safely** – Test edge cases without affecting production systems
 
 ## Try it now
 
-XAA is how enterprise applications will securely connect in an AI-first world. Whether you're building agents, integrating SaaS tools, or just curious about modern OAuth patterns, [xaa.dev](https://xaa.dev) gives you a risk-free environment to learn.
+XAA is how enterprise applications will securely connect in an AI-first world. Whether you're building agents, integrating SaaS tools, or just curious about modern OAuth patterns, xaa.dev gives you a risk-free environment to learn.
 
 **[Go to xaa.dev](https://xaa.dev)**
 
-Have feedback or ideas? We'd love to hear from you. xaa.dev is built by the Okta Developer Advocacy team, and we're actively improving it based on developer input.
+## Learn more
 
-## Learn more about Cross App Access
+Ready to go deeper? Check out these resources:
 
-If you want to dive deeper into Cross App Access, check out these resources:
+- [Integrate Your Enterprise AI Tools with Cross App Access](/blog/2025/06/23/enterprise-ai) – Why XAA matters for enterprise AI
+- [Build Secure Agent-to-App Connections with Cross App Access](/blog/2025/09/03/cross-app-access) – Hands-on implementation guide
+- [Identity Assertion JWT Authorization Grant (IETF Draft)](https://datatracker.ietf.org/doc/html/draft-ietf-oauth-identity-assertion-authz-grant) – The specification behind XAA
 
-- [Integrate Your Enterprise AI Tools with Cross App Access](/blog/2025/06/23/enterprise-ai)
-- [Build Secure Agent-to-App Connections with Cross App Access](/blog/2025/09/03/cross-app-access)
-- [Identity Assertion JWT Authorization Grant (IETF Draft)](https://datatracker.ietf.org/doc/html/draft-ietf-oauth-identity-assertion-authz-grant)
+Have questions or feedback? Reach out to us on [Twitter](https://twitter.com/oktadev), join the conversation on the [Okta Developer Forums](https://devforum.okta.com/), or drop a comment below. We're actively improving xaa.dev based on developer input – your feedback shapes what we build next.
 
-Follow us on [Twitter](https://twitter.com/oktadev) and subscribe to our [YouTube channel](https://youtube.com/oktadev) for more content on identity, security, and building with Okta. If you have questions, leave a comment below or visit the [Okta Developer Forums](https://devforum.okta.com/).
+Follow us on [Twitter](https://twitter.com/oktadev) and subscribe to our [YouTube channel](https://youtube.com/oktadev) for more content on identity, security, and building with Okta.
