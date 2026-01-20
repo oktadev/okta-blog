@@ -18,7 +18,7 @@ AI agents are quickly becoming part of everyday enterprise development. They sum
 
 But once an AI agent needs to access an enterprise application *on behalf of a user*, things get complicated.
 
-How do you securely let an AI-powered app act for a user – without exposing credentials, spamming consent prompts, or losing administrative control?
+How do you securely let an AI-powered app act for a user without exposing credentials, spamming consent prompts, or losing administrative control?
 
 This is the problem **Cross App Access (XAA)** is designed to solve.
 
