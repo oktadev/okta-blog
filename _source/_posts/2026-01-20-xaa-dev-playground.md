@@ -46,7 +46,7 @@ Traditionally, OAuth consent flows handle this. That approach works well for con
 
 Cross App Access shifts responsibility from end users to the enterprise identity layer.
 
-Instead of prompting users for consent, the **Identity Provider (IdP)** issues a signed identity assertion – called an **ID-JAG (Identity JWT Authorization Grant)**. This assertion cryptographically represents the user and the requesting application. Resource applications trust the IdP's assertion and issue access accordingly.
+Instead of prompting users for consent, the **Identity Provider (IdP)** issues a signed identity assertion called an **ID-JAG (Identity JWT Authorization Grant)**. This assertion cryptographically represents the user and the requesting application. Resource applications trust the IdP's assertion and issue access accordingly.
 
 The result:
 
