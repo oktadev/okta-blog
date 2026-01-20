@@ -114,7 +114,7 @@ The playground has three components (Requesting App, Resource App, and Identity 
 
 Walk through the four steps of the XAA flow: User Authentication (SSO), Token Exchange, Access Token Request, and Access Resource. Inspect the requests and responses at each step to see exactly how XAA works under the hood.
 
-That's it. No Docker containers, no environment variables, no CORS headaches.
+That's it. No local tools installations, Docker containers, environment variables, or CORS headaches.
 
 Watch this walkthrough video of the playground if you'd like a guided tour:
 
