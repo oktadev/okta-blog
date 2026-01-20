@@ -52,7 +52,7 @@ Instead of prompting users for consent, the **Identity Provider (IdP)** issues a
 
 The result:
 
-- No interactive consent screens
+- No interactive consent screens making application access seamless for employees
 - Clear, auditable trust boundaries
 - Complete administrative control over app-to-app access
 
