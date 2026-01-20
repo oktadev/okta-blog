@@ -119,7 +119,7 @@ Watch this walkthrough video of the playground if you'd like a guided tour:
 {% youtube WjQXgvlC9RA %}
  
 
-## Why we built this
+## Why we built a testing site for cross app access
 
 XAA is built on an emerging IETF specification – the Identity Assertion JWT Authorization Grant. As enterprise AI adoption accelerates, there's a clear need: developers want to understand XAA, but the barrier to entry is too high.
 
