@@ -92,7 +92,7 @@ We've built a simulated IdP with pre-configured test users. Log in, see how ID-J
 Connect your AI agents using the Model Context Protocol (MCP). The playground provides a ready-to-use MCP server that acts as a resource application – letting you test how AI agents can securely access protected resources through the Cross App Access flow.
 
 ### Bring your own Requesting App
-The built-in Requesting App is great for learning, but the real power comes when you test with your own application. [Register a client](https://xaa.dev/developer/register) on the playground, grab the configuration, and integrate it into your local app. This lets you validate your XAA implementation against a working IdP and Resource App – without spinning up your own infrastructure. The [playground documentation](https://xaa.dev/docs) walks you through the setup step-by-step.
+The built-in Requesting App is great for learning, but the real power comes when you test with your own application – whether it's a traditional app or an MCP client. [Register a client](https://xaa.dev/developer/register) on the playground, grab the configuration, and integrate it into your local app. This lets you validate your XAA implementation against a working IdP and Resource App – without spinning up your own infrastructure. The [playground documentation](https://xaa.dev/docs) walks you through the setup step-by-step.
 
 ## How to get started
 
@@ -102,15 +102,17 @@ Getting started with xaa.dev takes less than a minute:
 
 Visit [xaa.dev](https://xaa.dev) – no account required.
 
-**Step 2: Choose your role**
+**Step 2: Explore the components**
 
-Select whether you want to explore as the Requesting App, Resource App, or Identity Provider.
+The playground has three components – Requesting App, Resource App, and Identity Provider – each with its own URL. Visit any component to see its configuration and understand how it participates in the XAA flow.
 
 **Step 3: Follow the guided flow**
 
-Each role walks you through the token exchange step-by-step. Watch the requests, inspect the responses, and see exactly how XAA works under the hood.
+Walk through the four steps of the XAA flow: User Authentication (SSO), Token Exchange, Access Token Request, and Access Resource. Inspect the requests and responses at each step to see exactly how XAA works under the hood.
 
 That's it. No Docker containers, no environment variables, no CORS headaches.
+
+Watch this walkthrough video of the playground if you'd like a guided tour:
 
 {% youtube WjQXgvlC9RA %}
  
