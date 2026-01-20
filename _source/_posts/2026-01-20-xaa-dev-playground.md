@@ -25,6 +25,11 @@ Today, we're introducing **[xaa.dev](https://xaa.dev)**, a free, open playground
 
 > **Note:** xaa.dev is currently in beta. We're actively developing new features for the next release, and your feedback helps shape what comes next.
 
+**Table of Contents**{: .hide }
+
+* Table of Contents
+{:toc}
+
 ## What is Cross App Access?
 
 Cross App Access refers to a typical enterprise pattern: **one application accesses another application's resources on behalf of a user.**
