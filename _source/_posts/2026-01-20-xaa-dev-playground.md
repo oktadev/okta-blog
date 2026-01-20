@@ -139,7 +139,7 @@ XAA is how enterprise applications will securely connect in an AI-first world. W
 
 Ready to go deeper? Check out these resources:
 
-- [Checkout Cross App Access Intergraing in Okta ](https://www.okta.com/integrations/cross-app-access/) – Why XAA matters for enterprise AI
+- [Checkout Cross App Access Integration in Okta ](https://www.okta.com/integrations/cross-app-access/) – Securing AI-driven access together
 - [Build Secure Agent-to-App Connections with Cross App Access](/blog/2025/09/03/cross-app-access) – Hands-on implementation guide
 - [Identity Assertion JWT Authorization Grant (IETF Draft)](https://datatracker.ietf.org/doc/html/draft-ietf-oauth-identity-assertion-authz-grant) – The specification behind XAA
 
