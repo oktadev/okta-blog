@@ -131,7 +131,7 @@ xaa.dev lowers the barrier. It helps you:
 
 ## Inspect the XAA flow
 
-XAA is how enterprise applications will securely connect in an AI-first world. Whether you're building agents, integrating SaaS tools, or just curious about modern OAuth patterns, xaa.dev gives you a risk-free environment to learn.
+XAA is how enterprise applications will securely connect in an AI-first world. Whether you're building agents, integrating SaaS tools, or just curious about modern OAuth patterns, [xaa.dev](https://xaa.dev) gives you a risk-free environment to learn. Check it out and let us know how it works for you!
 
 
 ## Learn more
