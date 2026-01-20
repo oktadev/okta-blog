@@ -42,7 +42,7 @@ For example:
 
 Traditionally, OAuth consent flows handle this. That approach works well for consumer-based apps, but it creates friction in enterprise environments where organizations require workforce oversight:
 
-- Applications are centrally managed
+- Applications and their access levels are centrally managed
 - IT teams need visibility into trust relationships
 - Access must be revocable without user involvement
 
