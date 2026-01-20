@@ -40,7 +40,7 @@ For example:
 - A workflow engine booking meetings through a calendar API
 - An agent querying internal data sources to complete a task
 
-Traditionally, OAuth consent flows handle this. That approach works well for consumer apps, but it creates friction in enterprise environments where:
+Traditionally, OAuth consent flows handle this. That approach works well for consumer-based apps, but it creates friction in enterprise environments where organizations require workforce oversight:
 
 - Applications are centrally managed
 - IT teams need visibility into trust relationships
