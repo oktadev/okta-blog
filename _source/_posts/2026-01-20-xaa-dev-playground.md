@@ -57,7 +57,7 @@ For a deeper dive into why this matters for enterprise AI, read more about Cross
 
 ## The problem: testing XAA is hard
 
-XAA is built on an emerging OAuth extension called the [Identity Assertion JWT Authorization Grant](https://datatracker.ietf.org/doc/html/draft-ietf-oauth-identity-assertion-authz-grant), an IETF draft that Okta along with public and industry contributors, has been actively contributing to. It's powerful, but it's also new, and new protocols need experimentation.
+XAA is built on an emerging OAuth extension called the [Identity Assertion JWT Authorization Grant](https://datatracker.ietf.org/doc/html/draft-ietf-oauth-identity-assertion-authz-grant) – an IETF draft that Okta, along with public and industry contributors, has been actively contributing to. It's powerful, but it's also new, and new protocols need experimentation.
 
 Here's the challenge: to test XAA locally, you'd need to spin up:
 
