@@ -129,7 +129,7 @@ xaa.dev lowers the barrier. It helps you:
 - **Build confidently** – Understand exactly what tokens to expect and validate
 - **Experiment safely** – Test edge cases without affecting production systems
 
-## Try it now
+## Inspect the XAA flow
 
 XAA is how enterprise applications will securely connect in an AI-first world. Whether you're building agents, integrating SaaS tools, or just curious about modern OAuth patterns, xaa.dev gives you a risk-free environment to learn.
 
