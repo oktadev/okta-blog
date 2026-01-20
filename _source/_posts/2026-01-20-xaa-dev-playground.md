@@ -3,7 +3,7 @@ layout: blog_post
 title: "Introducing xaa.dev: A Playground for Cross App Access"
 author: sohail-pathan
 by: advocate
-communities: [javascript,security,python,dotnet,java,go]
+communities: [javascript,security,python,.net,java,go]
 description: "Explore Cross App Access end-to-end with xaa.dev, a free, open playground that lets you test the XAA protocol without any local setup or infrastructure."
 tags: [xaa, cross-app-access, enterprise-ai, agentic-ai, oauth]
 tweets:
