@@ -3,9 +3,9 @@ layout: blog_post
 title: "Build Secure Agent-to-App Connections with Cross App Access (XAA)"
 author: sohail-pathan
 by: advocate
-communities: [javascript]
+communities: [javascript,security]
 description: "Learn how to unlock enterprise AI security by connecting agents to applications using Cross App Access (XAA) in this comprehensive guide."
-tags: [xaa, cross-app-access, enterprise-ai, agentic-ai, mcp, oauth, sso]
+tags: [xaa, cross-app-access, enterprise-ai, agentic-ai, mcp, oauth, sso, security]
 tweets:
 - ""
 - ""

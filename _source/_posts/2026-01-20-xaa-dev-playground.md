@@ -3,13 +3,10 @@ layout: blog_post
 title: "Introducing xaa.dev: A Playground for Cross App Access"
 author: sohail-pathan
 by: advocate
-communities: [javascript,security]
-description: "Explore Cross App Access end-to-end with xaa.dev – a free, open playground that lets you test the XAA protocol without any local setup or infrastructure."
+communities: [javascript,security,python,dotnet,java,go]
+description: "Explore Cross App Access end-to-end with xaa.dev, a free, open playground that lets you test the XAA protocol without any local setup or infrastructure."
 tags: [xaa, cross-app-access, enterprise-ai, agentic-ai, oauth]
 tweets:
-- "Curious about Cross App Access (XAA)? Try xaa.dev – a free playground to explore secure app-to-app authentication for enterprise AI agents."
-- "No local setup. No infrastructure. Just xaa.dev – the fastest way to understand Cross App Access and ID-JAG tokens."
-- "Building AI agents that need enterprise app access? Learn how XAA works at xaa.dev – our new interactive playground."
 image: blog/xaa-dev-playground/social.jpg
 type: awareness
 ---
@@ -22,11 +19,11 @@ How do you securely let an AI-powered app act for a user without exposing creden
 
 This is the problem **Cross App Access (XAA)** is designed to solve.
 
-Today, we're introducing **[xaa.dev](https://xaa.dev)** – a free, open playground that lets you explore Cross App Access end-to-end. **No local setup. No infrastructure to provision.** Just a working environment where you can see the protocol in action.
+Today, we're introducing **[xaa.dev](https://xaa.dev)**, a free, open playground that lets you explore Cross App Access end-to-end. **No local setup. No infrastructure to provision.** Just a working environment where you can see the protocol in action.
 
 {% img blog/xaa-dev-playground/xaa-dev-homepage.jpg alt:"xaa.dev playground homepage showing the Cross App Access flow" width:"800" %}{: .center-image }
 
-> **Note:** xaa.dev is currently in beta. We're actively developing new features for the next release – your feedback helps shape what comes next.
+> **Note:** xaa.dev is currently in beta. We're actively developing new features for the next release, and your feedback helps shape what comes next.
 
 ## What is Cross App Access?
 
@@ -60,7 +57,7 @@ For a deeper dive into why this matters for enterprise AI, read more about Cross
 
 ## The problem: testing XAA is hard
 
-XAA is built on an emerging OAuth extension called the [Identity Assertion JWT Authorization Grant](https://datatracker.ietf.org/doc/html/draft-ietf-oauth-identity-assertion-authz-grant) – an IETF draft that Okta has been actively contributing to. It's powerful, but it's also new – and new protocols need experimentation.
+XAA is built on an emerging OAuth extension called the [Identity Assertion JWT Authorization Grant](https://datatracker.ietf.org/doc/html/draft-ietf-oauth-identity-assertion-authz-grant), an IETF draft that Okta along with public and industry contributors, has been actively contributing to. It's powerful, but it's also new, and new protocols need experimentation.
 
 Here's the challenge: to test XAA locally, you'd need to spin up:
 
@@ -75,7 +72,7 @@ That's hours (or days) of configuration before you can even see a single token e
 
 We pre-configured all the components so you can focus on understanding the flow, not debugging dev environments. Go from zero to a working XAA token exchange in under 60 seconds.
 
-**[Launch the playground](https://xaa.dev)** – it's free and requires no signup.
+**[Launch the playground](https://xaa.dev)**. It's free and requires no signup.
 
 ## What you can do on xaa.dev
 
@@ -91,10 +88,10 @@ See the other side of the transaction. Watch how a resource server validates the
 We've built a simulated IdP with pre-configured test users. Log in, see how ID-JAGs are minted, and inspect the cryptographic claims that make XAA secure.
 
 ### Resource MCP Server
-Connect your AI agents using the Model Context Protocol (MCP). The playground provides a ready-to-use MCP server that acts as a resource application – letting you test how AI agents can securely access protected resources through the Cross App Access flow.
+Connect your AI agents using the Model Context Protocol (MCP). The playground provides a ready-to-use MCP server that acts as a resource application, letting you test how AI agents can securely access protected resources through the Cross App Access flow.
 
 ### Bring your own Requesting App
-The built-in Requesting App is great for learning, but the real power comes when you test with your own application – whether it's a traditional app or an MCP client. [Register a client](https://xaa.dev/developer/register) on the playground, grab the configuration, and integrate it into your local app. This lets you validate your XAA implementation against a working IdP and Resource App – without spinning up your own infrastructure. The [playground documentation](https://xaa.dev/docs) walks you through the setup step-by-step.
+The built-in Requesting App is great for learning, but the real power comes when you test with your own application, whether it's a traditional app or an MCP client. [Register a client](https://xaa.dev/developer/register) on the playground, grab the configuration, and integrate it into your local app. This lets you validate your XAA implementation against a working IdP and Resource App without spinning up your own infrastructure. The [playground documentation](https://xaa.dev/docs) walks you through the setup step-by-step.
 
 ## How to get started
 
@@ -102,11 +99,11 @@ Getting started with xaa.dev takes less than a minute:
 
 **Step 1: Open the playground**
 
-Visit [xaa.dev](https://xaa.dev) – no account required.
+Visit [xaa.dev](https://xaa.dev). No account required.
 
 **Step 2: Explore the components**
 
-The playground has three components – Requesting App, Resource App, and Identity Provider – each with its own URL. Visit any component to see its configuration and understand how it participates in the XAA flow.
+The playground has three components (Requesting App, Resource App, and Identity Provider), each with its own URL. Visit any component to see its configuration and understand how it participates in the XAA flow.
 
 **Step 3: Follow the guided flow**
 
@@ -121,7 +118,7 @@ Watch this walkthrough video of the playground if you'd like a guided tour:
 
 ## Why we built a testing site for cross app access
 
-XAA is built on an emerging IETF specification – the Identity Assertion JWT Authorization Grant. As enterprise AI adoption accelerates, there's a clear need: developers want to understand XAA, but the barrier to entry is too high.
+XAA is built on an emerging IETF specification, the Identity Assertion JWT Authorization Grant. As enterprise AI adoption accelerates, there's a clear need: developers want to understand XAA, but the barrier to entry is too high.
 
 xaa.dev lowers the barrier. It helps you:
 
