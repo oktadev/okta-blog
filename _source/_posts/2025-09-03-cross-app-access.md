@@ -5,7 +5,7 @@ author: sohail-pathan
 by: advocate
 communities: [javascript,security]
 description: "Learn how to unlock enterprise AI security by connecting agents to applications using Cross App Access (XAA) in this comprehensive guide."
-tags: [xaa, cross-app-access, enterprise-ai, agentic-ai, mcp, oauth, sso, security]
+tags: [xaa, cross-app-access, enterprise-ai, agentic-ai, mcp, oauth, sso]
 tweets:
 - ""
 - ""
