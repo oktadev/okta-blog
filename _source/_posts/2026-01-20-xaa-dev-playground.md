@@ -54,7 +54,9 @@ The result:
 - Clear, auditable trust boundaries
 - Complete administrative control over app-to-app access
 
-For a deeper dive into why this matters for enterprise AI, read [Integrate Your Enterprise AI Tools with Cross App Access](/blog/2025/06/23/enterprise-ai).
+For a deeper dive into why this matters for enterprise AI, read more about Cross App Access in this post:
+
+{% excerpt /blog/2025/06/23/enterprise-ai %}
 
 ## The problem: testing XAA is hard
 
@@ -73,7 +75,7 @@ That's hours (or days) of configuration before you can even see a single token e
 
 We pre-configured all the components so you can focus on understanding the flow, not debugging dev environments. Go from zero to a working XAA token exchange in under 60 seconds.
 
-**[Try xaa.dev now](https://xaa.dev)** – it's free and requires no signup.
+**[Launch the playground](https://xaa.dev)** – it's free and requires no signup.
 
 ## What you can do on xaa.dev
 
@@ -131,13 +133,13 @@ xaa.dev is the answer. It helps you:
 
 XAA is how enterprise applications will securely connect in an AI-first world. Whether you're building agents, integrating SaaS tools, or just curious about modern OAuth patterns, xaa.dev gives you a risk-free environment to learn.
 
-**[Go to xaa.dev](https://xaa.dev)**
+**[Try it now](https://xaa.dev)**
 
 ## Learn more
 
 Ready to go deeper? Check out these resources:
 
-- [Integrate Your Enterprise AI Tools with Cross App Access](/blog/2025/06/23/enterprise-ai) – Why XAA matters for enterprise AI
+- [Checkout Cross App Access Intergraing in Okta ](https://www.okta.com/integrations/cross-app-access/) – Why XAA matters for enterprise AI
 - [Build Secure Agent-to-App Connections with Cross App Access](/blog/2025/09/03/cross-app-access) – Hands-on implementation guide
 - [Identity Assertion JWT Authorization Grant (IETF Draft)](https://datatracker.ietf.org/doc/html/draft-ietf-oauth-identity-assertion-authz-grant) – The specification behind XAA
 
