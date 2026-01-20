@@ -123,7 +123,7 @@ Watch this walkthrough video of the playground if you'd like a guided tour:
 
 XAA is built on an emerging IETF specification – the Identity Assertion JWT Authorization Grant. As enterprise AI adoption accelerates, there's a clear need: developers want to understand XAA, but the barrier to entry is too high.
 
-xaa.dev is the answer. It helps you:
+xaa.dev lowers the barrier. It helps you:
 
 - **Learn faster** – See the protocol in action before writing any code
 - **Build confidently** – Understand exactly what tokens to expect and validate
