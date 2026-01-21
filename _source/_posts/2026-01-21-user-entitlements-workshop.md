@@ -10,7 +10,7 @@ tweets:
 - ""
 - ""
 - ""
-image:
+image: blog/user-entitlements-workshop/social.jpg
 type: conversion
 github: https://github.com/oktadev/okta-enterprise-ready-workshops/tree/entitlements-workshop-complete
 ---
@@ -76,7 +76,7 @@ Before we get going with user entitlements, you'll first step through the intera
 
 ### Prepare the Express.js API project
 
-Start from a clean code project by using the SCIM workshop's completed project code from the [scim-workshop-complete](https://github.com/oktadev/okta-enterprise-ready-workshops/tree/scim-workshop-complete) branch. I'll post the instructions using [Git](https://git-scm.com/), but you can download the code as [a zip file](https://github.com/oktadev/okta-enterprise-ready-workshops/archive/refs/heads/scim-workshop-complete.zip) if you prefer and skip the git command.
+Start from a clean code project by using the SCIM workshop's completed project code from the [scim-workshop-complete](https://github.com/oktadev/okta-enterprise-ready-workshops/tree/scim-workshop-complete) branch. I'll post the instructions using [Git](https://git-scm.com/), but you can download the code as [a zip file](https://github.com/oktadev/okta-enterprise-ready-workshops/archive/refs/heads/scim-workshop-complete.zip) if you prefer and skip the Git command.
 
 Get a local copy of the completed SCIM workshop code and install dependencies by running the following commands in your terminal:
 
@@ -319,7 +319,7 @@ You'll need this tunnel URL to configure the Okta application.
 
 In the prerequisite SCIM workshop, you added a SCIM application in Okta to connect to the Todo app. We must do something similar to connect SCIM with entitlements support. 
 
-Sign into your [Okta Developer Edition account](https://developer.okta.com/login/). In the Admin Console, navigate to **Applications** > **Applications**. Press the **Browse App Catalog** button to create a new Okta SCIM application.
+Sign into your [Okta Integrator Free account](https://developer.okta.com/login/). In the Admin Console, navigate to **Applications** > **Applications**. Press the **Browse App Catalog** button to create a new Okta SCIM application.
 
 In the search bar, search for "(Header Auth) Governance with SCIM 2.0" and select the app. Press **Add Integration**.
 
@@ -354,7 +354,7 @@ Stop the tunnel and the API using the <kbd>Ctrl</kbd>+<kbd>c</kbd> command in th
 
 ## SCIM schemas and resources 
 
-In the first SCIM workshop, you learned about SCIM's `User` resource and built out operations around the user. You updated only a handful of user properties in the workshop, but SCIM is way more powerful thanks to its superpower—_extensibility_. ✨ User is not the only resource type defined in SCIM.
+In the first SCIM workshop, you learned about SCIM's `User` resource and built out operations around the user. You updated only a handful of user properties in the workshop, but SCIM is way more powerful thanks to its superpower – _extensibility_. ✨ User is not the only resource type defined in SCIM.
 
 A `Resource` represents an object SCIM operates on, such as a user or group. SCIM identified core properties each `Resource` must define, such as `id` and a link to the resource's schema definition. From there, a user extends from the core properties and adds attributes specific to the object, such as adding `userName` and their emails. A standard published schema exists for all those user-specific attributes within the SCIM spec. You can continue extending resources as needed to represent new resources, such as another SCIM standard-defined schema for Enterprise User. 
 
@@ -1198,7 +1198,7 @@ characteristicsRoute.route('/')
   });
 ```
 
-Notice the ID is the string "is_tall." I modeled it to look like an enum here so that it's distinct from roles, but IDs in your system may be a UUID or an integer.
+Notice the ID is the string "is_tall". I modeled it to look like an enum here so that it's distinct from roles, but IDs in your system may be a UUID or an integer.
 
 Lastly, we must add the new characteristic resource type to the `/ResourceTypes` response so that Okta knows the resource exists. Find the `resourceTypes.route('/')` definition and update the `resourceTypes` array to include both roles and characteristics.
 
@@ -1272,7 +1272,7 @@ In this workshop, we defined roles for the entire Todo app. But what if your Saa
     <td style="font-size: 3rem;">️ℹ️</td>
     <td markdown="span">
       **Note** <br/>
-      We used an API key for demonstration purposes, but we recommend using OAuth to secure the calls from Okta to your API for production applications. It deserves a dedicated code project, so be on the lookout for an upcoming workshop using OAuth to secure the API routes in place of an API key.
+      We used an API key for demonstration purposes, but we recommend using OAuth to secure the calls from Okta to your API for production applications.
     </td>
 </tr>
 </table>
