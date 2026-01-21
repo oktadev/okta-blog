@@ -593,11 +593,11 @@ OAuth 2.0 is an authorization framework for delegated access to APIs. OIDC (or O
 
 You can use OAuth 2.0 and OIDC without a cloud identity provider by building your own server or by using an open-source implementation. However, wouldn't you rather just use something that's _always on_, like Okta?
 
+{% include setup/integrator.md type="web" framework="Okta Spring Boot Starter" %}
+
 In a terminal window, go to your `api-gateway` project's directory.
 
-{% include setup/maven.md %}
-
-Next, add the https://github.com/okta/okta-spring-boot[Okta Spring Boot starter] and Spring Cloud Security to your gateway's `pom.xml`:
+Add the https://github.com/okta/okta-spring-boot[Okta Spring Boot starter] and Spring Cloud Security to your gateway's `pom.xml`:
 
 [source,xml]
 ----
