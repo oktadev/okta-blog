@@ -118,7 +118,7 @@ That's it. No local tools installations, Docker containers, environment variable
 
 Watch this walkthrough video of the playground if you'd like a guided tour:
 
-{% youtube WjQXgvlC9RA %}
+{% youtube hXZ4o2Oasc0 %}
  
 
 ## Why we built a testing site for cross app access
