@@ -173,7 +173,7 @@ What do all these recommendations mean for developers working on these applicati
 
 We developers have a tough job. We must ensure our applications meet compliance requirements and guard against security threats, all while delivering product features. Authentication is foundational, but not your entire product line. It's an expectation that doesn't drive product innovations for your app, but detrimental when implemented incorrectly.
 
-### Use an Identity Provider (IDP) that supports OAuth 2.1 and OpenID Connect (OIDC) Test
+### Use an Identity Provider (IDP) that supports OAuth 2.1 and OpenID Connect (OIDC)
 {: .no_toc }
 
 To best protect your application and free yourself from getting into the weeds of implementing authentication, delegate it to your Identity Provider (IdP) whenever possible. When you delegate authentication to an IdP like Okta, you can access industry-recognized best practices, such as using OAuth 2.1 and OpenID Connect (OIDC) standards with user redirect for the authentication challenge. Redirecting the user to the Okta-hosted Sign-in Widget frees you from managing authentication methods manually. It allows you to leverage the Sign-in Widget user challenge with the Okta Identity Engine (OIE) for phishing-resistant authentication factors. Using the Okta Identity Engine means your app accesses the latest and greatest features for secure identity management.
