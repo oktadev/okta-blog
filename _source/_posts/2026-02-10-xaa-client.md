@@ -40,7 +40,7 @@ You can read in depth about XAA in [Integrate Your Enterprise AI Tools with Cros
 
 {% excerpt /blog/2025/06/23/enterprise-ai %}
 
-In this tutorial, we'll add XAA to connect a note-taking app to a to-do app using [xaa.dev](https://xaa.dev) as our testing ground.
+In this tutorial, we'll add XAA to connect a note-taking app to a to-do app using [xaa.dev](https://xaa.dev) as our testing ground. 
 
 **Table of Contents**{: .hide }
 * Table of Contents
@@ -61,6 +61,8 @@ For this workshop, you need the following required tooling:
 > **Note**
 >
 > This code project is best for developers with web development and TypeScript experience and familiarity with OAuth and OpenID Connect (OIDC) flows at a high level.
+
+If you want to skip directly to the working project, you can find it [in the GitHub repo](https://github.com/oktadev/okta-js-xaa-requestor-example).
 
 ## Bring your own requestor app to the xaa.dev testing site
 
@@ -309,7 +311,7 @@ In the terminal console, you'll see each step of the handshake and requests:
    
 Feel free to inspect each step of this flow, the request parameters, and the responses.
 
-These steps allow an app to make requests to a third-party app within enterprise systems securely.
+These steps allow an app to make requests to a third-party app within enterprise systems securely. You can find the completed project [in the GitHub repo](https://github.com/oktadev/okta-js-xaa-requestor-example).
 
 ## Learn more about XAA and elevating identity security using OAuth
 
