@@ -288,7 +288,7 @@ return this.exchangeIdJagForAccessToken(
 );
 ```
 
-Make sure to remove any placeholder implementation.
+Make sure to remove any placeholder implementation. Step two complete. ✅
 
 The code to make a request to the todo API using the bearer token already exists in the project. Let's try running the app now using `npm start`.
 
