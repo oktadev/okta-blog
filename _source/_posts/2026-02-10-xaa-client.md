@@ -4,13 +4,9 @@ title: "Make Secure App-to-App Connections Using Cross App Access"
 author: alisa-duncan
 by: advocate
 communities: [security,javascript]
-description: ""
+description: "Secure enterprise integrations with Cross App Access (XAA). Implement this OAuth extension for compliant app-to-app connectivity."
 tags: []
-tweets:
-- ""
-- ""
-- ""
-image:
+image: /blog/xaa-client/social.jpg
 type: awareness
 github: https://github.com/oktadev/okta-js-xaa-requestor-example
 ---
