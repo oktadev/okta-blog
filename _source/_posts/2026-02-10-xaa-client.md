@@ -5,7 +5,7 @@ author: alisa-duncan
 by: advocate
 communities: [security,javascript]
 description: "Secure enterprise integrations with Cross App Access (XAA). Implement this OAuth extension for compliant app-to-app connectivity."
-tags: []
+tags: [xaa, cross-app-access]
 image: /blog/xaa-client/social.jpg
 type: awareness
 github: https://github.com/oktadev/okta-js-xaa-requestor-example
