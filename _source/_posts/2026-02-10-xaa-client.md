@@ -6,7 +6,7 @@ by: advocate
 communities: [security,javascript]
 description: "Secure enterprise integrations with Cross App Access (XAA). Implement this OAuth extension for compliant app-to-app connectivity."
 tags: [xaa, cross-app-access]
-image: /blog/xaa-client/social.jpg
+image: blog/xaa-client/social.jpg
 type: awareness
 github: https://github.com/oktadev/okta-js-xaa-requestor-example
 ---
@@ -313,10 +313,10 @@ These steps allow an app to make requests to a third-party app within enterprise
 
 I hope you enjoyed this post on making secure cross-app requests for enterprise use cases. If you found this post interesting, I encourage you to check out these links:
 
-* [Build Secure Agent-to-App Connections with Cross App Access (XAA)](blog/2025/09/03/cross-app-access)
+* [Build Secure Agent-to-App Connections with Cross App Access (XAA)](/blog/2025/09/03/cross-app-access)
 * [Identity Assertion JWT Authorization Grant](https://drafts.oauth.net/oauth-identity-assertion-authz-grant/draft-ietf-oauth-identity-assertion-authz-grant.html)
-* [How to Instantly Sign a User Out across All Your Apps](blog/2024/04/30/express-universal-logout)
+* [How to Instantly Sign a User Out across All Your Apps](/blog/2024/04/30/express-universal-logout)
 * [How to Manage User Lifecycle with .NET and SCIM](blog/2024/02/29/net-scim)
-* [Why You Should Migrate to OAuth 2.0 From Static API Tokens](blog/2023/09/25/oauth-api-tokens)
+* [Why You Should Migrate to OAuth 2.0 From Static API Tokens](/blog/2023/09/25/oauth-api-tokens)
 
 Remember to follow us on [Twitter](https://twitter.com/oktadev) and subscribe to our [YouTube channel](https://www.youtube.com/c/OktaDev/) for more exciting content. We also want to hear from you about the topics you'd like to see and any questions you may have. Leave us a comment below!
