@@ -90,7 +90,7 @@ You'll use a starter note-taking app project written in NestJS. Before you get t
 Open a terminal window and run the following commands to get a local copy of the project in a directory named `okta-xaa-project` and install dependencies. Feel free to fork the repo to track your changes.
 
 ```shell
-git clone -b starter https://github.com/oktadev/okta-nestjs-xaa-requestor-example.git okta-xaa-project
+git clone -b starter https://github.com/oktadev/okta-js-xaa-requestor-example.git okta-xaa-project
 cd okta-xaa-project
 npm ci
 ```
