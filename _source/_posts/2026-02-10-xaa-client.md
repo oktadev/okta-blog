@@ -111,7 +111,7 @@ The app should now run, but it still won't make a successful cross-app access re
 npm start
 ```
 
-You should see a landing page that looks like this:
+Navigate to [http://localhost:3000](http://localhost:3000). You should see a landing page that looks like this:
 
 {% img blog/xaa-client/notes-app.jpeg alt:"The notes app landing page with a log in button in the top header" width:"800" %}{: .center-image }
 
@@ -274,6 +274,7 @@ Find the comment:
 Because we're calling a new authorization server, the todo app's OAuth authorization server, we first need to read the well-known discovery docs. The discovery docs include information about the authorization server, such as the server's capabilities and endpoints, including the token endpoint. We've been using a custom `fetch` implementation to capture the logging you see, so we must include that implementation in `openid-client` too. Then make the call to `exchangeIdJagForAccessToken()` helper method. Your code will look like this:
 
 ```ts
+// Step 2: Exchange ID-JAG token for access token
 const resourceAuthConfig = await openidClient.discovery(
   new URL(authServerUrl),
   clientId,
