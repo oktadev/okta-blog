@@ -225,7 +225,7 @@ The call to get todos will still fail, but you can see the first exchange reques
 
 ### Use the ID-JAG token to request an access token for a separate app
 
-With the ID-JAG token in hand, we can now move on to the second exchange, exchanging the ID-JAG intermediary token for an access token to the todo app. We make this exchange with the todo app's OAuth authorization server. The IdP oversees both the note-taking app and the todo app, and trust domains between the two apps facilitate this flow. Remember, in our first exchange, we had to specify the audience for the ID-JAD token in our request - the todo app.
+With the ID-JAG token in hand, we can now move on to the second exchange, exchanging the ID-JAG intermediary token for an access token to the todo app. We make this exchange with the todo app's OAuth authorization server. The IdP oversees both the note-taking app and the todo app, and trust domains between the two apps facilitate this flow. Remember, in our first exchange, we had to specify the audience for the ID-JAG token in our request - the todo app.
 
 Back in `src/auth/auth.service.ts`, find the comment:
 
