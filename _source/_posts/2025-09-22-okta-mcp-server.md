@@ -131,11 +131,9 @@ Use this if you're automating, scheduling jobs, or integrating into infrastructu
 
 5. Disable **Proof of Possession** in the General tab.
 
-6. Grant the necessary API scopes (e.g., `okta.users.read`, `okta.groups.manage`) and provide Super Administrator access.
+6. Grant the necessary API scopes (e.g., `okta.users.read`, `okta.groups.manage`) and provide [administrator access](https://help.okta.com/en-us/content/topics/security/administrators-admin-comparison.htm) as needed.
 
     {% img blog/okta-mcp-server/image10.jpeg alt:" " width:"700" %}{: .center-image }
-
-    {% img blog/okta-mcp-server/image3.jpeg alt:" " width:"700" %}{: .center-image }
 
 ### Configuring your client
 
