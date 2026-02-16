@@ -229,7 +229,7 @@ In the `app/index.html` which is auto-generated as a boilerplate during the crea
 
 **NOTE**: You'll need to replace the `baseUrl`, `clientId`, and `issuer` above with the values from your own Okta org.
 
-What's going on here is that the first time through, there will be a `stateToken` and the step-up MFA will be triggered. Once you've satisfied the factor requirement (such as acknowledging the push notification in Okta Verify), you're redirected back to this same page by virtue of the `redirectUri` defined above. The redirect includes the authorization code set by okta. The redirect is detected and the authorization code flow + pkce is completed by the widget:
+What's going on here is that the first time through, there will be a `stateToken` and the step-up MFA will be triggered. Once you've satisfied the factor requirement (such as acknowledging the push notification in Okta Verify), you're redirected back to this same page by virtue of the `redirectUri` defined above. The redirect includes the authorization code set by Okta. The redirect is detected and the authorization code flow + pkce is completed by the widget:
 
 ```javascript
 if (window.location.href.indexOf('#')) {
