@@ -149,8 +149,8 @@ With testing complete, consider publicizing your resource app on the Okta Integr
 
 If this walkthrough helped you understand more about how Cross App Access works in practice, consider learning more about
 
-📘 xaa.dev - a free, open sandbox that lets you explore Cross App Access end-to-end. No local setup. No infrastructure to provision. Just a working environment where you can see the protocol in action.  
-📘 Cross App Access Documentation – official guides and admin docs to configure and manage Cross App Access in production  
-🎙️ Developer Podcast on MCP and Cross App Access – hear the backstory, use cases, and why this matters for developers  
-📄 OAuth Identity Assertion Authorization Grant (IETF Draft) – the emerging standard that powers this flow
+📘 [xaa.dev](https://xaa.dev/) - a free, open sandbox that lets you explore Cross App Access end-to-end. No local setup. No infrastructure to provision. Just a working environment where you can see the protocol in action.  
+📘 [Okta's Cross App Access Documentation](https://help.okta.com/oie/en-us/content/topics/apps/apps-cross-app-access.htm) – official guides and admin docs to configure and manage Cross App Access in production  
+🎙️ [Okta Developer Podcast on MCP and Cross App Access](https://www.youtube.com/watch?v=qKs4k5Y1x_s) – hear the backstory, use cases, and why this matters for developers  
+📄 [OAuth Identity Assertion Authorization Grant (IETF Draft)](https://datatracker.ietf.org/doc/draft-ietf-oauth-identity-assertion-authz-grant/) – the emerging standard that powers this flow
 
