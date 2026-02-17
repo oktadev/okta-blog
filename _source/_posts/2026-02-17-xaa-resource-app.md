@@ -111,7 +111,7 @@ By default, Okta will issue an ID-JAG token for Agent0 with the audience (`aud`)
 To do this, contact the Okta XAA team to replace your app's audience value in Okta by sending an email to xaa@okta.com. Provide the following information to the Okta XAA team:
 
 ***Okta Integrator Org URL:*** 'https://{yourOktaDomain}'  
-***Audience:*** 'http://youresourceapps.authserver.org'
+***Audience:*** 'http://yourresourceapps.authserver.org'
 ***Client ID from your own OAuth server:*** [Agent0's XAA client ID you created earlier]
 
 Please note that the Client ID you provide must be the client ID from your own OAuth server that was created earlier.
