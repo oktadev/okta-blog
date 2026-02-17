@@ -138,7 +138,6 @@ To test the end-to-end XAA flow with Agent0 to your authorization server, create
 1. Agent0 signs the user in with OIDC.   
 2. Agent0 exchanges the ID token for an ID-JAG at Okta  
 3. Agent0 makes a token request with the ID-JAG at your authorization server
-    - As a response to Step 3, your authorization server validates...
 
 
 If you need support with taking the steps above, contact xaa@okta.com. 
