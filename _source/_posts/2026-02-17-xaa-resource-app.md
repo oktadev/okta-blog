@@ -30,7 +30,7 @@ In this tutorial, we'll demonstrate how to test that an XAA-enabled resource app
 * Enable Cross App Access in your Okta org  
 * Register and configure the resource app (TaskFlow) in your org  
 * Register the requesting app (Agent0) in your org as a known XAA app and connect it to TaskFlow.  
-* Test that the XAA flow is working correctly when Agent0 requests access to Taskflow.
+* Test that the XAA flow is working correctly when Agent0 requests access to TaskFlow.
 
 > Note that the apps (TaskFlow or Agent0) do not use Okta as their authorization server.
 
@@ -87,7 +87,7 @@ To allow the exchange of an ID-JAG token between Agent0 and your resource app, A
 
 > Note: The process for registering a client ID from your resource app's OAuth server will vary depending on the product.
 
-# Set up your resource app (Taskflow)
+# Set up your resource app (TaskFlow)
 
 To set up your resource app in your org, you can use the placeholder integration in the OIN catalog called ***Todo0 - Cross App Access (XAA) Sample Resource App*** and configure it as your resource app.
 
@@ -96,9 +96,9 @@ To set up your resource app in your org, you can use the placeholder integration
 * Search for **Todo0 - Cross App Access (XAA) Sample Resource App**, and select it  
 * Select **Add Integration**
 
-Now give it a helpful name and assign user access to Taskflow.
+Now give it a helpful name and assign user access to TaskFlow.
 
-* Set the Application label to ***Taskflow***, and click Done.  
+* Set the Application label to ***TaskFlow***, and click Done.  
 * Select the **Assignments** tab  
   * To assign it to a single user, select **Assign > Assign to People** and choose your user  
   * To assign it to a user group, select **Assign > Assign to Groups** and choose your user group  
@@ -122,10 +122,10 @@ Now that you have set up both requesting and resource apps, you need to establis
 
 * Still in Admin Console, navigate to **Applications > Applications > Agent0**
 * Go to the **Manage Connections** tab
-* Under **Apps providing consent**, select **Add resource apps**, select **Taskflow**, then **Save**
+* Under **Apps providing consent**, select **Add resource apps**, select **TaskFlow**, then **Save**
 * Confirm that your resource app appears under **Apps providing consent**
 
-Now Agent0 and Taskflow are connected.
+Now Agent0 and TaskFlow are connected.
 
 {% img blog/xaa-resource-app/image3.jpg alt:" " width:"800" %}{: .center-image }
 
