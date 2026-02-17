@@ -91,7 +91,7 @@ To allow the exchange of an ID-JAG token between Agent0 and your resource app, A
 
 To set up your resource app in your org, you can use the placeholder integration in the OIN catalog called ***Todo0 - Cross App Access (XAA) Sample Resource App*** and configure it as your resource app.
 
-* Still in Admin console, navigate to **Applications > Applications**
+* Still in Admin Console, navigate to **Applications > Applications**
 * Select **Browse App Catalog**
 * Search for **Todo0 - Cross App Access (XAA) Sample Resource App**, and select it  
 * Select **Add Integration**
@@ -120,7 +120,7 @@ Please note that the Client ID you provide must be the client ID from your own O
 
 Now that you have set up both requesting and resource apps, you need to establish that Agent0 can be trusted to make requests to your resource app.
 
-* Still in Admin console, navigate to **Applications > Applications > Agent0**
+* Still in Admin Console, navigate to **Applications > Applications > Agent0**
 * Go to the **Manage Connections** tab
 * Under **Apps providing consent**, select **Add resource apps**, select **Taskflow**, then **Save**
 * Confirm that your resource app appears under **Apps providing consent**
