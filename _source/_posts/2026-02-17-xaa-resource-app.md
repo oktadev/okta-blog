@@ -13,7 +13,7 @@ type: awareness
 
 From an enterprise resource app owner's perspective, Cross App Access (XAA) is a game-changer because it allows their resources to be "AI-ready" without compromising on security. In the XAA model, resource apps rely on the enterprise's Identity Provider (IdP) to be their source of truth. They defer to the IdP to check enterprise policies and user groups, assign AI agent permissions, and log and audit AI agent requests as they occur. In return, they need only to perform a few checks:
 
-* When the app receives a POST request to its /token endpoint from an AI Agent, the app fetches the IdP’s public keys (via the /JWKS endpoint) to ensure the ID-JAG token attached to the request was actually minted by the trusted company IdP.  
+* When the app receives a POST request to its /token endpoint from an AI Agent, the app fetches the IdP's public keys (via the /JWKS endpoint) to ensure the ID-JAG token attached to the request was actually minted by the trusted company IdP.  
 * It confirms the token was intended for this app specifically. If the *aud* claim doesn't match the app's own ID, it rejects the request.  
 * Finally, it checks the end user ID in the token's ``` sub``` claim to know *whose* data to look up in your database. It must map to the same IdP identity. It will reject the request if the user isn't recognized.
 
@@ -38,14 +38,14 @@ In this tutorial, we'll demonstrate how to test that an XAA-enabled resource app
 
 To register your resource app with Okta, and set up secure agent-to-app connections, you'll need an Okta Developer org if you haven't got one already and enable XAA in it:
 
-* If you don’t already have an account, sign up for a new one here: [Okta Integrator Free Plan](https://developer.okta.com/signup)  
+* If you don't already have an account, sign up for a new one here: [Okta Integrator Free Plan](https://developer.okta.com/signup)  
 * Once created, sign in to your new Integrator Free Plan org  
 * In the Okta Admin Console, select **Settings > Features**  
 * Navigate to **Early access**  
 * Find Cross App Access and select Turn on (enable the toggle)  
 * Refresh the Admin Console
 
-> Note:  Cross App Access is currently a self-service Early Access (EA) feature. You must enable it through the Admin Console before the apps appear in the catalog. If you don’t see the option right away, refresh and confirm you have the necessary admin permissions. Learn more in the [Okta documentation on managing EA and beta features](https://help.okta.com/oie/en-us/content/topics/security/manage-ea-and-beta-features.htm).
+> Note:  Cross App Access is currently a self-service Early Access (EA) feature. You must enable it through the Admin Console before the apps appear in the catalog. If you don't see the option right away, refresh and confirm you have the necessary admin permissions. Learn more in the [Okta documentation on managing EA and beta features](https://help.okta.com/oie/en-us/content/topics/security/manage-ea-and-beta-features.htm).
 
 {% img blog/xaa-resource-app/image1.jpg alt:" " width:"800" %}{: .center-image }
 
@@ -80,9 +80,9 @@ Finally, configure Agent0 with the location of your resource app
 
 ## Get a (XAA) Client ID for Agent0 from the Resource app's Auth Server
 
-To allow the exchange of an ID-JAG token between Agent0 and your resource app, Agent0 must be registered as an OAuth client in your resource app’s OAuth server. 
+To allow the exchange of an ID-JAG token between Agent0 and your resource app, Agent0 must be registered as an OAuth client in your resource app's OAuth server. 
 
-* Register your requesting app (**Agent0**) as an OAuth client in your resource app’s OAuth server.    
+* Register your requesting app (**Agent0**) as an OAuth client in your resource app's OAuth server.    
 * Make a note of the Client ID for your requesting app (**Agent0**). You'll need this as you set up your resource app.
 
 > Note: In this case, both Agent0 and TaskFlow use Okta's authentication server, but it is useful to consider this step and the corresponding registration for the resource app as separate, to apply them when the apps' authentication servers are different.
@@ -106,7 +106,7 @@ Now give it a helpful name and assign user access to Taskflow.
 
 ## Update the audience value of your Resource app's auth server
 
-By default, Okta will issue an ID-JAG token for Agent0 with the audience (aud) value set to that of the sample resource app (Todo0): [http://localhost:5001/](http://localhost:5001/). You must change this so the ID-JAG token includes an audience value that identifies your actual resource app’s authorization server. 
+By default, Okta will issue an ID-JAG token for Agent0 with the audience (aud) value set to that of the sample resource app (Todo0): [http://localhost:5001/](http://localhost:5001/). You must change this so the ID-JAG token includes an audience value that identifies your actual resource app's authorization server. 
 
 To do this, contact the Okta XAA team to replace your app's audience value in Okta by sending an email to xaa@okta.com. Provide the following information to the Okta XAA team:
 
@@ -131,7 +131,7 @@ Now Agent0 and Taskflow are connected.
 
 # Validate that your Resource App and Auth Server work as intended
 
-Once the Okta XAA team confirms that your app’s audience value has been updated in Okta, Agent0 can make a Token Exchange request to Okta and will receive an ID-JAG with the correct audience.
+Once the Okta XAA team confirms that your app's audience value has been updated in Okta, Agent0 can make a Token Exchange request to Okta and will receive an ID-JAG with the correct audience.
 
 To test the end-to-end XAA flow with Agent0 to your authorization server, create a testing client that completes the following steps:
 
