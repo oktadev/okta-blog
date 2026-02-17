@@ -86,6 +86,15 @@ function validateTags(file, tags) {
   }
 }
 
+function validateFilenameDate(file) {
+  const basename = require("path").basename(file);
+  if (!/^\d{4}-\d{2}-\d{2}-/.test(basename)) {
+    throw new Error(
+      file + ": post filename must start with YYYY-MM-DD, but got: " + chalk.red(basename)
+    );
+  }
+}
+
 function validateDescription(file, description) {
   if (!description || description.trim().length === 0) {
     console.warn(`${file} is missing a description in its front matter.`);
@@ -111,6 +120,7 @@ readdir("_source/_posts", (err, files) => {
       throw err;
     }
 
+    validateFilenameDate(files[i]);
     validateDescription(files[i], content.attributes.description)
     validateBy(files[i], content.attributes.by);
     validateComms(files[i], content.attributes.communities);
