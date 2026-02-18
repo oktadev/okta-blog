@@ -47,7 +47,7 @@ To register your resource app with Okta, and set up secure agent-to-app connecti
 
 > Note:  Cross App Access is currently a self-service Early Access (EA) feature. You must enable it through the Admin Console before the apps appear in the catalog. If you don't see the option right away, refresh and confirm you have the necessary admin permissions. Learn more in the [Okta documentation on managing EA and beta features](https://help.okta.com/oie/en-us/content/topics/security/manage-ea-and-beta-features.htm).
 
-{% img blog/xaa-resource-app/image1.jpg alt:" " width:"800" %}{: .center-image }
+{% img blog/xaa-resource-app/image3.jpg alt:" " width:"800" %}{: .center-image }
 
 # Register your requesting app (Agent0)
 
@@ -127,7 +127,7 @@ Now that you have set up both requesting and resource apps, you need to establis
 
 Now Agent0 and TaskFlow are connected.
 
-{% img blog/xaa-resource-app/image3.jpg alt:" " width:"800" %}{: .center-image }
+{% img blog/xaa-resource-app/image1.jpg alt:" " width:"800" %}{: .center-image }
 
 # Validate that your Resource App and Auth Server work as intended
 
