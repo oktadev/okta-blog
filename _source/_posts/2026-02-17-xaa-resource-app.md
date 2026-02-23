@@ -13,9 +13,9 @@ type: awareness
 
 From an enterprise resource app owner's perspective, Cross App Access (XAA) is a game-changer because it allows their resources to be "AI-ready" without compromising on security. In the XAA model, resource apps rely on the enterprise's Identity Provider (IdP) to manage access. Instead of building out interactive OAuth flows, they defer to the IdP to check enterprise policies and user groups, assign AI agent permissions, and log and audit AI agent requests as they occur. In return, the app's OAuth server needs only to perform a few checks:
 
-* When the app's OAuth server receives a POST request to its token endpoint from an AI Agent, the app fetches the IdP's public keys (via the JWKS endpoint) to ensure the ID-JAG token attached to the request was actually minted by the trusted company IdP.  
-* It confirms the token was intended for this app specifically. If the *`aud`* claim doesn't match the app's own identifier, it rejects the request.  
-* Finally, it checks the end user ID in the token's `sub` claim to know *whose* data to look up in your database. It must map to the same IdP identity. It will reject the request if the user isn't recognized.
+* When the app's OAuth server receives a POST request to its token endpoint from an AI agent, the app fetches the IdP's public keys (via the JWKS endpoint) to ensure the ID-JAG token attached to the request was actually minted by the trusted company IdP.  
+* It confirms the token was intended for this app specifically. If the `aud` claim doesn't match the app's own identifier, it rejects the request.  
+* Finally, it checks the end user ID in the token's `sub` claim to know whose data to look up in your database. It must map to the same IdP identity. It will reject the request if the user isn't recognized.
 
 You can read in depth about XAA to better understand how this works and examine the token exchange flow. 
 
@@ -45,7 +45,7 @@ To register your resource app with Okta, and set up secure agent-to-app connecti
 * Find **Cross App Access** and select **Turn on** (enable the toggle)  
 * Refresh the Admin Console
 
-> Note:  Cross App Access is currently a self-service Early Access (EA) feature. You must enable it through the Admin Console before the apps appear in the catalog. If you don't see the option right away, refresh and confirm you have the necessary admin permissions. Learn more in the [Okta documentation on managing EA and beta features](https://help.okta.com/oie/en-us/content/topics/security/manage-ea-and-beta-features.htm).
+> Note: Cross App Access is currently a self-service Early Access (EA) feature. You must enable it through the Admin Console before the apps appear in the catalog. If you don't see the option right away, refresh and confirm you have the necessary admin permissions. Learn more in the [Okta documentation on managing EA and beta features](https://help.okta.com/oie/en-us/content/topics/security/manage-ea-and-beta-features.htm).
 
 {% img blog/xaa-resource-app/image3.jpg alt:" " width:"800" %}{: .center-image }
 
