@@ -81,8 +81,8 @@ Then, instantiate the Okta JWT Verifier under your UL section. You'll need to in
 
 // Signed Jwt Validation
 const oktaJwtVerifier = new OktaJwtVerifier({
-  issuer: 'https://{yourOktaDomain}.com',
-  jwksUri: 'https://{yourOktaDomain}.com/oauth2/v1/keys',
+  issuer: 'https://{yourOktaDomain}',
+  jwksUri: 'https://{yourOktaDomain}/oauth2/v1/keys',
 });
 ```
 
@@ -96,8 +96,8 @@ Next, we'll need to create a custom middleware called `tokenValidator` to get th
 
 // Signed Jwt Validation
 const oktaJwtVerifier = new OktaJwtVerifier({
-  issuer: 'https://{yourOktaDomain}.com',
-  jwksUri: 'https://{yourOktaDomain}.com/oauth2/v1/keys',
+  issuer: 'https://{yourOktaDomain}',
+  jwksUri: 'https://{yourOktaDomain}/oauth2/v1/keys',
 });
 
 const tokenValidator = async function (req, res, next) {
@@ -396,8 +396,8 @@ app.get('/openid/callback/:id', async (req, res, next) => {
 // Universal Logout Route
 // Signed Jwt Validation
 const oktaJwtVerifier = new OktaJwtVerifier({
-  issuer: 'https://{yourOktaDomain}.com',
-  jwksUri: 'https://{yourOktaDomain}.com/oauth2/v1/keys',
+  issuer: 'https://{yourOktaDomain}',
+  jwksUri: 'https://{yourOktaDomain}/oauth2/v1/keys',
 });
 const tokenValidator = async function (req, res, next) {
   const authHeaders = req.headers.authorization;
@@ -407,7 +407,7 @@ const tokenValidator = async function (req, res, next) {
   const parts = authHeaders.split(' ');
   const jwt = parts[1];
   const expectedAud =
-    'https://noble-heterogenetic-clemmie.ngrok-free.dev/global-token-revocation';
+    'https://{base-URL-provided-by-local-tunnel}/global-token-revocation';
   try {
     const verifiedJwt = await oktaJwtVerifier.verifyAccessToken(
       jwt,
@@ -545,8 +545,8 @@ In addition, we'll need to update the expectedAud to match the base URL provided
 
 // Signed Jwt Validation
 const oktaJwtVerifier = new OktaJwtVerifier({
-  issuer: 'https://{yourOktaDomain}.com',
-  jwksUri: 'https://{yourOktaDomain}.com/oauth2/v1/keys',
+  issuer: 'https://{yourOktaDomain}',
+  jwksUri: 'https://{yourOktaDomain}/oauth2/v1/keys',
 });
 
 const tokenValidator = async function (req, res, next) {
