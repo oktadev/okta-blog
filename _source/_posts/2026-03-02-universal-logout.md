@@ -14,7 +14,7 @@ image: blog/universal-logout/universal-logout-2.jpeg
 type: awareness
 ---
 
-This blog post builds upon the concepts introduced in [Universal Logout Part 1](https://developer.okta.com/blog/2024/04/30/express-universal-logout#create-the-required-token-revocation-endpoint). Here, we will delve into configuring universal logout specifically through the Identity Provider, with a focus on Okta.
+This blog post builds upon the concepts introduced in [Universal Logout Part 1](/blog/2024/04/30/express-universal-logout#create-the-required-token-revocation-endpoint). Here, we will delve into configuring universal logout specifically through the Identity Provider, with a focus on Okta.
 
 Quick recap from Universal Logout Part 1 lab: 
 - You created a Global Token Revocation endpoint
@@ -28,7 +28,7 @@ Goals for Universal Logout Part 2 lab:
 - Integrate with Okta and test ending a user's session through the Admin dashboard
 
 ## Allow only authorized access to the endpoint
-We recommend OAuth 2.0 authorization to secure your Global Token Revocation (GTR) endpoint instead of API tokens. Static API tokens are problematic as they are long-lived and must be manually invalidated. For more details, see this blog on [Why You Should Migrate to OAuth 2.0 From Static API Tokens](https://developer.okta.com/blog/2023/09/25/oauth-api-tokens).
+We recommend OAuth 2.0 authorization to secure your Global Token Revocation (GTR) endpoint instead of API tokens. Static API tokens are problematic as they are long-lived and must be manually invalidated. For more details, see this blog on [Why You Should Migrate to OAuth 2.0 From Static API Tokens](/blog/2023/09/25/oauth-api-tokens).
 
 ### Private key JWT Authorization
 
@@ -516,7 +516,7 @@ Now that the app has a secure, working UL endpoint. In this section, we'll test 
 
 Now, let's test UL authentication. One way to give your app a public URL or IP is to host it on a cloud instance with a DNS server that you control. For development purposes, you can use Ngrok or Localtunnel to provide a public address to the app running on your computer.
 
-We’ll use Localtunnel in this demonstration. To run the tunnel, you’ll start the API with the following command on your terminal:
+We'll use Localtunnel in this demonstration. To run the tunnel, you'll start the API with the following command on your terminal:
 
 `npm run serve-api`
 
