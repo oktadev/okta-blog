@@ -93,13 +93,11 @@ Next, we'll need to create a custom middleware called `tokenValidator` to get th
 ```javascript
 ///////////////////////////////////////////////////////
 // Universal Logout Route
-
 // Signed Jwt Validation
 const oktaJwtVerifier = new OktaJwtVerifier({
   issuer: 'https://{yourOktaDomain}',
   jwksUri: 'https://{yourOktaDomain}/oauth2/v1/keys',
 });
-
 const tokenValidator = async function (req, res, next) {
   const authHeaders = req.headers.authorization;
   if (!authHeaders) {
@@ -109,25 +107,25 @@ const tokenValidator = async function (req, res, next) {
   const jwt = parts[1];
   const expectedAud =
     'https://{base-URL-provided-by-local-tunnel}/global-token-revocation';
-
   try {
     const verifiedJwt = await oktaJwtVerifier.verifyAccessToken(
       jwt,
       expectedAud
     );
     console.log(verifiedJwt.claims);
+    
+    const issuer = verifiedJwt.claims.iss; // Get issuer from verified claims
+    const org = await prisma.org.findFirst({
+      where: {
+        issuer: issuer,
+      },
+    });
+    req.org = org;
+    next();
   } catch (err) {
+    console.log;
     return res.sendStatus(401);
   }
-  const issuer = jwt.iss;
-  const org = await prisma.org.findFirst({
-    where: {
-      issuer: issuer,
-    },
-  });
-
-  req.org = org;
-  next();
 };
 
 app.use(morgan('combined'));
@@ -424,7 +422,7 @@ const tokenValidator = async function (req, res, next) {
     req.org = org;
     next();
   } catch (err) {
-    console.l;
+    console.log;
     return res.sendStatus(401);
   }
 };
@@ -526,7 +524,7 @@ In another terminal, start the tunnel using the following command:
 
 It will ask for permission to install the npm package; say yes. When you start Localtunnel, it will print a URL to your terminal, such as http://unique-url-for-squirrels. You will need that URL when we call the UL endpoint.
 
-> **Troubleshooting tip:** Localtunnel is know to have timeout issues i.e. 408 response errors. For a more stable proxy option you can try [ngrok](https://ngrok.com/). Similarly, you can peform the following commands to obtain a proxy url after you install and get your auth key through your ngrok dashboard. 
+> **Troubleshooting tip:** Localtunnel is know to have timeout issues i.e. 408 response errors. For a more stable proxy option you can try [ngrok](https://ngrok.com/). Similarly, you can perform the following commands to obtain a proxy url after you install and get your auth key through your ngrok dashboard. 
 
 ```
 ngrok config add-authtoken {your-authtoken-from-your-dashboard}
