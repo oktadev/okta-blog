@@ -123,7 +123,7 @@ const tokenValidator = async function (req, res, next) {
     req.org = org;
     next();
   } catch (err) {
-    console.log;
+    console.log(err);
     return res.sendStatus(401);
   }
 };
@@ -131,8 +131,9 @@ const tokenValidator = async function (req, res, next) {
 app.use(morgan('combined'));
 app.use('/', tokenValidator, universalLogoutRoute);
 ```
+Before proceeding, remove the old Bearer Auth Strategy code at the bottom. This authentication method has been replaced by the JWT validation approach above.
 
-Finally, note the last line of code passes the `tokenValidator` to be executed for all requests starting with the path `/`.
+Finally, note that the last line of code passes the `tokenValidator` to be executed for all requests starting with the path `/`.
 
 > **Recap:** Your `apps/api/src/main.ts` file should now look like this, eliminating any reference to API Key token authorization:
 
@@ -431,7 +432,7 @@ app.use(morgan('combined'));
 app.use('/', tokenValidator, universalLogoutRoute);
 ```
 
-We'll also need to make some changes to the `apps/api/src/universalLogout.ts` file. From the tokenValidator we now know the org context related to the Private key JWT (previsouly we used user ID to figure out the domain org id associated to the API Token). We'll use the org id info to find the specific user linked to the request. 
+We'll also need to make some changes to the `apps/api/src/universalLogout.ts` file. From the tokenValidator we now know the org context related to the Private key JWT (previously we used user ID to figure out the domain org id associated to the API Token). We'll use the org id info to find the specific user linked to the request. 
 
 
 ```javascript
@@ -524,7 +525,7 @@ In another terminal, start the tunnel using the following command:
 
 It will ask for permission to install the npm package; say yes. When you start Localtunnel, it will print a URL to your terminal, such as http://unique-url-for-squirrels. You will need that URL when we call the UL endpoint.
 
-> **Troubleshooting tip:** Localtunnel is know to have timeout issues i.e. 408 response errors. For a more stable proxy option you can try [ngrok](https://ngrok.com/). Similarly, you can perform the following commands to obtain a proxy url after you install and get your auth key through your ngrok dashboard. 
+> **Troubleshooting tip:** Localtunnel is known to have timeout issues i.e. 408 response errors. For a more stable proxy option you can try [ngrok](https://ngrok.com/). Similarly, you can perform the following commands to obtain a proxy url after you install and get your auth key through your ngrok dashboard. 
 
 ```
 ngrok config add-authtoken {your-authtoken-from-your-dashboard}
