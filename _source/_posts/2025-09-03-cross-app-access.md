@@ -15,6 +15,8 @@ image: blog/cross-app-access/social.jpg
 type: conversion
 ---
 
+So you want to get your AI agent in front of Okta customers or make your application securely accessible to agents — you're in the right place. Here's why it matters.
+
 Secure access with enterprise IT oversight between independent applications that communicate with each other is a recognized gap in [OAuth 2.0](https://developer.okta.com/docs/concepts/oauth-openid/). Enterprises can't effectively regulate cross-app communication, as OAuth 2.0 consent screens rely on users granting access to their individual accounts. Now, with the advent of AI agents that communicate across systems, the need to solve the gap is even greater – especially given the growing importance of enterprise AI security in protecting sensitive data flows.
 
 ## What is Cross App Access (XAA)?
@@ -364,9 +366,9 @@ With everything configured, it's time to see Cross App Access in action.
 
 ## Need help setting up secure cross-domain enterprise AI application access?
 
-If you run into any issues while setting up or testing this project, feel free to post your queries to the forum: 👉 [Okta Developer Forum](https://devforum.okta.com)
+If you run into any issues while setting up or testing this project, feel free to post your questions on the forum: 👉 [Cross App Access (XAA) — Okta Developer Forum](https://devforum.okta.com/c/cross-app-access-xaa/33)
 
-If you're interested in implementing **Cross App Access (XAA)** in your own application — whether as a **requesting app** or a **resource app** — and want to explore how Okta can support your use case, reach out to us at: 📩 **[xaa@okta.com](mailto:xaa@okta.com)**
+If you're interested in implementing **Cross App Access (XAA)** in your own application and integrating it in the **[Okta Integration Network (OIN)](https://www.okta.com/integrations/)** — whether as a **requesting app** or a **resource app** — and want to explore how Okta can support your use case, reach out to us at: 📩 **[xaa@okta.com](mailto:xaa@okta.com)**
 
 ## Learn more about Cross App Access, OAuth 2.0, and securing your applications
 
