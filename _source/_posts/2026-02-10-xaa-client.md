@@ -9,6 +9,10 @@ tags: [xaa, cross-app-access]
 image: blog/xaa-client/social.jpg
 type: awareness
 github: https://github.com/oktadev/okta-js-xaa-requestor-example
+changelog:
+  - 2026-04-23: Updated GitHub repo to reflect v2 changes of xaa dev including `RESOURCE_CLIENT_ID`, and `RESOURCE_CLIENT_SECRET`. You can see the changes in the [example app on GitHub](https://github.com/oktadev/okta-js-xaa-requestor-example/pull/5). Changes to this article can be viewed in [oktadev/okta-blog#392](https://github.com/oktadev/okta-blog/pull/392).
+---
+
 ---
 
 Imagine you built a note-taking app. It's so successful that LargeCorp, an aptly named large enterprise corporation, signed on as a customer. To make it a power tool for your enterprise customers, you need to allow your app to integrate with other productivity tools, such as turning a note into a task in a to-do app.
@@ -78,10 +82,11 @@ Select **+ Register New Client** and fill out the required information:
   * **Application Name** - I used "Notes App"
   * **Redirect URIs** - Enter `http://localhost:3000/auth/callback`
   * **Post-Logout Redirect URIs** - Enter `http://localhost:3000`
+  * **Resource Connections > Add Resource** - Choose "Todo0 Resource App" and mark "todos.read" as your allowed scopes before clicking the Add Connection button.
 
-Leave the remaining defaults as is and select **Register Client**.
+Once all necessary fields have been filled select **Register App**.
 
-You'll see a modal with the client ID and client secret. Copy both values. We need to add these to our project.
+You'll see a modal with the Client ID and Client Secret. The xaa.dev testing site also provides credentials for the resource app's authorization server the Resource Client ID and Resource Client Secret. Copy all four values. We need to add these to our project.
 
 ## Get the NestJS project with OAuth and OpenID Connect (OIDC) started
 
@@ -101,9 +106,9 @@ Open the project in your IDE. Let's go over the main components and framework ch
   3. Relies on the [openid-client](https://github.com/panva/openid-client/tree/main) to handle all OAuth handshakes. It's an OIDC client library for JavaScript runtimes.
   4. There's a basic interceptor implementation that logs HTTP requests and responses to the console. This way, we can see the token exchange flow.
    
-The app requires a client ID and a client secret to run. Let's add those to the project. 
+The app requires a client ID, client secret, resource client ID, and resource clienst secret to run. Let's add those to the project. 
 
-Rename the `.env.example` file to `.env`. It already has variables defined and values added to match the URI of the XAA testing site components. Replace the `CLIENT_ID` and `CLIENT_SECRET` values with the values from the XAA testing site.
+Rename the `.env.example` file to `.env`. It already has variables defined and values added to match the URI of the XAA testing site components. Replace the `CLIENT_ID`, `CLIENT_SECRET`, `RESOURCE_CLIENT_ID`, and `RESOURCE_CLIENT_SECRET` values with the values from the XAA testing site.
 
 The app should now run, but it still won't make a successful cross-app access request. Serve the app using the command shown:
 
@@ -214,7 +219,7 @@ Feel free to start the app and check the console log for your first exchange req
 DEBUG [OAuth HTTP]   body:
     requested_token_type=urn:ietf:params:oauth:token-type:id-jag
     audience=https://auth.resource.xaa.dev
-    resource=https://api.resource.xaa.dev/todos
+    resource=https://api.resource.xaa.dev
     subject_token=eyJhbGc...IdoRppJyZmV9Q
     subject_token_type=urn:ietf:params:oauth:token-type:id_token
     scope=todos.read
@@ -271,14 +276,15 @@ Find the comment:
 // Step 2: Exchange ID-JAG token for access token
 ```
 
-Because we're calling a new authorization server, the todo app's OAuth authorization server, we first need to read the well-known discovery docs. The discovery docs include information about the authorization server, such as the server's capabilities and endpoints, including the token endpoint. We've been using a custom `fetch` implementation to capture the logging you see, so we must include that implementation in `openid-client` too. Then make the call to `exchangeIdJagForAccessToken()` helper method. Your code will look like this:
+Because we're calling a new authorization server, the todo app's OAuth authorization server, we first need to read the well-known discovery docs. The discovery docs include information about the authorization server, such as the server's capabilities and endpoints, including the token endpoint. Since we're authenticating with the todo app's authorization server — not the IdP — we use the resource app's credentials here. The todo app's authorization server recognizes RESOURCE_CLIENT_ID and RESOURCE_CLIENT_SECRET, not your notes app's credentials. We've been using a custom fetch implementation to capture the logging you see, so we must include that implementation in openid-client too. Then make the call to the exchangeIdJagForAccessToken() helper method. Your code will look like this:
 
 ```ts
 // Step 2: Exchange ID-JAG token for access token
 const resourceAuthConfig = await openidClient.discovery(
   new URL(authServerUrl),
-  clientId,
-  clientSecret,
+  resourceClientId,
+  resourceClientSecret,
+  openidClient.ClientSecretPost(resourceClientSecret ?? ''),
 );
 resourceAuthConfig[openidClient.customFetch] = loggedFetch;
 
@@ -308,7 +314,7 @@ In the terminal console, you'll see each step of the handshake and requests:
    
 Feel free to inspect each step of this flow, the request parameters, and the responses.
 
-These steps allow an app to make requests to a third-party app within enterprise systems securely. You can find the completed project [in the GitHub repo](https://github.com/oktadev/okta-js-xaa-requestor-example).
+These steps allow an app to make requests to a third-party app within enterprise systems securely. You can find the completed project [in the GitHub repo](https://github.com/oktadev/okta-js-xaa-requestor-example) with instructions to also test on [GitHub Codespaces](https://github.com/features/codespaces).
 
 ## Learn more about XAA and elevating identity security using OAuth
 
