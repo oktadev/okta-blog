@@ -368,7 +368,7 @@ With everything configured, it's time to see Cross App Access in action.
 
 If you run into any issues while setting up or testing this project, feel free to post your questions on the forum: 👉 [Cross App Access (XAA) — Okta Developer Forum](https://devforum.okta.com/c/cross-app-access-xaa/33)
 
-If you're interested in implementing **Cross App Access (XAA)** in your own application and integrating it in the **[Okta Integration Network (OIN)](https://www.okta.com/integrations/)** — whether as a **requesting app** or a **resource app** — and want to explore how Okta can support your use case, reach out to us at: 📩 **[xaa@okta.com](mailto:xaa@okta.com)**
+If you're interested in implementing **Cross App Access (XAA)** in your own application and integrating it into the **[Okta Integration Network (OIN)](https://www.okta.com/integrations/)** — whether as a **requesting app** or a **resource app** — and want to explore how Okta can support your use case, reach out to us at: 📩 **[xaa@okta.com](mailto:xaa@okta.com)**
 
 ## Learn more about Cross App Access, OAuth 2.0, and securing your applications
 
