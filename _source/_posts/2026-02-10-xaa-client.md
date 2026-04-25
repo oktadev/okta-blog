@@ -13,8 +13,6 @@ changelog:
   - 2026-04-23: Updated GitHub repo to reflect v2 changes of xaa dev including `RESOURCE_CLIENT_ID`, and `RESOURCE_CLIENT_SECRET`. You can see the changes in the [example app on GitHub](https://github.com/oktadev/okta-js-xaa-requestor-example/pull/5). Changes to this article can be viewed in [oktadev/okta-blog#392](https://github.com/oktadev/okta-blog/pull/392).
 ---
 
----
-
 Imagine you built a note-taking app. It's so successful that LargeCorp, an aptly named large enterprise corporation, signed on as a customer. To make it a power tool for your enterprise customers, you need to allow your app to integrate with other productivity tools, such as turning a note into a task in a to-do app.
 
 While common integration patterns work well for individual users, these patterns create security and compliance hurdles for large organizations.
@@ -86,7 +84,7 @@ Select **+ Register New Client** and fill out the required information:
 
 Once all necessary fields have been filled select **Register App**.
 
-You'll see a modal with the Client ID and Client Secret. The xaa.dev testing site also provides credentials for the resource app's authorization server the Resource Client ID and Resource Client Secret. Copy all four values. We need to add these to our project.
+You'll see a modal with the Client ID and Client Secret. The xaa.dev testing site also provides credentials for the resource app's authorization server - the Resource Client ID and Resource Client Secret. Copy all four values. We need to add these to our project.
 
 ## Get the NestJS project with OAuth and OpenID Connect (OIDC) started
 
@@ -106,7 +104,7 @@ Open the project in your IDE. Let's go over the main components and framework ch
   3. Relies on the [openid-client](https://github.com/panva/openid-client/tree/main) to handle all OAuth handshakes. It's an OIDC client library for JavaScript runtimes.
   4. There's a basic interceptor implementation that logs HTTP requests and responses to the console. This way, we can see the token exchange flow.
    
-The app requires a client ID, client secret, resource client ID, and resource clienst secret to run. Let's add those to the project. 
+The app requires a client ID, client secret, resource client ID, and resource client secret to run. Let's add those to the project. 
 
 Rename the `.env.example` file to `.env`. It already has variables defined and values added to match the URI of the XAA testing site components. Replace the `CLIENT_ID`, `CLIENT_SECRET`, `RESOURCE_CLIENT_ID`, and `RESOURCE_CLIENT_SECRET` values with the values from the XAA testing site.
 
@@ -309,7 +307,7 @@ In the terminal console, you'll see each step of the handshake and requests:
 
 1. Authentication in the notes app with the IdP returning the ID token
 2. Exchanging the ID token for an ID-JAG token with the IDP's OAuth authorization server
-3. Exchanging the IG-JAG token for an access token with the todo app's OAuth authorization server
+3. Exchanging the ID-JAG token for an access token with the todo app's OAuth authorization server
 4. Call the todo app's resource server (the API)
    
 Feel free to inspect each step of this flow, the request parameters, and the responses.
