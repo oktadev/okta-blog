@@ -34,7 +34,7 @@ With XAA, the Identity Provider (IdP) facilitates a secure token exchange. This 
   * Reduced friction - Users avoid repeated and confusing consent prompts
   * Granular security - Access is limited to specific users and specific tasks.
 
-You can read in depth about XAA in [Integrate Your Enterprise AI Tools with Cross App Access](blog/2025/06/23/enterprise-ai) to better understand how this works and to look at the token exchange flow
+You can read in depth about XAA in [Integrate Your Enterprise AI Tools with Cross App Access](/blog/2025/06/23/enterprise-ai) to better understand how this works and to look at the token exchange flow
 
 {% excerpt /blog/2025/06/23/enterprise-ai %}
 
@@ -264,7 +264,7 @@ private async exchangeIdJagForAccessToken(
 }
 ```
 
-We're following a similar pattern to the first exchange, with a difference in the grant request. This time, the parameters include an assertion, the ID-JAG token. And we make the grant request to the todo app's OAuth authorization server with the `urn:ietf:params:oauth:grant-type:jwt-bearer` grant type. This exchanges relies upon a pre-existing spec where one can use a bearer JWT for as a grant type to request an access token. That's what we're doing in this step.
+We're following a similar pattern to the first exchange, with a difference in the grant request. This time, the parameters include an assertion, the ID-JAG token. And we make the grant request to the todo app's OAuth authorization server with the `urn:ietf:params:oauth:grant-type:jwt-bearer` grant type. This exchange relies upon a pre-existing spec where one can use a bearer JWT for as a grant type to request an access token. That's what we're doing in this step.
 
 Next, we'll call this method in `exchangeIdTokenForAccessToken()`.
 
@@ -321,7 +321,7 @@ I hope you enjoyed this post on making secure cross-app requests for enterprise 
 * [Build Secure Agent-to-App Connections with Cross App Access (XAA)](/blog/2025/09/03/cross-app-access)
 * [Identity Assertion JWT Authorization Grant](https://drafts.oauth.net/oauth-identity-assertion-authz-grant/draft-ietf-oauth-identity-assertion-authz-grant.html)
 * [How to Instantly Sign a User Out across All Your Apps](/blog/2024/04/30/express-universal-logout)
-* [How to Manage User Lifecycle with .NET and SCIM](blog/2024/02/29/net-scim)
+* [How to Manage User Lifecycle with .NET and SCIM](/blog/2024/02/29/net-scim)
 * [Why You Should Migrate to OAuth 2.0 From Static API Tokens](/blog/2023/09/25/oauth-api-tokens)
 
 Remember to follow us on [Twitter](https://twitter.com/oktadev) and subscribe to our [YouTube channel](https://www.youtube.com/c/OktaDev/) for more exciting content. We also want to hear from you about the topics you'd like to see and any questions you may have. Leave us a comment below!
