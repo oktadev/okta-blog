@@ -10,7 +10,7 @@ image: blog/xaa-client/social.jpg
 type: awareness
 github: https://github.com/oktadev/okta-js-xaa-requestor-example
 changelog:
-  - 2026-04-23: Updated GitHub repo to reflect v2 changes of xaa dev including `RESOURCE_CLIENT_ID`, and `RESOURCE_CLIENT_SECRET`. You can see the changes in the [example app on GitHub](https://github.com/oktadev/okta-js-xaa-requestor-example/pull/5). Changes to this article can be viewed in [oktadev/okta-blog#392](https://github.com/oktadev/okta-blog/pull/392).
+  - 2026-04-23: Updated GitHub repo to reflect v2 changes of xaa dev including `RESOURCE_CLIENT_ID`, and `RESOURCE_CLIENT_SECRET`. You can see the changes in the [example app on GitHub](https://github.com/oktadev/okta-js-xaa-requestor-example/pull/5). Changes to this article can be viewed in [oktadev/okta-blog#1638](https://github.com/oktadev/okta-blog/pull/1638).
 ---
 
 Imagine you built a note-taking app. It's so successful that LargeCorp, an aptly named large enterprise corporation, signed on as a customer. To make it a power tool for your enterprise customers, you need to allow your app to integrate with other productivity tools, such as turning a note into a task in a to-do app.
