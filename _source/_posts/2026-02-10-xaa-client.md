@@ -274,7 +274,7 @@ Find the comment:
 // Step 2: Exchange ID-JAG token for access token
 ```
 
-Because we're calling a new authorization server, the todo app's OAuth authorization server, we first need to read the well-known discovery docs. The discovery docs include information about the authorization server, such as the server's capabilities and endpoints, including the token endpoint. Since we're authenticating with the todo app's authorization server — not the IdP — we use the resource app's credentials here. The todo app's authorization server recognizes RESOURCE_CLIENT_ID and RESOURCE_CLIENT_SECRET, not your notes app's credentials. We've been using a custom `fetch` implementation to capture the logging you see, so we must include that implementation in `openid-client` too. Then make the call to the `exchangeIdJagForAccessToken()` helper method. Your code will look like this:
+Because we're calling a new authorization server, the todo app's OAuth authorization server, we first need to read the well-known discovery docs. The discovery docs include information about the authorization server, such as the server's capabilities and endpoints, including the token endpoint. Since we're authenticating with the todo app's authorization server, not the IdP, we use the resource app's credentials here. The todo app's authorization server recognizes RESOURCE_CLIENT_ID and RESOURCE_CLIENT_SECRET, not your notes app's credentials. We've been using a custom `fetch` implementation to capture the logging you see, so we must include that implementation in `openid-client` too. Then make the call to the `exchangeIdJagForAccessToken()` helper method. Your code will look like this:
 
 ```ts
 // Step 2: Exchange ID-JAG token for access token
