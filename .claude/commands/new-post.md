@@ -64,27 +64,41 @@ SEO work must happen BEFORE the post is created — keywords drive the slug, tit
    - **Acronyms**: spell out on first use with abbreviation in parentheses: "single sign-on (SSO)". Common exceptions that don't need defining: JSON, HTTP, API. Subsequent uses can use the abbreviation alone.
    - **Bold**: reserved for UI elements only (button labels, menu items, field names). Do not bold for emphasis or to label list items.
    - **Internal links**: `developer.okta.com` links must use relative paths: `/docs/guides/...` not `https://developer.okta.com/docs/guides/...`
+   - **Ellipsis**: use three plain periods `...` not the Unicode ellipsis character `…` — the pre-commit hook will reject it
+   - **Smart quotes**: use straight quotes `"` and `'` not curly/smart quotes `"` `"` `'` `'` — also rejected by the pre-commit hook
 
 8. **Remind about SEO in the post body.**
    - **H2 and H3 headers directly impact SEO.** Headers must incorporate the keywords plus context-specific terms (Okta-specific, technology names, etc.). A header like "Set up Okta" does nothing; "Add OIDC authentication to Python apps using Okta" is far better.
    - Use **sentence case** for all H2 and H3 headers: capitalize only the first word and proper nouns (product names, acronyms, brand names). Example: `## How to build low-code API integrations with Okta Workflows`
    - The post body starter should reflect this — update the placeholder `## Introduction` header to something keyword-rich in sentence case.
 
-9. **Verify the result.**
+9. **Optimize images.**
+   - Once all images have been added to `_source/_assets/img/blog/{post-slug}/`, run:
+     ```
+     npm run optimize-images
+     ```
+   - This resizes and compresses images in `_source/_assets/img/` and writes optimized versions to new files. Update any image references in the post to the optimized filenames and delete the originals.
+   - All images must be under **400 KB**. Re-run or manually compress any that remain over the limit.
+   - Prefer JPEG or WebP over PNG for blog post images.
+
+10. **Verify the result.**
    - Confirm both paths exist:
      - `ls _source/_posts/{YYYY-MM-DD}-{post-slug}.md`
      - `ls _source/_assets/img/blog/{post-slug}/`
    - Read back the front matter and show it to the user.
 
-10. **Summary.** Report what was created:
+11. **Summary.** Report what was created:
    - Full path of the new post file
    - Full path of the new image directory
    - If a social image was indicated:
      - Place it at `_source/_assets/img/blog/{post-slug}/social.jpg`
      - Social images must be **1600×900 px** — use the "Twitter Ad" template on Canva
-     - Images must be under **400 KB**; use `npm run optimize-images` if needed
    - In the post body, embed images with:
      ```
      {% img blog/{post-slug}/{image-file} alt:"description" width:"800" %}{: .center-image }
      ```
    - Remind the user to fill in the `tweets` array with shareable pull-quote text before publishing
+   - **CTA**: every post must end with the following call-to-action paragraph (after the last section):
+     ```
+     Remember to follow us on [Twitter](https://twitter.com/oktadev) and subscribe to our [YouTube channel](https://www.youtube.com/c/OktaDev/) for more exciting content. We also want to hear from you about the topics you'd like to see and any questions you may have. Leave us a comment below!
+     ```

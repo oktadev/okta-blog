@@ -48,7 +48,7 @@ If you don't already have an account, sign up for an [Okta Integrator Free Plan]
 {% img blog/low-code-api-integration/addIntegrationCapabilities.jpeg alt:"Add integration capabilities screen showing Session Lifecycle Management and Identity Lifecycle Management options" width:"800" %}{: .center-image }
 
 - Add the integration details
-- If you are a customer creating an integration for your orgs during the EA period, put "Customer created integration - not for the public catalog" in the description field. Then provide a list of your org tenant ids and subdomains. You will need to send an email to `…@okta.com` after submission to ensure this integration is deployed to your orgs
+- If you are a customer creating an integration for your orgs during the EA period, put "Customer created integration - not for the public catalog" in the description field. Then provide a list of your org tenant ids and subdomains. You will need to send an email to `...@okta.com` after submission to ensure this integration is deployed to your orgs
 
 {% img blog/low-code-api-integration/catalogProps1.jpeg alt:"OIN catalog properties form showing display name, description, and logo upload fields" width:"800" %}{: .center-image }
 
@@ -124,6 +124,6 @@ Once finished, click the last checkbox to enable submitting your integration for
 
 ## Get started with low-code API integration using Okta
 
-If you're ready to build an integration between your APIs and Okta's, start by exploring how to build and publish an application using API Integration Actions to the OIN by reading our product documentation:
+If you're ready to build an integration between your APIs and Okta's, start by exploring how to build and publish an application using API Integration Actions to the OIN by reading our product documentation [Build and publish API Integration Actions](/docs/guides/build-api-actions/main/).
 
-- [Build and publish API Integration Actions](/docs/guides/build-api-actions/main/)
+Remember to follow us on [Twitter](https://twitter.com/oktadev) and subscribe to our [YouTube channel](https://www.youtube.com/c/OktaDev/) for more exciting content. We also want to hear from you about the topics you'd like to see and any questions you may have. Leave us a comment below!
