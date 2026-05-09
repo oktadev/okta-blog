@@ -19,7 +19,7 @@ API Integration Actions are now available in Okta Integration Network (OIN) for 
 
 ## What are API Integration Actions?
 
-API Integration Actions are a feature that uses Workflows, Okta's low-code builder, to enable independent software vendors (ISVs) to build Okta Integrations (Provisioning, Entitlements, Universal Logout) that are seamlessly called by Okta products — for example, retrieving and updating entitlements or triggering risk-based logout.
+API Integration Actions are a feature that uses Workflows, Okta's low-code builder, to enable independent software vendors (ISVs) to build Okta Integrations (Provisioning, Entitlements, Universal Logout) that are seamlessly invoked by Okta services — for example, retrieving and updating entitlements or triggering risk-based logout flows.
 
 You can just skip the complexity of building and maintaining a System for Cross-domain Identity Management (SCIM) server. API Integration Actions allow you to use your existing APIs as-is by mapping them directly to Okta action contracts. By using our low-code builder, you no longer need in-depth knowledge of protocols, making it faster and easier to build, test, and deliver enterprise-grade Secure Identity Integrations. This leads to a fast time-to-value for customers leveraging ISV data for connector-heavy Okta Identity Governance (OIG) use cases.
 
@@ -68,12 +68,12 @@ If you don't already have an account, sign up for an [Okta Integrator Free Plan]
 {% img blog/low-code-api-integration/wfProject.jpeg alt:"Integration Builder project screen showing General, Authentication, Test connection, and API Spec tabs" width:"800" %}{: .center-image }
 
 - Click on the **Authentication** tab and add the authentication information. Make sure it matches what is in the OIN Wizard
-- Fill out the **Authentication Mapping** section to map the OIN Wizard auth parameters to the Workflow auth parameters
+- Fill out the **Authentication Mapping** section to map the OIN Wizard auth parameters to the Workflows auth parameters
 
 {% img blog/low-code-api-integration/authMapping.jpeg alt:"Authentication mapping screen showing connection parameters mapped to OIN app integration variables" width:"800" %}{: .center-image }
 
 - Click on **New Component** and choose **Add Action**
-- Choose the API Integration Action component from the list, and click save
+- Choose the API Integration Action component from the list, and click **save**
 
 {% img blog/low-code-api-integration/chooseAction.jpeg alt:"Add new action dialog showing API integration action component options, including Provisioning action contracts" width:"800" %}{: .center-image }
 
