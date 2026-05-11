@@ -48,7 +48,7 @@ If you don't already have an account, sign up for an [Okta Integrator Free Plan]
 {% img blog/low-code-api-integration/addIntegrationCapabilities.jpeg alt:"Add integration capabilities screen showing Session Lifecycle Management and Identity Lifecycle Management options" width:"800" %}{: .center-image }
 
 - Add the integration details
-- If you are a customer creating an integration for your orgs during the EA period, put "Customer-created integration - not for the public catalog" in the description field. Then provide a list of your org tenant IDs and subdomains. You will need to send an email to `...@okta.com` after submission to ensure this integration is deployed to your orgs
+- If you are a customer creating an integration for your orgs during the EA period, put "Customer-created integration - not for the public catalog" in the description field. Then provide a list of your org tenant IDs and subdomains. After submission, you will need to email your account manager to ensure this integration is deployed to your orgs.
 
 {% img blog/low-code-api-integration/catalogProps1.jpeg alt:"OIN catalog properties form showing display name, description, and logo upload fields" width:"800" %}{: .center-image }
 
