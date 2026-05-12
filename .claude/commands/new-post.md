@@ -73,6 +73,7 @@ SEO work must happen BEFORE the post is created — keywords drive the slug, tit
    - The post body starter should reflect this — update the placeholder `## Introduction` header to something keyword-rich in sentence case.
 
 9. **Optimize images.**
+   - **Image filenames must use kebab-case** (e.g. `add-integration-capabilities.jpeg`, not `addIntegrationCapabilities.jpeg`). Rename any camelCase files before adding them to the post.
    - Once all images have been added to `_source/_assets/img/blog/{post-slug}/`, run:
      ```
      npm run optimize-images

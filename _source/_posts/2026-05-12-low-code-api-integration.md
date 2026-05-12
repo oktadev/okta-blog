@@ -45,14 +45,14 @@ If you don't already have an account, sign up for an [Okta Integrator Free Plan]
 - If you are building an integration that uses Universal Logout, choose that option. If you are building an integration using provisioning and entitlements, choose those options
 - Select **View integration details**
 
-{% img blog/low-code-api-integration/addIntegrationCapabilities.jpeg alt:"Add integration capabilities screen showing Session Lifecycle Management and Identity Lifecycle Management options" width:"800" %}{: .center-image }
+{% img blog/low-code-api-integration/add-integration-capabilities.jpeg alt:"Add integration capabilities screen showing Session Lifecycle Management and Identity Lifecycle Management options" width:"800" %}{: .center-image }
 
 - Add the integration details
 - If you are a customer creating an integration for your orgs during the EA period, put "Customer-created integration - not for the public catalog" in the description field. Then provide a list of your org tenant IDs and subdomains. After submission, you will need to email your account manager to ensure this integration is deployed to your orgs.
 
-{% img blog/low-code-api-integration/catalogProps1.jpeg alt:"OIN catalog properties form showing display name, description, and logo upload fields" width:"800" %}{: .center-image }
+{% img blog/low-code-api-integration/catalog-props-1.jpeg alt:"OIN catalog properties form showing display name, description, and logo upload fields" width:"800" %}{: .center-image }
 
-{% img blog/low-code-api-integration/catalogProp2.jpeg alt:"OIN catalog properties form continued showing support contact information and use case options" width:"800" %}{: .center-image }
+{% img blog/low-code-api-integration/catalog-prop-2.jpeg alt:"OIN catalog properties form continued showing support contact information and use case options" width:"800" %}{: .center-image }
 
 ### Step 2: Configure authentication and API Integration Actions
 
@@ -60,22 +60,22 @@ If you don't already have an account, sign up for an [Okta Integrator Free Plan]
 - Authentication settings include all of the allowed integration types. Choose the one used by the API and provide the information
 - Click **Save and start building**
 
-{% img blog/low-code-api-integration/tenantAuth.jpeg alt:"Tenant settings and authentication settings screens showing label, name fields, and OAuth 2 configuration with authorize and token endpoints" width:"800" %}{: .center-image }
+{% img blog/low-code-api-integration/tenant-auth.jpeg alt:"Tenant settings and authentication settings screens showing label, name fields, and OAuth 2 configuration with authorize and token endpoints" width:"800" %}{: .center-image }
 
 - This will send you to **Integration Builder** within the Okta Workflows product, where you build out the flows that connect to the API
 - Validate that the information is correct — it should match what was provided in OIN Wizard
 
-{% img blog/low-code-api-integration/wfProject.jpeg alt:"Integration Builder project screen showing General, Authentication, Test connection, and API Spec tabs" width:"800" %}{: .center-image }
+{% img blog/low-code-api-integration/wf-project.jpeg alt:"Integration Builder project screen showing General, Authentication, Test connection, and API Spec tabs" width:"800" %}{: .center-image }
 
 - Click on the **Authentication** tab and add the authentication information. Make sure it matches what is in the OIN Wizard
 - Fill out the **Authentication Mapping** section to map the OIN Wizard auth parameters to the Workflows auth parameters
 
-{% img blog/low-code-api-integration/authMapping.jpeg alt:"Authentication mapping screen showing connection parameters mapped to OIN app integration variables" width:"800" %}{: .center-image }
+{% img blog/low-code-api-integration/auth-mapping.jpeg alt:"Authentication mapping screen showing connection parameters mapped to OIN app integration variables" width:"800" %}{: .center-image }
 
 - Click on **New Component** and choose **Add Action**
 - Choose the API Integration Action component from the list, and click **save**
 
-{% img blog/low-code-api-integration/chooseAction.jpeg alt:"Add new action dialog showing API integration action component options, including Provisioning action contracts" width:"800" %}{: .center-image }
+{% img blog/low-code-api-integration/choose-action.jpeg alt:"Add new action dialog showing API integration action component options, including Provisioning action contracts" width:"800" %}{: .center-image }
 
 ### Step 3: Build your low-code workflow flows
 
@@ -83,18 +83,18 @@ If you don't already have an account, sign up for an [Okta Integrator Free Plan]
 - Create the workflow and repeat as necessary
 - Once your flows are created, you can create test flows in the test folder to validate that the API calls are being made correctly
 
-{% img blog/low-code-api-integration/flowList.jpeg alt:"Provisioning action contracts screen showing App Event flows for List users, Get group by id, List groups, and more" width:"800" %}{: .center-image }
+{% img blog/low-code-api-integration/flow-list.jpeg alt:"Provisioning action contracts screen showing App Event flows for List users, Get group by id, List groups, and more" width:"800" %}{: .center-image }
 
 - After testing, click on **Validate and Submit**
 - Click on **Validate flows** and fix any errors that may exist
 
-{% img blog/low-code-api-integration/validateFlows.jpeg alt:"Validate and submit flows screen showing flow validation status and Continue submission in OIN button" width:"800" %}{: .center-image }
+{% img blog/low-code-api-integration/validate-flows.jpeg alt:"Validate and submit flows screen showing flow validation status and Continue submission in OIN button" width:"800" %}{: .center-image }
 
 - Click on **Continue submission in OIN**
 - Back in the OIN Wizard, choose the correct flows for each of the API Integration Actions that have been created
 - Click on **Get started with testing**
 
-{% img blog/low-code-api-integration/configureIntegration.jpeg alt:"Provisioning API Integration Actions screen showing User query, User Schema Discovery, and User Operations flow mapping" width:"800" %}{: .center-image }
+{% img blog/low-code-api-integration/configure-integration.jpeg alt:"Provisioning API Integration Actions screen showing User query, User Schema Discovery, and User Operations flow mapping" width:"800" %}{: .center-image }
 
 ## How to test your API integration before publishing to the OIN
 
@@ -103,7 +103,7 @@ Before submitting your integration for review and publication, you must test it 
 - Provide the testing information needed for Okta to review the submission
 - Once finished, click on **Test your integration**
 
-{% img blog/low-code-api-integration/testInstance.jpeg alt:"Test your integration screen showing test account fields, account URL, username, password, and testing instructions" width:"800" %}{: .center-image }
+{% img blog/low-code-api-integration/test-instance.jpeg alt:"Test your integration screen showing test account fields, account URL, username, password, and testing instructions" width:"800" %}{: .center-image }
 
 ### Create a test instance
 
@@ -112,7 +112,7 @@ Before submitting your integration for review and publication, you must test it 
 - Follow the instructions in the **Test integration** section to generate a test instance and complete all of the testing
 - Validate your flows by clicking the button — take action on any failures that occur
 
-{% img blog/low-code-api-integration/testIntegration.jpeg alt:"Test integration screen showing app instances for testing with SAML SSO instance detected and Provisioning and Entitlement instances pending" width:"800" %}{: .center-image }
+{% img blog/low-code-api-integration/test-integration.jpeg alt:"Test integration screen showing app instances for testing with SAML SSO instance detected and Provisioning and Entitlement instances pending" width:"800" %}{: .center-image }
 
 ### Update a test instance
 
