@@ -1010,3 +1010,10 @@ swetha-selvanayagam:
   avatar: avatar-swetha-selvanayagam.jpeg
   linkedin: https://www.linkedin.com/in/swetha-selvanayagam
   bio: Swetha is a Product Manager at Okta who takes care of Developer Products such as the Terraform Provider, SDKs & the Okta MCP server. She's always curious about the latest technologies and enjoys building customer experiences around them. Outside of work, she is a big movie buff, who loves making & watching movies.
+
+emily-wendell:
+  full_name: Emily Wendell
+  display_name: Emily Wendell
+  avatar: avatar-emily-wendell.jpg
+  linkedin: https://www.linkedin.com/in/emily-wendell-8652b051/
+  bio: Emily is a former developer turned product manager. She worked with integrations at different companies for small businesses and enterprise customers. She loves helping customers thrive. Emily has been at Okta for over seven years, focusing initially on the Okta-built provisioning apps and Workflow connectors and now on the Workflows platform.
