@@ -13,6 +13,8 @@ tweets:
 - ""
 image: blog/cross-app-access/social.jpg
 type: conversion
+changelog:
+  - 2026-05-22: Updated the Okta Admin Console steps to reflect the new **XAA Resource App** and **XAA Requesting App** App Catalog integrations, and the new required **Issuer URL** and **Client ID** fields. Changes to this article can be viewed in [oktadev/okta-blog#1641](https://github.com/oktadev/okta-blog/pull/1641).
 ---
 
 So you want to get your AI agent in front of Okta customers or make your application securely accessible to agents — you're in the right place. Here's why it matters.
@@ -30,10 +32,6 @@ Or watch the video about Cross App Access:
 {% youtube 3VLzeT1EGrg %}
 
 In this post, we'll go hands-on with Cross App Access. Using **Todo0** (the Resource App) and **Agent0** (the Requesting App) as our sample applications, and **Okta as the enterprise Identity Provider (IdP)**, we'll show you how to set up trust, exchange tokens, and enable secure API calls between apps that enable enterprise IT oversight. By the end, you'll not only understand how the protocol works but also have a working example you can adapt to your own integrations.
-
-If you'd rather watch a video of the setup and how XAA works, check this one out.
-
-{% youtube vi5JpbGRATE %}
 
 ## Prerequisites to set up the AI agent to app connections using Cross App Access (XAA)
 
@@ -84,23 +82,26 @@ We'll create both apps in your Okta Integrator Free Plan account, grab their cli
 
 1. In the Okta Admin console, navigate to **Applications > Applications**  
 2. Select **Browse App Catalog**  
-3. Search for **Todo0 - Cross App Access (XAA) Sample Resource App**, and select it  
+3. Search for **XAA Resource App**, and select it  
 4. Select **Add Integration**  
-5. Enter "Todo0" in the Application label field and click **Done**  
-6. Click the **Sign On** tab to view the **Client ID** and **Client secret**. These are required to include in your `.env.todo`
+5. Enter "Todo0" in the Application label field
+6. In the **Issuer URL** field, enter `http://localhost:5001` (Todo0's Resource Authorization Server URL), then click **Done**
+7. Click the **Sign On** tab to view the **Client ID** and **Client secret**. These are required to include in your `.env.todo`
 
-{% img blog/cross-app-access/image1.jpg alt:"View Client ID and Client Secret for Todo0 Resource App in Okta Admin Console" width:"800" %}{: .center-image }
+{% img blog/cross-app-access/image1.jpg alt:"View Client ID and Client Secret for XAA Resource App in Okta Admin Console" width:"800" %}{: .center-image }
 
 ### Create the requesting app (Agent0)
 
 1. Go back to **Applications > Applications**  
 2. Select **Browse App Catalog**  
-3. Search for **Agent0 - Cross App Access (XAA) Sample Requesting App**, and select it  
+3. Search for **XAA Requesting App**, and select it  
 4. Select **Add Integration**  
-5. Enter **Agent0** in the Application label field and click **Done**  
-6. Click the **Sign On** tab to view the **Client ID** and **Client secret**. These are required to be included in your `.env.agent`
+5. Enter **Agent0** in the Application label field
+6. In the **Issuer URL** field, enter `http://localhost:5001` (Todo0's Resource Authorization Server URL)
+7. In the **Client ID** field, enter `agent0-at-todo0` (Requesting App's Client ID in Resource Authorization Server), then click **Done**
+8. Click the **Sign On** tab to view the **Client ID** and **Client secret**. These are required to be included in your `.env.agent`
 
-{% img blog/cross-app-access/image10.jpg alt:"View Client ID and Client Secret for Agent0 Requesting App in Okta Admin Console" width:"800" %}{: .center-image }
+{% img blog/cross-app-access/image10.jpg alt:"View Client ID and Client Secret for XAA Requesting App in Okta Admin Console" width:"800" %}{: .center-image }
 
 ### Establishing connections between Todo0 & Agent0
 
