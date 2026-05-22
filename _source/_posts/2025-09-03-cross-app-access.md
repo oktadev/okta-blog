@@ -13,6 +13,8 @@ tweets:
 - ""
 image: blog/cross-app-access/social.jpg
 type: conversion
+changelog:
+  - 2026-05-22: Updated the Okta Admin Console steps to reflect the new **XAA Resource App** and **XAA Requesting App** App Catalog integrations, and the new required **Issuer URL** and **Client ID** fields. Changes to this article can be viewed in [oktadev/okta-blog#1641](https://github.com/oktadev/okta-blog/pull/1641).
 ---
 
 So you want to get your AI agent in front of Okta customers or make your application securely accessible to agents — you're in the right place. Here's why it matters.
