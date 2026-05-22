@@ -84,23 +84,26 @@ We'll create both apps in your Okta Integrator Free Plan account, grab their cli
 
 1. In the Okta Admin console, navigate to **Applications > Applications**  
 2. Select **Browse App Catalog**  
-3. Search for **Todo0 - Cross App Access (XAA) Sample Resource App**, and select it  
+3. Search for **XAA Resource App**, and select it  
 4. Select **Add Integration**  
-5. Enter "Todo0" in the Application label field and click **Done**  
-6. Click the **Sign On** tab to view the **Client ID** and **Client secret**. These are required to include in your `.env.todo`
+5. Enter "Todo0" in the Application label field
+6. In the **Issuer URL** field, enter `http://localhost:5001` (Todo0's Resource Authorization Server URL), then click **Done**
+7. Click the **Sign On** tab to view the **Client ID** and **Client secret**. These are required to include in your `.env.todo`
 
-{% img blog/cross-app-access/image1.jpg alt:"View Client ID and Client Secret for Todo0 Resource App in Okta Admin Console" width:"800" %}{: .center-image }
+{% img blog/cross-app-access/image1.jpg alt:"View Client ID and Client Secret for XAA Resource App in Okta Admin Console" width:"800" %}{: .center-image }
 
 ### Create the requesting app (Agent0)
 
 1. Go back to **Applications > Applications**  
 2. Select **Browse App Catalog**  
-3. Search for **Agent0 - Cross App Access (XAA) Sample Requesting App**, and select it  
+3. Search for **XAA Requesting App**, and select it  
 4. Select **Add Integration**  
-5. Enter **Agent0** in the Application label field and click **Done**  
-6. Click the **Sign On** tab to view the **Client ID** and **Client secret**. These are required to be included in your `.env.agent`
+5. Enter **Agent0** in the Application label field
+6. In the **Issuer URL** field, enter `http://localhost:5001` (Todo0's Resource Authorization Server URL)
+7. In the **Client ID** field, enter `agent0-at-todo0` (Requesting App's Client ID in Resource Authorization Server), then click **Done**
+8. Click the **Sign On** tab to view the **Client ID** and **Client secret**. These are required to be included in your `.env.agent`
 
-{% img blog/cross-app-access/image10.jpg alt:"View Client ID and Client Secret for Agent0 Requesting App in Okta Admin Console" width:"800" %}{: .center-image }
+{% img blog/cross-app-access/image10.jpg alt:"View Client ID and Client Secret for XAA Requesting App in Okta Admin Console" width:"800" %}{: .center-image }
 
 ### Establishing connections between Todo0 & Agent0
 
