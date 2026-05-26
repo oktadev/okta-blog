@@ -38,7 +38,7 @@ Using the Authorization method with a Private key JWT, we need to verify that th
 
 Import the Okta JWT Verifier library from the okta/jwt-verifier package at the top of the `apps/api/src/main.ts` file, removing the Bearer Auth strategy and BearerStrategy variable.
 
-```javascript
+```ts
 // Bearer Auth - Universal Logout
 import passportBearer from 'passport-http-bearer';
 
