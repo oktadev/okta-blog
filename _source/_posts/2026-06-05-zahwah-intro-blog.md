@@ -10,7 +10,7 @@ tweets:
 - "Excited to share my journey into DevRel - from creative pursuits to technical writing to developer advocacy 🚀"
 - "My favorite moments in tech: watching developers solve problems, seeing excitement during demos, and building communities"
 - "Whether it's documentation or developer advocacy, it all comes down to empathy and helping people succeed"
-image: blog/zahwah-jameel-intro/zahwah-social-image.png
+image: blog/zahwah-jameel-intro/zahwah-social-image.jpg
 type: awareness
 ---
 
