@@ -3,7 +3,7 @@ layout: blog_post
 title: "Okta Developer Connect San Francisco 2026 Recap"
 author: akanksha-bhasin
 by: advocate
-communities: [security, javascript, devops, ai]
+communities: [security, javascript, devops]
 description: "A recap of Okta Developer Connect San Francisco 2026: Cross App Access, Okta for AI Agents, and identity patterns for securing enterprise AI agents."
 tags: [okta, identity, ai, xaa, oauth, cross-app-access, agentic-ai, enterprise-ai]
 image: blog/okta-developer-connect-sf-recap/odc-sf-social-image.jpg
