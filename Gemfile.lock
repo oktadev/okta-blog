@@ -135,5 +135,8 @@ DEPENDENCIES
   octokit (~> 4.25)
   tzinfo-data
 
+RUBY VERSION
+   ruby 2.7.6p219
+
 BUNDLED WITH
    2.2.30
