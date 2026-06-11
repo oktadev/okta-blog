@@ -1,5 +1,5 @@
 source 'https://rubygems.org'
-ruby '2.7.6'
+ruby '>= 2.7.2', '<= 2.7.7'
 
 gem 'jekyll-assets', '2.3.2'
 gem 'jekyll-redirect-from'
