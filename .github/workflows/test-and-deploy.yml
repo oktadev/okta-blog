@@ -19,7 +19,7 @@ jobs:
     - name: Set up ruby and bundler
       uses: ruby/setup-ruby@v1
       with:
-        ruby-version: 2.7.7
+        ruby-version: 2.6
 
     - name: Install ruby dependencies
       run: |
