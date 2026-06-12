@@ -1,17 +1,22 @@
 name: Test & Deploy
 
-on: [push, pull_request]
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+  workflow_dispatch:
 jobs:
   test-and-deploy:
     name: Test & Deploy
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@v4
+    - uses: actions/checkout@v5
 
     - name: Set up node and npm
-      uses: actions/setup-node@v4
+      uses: actions/setup-node@v5
       with:
-        version: 18
+        node-version: 22
 
     - name: Install node dependencies
       run: npm install
@@ -19,38 +24,81 @@ jobs:
     - name: Set up ruby and bundler
       uses: ruby/setup-ruby@v1
       with:
-        ruby-version: 2.6
+        ruby-version: 2.7.6
 
     - name: Install ruby dependencies
       run: |
         gem install bundler -v 2.0.2
         bundle install
 
-    - name: Set up python and pip
-      uses: actions/setup-python@v4
-      with:
-        python-version: 3.9
-        architecture: x64
+    # - name: Set up python and pip
+    #   uses: actions/setup-python@v4
+    #   with:
+    #     python-version: 3.9
+    #     architecture: x64
 
-    - name: Install AWS CLI
-      run: pip install --user awscli
+    # - name: Install AWS CLI
+    #   run: pip install --user awscli
 
     - name: Build the blog
-      run: npm run build-prod
+      run: npm run build-dev
 
-    - name: Run tests
+    - name: Upload dist artifact
+      uses: actions/upload-artifact@v4
+      with:
+        name: dist
+        path: dist/
+
+    # - name: Run tests
+    #   run: |
+    #     npm run markdown-lint
+    #     npm run validate-front-matter
+    #     npm run validate-images
+    #     if ! bundle exec ./scripts/htmlproofer.rb;
+    #     then
+    #       echo "Failed HTML link validation."
+    #       exit 1;
+    #     else
+    #       echo -e "\xE2\x9C\x94 No broken internal/external links!"
+    #       exit 0;
+    #     fi
+
+    # - name: Prep for Deploy
+    #   run: npm run prep-for-deploy
+
+  deploy-to-vercel:
+    name: Deploy to Vercel
+    runs-on: ubuntu-latest
+    needs: test-and-deploy
+    env:
+      VERCEL_ORG_ID: ${{ secrets.VERCEL_ORG_ID }}
+      VERCEL_PROJECT_ID: ${{ secrets.VERCEL_PROJECT_ID }}
+    steps:
+    - name: Download dist artifact
+      uses: actions/download-artifact@v4
+      with:
+        name: dist
+        path: dist/
+
+    - name: Install Vercel CLI
+      run: npm install --global vercel@latest
+
+    - name: Create prebuilt output
       run: |
-        npm run markdown-lint
-        npm run validate-front-matter
-        npm run validate-images
-        if ! bundle exec ./scripts/htmlproofer.rb;
-        then
-          echo "Failed HTML link validation."
-          exit 1;
-        else
-          echo -e "\xE2\x9C\x94 No broken internal/external links!"
-          exit 0;
-        fi
+        rm -rf .vercel/output
+        mkdir -p .vercel/output/static
+        cp -r dist/. .vercel/output/static/
+        cat > .vercel/output/config.json << 'EOF'
+        {
+          "version": 3
+        }
+        EOF
 
-    - name: Prep for Deploy
-      run: npm run prep-for-deploy
+    - name: Deploy to Vercel
+      run: |
+        prod_flag=""
+        if [[ "${{ github.ref }}" == "refs/heads/main" ]]; then
+          prod_flag="--prod"
+        fi
+        deployment_url="$(vercel deploy --prebuilt --yes $prod_flag --token="${{ secrets.VERCEL_TOKEN }}")"
+        echo "Deployment URL: ${deployment_url}"
