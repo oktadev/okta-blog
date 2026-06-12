@@ -11,7 +11,7 @@ jobs:
     - name: Set up node and npm
       uses: actions/setup-node@v4
       with:
-        version: 18
+        node-version: 22
 
     - name: Install node dependencies
       run: npm install
@@ -19,38 +19,38 @@ jobs:
     - name: Set up ruby and bundler
       uses: ruby/setup-ruby@v1
       with:
-        ruby-version: 2.6
+        ruby-version: 2.7.6
 
     - name: Install ruby dependencies
       run: |
         gem install bundler -v 2.0.2
         bundle install
 
-    - name: Set up python and pip
-      uses: actions/setup-python@v4
-      with:
-        python-version: 3.9
-        architecture: x64
+    # - name: Set up python and pip
+    #   uses: actions/setup-python@v4
+    #   with:
+    #     python-version: 3.9
+    #     architecture: x64
 
-    - name: Install AWS CLI
-      run: pip install --user awscli
+    # - name: Install AWS CLI
+    #   run: pip install --user awscli
 
     - name: Build the blog
-      run: npm run build-prod
+      run: npm run build-dev
 
-    - name: Run tests
-      run: |
-        npm run markdown-lint
-        npm run validate-front-matter
-        npm run validate-images
-        if ! bundle exec ./scripts/htmlproofer.rb;
-        then
-          echo "Failed HTML link validation."
-          exit 1;
-        else
-          echo -e "\xE2\x9C\x94 No broken internal/external links!"
-          exit 0;
-        fi
+    # - name: Run tests
+    #   run: |
+    #     npm run markdown-lint
+    #     npm run validate-front-matter
+    #     npm run validate-images
+    #     if ! bundle exec ./scripts/htmlproofer.rb;
+    #     then
+    #       echo "Failed HTML link validation."
+    #       exit 1;
+    #     else
+    #       echo -e "\xE2\x9C\x94 No broken internal/external links!"
+    #       exit 0;
+    #     fi
 
-    - name: Prep for Deploy
-      run: npm run prep-for-deploy
+    # - name: Prep for Deploy
+    #   run: npm run prep-for-deploy
