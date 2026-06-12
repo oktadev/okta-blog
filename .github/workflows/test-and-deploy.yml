@@ -44,7 +44,7 @@ jobs:
       run: npm run build-dev
 
     - name: Upload dist artifact
-      uses: actions/upload-artifact@v4
+      uses: actions/upload-artifact@v7
       with:
         name: dist
         path: dist/
@@ -74,8 +74,10 @@ jobs:
       VERCEL_ORG_ID: ${{ secrets.VERCEL_ORG_ID }}
       VERCEL_PROJECT_ID: ${{ secrets.VERCEL_PROJECT_ID }}
     steps:
+    - uses: actions/checkout@v5
+
     - name: Download dist artifact
-      uses: actions/download-artifact@v4
+      uses: actions/download-artifact@v8
       with:
         name: dist
         path: dist/
@@ -88,10 +90,32 @@ jobs:
         rm -rf .vercel/output
         mkdir -p .vercel/output/static
         cp -r dist/. .vercel/output/static/
-        cat > .vercel/output/config.json << 'EOF'
-        {
-          "version": 3
+        node - << 'EOF'
+        const fs = require('fs');
+        const vercelConfig = JSON.parse(fs.readFileSync('vercel.json', 'utf8'));
+        const routes = [];
+
+        // Redirects first
+        for (const r of (vercelConfig.redirects || [])) {
+          routes.push({
+            src: r.source,
+            headers: { Location: r.destination },
+            status: r.permanent ? 301 : 302,
+          });
         }
+
+        // Headers (continue so subsequent routes still resolve files)
+        for (const rule of (vercelConfig.headers || [])) {
+          const headers = {};
+          for (const h of rule.headers) headers[h.key] = h.value;
+          routes.push({ src: rule.source, headers, continue: true });
+        }
+
+        fs.writeFileSync(
+          '.vercel/output/config.json',
+          JSON.stringify({ version: 3, routes }, null, 2)
+        );
+        console.log(`Generated config.json with ${routes.length} routes`);
         EOF
 
     - name: Deploy to Vercel
