@@ -14,8 +14,6 @@ image: blog/zahwah-jameel-intro/zahwah-social-image.jpg
 type: awareness
 ---
 
-# The One Where I Found My Way to DevRel
-
 If you've watched Friends, you'll know that life rarely goes according to plan. One day, you're helping a friend move a couch while yelling "Pivot!", and the next, you're wondering how you ended up there in the first place.
 
 My career has felt a little like that.
@@ -30,7 +28,7 @@ I started working with startups, creating everything from API documentation and 
 
 For a while, I thought documentation was the destination. Plot twist! It wasn't.
 
-When I joined JDoodle (an web-based IDE), I found myself spending more time talking to developers. I wasn't just writing for them anymore. I was listening to them, learning how they built things, understanding their frustrations, and seeing firsthand what made them excited about technology.
+When I joined JDoodle (a web-based IDE), I found myself spending more time talking to developers. I wasn't just writing for them anymore. I was listening to them, learning how they built things, understanding their frustrations, and seeing firsthand what made them excited about technology.
 
 The more conversations I had, the more I realized something. The thing I enjoyed most wasn't just creating documentation. It was connecting with people.
 
