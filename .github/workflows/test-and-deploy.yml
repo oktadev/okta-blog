@@ -73,6 +73,7 @@ jobs:
     env:
       VERCEL_ORG_ID: ${{ secrets.VERCEL_ORG_ID }}
       VERCEL_PROJECT_ID: ${{ secrets.VERCEL_PROJECT_ID }}
+      VERCEL_TOKEN: ${{ secrets.VERCEL_TOKEN }}
     steps:
     - uses: actions/checkout@v5
 
@@ -124,5 +125,5 @@ jobs:
         if [[ "${{ github.ref }}" == "refs/heads/main" ]]; then
           prod_flag="--prod"
         fi
-        deployment_url="$(vercel deploy --prebuilt --yes $prod_flag --token="${{ secrets.VERCEL_TOKEN }}")"
+        deployment_url="$(vercel deploy --prebuilt --yes $prod_flag)"
         echo "Deployment URL: ${deployment_url}"
