@@ -1,4 +1,4 @@
-name: Test & Deploy
+name: Build & Deploy
 
 on:
   push:
@@ -7,9 +7,9 @@ on:
   pull_request:
   workflow_dispatch:
 jobs:
-  test-and-deploy:
-    name: Test & Deploy
-    runs-on: ubuntu-latest
+  build-and-deploy:
+    name: Build & Deploy
+    runs-on: okta-blog
     steps:
     - uses: actions/checkout@v5
 
@@ -17,6 +17,7 @@ jobs:
       uses: actions/setup-node@v5
       with:
         node-version: 22
+        cache: npm
 
     - name: Install node dependencies
       run: npm install
@@ -25,6 +26,7 @@ jobs:
       uses: ruby/setup-ruby@v1
       with:
         ruby-version: 2.7.6
+        bundler-cache: true
 
     - name: Install ruby dependencies
       run: |
@@ -40,10 +42,26 @@ jobs:
         name: dist
         path: dist/
 
+    - name: Save PR metadata
+      if: github.event_name == 'pull_request'
+      run: |
+        echo "${{ github.event.pull_request.number }}" > pr_number.txt
+        echo "${{ github.event.pull_request.head.sha }}" > pr_sha.txt
+
+    - name: Upload PR metadata
+      if: github.event_name == 'pull_request'
+      uses: actions/upload-artifact@v7
+      with:
+        name: pr-metadata
+        path: |
+          pr_number.txt
+          pr_sha.txt
+
   deploy-to-vercel:
     name: Deploy to Vercel
-    runs-on: ubuntu-latest
-    needs: test-and-deploy
+    runs-on: okta-blog
+    needs: build-and-deploy
+    if: github.event_name != 'pull_request'
     env:
       VERCEL_ORG_ID: ${{ secrets.VERCEL_ORG_ID }}
       VERCEL_PROJECT_ID: ${{ secrets.VERCEL_PROJECT_ID }}
@@ -102,29 +120,3 @@ jobs:
         fi
         deployment_url="$(vercel deploy --prebuilt --yes $prod_flag)"
         echo "Deployment URL: ${deployment_url}"
-        echo "deployment_url=${deployment_url}" >> "$GITHUB_OUTPUT"
-        inspect_url="$(vercel inspect "${deployment_url}" --json 2>/dev/null | node -e "const d=require('fs').readFileSync('/dev/stdin','utf8'); try { const j=JSON.parse(d); process.stdout.write('https://vercel.com/' + j.ownerId + '/' + j.name + '/' + j.id); } catch(e) { process.stdout.write(''); }")"
-        echo "inspect_url=${inspect_url}" >> "$GITHUB_OUTPUT"
-
-    - name: Alias preview deployment
-      if: github.event_name == 'pull_request'
-      run: |
-        alias_url="deploy-preview-${{ github.event.pull_request.number }}--${{ github.event.repository.name }}.vercel.app"
-        vercel alias "${{ steps.deploy.outputs.deployment_url }}" "${alias_url}" --scope okta-dev-advocacy
-        echo "alias_url=${alias_url}" >> "$GITHUB_OUTPUT"
-      id: alias
-
-    - name: Comment PR with deployment info
-      if: github.event_name == 'pull_request'
-      uses: actions/github-script@v8
-      env:
-        PREVIEW_URL: https://${{ steps.alias.outputs.alias_url }}
-        DEPLOYMENT_URL: ${{ steps.deploy.outputs.deployment_url }}
-        INSPECT_URL: ${{ steps.deploy.outputs.inspect_url }}
-        COMMIT_SHA: ${{ github.event.pull_request.head.sha }}
-        RUN_ID: ${{ github.run_id }}
-      with:
-        github-token: ${{ secrets.GITHUB_TOKEN }}
-        script: |
-          const script = require('./.github/scripts/pr-comment.js');
-          await script({ github, context });
