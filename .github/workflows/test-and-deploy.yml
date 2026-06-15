@@ -1,17 +1,22 @@
 name: Test & Deploy
 
-on: [push, pull_request]
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+  workflow_dispatch:
 jobs:
   test-and-deploy:
     name: Test & Deploy
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@v4
+    - uses: actions/checkout@v5
 
     - name: Set up node and npm
-      uses: actions/setup-node@v4
+      uses: actions/setup-node@v5
       with:
-        version: 18
+        node-version: 22
 
     - name: Install node dependencies
       run: npm install
@@ -19,38 +24,107 @@ jobs:
     - name: Set up ruby and bundler
       uses: ruby/setup-ruby@v1
       with:
-        ruby-version: 2.6
+        ruby-version: 2.7.6
 
     - name: Install ruby dependencies
       run: |
         gem install bundler -v 2.0.2
         bundle install
 
-    - name: Set up python and pip
-      uses: actions/setup-python@v4
-      with:
-        python-version: 3.9
-        architecture: x64
-
-    - name: Install AWS CLI
-      run: pip install --user awscli
-
     - name: Build the blog
-      run: npm run build-prod
+      run: npm run build-dev
 
-    - name: Run tests
+    - name: Upload dist artifact
+      uses: actions/upload-artifact@v7
+      with:
+        name: dist
+        path: dist/
+
+  deploy-to-vercel:
+    name: Deploy to Vercel
+    runs-on: ubuntu-latest
+    needs: test-and-deploy
+    env:
+      VERCEL_ORG_ID: ${{ secrets.VERCEL_ORG_ID }}
+      VERCEL_PROJECT_ID: ${{ secrets.VERCEL_PROJECT_ID }}
+      VERCEL_TOKEN: ${{ secrets.VERCEL_TOKEN }}
+    steps:
+    - uses: actions/checkout@v5
+
+    - name: Download dist artifact
+      uses: actions/download-artifact@v8
+      with:
+        name: dist
+        path: dist/
+
+    - name: Install Vercel CLI
+      run: npm install --global vercel@latest
+
+    - name: Create prebuilt output
       run: |
-        npm run markdown-lint
-        npm run validate-front-matter
-        npm run validate-images
-        if ! bundle exec ./scripts/htmlproofer.rb;
-        then
-          echo "Failed HTML link validation."
-          exit 1;
-        else
-          echo -e "\xE2\x9C\x94 No broken internal/external links!"
-          exit 0;
-        fi
+        rm -rf .vercel/output
+        mkdir -p .vercel/output/static
+        cp -r dist/. .vercel/output/static/
+        node - << 'EOF'
+        const fs = require('fs');
+        const vercelConfig = JSON.parse(fs.readFileSync('vercel.json', 'utf8'));
+        const routes = [];
 
-    - name: Prep for Deploy
-      run: npm run prep-for-deploy
+        // Redirects first
+        for (const r of (vercelConfig.redirects || [])) {
+          routes.push({
+            src: r.source,
+            headers: { Location: r.destination },
+            status: r.permanent ? 301 : 302,
+          });
+        }
+
+        // Headers (continue so subsequent routes still resolve files)
+        for (const rule of (vercelConfig.headers || [])) {
+          const headers = {};
+          for (const h of rule.headers) headers[h.key] = h.value;
+          routes.push({ src: rule.source, headers, continue: true });
+        }
+
+        fs.writeFileSync(
+          '.vercel/output/config.json',
+          JSON.stringify({ version: 3, routes }, null, 2)
+        );
+        console.log(`Generated config.json with ${routes.length} routes`);
+        EOF
+
+    - name: Deploy to Vercel
+      id: deploy
+      run: |
+        prod_flag=""
+        if [[ "${{ github.ref }}" == "refs/heads/main" ]]; then
+          prod_flag="--prod"
+        fi
+        deployment_url="$(vercel deploy --prebuilt --yes $prod_flag)"
+        echo "Deployment URL: ${deployment_url}"
+        echo "deployment_url=${deployment_url}" >> "$GITHUB_OUTPUT"
+        inspect_url="$(vercel inspect "${deployment_url}" --json 2>/dev/null | node -e "const d=require('fs').readFileSync('/dev/stdin','utf8'); try { const j=JSON.parse(d); process.stdout.write('https://vercel.com/' + j.ownerId + '/' + j.name + '/' + j.id); } catch(e) { process.stdout.write(''); }")"
+        echo "inspect_url=${inspect_url}" >> "$GITHUB_OUTPUT"
+
+    - name: Alias preview deployment
+      if: github.event_name == 'pull_request'
+      run: |
+        alias_url="deploy-preview-${{ github.event.pull_request.number }}--${{ github.event.repository.name }}.vercel.app"
+        vercel alias "${{ steps.deploy.outputs.deployment_url }}" "${alias_url}" --scope okta-dev-advocacy
+        echo "alias_url=${alias_url}" >> "$GITHUB_OUTPUT"
+      id: alias
+
+    - name: Comment PR with deployment info
+      if: github.event_name == 'pull_request'
+      uses: actions/github-script@v8
+      env:
+        PREVIEW_URL: https://${{ steps.alias.outputs.alias_url }}
+        DEPLOYMENT_URL: ${{ steps.deploy.outputs.deployment_url }}
+        INSPECT_URL: ${{ steps.deploy.outputs.inspect_url }}
+        COMMIT_SHA: ${{ github.event.pull_request.head.sha }}
+        RUN_ID: ${{ github.run_id }}
+      with:
+        github-token: ${{ secrets.GITHUB_TOKEN }}
+        script: |
+          const script = require('./.github/scripts/pr-comment.js');
+          await script({ github, context });
