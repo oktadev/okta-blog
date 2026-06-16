@@ -83,6 +83,12 @@ jobs:
         rm -rf .vercel/output
         mkdir -p .vercel/output/static
         cp -r dist/. .vercel/output/static/
+        # Convert post.html -> post/index.html for clean URLs
+        find .vercel/output/static -type f -name '*.html' ! -name 'index.html' | while read f; do
+          dir="${f%.html}"
+          mkdir -p "$dir"
+          mv "$f" "$dir/index.html"
+        done
         node - << 'EOF'
         const fs = require('fs');
         const vercelConfig = JSON.parse(fs.readFileSync('vercel.json', 'utf8'));
@@ -106,7 +112,7 @@ jobs:
 
         fs.writeFileSync(
           '.vercel/output/config.json',
-          JSON.stringify({ version: 3, cleanUrls: true, routes }, null, 2)
+          JSON.stringify({ version: 3, routes }, null, 2)
         );
         console.log(`Generated config.json with ${routes.length} routes`);
         EOF
