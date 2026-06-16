@@ -14,12 +14,35 @@
 #
 name: autoupdate
 on:
-  push: {}
+  push:
 jobs:
   autoupdate:
     name: autoupdate
     runs-on: ubuntu-latest
     steps:
-      - uses: docker://chinthakagodawita/autoupdate-action:v1
-        env:
-          GITHUB_TOKEN: "${{ secrets.GITHUB_TOKEN }}"
+      - name: Update open PRs with latest main
+        uses: actions/github-script@v8
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          script: |
+            const pulls = await github.paginate(github.rest.pulls.list, {
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              state: 'open',
+            });
+            for (const pull of pulls) {
+              if (pull.head.repo?.full_name !== `${context.repo.owner}/${context.repo.repo}`) {
+                console.log(`Skipping fork PR #${pull.number}`);
+                continue;
+              }
+              try {
+                await github.rest.pulls.updateBranch({
+                  owner: context.repo.owner,
+                  repo: context.repo.repo,
+                  pull_number: pull.number,
+                });
+                console.log(`Updated PR #${pull.number}`);
+              } catch (err) {
+                console.log(`Skipped PR #${pull.number}: ${err.message}`);
+              }
+            }
