@@ -104,16 +104,12 @@ jobs:
       uses: actions/github-script@v8
       env:
         PREVIEW_URL: https://${{ steps.alias.outputs.alias_url }}
-        DEPLOYMENT_URL: ${{ steps.deploy.outputs.deployment_url }}
         INSPECT_URL: ${{ steps.deploy.outputs.inspect_url }}
         COMMIT_SHA: ${{ steps.pr.outputs.sha }}
+        PR_NUMBER: ${{ steps.pr.outputs.number }}
         RUN_ID: ${{ github.run_id }}
       with:
         github-token: ${{ secrets.GITHUB_TOKEN }}
         script: |
-          // Override context.payload.pull_request.number since this is workflow_run context
-          const prNumber = parseInt(process.env.COMMIT_SHA ? '${{ steps.pr.outputs.number }}' : '0');
           const script = require('./.github/scripts/pr-comment.js');
-          // Patch context so pr-comment.js finds the right PR
-          context.payload.pull_request = { number: ${{ steps.pr.outputs.number }} };
           await script({ github, context });
