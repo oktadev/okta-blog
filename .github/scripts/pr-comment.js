@@ -1,10 +1,18 @@
-// Called by actions/github-script in the deploy-to-vercel job.
+// Called by actions/github-script in deploy workflows.
 // Required env vars (set by the workflow):
-//   PREVIEW_URL, DEPLOYMENT_URL, INSPECT_URL, COMMIT_SHA, RUN_ID
+//   PREVIEW_URL, INSPECT_URL, COMMIT_SHA, RUN_ID
+// Optional env var for workflow_run context:
+//   PR_NUMBER
 module.exports = async ({ github, context }) => {
   const previewUrl = process.env.PREVIEW_URL;
   const inspectUrl = process.env.INSPECT_URL;
   const sha = process.env.COMMIT_SHA.slice(0, 7);
+  const prNumber = Number(process.env.PR_NUMBER || context.payload?.pull_request?.number);
+
+  if (!Number.isInteger(prNumber) || prNumber <= 0) {
+    throw new Error('PR number was not found. Set PR_NUMBER for workflow_run jobs.');
+  }
+
   const runUrl = `https://github.com/${context.repo.owner}/${context.repo.repo}/actions/runs/${process.env.RUN_ID}`;
 
   const deployLogLine = inspectUrl
@@ -24,7 +32,7 @@ module.exports = async ({ github, context }) => {
   const { data: comments } = await github.rest.issues.listComments({
     owner: context.repo.owner,
     repo: context.repo.repo,
-    issue_number: context.payload.pull_request.number,
+    issue_number: prNumber,
   });
 
   const botComments = comments.filter(
@@ -55,7 +63,7 @@ module.exports = async ({ github, context }) => {
     await github.rest.issues.createComment({
       owner: context.repo.owner,
       repo: context.repo.repo,
-      issue_number: context.payload.pull_request.number,
+      issue_number: prNumber,
       body,
     });
   }
