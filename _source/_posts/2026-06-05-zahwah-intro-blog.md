@@ -5,16 +5,14 @@ author: zahwah-jameel
 by: advocate
 communities: [javascript,security,java,python]
 description: "How love for storytelling and creative pursuits led to a career in developer relations and advocacy at Okta."
-tags: [career, developer-advocacy, community, okta]
+tags: [devrel, career, developer-advocacy, community, okta]
 tweets:
-- "Excited to share my journey into Okta - from creative pursuits to technical writing to developer advocacy 🚀"
+- "Excited to share my journey into DevRel - from creative pursuits to technical writing to developer advocacy 🚀"
 - "My favorite moments in tech: watching developers solve problems, seeing excitement during demos, and building communities"
-- "Whether it's documentation, developer advocacy, or community, it all comes down to empathy and helping people succeed"
+- "Whether it's documentation or developer advocacy, it all comes down to empathy and helping people succeed"
 image: blog/zahwah-jameel-intro/zahwah-social-image.jpg
 type: awareness
 ---
-
-# The One Where I Found My Way to Okta
 
 If you've watched Friends, you'll know that life rarely goes according to plan. One day, you're helping a friend move a couch while yelling "Pivot!", and the next, you're wondering how you ended up there in the first place.
 
@@ -30,11 +28,11 @@ I started working with startups, creating everything from API documentation and 
 
 For a while, I thought documentation was the destination. Plot twist! It wasn't.
 
-When I joined JDoodle (an web-based IDE), I found myself spending more time talking to developers. I wasn't just writing for them anymore. I was listening to them, learning how they built things, understanding their frustrations, and seeing firsthand what made them excited about technology.
+When I joined JDoodle (a web-based IDE), I found myself spending more time talking to developers. I wasn't just writing for them anymore. I was listening to them, learning how they built things, understanding their frustrations, and seeing firsthand what made them excited about technology.
 
 The more conversations I had, the more I realized something. The thing I enjoyed most wasn't just creating documentation. It was connecting with people.
 
-## Finding my place in developer advocacy
+## Finding my place in devrel
 
 I started attending developer events and conferences. Then came product demos. Then booth duty. Then community conversations. Then hackathons. Then organizing internal events.
 
