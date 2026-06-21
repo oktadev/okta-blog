@@ -1,0 +1,119 @@
+name: Deploy Preview
+
+on:
+  workflow_run:
+    workflows: ["Build & Deploy"]
+    types:
+      - completed
+
+jobs:
+  deploy-preview:
+    name: Deploy Preview to Vercel
+    runs-on: okta-blog
+    # Only run when the triggering workflow was a pull_request event and succeeded
+    if: github.event.workflow_run.event == 'pull_request' && github.event.workflow_run.conclusion == 'success'
+    env:
+      VERCEL_ORG_ID: ${{ secrets.VERCEL_ORG_ID }}
+      VERCEL_PROJECT_ID: ${{ secrets.VERCEL_PROJECT_ID }}
+      VERCEL_TOKEN: ${{ secrets.VERCEL_TOKEN }}
+    steps:
+    # Checkout base repo (safe — does NOT run fork code)
+    - uses: actions/checkout@v5
+
+    - name: Download dist artifact
+      uses: actions/download-artifact@v8
+      with:
+        name: dist
+        path: dist/
+        run-id: ${{ github.event.workflow_run.id }}
+        github-token: ${{ secrets.GITHUB_TOKEN }}
+
+    - name: Download PR metadata
+      uses: actions/download-artifact@v8
+      with:
+        name: pr-metadata
+        path: pr-metadata/
+        run-id: ${{ github.event.workflow_run.id }}
+        github-token: ${{ secrets.GITHUB_TOKEN }}
+
+    - name: Read PR metadata
+      id: pr
+      run: |
+        echo "number=$(cat pr-metadata/pr_number.txt)" >> "$GITHUB_OUTPUT"
+        echo "sha=$(cat pr-metadata/pr_sha.txt)" >> "$GITHUB_OUTPUT"
+
+    - name: Install Vercel CLI
+      run: npm install --global vercel@latest
+
+    - name: Create prebuilt output
+      run: |
+        rm -rf .vercel/output
+        mkdir -p .vercel/output/static
+        cp -r dist/. .vercel/output/static/
+        # Convert post.html -> post/index.html for clean URLs
+        find .vercel/output/static -type f -name '*.html' ! -name 'index.html' | while read f; do
+          dir="${f%.html}"
+          mkdir -p "$dir"
+          mv "$f" "$dir/index.html"
+        done
+        node - << 'EOF'
+        const fs = require('fs');
+        const vercelConfig = JSON.parse(fs.readFileSync('vercel.json', 'utf8'));
+        const routes = [];
+
+        // Redirects first
+        for (const r of (vercelConfig.redirects || [])) {
+          routes.push({
+            src: r.source,
+            headers: { Location: r.destination },
+            status: r.permanent ? 301 : 302,
+          });
+        }
+
+        // Headers (continue so subsequent routes still resolve files)
+        for (const rule of (vercelConfig.headers || [])) {
+          const headers = {};
+          for (const h of rule.headers) headers[h.key] = h.value;
+          routes.push({ src: rule.source, headers, continue: true });
+        }
+
+        fs.writeFileSync(
+          '.vercel/output/config.json',
+          JSON.stringify({ version: 3, routes }, null, 2)
+        );
+        console.log(`Generated config.json with ${routes.length} routes`);
+        EOF
+
+    - name: Deploy to Vercel
+      id: deploy
+      run: |
+        deployment_url="$(vercel deploy --prebuilt --yes)"
+        echo "Deployment URL: ${deployment_url}"
+        echo "deployment_url=${deployment_url}" >> "$GITHUB_OUTPUT"
+        inspect_url="$(vercel inspect "${deployment_url}" --json 2>/dev/null | node -e "const d=require('fs').readFileSync('/dev/stdin','utf8'); try { const j=JSON.parse(d); process.stdout.write('https://vercel.com/' + j.ownerId + '/' + j.name + '/' + j.id); } catch(e) { process.stdout.write(''); }")"
+        echo "inspect_url=${inspect_url}" >> "$GITHUB_OUTPUT"
+
+    - name: Alias preview deployment
+      id: alias
+      run: |
+        alias_url="deploy-preview-${{ steps.pr.outputs.number }}--${{ github.event.repository.name }}.vercel.app"
+        vercel alias "${{ steps.deploy.outputs.deployment_url }}" "${alias_url}" --scope okta-dev-advocacy
+        echo "alias_url=${alias_url}" >> "$GITHUB_OUTPUT"
+
+    - name: Comment PR with deployment info
+      uses: actions/github-script@v8
+      env:
+        PREVIEW_URL: https://${{ steps.alias.outputs.alias_url }}
+        DEPLOYMENT_URL: ${{ steps.deploy.outputs.deployment_url }}
+        INSPECT_URL: ${{ steps.deploy.outputs.inspect_url }}
+        COMMIT_SHA: ${{ steps.pr.outputs.sha }}
+        RUN_ID: ${{ github.run_id }}
+      with:
+        github-token: ${{ secrets.GITHUB_TOKEN }}
+        script: |
+          // Override context.payload.pull_request.number since this is workflow_run context
+          const prNumber = parseInt(process.env.COMMIT_SHA ? '${{ steps.pr.outputs.number }}' : '0');
+          const script = require('./.github/scripts/pr-comment.js');
+          // Patch context so pr-comment.js finds the right PR
+          context.payload.pull_request = { number: ${{ steps.pr.outputs.number }} };
+          await script({ github, context });
