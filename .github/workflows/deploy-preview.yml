@@ -123,6 +123,8 @@ jobs:
     - name: Report Deploy Preview to Vercel status
       if: always()
       uses: actions/github-script@v8
+      env:
+        COMMIT_SHA: ${{ steps.pr.outputs.sha }}
       with:
         github-token: ${{ secrets.GITHUB_TOKEN }}
         script: |
@@ -134,7 +136,7 @@ jobs:
           await github.rest.repos.createCommitStatus({
             owner: context.repo.owner,
             repo: context.repo.repo,
-            sha: context.payload.workflow_run.head_sha,
+            sha: process.env.COMMIT_SHA,
             state,
             context: 'Deploy Preview to Vercel',
             description,
