@@ -1,5 +1,11 @@
 name: Deploy Preview
 
+permissions:
+  contents: read
+  actions: read
+  issues: write
+  statuses: write
+
 on:
   workflow_run:
     workflows: ["Build & Deploy"]
@@ -113,3 +119,24 @@ jobs:
         script: |
           const script = require('./.github/scripts/pr-comment.js');
           await script({ github, context });
+
+    - name: Report Deploy Preview to Vercel status
+      if: always()
+      uses: actions/github-script@v8
+      with:
+        github-token: ${{ secrets.GITHUB_TOKEN }}
+        script: |
+          const state = '${{ job.status }}' === 'success' ? 'success' : 'failure';
+          const description = state === 'success'
+            ? 'Preview deployment completed'
+            : 'Preview deployment failed';
+
+          await github.rest.repos.createCommitStatus({
+            owner: context.repo.owner,
+            repo: context.repo.repo,
+            sha: context.payload.workflow_run.head_sha,
+            state,
+            context: 'Deploy Preview to Vercel',
+            description,
+            target_url: `https://github.com/${context.repo.owner}/${context.repo.repo}/actions/runs/${context.runId}`,
+          });
