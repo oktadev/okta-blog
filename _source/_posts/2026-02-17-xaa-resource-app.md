@@ -51,17 +51,18 @@ To register your resource app with Okta, and set up secure agent-to-app connecti
 
 # Register your requesting app (Agent0)
 
-To test whether your resource app is working correctly, Okta provides a placeholder entry in the Okta Integration Network catalog. It is called ***Agent0 - Cross App Access (XAA) Sample Requesting App***. Add this to your org's integrations.
+To test whether your resource app is working correctly, Okta provides a placeholder entry in the Okta Integration Network catalog. It is called ***XAA Requesting App***. Add this to your org's integrations.
 
 * Still in Admin Console, go to **Applications > Applications**  
 * Select **Browse App Catalog**  
-* Search for "Agent0 - Cross App Access (XAA) Sample Requesting App", and select it  
+* Search for "XAA Requesting App", and select it  
 * Select **Add Integration**
 
-Now to configure it correctly. First, assign user access to Agent0.
+Now to configure it correctly.
 
-* Change the **Application** label if required, and select **Done**,  
-* Select the Assignments tab  
+* Give it a name like "Agent0" in the "Application label" field
+* Enter the Issuer URL and Client ID that this agent will use to communicate with your resource app's authorization server
+* Assign it to one or more users. Select the Assignments tab
   * To assign it to a single user, select **Assign > Assign to People** and choose your user  
   * To assign it to a user group, select **Assign > Assign to Groups** and choose your user group  
 * Click Done
@@ -71,7 +72,7 @@ Finally, configure Agent0 with the redirect URI you will use to test Agent0
 * Select the **Sign On tab**  
 * Select **Edit**, and locate the Advanced Sign-on Settings section.  
 * Set the **Redirect URI** to the URL that your app will use. For example, [http://localhost:8080/redirect](http://localhost:8080/redirect)  
-* Click Save.  
+* Click Save.
 * Locate and copy the Client ID and Client secret in the Sign-On methods section. Your app must use these when signing users in through Okta.
 
 > Note: Only the org authorization server can be used to exchange ID-JAG tokens. Ensure you are using the org authorization server and not an Okta "custom authorization server".
@@ -83,18 +84,19 @@ Finally, configure Agent0 with the redirect URI you will use to test Agent0
 To allow the exchange of an ID-JAG token between Agent0 and your resource app, Agent0 must be registered as an OAuth client in your resource app's OAuth server. 
 
 * Register your requesting app (**Agent0**) as an OAuth client in your resource app's OAuth server.    
-* Make a note of the Client ID for your requesting app (**Agent0**). You'll need this as you set up your resource app.
+* This Client ID is what you should have entered in the "Client ID" section of the Agent0 "General" app settings.
 
 > Note: The process for registering a client ID from your resource app's OAuth server will vary depending on the product.
 
 # Set up your resource app (TaskFlow)
 
-To set up your resource app in your org, you can use the placeholder integration in the OIN catalog called ***Todo0 - Cross App Access (XAA) Sample Resource App*** and configure it as your resource app.
+To set up your resource app in your org, you can use the placeholder integration in the OIN catalog called ***XAA Resource App*** and configure it as your resource app.
 
 * Still in Admin Console, navigate to **Applications > Applications**
 * Select **Browse App Catalog**
-* Search for **Todo0 - Cross App Access (XAA) Sample Resource App**, and select it  
+* Search for **XAA Resource App**, and select it  
 * Select **Add Integration**
+* Enter your authorization server issuer URL
 
 Now give it a helpful name and assign user access to TaskFlow.
 
@@ -103,18 +105,6 @@ Now give it a helpful name and assign user access to TaskFlow.
   * To assign it to a single user, select **Assign > Assign to People** and choose your user  
   * To assign it to a user group, select **Assign > Assign to Groups** and choose your user group  
 * Click **Done**
-
-## Update the audience value of your Resource app's auth server
-
-By default, Okta will issue an ID-JAG token for Agent0 with the audience (`aud`) value set to that of the sample resource app (Todo0): `http://localhost:5001/`. You must change this so the ID-JAG token includes an audience value that identifies your actual resource app's authorization server.
-
-To do this, contact the Okta XAA team to replace your app's audience value in Okta by sending an email to xaa@okta.com. Provide the following information to the Okta XAA team:
-
-***Okta Integrator Org URL:*** 'https://{yourOktaDomain}'  
-***Audience:*** 'http://yourresourceapps.authserver.org'
-***Client ID from your own OAuth server:*** [Agent0's XAA client ID you created earlier]
-
-Please note that the Client ID you provide must be the client ID from your own OAuth server that was created earlier.
 
 # Establish Connections between Agent0 and your resource app
 
@@ -131,7 +121,7 @@ Now Agent0 and TaskFlow are connected.
 
 # Validate that your Resource App and Auth Server work as intended
 
-Once the Okta XAA team confirms that your app's audience value has been updated in Okta, Agent0 can make a Token Exchange request to Okta and will receive an ID-JAG with the correct audience.
+Now Agent0 can make a Token Exchange request to Okta and will receive an ID-JAG with the correct audience.
 
 To test the end-to-end XAA flow with Agent0 to your authorization server, create a testing client that completes the following steps:
 
