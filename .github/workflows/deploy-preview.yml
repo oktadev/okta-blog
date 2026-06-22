@@ -4,6 +4,7 @@ permissions:
   contents: read
   actions: read
   issues: write
+  pull-requests: write
   statuses: write
   deployments: write
 
