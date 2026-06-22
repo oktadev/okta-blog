@@ -4,7 +4,9 @@ permissions:
   contents: read
   actions: read
   issues: write
+  pull-requests: write
   statuses: write
+  deployments: write
 
 on:
   workflow_run:
@@ -106,6 +108,40 @@ jobs:
         vercel alias "${{ steps.deploy.outputs.deployment_url }}" "${alias_url}" --scope okta-dev-advocacy
         echo "alias_url=${alias_url}" >> "$GITHUB_OUTPUT"
 
+    - name: Create GitHub deployment record
+      if: success()
+      id: gh_deployment
+      uses: actions/github-script@v8
+      env:
+        COMMIT_SHA: ${{ steps.pr.outputs.sha }}
+        PR_NUMBER: ${{ steps.pr.outputs.number }}
+        PREVIEW_URL: https://${{ steps.alias.outputs.alias_url }}
+      with:
+        github-token: ${{ secrets.GITHUB_TOKEN }}
+        script: |
+          const deployment = await github.rest.repos.createDeployment({
+            owner: context.repo.owner,
+            repo: context.repo.repo,
+            ref: process.env.COMMIT_SHA,
+            auto_merge: false,
+            required_contexts: [],
+            environment: `preview/pr-${process.env.PR_NUMBER}`,
+            description: `PR #${process.env.PR_NUMBER} preview deployment`,
+            production_environment: false,
+            transient_environment: true,
+          });
+
+          core.setOutput('deployment_id', String(deployment.data.id));
+
+          await github.rest.repos.createDeploymentStatus({
+            owner: context.repo.owner,
+            repo: context.repo.repo,
+            deployment_id: deployment.data.id,
+            state: 'success',
+            environment_url: process.env.PREVIEW_URL,
+            log_url: `https://github.com/${context.repo.owner}/${context.repo.repo}/actions/runs/${context.runId}`,
+          });
+
     - name: Comment PR with deployment info
       uses: actions/github-script@v8
       env:
@@ -123,6 +159,10 @@ jobs:
     - name: Report Deploy Preview to Vercel status
       if: always()
       uses: actions/github-script@v8
+      env:
+        COMMIT_SHA: ${{ steps.pr.outputs.sha }}
+        DEPLOYMENT_ID: ${{ steps.gh_deployment.outputs.deployment_id }}
+        PREVIEW_URL: https://${{ steps.alias.outputs.alias_url }}
       with:
         github-token: ${{ secrets.GITHUB_TOKEN }}
         script: |
@@ -134,9 +174,26 @@ jobs:
           await github.rest.repos.createCommitStatus({
             owner: context.repo.owner,
             repo: context.repo.repo,
-            sha: context.payload.workflow_run.head_sha,
+            sha: process.env.COMMIT_SHA,
             state,
             context: 'Deploy Preview to Vercel',
             description,
             target_url: `https://github.com/${context.repo.owner}/${context.repo.repo}/actions/runs/${context.runId}`,
           });
+
+          if (process.env.DEPLOYMENT_ID) {
+            const deploymentState = state === 'success' ? 'success' : 'failure';
+            const deploymentStatus = {
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              deployment_id: Number(process.env.DEPLOYMENT_ID),
+              state: deploymentState,
+              log_url: `https://github.com/${context.repo.owner}/${context.repo.repo}/actions/runs/${context.runId}`,
+            };
+
+            if (state === 'success' && process.env.PREVIEW_URL) {
+              deploymentStatus.environment_url = process.env.PREVIEW_URL;
+            }
+
+            await github.rest.repos.createDeploymentStatus(deploymentStatus);
+          }
