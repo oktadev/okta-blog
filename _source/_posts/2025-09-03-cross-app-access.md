@@ -13,7 +13,11 @@ tweets:
 - ""
 image: blog/cross-app-access/social.jpg
 type: conversion
+changelog:
+  - 2026-05-22: Updated the Okta Admin Console steps to reflect the new **XAA Resource App** and **XAA Requesting App** App Catalog integrations, and the new required **Issuer URL** and **Client ID** fields. Changes to this article can be viewed in [oktadev/okta-blog#1641](https://github.com/oktadev/okta-blog/pull/1641).
 ---
+
+So you want to get your AI agent in front of Okta customers or make your application securely accessible to agents — you're in the right place. Here's why it matters.
 
 Secure access with enterprise IT oversight between independent applications that communicate with each other is a recognized gap in [OAuth 2.0](https://developer.okta.com/docs/concepts/oauth-openid/). Enterprises can't effectively regulate cross-app communication, as OAuth 2.0 consent screens rely on users granting access to their individual accounts. Now, with the advent of AI agents that communicate across systems, the need to solve the gap is even greater – especially given the growing importance of enterprise AI security in protecting sensitive data flows.
 
@@ -28,10 +32,6 @@ Or watch the video about Cross App Access:
 {% youtube 3VLzeT1EGrg %}
 
 In this post, we'll go hands-on with Cross App Access. Using **Todo0** (the Resource App) and **Agent0** (the Requesting App) as our sample applications, and **Okta as the enterprise Identity Provider (IdP)**, we'll show you how to set up trust, exchange tokens, and enable secure API calls between apps that enable enterprise IT oversight. By the end, you'll not only understand how the protocol works but also have a working example you can adapt to your own integrations.
-
-If you'd rather watch a video of the setup and how XAA works, check this one out.
-
-{% youtube vi5JpbGRATE %}
 
 ## Prerequisites to set up the AI agent to app connections using Cross App Access (XAA)
 
@@ -60,7 +60,7 @@ To set up secure agent-to-app connections with Cross App Access (XAA), you'll ne
 
 Before we dive into the code, we need to register our apps with Okta. In this demo:
 
-* **Agent0**: the AI agent **requesting app** (makes the API call on behalf of the user)
+* **Agent0**: the **agentic** **requesting app** (makes the API call on behalf of the user)
 * **Todo0**: the **resource app** (owns the protected API)
 * **Managed connection**: the trust relationship between the two apps, created in Okta
 
@@ -82,25 +82,28 @@ We'll create both apps in your Okta Integrator Free Plan account, grab their cli
 
 1. In the Okta Admin console, navigate to **Applications > Applications**  
 2. Select **Browse App Catalog**  
-3. Search for **Todo0 - Cross App Access (XAA) Sample Resource App**, and select it  
+3. Search for **XAA Resource App**, and select it  
 4. Select **Add Integration**  
-5. Enter "Todo0" in the Application label field and click **Done**  
-6. Click the **Sign On** tab to view the **Client ID** and **Client secret**. These are required to include in your `.env.todo`
+5. Enter "Todo0" in the Application label field
+6. In the **Issuer URL** field, enter `http://localhost:5001` (Todo0's Resource Authorization Server URL), then click **Done**
+7. Click the **Sign On** tab to view the **Client ID** and **Client secret**. These are required to include in your `.env.todo`
 
-{% img blog/cross-app-access/image1.jpg alt:"View Client ID and Client Secret for Todo0 Resource App in Okta Admin Console" width:"800" %}{: .center-image }
+{% img blog/cross-app-access/image1.jpg alt:"View Client ID and Client Secret for XAA Resource App in Okta Admin Console" width:"800" %}{: .center-image }
 
 ### Create the requesting app (Agent0)
 
 1. Go back to **Applications > Applications**  
 2. Select **Browse App Catalog**  
-3. Search for **Agent0 - Cross App Access (XAA) Sample Requesting App**, and select it  
+3. Search for **XAA Requesting App**, and select it  
 4. Select **Add Integration**  
-5. Enter **Agent0** in the Application label field and click **Done**  
-6. Click the **Sign On** tab to view the **Client ID** and **Client secret**. These are required to be included in your `.env.agent`
+5. Enter **Agent0** in the Application label field
+6. In the **Issuer URL** field, enter `http://localhost:5001` (Todo0's Resource Authorization Server URL)
+7. In the **Client ID** field, enter `agent0-at-todo0` (Requesting App's Client ID in Resource Authorization Server), then click **Done**
+8. Click the **Sign On** tab to view the **Client ID** and **Client secret**. These are required to be included in your `.env.agent`
 
-{% img blog/cross-app-access/image10.jpg alt:"View Client ID and Client Secret for Agent0 Requesting App in Okta Admin Console" width:"800" %}{: .center-image }
+{% img blog/cross-app-access/image10.jpg alt:"View Client ID and Client Secret for XAA Requesting App in Okta Admin Console" width:"800" %}{: .center-image }
 
-### Establishing connections between Todo0 & AI agent (Agent0)
+### Establishing connections between Todo0 & Agent0
 
 1. From the **Applications** page, select the **Agent0** app  
 2. Go to the **Manage Connections** tab  
@@ -109,7 +112,7 @@ We'll create both apps in your Okta Integrator Free Plan account, grab their cli
 
 {% img blog/cross-app-access/image8.jpg alt:"Connect Agent0 and Todo0 apps in Okta by managing connections" width:"800" %}{: .center-image }
 
-Now **Agent0** and **Todo0** are connected. If you check the **Manage Connection** tab for either app, you'll see that the connection has been established.
+Now **Agent0** and **Todo0** are connected **and Agent0's AI Agent can access Todo0's resources.** If you check the **Manage Connection** tab for either app, you'll see that the connection has been established.
 
 ## Set up a test user in Okta org
 
@@ -211,7 +214,7 @@ This scaffolds the following files:
 * `packages/authorization-server/.env.agent`  
 * `packages/agent0/.env`
 
-### Configure AI and resource application connection values
+### Configure application connection values
 
 Open each file and update the placeholder with your org-specific values:
 
@@ -324,7 +327,7 @@ With everything configured, it's time to see Cross App Access in action.
 5. Select one of the tasks and mark it as complete to verify that the application updates the status accurately
 {% img blog/cross-app-access/image6.jpg alt:"Add and complete tasks in Todo0 Resource App UI" width:"800" %}{: .center-image }
 
-### Let the AI agent, the requesting app, access your todos
+### Let the **Agent0's** AI agent access your todos
 
 1. Open the **Agent0** app in your browser
 {% img blog/cross-app-access/image2.jpg alt:"Initialize AWS Bedrock client in Agent0 Requesting App" width:"800" %}{: .center-image }
@@ -362,11 +365,11 @@ With everything configured, it's time to see Cross App Access in action.
 
 **🎉 Congratulations! You've successfully configured and run the Cross App Access project.**
 
-## Need help setting up secure cross-domain enterprise AI application access?
+## Need help setting up secure cross-domain enterprise agentic application access?
 
-If you run into any issues while setting up or testing this project, feel free to post your queries to the forum: 👉 [Okta Developer Forum](https://devforum.okta.com)
+If you run into any issues while setting up or testing this project, feel free to post your questions on the forum: 👉 [Cross App Access (XAA) — Okta Developer Forum](https://devforum.okta.com/c/cross-app-access-xaa/33)
 
-If you're interested in implementing **Cross App Access (XAA)** in your own application — whether as a **requesting app** or a **resource app** — and want to explore how Okta can support your use case, reach out to us at: 📩 **[xaa@okta.com](mailto:xaa@okta.com)**
+If you're interested in implementing **Cross App Access (XAA)** in your own application and integrating it into the **[Okta Integration Network (OIN)](https://www.okta.com/integrations/)** — whether as a **requesting app** or a **resource app** — and want to explore how Okta can support your use case, reach out to us at: 📩 **[xaa@okta.com](mailto:xaa@okta.com)**
 
 ## Learn more about Cross App Access, OAuth 2.0, and securing your applications
 

@@ -1,0 +1,128 @@
+name: Build & Deploy
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+  workflow_dispatch:
+jobs:
+  build-and-deploy:
+    name: Build & Deploy
+    runs-on: okta-blog
+    steps:
+    - uses: actions/checkout@v5
+
+    - name: Set up node and npm
+      uses: actions/setup-node@v5
+      with:
+        node-version: 22
+        cache: npm
+
+    - name: Install node dependencies
+      run: npm install
+
+    - name: Set up ruby and bundler
+      uses: ruby/setup-ruby@v1
+      with:
+        ruby-version: 2.7.6
+        bundler-cache: true
+
+    - name: Install ruby dependencies
+      run: |
+        gem install bundler -v 2.0.2
+        bundle install
+
+    - name: Build the blog
+      run: npm run build-dev
+
+    - name: Upload dist artifact
+      uses: actions/upload-artifact@v7
+      with:
+        name: dist
+        path: dist/
+
+    - name: Save PR metadata
+      if: github.event_name == 'pull_request'
+      run: |
+        echo "${{ github.event.pull_request.number }}" > pr_number.txt
+        echo "${{ github.event.pull_request.head.sha }}" > pr_sha.txt
+
+    - name: Upload PR metadata
+      if: github.event_name == 'pull_request'
+      uses: actions/upload-artifact@v7
+      with:
+        name: pr-metadata
+        path: |
+          pr_number.txt
+          pr_sha.txt
+
+  deploy-to-vercel:
+    name: Deploy to Vercel
+    runs-on: okta-blog
+    needs: build-and-deploy
+    if: github.event_name != 'pull_request'
+    env:
+      VERCEL_ORG_ID: ${{ secrets.VERCEL_ORG_ID }}
+      VERCEL_PROJECT_ID: ${{ secrets.VERCEL_PROJECT_ID }}
+      VERCEL_TOKEN: ${{ secrets.VERCEL_TOKEN }}
+    steps:
+    - uses: actions/checkout@v5
+
+    - name: Download dist artifact
+      uses: actions/download-artifact@v8
+      with:
+        name: dist
+        path: dist/
+
+    - name: Install Vercel CLI
+      run: npm install --global vercel@latest
+
+    - name: Create prebuilt output
+      run: |
+        rm -rf .vercel/output
+        mkdir -p .vercel/output/static
+        cp -r dist/. .vercel/output/static/
+        # Convert post.html -> post/index.html for clean URLs
+        find .vercel/output/static -type f -name '*.html' ! -name 'index.html' | while read f; do
+          dir="${f%.html}"
+          mkdir -p "$dir"
+          mv "$f" "$dir/index.html"
+        done
+        node - << 'EOF'
+        const fs = require('fs');
+        const vercelConfig = JSON.parse(fs.readFileSync('vercel.json', 'utf8'));
+        const routes = [];
+
+        // Redirects first
+        for (const r of (vercelConfig.redirects || [])) {
+          routes.push({
+            src: r.source,
+            headers: { Location: r.destination },
+            status: r.permanent ? 301 : 302,
+          });
+        }
+
+        // Headers (continue so subsequent routes still resolve files)
+        for (const rule of (vercelConfig.headers || [])) {
+          const headers = {};
+          for (const h of rule.headers) headers[h.key] = h.value;
+          routes.push({ src: rule.source, headers, continue: true });
+        }
+
+        fs.writeFileSync(
+          '.vercel/output/config.json',
+          JSON.stringify({ version: 3, routes }, null, 2)
+        );
+        console.log(`Generated config.json with ${routes.length} routes`);
+        EOF
+
+    - name: Deploy to Vercel
+      id: deploy
+      run: |
+        prod_flag=""
+        if [[ "${{ github.ref }}" == "refs/heads/main" ]]; then
+          prod_flag="--prod"
+        fi
+        deployment_url="$(vercel deploy --prebuilt --yes $prod_flag)"
+        echo "Deployment URL: ${deployment_url}"
