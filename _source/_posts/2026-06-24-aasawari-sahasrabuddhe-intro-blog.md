@@ -18,6 +18,8 @@ Taylor Swift once said, "Sometimes walking out is one thing that will find you t
 
 {% img blog/aasawari-sahasrabuddhe-intro-blog/community-collage.jpg alt:"Aasawari speaking at conferences and working with developer communities" width:"800" %}{: .center-image }
 
+## From software developer to developer relations (DevRel): how it started
+
 I was always an educator, into public speaking, and into building ideas and strategies. And as part of the Developer Relations team, I get to turn all that into work. Fortunately, I had the opportunity to wear multiple hats: community engineer, content creator, strategist, and workshop builder. And now I get to do code, community, and content, everything together.
 
 What made me stay in the community was the feeling of "Oh, that's exactly what I was looking for. Thank you for guiding me." That sense of connection and appreciation motivates me, and I want to foster the same feeling in others. Once someone said this, and this became my calling. Hence, I enjoy being here, closer to the community.
