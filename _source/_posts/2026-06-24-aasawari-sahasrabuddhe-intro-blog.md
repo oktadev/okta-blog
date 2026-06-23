@@ -14,8 +14,6 @@ tweets:
 type: awareness
 ---
 
-## From software developer to developer relations (DevRel): how it started
-
 Taylor Swift once said, "Sometimes walking out is one thing that will find you the right thing." That's probably what happened to me. During my engineering days, all I ever wanted was to be a backend engineer, write code all day, use dark mode for IDEs, and sip coffee. And it all happened, I started as a software developer focused on shipping features, debugging all night, and building new features again. However, something felt incomplete, and being part of developer relations changed that.
 
 {% img blog/aasawari-sahasrabuddhe-intro-blog/community-collage.jpg alt:"Aasawari speaking at conferences and working with developer communities" width:"800" %}{: .center-image }

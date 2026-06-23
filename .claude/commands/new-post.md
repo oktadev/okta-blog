@@ -111,9 +111,10 @@ SEO work must happen BEFORE the post is created — keywords drive the slug, tit
      - Intentional stylistic choices the user has already confirmed
 
 8. **Remind about SEO in the post body.**
+   - **Do not start the post with a header.** The post body must open with introductory text — a paragraph that hooks the reader. The first `##` header should appear after the opening paragraph(s).
    - **H2 and H3 headers directly impact SEO.** Headers must incorporate the keywords plus context-specific terms (Okta-specific, technology names, etc.). A header like "Set up Okta" does nothing; "Add OIDC authentication to Python apps using Okta" is far better.
    - Use **sentence case** for all H2 and H3 headers: capitalize only the first word and proper nouns (product names, acronyms, brand names). Example: `## How to build low-code API integrations with Okta Workflows`
-   - The post body starter should reflect this — update the placeholder `## Introduction` header to something keyword-rich in sentence case.
+   - Remove any placeholder `## Introduction` header — the opening paragraph IS the introduction.
 
 9. **Optimize images.**
    - **Image filenames must use kebab-case** (e.g. `add-integration-capabilities.jpeg`, not `addIntegrationCapabilities.jpeg`). Rename any camelCase files before adding them to the post.
