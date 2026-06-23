@@ -37,7 +37,34 @@ SEO work must happen BEFORE the post is created — keywords drive the slug, tit
      - `_source/_posts/{YYYY-MM-DD}-{post-slug}.md` — the post file with a blank front matter template
      - `_source/_assets/img/blog/{post-slug}/` — the image directory for this post
 
-5. **Fill in the front matter.**
+5. **Extract images from PDF (only if the source content is a PDF).**
+   - Check if `pymupdf` is installed: `python3 -c "import fitz"` — if it fails, install it: `pip3 install pymupdf --quiet`
+   - Inspect how many images are embedded in the PDF and which page each is on:
+     ```python
+     import fitz
+     doc = fitz.open("path/to/source.pdf")
+     for i, page in enumerate(doc):
+         images = page.get_images(full=True)
+         print(f"Page {i+1}: {len(images)} image(s), size {images[0][2]}x{images[0][3]}" if images else f"Page {i+1}: no images")
+     ```
+   - Based on the page content and position in the post, assign each image a descriptive kebab-case filename (e.g. `community-collage.jpg`, `mongodb-event.jpg`).
+   - Extract and save each image to `_source/_assets/img/blog/{post-slug}/`:
+     ```python
+     import fitz, os
+     doc = fitz.open("path/to/source.pdf")
+     filenames = ["first-image.jpg", "second-image.jpg"]  # one per page with an image
+     out_dir = "_source/_assets/img/blog/{post-slug}"
+     for page_num, page in enumerate(doc):
+         images = page.get_images(full=True)
+         if images:
+             xref = images[0][0]
+             img = doc.extract_image(xref)
+             with open(os.path.join(out_dir, filenames[page_num]), "wb") as f:
+                 f.write(img["image"])
+     ```
+   - Note the filenames — they will be referenced in the post body in step 7.
+
+6. **Fill in the front matter.**
    - Open the generated post file and replace its front matter with the following, omitting optional fields that were not provided:
 
      ```markdown
@@ -78,7 +105,9 @@ SEO work must happen BEFORE the post is created — keywords drive the slug, tit
      ```
      npm run optimize-images
      ```
-   - This resizes and compresses images in `_source/_assets/img/` and writes optimized versions to new files. Update any image references in the post to the optimized filenames and delete the originals.
+   - The optimizer creates `.opt.jpg` versions for images over 0.5 MB and leaves originals untouched. After it runs:
+     1. For each image that has a `.opt.jpg` counterpart: rename the `.opt.jpg` to the original filename (removing `.opt`), delete the oversized original, and update the image reference in the post body to use the clean filename.
+     2. For images that were already small (no `.opt.jpg` created): leave them as-is.
    - All images must be under **400 KB**. Re-run or manually compress any that remain over the limit.
    - Prefer JPEG or WebP over PNG for blog post images.
 
