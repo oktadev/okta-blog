@@ -94,6 +94,22 @@ SEO work must happen BEFORE the post is created — keywords drive the slug, tit
    - **Ellipsis**: use three plain periods `...` not the Unicode ellipsis character `…` — the pre-commit hook will reject it
    - **Smart quotes**: use straight quotes `"` and `'` not curly/smart quotes `"` `"` `'` `'` — also rejected by the pre-commit hook
 
+7. **Check for passive voice and suggest active rewrites.**
+   - Scan every sentence in the post body. Passive voice signals to look for:
+     - `is/are/was/were + past participle` (e.g. "was built", "are recognized")
+     - `has/have been + past participle` (e.g. "has been earned", "have been added")
+     - `by` phrases where the real actor is buried at the end (e.g. "the feature was shipped by the team")
+   - For each passive sentence found, apply the test: **"Who is doing the action?"** If the answer is not the grammatical subject of the sentence, it is passive.
+   - Suggest an active rewrite where the actor becomes the subject:
+     - Passive: "I have since earned recognition as a MongoDB Champion" → Active: "I earned my MongoDB Champion recognition" *(actor already subject — fine)*
+     - Passive: "Workshops were led by me over the years" → Active: "I led workshops over the years"
+     - Passive: "The content was written to help developers" → Active: "I wrote the content to help developers"
+   - Present each suggestion as: `[passive sentence] → [suggested active rewrite]` and ask the user to confirm or adjust.
+   - **Exceptions — do not flag these**:
+     - Passive is acceptable when the actor is unknown or irrelevant ("the endpoint is deprecated")
+     - Passive is acceptable when the receiver of the action is the intentional focus ("developers are supported through every step")
+     - Intentional stylistic choices the user has already confirmed
+
 8. **Remind about SEO in the post body.**
    - **H2 and H3 headers directly impact SEO.** Headers must incorporate the keywords plus context-specific terms (Okta-specific, technology names, etc.). A header like "Set up Okta" does nothing; "Add OIDC authentication to Python apps using Okta" is far better.
    - Use **sentence case** for all H2 and H3 headers: capitalize only the first word and proper nouns (product names, acronyms, brand names). Example: `## How to build low-code API integrations with Okta Workflows`
