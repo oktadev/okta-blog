@@ -32,6 +32,7 @@ The timing matters. The standards are mature. The wallets are deployed at scale.
 * Table of Contents
 {% include toc.md %}
 
+
 ## Authentication proves identity. Credentials prove claims.
 
 The most important distinction in the VDC space is also the most commonly missed.
@@ -66,7 +67,7 @@ VDCs are not a single specification. They are a layered ecosystem of interoperab
 
 In simple terms: the **Digital Credentials API invokes the wallet**, **OpenID4VCI and OpenID4VP manage the protocol flow**, and **SD-JWT VC or mdoc define the credential format**. These layers are complementary, not interchangeable.
 
-## Identity verification is more than a valid signature
+## Verification is not just a valid signature
 
 Verifying digital credentials requires more than cryptographic signature validation. A credential can have a mathematically valid signature and still be unacceptable in your application's context. What determines acceptability is ecosystem trust.
 
@@ -88,7 +89,7 @@ The practical path for engineering teams is incremental. Start with one verifica
 
 The identity stack is getting a new layer. The developers who understand the formats, protocols, trust model, and browser reality are the ones who will architect what comes next. That window is open now, and the gap between where issuer infrastructure is and where verifier-side development is leaves real ground to gain for teams that move early.
 
-The question for every senior engineer reading this is not whether VDCs are coming. They are already here. The question is whether your architecture is ready to meet them. [Explore the VDC platform today](https://oktacredentials.dev/).
+The question for every senior engineer reading this is not whether VDCs are coming. They are already here. The question is whether your architecture is ready to meet them. [Explore the VDC platform beta today](https://oktacredentials.dev/).
 
 ## Learn more about Verifiable Digital Credentials
 
