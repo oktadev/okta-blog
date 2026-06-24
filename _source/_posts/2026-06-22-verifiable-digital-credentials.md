@@ -3,9 +3,9 @@ layout: blog_post
 title: "How Verifiable Digital Credentials Are Reshaping Trust Architecture"
 author: akanksha-bhasin
 by: advocate
-communities: [devops,security,mobile,.net,java,javascript,go,php,python,ruby]
+communities: [security,mobile,javascript]
 description: "Verifiable Digital Credentials are reshaping trust. Learn the Issuer-Holder-Verifier model, SD-JWT VC, mdoc, OpenID4VP, and how to build the verifier side."
-tags: [okta,oauth,oidc,security,identity,mobile,authentication]
+tags: [security,identity,mobile]
 image: blog/verifiable-digital-credentials/verifiable-digital-credentials-social-image.jpg
 type: awareness
 ---
@@ -16,13 +16,13 @@ The layer is called Verifiable Digital Credentials. The issuer infrastructure is
 
 For years, when applications needed to verify a user's age, license, or employment status, the default methods were document uploads, third-party verification APIs, and centralized storage of personally identifiable information (PII). It worked. But it accumulated cost at every step: data your infrastructure had to protect, compliance obligations that grew with every sensitive record, manual review queues that created friction, and third-party vendors holding your users' identity data on your behalf.
 
-{% img blog/verifiable-digital-credentials/image0.jpg alt:"Traditional document collection model compared with verifiable digital credentials model" width:"800" %}{: .center-image }
+{% img blog/verifiable-digital-credentials/image0.jpg alt:"Comparison diagram showing two models side by side: traditional document collection on the left with centralized PII storage, and the VDC model on the right with a trusted issuer, user wallet, and direct claim verification" width:"800" %}{: .center-image }
 
 VDCs replace that model. A trusted authority, such as a DMV, a university, or an employer, issues a cryptographically signed credential. The user holds it in a wallet. Your application requests the specific proof it needs. The credential validates itself. You record the outcome and move on. No document stored. No PII beyond what the transaction required. No third party in the middle.
 
 The technical foundation relies on the **Issuer-Holder-Verifier trust triangle**: the Issuer signs the credential, the Holder stores it in a digital wallet, and the Verifier, your application, requests exactly the proof it needs. This model enables selective disclosure, where a verifier can confirm a person meets an age threshold without ever seeing their date of birth, home address, or a photo of their physical ID. By moving from document collection to claim validation, you eliminate manual review queues and dramatically reduce the personal data your infrastructure is obligated to protect.
 
-{% img blog/verifiable-digital-credentials/image1.jpg alt:"Issuer-Holder-Verifier trust model" width:"800" %}{: .center-image }
+{% img blog/verifiable-digital-credentials/image1.jpg alt:"Triangle diagram showing the Issuer-Holder-Verifier trust model: the Issuer signs and sends a credential to the Holder's digital wallet, the Holder presents proof to the Verifier, and the Verifier validates the credential without seeing underlying PII" width:"800" %}{: .center-image }
 
 This is not an incremental improvement on document uploads. It is a different architecture for how applications establish trust, one in which data collection is scoped to exactly what the transaction requires, and verification outcomes are separable from the identity artifacts that produced them.
 
@@ -42,7 +42,7 @@ These are not the same problem. We have spent the last decade perfecting the art
 
 The right architecture keeps them separate: authentication establishes the session, and VDC-based verification handles moments when a higher-trust signal is required.
 
-{% img blog/verifiable-digital-credentials/image2.jpg alt:"Authentication vs verification diagram" width:"800" %}{: .center-image }
+{% img blog/verifiable-digital-credentials/image2.jpg alt:"Diagram showing two separate flows: authentication on the left establishes a user session via login, while VDC-based verification on the right handles specific high-trust claim checks as a distinct step" width:"800" %}{: .center-image }
 
 In practice, those moments cluster around a recognizable set of product checkpoints: age gating for regulated goods, step-up verification before sensitive account actions, professional license checks, workforce credential validation, and high-value transactions. These are the natural insertion points for VDC-based verification. Not a replacement for your auth stack, but an additional layer, deployed precisely where the cost of a trust failure is highest.
 
@@ -50,7 +50,7 @@ In practice, those moments cluster around a recognizable set of product checkpoi
 
 VDCs are not a single specification. They are a layered ecosystem of interoperable standards, and understanding each layer is foundational to making good architectural decisions. The stack has three layers.
 
-{% img blog/verifiable-digital-credentials/image3.jpg alt:"VDC standards stack diagram" width:"800" %}{: .center-image }
+{% img blog/verifiable-digital-credentials/image3.jpg alt:"Layered stack diagram showing three VDC standards layers from bottom to top: credential formats (SD-JWT VC and mdoc), protocols (OpenID4VCI for issuance and OpenID4VP for presentation), and the W3C Digital Credentials API as the browser runtime layer" width:"800" %}{: .center-image }
 
 **Credential Formats** - defines what the credential is and how selective disclosure works. Two formats matter:
 
@@ -66,7 +66,7 @@ VDCs are not a single specification. They are a layered ecosystem of interoperab
 
 In simple terms: the **Digital Credentials API invokes the wallet**, **OpenID4VCI and OpenID4VP manage the protocol flow**, and **SD-JWT VC or mdoc define the credential format**. These layers are complementary, not interchangeable.
 
-## Verification is not just a valid signature
+## Identity verification is more than a valid signature
 
 Verifying digital credentials requires more than cryptographic signature validation. A credential can have a mathematically valid signature and still be unacceptable in your application's context. What determines acceptability is ecosystem trust.
 
@@ -88,7 +88,7 @@ The practical path for engineering teams is incremental. Start with one verifica
 
 The identity stack is getting a new layer. The developers who understand the formats, protocols, trust model, and browser reality are the ones who will architect what comes next. That window is open now, and the gap between where issuer infrastructure is and where verifier-side development is leaves real ground to gain for teams that move early.
 
-The question for every senior engineer reading this is not whether VDCs are coming. They are already here. The question is whether your architecture is ready to meet them. [Explore the VDC platform beta today](https://oktacredentials.dev/).
+The question for every senior engineer reading this is not whether VDCs are coming. They are already here. The question is whether your architecture is ready to meet them. [Explore the VDC platform today](https://oktacredentials.dev/).
 
 ## Learn more about Verifiable Digital Credentials
 
