@@ -32,8 +32,7 @@ Over the years, I've written technical content, led hands-on workshops, produced
 
 ## Why I'm joining Okta: identity, security, and AI
 
-And now? I'm joining Okta as an AI Builder Advocate.
-
+And now? I'm joining Okta. 
 When I first thought about Okta, I thought of authentication, two-factor, and login flows. All important. But the more I dug in, the more I realized Okta is at the center of something much bigger. Identity is quietly becoming the foundation of how AI systems are trusted, accessed, and governed. That intersection of security, identity, and AI is where I want to be, and I couldn't be more excited to explore it with all of you. While I am learning about Okta and its products, I am excited to discuss what the community is building with AI and Okta, and how we can help you on your journey.
 
 ## Beyond my resume
