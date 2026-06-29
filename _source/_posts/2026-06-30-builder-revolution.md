@@ -3,7 +3,7 @@ layout: blog_post
 title: "The Builder Revolution: Why We're Shifting to Builder Advocacy"
 author: michael-palermo
 by: advocate
-communities: [announcements]
+communities: [announcement]
 description: "The builder revolution is here. Learn why Okta's team is now Builder Advocacy and what it means for developers, AI builders, and automators."
 image: blog/builder-revolution/social.jpg
 tags: [builder-advocacy, developer-advocacy, ai, automation, no-code, low-code, okta]
