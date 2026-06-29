@@ -147,5 +147,5 @@ SEO work must happen BEFORE the post is created — keywords drive the slug, tit
    - Remind the user to fill in the `tweets` array with shareable pull-quote text before publishing
    - **CTA**: every post must end with the following call-to-action paragraph (after the last section):
      ```
-     Remember to follow us on [Twitter](https://twitter.com/oktadev) and subscribe to our [YouTube channel](https://www.youtube.com/c/OktaDev/) for more exciting content. We also want to hear from you about the topics you'd like to see and any questions you may have. Leave us a comment below!
+     Remember to follow us on [X](https://x.com/oktadev) and subscribe to our [YouTube channel](https://www.youtube.com/c/OktaDev/) for more exciting content. We also want to hear from you about the topics you'd like to see and any questions you may have. Leave us a comment below!
      ```
