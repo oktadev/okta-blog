@@ -3,18 +3,16 @@ layout: blog_post
 title: "The Builder Revolution: Why We're Shifting to Builder Advocacy"
 author: michael-palermo
 by: advocate
-communities: [security, devops]
+communities: [announcements]
 description: "The builder revolution is here. Learn why Okta's team is now Builder Advocacy and what it means for developers, AI builders, and automators."
+image: blog/builder-revolution/social.jpg
 tags: [builder-advocacy, developer-advocacy, ai, automation, no-code, low-code, okta]
 tweets:
   - "The definition of who builds things with technology has fundamentally changed. We're now Builder Advocates."
   - "84% of developers use AI tools. AI hasn't just made developers more productive — it has expanded who can build."
   - "Product managers, IT admins, entrepreneurs vibe-coding MVPs — these people are builders. They deserve advocacy too."
   - "Okta's team is now Builder Advocacy — committed to developers, AI builders, and automators alike."
-type: awareness
 ---
-
-{% img blog/builder-revolution/builder-advocates-banner.jpg alt:"Builder Advocates - We're More Than Just Developer Advocates, We're Builder Advocates" width:"800" %}{: .center-image }
 
 My team has officially changed its name, and it's one I've been excited about for a while.
 
