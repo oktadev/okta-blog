@@ -68,15 +68,12 @@ We'll create both apps in your Okta Integrator Free Plan account, grab their cli
 
 ### Enable Cross App Access in your Okta org
 
-> ⚠️ **Note:** Cross App Access is currently a **self-service Early Access (EA) feature**. It must be enabled through the Admin Console before the apps appear in the catalog. If you don't see the option right away, refresh and confirm you have the necessary admin permissions. Learn more in the [Okta documentation on managing EA and beta features](https://help.okta.com/oie/en-us/content/topics/security/manage-ea-and-beta-features.htm).
+> ⚠️ **Note:** Cross App Access is currently an **Early Access (EA) feature**. This guide covers the **OIDC** integration path and applies whether you're building a new OIDC-based application or adding XAA support to an existing one — as a resource app, a requesting app, or both.
 
-1. Sign in to your Okta Integrator Free plan account 
-2. In the **Okta Admin Console**, select **Settings > Features**  
-3. Navigate to **Early access**  
-4. Find **Cross App Access** and select **Turn on** (enable the toggle)  
-5. Refresh the Admin Console
+**To get Cross App Access EA enabled for your org:**
 
-{% img blog/cross-app-access/image9.jpg alt:"Enable Cross App Access feature in Okta Admin Console" width:"800" %}{: .center-image }
+- If you're an **Okta customer**: reach out to the customer support team
+- If you're an **ISV or hold a developer integrator org**: reach out to [developers@okta.com](mailto:developers@okta.com)
 
 ### Create the resource app (Todo0)
 
