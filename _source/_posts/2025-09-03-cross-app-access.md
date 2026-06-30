@@ -14,8 +14,8 @@ tweets:
 image: blog/cross-app-access/social.jpg
 type: conversion
 changelog:
+   - 2026-06-30: Removed the self-service EA enablement steps as Cross App Access is no longer self-service. Updated the section to direct Okta customers to the customer support team and ISVs to developers@okta.com. Added a note clarifying that this guide covers the OIDC integration path. Changes to this article can be viewed in [oktadev/okta-blog#1663](https://github.com/oktadev/okta-blog/pull/1663).
   - 2026-05-22: Updated the Okta Admin Console steps to reflect the new **XAA Resource App** and **XAA Requesting App** App Catalog integrations, and the new required **Issuer URL** and **Client ID** fields. Changes to this article can be viewed in [oktadev/okta-blog#1641](https://github.com/oktadev/okta-blog/pull/1641).
-  - 2026-06-30: Removed the self-service EA enablement steps as Cross App Access is no longer self-service. Updated the section to direct Okta customers to the customer support team and ISVs to developers@okta.com. Added a note clarifying that this guide covers the OIDC integration path. Changes to this article can be viewed in [oktadev/okta-blog#1663](https://github.com/oktadev/okta-blog/pull/1663).
 ---
 
 So you want to get your AI agent in front of Okta customers or make your application securely accessible to agents — you're in the right place. Here's why it matters.
