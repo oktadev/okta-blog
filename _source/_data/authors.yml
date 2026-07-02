@@ -1036,6 +1036,7 @@ aasawari:
   web: https://aasawari.blog/
   bio: Aasawari Sahasrabuddhe is a Senior Builder Advocate at Okta, a tech enthusiast, community builder, and educator. She specializes in bridging backend engineering with strategic community and content engagement. She is recognized as a MongoDB Champion with a strong foundation in Java, Spring Boot, and cloud-native technologies. She has a proven track record in technical writing and delivering hands-on workshops.
 
+<<<<<<< HEAD
 gagan-sikri:
   full_name: Gagan Sikri
   display_name: Gagan Sikri
@@ -1044,3 +1045,13 @@ gagan-sikri:
   github: https://github.com/sikrigagan
   twitter: https://twitter.com/sikrigagan
   bio: Gagan is a Group Product Manager at Okta, leading integration capabilities and extensibility. He helps enterprise customers, developers and partners build and scale integrations across the Okta ecosystem. A developer turned product leader, Gagan brings over a decade of experience across enterprise SaaS, customer data platforms, marketing technology, analytics and developer platforms. He is passionate about product, customer research and tinkering with new tech, from AI and hardware experiments to homelab projects. Outside work, you'll find him exploring great coffee, whiskeys and new places.
+=======
+dan-maharry:
+  full_name: Dan Maharry
+  display_name: Dan Maharry
+  avatar: avatar-dan-maharry.png
+  github: https://github.com/hmobius
+  linkedin: https://www.linkedin.com/in/danmaharry/
+  web: https://hmobius.com/
+  bio: "Dan Maharry is a Content Strategy Manager at Okta. I've worked for Wrox Press, Manning, Microsoft Press, Wiley, APress, and many others for more than 20 years. I love learning how technology works and discovering how best to teach that with words, code, and pictures. In total, I've written 14 books and edited many more with past stints for Oxford University Press, the dotCoop TLD registry, and various web development houses."
+>>>>>>> a32a57e4 (Initial commit for blog post for Journeys)
