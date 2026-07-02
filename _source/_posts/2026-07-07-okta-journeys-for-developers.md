@@ -2,19 +2,14 @@
 layout: blog_post
 title: "Introducing Okta Journeys: A Better Way for Developers to Learn Identity"
 author: dan-maharry
-by: advocate
-communities: [security]
+by: external-contributer
+communities: [announcements]
 description: "Okta for developers just got easier. Discover Journeys — curated, end-to-end guides that help you learn identity management and build faster."
 tags: [identity-management, okta-for-developers, okta-for-ai-agents, developer-experience, okta, documentation]
-tweets:
-  - "Okta Journeys are here! Curated, end-to-end guides built around the tasks you're actually trying to accomplish — no more lost afternoons piecing together docs."
-  - "Every Okta Journey has three sections: Learn identity foundations, Plan your implementation, and Build your solution. Everything you need, in one place, in the right order."
-  - "Six new @OktaDev Journeys are live today for Customer Identity builders. User auth, registration, branding, user management — your path is ready."
-  - "Coming to Okta Journeys: AI Agents, Okta Integration Network, and Classic to Identity Engine migration. We're just getting started."
 type: awareness
 ---
 
-Learning identity management is hard enough. Navigating Okta's documentation to build something shouldn't be. If you've ever lost an afternoon stitching together how-to guides, product docs, and scattered blog posts just to figure out where to start, you're not alone — and we've heard you, loudly and repeatedly.
+Learning identity management is hard enough. Navigating Okta's documentation to build something shouldn't be. If you've ever lost an afternoon stitching together how-to guides, product docs, and scattered blog posts just to figure out where to start, you're not alone – and we've heard you, loudly and repeatedly.
 
 Today, we're excited to announce the official launch of Journeys: a new way to navigate Okta documentation built around the tasks you're actually trying to accomplish.
 
@@ -32,7 +27,7 @@ Before you write a single line of code, it helps to know the terrain. The Learn 
 
 ### Plan your customer identity implementation
 
-Good implementations start with good planning. The Plan section walks you through the key decision points to consider before you begin — from the pros and cons of migration strategies and deployment models to configuration options, rate limits, and key performance indicators (KPIs). These are all common concerns from the field. Decisions made here shape everything that follows, so you won't discover them for the first time mid-build.
+Good implementations start with good planning. The Plan section walks you through the key decision points to consider before you begin – from the pros and cons of migration strategies and deployment models to configuration options, rate limits, and key performance indicators (KPIs). These are all common concerns from the field. Decisions made here shape everything that follows, so you won't discover them for the first time mid-build.
 
 ### Build and implement identity solutions
 
@@ -40,7 +35,7 @@ This is where everything comes together. The Build section presents a carefully 
 
 Every Journey covers the Okta-recommended approach and adds common alternatives when practical, because we know one size doesn't always fit all.
 
-## Six Okta identity management Journeys available now
+## Six Okta Journeys available now
 
 The first six Journeys are live today, targeting Okta Customer Identity (OCI) builders developing and securing customer-facing portals. If you're working on user authentication, registration, company branding, or user management, these Journeys are for you.
 
@@ -62,4 +57,4 @@ These Journeys will fundamentally improve your development experience. Explore t
 
 Happy building.
 
-Remember to follow us on [X](https://x.com/oktadev) and subscribe to our [YouTube channel](https://www.youtube.com/c/OktaDev/) for more exciting content. We also want to hear from you about the topics you'd like to see and any questions you may have. Leave us a comment below!
+Remember to follow us on [X](https://x.com/oktadev) and subscribe to our [YouTube channel](https://www.youtube.com/c/OktaDev/) and [LinkedIn](https://www.linkedin.com/company/oktadev)for more exciting content. We also want to hear from you about the topics you'd like to see and any questions you may have. Leave us a comment below!
