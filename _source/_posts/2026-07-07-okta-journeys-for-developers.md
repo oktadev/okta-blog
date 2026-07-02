@@ -2,7 +2,7 @@
 layout: blog_post
 title: "Introducing Okta Journeys: A Better Way for Developers to Learn Identity"
 author: dan-maharry
-by: external-contributer
+by: external-contributor
 communities: [announcements]
 description: "Okta for developers just got easier. Discover Journeys — curated, end-to-end guides that help you learn identity management and build faster."
 tags: [identity-management, okta-for-developers, okta-for-ai-agents, developer-experience, okta, documentation]
