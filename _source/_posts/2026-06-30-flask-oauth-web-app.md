@@ -59,7 +59,7 @@ Before you begin, you'll need an Okta Integrator Free Plan account. To get one, 
 
 User registration is vital for any application, and Okta makes the process quick and hassle-free. Setting this up involves two main steps:
 
-1. Create a user profile enrollment policy \- This policy defines the attributes a user must provide when self-registering. See the [Okta documentation](https://developer.okta.com/docs/guides/add-an-external-idp/) for detailed instructions.  
+1. Create a user profile enrollment policy \- This policy defines the attributes a user must provide when self-registering. See the [Okta documentation](https://help.okta.com/oie/en-us/content/topics/identity-engine/policies/create-profile-enrollment-policy.htm) for detailed instructions.  
 2. Assign your application to the policy \- This action activates the self-service registration flow for your app. Follow the steps in the [product documentation](https://help.okta.com/oie/en-us/content/topics/identity-engine/policies/about-ssr.htm).
 
 ## Add secure user login to a Flask application with Okta
@@ -760,7 +760,7 @@ Your Flask application now has secure user authentication and can use an access 
 
 If you'd like to learn more about the concepts covered in this tutorial, explore these official Okta resources:
 
-* [Implement OAuth for Okta](https://developer.okta.com/docs/guides/implement-oauth-for-okta/main/)  
+* [Sign users in to your web app](https://developer.okta.com/docs/guides/sign-into-web-app-redirect/python/main/)  
 * [Authorization Code flow with PKCE](https://developer.okta.com/docs/guides/implement-grant-type/authcodepkce/main/)  
 * [Self-Service Registration](https://help.okta.com/oie/en-us/content/topics/identity-engine/policies/about-ssr.htm)  
 * [Validate Access Tokens](https://developer.okta.com/docs/guides/validate-access-tokens/python/main/)  
