@@ -29,7 +29,34 @@ When an agent (like one running in Claude) needs API access, it presents an **Id
 
 The sequence diagram shown below describes the SAML XAA flow. Notice that the SAML SSO flow stays the same; the only change is the section highlighted with the comment "Your Resource Authorization Server (AS): redeem and resolve". You'll make a `POST` request to your resource's authorization server with the ID-JAG, resolve the `NameID` to return an access token that you'll use for resource requests.
 
-{% img blog/cross-app-access-saml/xaa-saml-sequence-diagram.jpeg alt:"Cross App Access SAML Flow Overview" width:"800" %}{: .center-image }
+{% img blog/cross-app-access-saml/xaa-saml-sequence-diagram.svg alt:"Sequence diagram showing SAML SSO between the user and Okta IdP, two OAuth token exchanges producing a refresh token and then an ID-JAG, and the resource authorization server redeeming the ID-JAG and resolving the SAML NameID before issuing an access token used to call the API." width:"800" %}{: .center-image }
+
+{% comment %}
+Tweak the diagram on https://mermaid.live/ with the following content
+%%{init: {'themeVariables': {'fontSize': '18px'}}}%%
+sequenceDiagram
+    participant U as User (alice@atko.com)
+    participant C as Client (AI Agent)
+    participant IDP as Okta IdP
+    participant RAS as Your Resource AS
+    participant RS as Your API
+
+    U->>IDP: SAML SSO
+    C->>IDP: Token Exchange #1 (subject_token_type=saml2, requested_token_type=refresh_token)
+    IDP-->>C: Refresh Token
+    C->>IDP: Token Exchange #2 (subject_token_type=refresh_token, requested_token_type=id-jag)
+    IDP-->>C: ID-JAG (aud=your AS, sub_id=saml-nameid)
+
+    rect rgb(240,180,41)
+    Note over C,RAS: Your Resource AS: redeem and resolve
+    C->>RAS: POST /token with ID-JAG assertion
+    RAS->>RAS: Validate and resolve SAML NameID
+    RAS-->>C: Your access token
+    end
+
+    C->>RS: API call with access token
+    RS-->>C: Resource
+{% endcomment %}
 
 > ⚠️ **Note**
 >
