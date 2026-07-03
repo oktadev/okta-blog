@@ -15,7 +15,7 @@ image: blog/cross-app-access-saml/social.jpg
 type: awareness
 ---
 
-If you currently federate enterprise customers using Security Assertion Markup Langage (SAML) and want to allow AI agents to access your API without migrating to OpenID Connect (OIDC), this Cross App Access (XAA) guide is for you.
+If you currently federate enterprise customers using Security Assertion Markup Language (SAML) and want to allow AI agents to access your API without migrating to OpenID Connect (OIDC), this Cross App Access (XAA) guide is for you.
 
 The [Identity Assertion Authorization Grant specification](https://datatracker.ietf.org/doc/draft-ietf-oauth-identity-assertion-authz-grant/), the basis of XAA, was originally designed with OIDC in mind. To use it in SAML applications, you must accommodate specific security and uniqueness requirements. This guide details what you need to support and how to verify SAML-derived claims at your resource authorization server.
 
@@ -237,6 +237,7 @@ Cross App Access is an early access feature in Okta. Integrator Free Plan accoun
 
   {% img blog/cross-app-access-saml/enable-xaa-resource-server.jpeg alt:"Enable XAA in Okta" width:"800" %}{: .center-image }
 
+<br>
 * **Set the `NameID`:**   
 
   1. In your SAML app's **General > SAML Settings**, set **Name ID Format** to match your existing identifier 
