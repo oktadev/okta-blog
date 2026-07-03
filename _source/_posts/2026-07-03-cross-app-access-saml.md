@@ -29,7 +29,7 @@ When an agent (like one running in Claude) needs API access, it presents an **Id
 
 The sequence diagram shown below describes the SAML XAA flow. Notice that the SAML SSO flow stays the same; the only change is the section highlighted with the comment "Your Resource Authorization Server (AS): redeem and resolve". You'll make a `POST` request to your resource's authorization server with the ID-JAG, resolve the NameID to return an access token that you'll use for resource requests.
 
-{ img blog/cross-app-access-saml/image1.png alt="Cross App Access SAML Flow Overview" }
+{% img blog/cross-app-access-saml/image1.png alt:"Cross App Access SAML Flow Overview" width:"800" %}{: .center-image }
 
 > ⚠️ Note: You are not processing SAML here. The only artifact crossing from the IdP to your domain is the ID-JAG. All SAML-related tasks, such as SSO, assertion handling, and subject derivation, happen upstream. Your responsibility is to validate the ID-JAG, redeem it for an access token, and resolve the user from the claims.
 
@@ -111,7 +111,7 @@ If you verify the signature before checking the issuer binding, an attacker coul
 
 Always resolve the connection from the `iss` first, then verify the signature against that connection's key. You'll compare this using the JSON Web Key Set (JWKS) metadata.  
 
-{ img blog/cross-app-access-saml/idjag-validation-order.png alt="ID-JAG validation order" }
+{% img blog/cross-app-access-saml/idjag-validation-order.png alt:"ID-JAG validation order" width:"800" %}{: .center-image }
 
 Below is the pseudocode for implementing the validation and resolving a user:
 
@@ -203,7 +203,7 @@ Cross App Access is an early access feature in Okta. Integrator Free Plan accoun
 
   2. Select the **Enable XAA** checkbox and enter your resource authorization server issuer URL. This value becomes the `aud` claim in the ID-JAG and cannot be changed without deleting and resetting the connection.  
 
-  { img blog/cross-app-access-saml/enable-xaa-resource-server.png alt="Enable XAA in Okta" }
+  {% img blog/cross-app-access-saml/enable-xaa-resource-server.png alt:"Enable XAA in Okta" width:"800" %}{: .center-image }
 
 * **Set the NameID:**   
 
@@ -211,7 +211,7 @@ Cross App Access is an early access feature in Okta. Integrator Free Plan accoun
 
   2. Ensure **Sign On > Application username format** resolves to that same identifier (e.g., Email, Active Directory (AD) attribute)
 
-  { img blog/cross-app-access-saml/saml-nameid-settings.png alt="Set NameID in Okta" }
+  {% img blog/cross-app-access-saml/saml-nameid-settings.png alt:"Set NameID in Okta" width:"800" %}{: .center-image }
 
 ## Making cross-application requests from your SAML app securely
 
@@ -237,6 +237,6 @@ If this guide helped you implement Cross App Access with SAML, explore these res
 - [What's the Difference Between OAuth, OpenID Connect, and SAML?](https://www.okta.com/identity-101/whats-the-difference-between-oauth-openid-connect-and-saml/)  
 - [What are SAML, OAuth, and OIDC?](https://www.okta.com/en-in/identity-101/saml-vs-oauth/)  
 - [Why You Should Migrate to OAuth 2.0 From Static API Tokens](https://www.okta.com/identity-101/why-you-should-migrate-to-oauth-2-0-from-static-api-tokens/)  
-- [How to Get Going with the On-Demand SaaS Apps Workshops](https://www.okta.com/identity-101/how-to-get-going-with-the-on-demand-saas-apps-workshops/)
+- [How to Get Going with the On-Demand SaaS Apps Workshops](https://developer.okta.com/blog/2023/07/27/enterprise-ready-getting-started)
 
 Follow us on [LinkedIn](https://www.linkedin.com/company/oktadev) and [X](https://x.com/oktadev), and subscribe to our [YouTube](https://www.youtube.com/c/OktaDev/) channel. Leave a comment below if you have any questions\!
