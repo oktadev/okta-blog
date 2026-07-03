@@ -83,7 +83,7 @@ To fully support Cross App Access, implement these five steps in sequence:
 4. [Update your discovery document to include XAA support](#updating-authorization-server-metadata)  
 5. [Configure your Okta tenant](#configuring-your-okta-org-for-cross-app-access)
 
-## Mapping user identity in the SAML `NameID` attribute
+### Mapping user identity in the SAML `NameID` attribute
 
 Unlike OIDC apps, which typically resolve users from the `sub` claim, SAML-federated apps do not have a corresponding `sub` claim in their SAML assertion. Consequently, they often lack a direct way to map users without using the `sub_id` field.
 
@@ -97,7 +97,7 @@ Resolve on `NameID` + `sp_name_qualifier` together; the combination of both fiel
 >
 > Don't assume the `NameID` is an email address; it is whatever the customer's SSO emits. Your matching set must remain consistent across your deployment.
 
-## Validating the ID-JAG and resolving the user
+### Validating the ID-JAG and resolving the user
 
 The client posts the ID-JAG as a JWT authorization grant and authenticates with its credentials at your server. Below is an example HTTP request for requesting an `access_token`
 
@@ -158,7 +158,7 @@ resolveSamlSubject(subId, conn):
     return user
 ```
 
-## Issuing the access token
+### Issuing the access token
 
 Once you resolve the user, issue an `access_token` scoped according to your local policy. Below is an example of an `access_token` returned after successfully validating the ID-JAG and resolving the user.
 
@@ -182,7 +182,7 @@ Cache-Control: no-store
 >
 > The ID-JAG replaces the need for a refresh token. On access token expiry, the client resubmits the same ID-JAG to your token endpoint, and you mint a new access token against it. Only once the ID-JAG itself expires does the client request a new ID-JAG from the IdP using its own refresh token.
 
-## Updating authorization server metadata
+### Updating authorization server metadata
 
 Clients locate your XAA support via your authorization server metadata (`/.well-known/oauth-authorization-server`). Ensure you include the supported fields:
 
@@ -199,7 +199,7 @@ Clients locate your XAA support via your authorization server metadata (`/.well-
 }
 ```
 
-## Configuring your Okta org for Cross App Access
+### Configuring your Okta org for Cross App Access
 
 Cross App Access is an early access feature in Okta. Integrator Free Plan account types include XAA support. If the following options are missing in your Okta org, contact your representative.
 
