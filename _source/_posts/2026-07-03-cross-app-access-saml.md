@@ -77,11 +77,11 @@ Focus on these key claims noted in the decoded ID-JAG payload:
 
 To fully support Cross App Access, implement these five steps in sequence:
 
-1. Match the full `NameID` value to resolve user identity  
-2. Validate ID-JAG claims and bind the issuer  
-3. Issue an access token from your authorization server  
-4. Update your discovery document to include XAA support  
-5. Configure your Okta tenant
+1. [Match the full `NameID` value to resolve user identity](#mapping-user-identity-in-the-saml-nameid-attribute)  
+2. [Validate ID-JAG claims and bind the issuer](#validating-the-id-jag-and-resolving-the-user)  
+3. [Issue an access token from your authorization server](#issuing-the-access-token)  
+4. [Update your discovery document to include XAA support](#updating-authorization-server-metadata)  
+5. [Configure your Okta tenant](#configuring-your-okta-org-for-cross-app-access)
 
 ## Mapping user identity in the SAML `NameID` attribute
 
