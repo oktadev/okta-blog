@@ -15,7 +15,7 @@ image: blog/cross-app-access-saml/social.jpg
 type: awareness
 ---
 
-If you currently federate enterprise customers using SAML and want to allow AI agents to access your API without migrating to OpenID Connect (OIDC), this Cross App Access (XAA) guide is for you.
+If you currently federate enterprise customers using Security Assertion Markup Langage (SAML) and want to allow AI agents to access your API without migrating to OpenID Connect (OIDC), this Cross App Access (XAA) guide is for you.
 
 The [Identity Assertion Authorization Grant (ID-JAG) specification](https://datatracker.ietf.org/doc/draft-ietf-oauth-identity-assertion-authz-grant/), the basis of XAA, was originally designed with OIDC in mind. To use it in SAML applications, you must accommodate specific security and uniqueness requirements. This guide details what you need to support and how to verify SAML-derived claims at your resource authorization server.
 
