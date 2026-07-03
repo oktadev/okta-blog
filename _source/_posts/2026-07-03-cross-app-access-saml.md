@@ -27,11 +27,13 @@ The [Identity Assertion Authorization Grant (ID-JAG) specification](https://data
 
 When an agent (like one running in Claude) needs API access, it presents an **Identity Assertion Authorization Grant (ID-JAG)**. The ID-JAG is a short-lived JSON Web Token (JWT) issued by the customer's Identity Provider (IdP) for your authorization server. Your resource server accepts the token, identifies the user, and issues your own access token, all while leaving the customer's existing SAML integration untouched.
 
-The sequence diagram shown below describes the SAML XAA flow. Notice that the SAML SSO flow stays the same; the only change is the section highlighted with the comment "Your Resource Authorization Server (AS): redeem and resolve". You'll make a `POST` request to your resource's authorization server with the ID-JAG, resolve the NameID to return an access token that you'll use for resource requests.
+The sequence diagram shown below describes the SAML XAA flow. Notice that the SAML SSO flow stays the same; the only change is the section highlighted with the comment "Your Resource Authorization Server (AS): redeem and resolve". You'll make a `POST` request to your resource's authorization server with the ID-JAG, resolve the `NameID` to return an access token that you'll use for resource requests.
 
 {% img blog/cross-app-access-saml/xaa-saml-sequence-diagram.jpeg alt:"Cross App Access SAML Flow Overview" width:"800" %}{: .center-image }
 
-> ⚠️ Note: You are not processing SAML here. The only artifact crossing from the IdP to your domain is the ID-JAG. All SAML-related tasks, such as SSO, assertion handling, and subject derivation, happen upstream. Your responsibility is to validate the ID-JAG, redeem it for an access token, and resolve the user from the claims.
+> ⚠️ **Note**
+>
+> You are not processing SAML here. The only artifact crossing from the IdP to your domain is the ID-JAG. All SAML-related tasks, such as SSO, assertion handling, and subject derivation, happen upstream. Your responsibility is to validate the ID-JAG, redeem it for an access token, and resolve the user from the claims.
 
 ## Analyzing the ID-JAG claims
 
@@ -65,17 +67,17 @@ When you decode the ID-JAG, you'll see claims in the header and payload that imp
 ```
 Focus on these key claims noted in the decoded ID-JAG payload:
 
-* **sub_id**: This is the primary field for user resolution  
-* **aud**: Indicates the endpoint URL for the resource authorization server  
-* **client_id**: This is the client's ID at your resource authorization server, which might differ from its ID at the IdP   
-* **email**: Recommended by the specification for just-in-time provisioning if the user has not yet signed in  
-* **jti**: This is the unique ID for the ID-JAG JWT that prevents replay attacks within the validity window 
+* **`sub_id`**: This is the primary field for user resolution  
+* **`aud`**: Indicates the endpoint URL for the resource authorization server  
+* **`client_id`**: This is the client's ID at your resource authorization server, which might differ from its ID at the IdP   
+* **`email`**: Recommended by the specification for just-in-time provisioning if the user has not yet signed in  
+* **`jti`**: This is the unique ID for the ID-JAG JWT that prevents replay attacks within the validity window 
 
 ## XAA implementation checklist for SAML-federated applications
 
 To fully support Cross App Access, implement these five steps in sequence:
 
-1. Match the full NameID value to resolve user identity  
+1. Match the full `NameID` value to resolve user identity  
 2. Validate ID-JAG claims and bind the issuer  
 3. Issue an access token from your authorization server  
 4. Update your discovery document to include XAA support  
@@ -85,19 +87,21 @@ To fully support Cross App Access, implement these five steps in sequence:
 
 Unlike OIDC apps, which typically resolve users from the `sub` claim, SAML-federated apps do not have a corresponding `sub` claim in their SAML assertion. Consequently, they often lack a direct way to map users without using the `sub_id` field.
 
-You must compare every member of the `saml-nameid` identifier used as a subject key for a given SAML issuer. Do not resolve based on the `nameid` alone unless your local policy permits it.
+You must compare every member of the `saml-nameid` identifier used as a subject key for a given SAML issuer. Do not resolve based on the `NameID` alone unless your local policy permits it.
 
-The `nameid` field alone doesn't uniquely identify a user, since two organizations could each have an employee named Alex Chen. This problem is analogous to resolving user uniqueness in multi-tenant applications.
+The `NameID` field alone doesn't uniquely identify a user, since two organizations could each have an employee named Alex Chen. This problem is analogous to resolving user uniqueness in multi-tenant applications.
 
-Resolve on `nameid` + `sp_name_qualifier` together; the combination of both fields provides the unique user identity required.
+Resolve on `NameID` + `sp_name_qualifier` together; the combination of both fields provides the unique user identity required.
 
-> ⚠️ Note: Don't assume the `nameid` is an email address; it is whatever the customer's SSO emits. Your matching set must remain consistent across your deployment.
+> ⚠️ **Note**
+>
+> Don't assume the `NameID` is an email address; it is whatever the customer's SSO emits. Your matching set must remain consistent across your deployment.
 
 ## Validating the ID-JAG and resolving the user
 
 The client posts the ID-JAG as a JWT authorization grant and authenticates with its credentials at your server. Below is an example HTTP request for requesting an `access_token`
 
-```javascript
+```http
 POST /oauth2/v1/token HTTP/1.1
 Host: chat.example
 Authorization: Basic <base64(client_id:client_secret)>
@@ -105,6 +109,7 @@ Content-Type: application/x-www-form-urlencoded
 grant_type=urn:ietf:params:oauth:grant-type:jwt-bearer
 &assertion=eyJ0eXAiOiJvYXV0aC1pZC1qYWcrand0...
 ```
+
 Before processing, you must bind the ID-JAG's `iss` to a registered SAML connection to prevent forgery.
 
 If you verify the signature before checking the issuer binding, an attacker could potentially create their own IdP, sign a token, and use your customer's SAML issuer as the `sub_id`. 
@@ -152,11 +157,12 @@ resolveSamlSubject(subId, conn):
     if user is none: reject "invalid_grant"
     return user
 ```
+
 ## Issuing the access token
 
 Once you resolve the user, issue an `access_token` scoped according to your local policy. Below is an example of an `access_token` returned after successfully validating the ID-JAG and resolving the user.
 
-```json
+```http
 HTTP/1.1 200 OK
 Content-Type: application/json;charset=UTF-8
 Cache-Control: no-store
@@ -170,15 +176,15 @@ Cache-Control: no-store
 
 ```
 
-### Do not issue a refresh token
-
-If your authorization server issues a refresh token, the client has durable access to your resource server, and the IdP cannot revoke access.
-
-The ID-JAG replaces the need for a refresh token. On access token expiry, the client resubmits the same ID-JAG to your token endpoint, and you mint a new access token against it. Only once the ID-JAG itself expires does the client request a new ID-JAG from the IdP using its own refresh token.
+> ⚠️ **Note**
+>
+> Do not issue a refresh token. If your authorization server issues a refresh token, the client has durable access to your resource server, and the IdP cannot revoke access.
+>
+> The ID-JAG replaces the need for a refresh token. On access token expiry, the client resubmits the same ID-JAG to your token endpoint, and you mint a new access token against it. Only once the ID-JAG itself expires does the client request a new ID-JAG from the IdP using its own refresh token.
 
 ## Updating authorization server metadata
 
-Clients locate your XAA support via your authorization server metadata (/.well-known/oauth-authorization-server). Ensure you include the supported fields:
+Clients locate your XAA support via your authorization server metadata (`/.well-known/oauth-authorization-server`). Ensure you include the supported fields:
 
 ```json
 {
@@ -193,7 +199,7 @@ Clients locate your XAA support via your authorization server metadata (/.well-k
 }
 ```
 
-## Configuring Okta org for Cross App Access
+## Configuring your Okta org for Cross App Access
 
 Cross App Access is an early access feature in Okta. Integrator Free Plan account types include XAA support. If the following options are missing in your Okta org, contact your representative.
 
@@ -205,7 +211,7 @@ Cross App Access is an early access feature in Okta. Integrator Free Plan accoun
 
   {% img blog/cross-app-access-saml/enable-xaa-resource-server.jpeg alt:"Enable XAA in Okta" width:"800" %}{: .center-image }
 
-* **Set the NameID:**   
+* **Set the `NameID`:**   
 
   1. In your SAML app's **General > SAML Settings**, set **Name ID Format** to match your existing identifier 
 
