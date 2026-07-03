@@ -11,7 +11,7 @@ tweets:
   - ""
   - ""
   - ""
-image: blog/cross-app-access-saml/xaa-saml-flow-overview.jpeg
+image: blog/cross-app-access-saml/social.jpg
 type: awareness
 ---
 
