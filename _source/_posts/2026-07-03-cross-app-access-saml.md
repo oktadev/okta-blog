@@ -200,7 +200,6 @@ Cache-Control: no-store
   "expires_in": 86400,
   "scope": "chat:read chat:write"
 }
-
 ```
 
 > ⚠️ **Note**
@@ -255,7 +254,7 @@ With these five steps complete, your SAML application is configured for Cross Ap
 If you have already implemented XAA in your OIDC apps, here's a quick checklist to convert your SAML apps:
 
 * The subject comes from `sub_id` in `saml-nameid` format, rather than `sub`  
-* Match on every `saml-nameid` member (`issuer` + `nameid` + `sp_name_qualifier`), rather than just `iss` and `sub`  
+* Match on every `saml-nameid` member (`issuer` + `NameID` + `sp_name_qualifier`), rather than just `iss` and `sub`  
 * Everything else, including token issuance rules and redemption checks, remains as is
 
 ## Learn more about Cross App Access, SAML, and OAuth 2.0
