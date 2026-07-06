@@ -6,6 +6,7 @@ by: advocate
 communities: [security, javascript, python, .net, java, go]
 description: "Learn how ISVs can build Cross App Access (XAA) connections and list them on the Okta Integration Network (OIN)."
 tags: [xaa, cross-app-access, oin, isv, sso, oauth]
+image: blog/submit-oin-xaa/social.jpg
 tweets:
   - ""
   - ""
