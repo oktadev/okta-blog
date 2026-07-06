@@ -3,7 +3,7 @@ layout: blog_post
 title: "How to Build and List Secure Cross App Access (XAA) Connections on Okta Integration Network (OIN)"
 author: gagan-sikri
 by: advocate
-communities: [security, javascript, python, .net, java, go]
+communities: [javascript, python, .net, java, go]
 description: "Learn how ISVs can build Cross App Access (XAA) connections and list them on the Okta Integration Network (OIN)."
 tags: [xaa, cross-app-access, oin, isv, sso, oauth]
 image: blog/submit-oin-xaa/social.jpg
@@ -12,7 +12,7 @@ tweets:
   - ""
   - ""
   - ""
-type: conversion
+type: awareness
 ---
 
 AI agents have evolved from novelties into active participants in enterprise workflows. They now operate across systems, reading data, executing actions, and calling APIs on behalf of users.
@@ -45,7 +45,7 @@ At a high level, XAA involves three distinct roles:
 
 * **Requesting app**: the requesting app acts on behalf of the user but does not mint the identity assertion itself. Instead, it receives an ID token or Security Assertion Markup Language (SAML) assertion from the identity provider and exchanges that assertion for an Identity Assertion Authorization Grant (ID-JAG), a JSON Web Token (JWT).
 * **Resource app**: the resource app owns the API or data. It validates the incoming ID-JAG and issues a scoped access token if the request is valid.
-* **Identity Provider**: the identity provider, such as [Okta](https://okta.com), authenticates the subject, evaluates access policies, and generates the necessary ID-JAG.
+* **Identity Provider**: authenticates the subject, evaluates access policies, and generates the necessary ID-JAG. [Okta](https://okta.com) fills this role in an XAA deployment.
 
 ## Prerequisites for supporting Cross App Access (XAA) in your app
 
@@ -54,8 +54,8 @@ Before you start building, ensure you have these prerequisites in place:
 * **Defined app role**: determine if your app will function as a requesting app, a resource app, or both.
 * **Authorization server support**: if your app acts as a resource app, your authorization server must validate the ID-JAG and issue a scoped access token for the protected resource.
 * **Scopes and protected resources**: if you are building a resource app, clearly define the APIs and scopes available to requesting apps.
-* **Okta Integrator Free Plan org**: use this org to build, test, and submit your integration. You can sign up [here](/signup/). After signing up, email [developers@okta.com](mailto:developers@okta.com) to enable the XAA feature for your org.
-* **Single sign-on (SSO) integration**: XAA relies on the trust your existing SSO already establishes. Ensure your app supports OpenID Connect (OIDC) or SAML SSO with Okta.
+* **Okta Integrator Free Plan org**: use this org to build, test, and submit your integration. You can sign up [here](https://developer.okta.com/signup/). After signing up, email [developers@okta.com](mailto:developers@okta.com) to enable the XAA feature for your org.
+* **Single Sign-On (SSO) integration**: XAA relies on the trust your existing SSO already establishes. Ensure your app supports OpenID Connect (OIDC) or SAML SSO with Okta.
 * **Tested workflows**: you must demonstrate that XAA works with Okta as the IdP before requesting XAA enablement for your Okta Integration Network (OIN) integration.
 
 ## Implementation and testing guide for Cross App Access (XAA) with Okta as IdP
@@ -76,7 +76,7 @@ Completing these tests is a hard requirement for approval; please ensure they ar
 
 Listing your integration on the [Okta Integration Network (OIN)](https://www.okta.com/integrations/) helps customers discover and trust it. Because XAA relies on trust that your existing single sign-on (SSO) configuration already establishes, you must list an OIDC or SAML SSO integration on the OIN before proceeding.
 
-If your app is not yet listed, prioritize that submission. Submit your SSO app through the [OIN Wizard](/docs/guides/submit-oin-app/openidconnect/main/). This [documentation](/docs/guides/okta-integration-network/) walks you through everything you need to get your integration listed, from app metadata to SSO configuration. Once you submit your SSO app for review, you can begin the XAA enablement request in parallel.
+If your app is not yet listed, prioritize that submission. Submit your SSO app through the [OIN Wizard](https://developer.okta.com/docs/guides/submit-oin-app/openidconnect/main/). This [documentation](https://developer.okta.com/docs/guides/okta-integration-network/) walks you through everything you need to get your integration listed, from app metadata to SSO configuration. Once you submit your SSO app for review, you can begin the XAA enablement request in parallel.
 
 XAA submissions currently require a manual step: you need to contact Okta directly to indicate that your submission includes XAA support. When your app successfully passes token exchange tests, email the Okta team at [oin@okta.com](mailto:oin@okta.com) to request XAA enablement. To speed up the review and avoid additional rounds of configuration, include the completed questionnaire below in your email.
 
@@ -146,7 +146,7 @@ XAA advances how apps and agents interact securely. By supporting this standard 
 If this guide helped you plan your OIN and XAA submission, explore these resources next:
 
 - 📘 [Cross App Access documentation](https://help.okta.com/oie/en-us/content/topics/apps/apps-cross-app-access.htm): official guides for configuring and managing Cross App Access in production.
-- 📄 [Okta Integration Network documentation](/docs/guides/okta-integration-network/): everything you need to get your SSO integration listed on the OIN.
+- 📄 [Okta Integration Network documentation](https://developer.okta.com/docs/guides/okta-integration-network/): everything you need to get your SSO integration listed on the OIN.
 - 🔐 [Enabling Cross App Access for SAML-based enterprise apps](/blog/2026/07/03/cross-app-access-saml): the implementation guide for SAML SSO apps.
 - 🔑 [Build secure agent-to-app connections with Cross App Access (XAA)](/blog/2025/09/03/cross-app-access): the implementation guide for OIDC SSO apps.
 - 🎙️ [Developer podcast on MCP and Cross App Access](https://www.youtube.com/watch?v=qKs4k5Y1x_s): hear the backstory, use cases, and why this matters for developers.
