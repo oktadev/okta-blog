@@ -42,20 +42,20 @@ For ISVs, XAA adoption simplifies the integration process in enterprise environm
 
 At a high level, XAA involves three distinct roles:
 
-* Requesting app: the requesting app acts on behalf of the user but does not mint the identity assertion itself. Instead, it receives an ID token or Security Assertion Markup Language (SAML) assertion from the identity provider and exchanges that assertion for an Identity Assertion Authorization Grant (ID-JAG), a JSON Web Token (JWT).
-* Resource app: the resource app owns the API or data. It validates the incoming ID-JAG and issues a scoped access token if the request is valid.
-* Identity Provider: the identity provider, such as [Okta](https://okta.com), authenticates the subject, evaluates access policies, and generates the necessary ID-JAG.
+* **Requesting app**: the requesting app acts on behalf of the user but does not mint the identity assertion itself. Instead, it receives an ID token or Security Assertion Markup Language (SAML) assertion from the identity provider and exchanges that assertion for an Identity Assertion Authorization Grant (ID-JAG), a JSON Web Token (JWT).
+* **Resource app**: the resource app owns the API or data. It validates the incoming ID-JAG and issues a scoped access token if the request is valid.
+* **Identity Provider**: the identity provider, such as [Okta](https://okta.com), authenticates the subject, evaluates access policies, and generates the necessary ID-JAG.
 
 ## Prerequisites for supporting Cross App Access (XAA) in your app
 
 Before you start building, ensure you have these prerequisites in place:
 
-* Defined app role: determine if your app will function as a requesting app, a resource app, or both.
-* Authorization server support: if your app acts as a resource app, your authorization server must validate the ID-JAG and issue a scoped access token for the protected resource.
-* Scopes and protected resources: if you are building a resource app, clearly define the APIs and scopes available to requesting apps.
-* Okta Integrator Free Plan org: use this org to build, test, and submit your integration. You can sign up [here](/signup/). After signing up, email [developers@okta.com](mailto:developers@okta.com) to enable the XAA feature for your org.
-* Single sign-on (SSO) integration: XAA relies on the trust your existing SSO already establishes. Ensure your app supports OpenID Connect (OIDC) or SAML SSO with Okta.
-* Tested workflows: you must demonstrate that XAA works with Okta as the IdP before requesting XAA enablement for your Okta Integration Network (OIN) integration.
+* **Defined app role**: determine if your app will function as a requesting app, a resource app, or both.
+* **Authorization server support**: if your app acts as a resource app, your authorization server must validate the ID-JAG and issue a scoped access token for the protected resource.
+* **Scopes and protected resources**: if you are building a resource app, clearly define the APIs and scopes available to requesting apps.
+* **Okta Integrator Free Plan org**: use this org to build, test, and submit your integration. You can sign up [here](/signup/). After signing up, email [developers@okta.com](mailto:developers@okta.com) to enable the XAA feature for your org.
+* **Single sign-on (SSO) integration**: XAA relies on the trust your existing SSO already establishes. Ensure your app supports OpenID Connect (OIDC) or SAML SSO with Okta.
+* **Tested workflows**: you must demonstrate that XAA works with Okta as the IdP before requesting XAA enablement for your Okta Integration Network (OIN) integration.
 
 ## Implementation and testing guide for Cross App Access (XAA) with Okta as IdP
 
@@ -66,8 +66,8 @@ To begin development, select the guide corresponding to your application's authe
 
 To verify your configuration, demonstrate a successful token exchange:
 
-* Requesting apps: provide evidence that you successfully obtained an ID token via OIDC SSO and used it to mint an ID-JAG.
-* Resource apps: show that your app received an ID-JAG and successfully exchanged it for a scoped access token.
+* **Requesting apps**: provide evidence that you successfully obtained an ID token via OIDC SSO and used it to mint an ID-JAG.
+* **Resource apps**: show that your app received an ID-JAG and successfully exchanged it for a scoped access token.
 
 Completing these tests is a hard requirement for approval; please ensure they are successful before submitting your integration.
 
@@ -83,7 +83,7 @@ Use this subject line: `Request to enable XAA support for <App Name> on OIN`
 
 ### XAA enablement questionnaire
 
-General app details:
+**General app details:**
 
 * App Name:
 * Okta Integrator Org domain:
@@ -92,7 +92,7 @@ General app details:
 * Existing OIN App Link, if already published
 * Submission Type: new OIN submission / update to an existing OIN app
 
-Requesting app details: *fill this out if your app acts as a requesting app.*
+**Requesting app details:** *fill this out if your app acts as a requesting app.*
 
 * Resource Registration Pairs: for each resource app you connect with, provide:
   * Resource app name
@@ -104,7 +104,7 @@ Requesting app details: *fill this out if your app acts as a requesting app.*
   * No
   * Planned future support
 
-Resource app details: *fill this out if your app acts as a resource app.*
+**Resource app details:** *fill this out if your app acts as a resource app.*
 
 * Global Issuer URL: the endpoint that processes ID-JAG token exchange requests
 * Protected Resource Identifiers: URLs of the APIs your app exposes (e.g., `https://api.yourdomain.com/v1`)
@@ -117,7 +117,7 @@ Resource app details: *fill this out if your app acts as a resource app.*
   * `.well-known/oauth-authorization-server`
   * `.well-known/oauth-protected-resources`
 
-Testing details:
+**Testing details:**
 
 * If you're a requesting app: confirm that you generated successful token exchange logs. The Okta operations team can verify these via internal telemetry parameters. To help the team validate quickly, also include:
   * Test org
