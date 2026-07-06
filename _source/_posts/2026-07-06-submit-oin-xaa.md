@@ -54,7 +54,7 @@ Before you start building, ensure you have these prerequisites in place:
 * **Defined app role**: determine if your app will function as a requesting app, a resource app, or both.
 * **Authorization server support**: if your app acts as a resource app, your authorization server must validate the ID-JAG and issue a scoped access token for the protected resource.
 * **Scopes and protected resources**: if you are building a resource app, clearly define the APIs and scopes available to requesting apps.
-* **Okta Integrator Free Plan org**: use this org to build, test, and submit your integration. You can sign up [here](https://developer.okta.com/signup/). After signing up, email [developers@okta.com](mailto:developers@okta.com) to enable the XAA feature for your org.
+* **Okta Integrator Free Plan org**: use this org to build, test, and submit your integration. You can [register for a new account](https://developer.okta.com/signup/). After signing up, email [developers@okta.com](mailto:developers@okta.com) to enable the XAA feature for your org.
 * **Single Sign-On (SSO) integration**: XAA relies on the trust your existing SSO already establishes. Ensure your app supports OpenID Connect (OIDC) or SAML SSO with Okta.
 * **Tested workflows**: you must demonstrate that XAA works with Okta as the IdP before requesting XAA enablement for your Okta Integration Network (OIN) integration.
 
