@@ -76,7 +76,7 @@ Completing these tests is a hard requirement for approval; please ensure they ar
 
 Listing your integration on the [Okta Integration Network (OIN)](https://www.okta.com/integrations/) helps customers discover and trust it. Because XAA relies on trust that your existing single sign-on (SSO) configuration already establishes, you must list an OIDC or SAML SSO integration on the OIN before proceeding.
 
-If your app is not yet listed, prioritize that submission. Submit your SSO app through the [OIN Wizard](https://developer.okta.com/docs/guides/submit-oin-app/openidconnect/main/). This [documentation](https://developer.okta.com/docs/guides/okta-integration-network/) walks you through everything you need to get your integration listed, from app metadata to SSO configuration. Once you submit your SSO app for review, you can begin the XAA enablement request in parallel.
+If your app is not yet listed, prioritize that submission. Submit your SSO app through the [OIN Wizard](https://developer.okta.com/docs/guides/submit-oin-app/openidconnect/main/). This [Okta Integration Network guide](https://developer.okta.com/docs/guides/okta-integration-network/) walks you through everything you need to get your integration listed, from app metadata to SSO configuration. Once you submit your SSO app for review, you can begin the XAA enablement request in parallel.
 
 XAA submissions currently require a manual step: you need to contact Okta directly to indicate that your submission includes XAA support. When your app successfully passes token exchange tests, email the Okta team at [oin@okta.com](mailto:oin@okta.com) to request XAA enablement. To speed up the review and avoid additional rounds of configuration, include the completed questionnaire below in your email.
 
