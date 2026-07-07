@@ -37,7 +37,7 @@ The diagram below gives a complete flow for XAA and token exchanges.
 
 {% img blog/csharp-mcp-cross-app-access/xaa-flow-diagram.jpg alt:"XAA flow diagram showing the four steps: OIDC login, token exchange via RFC 8693, JWT bearer grant via RFC 7523, and MCP server access" width:"800" %}{: .center-image }
 
-You can find a complete flow diagram and explanation of XAA in the ["Integrate Your Enterprise AI Tools with Cross-App Access"](https://developer.okta.com/blog/LINK_TO_XAA_BLOG_POST) blog.
+You can find a complete flow diagram and explanation of XAA in the ["Integrate Your Enterprise AI Tools with Cross-App Access"](https://developer.okta.com/blog/2025/06/23/enterprise-ai) blog.
 
 In the next steps, let us understand how to implement the 4 steps of XAA using the MCP software development kit (SDK).
 
