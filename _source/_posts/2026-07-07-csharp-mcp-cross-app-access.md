@@ -12,7 +12,7 @@ tweets:
   - ""
   - ""
 image: blog/csharp-mcp-cross-app-access/social.jpg
-github: https://github.com/oktadev/csharp-mcp-sdk-example
+github: https://github.com/oktadev/okta-csharp-mcp-sdk-example
 type: conversion
 ---
 
@@ -43,7 +43,7 @@ In the next steps, let us understand how to implement the 4 steps of XAA using t
 
 ## Implementing XAA with the C# MCP SDK
 
-If you were to build this manually, you would need to manage complex cryptographic handshakes. Instead, we'll use the C# MCP SDK; more details are available in the [official GitHub repository](https://github.com/oktadev/csharp-mcp-sdk-example). The C# MCP SDK's `IdentityAssertionGrantProvider` handles all the heavy lifting, abstracting these RFCs into a clean, developer-friendly interface that lets you focus on your agent logic rather than the authentication plumbing. Let us implement that step by step.
+If you were to build this manually, you would need to manage complex cryptographic handshakes. Instead, we'll use the C# MCP SDK; more details are available in the [official GitHub repository](https://github.com/oktadev/okta-csharp-mcp-sdk-example). The C# MCP SDK's `IdentityAssertionGrantProvider` handles all the heavy lifting, abstracting these RFCs into a clean, developer-friendly interface that lets you focus on your agent logic rather than the authentication plumbing. Let us implement that step by step.
 
 ### Step 1: Building the OIDC flow
 
@@ -131,7 +131,7 @@ var raw = string.Join("",
           .Select(c => c.Text ?? ""));
 ```
 
-This app uses `todo0://todos` to fetch from the xaa.dev resource server. The complete sample code for the app is available in the linked [GitHub repository](https://github.com/oktadev/csharp-mcp-sdk-example).
+This app uses `todo0://todos` to fetch from the xaa.dev resource server. The complete sample code for the app is available in the linked [GitHub repository](https://github.com/oktadev/okta-csharp-mcp-sdk-example).
 
 ## Testing with xaa.dev
 
@@ -153,7 +153,7 @@ In this example, the C# app is a requester app that fetches the To-Do list from 
 
 ## Executing with xaa.dev
 
-At this point, you should have your application ready, running on port 5000, and connected to the xaa sample resource app. If not, you can clone the repo from the [GitHub repository](https://github.com/oktadev/csharp-mcp-sdk-example) and add the following environment variables to the `appsettings.json` file:
+At this point, you should have your application ready, running on port 5000, and connected to the xaa sample resource app. If not, you can clone the repo from the [GitHub repository](https://github.com/oktadev/okta-csharp-mcp-sdk-example) and add the following environment variables to the `appsettings.json` file:
 
 ```shell
 git clone https://github.com/oktadev/csharp-mcp-sdk-example.git
@@ -210,7 +210,7 @@ xaa.dev makes this tangible without any infrastructure overhead. The IdP, the Au
 
 If you wish to read further:
 
-- Browse the full source for this demo in the [GitHub repository](https://github.com/oktadev/csharp-mcp-sdk-example)
+- Browse the full source for this demo in the [GitHub repository](https://github.com/oktadev/okta-csharp-mcp-sdk-example)
 - Register your own app and explore the platform at [xaa.dev](https://xaa.dev)
 - Read the deeper dive on how XAA closes the enterprise trust gap in [Integrate Your Enterprise AI Tools with Cross-App Access](/blog/2025/06/23/enterprise-ai)
 
