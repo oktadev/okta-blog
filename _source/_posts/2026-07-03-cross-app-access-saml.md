@@ -13,6 +13,9 @@ tweets:
   - ""
 image: blog/cross-app-access-saml/social.jpg
 type: awareness
+changelog:
+  - 2026-07-09: Added the steps to set up the requestor and resource apps in Okta and generate a conformance report.
+
 ---
 
 If you currently federate enterprise customers using Security Assertion Markup Language (SAML) and want to allow AI agents to access your API without migrating to OpenID Connect (OIDC), this Cross App Access (XAA) guide is for you.
@@ -104,11 +107,17 @@ Focus on these key claims noted in the decoded ID-JAG payload:
 
 To fully support Cross App Access, implement these five steps in sequence:
 
-1. [Match the full `NameID` value to resolve user identity](#mapping-user-identity-in-the-saml-nameid-attribute)  
-2. [Validate ID-JAG claims and bind the issuer](#validating-the-id-jag-and-resolving-the-user)  
-3. [Issue an access token from your authorization server](#issuing-the-access-token)  
-4. [Update your discovery document to include XAA support](#updating-authorization-server-metadata)  
-5. [Configure your Okta tenant](#configuring-your-okta-org-for-cross-app-access)
+- [How XAA in SAML works](#how-xaa-in-saml-works)
+- [Analyzing the ID-JAG claims](#analyzing-the-id-jag-claims)
+- [XAA implementation checklist for SAML-federated applications](#xaa-implementation-checklist-for-saml-federated-applications)
+  - [Mapping user identity in the SAML `NameID` attribute](#mapping-user-identity-in-the-saml-nameid-attribute)
+  - [Validating the ID-JAG and resolving the user](#validating-the-id-jag-and-resolving-the-user)
+  - [Issuing the access token](#issuing-the-access-token)
+  - [Updating authorization server metadata](#updating-authorization-server-metadata)
+  - [Configuring your Okta org for Cross App Access](#configuring-your-okta-org-for-cross-app-access)
+- [Making cross-application requests from your SAML app securely](#making-cross-application-requests-from-your-saml-app-securely)
+- [Takeaways for implementors who have both OIDC and SAML apps](#takeaways-for-implementors-who-have-both-oidc-and-saml-apps)
+- [Learn more about Cross App Access, SAML, and OAuth 2.0](#learn-more-about-cross-app-access-saml-and-oauth-20)
 
 ### Mapping user identity in the SAML `NameID` attribute
 
