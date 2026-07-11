@@ -19,7 +19,7 @@ changelog:
 
 **Update**: This post was updated in July 2026 to include OAuth 2.0 Private Key JWT authorization, Okta Admin Console integration for initiating Universal Logout end-to-end, and an optional OIN submission guide. The original post covered building the Global Token Revocation endpoint and securing it with an API key.
 
-Your enterprise customers expect you to safeguard them from security incidents, especially when it comes to compromised user accounts. Perhaps a user has signed in from a known stolen device or from outside an allowed IP zone. If a hacker is masquerading as one of your customer's employees, potentially accessing sensitive company data, you must end their session and sign them out of your app immediately.
+Your enterprise customers expect you to safeguard them from security incidents, especially when it comes to compromised user accounts. Perhaps a user has signed in from a known stolen device or from outside an allowed IP zone. If a hacker is masquerading as one of your customers' employees, potentially accessing sensitive company data, you must end their session and sign them out of your app immediately.
 
 If you build SaaS applications for enterprise customers who leverage Identity Providers (IdPs), workflows, and threat-detection tools, then adding Universal Logout to your app is the solution to ending suspicious user sessions ASAP.
 
@@ -50,7 +50,7 @@ Run `node -v` and ensure you have Node version 18 or newer. Follow [these setup 
 
 >**Note**: If you have already completed the [Enterprise Ready OIDC Workshop](/blog/2023/07/28/oidc_workshop) and can successfully run the Todo app with OIDC-SSO configured with Okta, add a task, and sign a user out, please skip to the **Build a Universal Logout endpoint and secure it** section. If you haven't, please read on.
 
-We'll build the Universal Logout (UL) endpoint on [the sample app](https://github.com/oktadev/okta-enterprise-ready-workshops/) with OIDC support implemented. After cloning the repo, check out the oidc-workshop-complete branch with `git checkout oidc-workshop-complete`.
+We'll build the Universal Logout (UL) endpoint on [the sample app](https://github.com/oktadev/okta-enterprise-ready-workshops/) with OIDC support. After cloning the repo, check out the oidc-workshop-complete branch with `git checkout oidc-workshop-complete`.
 
 >**Troubleshooting tips**: Ensure you can run the Todo application before you begin. We'll be adding some code and testing along the way.
 
@@ -59,9 +59,9 @@ If you don't already have an Okta account, you can sign up for one here under [I
 
 ### Add configuration to authenticate with OIDC
 
-You can view the user table locally using Prisma Studio. To do this, go to the root of this workshop folder in your terminal and run `npx prisma studio`. Your browser will open a new web page where you can see all the users in your database.
+You can view the user table locally using Prisma Studio. To do this, go to the root of this workshop folder in your terminal and run `npx prisma studio`. Your browser will open a new page that shows all users in your database.
 
-While viewing your database locally, you'll also see an org table. By clicking the **Add record** button, you can manually input the following info to seed your database with an org linked to an Okta authorization server, allowing OIDC-SSO login. Add the **client_id** and **client_secret** from the previous step, then click the **Save change** button to save your changes.
+While viewing your database locally, you'll also see an org table. By clicking the **Add record** button, you can manually enter the following information to seed your database with an org linked to an Okta authorization server, enabling OIDC-SSO login. Add the **client_id** and **client_secret** from the previous step, then click the **Save change** button to save your changes.
 
 - id # = 1
 - domain = whiterabbit.fake
@@ -77,7 +77,7 @@ While viewing your database locally, you'll also see an org table. By clicking t
 
 ### Create a test user
 
-To test whether UL works for our app, we'll create a user on Okta whose account we'll forcibly sign out.
+To test whether UL works for our app, we'll create a user in Okta and forcibly sign them out.
 Open the Admin Console for your org, and go to **Directory** > **People**. Click **Add Person** and create a person with the following properties:
 
 - User type: User
@@ -87,11 +87,11 @@ Open the Admin Console for your org, and go to **Directory** > **People**. Click
 - Activation: Activate now
 - Enable the option **I will set password** > Enter a password of your choosing and click **Save**
 
-Refresh the page and click on Trinity Anderson's profile. Click the **Assign Application** button and assign Trinity to the UL OIDC App.
+Refresh the page, then click Trinity Anderson's profile. Click the **Assign Application** button and assign Trinity to the UL OIDC App.
 
 ### Migrate the test user
 
-Now that you have a user in Okta, let's migrate Trinity to the correct Todo App org according to her company domain. Run the following command and then check the Prisma database to see if Trinity is linked to the whiterabbit.fake domain (org #1).
+Now that you have a user in Okta, let's migrate Trinity to the correct Todo App org according to her company domain. Run the following command, then check the Prisma database to see if Trinity is in the whiterabbit.fake domain (org #1).
 
 ```shell
 npm run oidc-migrate whiterabbit.fake
@@ -157,7 +157,7 @@ export const universalLogoutRoute = Router();
 import { PrismaClient } from '@prisma/client';
 ```
 
-We'll need to instantiate a Prisma client and define a TypeScript interface to ensure the request coming to our endpoint is the data type we expect. As per the [Global Token Revocation Specification](https://datatracker.ietf.org/doc/html/draft-parecki-oauth-global-token-revocation#name-revocation-request), we are expecting an external request to end a user's session based on the email used to SSO with their IdP. The request will look like the following:
+We'll need to instantiate a Prisma client and define a TypeScript interface to ensure the request coming to our endpoint is the data type we expect. As per the [Global Token Revocation Specification](https://datatracker.ietf.org/doc/html/draft-parecki-oauth-global-token-revocation#name-revocation-request), we expect an external request to end a user's session based on the email used for SSO with their IdP. The request will look like the following:
 
 ```http
 POST /global-token-revocation
@@ -264,7 +264,7 @@ universalLogoutRoute.use((err,req,res,next) => {
 
 ### Test the token revocation endpoint
 
-Before we proceed, let's make sure the token revocation endpoint works. We'll use [cURL](https://curl.se/docs/httpscripting.html) to send requests to the endpoint and [Morgan](https://www.npmjs.com/package/morgan), an HTTP logger middleware to see the response codes it returns.
+Before we proceed, let's make sure the token revocation endpoint works. We'll use [cURL](https://curl.se/docs/httpscripting.html) to send requests to the endpoint and [Morgan](https://www.npmjs.com/package/morgan), an HTTP logger middleware, to see the response codes it returns.
 
 In a new terminal, install Morgan with the following command:
 
@@ -316,7 +316,7 @@ curl --request POST \
 }'
 ```
 
-This request will result in a 204 response confirming that a user named Trinity exists in our database. Sure, we got a successful response, but what is wrong here? This endpoint isn't secure — we've made it available for anyone to access. Let's fix this by adding authentication to protect this endpoint and establish trust between our server and any external service making a request to this route.
+This request will result in a 204 response confirming that a user named Trinity exists in our database. Sure, we got a successful response, but what is wrong here? This endpoint isn't secure — we've made it accessible to anyone. Let's fix this by adding authentication to protect this endpoint and establish trust between our server and any external service making an API request to this route.
 
 ## Allow only authorized access to the endpoint
 
@@ -378,7 +378,7 @@ const OpenIDConnectStrategy = passportOIDC.Strategy;
 const BearerStrategy = passportBearer.Strategy;
 ```
 
-Lastly, add the token auth strategy to your UL-related code (just below the OIDC-related code). Notice how we're setting the Passport.js auth strategy to relate the API key to an existing org in our database. From here, we'll be able to have context about which org the incoming request is referring to. You can read more about this in the [Passport.js documentation](https://www.passportjs.org/concepts/authentication/http-bearer/).
+Lastly, add the token auth strategy to your UL-related code (just below the OIDC-related code). Notice how we're setting the Passport.js auth strategy to relate the API key to an existing org in our database. From here, we'll have context on which org the incoming request is referring to. You can read more about this in the [Passport.js documentation](https://www.passportjs.org/concepts/authentication/http-bearer/).
 
 ```ts
 // Bearer Auth Strategy
@@ -396,7 +396,7 @@ passport.use(new BearerStrategy(
 
 Update the UL endpoint by adding `passport.authenticate('bearer', { session: false })`. The complete code will look like this:
 
->**Note**: The [Passport Library](https://www.passportjs.org/packages/passport-http-bearer/) offers the option of setting the token authentication session to false. We'll set it to false since we won't need a session in our use case.
+>**Note**: The [Passport Library](https://www.passportjs.org/packages/passport-http-bearer/) offers the option to set the token authentication session to false. We'll set it to false since we won't need a session in our use case.
 
 ```ts
 ///////////////////////////////////////////////////////
@@ -433,9 +433,9 @@ curl --request POST \
 }'
 ```
 
-You'll get a **401 Unauthorized** response, meaning the authorization provided was invalid. This error is valid because we didn't send a token to our authorization headers. Let's fix that! We know from our database that the API key is 131313. You can confirm this by opening another terminal and running `npx prisma studio`. A new window will open with a UI showing you the tables in your database; inspect the org table to see the column apikey for org 1. With that, go ahead and add this missing info to your cURL request.
+You'll get a **401 Unauthorized** response, indicating that the provided authorization was invalid. This error is valid because we didn't send a token to our authorization headers. Let's fix that! We know from our database that the API key is 131313. You can confirm this by opening another terminal and running `npx prisma studio`. A new window will open with a UI showing you the tables in your database; inspect the org table to see the column apikey for org 1. With that, go ahead and add this missing info to your cURL request.
 
-It's crucial to authenticate with the correct API key as it specifies the org with which the user is associated. We'll also need to incorporate this information into the code. Thanks to the Passport.js library and how we configured the auth strategy in `apps/api/src/main.ts`, we have information about the org the request is about, which is stored in `req['user']`. Try adding `console.log(req['user'])` to see what I mean. Furthermore, we can access the org context with `req['user']['id']`. We'll need this to find the exact user within a specific org, which is beneficial if your app handles multitenancy. Add the following code to `apps/api/src/universalLogout.ts`:
+It's crucial to authenticate with the correct API key, as it specifies the org the user is associated with. We'll also need to incorporate this information into the code. Thanks to the Passport.js library and the auth strategy we configured in `apps/api/src/main.ts`, we have the org the request is about, stored in `req['user']`. Try adding `console.log(req['user'])` to see what I mean. Furthermore, we can access the org context with `req['user']['id']`. We'll need this to find the exact user within a specific org, which is beneficial if your app handles multitenancy. Add the following code to `apps/api/src/universalLogout.ts`:
 
 ```ts
 universalLogoutRoute.post('/global-token-revocation', async (req, res) => {
@@ -473,7 +473,7 @@ universalLogoutRoute.use((err,req,res,next) => {
 })
 ```
 
-Now let's do another test to make sure the authentication piece we added is working. We'll need to modify our cURL request to include an Authorization header with a `Bearer 131313`. This should result in a 204 response.
+Now let's do another test to make sure the authentication piece we added is working. We'll need to modify our cURL request to include an Authorization header with a `Bearer 131313`. This test should result in a 204 response.
 
 ```http
 curl --request POST \
@@ -593,7 +593,7 @@ app.use('/', tokenValidator, universalLogoutRoute);
 
 Before proceeding, remove the old Bearer Auth Strategy code at the bottom. This authentication method has been replaced by the JWT validation approach above.
 
-Note that the last line of code passes `tokenValidator` to be executed for all requests starting with the path `/`.
+Note that the last line of code passes `tokenValidator` to all requests starting with the path `/`.
 
 > **Recap:** Your `apps/api/src/main.ts` file should now look like this, with no remaining references to API key token authorization:
 
@@ -885,7 +885,7 @@ app.use(morgan('combined'));
 app.use('/', tokenValidator, universalLogoutRoute);
 ```
 
-We'll also need to make some changes to `apps/api/src/universalLogout.ts`. From the `tokenValidator` we now know the org context related to the Private Key JWT (previously we used user ID to figure out the domain org id associated with the API token). We'll use the org id to find the specific user linked to the request.
+We'll also need to make some changes to `apps/api/src/universalLogout.ts`. From the `tokenValidator`, we now know the org context for the Private Key JWT (previously, we used the user ID to determine the domain org id associated with the API token). We'll use the org id to find the specific user linked to the request.
 
 ```javascript
  // Find the user by email associated with the org id from the validated signed JWT
@@ -963,7 +963,7 @@ Now that we have the target user of a specific org, let's figure out how to targ
 
 ### End a user's session
 
-In Express, we'll need to access a user's session in the session store from the express-session library. Create a file called `sessionStore.ts` under the `apps/api/src` folder and a variable called `store`. Notice we created a separate file to reference `store` in multiple files — we'll need it in both `apps/api/src/main.ts` and `apps/api/src/universalLogout.ts`.
+In Express, we'll need to access a user's session from the express-session library's session store. Create a file called `sessionStore.ts` under the `apps/api/src` folder and a variable called `store`. Notice we created a separate file to reference `store` in multiple files — we'll need it in both `apps/api/src/main.ts` and `apps/api/src/universalLogout.ts`.
 
 ```ts
 import {MemoryStore} from 'express-session';
@@ -1008,7 +1008,7 @@ app.use(session({
 }));
 ```
 
-Notice how the user session is configured in `apps/api/src/main.ts` with the Passport.js library's serialization and deserialization functions. We can instruct the Passport.js library to reference a specific user's session with their `user.id`. You can read more about how this works in the [Passport.js documentation](https://www.passportjs.org/concepts/authentication/sessions/).
+Notice how the user session is configured in `apps/api/src/main.ts` using Passport.js' serialization and deserialization functions. We can instruct Passport.js to reference a specific user's session using their `user.id`. You can read more about how this works in the [Passport.js documentation](https://www.passportjs.org/concepts/authentication/sessions/).
 
 ```ts
 passport.serializeUser( async (user: IUser, done) => {
@@ -1069,9 +1069,9 @@ curl --request POST \
 }'
 ```
 
-Check that you get a 204 response, and then try to add another Todo task. You won't be able to add another task, and if you open the dev tools and inspect the console tab, you'll see a **401 Unauthorized** error.
+Check that you get a 204 response, then try adding another Todo task. You won't be able to add another task, and if you open the dev tools and inspect the console tab, you'll see a **401 Unauthorized** error.
 
-We accomplished our goal of ending a user's session, but the user can still see the contents of the webpage. Let's ensure we fully sign them out by refreshing the browser and redirecting them to the main sign-in page — forcing the user to reauthenticate.
+We successfully ended the user's session, but the user can still see the webpage's contents. Let's ensure we fully sign them out by refreshing the browser and redirecting them to the main sign-in page — forcing the user to reauthenticate.
 
 ### Sign a user out of the Todo app
 
@@ -1146,7 +1146,7 @@ export const Todos = () => {
 
 ### Revoke a user's tokens
 
-This web application architecture uses cookie-based sessions instead of session tokens to authenticate to backend resources. However, in the case of mobile apps and single-page applications, you'll need to revoke refresh tokens on the front end. As per the [spec](https://datatracker.ietf.org/doc/html/draft-parecki-oauth-global-token-revocation#name-revocation-expectations), written by [Aaron Parecki](https://aaronparecki.com/), a successful sign-out will require revoking a user's refresh token.
+This web application architecture uses cookie-based sessions instead of session tokens to authenticate to backend resources. However, for mobile apps and single-page applications, you'll need to revoke refresh tokens on the front end. As per the [spec](https://datatracker.ietf.org/doc/html/draft-parecki-oauth-global-token-revocation#name-revocation-expectations), written by [Aaron Parecki](https://aaronparecki.com/), a successful sign-out will require revoking a user's refresh token.
 
 ## Test with Okta
 
@@ -1154,7 +1154,7 @@ Now that the app has a secure, working UL endpoint, let's connect it to Okta and
 
 ### Expose a public endpoint
 
-One way to give your app a public URL is to host it on a cloud instance with a DNS server that you control. For development purposes, you can use Ngrok or Localtunnel to provide a public address to the app running on your computer.
+One way to give your app a public URL is to host it on a cloud instance with a DNS server that you control. For development purposes, you can use Ngrok or Localtunnel to expose the app running on your computer to the public.
 
 We'll use Localtunnel in this demonstration. Start the API with the following command on your terminal:
 
@@ -1166,7 +1166,7 @@ In another terminal, start the tunnel using the following command:
 
 It will ask for permission to install the npm package; say yes. When you start Localtunnel, it will print a URL to your terminal, such as `http://unique-url-for-squirrels`. You will need that URL in the next step.
 
-> **Troubleshooting tip:** Localtunnel is known to have timeout issues (408 response errors). For a more stable proxy option you can try [ngrok](https://ngrok.com/). Similarly, you can perform the following commands to obtain a proxy URL after you install and get your auth key through your ngrok dashboard.
+> **Troubleshooting tip:** Localtunnel is known to have timeout issues (408 response errors). For a more stable proxy option, you can try [ngrok](https://ngrok.com/). Similarly, you can run the following commands to obtain a proxy URL after installing and retrieving your auth key from your ngrok dashboard.
 
 ```
 ngrok config add-authtoken {your-authtoken-from-your-dashboard}
@@ -1175,7 +1175,7 @@ ngrok http 3333
 
 ### Provide your revocation endpoint to Okta
 
-Log in to your Okta dashboard, and under your UL App, go to the **General** tab. Within the General tab, look for the **Logout > Global token revocation endpoint** section, enable the **Okta system or admin initiates logout** option, and add your logout endpoint URL using your proxy URL, for example `https://easy-states-create.loca.lt/global-token-revocation`. Set **Subject format** to Email Identifier and **Auth method** to "Private key JWT." This means Okta will send a request identifying the user with the email used to SSO into the Todo app, authenticated with the secure OAuth method Private Key JWT.
+Log in to your Okta dashboard, and under your UL App, go to the **General** tab. Within the General tab, look for the **Logout > Global token revocation endpoint** section, enable the **Okta system or admin initiates logout** option, and add your logout endpoint URL using your proxy URL, for example, `https://easy-states-create.loca.lt/global-token-revocation`. Set **Subject format** to Email Identifier and **Auth method** to "Private key JWT." This setup means Okta will send a request to the Todo app, identifying the user with the email used for SSO, and authenticate the user with the secure OAuth method Private Key JWT.
 
 In addition, update the `expectedAud` in `apps/api/src/main.ts` to match the base URL provided by Localtunnel:
 
@@ -1225,7 +1225,7 @@ You can further manage your users and groups using Terraform or Workflows:
 | 5. [Enterprise Maturity Workshop: Automate with no-code Okta Workflows](/blog/2023/09/15/workflows-workshop) |
 | 6. **Build and Integrate Universal Logout with Okta** |
 
-Follow us on [Twitter](https://twitter.com/oktadev) and subscribe to our [YouTube](https://www.youtube.com/c/oktadev) channel. If you have any questions or want to share what tutorial you'd like to see next, please comment below!
+Follow us on [Twitter](https://twitter.com/oktadev) and subscribe to our [YouTube](https://www.youtube.com/c/oktadev) channel. If you have any questions or would like to share which tutorial you'd like to see next, please comment below!
 
 ## Resources
 - [Build Universal Logout for your App](https://developer.okta.com/docs/guides/oin-universal-logout-overview/)
