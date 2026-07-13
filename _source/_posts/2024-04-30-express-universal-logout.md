@@ -61,7 +61,11 @@ If you don't already have an Okta account, you can sign up for one here under [I
 
 You can view the user table locally using Prisma Studio. To do this, go to the root of this workshop folder in your terminal and run `npx prisma studio`. Your browser will open a new page that shows all users in your database.
 
+>**Note**: Run the npx prisma studio command on a separate terminal not the same terminal you used to run the app locally.
+
 While viewing your database locally, you'll also see an org table. By clicking the **Add record** button, you can manually enter the following information to seed your database with an org linked to an Okta authorization server, enabling OIDC-SSO login. Add the **client_id** and **client_secret** from the previous step, then click the **Save change** button to save your changes.
+
+>**Note**: Skip group assignment for now and be sure Federation Broker Mode is turned off.
 
 - id # = 1
 - domain = whiterabbit.fake
@@ -85,9 +89,11 @@ Open the Admin Console for your org, and go to **Directory** > **People**. Click
 - Last name: Anderson
 - Username: trinity@whiterabbit.fake
 - Activation: Activate now
-- Enable the option **I will set password** > Enter a password of your choosing and click **Save**
+- Enable the option **I will set password** > Enter a password of your choosing and do not choose "User must change password on first login" before clicking **Save**
 
 Refresh the page, then click Trinity Anderson's profile. Click the **Assign Application** button and assign Trinity to the UL OIDC App.
+
+>**Note**: Assign the OpenID Connect (OIDC) app from the previous step (### Add configuration to authenticate with OIDC) to the user, trinity@whiterabbit.fake.
 
 ### Migrate the test user
 
@@ -585,7 +591,11 @@ So far, we know the user's email from the request to the UL endpoint and have as
 
 >**Checkpoint**: Now is an excellent time to test our code.
 
-Let's sign in to the Todo app with Trinity's credentials — email: trinity@whiterabbit.fake and the temporary password: Zion123$. Okta will redirect you and prompt you to update the password. When you redirect back to the Todo app, you'll have an active session; you can test this by adding a task. Let's test ending this session by sending a cURL request.
+Let's sign in to the Todo app with Trinity's credentials — email: trinity@whiterabbit.fake and the temporary password you signed up with. 
+
+>**Troubleshooting tips**: Be sure to use incognito mode to separate the test user trinity@whiterabbit.fake session from your admin user. You will get a "Forbidden" error when your are logged with admin attempting to login to the Todo app.
+
+When you redirect back to the Todo app, you'll have an active session; you can test this by adding a task. Let's test ending this session by sending a cURL request.
 
 ```http
 curl --request POST \
@@ -675,15 +685,11 @@ export const Todos = () => {
 
 >**Improve your code**: Notice the code above only handles a 401 response from the server when adding a new task. How might you handle 401 errors globally? You can use fetch or [Axios Interceptor](https://axios-http.com/docs/interceptors). The completed workshop code handles this using fetch; check it out here [Universal Logout Workshop Complete](https://github.com/oktadev/okta-enterprise-ready-workshops/blob/ul-workshop-complete/apps/todo-app/src/app/components/useTodoApi.tsx).
 
-### Revoke a user's tokens
-
-This web application architecture uses cookie-based sessions instead of session tokens to authenticate to backend resources. However, for mobile apps and single-page applications, you'll need to revoke refresh tokens on the front end. As per the [spec](https://datatracker.ietf.org/doc/html/draft-parecki-oauth-global-token-revocation#name-revocation-expectations), written by [Aaron Parecki](https://aaronparecki.com/), a successful sign-out will require revoking a user's refresh token.
-
 ## Test with Okta
 
 Now that the app has a secure, working UL endpoint, let's connect it to Okta and test end-to-end.
 
-### Upgrade to Private Key JWT authorization
+### Upgrade to more secure Private Key JWT authorization
 
 Now that the endpoint is secured with a basic API key, let's upgrade to OAuth 2.0 Private Key JWT — the authentication method Okta uses when it initiates Universal Logout. Using a signed JWT means Okta cryptographically proves its identity on every request, removing the risks associated with long-lived static tokens.
 
@@ -1156,7 +1162,7 @@ universalLogoutRoute.use((err,req,res,next) => {
 
 One way to give your app a public URL is to host it on a cloud instance with a DNS server that you control. For development purposes, you can use Ngrok or Localtunnel to expose the app running on your computer to the public.
 
-We'll use Localtunnel in this demonstration. Start the API with the following command on your terminal:
+We'll use Localtunnel in this demonstration. Start the API with the following command on a separate terminal (not the terminal you use to run the Todo app):
 
 `npm run serve-api`
 
@@ -1166,7 +1172,9 @@ In another terminal, start the tunnel using the following command:
 
 It will ask for permission to install the npm package; say yes. When you start Localtunnel, it will print a URL to your terminal, such as `http://unique-url-for-squirrels`. You will need that URL in the next step.
 
-> **Troubleshooting tip:** Localtunnel is known to have timeout issues (408 response errors). For a more stable proxy option, you can try [ngrok](https://ngrok.com/). Similarly, you can run the following commands to obtain a proxy URL after installing and retrieving your auth key from your ngrok dashboard.
+> **Troubleshooting tip:** Localtunnel is known to have timeout issues (408 response errors). For a more stable proxy option, you can try [ngrok](https://ngrok.com/). 
+
+Similarly, you can run the following commands in the terminal to obtain a proxy URL after installing and retrieving your auth key from your ngrok dashboard.
 
 ```
 ngrok config add-authtoken {your-authtoken-from-your-dashboard}
@@ -1190,6 +1198,10 @@ Be sure your test user — for example, `trinity@whiterabbit.fake` — is signed
 
 Now navigate to the Todo app and try to add a new task. Confirm that the user can't add a new task and is redirected to the login page to sign in again. If so, you have successfully implemented Universal Logout with Okta!
 
+### Revoke a user's tokens
+
+This web application architecture uses cookie-based sessions instead of session tokens to authenticate to backend resources. However, for mobile apps and single-page applications, you'll need to revoke refresh tokens on the front end. As per the [spec](https://datatracker.ietf.org/doc/html/draft-parecki-oauth-global-token-revocation#name-revocation-expectations), written by [Aaron Parecki](https://aaronparecki.com/), a successful sign-out will require revoking a user's refresh token.
+
 ## Optional: Submit your app to the Okta Integration Network
 
 Once you've successfully implemented and tested Universal Logout with the Private Key JWT authorization method, the final step in making your application Enterprise-Ready is submitting it to the [Okta Integration Network (OIN)](https://www.okta.com/integrations/). The OIN is Okta's catalog of pre-built integrations, making it easy for mutual customers to adopt your application.
@@ -1210,11 +1222,7 @@ Okta's OIN team will review your implementation to ensure it meets all security 
 
 ## Continue adding more features to your SaaS app!
 
-Now that you have an OIDC app with a fully integrated UL endpoint, you can continue your Enterprise-Ready journey by adding user lifecycle management through [System for Cross-domain Identity Management (SCIM)](https://datatracker.ietf.org/doc/html/rfc7644).
-
-- [Enterprise-Ready Workshop: Manage users with SCIM](/blog/2023/07/28/scim-workshop)
-
-You can further manage your users and groups using Terraform or Workflows:
+Now that you have an OIDC app with a fully integrated UL endpoint, you can continue your Enterprise-Ready journey by adding user lifecycle management through [System for Cross-domain Identity Management (SCIM)](https://datatracker.ietf.org/doc/html/rfc7644) and by following this blog [Enterprise-Ready Workshop: Manage users with SCIM](/blog/2023/07/28/scim-workshop). You can further manage your users and groups using Terraform or Workflows with the blogs below:
 
 |Posts in the on-demand workshop series|
 | --- |
@@ -1227,6 +1235,6 @@ You can further manage your users and groups using Terraform or Workflows:
 
 Follow us on [Twitter](https://twitter.com/oktadev) and subscribe to our [YouTube](https://www.youtube.com/c/oktadev) channel. If you have any questions or would like to share which tutorial you'd like to see next, please comment below!
 
-## Resources
+## Additional resources
 - [Build Universal Logout for your App](https://developer.okta.com/docs/guides/oin-universal-logout-overview/)
 - [Global Token Revocation](https://datatracker.ietf.org/doc/html/draft-parecki-oauth-global-token-revocation)
