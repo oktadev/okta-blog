@@ -488,6 +488,201 @@ curl --request POST \
 }'
 ```
 
+## Implement the forced sign-out for a user
+
+Now that we have the target user of a specific org, let's figure out how to target their application session and end it.
+
+### End a user's session
+
+In Express, we'll need to access a user's session from the express-session library's session store. Create a file called `sessionStore.ts` under the `apps/api/src` folder and a variable called `store`. Notice we created a separate file to reference `store` in multiple files — we'll need it in both `apps/api/src/main.ts` and `apps/api/src/universalLogout.ts`.
+
+```ts
+import {MemoryStore} from 'express-session';
+export const store = new MemoryStore();
+```
+
+Import `store` from the `sessionsStore` file at the top of `apps/api/src/main.ts`.
+
+```ts
+import { store } from './sessionsStore';
+```
+
+The top of the `apps/api/src/main.ts` file now looks like this:
+
+```ts
+import express from 'express';
+import { PrismaClient, Todo, User } from '@prisma/client';
+import passportLocal from 'passport-local';
+import passportOIDC from 'passport-openidconnect';
+import passport from 'passport';
+import session from 'express-session';
+import { universalLogoutRoute } from './universalLogout';
+import morgan from 'morgan';
+
+// Signed JWT Verifier for Universal Logout
+import OktaJwtVerifier from '@okta/jwt-verifier';
+import { store } from './sessionsStore';
+```
+
+Now add `store` within your session configuration:
+
+```ts
+app.use(session({
+ resave: false,
+ saveUninitialized: false,
+ secret: 'top secret',
+ cookie: {
+   http: false,
+   sameSite: 'lax'
+ },
+ store
+}));
+```
+
+Notice how the user session is configured in `apps/api/src/main.ts` using Passport.js' serialization and deserialization functions. We can instruct Passport.js to reference a specific user's session using their `user.id`. You can read more about how this works in the [Passport.js documentation](https://www.passportjs.org/concepts/authentication/sessions/).
+
+```ts
+passport.serializeUser( async (user: IUser, done) => {
+ done(null, user.id);
+});
+
+passport.deserializeUser( async (id: number, done) => {
+ const user: User = await prisma.user.findUnique({
+   where: {
+    id
+   }
+ });
+
+ done(null, user);
+});
+```
+
+Next, import `store` at the top of `apps/api/src/universalLogout.ts`:
+
+```ts
+import { Router } from 'express';
+export const universalLogoutRoute = Router();
+import { PrismaClient } from '@prisma/client';
+import { store } from './sessionsStore';
+```
+
+So far, we know the user's email from the request to the UL endpoint and have associated the user with an org via the validated JWT. Now that we have the user object, we can associate the user's ID with the session object. Add the following code to find and terminate a user's session.
+
+```ts
+// End user session
+  const storedSession = store.sessions;
+  const userId = user.id;
+  const sids = [];
+  Object.keys(storedSession).forEach((key) => {
+    const sess = JSON.parse(storedSession[key]);
+    if (sess.passport.user === userId) {
+      sids.push(key);
+    }
+  });
+
+  sids.map((sid) => store.destroy(sid));
+```
+
+>**Checkpoint**: Now is an excellent time to test our code.
+
+Let's sign in to the Todo app with Trinity's credentials — email: trinity@whiterabbit.fake and the temporary password: Zion123$. Okta will redirect you and prompt you to update the password. When you redirect back to the Todo app, you'll have an active session; you can test this by adding a task. Let's test ending this session by sending a cURL request.
+
+```http
+curl --request POST \
+  --url http://localhost:3333/global-token-revocation \
+  --header 'Authorization: Bearer 131313' \
+  --header 'Content-Type: application/json' \
+  --data '{
+  "sub_id": {
+    "format": "email",
+    "email": "trinity@whiterabbit.fake"
+  }
+}'
+```
+
+Check that you get a 204 response, then try adding another Todo task. You won't be able to add another task, and if you open the dev tools and inspect the console tab, you'll see a **401 Unauthorized** error.
+
+We successfully ended the user's session, but the user can still see the webpage's contents. Let's ensure we fully sign them out by refreshing the browser and redirecting them to the main sign-in page — forcing the user to reauthenticate.
+
+### Sign a user out of the Todo app
+
+Open `apps/todo-app/src/app/components/todolist.tsx` and find `onNewTask`, the function that creates tasks. Add the following code to catch a 401 error and redirect the user back to the sign-in page.
+
+```ts
+if (!res.ok)
+{if (res.status === 401) {
+  // Redirect user back to the sign-in page
+  window.location.href = '/';
+  } else {
+  // Handle other errors
+  throw new Error('Error occurred while fetching data');
+}}
+```
+
+The `onNewTask` function will now look like this:
+
+```ts
+import { useEffect, useState } from 'react';
+import { useAuthState } from './authState';
+
+interface ITodo {
+  id: number;
+  task: string;
+  completed: boolean;
+}
+
+export const Todos = () => {
+  const [todoList, setTodoList] = useState<ITodo[]>([]);
+  const [newTask, setNewTask] = useState<string>('');
+  const { authState } = useAuthState();
+
+  const API_BASE_URL = '/api/todos';
+
+  const onNewTask = () => { 
+    const apiCall = async () => {
+      try {
+        const res = await fetch(API_BASE_URL, {
+          method: 'POST',
+          credentials: 'same-origin',
+          mode: 'same-origin',
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify({ task: newTask })
+        });
+
+        if (!res.ok){if (res.status === 401) {
+        // Redirect user back to the sign in page
+        window.location.href = '/';
+        } else {
+          // Handle other errors
+          throw new Error('Error occurred while fetching data');
+        }}
+
+        const todo = await res.json();
+        setTodoList([...todoList, todo]);
+        setNewTask('');
+      } catch (error: unknown) {
+        console.error(error);
+      }
+    };
+    apiCall();
+  };
+
+```
+
+>**Checkpoint**: Let's retest, ending Trinity's session, and watch what happens when you attempt to add a new task to the Todo app.
+
+>**Improve your code**: Notice the code above only handles a 401 response from the server when adding a new task. How might you handle 401 errors globally? You can use fetch or [Axios Interceptor](https://axios-http.com/docs/interceptors). The completed workshop code handles this using fetch; check it out here [Universal Logout Workshop Complete](https://github.com/oktadev/okta-enterprise-ready-workshops/blob/ul-workshop-complete/apps/todo-app/src/app/components/useTodoApi.tsx).
+
+### Revoke a user's tokens
+
+This web application architecture uses cookie-based sessions instead of session tokens to authenticate to backend resources. However, for mobile apps and single-page applications, you'll need to revoke refresh tokens on the front end. As per the [spec](https://datatracker.ietf.org/doc/html/draft-parecki-oauth-global-token-revocation#name-revocation-expectations), written by [Aaron Parecki](https://aaronparecki.com/), a successful sign-out will require revoking a user's refresh token.
+
+## Test with Okta
+
+Now that the app has a secure, working UL endpoint, let's connect it to Okta and test end-to-end.
+
 ### Upgrade to Private Key JWT authorization
 
 Now that the endpoint is secured with a basic API key, let's upgrade to OAuth 2.0 Private Key JWT — the authentication method Okta uses when it initiates Universal Logout. Using a signed JWT means Okta cryptographically proves its identity on every request, removing the risks associated with long-lived static tokens.
@@ -956,201 +1151,6 @@ universalLogoutRoute.use((err,req,res,next) => {
 ```
 
 >**Checkpoint:** We'll test this functionality when we connect with Okta.
-
-## Implement the forced sign-out for a user
-
-Now that we have the target user of a specific org, let's figure out how to target their application session and end it.
-
-### End a user's session
-
-In Express, we'll need to access a user's session from the express-session library's session store. Create a file called `sessionStore.ts` under the `apps/api/src` folder and a variable called `store`. Notice we created a separate file to reference `store` in multiple files — we'll need it in both `apps/api/src/main.ts` and `apps/api/src/universalLogout.ts`.
-
-```ts
-import {MemoryStore} from 'express-session';
-export const store = new MemoryStore();
-```
-
-Import `store` from the `sessionsStore` file at the top of `apps/api/src/main.ts`.
-
-```ts
-import { store } from './sessionsStore';
-```
-
-The top of the `apps/api/src/main.ts` file now looks like this:
-
-```ts
-import express from 'express';
-import { PrismaClient, Todo, User } from '@prisma/client';
-import passportLocal from 'passport-local';
-import passportOIDC from 'passport-openidconnect';
-import passport from 'passport';
-import session from 'express-session';
-import { universalLogoutRoute } from './universalLogout';
-import morgan from 'morgan';
-
-// Signed JWT Verifier for Universal Logout
-import OktaJwtVerifier from '@okta/jwt-verifier';
-import { store } from './sessionsStore';
-```
-
-Now add `store` within your session configuration:
-
-```ts
-app.use(session({
- resave: false,
- saveUninitialized: false,
- secret: 'top secret',
- cookie: {
-   http: false,
-   sameSite: 'lax'
- },
- store
-}));
-```
-
-Notice how the user session is configured in `apps/api/src/main.ts` using Passport.js' serialization and deserialization functions. We can instruct Passport.js to reference a specific user's session using their `user.id`. You can read more about how this works in the [Passport.js documentation](https://www.passportjs.org/concepts/authentication/sessions/).
-
-```ts
-passport.serializeUser( async (user: IUser, done) => {
- done(null, user.id);
-});
-
-passport.deserializeUser( async (id: number, done) => {
- const user: User = await prisma.user.findUnique({
-   where: {
-    id
-   }
- });
-
- done(null, user);
-});
-```
-
-Next, import `store` at the top of `apps/api/src/universalLogout.ts`:
-
-```ts
-import { Router } from 'express';
-export const universalLogoutRoute = Router();
-import { PrismaClient } from '@prisma/client';
-import { store } from './sessionsStore';
-```
-
-So far, we know the user's email from the request to the UL endpoint and have associated the user with an org via the validated JWT. Now that we have the user object, we can associate the user's ID with the session object. Add the following code to find and terminate a user's session.
-
-```ts
-// End user session
-  const storedSession = store.sessions;
-  const userId = user.id;
-  const sids = [];
-  Object.keys(storedSession).forEach((key) => {
-    const sess = JSON.parse(storedSession[key]);
-    if (sess.passport.user === userId) {
-      sids.push(key);
-    }
-  });
-
-  sids.map((sid) => store.destroy(sid));
-```
-
->**Checkpoint**: Now is an excellent time to test our code.
-
-Let's sign in to the Todo app with Trinity's credentials — email: trinity@whiterabbit.fake and the temporary password: Zion123$. Okta will redirect you and prompt you to update the password. When you redirect back to the Todo app, you'll have an active session; you can test this by adding a task. Let's test ending this session by sending a cURL request.
-
-```http
-curl --request POST \
-  --url http://localhost:3333/global-token-revocation \
-  --header 'Authorization: Bearer 131313' \
-  --header 'Content-Type: application/json' \
-  --data '{
-  "sub_id": {
-    "format": "email",
-    "email": "trinity@whiterabbit.fake"
-  }
-}'
-```
-
-Check that you get a 204 response, then try adding another Todo task. You won't be able to add another task, and if you open the dev tools and inspect the console tab, you'll see a **401 Unauthorized** error.
-
-We successfully ended the user's session, but the user can still see the webpage's contents. Let's ensure we fully sign them out by refreshing the browser and redirecting them to the main sign-in page — forcing the user to reauthenticate.
-
-### Sign a user out of the Todo app
-
-Open `apps/todo-app/src/app/components/todolist.tsx` and find `onNewTask`, the function that creates tasks. Add the following code to catch a 401 error and redirect the user back to the sign-in page.
-
-```ts
-if (!res.ok)
-{if (res.status === 401) {
-  // Redirect user back to the sign-in page
-  window.location.href = '/';
-  } else {
-  // Handle other errors
-  throw new Error('Error occurred while fetching data');
-}}
-```
-
-The `onNewTask` function will now look like this:
-
-```ts
-import { useEffect, useState } from 'react';
-import { useAuthState } from './authState';
-
-interface ITodo {
-  id: number;
-  task: string;
-  completed: boolean;
-}
-
-export const Todos = () => {
-  const [todoList, setTodoList] = useState<ITodo[]>([]);
-  const [newTask, setNewTask] = useState<string>('');
-  const { authState } = useAuthState();
-
-  const API_BASE_URL = '/api/todos';
-
-  const onNewTask = () => { 
-    const apiCall = async () => {
-      try {
-        const res = await fetch(API_BASE_URL, {
-          method: 'POST',
-          credentials: 'same-origin',
-          mode: 'same-origin',
-          headers: {
-            'Content-Type': 'application/json'
-          },
-          body: JSON.stringify({ task: newTask })
-        });
-
-        if (!res.ok){if (res.status === 401) {
-        // Redirect user back to the sign in page
-        window.location.href = '/';
-        } else {
-          // Handle other errors
-          throw new Error('Error occurred while fetching data');
-        }}
-
-        const todo = await res.json();
-        setTodoList([...todoList, todo]);
-        setNewTask('');
-      } catch (error: unknown) {
-        console.error(error);
-      }
-    };
-    apiCall();
-  };
-
-```
-
->**Checkpoint**: Let's retest, ending Trinity's session, and watch what happens when you attempt to add a new task to the Todo app.
-
->**Improve your code**: Notice the code above only handles a 401 response from the server when adding a new task. How might you handle 401 errors globally? You can use fetch or [Axios Interceptor](https://axios-http.com/docs/interceptors). The completed workshop code handles this using fetch; check it out here [Universal Logout Workshop Complete](https://github.com/oktadev/okta-enterprise-ready-workshops/blob/ul-workshop-complete/apps/todo-app/src/app/components/useTodoApi.tsx).
-
-### Revoke a user's tokens
-
-This web application architecture uses cookie-based sessions instead of session tokens to authenticate to backend resources. However, for mobile apps and single-page applications, you'll need to revoke refresh tokens on the front end. As per the [spec](https://datatracker.ietf.org/doc/html/draft-parecki-oauth-global-token-revocation#name-revocation-expectations), written by [Aaron Parecki](https://aaronparecki.com/), a successful sign-out will require revoking a user's refresh token.
-
-## Test with Okta
-
-Now that the app has a secure, working UL endpoint, let's connect it to Okta and test end-to-end.
 
 ### Expose a public endpoint
 
