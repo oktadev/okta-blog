@@ -4,7 +4,7 @@ title: "Enabling Cross App Access for SAML-Based Enterprise Apps"
 author: sohail-pathan
 by: advocate
 communities: [javascript,security,python,.net,java,go]
-description: "Learn how to secure agent-to-app connections using Cross App Access (XAA) with SAML SSO for SAML-based enterprise apps."
+description: "Learn how to secure app-to-app connections using Cross App Access (XAA) with SAML SSO for SAML-based enterprise apps."
 tags: [xaa, saml, sso, cross-app-access]
 tweets:
   - ""
@@ -17,7 +17,7 @@ changelog:
   - 2026-07-09: Added the steps to set up the requestor and in Okta and generate a conformance report.
 ---
 
-If you currently federate enterprise customers using Security Assertion Markup Language (SAML) and want to allow AI agents to access your API without migrating to OpenID Connect (OIDC), this Cross App Access (XAA) guide is for you.
+If you currently federate enterprise customers using Security Assertion Markup Language (SAML) and want to allow applications to access your API without migrating to OpenID Connect (OIDC), this Cross App Access (XAA) guide is for you.
 
 The [Identity Assertion Authorization Grant specification](https://datatracker.ietf.org/doc/draft-ietf-oauth-identity-assertion-authz-grant/), the basis of XAA, was originally designed with OIDC in mind. To use it in SAML applications, you must accommodate specific security and uniqueness requirements. This guide details what you need to support and how to verify SAML-derived claims at your resource authorization server.
 
