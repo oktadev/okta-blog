@@ -308,7 +308,7 @@ app.use(morgan('combined'));
 app.use('/', universalLogoutRoute);
 ```
 
-On a new terminal window, let's test a request through cURL. Paste the following code in the terminal:
+On a new terminal window, let's test a request through cURL. Paste the following cURL request on a separate terminal window (not the terminal window you use to run the Todo app):
 
 ```
 curl --request POST \
@@ -439,7 +439,7 @@ curl --request POST \
 }'
 ```
 
-You'll get a **401 Unauthorized** response, indicating that the provided authorization was invalid. This error is valid because we didn't send a token to our authorization headers. Let's fix that! We know from our database that the API key is 131313. You can confirm this by opening another terminal and running `npx prisma studio`. A new window will open with a UI showing you the tables in your database; inspect the org table to see the column apikey for org 1. With that, go ahead and add this missing info to your cURL request.
+You'll get a **401 Unauthorized** response, indicating that the provided authorization was invalid. This error is valid because we didn't send a token to our authorization headers. Let's fix that! We know from our database that the API key is 131313. You can confirm this by opening another terminal window and running `npx prisma studio`. A new window will open with a UI showing you the tables in your database; inspect the org table to see the column apikey for org 1. With that, go ahead and add this missing info to your cURL request.
 
 It's crucial to authenticate with the correct API key, as it specifies the org the user is associated with. We'll also need to incorporate this information into the code. Thanks to the Passport.js library and the auth strategy we configured in `apps/api/src/main.ts`, we have the org the request is about, stored in `req['user']`. Try adding `console.log(req['user'])` to see what I mean. Furthermore, we can access the org context with `req['user']['id']`. We'll need this to find the exact user within a specific org, which is beneficial if your app handles multitenancy. Add the following code to `apps/api/src/universalLogout.ts`:
 
@@ -1162,7 +1162,7 @@ universalLogoutRoute.use((err,req,res,next) => {
 
 One way to give your app a public URL is to host it on a cloud instance with a DNS server that you control. For development purposes, you can use Ngrok or Localtunnel to expose the app running on your computer to the public.
 
-We'll use Localtunnel in this demonstration. Start the API with the following command on a separate terminal (not the terminal you use to run the Todo app):
+We'll use Localtunnel in this demonstration. Start the API with the following command on a separate terminal window (not the terminal window you use to run the Todo app):
 
 `npm run serve-api`
 
