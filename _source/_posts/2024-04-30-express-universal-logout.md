@@ -308,7 +308,7 @@ app.use(morgan('combined'));
 app.use('/', universalLogoutRoute);
 ```
 
-On a new terminal window, let's test a request through cURL. Paste the following cURL request on a separate terminal window (not the terminal window you use to run the Todo app):
+Paste the following cURL request on a separate terminal window (not the terminal window you use to run the Todo app):
 
 ```
 curl --request POST \
@@ -439,7 +439,7 @@ curl --request POST \
 }'
 ```
 
-You'll get a **401 Unauthorized** response, indicating that the provided authorization was invalid. This error is valid because we didn't send a token to our authorization headers. Let's fix that! We know from our database that the API key is 131313. You can confirm this by opening another terminal window and running `npx prisma studio`. A new window will open with a UI showing you the tables in your database; inspect the org table to see the column apikey for org 1. With that, go ahead and add this missing info to your cURL request.
+You'll get a **401 Unauthorized** response, indicating that authorization is required. This is expected because we didn't include a token in our request headers. Let's fix that! We know from our database that the API key is 131313. You can confirm this by opening another terminal window and running `npx prisma studio`. A new window will open with a UI showing you the tables in your database; inspect the org table to see the column apikey for org 1. With that, go ahead and add this missing info to your cURL request.
 
 It's crucial to authenticate with the correct API key, as it specifies the org the user is associated with. We'll also need to incorporate this information into the code. Thanks to the Passport.js library and the auth strategy we configured in `apps/api/src/main.ts`, we have the org the request is about, stored in `req['user']`. Try adding `console.log(req['user'])` to see what I mean. Furthermore, we can access the org context with `req['user']['id']`. We'll need this to find the exact user within a specific org, which is beneficial if your app handles multitenancy. Add the following code to `apps/api/src/universalLogout.ts`:
 
@@ -466,7 +466,7 @@ universalLogoutRoute.post('/global-token-revocation', async (req, res) => {
 
   // 404 User not found 
   if (!user) {
-    res.sendStatus(404);
+    return res.sendStatus(404);
   }
 
   return res.sendStatus(httpStatus);
@@ -500,7 +500,7 @@ Now that we have the target user of a specific org, let's figure out how to targ
 
 ### End a user's session
 
-In Express, we'll need to access a user's session from the express-session library's session store. Create a file called `sessionStore.ts` under the `apps/api/src` folder and a variable called `store`. Notice we created a separate file to reference `store` in multiple files — we'll need it in both `apps/api/src/main.ts` and `apps/api/src/universalLogout.ts`.
+In Express, we'll need to access a user's session from the express-session library's session store. Create a file called `sessionsStore.ts` under the `apps/api/src` folder and a variable called `store`. Notice we created a separate file to reference `store` in multiple files — we'll need it in both `apps/api/src/main.ts` and `apps/api/src/universalLogout.ts`.
 
 ```ts
 import {MemoryStore} from 'express-session';
@@ -524,9 +524,6 @@ import passport from 'passport';
 import session from 'express-session';
 import { universalLogoutRoute } from './universalLogout';
 import morgan from 'morgan';
-
-// Signed JWT Verifier for Universal Logout
-import OktaJwtVerifier from '@okta/jwt-verifier';
 import { store } from './sessionsStore';
 ```
 
@@ -589,11 +586,62 @@ So far, we know the user's email from the request to the UL endpoint and have as
   sids.map((sid) => store.destroy(sid));
 ```
 
+The `universalLogoutRoute` route should now look like in the `apps/api/src/universalLogout.ts` file: 
+
+```ts
+universalLogoutRoute.post('/global-token-revocation', async (req, res) => {
+  // 204 When the request is successful
+  const httpStatus = 204;
+
+  // 400 If the request is malformed
+  if (!req.body) {
+    res.status(400);
+  }
+  
+  // Find the user by email linked to the org id associated with the API key provided
+  const domainOrgId = req['user']['id']
+  const newRequest:IRequestSchema = req.body;
+  const { email } = newRequest.sub_id;
+  const user = await prisma.user.findFirst({
+    where: {
+      email: email,
+      org: { id: domainOrgId } ,
+    },
+  });
+
+  // 404 User not found 
+  if (!user) {
+    return res.sendStatus(404);
+  }
+
+// End user session
+  const storedSession = store.sessions;
+  const userId = user.id;
+  const sids = [];
+  Object.keys(storedSession).forEach((key) => {
+    const sess = JSON.parse(storedSession[key]);
+    if (sess.passport.user === userId) {
+      sids.push(key);
+    }
+  });
+
+  sids.map((sid) => store.destroy(sid));
+
+  return res.sendStatus(httpStatus);
+});
+
+
+universalLogoutRoute.use((err,req,res,next) => {
+  if(err){
+    return res.sendStatus(404)
+  }
+})
+```
 >**Checkpoint**: Now is an excellent time to test our code.
 
 Let's sign in to the Todo app with Trinity's credentials — email: trinity@whiterabbit.fake and the temporary password you signed up with. 
 
->**Troubleshooting tips**: Be sure to use incognito mode to separate the test user trinity@whiterabbit.fake session from your admin user. You will get a "Forbidden" error when your are logged with admin attempting to login to the Todo app.
+>**Troubleshooting tips**: Be sure to use incognito mode to separate the test user trinity@whiterabbit.fake session from your admin user. You will get a "Forbidden" error when your are logged with admin account attempting to login to the Todo app.
 
 When you redirect back to the Todo app, you'll have an active session; you can test this by adding a task. Let's test ending this session by sending a cURL request.
 
@@ -693,7 +741,7 @@ Now that the app has a secure, working UL endpoint, let's connect it to Okta and
 
 Now that the endpoint is secured with a basic API key, let's upgrade to OAuth 2.0 Private Key JWT — the authentication method Okta uses when it initiates Universal Logout. Using a signed JWT means Okta cryptographically proves its identity on every request, removing the risks associated with long-lived static tokens.
 
-Install the [Okta JWT Verifier library](https://www.npmjs.com/package/@okta/jwt-verifier):
+On a new terminal window, install the [Okta JWT Verifier library](https://www.npmjs.com/package/@okta/jwt-verifier):
 
 `npm install --save @okta/jwt-verifier`
 
