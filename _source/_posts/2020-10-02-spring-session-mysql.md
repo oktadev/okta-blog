@@ -37,6 +37,8 @@ Session Persistence is a technique for sticking a client to a single server, usi
 
 First, let's create a web application with Okta authentication and run three nodes with HAProxy load balancing using Docker Compose.
 
+{% include setup/integrator.md type="web" framework="Okta Spring Boot Starter" %}
+
 Create a Maven project using the Spring Initializr's API.
 
 ```shell
@@ -58,8 +60,6 @@ Unzip the project:
 unzip web-app.zip -d web-app
 cd web-app
 ```
-
-{% include setup/maven.md %}
 
 Create a `GreetingController` at `src/main/java/com/okta/developer/webapp/controller`:
 
