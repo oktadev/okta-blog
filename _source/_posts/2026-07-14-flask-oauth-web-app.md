@@ -3,31 +3,31 @@ layout: blog_post
 title: "How to Build a Secure Flask App with Okta and a Custom Resource Server"
 author: akanksha-bhasin
 by: advocate
-communities: [python,security]
+communities: [python]
 description: "Learn to add secure authentication to a Flask app with Okta and call a protected API using scoped access tokens."
-tags: [python, flask, oauth, oidc, pkce, okta, authentication]
+tags: [python, flask, oauth, oidc, pkce, authentication]
 type: conversion
 image: blog/flask-oauth-web-app/flask-oauth-web-app-social-image.jpg
-github: https://github.com/oktadev/flask-web-app-example
+github: https://github.com/oktadev/okta-flask-oauth-example
 ---
 
-Python's simplicity and the flexibility of the Flask microframework make it a popular choice for quickly building web applications. While Flask provides the essentials to get you started, you'll need to implement a critical piece yourself: secure user authentication. After all, how do you securely sign users into your application?
+Python syntax and the flexibility of the Flask microframework make it a popular choice for quickly building web applications. While Flask provides the essentials to get you started, you'll need to implement a critical piece yourself: secure user authentication. After all, how do you securely sign users into your application?
 
-This tutorial shows you how to solve that problem. You'll add a secure authentication layer to your Flask application using modern standards like OAuth 2.0 and OpenID Connect (OIDC). You'll also learn how to implement the secure Authorization Code flow with Proof Key for Code Exchange (PKCE) and build a complete sign-in and sign-out workflow. Second, and just as importantly, you'll learn how to use the resulting scoped access tokens to make protected calls to an API.
+This tutorial shows you how to solve that problem. You'll add a secure authentication layer to your Flask application using modern standards like OAuth 2.1 and OpenID Connect (OIDC), following the latest security best practices. You'll also learn how to implement the secure Authorization Code flow with Proof Key for Code Exchange (PKCE) and build a complete sign-in and sign-out workflow. Second, and just as importantly, you'll learn how to use the resulting scoped access tokens to make protected calls to an API.
 
-Check out the complete source code on [GitHub](https://github.com/oktadev/flask-web-app-example) and get started without setting it up from scratch.
+Check out the complete source code on [GitHub](https://github.com/oktadev/okta-flask-oauth-example) and get started without setting it up from scratch.
 
 **Table of Contents**{: .hide }
 * Table of Contents
 {% include toc.md %}
 
 
-## What you'll build
+## Build a Flask app with OAuth 2.0 authentication and a protected API
 
 In this tutorial, you'll build a simple dashboard application and learn how to:
 
-* Securely sign users in to view their profile information using Okta as the OpenID Connect (OIDC) identity provider.  
-* Implement the Authorization Code flow with [Proof Key for Code Exchange (PKCE)]({% post_url 2025-07-28-express-oauth-pkce %}) to adhere to the latest OAuth 2.0 security best practices.  
+* Securely sign users in to view their profile information using Okta as the OpenID Connect identity provider.  
+* Implement the Authorization Code flow with [PKCE](https://oauth.net/2/pkce/) to adhere to the latest OAuth 2.1 security best practices.  
 * Add a feature for new users to self-register for an account directly from the sign-in page.  
 * Enable authenticated users to interact with a protected API using OAuth 2.0 access tokens.
 
@@ -40,10 +40,10 @@ In this tutorial, you'll build a simple dashboard application and learn how to:
 
 Before you begin, you'll need an Okta Integrator Free Plan account. To get one, sign up for an [Integrator account](https://developer.okta.com/login). Once you have an account, sign in to your [Integrator account](https://developer.okta.com/login). Next, in the Admin Console:
 
-1. Go to Applications \> Applications  
-2. Click Create App Integration  
-3. Select OIDC \- OpenID Connect as the sign-in method  
-4. Select Web Application as the application type, then click Next  
+1. Go to **Applications** \> **Applications**  
+2. Click **Create App Integration**  
+3. Select **OIDC - OpenID Connect** as the sign-in method  
+4. Select **Web Application** as the application type, then click **Next**  
 5. Enter an app integration name  
 6. Configure the redirect URIs:  
    * Sign-in redirect URIs: http://localhost:5000/authorization-code/callback  
@@ -66,7 +66,7 @@ Now that you've configured your app integration in Okta and noted the required O
 
 First, you'll create a project folder and a Python virtual environment, then install the necessary dependencies.
 
-1. Create a project folder named flask-web-app and a subfolder called venv.  
+1. Create a project folder named `flask-web-app` and a subfolder called `venv`.  
 2. Open a terminal window in the project folder and create a Python virtual environment
 
    ```bash
@@ -91,9 +91,9 @@ First, you'll create a project folder and a Python virtual environment, then ins
 
 ### Configure Flask environment variables
 
-To keep sensitive credentials secure, you'll store them in a .env file and load them into the application's configuration. This practice prevents hard-coding secrets directly into your source code.
+To keep sensitive credentials secure, you'll store them in a `.env` file and load them into the application's configuration. This practice prevents hard-coding secrets directly into your source code.
 
-1. Create a file named .env in the project root and add your Okta application's configuration details. Replace the placeholders with your actual values.
+1. Create a file named `.env` in the project root and add your Okta application's configuration details. Replace the placeholders with your actual values.
 
    ```bash
    OKTA_CLIENT_ID={yourClientId}
@@ -101,7 +101,7 @@ To keep sensitive credentials secure, you'll store them in a .env file and load 
    OKTA_BASE_URL=https://{yourOktaDomain}
    ```
 
-2. Create a config.py file in the project root. This file reads the values from .env and constructs the OIDC metadata URL, which the application uses to fetch endpoints from Okta.
+2. Create a `config.py` file in the project root. This file reads the values from `.env` and constructs the OIDC metadata URL, which the application uses to fetch endpoints from Okta.
 
    ```python
    import os
@@ -114,7 +114,7 @@ To keep sensitive credentials secure, you'll store them in a .env file and load 
 
 ### Implement the OIDC authentication logic
 
-Next, create the main application file, app.py, in your project's root directory. This file holds the core logic for handling OIDC authentication. Paste the following code into it to configure the basic application.
+Next, create the main application file, `app.py`, in your project's root directory. This file holds the core logic for handling OIDC authentication. Paste the following code into it to configure the basic application.
 
 ```python
 from flask import Flask, render_template, url_for, redirect, session
@@ -140,7 +140,7 @@ if __name__ == "__main__":
 
 #### Initialize the Okta OIDC client
 
-To set up the connection to Okta, add the following code to the bottom of your app.py file. This code initializes an OAuth object and registers the Okta application as a remote provider.
+To set up the connection to Okta, add the following code to the bottom of your `app.py` file. This code initializes an OAuth object and registers the Okta application as a remote provider.
 
 ```python
 # Create a registry with an OAuth object
@@ -159,9 +159,9 @@ oauth.register(
 )
 ```
 
-The first parameter in the register() method (in this case, *Okta*) is the name of the remote application. You'll later access the remote application with oauth.okta to handle all the OIDC-related functions.
+The first parameter in the register() method (in this case, *Okta*) is the name of the remote application. You'll later access the remote application with `oauth.okta` to handle all the OIDC-related functions.
 
-The client\_kwargs dictionary passes extra parameters to the authorization request. Because the code\_challenge\_method is present, the Authlib library automatically uses the [Proof Key for Code Exchange (PKCE)]({% post_url 2025-07-28-express-oauth-pkce %}#why-use-pkce-in-oauth-20) flow, which enhances security.
+The client\_kwargs dictionary passes extra parameters to the authorization request. Because the code\_challenge\_method is present, the Authlib library automatically uses the [PKCE](https://oauth.net/2/pkce/) flow, which enhances security.
 
 #### Build Flask routes for OIDC authentication
 
@@ -171,7 +171,7 @@ After the user signs in, Okta redirects the browser to the configured sign-in re
 
 Let's start by creating a simple HTML page that allows the user to log in. This page will display a sign-in button for signed-out users and a sign-out button for logged-in users, along with profile information.
 
-1. Add the /login route to your app.py file. This endpoint serves as the entry point for the authentication flow. It constructs the authorization redirect URI and sends the user's browser to the Okta-hosted Sign-In page to begin the OIDC process.
+1. Add the `/login` route to your `app.py` file. This endpoint serves as the entry point for the authentication flow. It constructs the authorization redirect URI and sends the user's browser to the Okta-hosted Sign-In page to begin the OIDC process.
 
    ```python
    @app.route('/login')
@@ -180,7 +180,7 @@ Let's start by creating a simple HTML page that allows the user to log in. This 
        return oauth.okta.authorize_redirect(redirect_uri)
    ```
 
-2. Next, implement the callback handler for the Redirect URI you configured in your Okta application (http://localhost:5000/authorization-code/callback). This handler is crucial as it processes the authorization\_code returned by Okta after a successful sign-in. It performs the code-for-token exchange to get an access token and ID token, then stores the userinfo response alongside the tokens in the session.
+2. Next, implement the callback handler for the Redirect URI you configured in your Okta application (`http://localhost:5000/authorization-code/callback`). This handler is crucial as it processes the authorization\_code returned by Okta after a successful sign-in. It performs the code-for-token exchange to get an access token and ID token, then stores the userinfo response alongside the tokens in the session.
 
    ```python
    @app.route('/authorization-code/callback')
@@ -192,7 +192,7 @@ Let's start by creating a simple HTML page that allows the user to log in. This 
        return redirect('/')
    ```
 
-3. Add the /logout route. This endpoint clears the local user session, signing the user out of the Flask application. It then constructs a redirect URL to Okta's logout\_endpoint, which terminates the user's session with Okta, ensuring a complete and secure sign-out.
+3. Add the `/logout` route. This endpoint clears the local user session, signing the user out of the Flask application. It then constructs a redirect URL to Okta's logout\_endpoint, which terminates the user's session with Okta, ensuring a complete and secure sign-out.
 
    ```python
    @app.route('/logout')
@@ -220,7 +220,7 @@ Let's start by creating a simple HTML page that allows the user to log in. This 
        return redirect('/')
    ```
 
-4. Finally, update the root route (/). This route now checks the session for a signed-in user and passes that information to the template.
+4. Finally, update the root route (`/`). This route now checks the session for a signed-in user and passes that information to the template.
 
    ```python
    @app.route("/")
@@ -231,7 +231,7 @@ Let's start by creating a simple HTML page that allows the user to log in. This 
 
 With the back-end routes in place, you can now create the front-end files to provide a user interface for signing in, signing out, and displaying profile data.
 
-Step 1: Create a templates directory in your project root. Inside it, create an index.html file. This page will display a Login button for signed-out users and, for signed-in users, profile information with a Logout button.
+Step 1: Create a `templates` directory in your project root. Inside it, create an `index.html` file. This page will display a Login button for signed-out users and, for signed-in users, profile information with a Logout button.
 
 {% raw %}
 ```html
@@ -283,7 +283,7 @@ Step 1: Create a templates directory in your project root. Inside it, create an 
 ```
 {% endraw %}
 
-Step 2: For styling, create a static/css directory in your project root. Inside it, create index.css and add the following code.
+Step 2: For styling, create a `static/css` directory in your project root. Inside it, create `index.css` and add the following code.
 
 ```css
 body,
@@ -387,7 +387,7 @@ flask --app resource-server.py run --port 5001
 * Click Login. The browser redirects you to the Okta Sign-In Widget.  
 * After you sign in, Okta redirects you back to your application, and the page displays the signed-in user's details.  
 
-{% img blog/flask-oauth-web-app/flask-app-after-login.png alt:"Flask web app home page showing a welcome message after successful login with a Fetch Users button" width:"800" %}{: .center-image }
+{% img blog/flask-oauth-web-app/flask-app-after-login.jpg alt:"Flask web app home page showing a welcome message after successful login with a Fetch Users button" width:"800" %}{: .center-image }
 
 * Click Logout. The browser clears your session and returns you to the home page.
 
@@ -401,11 +401,11 @@ Every action on an endpoint that supports OAuth 2.0 requires a specific scope. I
 
 To include this scope in the tokens minted from Okta, follow these steps:
 
-* In your Okta Admin Console, navigate to Security \> API.  
-* Select your Authorization Server and go to the Scopes Tab  
-* Click the Add Scope button and enter api:read-users in the name field.  
-* Optionally, enter the description and the Display Phrase  
-* Click Create. 
+* In your Okta Admin Console, navigate to **Security** \> **API**.  
+* Select your **Authorization Server** and go to the **Scopes** tab  
+* Click the **Add Scope** button and enter `api:read-users` in the **Name** field.  
+* Optionally, enter the **Description** and the **Display Phrase**  
+* Click **Create**.
 
 Now, when this scope is requested, Okta will include it in the tokens it issues.
 
@@ -413,15 +413,15 @@ Before creating the resource server, add an extra layer of security. You want yo
 
 To do this, restrict the `aud` claim that Okta returns in the access token to your resource server. To achieve this:
 
-* In your Okta Admin Console, navigate to Security \> API.  
-* Select your Authorization Server. In the Settings tab, click Edit  
-* Change the Audience field to [http://localhost:5001](http://localhost:5001) — this is where your resource server will be hosted
+* In your Okta Admin Console, navigate to **Security** \> **API**.  
+* Select your **Authorization Server**. In the **Settings** tab, click **Edit**  
+* Change the **Audience** field to [http://localhost:5001](http://localhost:5001) — this is where your resource server will be hosted
 
 ### Build a custom resource server
 
-To keep things simple, you'll create a minimal resource server with a single route called \`fetch-users\` that returns a list of sample users.
+To keep things simple, you'll create a minimal resource server with a single route called `fetch-users` that returns a list of sample users.
 
-1. Start by modifying the \`.env\` file. Add the variable that stores the domain of your resource server (in this case, http://localhost:5001):
+1. Start by modifying the `.env` file. Add the variable that stores the domain of your resource server (in this case, http://localhost:5001):
 
    ```bash
    OKTA_CLIENT_ID={yourClientId}
@@ -466,7 +466,7 @@ To keep things simple, you'll create a minimal resource server with a single rou
    ]
    ```
 
-3. Create a \`resource-server.py\` file in the project directory and add the following code:
+3. Create a `resource-server.py` file in the project directory and add the following code:
 
    ```python
    from flask import Flask, request, jsonify
@@ -502,7 +502,7 @@ To keep things simple, you'll create a minimal resource server with a single rou
 
 4. Now write the logic for token validation. You'll validate the token's issuer, audience, and client ID against your authorization server URL, resource server domain, and client ID. You'll also verify that the `api:read-users` scope is present in the token's `scp` claim.
 
-   Start with the \`verify\_token\` function. First, check if the Authorization header is of type Bearer:
+   Start with the `verify_token` function. First, check if the Authorization header is of type Bearer:
 
    ```python
    auth_header = request.headers.get("Authorization")
@@ -530,7 +530,7 @@ To keep things simple, you'll create a minimal resource server with a single rou
        return None, (jsonify({"error": "Invalid or Expired Token"}), 401)
    ```
 
-   Now add scope validation. Extract the claims from the token and check that the custom scope \`api:read-users\` is present in the \`scp\` claim. If the token doesn't contain this scope, reject it and return an error. In the try block, before the return statement, add the following code:
+   Now add scope validation. Extract the claims from the token and check that the custom scope `api:read-users` is present in the `scp` claim. If the token doesn't contain this scope, reject it and return an error. In the try block, before the return statement, add the following code:
 
    ```python
    _, claims, _, _ = jwt_verifier.parse_token(token)
@@ -577,7 +577,7 @@ To keep things simple, you'll create a minimal resource server with a single rou
 
 With the configuration in Okta complete, the next step is to update your Flask application to request this scope. This ensures that the access token issued to the user includes the necessary permission to call the protected endpoint.
 
-1. In your app.py file, find the oauth.register block and add api:read-users to the scope string within the client\_kwargs dictionary.
+1. In your `app.py` file, find the oauth.register block and add `api:read-users` to the scope string within the `client_kwargs` dictionary.
 
    ```python
     oauth.register(
@@ -589,7 +589,7 @@ With the configuration in Okta complete, the next step is to update your Flask a
     )
    ```
 
-2. Add a new route, /fetch-users, to your app.py file. This endpoint uses the stored access token from the user's session to make a secure GET request to the protected endpoint in the resource server. If successful, it passes the returned list of users to the index.html template for display.
+2. Add a new route, `/fetch-users`, to your `app.py` file. This endpoint uses the stored access token from the user's session to make a secure GET request to the protected endpoint in the resource server. If successful, it passes the returned list of users to the index.html template for display.
 
    ```python
    @app.route('/fetch-users')
@@ -615,7 +615,7 @@ With the configuration in Okta complete, the next step is to update your Flask a
            return f"API request failed: {resp.status_code} {resp.text}", resp.status_code
    ```
 
-3. Update the root route (/) to initialize the userList variable in the template. This prevents errors when the page first loads before any data is fetched. Replace the existing index function with the following code.
+3. Update the root route (`/`) to initialize the `userList` variable in the template. This prevents errors when the page first loads before any data is fetched. Replace the existing index function with the following code.
 
    ```python
     @app.route("/")
@@ -628,7 +628,7 @@ With the configuration in Okta complete, the next step is to update your Flask a
 
 Now, let's modify the front end to add a button that triggers the API call and a table to display the returned user data.
 
-Step 1: Open the templates/index.html file and replace its entire contents with the updated code below. This version adds a Fetch Users button for signed-in users and a table to display the user list when available.
+Step 1: Open the `templates/index.html` file and replace its entire contents with the updated code below. This version adds a Fetch Users button for signed-in users and a table to display the user list when available.
 
 {% raw %}
 ```html
@@ -708,7 +708,7 @@ Step 1: Open the templates/index.html file and replace its entire contents with 
 ```
 {% endraw %}
 
-Step 2: To style the new user table, open the static/css/index.css file and add the following CSS to the end of the file.
+Step 2: To style the new user table, open the `static/css/index.css` file and add the following CSS to the end of the file.
 
 ```css
 .table-body-scroll {
@@ -768,5 +768,5 @@ If you'd like to learn more about the concepts covered in this tutorial, explore
 * [Create an Authorization Server](/docs/guides/customize-authz-server/main/)  
 * [Secure a Node Express App with OAuth 2.0 and PKCE]({% post_url 2025-07-28-express-oauth-pkce %})
 
-Remember to follow us on [X](https://x.com/oktadev) and subscribe to our [YouTube channel](https://www.youtube.com/c/OktaDev/) for more exciting content. We also want to hear from you about the topics you'd like to see and any questions you may have. Leave us a comment below!
+Remember to follow us on [LinkedIn](https://www.linkedin.com/company/oktadev), [X](https://x.com/oktadev) and subscribe to our [YouTube channel](https://www.youtube.com/c/OktaDev/) for more exciting content. We also want to hear from you about the topics you'd like to see and any questions you may have. Leave us a comment below!
 
