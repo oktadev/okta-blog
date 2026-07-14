@@ -4,7 +4,7 @@ title: "Build and Integrate Universal Logout with Okta"
 author: semona-igama
 by: advocate
 communities: [devops,security,mobile,.net,java,javascript,go,php,python,ruby]
-description: "Learn how to build a Universal Logout endpoint, secure it with OAuth 2.0 Private Key JWT, and integrate it with Okta so an admin can instantly sign a user out across all apps."
+description: "Build a Universal Logout endpoint, secure it with OAuth 2.0 Private Key JWT, and integrate with Okta to instantly sign users out across all apps."
 tags: [enterprise-ready-workshops, express, oidc, universal-logout]
 tweets:
 - ""
@@ -21,7 +21,7 @@ changelog:
 
 Your enterprise customers expect you to safeguard them from security incidents, especially when it comes to compromised user accounts. Perhaps a user has signed in from a known stolen device or from outside an allowed IP zone. If a hacker is masquerading as one of your customers' employees, potentially accessing sensitive company data, you must end their session and sign them out of your app immediately.
 
-If you build SaaS applications for enterprise customers who leverage Identity Providers (IdPs), workflows, and threat-detection tools, then adding Universal Logout to your app is the solution to ending suspicious user sessions ASAP.
+If you build software-as-a-service (SaaS) applications for enterprise customers who leverage Identity Providers (IdPs), workflows, and threat-detection tools, then adding Universal Logout to your app is the solution to ending suspicious user sessions ASAP.
 
 In this tutorial, you'll build a secure Universal Logout API endpoint, test it by sending a request to end a user's active session, upgrade the authentication to OAuth 2.0 Private Key JWT, and finally integrate with Okta so an admin can initiate logout directly from the Okta Admin Console.
 
@@ -48,7 +48,7 @@ In this tutorial, you'll build a secure Universal Logout API endpoint, test it b
 
 Run `node -v` and ensure you have Node version 18 or newer. Follow [these setup instructions](/blog/2023/07/27/enterprise-ready-getting-started) to install and run the Todo sample app.
 
->**Note**: If you have already completed the [Enterprise Ready OIDC Workshop](/blog/2023/07/28/oidc_workshop) and can successfully run the Todo app with OIDC-SSO configured with Okta, add a task, and sign a user out, please skip to the **Build a Universal Logout endpoint and secure it** section. If you haven't, please read on.
+>**Note**: If you have already completed the [Enterprise Ready OIDC Workshop](/blog/2023/07/28/oidc_workshop) and can successfully run the Todo app with OpenID Connect single sign-on (OIDC-SSO) configured with Okta, add a task, and sign a user out, please skip to the **Build a Universal Logout endpoint and secure it** section. If you haven't, please read on.
 
 We'll build the Universal Logout (UL) endpoint on [the sample app](https://github.com/oktadev/okta-enterprise-ready-workshops/) with OIDC support. After cloning the repo, check out the oidc-workshop-complete branch with `git checkout oidc-workshop-complete`.
 
@@ -77,7 +77,7 @@ While viewing your database locally, you'll also see an org table. By clicking t
 - client_secret = ${ClientSecret}
 - apikey = 131313
 
->**Note**: You can also get these OIDC-related endpoints by visiting this metadata URL `https://{yourOktaOrg}/.well-known/openid-configuration` provided by the [Okta Org authorization server](https://developer.okta.com/docs/concepts/auth-servers/#discovery-endpoints-org-authorization-servers).
+>**Note**: You can also get these OIDC-related endpoints by visiting this metadata URL `https://{yourOktaOrg}/.well-known/openid-configuration` provided by the [Okta Org authorization server](/docs/concepts/auth-servers/#discovery-endpoints-org-authorization-servers).
 
 ### Create a test user
 
@@ -93,7 +93,7 @@ Open the Admin Console for your org, and go to **Directory** > **People**. Click
 
 Refresh the page, then click Trinity Anderson's profile. Click the **Assign Application** button and assign Trinity to the UL OIDC App.
 
->**Note**: Assign the OpenID Connect (OIDC) app from the previous step (### Add configuration to authenticate with OIDC) to the user, trinity@whiterabbit.fake.
+>**Note**: Assign the OpenID Connect (OIDC) app from the [Add configuration to authenticate with OIDC](#add-configuration-to-authenticate-with-oidc) step to the user, trinity@whiterabbit.fake.
 
 ### Migrate the test user
 
@@ -1206,7 +1206,7 @@ This web application architecture uses cookie-based sessions instead of session 
 
 Once you've successfully implemented and tested Universal Logout with the Private Key JWT authorization method, the final step in making your application Enterprise-Ready is submitting it to the [Okta Integration Network (OIN)](https://www.okta.com/integrations/). The OIN is Okta's catalog of pre-built integrations, making it easy for mutual customers to adopt your application.
 
-### OIN Submission for Universal Logout
+### OIN submission for Universal Logout
 
 **Preparation:**
 - Ensure your UL endpoint (`/global-token-revocation`) is public-facing, highly available, and secured using OAuth 2.0 Private Key JWT as implemented with the Okta JWT Verifier library.
@@ -1233,7 +1233,7 @@ Now that you have an OIDC app with a fully integrated UL endpoint, you can conti
 | 5. [Enterprise Maturity Workshop: Automate with no-code Okta Workflows](/blog/2023/09/15/workflows-workshop) |
 | 6. **Build and Integrate Universal Logout with Okta** |
 
-Follow us on [Twitter](https://twitter.com/oktadev) and subscribe to our [YouTube](https://www.youtube.com/c/oktadev) channel. If you have any questions or would like to share which tutorial you'd like to see next, please comment below!
+Remember to follow us on [X](https://x.com/oktadev) and subscribe to our [YouTube channel](https://www.youtube.com/c/OktaDev/) for more exciting content. We also want to hear from you about the topics you'd like to see and any questions you may have. Leave us a comment below!
 
 ## Additional resources
 - [Build Universal Logout for your App](https://developer.okta.com/docs/guides/oin-universal-logout-overview/)
