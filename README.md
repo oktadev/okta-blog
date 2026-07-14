@@ -129,7 +129,7 @@ What this command does is:
 - `-v $PWD:/app` - This mounts the current directory (the okta-blog source code repo) as `/app` in the Docker container's filesystem. This way, if you change articles or mess with the blog locally, your changes will be picked up by the blog software.
 - `-it` - These CLI options just map the Docker container to your current terminal so that when you CTRL+c to exit the blog the Docker container will be killed.
 - `okta-blog` - This is telling Docker to run the `okta-blog` image you created earlier using that `docker build` command. The `-t` option you specified earlier when running `docker build` assigned a name tag to the image so you could easily reference it.
-- `npm start` - This is the actual command you're telling Docker to run to launch the blog sofware. Docker will start the container up and then run this command inside the container to launch the Jekyll blog.
+- `npm start` - This is the actual command you're telling Docker to run to launch the blog software. Docker will start the container up and then run this command inside the container to launch the Jekyll blog.
 
 After that, all you have to do is open your browser and visit `http://localhost:4000` to visit the site!
 
@@ -209,7 +209,7 @@ To add a table of contents, use the following:
 {% include toc.md %}
 ```
 
-For AciiDoc, add the following just after the front matter:
+For AsciiDoc, add the following just after the front matter:
 
 ```
 :page-liquid:

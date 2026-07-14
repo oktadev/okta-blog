@@ -32,7 +32,7 @@ One fine afternoon, the founders approached me. They said – ***You have a gift
 
 The DevRel adventure deepened when I joined a deeptech startup that aimed to solve a big pain point: making it easier to run Android Studio on the cloud, which could help people with machines that have limited processing power (similar to Google's Firebase Studio today). As the Head of Developer Relations, my mission was clear – build and grow a community of Android developers who could test, give feedback, and shape our product.
 
-So, it was time to roll up my sleeves. I organized virtual and inperson meetups where developers could share their struggles and ideas. We even hosted hackathons, challenging participants to push the tool's limits and tell us what worked and what didn't. Week after week, I collected feedback, sifting through every comment and suggestion.
+So, it was time to roll up my sleeves. I organized virtual and in person meetups where developers could share their struggles and ideas. We even hosted hackathons, challenging participants to push the tool's limits and tell us what worked and what didn't. Week after week, I collected feedback, sifting through every comment and suggestion.
 
 {% img blog/sohail-pathan-intro/image3.jpeg alt:"Live session building the Disco Diwane app during an Android Study Jam in Nagpur" width:"782" %}{: .center-image }
 <cite style="display: block; text-align: center;">Image:Live session on building the Disco Diwane app during an Android Study Jam in Nagpur.</cite>
