@@ -287,7 +287,7 @@ import passportLocal from 'passport-local';
 import passportOIDC from 'passport-openidconnect';
 import passport from 'passport';
 import session from 'express-session';
-import { universalLogoutRoute } from './universal-logout';
+import { universalLogoutRoute } from './universalLogout';
 import morgan from 'morgan';
 ```
 
@@ -350,7 +350,7 @@ import passportLocal from 'passport-local';
 import passportOIDC from 'passport-openidconnect';
 import passport from 'passport';
 import session from 'express-session';
-import { universalLogoutRoute } from './universal-logout';
+import { universalLogoutRoute } from './universalLogout';
 import morgan from 'morgan';
 
 // Bearer Auth - Universal Logout
@@ -366,7 +366,7 @@ import passportLocal from 'passport-local';
 import passportOIDC from 'passport-openidconnect';
 import passport from 'passport';
 import session from 'express-session';
-import { universalLogoutRoute } from './universal-logout';
+import { universalLogoutRoute } from './universalLogout';
 import morgan from 'morgan';
 
 // Bearer Auth - Universal Logout
@@ -641,7 +641,7 @@ universalLogoutRoute.use((err,req,res,next) => {
 
 Let's sign in to the Todo app with Trinity's credentials — email: trinity@whiterabbit.fake and the temporary password you signed up with. 
 
->**Troubleshooting tips**: Be sure to use incognito mode to separate the test user trinity@whiterabbit.fake session from your admin user. You will get a "Forbidden" error when your are logged with admin account attempting to login to the Todo app.
+>**Troubleshooting tips**: Be sure to use incognito mode to separate the test user trinity@whiterabbit.fake session from your admin user. You will get a "Forbidden" error when you are logged with admin account attempting to login to the Todo app.
 
 When you redirect back to the Todo app, you'll have an active session; you can test this by adding a task. Let's test ending this session by sending a cURL request.
 
