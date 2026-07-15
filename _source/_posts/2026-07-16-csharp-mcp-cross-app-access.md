@@ -43,9 +43,9 @@ In the next steps, let us understand how to implement the 4 steps of XAA using t
 
 ## Implementing XAA with the C# MCP SDK
 
-If you were to build this manually, you would need to manage complex cryptographic handshakes. Instead, we'll use the C# MCP SDK; more details are available in the [official GitHub repository](https://github.com/oktadev/okta-csharp-mcp-sdk-example). The C# MCP SDK's `IdentityAssertionGrantProvider` handles all the heavy lifting, abstracting these RFCs into a clean, developer-friendly interface that lets you focus on your agent logic rather than the authentication plumbing. Let us implement that step by step.
+Building this amnually would require you to manage complex cryptographic handshakes. Instead, we'll use the C# MCP SDK; more details are available in the [official GitHub repository](https://github.com/oktadev/okta-csharp-mcp-sdk-example). The C# MCP SDK's `IdentityAssertionGrantProvider` handles all the heavy lifting, abstracting these RFCs into a clean, developer-friendly interface that lets you focus on your agent logic rather than the authentication plumbing. Let us implement that step by step.
 
-### Step 1: Building the OIDC flow
+###  Building the OIDC flow
 
 [ASP.NET](https://asp.net) Core has a built-in OIDC middleware that handles the full authentication flow, including PKCE. The implementation of this is simple.
 
@@ -68,7 +68,7 @@ builder.Services
 
 An important thing to note here is that `MapInboundClaims = false`, which stops ASP.NET Core from remapping standard OIDC claim names to legacy WS-Federation names, keeping the token payload clean and predictable downstream.
 
-### Steps 2 and 3: Automate XAA token exchange with C# SDK
+### Automate XAA token exchange with C# SDK
 
 This step marks the start of the XAA flow. With the SDK, instead of the user directly authorizing the MCP client, the app performs a two-hop token upgrade on the user's behalf, and the MCP C# SDK's `IdentityAssertionGrantProvider` encapsulates both exchanges.
 
@@ -99,7 +99,7 @@ var accessToken = result.AccessToken;
 
 With the `IdTokenCallback`, the provider retrieves the user's ID Token from the session.
 
-### Step 4: Connect the MCP client to the server
+### Connect the MCP client to the server
 
 After the exchanges, this is the final part, where the client can now access the MCP server and use the resource data. The HTTP-based servers handle session negotiation and message framing.
 
