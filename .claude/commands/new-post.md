@@ -93,6 +93,9 @@ SEO work must happen BEFORE the post is created — keywords drive the slug, tit
    - **Internal links**: `developer.okta.com` links must use relative paths: `/docs/guides/...` not `https://developer.okta.com/docs/guides/...`
    - **Ellipsis**: use three plain periods `...` not the Unicode ellipsis character `…` — the pre-commit hook will reject it
    - **Smart quotes**: use straight quotes `"` and `'` not curly/smart quotes `"` `"` `'` `'` — also rejected by the pre-commit hook
+   - **Table of contents**: automatically add a TOC if `type: conversion` OR a GitHub repo URL was provided — no need to ask. Skip for `type: awareness` posts (intros, announcements, thought leadership). Place it after the opening paragraph and before the first `##` section:
+     - Markdown posts: `{% include toc.md %}`
+     - AsciiDoc posts: add `:page-liquid:` and `:toc: macro` immediately after the front matter, then place `toc::[]` in the body
 
 7. **Check for passive voice and suggest active rewrites.**
    - Scan every sentence in the post body. Passive voice signals to look for:
