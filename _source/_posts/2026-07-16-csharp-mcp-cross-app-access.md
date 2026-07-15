@@ -51,7 +51,7 @@ Building this amnually would require you to manage complex cryptographic handsha
 
 ###  Building the OIDC flow
 
-[ASP.NET](https://asp.net) Core has a built-in OIDC middleware that handles the full authentication flow, including PKCE. The implementation of this is simple.
+[ASP.NET](https://asp.net) Core has a built-in OIDC middleware that handles the full authentication flow, including PKCE. Since the package handles the implementation, all we have to do is configure our values.
 
 ```csharp
 builder.Services
