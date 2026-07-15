@@ -24,6 +24,10 @@ Cross app access (XAA) solves exactly that. The user authenticates once. The Ide
 
 In this post, we'll explore how Cross App Access (XAA) closes the trust gap, test the flow using xaa.dev, and implement a secure MCP client in just a few lines of C# using our dedicated SDK.
 
+**Table of Contents**{: .hide }
+* Table of Contents
+{% include toc.md %}
+
 ## What is Cross App Access (XAA)?
 
 Before we start implementing and building the application, it is important to understand the mechanics of Cross App Access (XAA). At its core, XAA is an open standard that securely enables AI agents to act on behalf of a user and communicate with downstream applications without requiring constant, manual user consent.
