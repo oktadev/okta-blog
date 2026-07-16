@@ -16,13 +16,13 @@ github: https://github.com/oktadev/okta-csharp-mcp-sdk-example
 type: conversion
 ---
 
-A few years ago, getting a user signed in to an application or multiple applications with single sign-on (SSO) was enough; OpenID Connect (OIDC) handled the login, JWTs carried the claims, and Proof Key for Code Exchange (PKCE) made it secure. Today, with evolving AI, agents act on behalf of users and seek multiple accesses across different resources to execute a task. And that is when you'll hit the gap.
+A few years ago, getting a user signed in to an application or multiple applications with Single Sign-On (SSO) was enough; OpenID Connect (OIDC) handled the login, JWTs carried the claims, and Proof Key for Code Exchange (PKCE) made it secure. Today, with evolving AI, agents act on behalf of users and seek multiple accesses across different resources to execute a task. And that is when you'll hit the gap.
 
 The user has an identity, but the downstream service—like a Model Context Protocol (MCP) server, an API, or an agent tool has no way to trust it: the ID Token that proves the user's identity for your app, not for that service. You need a way to take that identity and have it trusted further down the chain, in line with the org's policy, without asking the user to log in again.
 
-Cross app access (XAA) solves exactly that. The user authenticates once. The Identity Provider (IdP) evaluates the enterprise policy and issues a signed Identity Assertion. The downstream service exchanges that assertion for a scoped Bearer token.
+Cross App Access (XAA) solves exactly that. The user authenticates once. The Identity Provider (IdP) evaluates the enterprise policy and issues a signed Identity Assertion. The downstream service exchanges that assertion for a scoped Bearer token.
 
-In this post, we'll explore how Cross App Access (XAA) closes the trust gap, test the flow using xaa.dev, and implement a secure MCP client in just a few lines of C# using our dedicated SDK.
+In this post, we'll explore how Cross App Access (XAA) closes the trust gap, test the flow using an [XAA playground](https://xaa.dev), and implement a secure MCP client in just a few lines of C# using our dedicated SDK.
 
 **Table of Contents**{: .hide }
 * Table of Contents
@@ -47,7 +47,7 @@ In the next steps, let us understand how to implement the 4 steps of XAA using t
 
 ## Implementing XAA with the C# MCP SDK
 
-Building this amnually would require you to manage complex cryptographic handshakes. Instead, we'll use the C# MCP SDK; more details are available in the [official GitHub repository](https://github.com/oktadev/okta-csharp-mcp-sdk-example). The C# MCP SDK's `IdentityAssertionGrantProvider` handles all the heavy lifting, abstracting these RFCs into a clean, developer-friendly interface that lets you focus on your agent logic rather than the authentication plumbing. Let us implement that step by step.
+Building this manually would require you to manage complex cryptographic handshakes. Instead, we'll use the C# MCP SDK; more details are available in the [official GitHub repository](https://github.com/oktadev/okta-csharp-mcp-sdk-example). The C# MCP SDK's `IdentityAssertionGrantProvider` handles all the heavy lifting, abstracting these RFCs into a clean, developer-friendly interface that lets you focus on your agent logic rather than the authentication plumbing. Let us implement that step by step.
 
 ###  Building the OIDC flow
 
@@ -139,7 +139,7 @@ This app uses `todo0://todos` to fetch from the xaa.dev resource server. The com
 
 ## Testing your C# MCP app with xaa.dev
 
-Now that we've stepped through the XAA flow, it is time to test it. [xaa.dev](https://xaa.dev) is a testing playground. It provides a standardized, functional environment that lets you verify your end-to-end flow immediately and serves as the bridge between your app and the downstream resource.
+Now that we've stepped through the XAA flow, it's time to test it. [xaa.dev](https://xaa.dev) is a testing playground. It provides a standardized, functional environment that lets you verify your end-to-end flow immediately and serves as the bridge between your app and the downstream resource.
 
 To test out the application using the xaa.dev platform, follow the steps below to get the app registered as the requester app:
 
@@ -153,11 +153,11 @@ You should have your connections set up like in the screenshot below.
 
 {% img blog/csharp-mcp-cross-app-access/xaa-dev-register-app.jpg alt:"xaa.dev Register New App screen showing redirect URIs, resource connections, and todos.read and mcp.access scopes" width:"800" %}{: .center-image }
 
-In this example, the C# app is a requester app that fetches the To-Do list from the ToDo app and analyzes the tasks fetched.
+In this example, the C# app is a requester app that fetches the to-do list from the Todo app and analyzes the tasks fetched.
 
 ## Run your C# MCP app with xaa.dev
 
-At this point, you should have your application ready, running on port 5000, and connected to the xaa sample resource app. If not, you can clone the repo from the [GitHub repository](https://github.com/oktadev/okta-csharp-mcp-sdk-example) and add the following environment variables to the `appsettings.json` file:
+At this point, you should have your application ready, running on port 5000, and connected to the XAA sample resource app. If not, you can clone the repo from the [GitHub repository](https://github.com/oktadev/okta-csharp-mcp-sdk-example) and add the following environment variables to the `appsettings.json` file:
 
 ```shell
 git clone https://github.com/oktadev/csharp-mcp-sdk-example.git
@@ -210,14 +210,14 @@ The MCP SDK and XAA simplify building and testing cross app access.
 
 What you've seen here is the full XAA flow, starting from a user signing in with SSO to an AI agent securely fetching data from an MCP server running end-to-end in under 50 lines of C#.
 
-xaa.dev makes this tangible without any infrastructure overhead. The IdP, the Auth Server, the MCP resource server — it's all there, ready for you to register your app, drop in the credentials, and watch the token exchanges happen in real time. That's the fastest path from concept to a working implementation.
+The XAA playground (xaa.dev) makes this tangible without any infrastructure overhead. The IdP, the Auth Server, the MCP resource server — it's all there, ready for you to register your app, drop in the credentials, and watch the token exchanges happen in real time. That's the fastest path from concept to a working implementation.
 
 If you wish to read further:
 
-- Browse the full source for this demo in the [GitHub repository](https://github.com/oktadev/okta-csharp-mcp-sdk-example)
-- Register your own app and explore the platform at [xaa.dev](https://xaa.dev)
-- Read the deeper dive on how XAA closes the enterprise trust gap in [Integrate Your Enterprise AI Tools with Cross App Access](/blog/2025/06/23/enterprise-ai)
+- Test the full source for this demo in the [GitHub repository](https://github.com/oktadev/okta-csharp-mcp-sdk-example)
+- Register your own app and explore the XAA playground at [xaa.dev](https://xaa.dev)
+- Read the deep dive on how XAA closes the enterprise trust gap in [Integrate Your Enterprise AI Tools with Cross App Access](/blog/2025/06/23/enterprise-ai)
 
-As AI agents take on more complex, multi-step tasks across organizational boundaries, XAA is the pattern that enables this without compromising security or user experience. Now you have the tools to build it.
+As AI agents take on more complex, multi-step tasks across organizational boundaries, XAA is the secure solution that enables this without compromising security or user experience. Now you have the tools to build it.
 
 Remember to follow us on [X](https://x.com/oktadev) and subscribe to our [YouTube channel](https://www.youtube.com/c/OktaDev/) for more exciting content. We also want to hear from you about the topics you'd like to see and any questions you may have. Leave us a comment below!
