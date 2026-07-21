@@ -62,7 +62,8 @@ Before you start building, ensure you have these prerequisites in place:
 
 To begin development, select the guide corresponding to your application's authentication protocol:
 
-* If your app uses SAML for SSO, follow our [SAML implementation guide](/blog/2026/07/03/cross-app-access-saml).
+* If your resource app uses SAML for SSO, follow our [SAML resource app implementation guide](/blog/2026/07/03/cross-app-access-saml).
+* If your requesting app uses SAML for SSO, follow our [SAML requesting app implementation guide](/blog/2026/07/17/xaa-saml-requester).
 * If your app uses OIDC for SSO, refer to the [OIDC implementation guide](/blog/2025/09/03/cross-app-access).
 
 To verify your configuration, demonstrate a successful token exchange:
