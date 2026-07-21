@@ -80,6 +80,10 @@ Your SAML application makes the initial SSO handshake and handles the `SAMLRespo
 
 Immediately after validating the SAML response, in the same ACS request before redirecting the user onward, you'll perform the first exchange. Base64-encode the assertion you extracted, then exchange it for a refresh token using Okta's token endpoint. This exchange follows the [OAuth 2.0 Token Exchange (RFC 8693)](https://datatracker.ietf.org/doc/html/rfc8693) mechanism.
 
+This step requires a credential in the request. Because you're making a sensitive resource request, Okta requires a self-signed JWT using asymmetric encryption as the credential – a private key JWT.
+
+Follow the instructions in the [Build a JWT for Client Authentication](https://developer.okta.com/docs/guides/build-self-signed-jwt/js/main/) for your tech stack. The signed JWT becomes a client assertion in the request. 
+
 The refresh token HTTP request looks like this:
 
 ```http
@@ -93,14 +97,17 @@ subject_token_type=urn:ietf:params:oauth:token-type:saml2&
 requested_token_type=urn:ietf:params:oauth:token-type:refresh_token&
 scope=openid+offline_access&
 client_id=<your_client_id>&
-client_secret=<your_client_secret>
+client_assertion_type=urn:ietf:params:oauth:client-assertion-type:jwt-bearer&
+client_assertion=<your signed JWT>
 ```
 
 The IdP (Okta) responds with the refresh token. The refresh token is opaque and long-lived. Persist the refresh token for the session; never persist or use the SAML assertion past this exchange. 
 
-### Request the refresh token 
+### Request the ID-JAG token 
 
-With the refresh token in hand, you have the credentials to request the ID-JAG token when your application needs resources from a third-party app. This exchange uses the same OAuth token exchange mechanism as the first step. You make the `POST` request to the same endpoint, Okta IdP, use the refresh token as your credential, and request the ID-JAG token type.
+With the refresh token in hand, you have the credentials to request the ID-JAG token when your application needs resources from a third-party app. This exchange uses the same OAuth token exchange mechanism as the first step. You make the `POST` request to the same endpoint, Okta IdP, using the refresh token, and request the ID-JAG token type. 
+
+This request also requires a signed JWT as it's requesting a sensitive resource.
 
 The HTTP request looks like this:
 
@@ -117,7 +124,8 @@ audience=<the resource app's authorization server issuer URI>&
 resource=<the resource app's API base URL>&
 scope=<the resource app's required scopes>&
 client_id=<your_client_id>&
-client_secret=<your_client_secret>
+client_assertion_type=urn:ietf:params:oauth:client-assertion-type:jwt-bearer&
+client_assertion=<your signed JWT>
 ```
 
 The IdP responds with a short-lived, signed JSON Web Token (JWT), the ID-JAG, as the value in the `access_token` property within the payload.
