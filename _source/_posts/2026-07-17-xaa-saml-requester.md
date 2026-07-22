@@ -80,7 +80,7 @@ Your SAML application makes the initial SSO handshake and handles the `SAMLRespo
 
 Immediately after validating the SAML response, in the same ACS request before redirecting the user onward, you'll perform the first exchange. Base64-encode the assertion you extracted, then exchange it for a refresh token using Okta's token endpoint. This exchange follows the [OAuth 2.0 Token Exchange (RFC 8693)](https://datatracker.ietf.org/doc/html/rfc8693) mechanism.
 
-This step requires a credential in the request. Because you're making a sensitive resource request, Okta requires a self-signed JWT using asymmetric encryption as the credential – a private key JWT.
+This step requires a credential in the request. Because you're making a sensitive resource request, Okta requires a JWT signed with an asymmetric key pair as the credential – a private key JWT.
 
 Follow the instructions in the [Build a JWT for Client Authentication](https://developer.okta.com/docs/guides/build-self-signed-jwt/js/main/) for your tech stack. The signed JWT becomes a client assertion in the request. 
 
