@@ -1,19 +1,19 @@
 ---
 layout: blog_post
-title: "How to Build a Secure Flask App with Okta and a Custom Resource Server"
+title: "Build a Flask App with Okta for Secure OIDC Login and Authorized API Calls"
 author: akanksha-bhasin
 by: advocate
 communities: [python]
-description: "Learn to add secure authentication to a Flask app with Okta and call a protected API using scoped access tokens."
+description: "Learn to add OIDC login and make authorized API calls in a Flask app using Okta and Authlib library."
 tags: [python, flask, oauth, oidc, pkce, authentication]
 type: conversion
 image: blog/flask-oauth-web-app/flask-oauth-web-app-social-image.jpg
 github: https://github.com/oktadev/okta-flask-oauth-example
 ---
 
-Python syntax and the flexibility of the Flask microframework make it a popular choice for quickly building web applications. While Flask provides the essentials to get you started, you'll need to implement a critical piece yourself: secure user authentication. After all, how do you securely sign users into your application?
+Python syntax and the flexibility of the Flask microframework make it a popular choice for quickly building web applications. While Flask provides the essentials to get you started, you'll need to tackle two critical pieces yourself: secure user authentication and authorized access to your backend services. After all, how do you securely sign users into your application? And once they're signed in, how does your app fetch data from a backend service that only serves authorized requests?
 
-This tutorial shows you how to solve that problem. You'll add a secure authentication layer to your Flask application using modern standards like OAuth 2.1 and OpenID Connect (OIDC), following the latest security best practices. You'll also learn how to implement the secure Authorization Code flow with Proof Key for Code Exchange (PKCE) and build a complete sign-in and sign-out workflow. Second, and just as importantly, you'll learn how to use the resulting scoped access tokens to make protected calls to an API.
+This tutorial shows you how to solve both. You'll build a Flask dashboard app that signs users in with Okta using OpenID Connect (OIDC). Once signed in, the app uses the resulting OAuth 2.0 access token to call a separate backend API that only responds to authorized requests, a common pattern where a web app needs to fetch data from a protected backend service. You'll use Authlib, an OIDC client library, to configure the Authorization Code flow with PKCE automatically. You'll also learn how to add a custom scope to the access token and validate it on the backend to control what data the API returns.
 
 Check out the complete source code on [GitHub](https://github.com/oktadev/okta-flask-oauth-example) and get started without setting it up from scratch.
 
@@ -22,16 +22,16 @@ Check out the complete source code on [GitHub](https://github.com/oktadev/okta-f
 {% include toc.md %}
 
 
-## Build a Flask app with OAuth 2.0 authentication and a protected API
+## Build a Flask app with OIDC authentication
 
 In this tutorial, you'll build a simple dashboard application and learn how to:
 
 * Securely sign users in to view their profile information using Okta as the OpenID Connect identity provider.  
-* Implement the Authorization Code flow with [PKCE](https://oauth.net/2/pkce/) to adhere to the latest OAuth 2.1 security best practices.  
+* Use Authlib to configure the Authorization Code flow with [PKCE](https://oauth.net/2/pkce/) automatically, following OAuth 2.1 security best practices.  
 * Add a feature for new users to self-register for an account directly from the sign-in page.  
-* Enable authenticated users to interact with a protected API using OAuth 2.0 access tokens.
+* Enable authenticated users to interact with a protected API using access tokens.
 
-## Prerequisites
+**Prerequisites**
 
 * [Python](https://www.python.org/) 3.14 or later and [pip](https://pypi.org/project/pip/) installed  
 * An [Okta Integrator Free Plan](https://developer.okta.com/signup/)
@@ -91,7 +91,7 @@ First, you'll create a project folder and a Python virtual environment, then ins
 
 ### Configure Flask environment variables
 
-To keep sensitive credentials secure, you'll store them in a `.env` file and load them into the application's configuration. This practice prevents hard-coding secrets directly into your source code.
+To keep sensitive credentials out of source control, you'll store them in a `.env` file and load them into the application's configuration. This practice prevents hard-coding secrets directly into your source code. Make sure to add `.env` to your `.gitignore` file to prevent accidentally committing your credentials to source control.
 
 1. Create a file named `.env` in the project root and add your Okta application's configuration details. Replace the placeholders with your actual values.
 
@@ -159,7 +159,7 @@ oauth.register(
 )
 ```
 
-The first parameter in the register() method (in this case, *Okta*) is the name of the remote application. You'll later access the remote application with `oauth.okta` to handle all the OIDC-related functions.
+The first parameter in the `register()` method (in this case, *Okta*) is the name of the remote application. You'll later access the remote application with `oauth.okta` to handle all the OIDC-related functions.
 
 The client\_kwargs dictionary passes extra parameters to the authorization request. Because the code\_challenge\_method is present, the Authlib library automatically uses the [PKCE](https://oauth.net/2/pkce/) flow, which enhances security.
 
@@ -167,7 +167,7 @@ The client\_kwargs dictionary passes extra parameters to the authorization reque
 
 The sign-in process begins when the user clicks the Login button, which redirects the browser to the Okta-hosted Sign-In page.
 
-After the user signs in, Okta redirects the browser to the configured sign-in redirect URI, sending user profile information to the application. Similarly, after a user signs out, Okta redirects the browser to the sign-out redirect URI.
+After the user signs in, Okta redirects the browser to the configured sign-in redirect URI with an authorization code. Authlib then exchanges that code for tokens and automatically calls Okta's userinfo endpoint to retrieve the user's profile. Similarly, after a user signs out, Okta redirects the browser to the sign-out redirect URI.
 
 Let's start by creating a simple HTML page that allows the user to log in. This page will display a sign-in button for signed-out users and a sign-out button for logged-in users, along with profile information.
 
@@ -180,7 +180,7 @@ Let's start by creating a simple HTML page that allows the user to log in. This 
        return oauth.okta.authorize_redirect(redirect_uri)
    ```
 
-2. Next, implement the callback handler for the Redirect URI you configured in your Okta application (`http://localhost:5000/authorization-code/callback`). This handler is crucial as it processes the authorization\_code returned by Okta after a successful sign-in. It performs the code-for-token exchange to get an access token and ID token, then stores the userinfo response alongside the tokens in the session.
+2. Next, implement the callback handler for the Redirect URI you configured in your Okta application (`http://localhost:5000/authorization-code/callback`). This handler processes the authorization code returned by Okta. Calling `authorize_access_token()` triggers Authlib to exchange the code for tokens and automatically call Okta's userinfo endpoint. Both the userinfo and the full token are then stored in Flask's session for use across requests.
 
    ```python
    @app.route('/authorization-code/callback')
@@ -229,7 +229,7 @@ Let's start by creating a simple HTML page that allows the user to log in. This 
        return render_template('index.html', user=loggedInUser)
    ```
 
-With the back-end routes in place, you can now create the front-end files to provide a user interface for signing in, signing out, and displaying profile data.
+With the back-end routes in place, you can now create the HTML template files to provide a user interface for signing in, signing out, and displaying profile data.
 
 Step 1: Create a `templates` directory in your project root. Inside it, create an `index.html` file. This page will display a Login button for signed-out users and, for signed-in users, profile information with a Logout button.
 
@@ -395,7 +395,7 @@ You've successfully added a secure authentication flow to your Flask app. Next, 
 
 ## Call a protected API with scoped tokens
 
-Using OAuth 2.0 for API authentication is a modern security best practice. It allows you to use access tokens to interact with APIs to fetch and manage data securely. This section walks you through how to use a scoped access token to fetch data from your own resource server.
+Using OAuth for API authorization is a modern security best practice. It allows you to use access tokens to interact with APIs to fetch and manage data securely. This section walks you through how to use a scoped access token to fetch data from your own resource server.
 
 Every action on an endpoint that supports OAuth 2.0 requires a specific scope. In this example, your endpoint requires the specific scope `api:read-users` to return a list of sample users.
 
@@ -417,7 +417,7 @@ To do this, restrict the `aud` claim that Okta returns in the access token to yo
 * Select your **Authorization Server**. In the **Settings** tab, click **Edit**  
 * Change the **Audience** field to [http://localhost:5001](http://localhost:5001) — this is where your resource server will be hosted
 
-### Build a custom resource server
+### Build a protected users API
 
 To keep things simple, you'll create a minimal resource server with a single route called `fetch-users` that returns a list of sample users.
 
