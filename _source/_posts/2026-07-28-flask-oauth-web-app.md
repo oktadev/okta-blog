@@ -7,7 +7,7 @@ communities: [python]
 description: "Learn to add OIDC login and make authorized API calls in a Flask app using Okta and Authlib library."
 tags: [python, flask, oauth, oidc, pkce, authentication]
 type: conversion
-image: blog/flask-oauth-web-app/flask-oauth-web-app-social-image.jpg
+image: blog/flask-oauth-web-app/flask-oauth-web-app-social-image.jpeg
 github: https://github.com/oktadev/okta-flask-oauth-example
 ---
 
@@ -38,22 +38,12 @@ In this tutorial, you'll build a simple dashboard application and learn how to:
 
 ## Create an app integration in the Okta Admin Console
 
-Before you begin, you'll need an Okta Integrator Free Plan account. To get one, sign up for an [Integrator account](https://developer.okta.com/login). Once you have an account, sign in to your [Integrator account](https://developer.okta.com/login). Next, in the Admin Console:
+{% include setup/integrator.md type="web" loginRedirectUri="http://localhost:5000/authorization-code/callback" logoutRedirectUri="http://localhost:5000" %}
 
-1. Go to **Applications** \> **Applications**  
-2. Click **Create App Integration**  
-3. Select **OIDC - OpenID Connect** as the sign-in method  
-4. Select **Web Application** as the application type, then click **Next**  
-5. Enter an app integration name  
-6. Configure the redirect URIs:  
-   * Sign-in redirect URIs: http://localhost:5000/authorization-code/callback  
-   * Sign-out redirect URIs: http://localhost:5000  
-7. Click **Save**
-8. Open the saved app, go to the **Assignments** tab, click **Assign** \> **Assign to Groups**, search for **Everyone**, click **Assign**, then click **Done**
 
 ## Enable self-service user registration
 
-User registration is vital for any application, and Okta makes the process quick and hassle-free. Setting this up involves two main steps:
+User registration is vital for any application, and Okta makes the process quick and hassle-free. See [Self-Service Registration](https://help.okta.com/oie/en-us/content/topics/identity-engine/policies/about-ssr.htm) for an overview of how it works. Setting this up involves two main steps:
 
 1. Create a user profile policy \- This policy defines the attributes a user must provide when self-registering. See the [Okta documentation](https://help.okta.com/oie/en-us/content/topics/identity-engine/policies/create-profile-enrollment-policy.htm) for detailed instructions.  
 2. Assign your application to the policy \- This step is required; without it, the self-service registration flow will not activate for your app. See the [product documentation](https://help.okta.com/oie/en-us/content/topics/identity-engine/policies/select-profile-enrollment-policy.htm) for more details.
@@ -161,7 +151,7 @@ oauth.register(
 
 The first parameter in the `register()` method (in this case, *Okta*) is the name of the remote application. You'll later access the remote application with `oauth.okta` to handle all the OIDC-related functions.
 
-The client\_kwargs dictionary passes extra parameters to the authorization request. Because the code\_challenge\_method is present, the Authlib library automatically uses the [PKCE](https://oauth.net/2/pkce/) flow, which enhances security.
+The client_kwargs dictionary passes extra parameters to the authorization request. Because the code_challenge_method is present, the Authlib library automatically uses the [PKCE](https://oauth.net/2/pkce/) flow, which enhances security.
 
 #### Build Flask routes for OIDC authentication
 
@@ -192,7 +182,7 @@ Let's start by creating a simple HTML page that allows the user to log in. This 
        return redirect('/')
    ```
 
-3. Add the `/logout` route. This endpoint clears the local user session, signing the user out of the Flask application. It then constructs a redirect URL to Okta's logout\_endpoint, which terminates the user's session with Okta, ensuring a complete and secure sign-out.
+3. Add the `/logout` route. This endpoint clears the local user session, signing the user out of the Flask application. It then constructs a redirect URL to Okta's logout_endpoint, which terminates the user's session with Okta, ensuring a complete and secure sign-out.
 
    ```python
    @app.route('/logout')
@@ -393,7 +383,7 @@ flask --app resource-server.py run --port 5001
 
 You've successfully added a secure authentication flow to your Flask app. Next, you'll extend it to call a protected API using scoped tokens.
 
-## Call a protected API with scoped tokens
+## Call a protected API with OAuth scoped tokens
 
 Using OAuth for API authorization is a modern security best practice. It allows you to use access tokens to interact with APIs to fetch and manage data securely. This section walks you through how to use a scoped access token to fetch data from your own resource server.
 
@@ -419,7 +409,7 @@ To do this, restrict the `aud` claim that Okta returns in the access token to yo
 
 ### Build a protected users API
 
-To keep things simple, you'll create a minimal resource server with a single route called `fetch-users` that returns a list of sample users.
+For this demo app, you'll create a minimal resource server with a single route called `fetch-users` that returns a list of sample users.
 
 1. Start by modifying the `.env` file. Add the variable that stores the domain of your resource server (in this case, http://localhost:5001):
 
@@ -757,13 +747,12 @@ Ready to see it all work? Make sure both servers are running: the Flask app (`fl
 
 Your Flask application now has secure user authentication and can use an access token to interact with a protected API.
 
-## Learn more
+## Learn more about OAuth and OIDC
 
 If you'd like to learn more about the concepts covered in this tutorial, explore these official Okta resources:
 
 * [Sign users in to your web app](/docs/guides/sign-into-web-app-redirect/python/main/)  
 * [Authorization Code flow with PKCE](/docs/guides/implement-grant-type/authcodepkce/main/)  
-* [Self-Service Registration](https://help.okta.com/oie/en-us/content/topics/identity-engine/policies/about-ssr.htm)  
 * [Validate Access Tokens](/docs/guides/validate-access-tokens/python/main/)  
 * [Create an Authorization Server](/docs/guides/customize-authz-server/main/)  
 * [Secure a Node Express App with OAuth 2.0 and PKCE]({% post_url 2025-07-28-express-oauth-pkce %})
