@@ -1,6 +1,6 @@
 ---
 layout: blog_post
-title: "Build Secure Agent-to-App Connections with Cross App Access (XAA)"
+title: "Build Secure Agent-to-App Connections with Cross App Access (XAA) Using OIDC"
 author: sohail-pathan
 by: advocate
 communities: [javascript,security]

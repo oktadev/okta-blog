@@ -62,7 +62,8 @@ Before you start building, ensure you have these prerequisites in place:
 
 To begin development, select the guide corresponding to your application's authentication protocol:
 
-* If your app uses SAML for SSO, follow our [SAML implementation guide](/blog/2026/07/03/cross-app-access-saml).
+* If your resource app uses SAML for SSO, follow our [SAML resource app implementation guide](/blog/2026/07/03/cross-app-access-saml).
+* If your requesting app uses SAML for SSO, follow our [SAML requesting app implementation guide](/blog/2026/07/17/xaa-saml-requester).
 * If your app uses OIDC for SSO, refer to the [OIDC implementation guide](/blog/2025/09/03/cross-app-access).
 
 To verify your configuration, demonstrate a successful token exchange:
@@ -147,7 +148,8 @@ If this guide helped you plan your OIN and XAA submission, explore these resourc
 
 - 📘 [Cross App Access documentation](https://help.okta.com/oie/en-us/content/topics/apps/apps-cross-app-access.htm): official guides for configuring and managing Cross App Access in production.
 - 📄 [Okta Integration Network documentation](https://developer.okta.com/docs/guides/okta-integration-network/): everything you need to get your SSO integration listed on the OIN.
-- 🔐 [Enabling Cross App Access for SAML-based enterprise apps](/blog/2026/07/03/cross-app-access-saml): the implementation guide for SAML SSO apps.
+- 🔐 [Enabling Cross App Access for SAML-Based Resource Apps](/blog/2026/07/03/cross-app-access-saml): the implementation guide for SAML SSO resource apps.
+- 🔐 [Enable Your SAML Requesting App for Cross App Access](/blog/2026/07/17/xaa-saml-requester): the implementation guide for SAML SSO requesting apps.
 - 🔑 [Build secure agent-to-app connections with Cross App Access (XAA)](/blog/2025/09/03/cross-app-access): the implementation guide for OIDC SSO apps.
 - 🎙️ [Developer podcast on MCP and Cross App Access](https://www.youtube.com/watch?v=qKs4k5Y1x_s): hear the backstory, use cases, and why this matters for developers.
 
