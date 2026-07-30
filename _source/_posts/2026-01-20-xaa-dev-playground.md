@@ -21,8 +21,6 @@ This is the problem **Cross App Access (XAA)** is designed to solve.
 
 Today, we're introducing **[xaa.dev](https://xaa.dev)**, a free, open playground that lets you explore Cross App Access end-to-end. **No local setup. No infrastructure to provision.** Just a working environment where you can see the protocol in action.
 
-{% img blog/xaa-dev-playground/xaa-dev-homepage.jpg alt:"xaa.dev playground homepage showing the Cross App Access flow" width:"800" %}{: .center-image }
-
 > **Note:** xaa.dev is currently in beta. We're actively developing new features for the next release, and your feedback helps shape what comes next.
 
 **Table of Contents**{: .hide }
@@ -32,7 +30,7 @@ Today, we're introducing **[xaa.dev](https://xaa.dev)**, a free, open playground
 
 ## What is Cross App Access?
 
-Cross App Access refers to a typical enterprise pattern: **one application accesses another application's resources on behalf of a user.**
+Cross App Access is a typical enterprise pattern: **one application accesses another application's resources on behalf of a user.**
 
 For example:
 
@@ -52,7 +50,7 @@ Instead of prompting users for consent, the **Identity Provider (IdP)** issues a
 
 The result:
 
-- No interactive consent screens making application access seamless for employees
+- No interactive consent screens, making application access seamless for employees
 - Clear, auditable trust boundaries
 - Complete administrative control over app-to-app access
 
@@ -73,7 +71,7 @@ Here's the challenge: to test XAA locally, you'd need to spin up:
 
 That's hours (or days) of configuration before you can even see a single token exchange. Most developers give up before getting to the interesting part.
 
-**xaa.dev changes that.**
+**xaa.dev changes that**
 
 We pre-configured all the components so you can focus on understanding the flow, not debugging dev environments. Go from zero to a working XAA token exchange in under 60 seconds.
 
@@ -93,10 +91,15 @@ See the other side of the transaction. Watch how a resource server validates the
 We've built a simulated IdP with pre-configured test users. Log in, see how ID-JAGs are minted, and inspect the cryptographic claims that make XAA secure.
 
 ### Resource MCP Server
-Connect your AI agents using the Model Context Protocol (MCP). The playground provides a ready-to-use MCP server that acts as a resource application, letting you test how AI agents can securely access protected resources through the Cross App Access flow.
+Connect your AI agents using the Model Context Protocol (MCP). The playground provides a ready-to-use MCP server that acts as a resource application, letting you to test how AI agents can securely access protected resources through the Cross App Access flow.
 
-### Bring your own Requesting App
-The built-in Requesting App is great for learning, but the real power comes when you test with your own application, whether it's a traditional app or an MCP client. [Register a client](https://xaa.dev/developer/register) on the playground, grab the configuration, and integrate it into your local app. This lets you validate your XAA implementation against a working IdP and Resource App without spinning up your own infrastructure. The [playground documentation](https://xaa.dev/docs) walks you through the setup step-by-step.
+### Bring your own Apps
+The built-in Requesting App and Resource App are great for learning, but the real power comes when you test with your own application, whether it's a traditional app, an API, or an MCP client. [xaa.dev](https://xaa.dev) gives you two ways to do that, for each role:
+
+- **Requesting App** – [Register it with xaa.dev's IdP](https://xaa.dev/developer/register) to get credentials and run the full flow, or [test it against a hosted Resource](https://xaa.dev/developer/test-requesting-app) if you already mint your own ID-JAGs.
+- **Resource App** – [Register it with xaa.dev's IdP](https://xaa.dev/developer/test-resource) to verify your API accepts XAA tokens, or [test it against a hosted Requesting App](https://xaa.dev/developer/test-resource-app) end-to-end.
+
+Each path supports both **OIDC** and **SAML** identity assertions, so you can validate your implementation regardless of how your organization issues identity. This lets you validate your XAA implementation without spinning up your own infrastructure. The [playground documentation](https://xaa.dev/docs) walks you through the setup step by step.
 
 ## How to get started
 
