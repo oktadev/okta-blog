@@ -14,15 +14,15 @@ The user will provide content (pasted text, a Google Doc link, a file path, or a
 **Before running the review, prompt the user:**
 > "How would you like the review delivered?
 > 1. Create a report doc
-> 2. Add review to existing doc (via comments)"
+> 2. Add review to existing Google Doc (via comments)"
 
 Wait for the user's response before proceeding.
 
 ---
 
-### Output option 1 — Create a report doc (new Google Doc)
+### Output option 1 — Create a report
 
-- Create a new Google Doc named `[BA-REVIEW] ` followed by the title of the document being reviewed (e.g., `[BA-REVIEW] Build secure agent-to-app connections with XAA`)
+- Create a report within the console or save to a temporary file on disk. If the user provided a Google Doc link, create a new Google doc named `[BA-REVIEW] ` followed by the title of the document being reviewed (e.g., `[BA-REVIEW] Build secure agent-to-app connections with XAA`)
 - Write the full compliance report into that doc using `batch_update_doc` with `end_of_segment: true` for each section
 - Apply H1 for the report title, H2 for each section heading; highlight [MUST FIX] labels in bold red
 - Share the link to the new doc with the user when done
@@ -87,7 +87,7 @@ In case of conflicts, rules are prioritized in this order:
 - ❌ All images must have the CSS class `center-image`.
 - ❌ Alt text is required. Never start with "Image of" or "Diagram of."
 - ❌ If the image is decorative, use null alt text `" "`.
-- ❌ Images must be **JPG format**, max **1800px wide**, max **500KB**.
+- ❌ Images must be **JPG format**, max **1800px wide**, max **500KB**. Check the image format, not just the file extension.
 
 ### Code Blocks
 - ❌ Tag every code block with a **valid Rouge language identifier**. Flag untagged blocks.
@@ -97,15 +97,17 @@ In case of conflicts, rules are prioritized in this order:
   - Use `properties` instead of `dotenv`/`env`
   - Use `graphql` instead of `gql`
   - Use `xml` instead of `markup`
+  - If you see invalid language tags, remind the user to build locally and inspect the rendered content to verify syntax highlighting.
 - ❌ Prefer **code blocks over inline code** for multiple instructions.
 - ❌ If code contains `{{ }}`, wrap the block in `{% raw %}` / `{% endraw %}` tags.
 
 ### Custom Jekyll Tags
-- ❌ Always use the **Okta CLI embed** plugin for Okta account creation instructions — not manual steps.
+- ❌ Always use the **integrator.md** plugin for Okta account creation instructions — not manual steps.
 - 💡 Use Twitter plugin for embedded tweets.
 - 💡 Use Github Gist plugin for embedded code snippets.
 - 💡 Use Youtube plugin for embedded videos.
 - 💡 Use Speakerdeck plugin for embedded slide decks.
+- ⚠️ Urge the user to add the TOC plugin for generating a table of contents when a post exceeds 300 words.
 
 ### File and Folder Names
 - ❌ All file and folder names must be **lowercase with hyphen-separated words**.
@@ -115,7 +117,8 @@ In case of conflicts, rules are prioritized in this order:
 ## Section 8 — Image and Diagram Guidelines
 
 ### General
-- ❌ Prefer **JPG** over PNG or GIF.
+- ❌ Prefer **JPG** over GIF, unless it's an animated GIF. Avoid PNG. Always check the file format, not just the file extension.
+- ⚠️ Prefer **SVG** for mermaid diagrams.
 - ❌ Max width: 1800px. Max file size: 500KB.
 
 ### Diagrams
@@ -123,9 +126,7 @@ In case of conflicts, rules are prioritized in this order:
 - ❌ **No drop shadows**.
 - ❌ **No borders** in diagrams.
 - ❌ Do not put titles, descriptions, or captions inside the diagram — use surrounding content text instead.
-- ⚠️ Prefer **Canva** (Okta Enterprise account) or **Mermaid** for diagrams.
-- ⚠️ Follow Okta Brand color guidelines. Use primary and secondary brand palettes.
-- ⚠️ Text in diagrams should use **Aeonik Pro** (Okta primary typeface).
+- ⚠️ Prefer **Mermaid** for diagrams and add the diagram in SVG format.
 
 ### Author Photos (if reviewing author content)
 - ❌ Must be in color, head and shoulders only, max 500×500px, max 40KB.

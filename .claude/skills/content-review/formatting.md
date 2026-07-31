@@ -6,14 +6,15 @@ Standardized formatting rules for consistency across all OktaDev blog posts.
 
 ## Headings
 
-- ❌ Use **sentence case** for all headings — NOT title case.
-  - ⚠️ NOTE: This overrides the FY25 Style Guide's reference to Chicago Title Case. Sentence case is the current rule per the Editorial Process (effective October 11, 2021).
+- ❌ Use **Chicago title case** for the title of the post.
+- ❌ Use **sentence case** for all headings within the post — NOT title case.
   - Correct: "How to build a login form"
   - Incorrect: "How to Build a Login Form"
 - ❌ Use **expressive punctuation (? or !)** in headings where appropriate, but **no periods** at the end of headings.
 - ❌ Do not skip heading levels. An `<h3>` must only appear under an `<h2>`.
 - ❌ Do not add an `<h1>` — the blog title becomes the h1 automatically.
 - ⚠️ Incorporate keywords into H2 and H3 headings to improve SEO.
+- ⚠️ Avoid headers with "Steps" in the text, such as "Step 1: do X." Prefer semantic headers that provide content and overall clarity while reinforce keywords for SEO.
 
 ---
 
@@ -51,6 +52,16 @@ Standardized formatting rules for consistency across all OktaDev blog posts.
 
 ---
 
-## Place distinguishing information first
+## ALL CAPS
 
-- ⚠️ Place the most important/distinguishing information in the **first sentence of each paragraph** for scannability.
+- ❌ Do **not** use ALL CAPS for emphasis. Use italics, bold, or `code` instead.
+- ✅ ALL CAPS is acceptable only for:
+  - Technical terms (API, URL, HTML, etc.)
+  - Constants idiomatic to the programming language (e.g. `OKTA_APPLICATION_HREF`)
+  - Proper nouns
+
+---
+
+## Exclamation points!!!
+
+- ❌ Don't overdo it with the exclamation points!!! Flag any places where there are multiple exclamation points on one sentence. Or any places where there many sentences with exclamation points in a row.
