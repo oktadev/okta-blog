@@ -1,7 +1,7 @@
 ---
 layout: blog_post
 title: "Enabling Cross App Access for SAML-Based Resource Apps"
-author: [sohail-pathan, alisa-duncan, michael-palermo]
+author: [sohail-pathan, alisa-duncan, michael-palermo, akanksha-bhasin]
 by: advocate
 communities: [javascript,security,python,.net,java,go]
 description: "Learn how to secure app-to-app connections using Cross App Access (XAA) with SAML SSO for SAML-based resource apps."
@@ -14,7 +14,7 @@ tweets:
 image: blog/cross-app-access-saml/social.jpg
 type: awareness
 changelog:
-  - 2026-07-09: Added the steps to set up the requestor and in Okta and generate a conformance report.
+  - 2026-07-09: Added the steps to set up the requester and in Okta and generate a conformance report.
 ---
 
 If you currently federate enterprise customers using Security Assertion Markup Language (SAML) and want to allow applications to access your API without migrating to OpenID Connect (OIDC), this Cross App Access (XAA) guide is for you.
@@ -263,17 +263,7 @@ Keep this site open in your browser; you'll return to it throughout the setup.
 
 Before you begin this step, you'll need an Okta Integrator Free Plan account. [Sign up for a new account](https://developer.okta.com/signup/) to test out the XAA features. 
 
-Cross App Access is an early access feature in Okta. New Integrator Free Plan account types include XAA support. If you have a paid Okta org plan and the following options are missing, contact your representative.
-
-Sign in to your Integrator Free Plan org and open the **Admin Console**.
-
-Enable AI Agent Identity Assertion:
-  1. Navigate to **Settings > Features > Early Access**
-  2. Find **AI Agent Identity Assertion** and **Agent to Agent Connections**, and enable both
-
-You'll need an Okta application representing your requesting and resource apps.
-
-If you don't have Okta SAML 2.0 applications representing your requesting and resource apps, you'll need to create them. Create Okta SAML 2.0 applications by following these instructions. 
+If you don't have Okta SAML 2.0 applications representing your requesting and resource apps, create them by following these instructions.
 
 Navigate to **Applications > Applications**.
 
@@ -285,7 +275,7 @@ In **General Settings**:
 
 In **Configure SAML**:
   1. **Single sign-on URL**: Use the ACS URL of your resource app, e.g., "https://idp.xaa.dev/saml-requester/acs"
-  2. **Audience URI (SP Entity ID)**: Use the SP Entity of your requestor or resource app, e.g., "https://idp.xaa.dev/saml-requester/metadata"
+  2. **Audience URI (SP Entity ID)**: Use the SP Entity of your requester or resource app, e.g., "https://idp.xaa.dev/saml-requester/metadata"
   3. **Name ID format**: select **EmailAddress**
   4. **Application username**: select **Email**
   5. **Update application username on**: select **Create and update**
@@ -356,7 +346,7 @@ Navigate to the **Assignments** tab and make the following configuration changes
 
 ### Register and configure the AI Agent in Okta
 
-With your Okta SAML 2.0 requesting app configured, register a new AI Agent in Okta. The AI Agent configuration represents the relationship between the Okta SAML 2.0 app you created and your MCP Resource Application. You'll configure credentials, add your requesting app as a delegated caller, and connect your MCP resource app as a Resource Connection.
+With your Okta SAML 2.0 requesting app configured, register a new AI Agent in Okta. The AI Agent configuration represents the relationship between the Okta SAML 2.0 app you created and your Model Context Protocol (MCP) Resource Application. You'll configure credentials, add your requesting app as a delegated caller, and connect your MCP resource app as a Resource Connection.
 
 In the Okta **Admin Console**:
 
@@ -385,11 +375,9 @@ Select the AI Agent you just created to open its configuration. Configure the ag
       1. Under the **Application** section, choose your **Application** instance – MCP (Resource App) – from the dropdown menu and paste the **Client ID** at the **Resource Authorization Server**.
    2. Under **Scope Condition**, select **Allow all**
 1. Activate the agent
-   1. The final step is to activate the AI agent, Go to Actions and select **Activate**
+   1. The final step is to activate the AI agent. Go to Actions and select **Activate**
 
 Once the AI Agent is active, the configuration is complete. All checkmarks on the agent configuration page must be green.
-
-Confirm the AI Agent configuration is complete. All checkmarks on the agent configuration page must be green.
 
 ## Verify your Okta XAA setup on xaa.dev
 
