@@ -16,6 +16,7 @@ For blog post files, check for the following required fields:
 | `tweets` | Optional and currently unused |
 | `github` | Required if the article includes a code example repo. |
 | `changelog` | Required if this content is a material change to an existing post, otherwise do not include this front matter. |
+| `canonical` | Required if syndicated or multiple URLs point to this article. |
 
 ---
 

@@ -23,6 +23,13 @@ These are the primary editorial standards for OktaDev blog content. When conflic
 - ❌ Tell the reader **why the post is valuable up front**.
 - ❌ **Preface all tools and technologies** required (e.g. Okta account, AWS account, API key and secret).
 - ⚠️ **Be careful with "first," "last," and "finally"** — these can confuse readers who are partway through. Flag any awkward use.
+- ⚠️ Add **checkpoints** throughout the tutorial so readers can verify they are on the right track before moving to the next step.
+
+---
+
+## Post Footer
+
+- ❌ Every post must end with a CTA. Include: links to related OktaDev posts, links to OktaDev Twitter and YouTube, and a prompt for reader engagement.
 
 ---
 
@@ -57,3 +64,46 @@ These are the primary editorial standards for OktaDev blog content. When conflic
   - Incorrect: "Admin dashboard"
   - Correct: "Okta Integrator Free Plan"
   - Incorrect: "Okta Dev Account"
+
+---
+
+## Image Markup
+
+- ❌ Use the **custom Jekyll image macro**, not standard markdown or asciidoc syntax:
+  ```
+  {% img blog/<post-images-dir>/<image-file-name> alt:"<alt text>" width:"800" %}{: .center-image }
+  ```
+- ❌ All images must have the CSS class `center-image`.
+- ❌ Alt text is required. Never start with "Image of" or "Diagram of."
+- ❌ If the image is decorative, use null alt text `" "`.
+- ❌ Images must be **JPG format**, min **800px wide** (1600px optimal), max **1800px wide**, max **500KB**. Check the image format, not just the file extension.
+
+---
+
+## Image and Diagram Guidelines
+
+### General
+- ❌ Prefer **JPG** over GIF, unless it's an animated GIF. Avoid PNG. Always check the file format, not just the file extension.
+- ⚠️ Prefer **SVG** for mermaid diagrams.
+- ❌ Min width: 800px (1600px optimal). Max width: 1800px. Max file size: 500KB.
+
+### Diagrams
+- ❌ **White backgrounds only**. No color backgrounds, no transparent backgrounds.
+- ❌ **No drop shadows**.
+- ❌ **No borders** in diagrams.
+- ❌ Do not put titles, descriptions, or captions inside the diagram — use surrounding content text instead.
+- ⚠️ Prefer **Mermaid** for diagrams and add the diagram in SVG format.
+
+### Author Photos (if reviewing author content)
+- ❌ Must be in color, head and shoulders only, max 500×500px, max 40KB.
+- ❌ File must be named `avatar-<name>.jpg`.
+
+---
+
+## Content Update Rules
+
+- ❌ If content materially changes guidance or tutorial instructions → **update the article** and add a changelog entry.
+- ❌ If the technology or standards are superseded → **write a new article**. Do not just update the old one.
+  - New article must reference which old article it supersedes.
+  - Old article must have a note at the top pointing to the new article.
+  - Do NOT add a changelog entry to the old article.
