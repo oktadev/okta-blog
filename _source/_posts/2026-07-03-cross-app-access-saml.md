@@ -14,7 +14,7 @@ tweets:
 image: blog/cross-app-access-saml/social.jpg
 type: awareness
 changelog:
-  - 2026-07-09: Added the steps to set up the requester and in Okta and generate a conformance report.
+  - 2026-07-09: Added the steps to set up the requester app in Okta and generate a conformance report.
 ---
 
 If you currently federate enterprise customers using Security Assertion Markup Language (SAML) and want to allow applications to access your API without migrating to OpenID Connect (OIDC), this Cross App Access (XAA) guide is for you.
@@ -29,7 +29,7 @@ The [Identity Assertion Authorization Grant specification](https://datatracker.i
 
 When an agent (like one running in Claude) needs API access, it presents an **Identity Assertion Authorization Grant (ID-JAG)**. The ID-JAG is a short-lived JSON Web Token (JWT) issued by the customer's Identity Provider (IdP) for your authorization server. Your resource server accepts the token, identifies the user, and issues your own access token, all while leaving the customer's existing SAML integration untouched.
 
-The sequence diagram shown below describes the SAML XAA flow. Notice that the SAML SSO flow stays the same; the only change is the section highlighted with the comment "Your Resource Authorization Server (AS): redeem and resolve". You'll make a `POST` request to your resource's authorization server with the ID-JAG, resolve the `NameID` to return an access token that you'll use for resource requests.
+The sequence diagram shown below describes the SAML XAA flow. Notice that the SAML SSO flow stays the same; the only change is the section highlighted with the comment "Your Resource Authorization Server (AS): redeem and resolve". You make a `POST` request to your resource's authorization server with the ID-JAG, resolve the `NameID`, and return an access token that you use for resource requests.
 
 {% img blog/cross-app-access-saml/xaa-saml-sequence-diagram.svg alt:"Sequence diagram showing SAML SSO between the user and Okta IdP, two OAuth token exchanges producing a refresh token and then an ID-JAG, and the resource authorization server redeeming the ID-JAG and resolving the SAML NameID before issuing an access token used to call the API." width:"800" %}{: .center-image }
 
@@ -66,7 +66,7 @@ sequenceDiagram
 
 ## Analyzing the ID-JAG claims
 
-When you decode the ID-JAG, you'll see claims in the header and payload that impact how you process the access request:
+When you decode the ID-JAG, you see claims in the header and payload that impact how you process the access request:
 
 ```json
 // header
@@ -157,9 +157,9 @@ grant_type=urn:ietf:params:oauth:grant-type:jwt-bearer
 
 Before processing, you must bind the ID-JAG's `iss` to a registered SAML connection to prevent forgery.
 
-If you verify the signature before checking the issuer binding, an attacker could potentially create their own IdP, sign a token, and use your customer's SAML issuer as the `sub_id`. 
+If you verify the signature before checking the issuer binding, an attacker can create their own IdP, sign a token, and use your customer's SAML issuer as the `sub_id`. 
 
-Always resolve the connection from the `iss` first, then verify the signature against that connection's key. You'll compare this using the JSON Web Key Set (JWKS) metadata.  
+Always resolve the connection from the `iss` first, then verify the signature against that connection's key. You compare this using the JSON Web Key Set (JWKS) metadata.  
 
 {% img blog/cross-app-access-saml/idjag-validation-order.jpeg alt:"ID-JAG validation order" width:"800" %}{: .center-image }
 
@@ -251,17 +251,15 @@ You can now use Okta to make cross-application requests with your SAML app.
 
 ## Configure your XAA SAML App in Okta
 
-Let's test your SAML application in Okta. Before you begin, you'll need some configuration values from the xaa.dev site.
+Let's test your SAML application in Okta. Before you begin, you need some configuration values from the xaa.dev site.
 
+Navigate to [https://xaa.dev](https://xaa.dev).  Under the heading **"Ready to bring your own actors?"** select the **Resource App** option.  Select the **Test it against a hosted Requesting App** option. Now select the **SAML** option. Finally, select the **Take me there >** button.  You may be prompted for an email address. Enter any valid formatted email, then press continue. You need two values: the **Single Sign-On URL** (Assertion Consumer Service, or ACS) URL and the **Audience URI (SP Entity ID)**.
 
-
-Navigate to [https://xaa.dev](https://xaa.dev).  Under the heading **"Ready to bring your own actors?"** select the **Resource App** option.  You will now select **Test it against a hosted Requesting App** option. Now select the **SAML** option. Finally, select the **Take me there >** button.  You may be prompted for an email address. Enter any valid formatted email, then press continue. You'll need two values: the **Single Sign-On URL** (Assertion Consumer Service, or ACS) URL and the **Audience URI (SP Entity ID)**.
-
-Keep this site open in your browser; you'll return to it throughout the setup.
+Keep this site open in your browser; you return to it throughout the setup.
 
 ### Create the SAML 2.0 resource app in Okta
 
-Before you begin this step, you'll need an Okta Integrator Free Plan account. [Sign up for a new account](https://developer.okta.com/signup/) to test out the XAA features. 
+Before you begin this step, you need an Okta Integrator Free Plan account. [Sign up for a new account](https://developer.okta.com/signup/) to test out the XAA features. 
 
 If you don't have Okta SAML 2.0 applications representing your requesting and resource apps, create them by following these instructions.
 
@@ -283,7 +281,7 @@ In **Configure SAML**:
 
 Press **Finish** to create the Okta SAML 2.0 application.
 
-After creating the app, you'll see more configuration options for your Okta SAML 2.0 app. You'll make changes in more than one tab.
+After creating the app, you see more configuration options for your Okta SAML 2.0 app. You make changes in more than one tab.
 
 **Sign On configuration**
 
@@ -307,7 +305,7 @@ Navigate to the **Resource Server** tab and make the following configuration cha
 
 ### Create a SAML 2.0 requester app for testing
 
-Return to [xaa.dev](https://xaa.dev/developer/test-resource?tab=saml). This is where you will provide these two values: the **Single Sign-On URL** (the Assertion Consumer Service (ACS) URL) and the **Audience URI (SP Entity ID)**.
+Return to [xaa.dev](https://xaa.dev/developer/test-resource?tab=saml). This is where you provide these two values: the **Single Sign-On URL** (the Assertion Consumer Service (ACS) URL) and the **Audience URI (SP Entity ID)**.
 
 Create another Okta SAML 2.0 application in the Okta Admin screen by following these instructions. 
 
@@ -329,11 +327,11 @@ In **Configure SAML**:
 
 Press **Finish** to create the Okta SAML 2.0 application.
 
-After creating the app, you'll see more configuration options for your Okta SAML 2.0 app. You'll make changes in more than one tab.
+After creating the app, you see more configuration options for your Okta SAML 2.0 app. You make changes in more than one tab.
 
 **Sign On configuration**
 
-Select the **Sign On** tab. Locate the Metadata URL field and press Copy to save it to your clipboard. You'll paste this URL to the SAML app metadata URL field in [xaa.dev](https://xaa.dev/developer/test-resource?tab=saml) and save.
+Select the **Sign On** tab. Locate the Metadata URL field and press Copy to save it to your clipboard. Paste this URL to the SAML app metadata URL field in [xaa.dev](https://xaa.dev/developer/test-resource?tab=saml) and save.
 
 Your SSO endpoint and Token endpoint are automatically configured.
 
@@ -346,7 +344,7 @@ Navigate to the **Assignments** tab and make the following configuration changes
 
 ### Register and configure the AI Agent in Okta
 
-With your Okta SAML 2.0 requesting app configured, register a new AI Agent in Okta. The AI Agent configuration represents the relationship between the Okta SAML 2.0 app you created and your Model Context Protocol (MCP) Resource Application. You'll configure credentials, add your requesting app as a delegated caller, and connect your MCP resource app as a Resource Connection.
+With your Okta SAML 2.0 requesting app configured, register a new AI Agent in Okta. The AI Agent configuration represents the relationship between the Okta SAML 2.0 app you created and your Model Context Protocol (MCP) Resource Application. You configure credentials, add your requesting app as a delegated caller, and connect your MCP resource app as a Resource Connection.
 
 In the Okta **Admin Console**:
 
@@ -363,8 +361,8 @@ Select the AI Agent you just created to open its configuration. Configure the ag
    1. Press **Save**
 1. On the **Credentials** tab (select on the **Requesting Agent** to see this tab)
    1. Copy the **AI agent ID**
-   1. Return to the [xaa.dev](https://xaa.dev/developer/test-resource?tab=saml) site to add the**AI agent ID** value as the **Client ID** and save
-   1. Back in Okta, select the **Add Public Key**, and then press **Generate new key**. Okta generates a key pair and displays the private key. Under **PEM**, press **Copy to clipboard** and store the key safely. You'll paste this private key into the **Private key (PKCS8 PEM or private JWK)** field in [xaa.dev](https://xaa.dev/developer/test-resource?tab=saml).
+   1. Return to the [xaa.dev](https://xaa.dev/developer/test-resource?tab=saml) site to add the **AI agent ID** value as the **Client ID** and save
+   1. Back in Okta, select the **Add Public Key**, and then press **Generate new key**. Okta generates a key pair and displays the private key. Under **PEM**, press **Copy to clipboard** and store the key safely. Paste this private key into the **Private key (PKCS8 PEM or private JWK)** field in [xaa.dev](https://xaa.dev/developer/test-resource?tab=saml).
    1. Copy and paste the associated **KEY ID** value and paste it into the **kid** field at  [xaa.dev](https://xaa.dev/developer/test-resource?tab=saml) and save. 
 1. Back at Okta, on the **Delegations** tab
    1. Select **Add Caller**
@@ -381,7 +379,7 @@ Once the AI Agent is active, the configuration is complete. All checkmarks on th
 
 ## Verify your Okta XAA setup on xaa.dev
 
-Before we get to the next section, make sure you have the resource app URL in the resource authorization issuer (ID-JAG audience).  By this point, you'll have every value from the checklist and your one-time Okta setup in place (AI Agent, credentials, owner, delegation, and resource connection), so we'll add the values from Okta and the apps to walk through the flow step by step, one button per step. 
+Before we get to the next section, make sure you have the resource app URL in the resource authorization issuer (ID-JAG audience).  By this point, you have every value from the checklist and your one-time Okta setup in place (AI Agent, credentials, owner, delegation, and resource connection), so we add the values from Okta and the apps to walk through the flow step by step, one button per step. 
 
 The screenshot below shows the SAML configuration values step on xaa.dev. 
 
@@ -401,7 +399,7 @@ Press **Exchange assertion for refresh token**. The tester posts the signed asse
 
 ### Verify the refresh token exchange for an ID-JAG token
 
-Press **Exchange refresh token for ID-JAG**. This action returns a decoded ID-JAG. Take a second to review it: `aud` should equal your Resource authorization issuer, and `sub_id` should contain the SAML NameID of the user who logged in. The Resource authorization server then validates this token. A 200 OK indicates that the step succeeded. 
+Press **Exchange refresh token for ID-JAG**. This action returns a decoded ID-JAG. Take a second to review it: `aud` must equal your Resource authorization issuer, and `sub_id` contains the SAML NameID of the user who logged in. The Resource authorization server then validates this token. A 200 OK indicates that the step succeeded. 
 
 
 ### Redeem the ID-JAG for an access token at the resource authorization server
@@ -409,7 +407,7 @@ Press **Exchange refresh token for ID-JAG**. This action returns a decoded ID-JA
 * Fill in your Resource AS token endpoint 
 * Client ID and client secret of the resource app from the Resource Authorization Server 
 
-Press **Redeem** (`grant_type=jwt-bearer`). If the request succeeds, you'll receive a `200 OK` response with an access token. Inspect the token in the **Token** tab to verify that the`iss`, `aud`, and `scope` claims match the values configured in your resource authorization server. This validation confirms that the authorization server accepted the ID-JAG and issued its own access token.
+Press **Redeem** (`grant_type=jwt-bearer`). If the request succeeds, you receive a `200 OK` response with an access token. Inspect the token in the **Token** tab to verify that the `iss`, `aud`, and `scope` claims match the values configured in your resource authorization server. This validation confirms that the authorization server accepted the ID-JAG and issued its own access token.
 
 {% img blog/cross-app-access-saml/redeem-id-jag.jpg alt:"Redeem-ID-JAG at your Resource Authorization Server screen, showing a successful execution with a 200 OK code." width:"800" %}{: .center-image }
 
