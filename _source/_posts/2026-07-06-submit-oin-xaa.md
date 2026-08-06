@@ -107,7 +107,7 @@ Use this subject line: `Request to enable XAA support for <App Name> on OIN`
 
 **Resource app details:** *fill this out if your app acts as a resource app.*
 
-* Global Issuer URL: the endpoint that processes ID-JAG token exchange requests
+* Global Issuer URL: the authorization server identifier of your OAuth server
 * Protected Resource Identifiers: URLs of the APIs your app exposes (e.g., `https://api.yourdomain.com/v1`)
 * Supported OAuth Scopes: scopes allowed for XAA token exchange (e.g., openid, read, write)
 * CIMD Support:
