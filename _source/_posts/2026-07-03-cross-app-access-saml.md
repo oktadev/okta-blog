@@ -104,29 +104,12 @@ Focus on these key claims noted in the decoded ID-JAG payload:
 
 ## XAA implementation checklist for SAML-federated applications
 
-To fully support Cross App Access, implement these five steps in sequence:
+To fully support Cross App Access, implement these four steps in sequence:
 
-- [How XAA in SAML works](#how-xaa-in-saml-works)
-- [Analyzing the ID-JAG claims](#analyzing-the-id-jag-claims)
-- [XAA implementation checklist for SAML-federated applications](#xaa-implementation-checklist-for-saml-federated-applications)
-  - [Mapping user identity in the SAML `NameID` attribute](#mapping-user-identity-in-the-saml-nameid-attribute)
-  - [Validating the ID-JAG and resolving the user](#validating-the-id-jag-and-resolving-the-user)
-  - [Issuing the access token](#issuing-the-access-token)
-  - [Updating authorization server metadata](#updating-authorization-server-metadata)
-- [Making cross-application requests from your SAML app securely](#making-cross-application-requests-from-your-saml-app-securely)
-- [Configure your XAA SAML App in Okta](#configure-your-xaa-saml-app-in-okta)
-  - [Create the SAML 2.0 resource app in Okta](#create-the-saml-20-resource-app-in-okta)
-  - [Create a SAML 2.0 requester app for testing](#create-a-saml-20-requester-app-for-testing)
-  - [Register and configure the AI Agent in Okta](#register-and-configure-the-ai-agent-in-okta)
-- [Verify your Okta XAA setup on xaa.dev](#verify-your-okta-xaa-setup-on-xaadev)
-  - [Configure SAML SSO](#configure-saml-sso)
-  - [Confirm the SAML Assertion exchange for a refresh token](#confirm-the-saml-assertion-exchange-for-a-refresh-token)
-  - [Verify the refresh token exchange for an ID-JAG token](#verify-the-refresh-token-exchange-for-an-id-jag-token)
-  - [Redeem the ID-JAG for an access token at the resource authorization server](#redeem-the-id-jag-for-an-access-token-at-the-resource-authorization-server)
-  - [Call the resource API with the access token](#call-the-resource-api-with-the-access-token)
-  - [Prove the XAA connection end-to-end](#prove-the-xaa-connection-end-to-end)
-- [Takeaways for implementors who have both OIDC and SAML apps](#takeaways-for-implementors-who-have-both-oidc-and-saml-apps)
-- [Learn more about Cross App Access, SAML, and OAuth 2.0](#learn-more-about-cross-app-access-saml-and-oauth-20)
+- [Mapping user identity in the SAML `NameID` attribute](#mapping-user-identity-in-the-saml-nameid-attribute)
+- [Validating the ID-JAG and resolving the user](#validating-the-id-jag-and-resolving-the-user)
+- [Issuing the access token](#issuing-the-access-token)
+- [Updating authorization server metadata](#updating-authorization-server-metadata)
 
 ### Mapping user identity in the SAML `NameID` attribute
 
@@ -245,7 +228,7 @@ Clients locate your XAA support via your authorization server metadata (`/.well-
 
 ## Making cross-application requests from your SAML app securely
 
-With these five steps complete, your SAML application is configured for Cross App Access. Agents can now authorize requests against your API while maintaining your existing production federation, eliminating the need for protocol migration.
+With these four steps complete, your SAML application is configured for Cross App Access. Agents can now authorize requests against your API while maintaining your existing production federation, eliminating the need for protocol migration.
 
 You can now use Okta to make cross-application requests with your SAML app.
 
@@ -287,7 +270,7 @@ After creating the app, you see more configuration options for your Okta SAML 2.
 
 Select the **Sign On** tab. Locate the Metadata URL field and press Copy to save it to your clipboard. Paste this URL to the SAML app metadata URL field in [xaa.dev](https://xaa.dev/developer/test-resource?tab=saml) and save.
 
-Your SSO endpoint and Token endpoint are automatically configured.
+It automatically discovers your SSO endpoint and token endpoint from the metadata.
 
 **Assignments configuration**
 
@@ -333,7 +316,7 @@ After creating the app, you see more configuration options for your Okta SAML 2.
 
 Select the **Sign On** tab. Locate the Metadata URL field and press Copy to save it to your clipboard. Paste this URL to the SAML app metadata URL field in [xaa.dev](https://xaa.dev/developer/test-resource?tab=saml) and save.
 
-Your SSO endpoint and Token endpoint are automatically configured.
+It automatically discovers your SSO endpoint and token endpoint from the metadata.
 
 **Assignments configuration**
 
