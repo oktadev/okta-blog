@@ -143,7 +143,7 @@ Now that we've stepped through the XAA flow, it's time to test it. [xaa.dev](htt
 
 To test out the application using the xaa.dev platform, follow the steps below to get the app registered as the requester app:
 
-1. Go to [xaa.dev](https://xaa.dev) and select the **Register, test, and manage your requesting app** tab, then select **Continue with your app**.
+1. Register your requesting application at [xaa.dev](https://xaa.dev/developer/register?tab=oidc)
 2. Enter your email and click on **Continue** and **Register New App**.
 3. Enter the Redirect URI and Post-logout URI as below.
 4. Click on the **Add Resource** section and select **ToDo MCP Server**.
