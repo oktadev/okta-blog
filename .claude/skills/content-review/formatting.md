@@ -6,10 +6,14 @@ Standardized formatting rules for consistency across all OktaDev blog posts.
 
 ## Headings
 
-- ❌ Use **Chicago title case** for the title of the post.
-- ❌ Use **sentence case** for all headings within the post — NOT title case.
+> **Title vs. headings use DIFFERENT casing rules — do not apply the same rule to both.**
+
+- ❌ The **post title** (`title:` in front matter) MUST use **Chicago title case** — capitalize the first and last words, all major words, and any word that is not an article, preposition, or coordinating conjunction.
+  - Correct: "Develop a XAA-Enabled Resource Application and Test with Okta"
+  - Incorrect (sentence case): "Develop a XAA-enabled resource application and test with Okta"
+- ❌ **All headings within the post body** (H2, H3, etc.) MUST use **sentence case** — capitalize only the first word and proper nouns. Do NOT use title case for in-body headings.
   - Correct: "How to build a login form"
-  - Incorrect: "How to Build a Login Form"
+  - Incorrect (title case): "How to Build a Login Form"
 - ❌ Use **expressive punctuation (? or !)** in headings where appropriate, but **no periods** at the end of headings.
 - ❌ Do not skip heading levels. An `<h3>` must only appear under an `<h2>`.
 - ❌ Do not add an `<h1>` — the blog title becomes the h1 automatically.
