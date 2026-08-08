@@ -267,10 +267,6 @@ Cross App Access is an early access feature in Okta. New Integrator Free Plan ac
 
 Sign in to your Integrator Free Plan org and open the **Admin Console**.
 
-Enable AI Agent Identity Assertion:
-  1. Navigate to **Settings > Features > Early Access**
-  2. Find **AI Agent Identity Assertion** and **Agent to Agent Connections**, and enable both
-
 You'll need an Okta application representing your requesting and resource apps.
 
 If you don't have Okta SAML 2.0 applications representing your requesting and resource apps, you'll need to create them. Create Okta SAML 2.0 applications by following these instructions. 
