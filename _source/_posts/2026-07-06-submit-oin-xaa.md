@@ -54,7 +54,7 @@ Before you start building, ensure you have these prerequisites in place:
 * **Defined app role**: determine if your app will function as a requesting app, a resource app, or both.
 * **Authorization server support**: if your app acts as a resource app, your authorization server must validate the ID-JAG and issue a scoped access token for the protected resource.
 * **Scopes and protected resources**: if you are building a resource app, clearly define the APIs and scopes available to requesting apps.
-* **Okta Integrator Free Plan org**: use this org to build, test, and submit your integration. You can [register for a new account](https://developer.okta.com/signup/). After signing up, email [developers@okta.com](mailto:developers@okta.com) to enable the XAA feature for your org.
+* **Okta Integrator Free Plan org**: use this org to build, test, and submit your integration. You can [register for a new account](https://developer.okta.com/signup/). 
 * **Single Sign-On (SSO) integration**: XAA relies on the trust your existing SSO already establishes. Ensure your app supports OpenID Connect (OIDC) or SAML SSO with Okta.
 * **Tested workflows**: you must demonstrate that XAA works with Okta as the IdP before requesting XAA enablement for your Okta Integration Network (OIN) integration.
 
@@ -100,7 +100,6 @@ Use this subject line: `Request to enable XAA support for <App Name> on OIN`
   * Resource app name
   * Authorization Server Issuer URL
   * Registered Client ID
-* Supported Scopes: list the scopes your app requests from resource apps.
 * Client ID Metadata Documents (CIMD) Support:
   * If yes, please provide the CIMD URL
   * No
@@ -108,7 +107,7 @@ Use this subject line: `Request to enable XAA support for <App Name> on OIN`
 
 **Resource app details:** *fill this out if your app acts as a resource app.*
 
-* Global Issuer URL: the endpoint that processes ID-JAG token exchange requests
+* Global Issuer URL: the authorization server identifier of your OAuth server
 * Protected Resource Identifiers: URLs of the APIs your app exposes (e.g., `https://api.yourdomain.com/v1`)
 * Supported OAuth Scopes: scopes allowed for XAA token exchange (e.g., openid, read, write)
 * CIMD Support:
@@ -117,7 +116,7 @@ Use this subject line: `Request to enable XAA support for <App Name> on OIN`
   * Planned future support
 * Well-Known Host Endpoints: specify whether you host either of the following:
   * `.well-known/oauth-authorization-server`
-  * `.well-known/oauth-protected-resources`
+  * `.well-known/oauth-protected-resource`
 
 **Testing details:**
 

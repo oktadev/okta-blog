@@ -1,7 +1,7 @@
 ---
 layout: blog_post
 title: "Stretch Your Imagination and Build a Delightful Sign-In Experience"
-author: [emmanuel-folaranmi, alisa-duncan]
+author: [layo-folaranmi, alisa-duncan]
 by: advocate
 communities: [devops,mobile,.net,java,javascript,go,php,python,ruby]
 description: "Customize your Gen3 Okta Sign-In Widget to match your brand. Learn to use design tokens, CSS, and JavaScript for a seamless user experience."
