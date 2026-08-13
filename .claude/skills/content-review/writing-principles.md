@@ -6,13 +6,12 @@ Core principles that guide all writing on the OktaDev blog.
 
 ## Be Concise
 
-- ❌ Keep words and sentences short and to the point. Flag unnecessarily long or padded sentences.
+- ❌ Keep words and sentences short and to the point.
 
 ---
 
 ## Be Consistent
 
-- ❌ Every term must have a single definition. Flag terms used with multiple meanings.
 - ❌ Use standard definitions of words, not Okta-specific ones, unless defined first.
 - ❌ Write in **American English**. Flag British spellings (e.g. "colour", "centre", "realise").
 
@@ -20,8 +19,6 @@ Core principles that guide all writing on the OktaDev blog.
 
 ## Be Clear
 
-- ❌ Assume a reading age of approximately 13. Flag unnecessarily complex vocabulary.
-- ❌ Avoid jargon, idioms, and slang. Flag any that appear.
 - ❌ Avoid double negatives for exceptions.
   - Correct: "You can continue without a path."
   - Incorrect: "A missing path won't prevent you from continuing."
@@ -32,8 +29,11 @@ Core principles that guide all writing on the OktaDev blog.
 ## Be Considerate
 
 - ❌ Avoid referencing age or disability unless directly relevant.
-- ❌ Avoid gendered language. Use singular **"they"** for users and administrators.
+- ❌ Avoid gendered language. Use singular **"they"** for anonymous users and administrators.
 - ❌ Avoid charged terms: **blacklist, whitelist, master, slave, native**. Flag any usage.
+- ❌ Avoid using terms such as **"simple"**, **"easy"**, **"just"** for skill and experience inclusivity. 
+- ❌ Avoid implying someone should have knowledge or experience in a topic or area. Always link to a reference so readers can get up to speed.
+- 💡 Encourage the user to use the "AlexJS Linter" (https://marketplace.visualstudio.com/items?itemName=TLahmann.alex-linter) and "Write Good linter" (https://marketplace.visualstudio.com/items?itemName=travisthetechie.write-good-linter) to catch insensitive phrasing.
 
 ---
 

@@ -17,7 +17,7 @@ changelog:
   - 2026-07-10 => Updated to include OAuth 2.0 Private Key JWT authorization, Okta Admin Console integration for initiating Universal Logout end-to-end, and an optional OIN submission guide. The original post covered building the Global Token Revocation endpoint and securing it with an API key.
 ---
 
-**Update**: This post was updated in July 2026 to include OAuth 2.0 Private Key JWT authorization, Okta Admin Console integration for initiating Universal Logout end-to-end, and an optional OIN submission guide. The original post covered building the Global Token Revocation endpoint and securing it with an API key.
+>**Update**: This post was updated in July 2026 to include OAuth 2.0 Private Key JWT authorization, Okta Admin Console integration for initiating Universal Logout end-to-end, and an optional OIN submission guide. The original post covered building the Global Token Revocation endpoint and securing it with an API key.
 
 Your enterprise customers expect you to safeguard them from security incidents, especially when it comes to compromised user accounts. Perhaps a user has signed in from a known stolen device or from outside an allowed IP zone. If a hacker is masquerading as one of your customers' employees, potentially accessing sensitive company data, you must end their session and sign them out of your app immediately.
 
