@@ -74,17 +74,23 @@ Let's register our note-taking app now.
 
 In your browser, navigate to [xaa.dev](https://xaa.dev). The main site provides information about the players in this flow, and you can test the XAA flow step by step there. Please take a moment to step through the flow to get a better sense of the code we'll build.
 
-When you're ready, navigate to **Developer** > **Register Client**. Add a totally made-up email for more fun when registering.
+When you're ready, scroll down to **Ready to bring your own actors?** and make the following selections:
+ * **Request App**
+ * **Register it with xaa.dev's IdP**
+ * **OIDC**
 
-Select **+ Register New Client** and fill out the required information:
+select **Take me there**.
+
+Add a totally made-up email for more fun to continue registering.
+
+You'll have a pre-registered requesting app, but it needs updated configuration. Press **Edit**, scroll down to the editable fields, and make the following changes:
   * **Application Name** - I used "Notes App"
   * **Redirect URIs** - Enter `http://localhost:3000/auth/callback`
   * **Post-Logout Redirect URIs** - Enter `http://localhost:3000`
-  * **Resource Connections > Add Resource** - Choose "Todo0 Resource App" and mark "todos.read" as your allowed scopes before clicking the Add Connection button.
 
-Once all necessary fields have been filled select **Register App**.
+**Save changes** to continue.
 
-You'll see a modal with the Client ID and Client Secret. The xaa.dev testing site also provides credentials for the resource app's authorization server - the Resource Client ID and Resource Client Secret. Copy all four values. We need to add these to our project.
+You'll see the "Notes App" Client ID and Client Secret. The xaa.dev testing site also provides credentials for the resource app's authorization server - the Resource Client ID and Resource Client Secret. Copy all four values. We need to add these to our project.
 
 ## Get the NestJS project with OAuth and OpenID Connect (OIDC) started
 
