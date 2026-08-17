@@ -17,7 +17,7 @@ type: awareness
 
 If you currently federate enterprise customers using OpenID Connect (OIDC) and want to connect with third-party applications, this Cross App Access (XAA) guide is for you.
 
-The [Identity Assertion Authorization Grant specification](https://datatracker.ietf.org/doc/draft-ietf-oauth-identity-assertion-authz-grant/), the basis of XAA, was designed with OIDC in mind. Your app already holds an ID token after sign-in, and that token is the credential you exchange to reach a third-party app. This guide details what you need to support and how to make resource requests to a third-party app using XAA.
+The [Identity Assertion Authorization Grant specification](https://datatracker.ietf.org/doc/draft-ietf-oauth-identity-assertion-authz-grant/), the basis of XAA, was designed with OIDC in mind. Your app already holds an ID token after sign-in, but it's the refresh token from that same sign-in that you exchange to reach a third-party app. This guide details what you need to support and how to make resource requests to a third-party app using XAA.
 
 **Table of Contents**{: .hide }
 * Table of Contents
@@ -27,7 +27,7 @@ The [Identity Assertion Authorization Grant specification](https://datatracker.i
 
 When an agent (like one running in Claude) needs API access, it presents an **Identity Assertion Authorization Grant (ID-JAG)**. The ID-JAG is a short-lived JSON Web Token (JWT) issued by the Identity Provider (IdP) for your app's user. You exchange the ID-JAG token for an access token to the resource application you're connecting with.
 
-The sequence diagram shown below describes the OIDC XAA flow and how your application fits in. You'll handle the flow in two parts: where your application requests the `ID-JAG` from the IdP using the ID token, and where your app requests the access token from the `ID-JAG` from the third-party resource app's authorization server.
+The sequence diagram shown below describes the OIDC XAA flow and how your application fits in. You'll handle the flow in two parts: where your application requests the `ID-JAG` from the IdP using the refresh token, and where your app requests the access token from the `ID-JAG` from the third-party resource app's authorization server.
 
 {% img blog/xaa-oidc-requesting/xaa-oidc-sequence-diagram.svg alt:"Sequence diagram showing OIDC sign-in between the user and Okta IdP, a token exchange producing an ID-JAG, and then requests an access token from the ID-JAG to call the API." width:"800" %}{: .center-image }
 
@@ -41,11 +41,11 @@ sequenceDiagram
     participant RAS as Resource App Authz Server
     participant RS as Resource App API
     U->>IDP: OIDC sign-in (authorization code flow)
-    IDP-->>C: ID token
+    IDP-->>C: ID token + Refresh token
 
     rect rgb(180, 225, 235)
     Note over C,IDP: Your client requests ID-JAG
-    C->>IDP: ID-JAG Request (subject_token_type=id_token, requested_token_type=id-jag)
+    C->>IDP: ID-JAG Request (subject_token_type=refresh_token, requested_token_type=id-jag)
     IDP-->>C: ID-JAG
     end
 
@@ -65,14 +65,14 @@ Follow the guide in this section to support XAA in your OIDC application when yo
 
 Once the user completes signing in, you'll:
 
-  1. Request the ID-JAG token from Okta using the ID token
+  1. Request the ID-JAG token from Okta using the refresh token
   2. Request the OAuth access token from the third-party resource app's OAuth authorization server
 
 ### Request the ID-JAG token
 
-Your OIDC application runs the authorization code flow as usual and receives an ID token at the callback. That ID token is the credential for the exchange, so hold on to it for the session.
+Your OIDC application runs the authorization code flow as usual, requesting the `offline_access` scope, and receives an ID token and a refresh token at the callback. The ID token is still there for your app's own session, but it's the refresh token that's the credential for the exchange, so hold on to it for the session.
 
-When your application needs resources from a third-party app, exchange the ID token for an ID-JAG at Okta's `/token` endpoint. This exchange follows the [OAuth 2.0 Token Exchange (RFC 8693)](https://datatracker.ietf.org/doc/html/rfc8693) mechanism. Authenticate the request with the client credentials from your OIDC app using `client_secret_post`.
+When your application needs resources from a third-party app, exchange the refresh token for an ID-JAG at Okta's `/token` endpoint. This exchange follows the [OAuth 2.0 Token Exchange (RFC 8693)](https://datatracker.ietf.org/doc/html/rfc8693) mechanism. Authenticate the request with the client credentials from your OIDC app using `client_secret_post`.
 
 ```http
 POST /oauth2/v1/token HTTP/1.1
@@ -80,8 +80,8 @@ Host: your-okta-domain.okta.com
 Content-Type: application/x-www-form-urlencoded
 
 grant_type=urn:ietf:params:oauth:grant-type:token-exchange&
-subject_token=<the ID token from sign-in>&
-subject_token_type=urn:ietf:params:oauth:token-type:id_token&
+subject_token=<the refresh token from sign-in>&
+subject_token_type=urn:ietf:params:oauth:token-type:refresh_token&
 requested_token_type=urn:ietf:params:oauth:token-type:id-jag&
 audience=<the resource app's authorization server issuer URI>&
 resource=<the resource app's API base URL>&
@@ -117,10 +117,7 @@ Authorization: Bearer <access_token>
 
 ### Handle token expiration
 
-ID-JAG tokens have a short timeline by design. When it expires, request a new ID-JAG using the ID token. ID tokens also have a lifespan. If the IdP rejects the ID token due to expiration (you'll see an `invalid_grant` error), then you need a fresh ID token, either by:
-
-  1. Refreshing the user's session with a refresh token
-  2. Sending the user through sign-in again
+ID-JAG tokens have a short timeline by design. When it expires, request a new ID-JAG using the same refresh token — refresh tokens are long-lived, so you don't need to send the user through sign-in again for every ID-JAG. Refresh tokens eventually expire or get revoked, too. If the IdP rejects it (you'll see an `invalid_grant` error), send the user through sign-in again to get a fresh one.
 
 ## Making cross-application requests from your OIDC app securely
 
@@ -149,7 +146,7 @@ Select **Create App Integration**. In the **Create and deploy private app integr
 In **New Web App Integration**:
 
   1. **App integration name**: Enter a descriptive name for the app, for example, "Requesting App"
-  2. **Grant type**: keep **Authorization Code**, and select **Refresh Token** if your app needs to renew the user's session
+  2. **Grant type**: keep **Authorization Code**, and select **Refresh Token** — you'll need it to request the ID-JAG
   3. **Sign-in redirect URIs**: Use the callback URL of your requesting app, e.g., "https://requester-app-uri/callback"
   4. **Sign-out redirect URIs**: Use the sign-out URL of your requesting app
   5. **Assignments**: keep the **Skip group assignments for now** option

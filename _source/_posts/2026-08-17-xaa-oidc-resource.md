@@ -42,8 +42,8 @@ sequenceDiagram
     participant RS as Your API
 
     U->>IDP: OIDC SSO
-    IDP-->>C: ID Token
-    C->>IDP: Token Exchange (subject_token_type=id_token, requested_token_type=id-jag)
+    IDP-->>C: ID Token + Refresh Token
+    C->>IDP: Token Exchange (subject_token_type=refresh_token, requested_token_type=id-jag)
     IDP-->>C: ID-JAG (aud=your AS, sub=your subject namespace)
 
     rect rgb(240,180,41)
@@ -239,15 +239,6 @@ Keep this site open in your browser; you'll return to it throughout the setup.
 
 Before you begin this step, you'll need an Okta Integrator Free Plan account. [Sign up for a new account](https://developer.okta.com/signup/) to test out the XAA features.
 
-Cross App Access is an early access feature in Okta. New Integrator Free Plan account types include XAA support. If you have a paid Okta org plan and the following options are missing, contact your representative.
-
-Sign in to your Integrator Free Plan org and open the **Admin Console**.
-
-Enable AI Agent Identity Assertion:
-
-  1. Navigate to **Settings > Features > Early Access**
-  2. Find **AI Agent Identity Assertion** and **Agent to Agent Connections**, and enable both
-
 You'll need Okta applications representing your requesting and resource apps. If you don't have Okta OIDC applications representing your requesting and resource apps, you'll need to create them. Create Okta OIDC applications by following these instructions.
 
 Navigate to **Applications and Resources > Applications**.
@@ -352,13 +343,13 @@ The screenshot below shows the OIDC configuration values step on xaa.dev.
 
 Press **Start OIDC login at your IdP** and complete the login in the pop-up.
 
-When it closes, the step turns green and shows a **✓ Auto-discovered SSO** endpoint, confirming that the tester resolved the real authorization and token endpoints from your org's discovery document and returned an ID token.
+When it closes, the step turns green and shows a **✓ Auto-discovered SSO** endpoint, confirming that the tester resolved the real authorization and token endpoints from your org's discovery document and returned an ID token and a refresh token.
 
 {% img blog/xaa-oidc-resource/xaadev-oidc-sso-response.jpg alt:"OIDC authorization code request to initiate login through your IdP." width:"800" %}{: .center-image }
 
-### Verify the ID token exchange for an ID-JAG token
+### Verify the refresh token exchange for an ID-JAG token
 
-Press **Exchange ID token for ID-JAG**. The tester posts the ID token to your IdP's token endpoint and returns a decoded ID-JAG. Take a second to review it: `aud` should equal your resource authorization issuer, and `sub` should be the identifier for the user who logged in. A 200 OK indicates that the step succeeded.
+Press **Exchange refresh token for ID-JAG**. The tester posts the refresh token from sign-in to your IdP's token endpoint and returns a decoded ID-JAG. Take a second to review it: `aud` should equal your resource authorization issuer, and `sub` should be the identifier for the user who logged in. A 200 OK indicates that the step succeeded.
 
 ### Redeem the ID-JAG for an access token at the resource authorization server
 
