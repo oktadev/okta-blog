@@ -230,11 +230,20 @@ With these four steps complete, you've configured your OIDC application for Cros
 
 You can now use Okta to make cross-application requests with your OIDC app.
 
-## Configure your XAA OIDC app in Okta
+## Configure your XAA OIDC Resource app in Okta
 
-Let's test your OIDC application in Okta. Before you begin, you'll need some configuration values from the xaa.dev site.
+To test your OIDC resource app with XAA, you'll need the following:
 
-Navigate to [https://xaa.dev](https://xaa.dev). Under the heading **"Ready to bring your own actors?"** select the **Resource App** option. Now select the **Test it against a hosted Requesting App** option. Now select the **OIDC** option. Finally, select the **Take me there >** button. Enter any valid formatted email address if prompted, then press continue. You'll need the **Sign-in redirect URI** for the hosted requesting app.
+- Values from your app (we'll walk through the values needed below)
+- An Okta Integrator Free Plan account. [Sign up for a new account](https://developer.okta.com/signup/) to test out the XAA feature
+- [xaa.dev](https://xaa.dev/developer/test-resource-app?tab=oidc) for testing your resource app
+
+> Cross App Access is an early access feature in Okta. New Integrator Free Plan account types include XAA support. If you have a paid Okta org plan and the following options are missing, contact your representative.
+
+
+Navigate to [xaa.dev](https://xaa.dev/developer/test-resource-app?tab=oidc). Enter any valid formatted email address to establish a session, then press continue. You'll need the **Sign-in redirect URI** for the hosted requesting app.
+
+In **Your IdP's issuer URL**, enter the issuer URL of your IdP. Eg. https://integrator-xxxxxx.okta.com.  Once you paste the issuer URL, you will get the Sign-in redirect URI. Eg, `https://auth.resource.xaa.dev/api/federated-sso/callback/resapp-oidc-xxxxxxx`
 
 Keep this site open in your browser; you'll return to it throughout the setup.
 
@@ -242,24 +251,33 @@ Keep this site open in your browser; you'll return to it throughout the setup.
 
 Before you begin this step, you'll need an Okta Integrator Free Plan account. [Sign up for a new account](https://developer.okta.com/signup/) to test out the XAA features.
 
-You'll need Okta applications representing your requesting and resource apps. If you don't have Okta OIDC applications representing your requesting and resource apps, you'll need to create them. Create Okta OIDC applications by following these instructions.
+You'll need Okta applications representing your resource and requesting apps. If you don't have Okta OIDC applications representing your requesting and resource apps, you'll need to create them. Create Okta OIDC applications by following these instructions.
 
-Navigate to **Applications and Resources > Applications**.
-
-Select **Create App Integration**. In the **Create and deploy private app integrations** dialog, choose the **Classic experience** tab. Under **Sign-in method**, select **OIDC - OpenID Connect**, choose **Web Application** as the application type, and press **Next**.
+  1. Navigate to **Applications and Resources > Applications**
+  2. Select **Create App Integration**, choose the **Classic experience** tab
+  3. Under **Sign-in method**, select **OIDC - OpenID Connect**
+  4. Choose **Web Application** as the application type, and press **Next**
 
 In **New Web App Integration**:
 
   1. **App integration name**: Enter a descriptive name for the app, for example, "Resource App"
   2. **Grant type**: keep **Authorization Code**
-  3. **Sign-in redirect URIs**: Use the callback URL of your resource app
-  4. Press **Save** to create the app
+  3. **Sign-in redirect URIs**: Use the callback URL of your hosted resource app
+  4. **Assignments**: keep the **Skip group assignments for now** option
+  5. Press **Save** to create the app
 
 After creating the app, you'll see more configuration options for your Okta OIDC app. You'll make changes in more than one tab.
 
 **General configuration**
 
-Select the **General** tab and copy the **Client ID** and **Client secret**. Paste both into [xaa.dev](https://xaa.dev/developer/test-resource?tab=oidc) and save. Your SSO endpoint and Token endpoint are automatically configured from your org's OIDC discovery document.
+Select the **General** tab, you will see the **Client ID** and **Client secret**. Use these credentials in your hosted resource app.
+
+**Resource Server extra configuration**
+
+Navigate to the **Resource Server** tab. Next to **Cross App Access (XAA)**, select **Edit**, then choose **Enable** to grant access to the app through XAA, and configure:
+
+  1. **Issuer URL**: Use your resource authorization server issuer URL. This value becomes the `aud` claim in the ID-JAG and cannot change without deleting and resetting the connection.
+  2. **Audience/tenant ID**: This is optional and not needed for this walkthrough
 
 **Assignments configuration**
 
@@ -269,28 +287,23 @@ Navigate to the **Assignments** tab and make the following configuration changes
   2. Search for your test user and select **Assign**
   3. Press **Save and Go Back**, then select **Done**
 
-**Resource Server extra configuration**
-
-Navigate to the **Resource Server** tab and make the following configuration changes:
-
-  1. Select **Enable XAA**
-  2. **Issuer URL**: Use your resource authorization server issuer URL. This value becomes the `aud` claim in the ID-JAG and cannot change without deleting and resetting the connection.
 
 ### Create an OIDC requester app for testing
 
-Return to [xaa.dev](https://xaa.dev/developer/test-resource?tab=oidc). This is where you'll find the **Sign-in redirect URI** for the hosted requesting app.
-
 Create another Okta OIDC application in the Okta Admin screen by following these instructions.
 
-Navigate to **Applications and Resources > Applications**.
-
-Select **Create App Integration**. In the **Create and deploy private app integrations** dialog, choose the **Classic experience** tab. Under **Sign-in method**, select **OIDC - OpenID Connect**, choose **Web Application**, and press **Next**.
+  1. Navigate to **Applications and Resources > Applications**
+  2. Select **Create App Integration**, choose the **Classic experience** tab
+  3. Under **Sign-in method**, select **OIDC - OpenID Connect**
+  4. Choose **Web Application** as the application type, and press **Next**
 
 In **New Web App Integration**:
 
-  1. **App integration name**: Enter a descriptive name for the app, for example, "Requesting App for Testing"
-  2. **Sign-in redirect URIs**: Use the value from xaa.dev
-  3. Press **Save** to create the app
+  1. **App integration name**: Enter a descriptive name for the app, for example, "Requesting App"
+  2. **Grant type**: keep **Authorization Code**, and select **Refresh Token** — you'll need it to request the ID-JAG
+  3. **Sign-in redirect URIs**: Use the generated callback URL from xaa.dev for your requesting app, eg. `https://auth.resource.xaa.dev/api/federated-sso/callback/resapp-oidc-xxxxxxx`
+  5. **Assignments**: keep the **Skip group assignments for now** option
+  6. Press **Save** to create the app
 
 **General configuration**
 
@@ -306,37 +319,47 @@ Navigate to the **Assignments** tab and make the following configuration changes
 
 ### Register and configure the AI Agent in Okta
 
-With your Okta OIDC requesting app configured, register a new AI Agent in Okta. The AI Agent configuration represents the relationship between the Okta OIDC app you created and your Model Context Protocol (MCP) Resource Application. You'll add your requesting app as a delegated caller and connect your MCP resource app as a Resource Connection.
+With your Okta OIDC requesting app and the resource app configured, register a new AI Agent in Okta. During registration, you'll link your requesting app under **User access and authentication**, register the agent's own OAuth client, and then connect the resource app as a **Resource Connection**.
+
+**Register the AI Agent and link your requesting app**
 
 In the Okta **Admin Console**:
 
   1. Navigate to **Directory > AI Agents**
   2. Select **Register AI Agent > Register Manually**
-  3. Enter a **Name**, e.g., "Requesting Agent"
-  4. Select **Register**
+  3. Under **Profile**, enter a **Name** (e.g., "Agent") and an optional description, then press **Next**
+  4. Under **User access and authentication > Allow users to access this agent**, select **Select an existing app**, then choose the Okta OIDC requesting app you created earlier (e.g., "Requesting App"). This app acts as the requesting app for the XAA flow: your users sign in to the agentic app through it, and the agent then acts on their behalf. Press **Next**.
+  5. Under "**Add owners**", select "Assign individual owners", and then choose the test user as the owner then press **Save**.
 
-Select the AI Agent you created earlier to open its configuration. Configure the agent across the following tabs:
+**Connect the resource app**
 
-  1. On the **Owners** tab
-     1. Select **Assign individual owners**
-     2. Search for and add yourself as an owner
-     3. Press **Save**
-  2. On the **Delegations** tab
-     1. Select **Add Caller**
-     2. Search for the newly created Okta OIDC requesting app
-     3. Select **Add Caller** to confirm. The agent authenticates using the client ID and secret of that requesting app, the same credentials it uses for SSO. There's no separate key pair to generate.
-  3. On the **Resource Connections** tab
-     1. Select **Add Resource Connection**. Under the **Resource** section, select **Application** as the **resource type**.
-        1. Under the **Application** section, choose your **Application** instance – MCP (Resource App) – from the dropdown menu and paste the **Client ID** at the **Resource Authorization Server**
-     2. Under **Scope Condition**, select **Allow all**
-  4. Activate the agent
-     1. The final step is to activate the AI agent. Go to **Actions** and select **Activate**.
+  1. Select the **Resource connections** tab
+  2. Select **+ Add resource connection**. Under **Resource**, select **Application** 
+  3. Under **Application**, select **App configured for AI Agent access** 
+  4. In **Application instance** dropdown, choose your **Resource App for Testing - XAA** instance, then select **Enable**
+  6. **AI agent's client ID registered in this app**: paste the **Client ID** at the **Resource Authorization Server**
+  7. **Scopes**: Select **Allow any scope**
+  8. Select **Add** to confirm
 
-Once the AI Agent is active, the configuration is complete. All checkmarks on the agent configuration page must be green.
+**Activate the AI Agent**
+
+Activating the linked requesting app usually activates the AI Agent. If the agent's status is **STAGED**, go to the AI Agent page and select **Actions > Activate**. Wait for the "AI agent activated successfully" message before continuing.
+
+Once the AI Agent is active, the configuration is complete. Except the Machine access, all checkmarks on the agent configuration page must be green.
 
 ## Verify your Okta XAA setup on xaa.dev
 
-Before we get to the next section, make sure you have the resource app URL in the resource authorization issuer (ID-JAG audience). By this point, you'll have every value from the checklist and your one-time Okta setup in place (AI Agent, owner, delegation, and resource connection), so we'll add the values from Okta and the apps to walk through the flow step by step, one button per step.
+Open the AI Agent you created, then go to **Client registration** tab: You'll see the agent uses the same credentials as the linked requesting app. We will use this client ID and secret to request an ID-JAG from the IdP.
+
+In xaa.dev, enter the following values:
+
+1. **Client ID**: Use the values from the AI Agent's client registration tab. 
+2. **Client Secret**: Use the values from the AI Agent's client registration tab.
+3. **Resource AS issuer (ID-JAG audience)**: Use the issuer URL of your resource authorization server. 
+4. **Scopes**: Enter the scopes you want to request for the access token. For example, `chat:read chat:write`.
+5. Press **Save** to store the values.
+
+By this point, you'll have every value from the checklist and your one-time Okta setup in place (AI Agent, owner, delegation, and resource connection), so we'll add the values from Okta and the apps to walk through the flow step by step, one button per step.
 
 The screenshot below shows the OIDC configuration values step on xaa.dev.
 
