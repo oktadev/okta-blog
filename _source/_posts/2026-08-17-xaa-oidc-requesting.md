@@ -67,6 +67,7 @@ Once the user completes signing in, you'll:
 
   1. Request the ID-JAG token from Okta using the refresh token
   2. Request the OAuth access token from the third-party resource app's OAuth authorization server
+  3. Use the access token to make the API request to the resource app
 
 ### Request the ID-JAG token
 
@@ -109,10 +110,18 @@ scope=todos.read
 
 In the example HTTP request, the `Authorization` header uses the `Basic` scheme as a demo. Use the authorization scheme required by the resource application.
 
-The response payload contains the `access_token` property, whose value is the access token. Use the access token to make the API resource request by using the value in the `Authorization` header. For example:
+The response payload contains the `access_token` property, whose value is the access token. 
+
+
+### Call the resource API
+
+Use the access token to make the API resource request by using the value in the `Authorization` header. For example:
 
 ```http
+GET /api/todos/ HTTP/1.1
+Host: the-resource-server.example.com
 Authorization: Bearer <access_token>
+Accept: application/json
 ```
 
 ### Handle token expiration
@@ -135,13 +144,16 @@ Let's configure your OIDC requester application in Okta. Before you begin, you'l
 
 > Cross App Access is an early access feature in Okta. New Integrator Free Plan account types include XAA support. If you have a paid Okta org plan and the following options are missing, contact your representative.
 
-Sign in to your Integrator Free Plan org and open the **Admin Console**.
+### Register the requesting app in Okta
 
-You'll need an Okta application representing your requesting app.
+Use the following steps to create an Okta app integration for your requesting app:
 
-Navigate to **Applications and Resources > Applications**
+Sign in to your Integrator Free Plan org and open the **Admin Console**:
 
-Select **Create App Integration**. In the **Create and deploy private app integrations** dialog, choose the **Classic experience** tab. Under **Sign-in method**, select **OIDC - OpenID Connect**, choose **Web Application** as the application type, and press **Next**.
+  1. Navigate to **Applications and Resources > Applications**
+  2. Select **Create App Integration**, choose the **Classic experience** tab
+  3. Under **Sign-in method**, select **OIDC - OpenID Connect**
+  4. Choose **Web Application** as the application type, and press **Next**
 
 In **New Web App Integration**:
 
@@ -164,9 +176,12 @@ Navigate to the **Assignments** tab and make the following configuration changes
 
 Now that we have the requesting app registered, it's time to register a resource app on the Okta platform. You'll also need an Okta application representing the resource app.
 
-Navigate to **Applications and Resources > Applications**
+### Register the resource app in Okta
 
-In the **Create a new app integration** model, select **OIDC - OpenID Connect**, choose **Web Application**, and press **Next**.
+  1. Navigate to **Applications and Resources > Applications**
+  2. Select **Create App Integration**, choose the **Classic experience** tab
+  3. Under **Sign-in method**, select **OIDC - OpenID Connect**
+  4. Choose **Web Application** as the application type, and press **Next**
 
 In **New Web App Integration**:
 
@@ -189,6 +204,8 @@ Navigate to the **Resource Server** tab. Next to **Cross App Access (XAA)**, sel
 Select **Save**.
 
 > ⚠️ **Note:** Use Audience/tenant ID when you have multiple tenants in your organization.
+
+{% img blog/xaa-oidc-requesting/resource-app-config.jpg alt:"Resource Server tab showing Cross-app access (XAA) enabled with Issuer URL configured." width:"1200" %}{: .center-image }
 
 **Assignments configuration**
 
@@ -214,46 +231,40 @@ In the Okta **Admin Console**:
   2. Select **Register AI Agent > Register Manually**
   3. Under **Profile**, enter a **Name** (e.g., "Agent") and an optional description, then press **Next**
   4. Under **User access and authentication > Allow users to access this agent**, select **Select an existing app**, then choose the Okta OIDC requesting app you created earlier (e.g., "Requesting App"). This app acts as the requesting app for the XAA flow: your users sign in to the agentic app through it, and the agent then acts on their behalf. Press **Next**.
+  5. Under "**Add owners**", select "Assign individual owners", and then choose the test user as the owner then press **Save**.
 
-Select the AI Agent you created earlier to open its configuration, then open the **Client registration** tab:
-
-  5. Choose a client registration method. Use **Client secret** for server-side AI agents like this one – select **Generate secret** and save the value.
-  6. Copy the identifier in the **Client ID** field. Because you linked this AI Agent to your existing OIDC requesting app, it shares the client ID and credentials with that app – you don't generate a separate key pair.
-  7. Press **Activate**, then **Enable**
-
-**Assign users to the requesting app**
-
-  1. Select your AI Agent from **Directory > AI Agents**
-  2. Open the **User access** tab
-  3. Under **Users and groups assigned to this agent**, select **Application > Assignments**
-  4. On the **Assignments** tab, select **Assign > Assign to People**, search for your test user, and select **Assign**
-  5. Press **Save and Go Back**, then select **Done**
+Open the AI Agent you created, then go to **Client registration** tab: You'll see the agent uses the same credentials as the linked requesting app. We will use this client ID and secret to request an ID-JAG from the IdP.
 
 **Connect the resource app**
 
-  1. Still on the AI Agent page, select the **Resource Connections** tab
-  2. Select **Add Resource Connection**. From the **Application** dropdown, choose your **Resource App for Testing** instance, then select **Enable**.
-  3. **Resource indicator**: the resource app's protected URL – use the value from xaa.dev
-  4. **AI agent's client ID registered in this app**: paste the **Client ID** from xaa.dev (it should look similar to `byora...`)
-  5. **Scopes**: enter the scopes your agent needs, e.g., `todos.read`
-  6. Select **Add** to confirm
+  1. Select the **Resource connections** tab
+  2. Select **+ Add resource connection**. Under **Resource**, select **Application** 
+  3. Under **Application**, select **App configured for AI Agent access** 
+  4. In **Application instance** dropdown, choose your **Resource App for Testing - XAA** instance, then select **Enable**
+  6. **AI agent's client ID registered in this app**: paste the **Client ID** from xaa.dev (it should look similar to `byora...`)
+  7. **Scopes**: Select **Allow any scope**
+  8. Select **Add** to confirm
 
 **Activate the AI Agent**
 
-On the AI Agent page, select **Actions > Activate**. Activation can take a few seconds – wait for the "AI agent activated successfully" message before continuing. (Activating the linked requesting app from **Applications and Resources > Applications > Inactive** also activates the AI Agent automatically.)
+Activating the linked requesting app usually activates the AI Agent. If the agent's status is **STAGED**, go to the AI Agent page and select **Actions > Activate**. Wait for the "AI agent activated successfully" message before continuing.
 
-Once the AI Agent is active, the configuration is complete. All checkmarks on the agent configuration page must be green.
+Once the AI Agent is active, the configuration is complete. Except the Machine access, all checkmarks on the agent configuration page must be green.
+
+{% img blog/xaa-oidc-requesting/ai-agent-completion.jpg alt:"AI Agent configuration page showing all required sections completed with green checkmarks except Machine access." width:"1200" %}{: .center-image }
 
 ### Validate the XAA connection end-to-end
 
-Once the flow is complete in the OIDC application, return to [xaa.dev](https://xaa.dev/). In the **Live verification** tab, a green **Conformance passed** panel appears. This confirms all steps:
+Once the Okta setup is complete, return to [xaa.dev](https://xaa.dev/developer/test-requesting-app?tab=oidc). 
+
+Now you should run the XAA flow from your requesting app. In the **Live verification** tab, a green **Conformance passed** panel appears. This confirms all steps:
 
   1. Auth Server accepted your ID-JAG
   2. An access token was issued
   3. Resource Server accepted your access token
   4. The API call to /api/todos/ was successful
 
-At this stage, the JSON conformance log has the complete details of the XAA flow.
+At this stage, the JSON conformance log has the complete details of the XAA flow. You can either download the log or have a URL to share with your IdP.
 
 ## Learn more about Cross App Access, SAML, and OAuth 2.0
 
