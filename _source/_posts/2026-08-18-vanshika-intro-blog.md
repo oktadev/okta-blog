@@ -39,7 +39,7 @@ Over the past few years, I delivered various sessions at leading Indian colleges
 
 I collaborated with brands I admired, while enterprises, founders, and the Government of India recognized my work with a National Award. Magazines, articles, and podcasts also featured my efforts. At that moment, I knew this was my calling to make my professional life an extension of what I love doing.
 
-I remember one time I went to a college for a session where I was the only woman on a panel speaking to nearly 3,000 students. Afterward, several women approached me, nervous, excited, and full of questions. One said, "Seeing you on that stage inspired us. If you can do it, we can too."
+I remember one time I went to a college for a session where I was the only woman on a panel speaking to nearly 3,000 students. Afterwards, several women approached me, nervous, excited, and full of questions. One said, "Seeing you on that stage inspired us. If you can do it, we can too."
 
 That moment stayed with me. I understand that this is the work that matters. These conversations remind me why I do this work every single day, it's worth it.
 
