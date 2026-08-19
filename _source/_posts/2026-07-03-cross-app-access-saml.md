@@ -246,7 +246,7 @@ Before you begin this step, you need an Okta Integrator Free Plan account. [Sign
 
 If you don't have Okta SAML 2.0 applications representing your requesting and resource apps, create them by following these instructions.
 
-Navigate to **Applications > Applications**.
+Navigate to **Applications and Resources > Applications**.
 
 Select **Create App Integration**. In the **Create a new app integration** modal, select **SAML 2.0** and press **Next**.
 
@@ -292,7 +292,7 @@ Return to [xaa.dev](https://xaa.dev/developer/test-resource?tab=saml). This is w
 
 Create another Okta SAML 2.0 application in the Okta Admin screen by following these instructions. 
 
-Navigate to **Applications > Applications**.
+Navigate to **Applications and Resources > Applications**.
 
 Select **Create App Integration**. In the **Create a new app integration** modal, select **SAML 2.0** and press **Next**.
 
