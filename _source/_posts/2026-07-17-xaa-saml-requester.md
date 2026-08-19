@@ -181,7 +181,7 @@ Enable AI Agent Identity Assertion:
 
 You'll need an Okta application representing your requesting app. 
 
-Navigate to **Applications > Applications**
+Navigate to **Applications and Resources > Applications**
 
 In the **Create a new app integration** model, select **SAML 2.0** and press **Next**.
 
@@ -214,7 +214,7 @@ Navigate to the **Assignments** tab and make the following configuration changes
 
 Now that we have the requesting app registered, it's time to register a resource app on the Okta platform. You'll also need an Okta application representing the resource app.
 
-Navigate to **Applications > Applications**
+Navigate to **Applications and Resources > Applications**
 
 In the **Create a new app integration** model, select **SAML 2.0** and press **Next**.
 
