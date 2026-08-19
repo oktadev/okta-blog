@@ -3,16 +3,16 @@ layout: blog_post
 title: "I Found My Coordinates: Code, Community, and Okta"
 author: vanshika
 by: advocate
-communities: [javascript,security]
+communities: [javascript, security]
 description: "Vanshika joins the Okta team!"
 tags: [javascript, advocacy, security, okta]
 image: blog/vanshika-intro-blog/vanshika-pandey-social-img.jpg
 type: awareness
 ---
 
-It all started with a phone call. I received a call from an institute about their campus ambassador program. I was navigating my first year of college, figuring things out. It was all new for me, a new city, far from home, and a hostel room. I was not aware of anything except books and lectures.
+It all started with a phone call from an institute that reached out to recruit me for its campus ambassador program. I was navigating my first year of college, figuring things out. It was all new for me, a new city, far from home, and a hostel room. I was not aware of anything except books and lectures.
 
-A senior in my college advised me to create a LinkedIn account and start looking for opportunities from day one. As they say, "You don't have to be great to start, but you have to start to be great." So I started applying for random internships. Soon, I received my first offer, where I discovered the power of networking and community.
+A senior at my campus ambassador program advised me to create a LinkedIn account and start looking for opportunities from day one. As they say, "You don't have to be great to start, but you have to start to be great." So I started applying for random internships. Soon, I received my first offer, where I discovered the power of networking and community.
 
 > _"No one can whistle a symphony. It takes a whole orchestra to play it."_ – H.E. Luccock
 
@@ -26,7 +26,7 @@ We built the community from scratch, organizing meetups, workshops, and hackatho
 ## My journey into advocacy
 > _"What you seek is seeking you."_ - Rumi
 
-One day, I got an email from a founder who said he liked my profile and wanted me to join his organization as a Developer Advocate – that moment was surreal. That's how I landed an internship as a Developer Advocate at Zuplo, where I learned something crucial: to understand developers' pain points, I needed to walk in their shoes. To truly advocate for developers, I needed to be a developer myself.
+One day, I got an email from a founder who said he liked my LinkedIn profile and wanted me to join his organization as a Developer Advocate – that moment was surreal. That's how I landed an internship as a Developer Advocate at Zuplo, where I learned something crucial: to understand developers' pain points, I needed to walk in their shoes. To truly advocate for developers, I needed to be a developer myself.
 
 Wanting to experience the world of technology from the inside led me to join JPMorgan as a Software Development Engineer, where I got to experience their work firsthand, hear about their challenges, and understand their breakthroughs and victories.
 
