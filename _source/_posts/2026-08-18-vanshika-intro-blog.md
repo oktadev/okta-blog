@@ -41,7 +41,7 @@ I collaborated with brands I admired, while enterprises, founders, and the Gover
 
 I remember one time I went to a college for a session where I was the only woman on a panel speaking to nearly 3,000 students. Afterwards, several women approached me, nervous, excited, and full of questions. One said, "Seeing you on that stage inspired us. If you can do it, we can too."
 
-That moment stayed with me. I understand that this is the work that matters. These conversations remind me why I do this work every single day, it's worth it.
+That moment stayed with me. I understand that this is the work that matters. These conversations remind me why I do this work every single day; it's worth it.
 
 {% img blog/vanshika-intro-blog/community.jpg alt:"Community and meeting with people" width:"800" %}{: .center-image }
 
