@@ -175,10 +175,6 @@ Let's configure your SAML requester application in Okta. Before you begin, you'l
 
 Sign in to your Integrator Free Plan org and open the **Admin Console**.
 
-Enable AI Agent Identity Assertion:
-  1. Navigate to **Settings > Features > Early Access**
-  2. Find **AI Agent Identity Assertion** and **Agent to Agent Connections**, and enable both
-
 You'll need an Okta application representing your requesting app. 
 
 Navigate to **Applications and Resources > Applications**
