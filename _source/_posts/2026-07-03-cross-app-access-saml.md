@@ -281,16 +281,22 @@ Navigate to the **Assignments** tab and make the following configuration changes
 
 **Resource Server extra configuration**
 
-Navigate to the **Resource Server** tab and make the following configuration changes:
+Navigate to the **Resource Server** tab. Next to **Cross App Access (XAA)**, select **Edit**, then choose **Enabled** to grant access to the app through XAA, and configure:
 
-   1. Select **Enable XAA**
-   2. **Issuer URL**: Use your resource authorization server issuer URL. This value becomes the `aud` claim in the ID-JAG and cannot change without deleting and resetting the connection.
+   1. **Issuer URL**: Use your resource authorization server issuer URL. This value becomes the `aud` claim in the ID-JAG and cannot change without deleting and resetting the connection.
+   2. **Audience/tenant ID**: This is optional and not needed for this walkthrough
+
+Select **Save**.
+
+> ⚠️ **Note**
+>
+> Use Audience/tenant ID when you have multiple tenants in your organization.
 
 ### Create a SAML 2.0 requester app for testing
 
 Return to [xaa.dev](https://xaa.dev/developer/test-resource?tab=saml). This is where you provide these two values: the **Single Sign-On URL** (the Assertion Consumer Service (ACS) URL) and the **Audience URI (SP Entity ID)**.
 
-Create another Okta SAML 2.0 application in the Okta Admin screen by following these instructions. 
+Create another Okta SAML 2.0 application in the Okta Admin Console by following these instructions. 
 
 Navigate to **Applications and Resources > Applications**.
 
@@ -333,8 +339,8 @@ In the Okta **Admin Console**:
 
 1. Navigate to **Directory > AI Agents**
 2. Select **Register AI Agent > Register Manually**
-3. Enter a **Name**, e.g., "Requesting Agent" 
-4. Select Register
+3. Under **Profile**, enter a **Name**, e.g., "Requesting Agent", and an optional description, then press **Next**
+4. Under **User access and authentication > Allow users to access this agent**, select **Select an existing app**, then choose the Okta SAML requesting app you created earlier (e.g., "Requesting App for Testing"). This app acts as the requesting app for the XAA flow: your users sign in to the agentic app through it, and the agent then acts on their behalf. Press **Next**.
 
 Select the AI Agent you just created to open its configuration. Configure the agent across the following tabs:
 
