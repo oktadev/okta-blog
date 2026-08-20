@@ -110,10 +110,6 @@ You already resolve users from the `sub` claim during SSO, so the ID-JAG uses th
 
 A `sub` value is only unique when scoped with the issuer. Resolve on `iss` + `sub` together. If the IdP is multi-tenant, the scope is `iss` + `tenant` + `sub`, and you'll need the `tenant` claim to disambiguate. Two customers on the same multi-tenant IdP can otherwise collide.
 
-> ⚠️ **Note**
->
-> If your IdP connection issues pairwise subject identifiers, the same human has a different `sub` at every relying party. The `sub` in the ID-JAG must be the identifier the IdP would put in an ID token issued to *you*, not the one it issued to the requesting app. This is the IdP's responsibility under the specification, but it's the failure you'll see first: a valid, correctly signed ID-JAG that resolves to no local user. Test against a pairwise connection before you ship.
-
 If the user hasn't signed in to your app yet, there's no local record to resolve. Use the `email` claim, or `aud_sub` when the IdP supplies it, to provision just in time. Treat `email` as a linking hint rather than a primary key. Email addresses get reassigned when employees leave, and `iss` + `sub` does not.
 
 ### Validating the ID-JAG and resolving the user
@@ -261,37 +257,23 @@ You'll also need:
 
 See the guide's [prerequisites for AI agent-to-app XAA](https://developer.okta.com/docs/guides/xaa-agent-to-app/main/#overview) for the underlying Okta org requirements.
 
-> Cross App Access is an early access feature in Okta. New Integrator Free Plan account types include XAA support. If you have a paid Okta org plan and the following options are missing, contact your representative.
-
 1. Open the [xaa.dev resource app tester](https://xaa.dev/developer/test-resource-app?tab=oidc) and enter any validly formatted email address to establish a session
 2. In **Your IdP's issuer URL**, enter your Okta org issuer URL. This is the IdP field, not the resource AS issuer URL field further down the panel. For example, `https://integrator-xxxxxx.okta.com`
 3. Copy the generated **Sign-in redirect URI**, for example `https://auth.resource.xaa.dev/api/federated-sso/callback/resapp-oidc-xxxxxxx`. You'll paste it into the requesting app integration in the next section
 4. Leave the tab open. You'll return to it after the Okta configuration is complete
 
-> ⚠️ **Note**
->
-> The generated URI carries a `resapp-oidc-` prefix because it belongs to the resource app tester, not because it's meant for your resource server. Register it on the requesting app integration instead: xaa.dev acts as the requesting app during sign-in, so this callback is its own, not your resource server's.
-
 ### Create the OIDC requesting app for testing
 
-You'll need a requesting app integration and a resource app integration set up in Okta. Create the requesting app integration by following the guide's [OIDC app creation steps](https://developer.okta.com/docs/guides/xaa-agent-to-app/main/#supported-resource-apps), starting from the **Classic experience** tab. Use these tutorial-specific values:
+You'll need a requesting app integration and a resource app integration set up in Okta. Create the requesting app integration by following the guide's [OIDC app creation steps](https://developer.okta.com/docs/guides/xaa-agent-to-app/main/#supported-resource-apps), using these tutorial-specific values:
 
 * **App integration name**: "Requesting App"
 * **Grant type**: Authorization Code, plus **Refresh Token** — you'll need it to request the ID-JAG
 * **Sign-in redirect URIs**: the **Sign-in redirect URI** you copied from xaa.dev above
 * **Assignments**: keep **Skip group assignments for now**
 
-> ⚠️ **Note**
->
-> Use the **Classic experience** tab when creating this app integration, not the new experience. A custom OIDC app integration can only be linked to an AI agent if it was created with the Classic experience App Integration Wizard, and you'll link this one to your agent later in this walkthrough.
-
 **General configuration**
 
 Select the **General** tab and copy the **Client ID** and **Client secret**. Paste both into the requesting app fields at [xaa.dev](https://xaa.dev/developer/test-resource-app?tab=oidc) and save.
-
-> ⚠️ **Note**
->
-> xaa.dev keeps this client secret in your browser to authenticate the ID-JAG mint server-to-server. Treat the requesting app integration as a throwaway test client rather than a production one, and don't reuse credentials that guard anything real.
 
 **Assignments configuration**
 
@@ -299,7 +281,7 @@ Assign your test user to the requesting app integration. See [Assign an app inte
 
 ### Create the OIDC resource app in Okta
 
-Create the resource app integration the same way you created the requesting app integration, again from the **Classic experience** tab. Use these tutorial-specific values:
+Create the resource app integration the same way you created the requesting app integration, and use these tutorial-specific values:
 
 * **App integration name**: "Resource App"
 * **Grant type**: Authorization Code
@@ -329,10 +311,6 @@ With your requesting app integration and resource app integration configured, re
 
 **Register the AI Agent and link your requesting app integration**
 
-> ⚠️ **Note**
->
-> Link your requesting app integration during agent registration, not after. Okta only lets you link an existing custom OIDC app integration to an AI agent while registering the agent; once the agent is registered, you can't switch its linked app integration to a custom OIDC one. If you register the agent first and try to link your requesting app integration afterward, you have no way to recover without starting over.
-
 [Register the AI Agent and link its requesting app integration](https://developer.okta.com/docs/guides/xaa-agent-to-app/main/#register-ai-agent-user-access-and-authentication). Use these tutorial-specific values:
 
 * **Name**: "Agent"
@@ -348,10 +326,6 @@ This linked app integration is what your users sign in through to reach the agen
 * **Application instance**: "Resource App"
 * **AI agent's client ID registered in this app**: "this app" here means your resource AS, not the Okta app integration. Enter the client ID you issued to the AI agent when you registered it as an OAuth client at your resource AS. You perform that registration outside Okta, and the process varies by product
 * **Scopes**: **Allow any scope**
-
-> ⚠️ **Note**
->
-> XAA as part of SSO is capped at 250 ID-JAG tokens per user, per resource app integration, per month. This walkthrough won't come close, but if you outgrow it in production, talk to your Okta account team.
 
 **Activate the AI Agent**
 
