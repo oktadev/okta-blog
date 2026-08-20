@@ -158,10 +158,10 @@ Sign in to your Integrator Free Plan org and open the **Admin Console**:
 In **New Web App Integration**:
 
   1. **App integration name**: Enter a descriptive name for the app, for example, "Requesting App"
-  2. **Grant type**: keep **Authorization Code**, and select **Refresh Token** — you'll need it to request the ID-JAG
+  2. **Grant type**: keep **Authorization Code**, and select **Refresh Token** under **Core Grants** — you'll need it to request the ID-JAG
   3. **Sign-in redirect URIs**: Use the callback URL of your requesting app, e.g., "https://requester-app-uri/callback"
   4. **Sign-out redirect URIs**: Use the sign-out URL of your requesting app
-  5. **Assignments**: keep the **Skip group assignments for now** option
+  5. **Assignments**: select the **Skip group assignments for now** option
   6. Press **Save** to create the app
 
 After creating the app, copy the **Client ID** and **Client secret** from the **General** tab and add them to your requesting app. Your app uses these same credentials for sign-in and for the ID-JAG token exchange.
@@ -187,8 +187,9 @@ In **New Web App Integration**:
 
   1. **App integration name**: Enter a descriptive name for the app, for example, "Resource App for Testing"
   2. **Sign-in redirect URIs**: Add https://idp.xaa.dev/oidc-resource/callback
-  3. **Assignments**: keep the **Skip group assignments for now** option
-  4. Press **Save** to create the app
+  3. **Sign-out redirect URIs**: Remove the default value; it's not needed for this walkthrough
+  4. **Assignments**: select the **Skip group assignments for now** option
+  5. Press **Save** to create the app
 
 > ⚠️ **Note:** Please note that we're providing these for setup; they don't constitute a working single sign-on (SSO) connection to the resource app. Also, don't assume the `sub` claim is an email address; it is whatever the customer's IdP emits. Your matching set must remain consistent across your deployment.
 
@@ -217,7 +218,7 @@ Navigate to the **Assignments** tab and make the following configuration changes
 
 The next step is to set up [xaa.dev](https://xaa.dev/) for the resource app.
 
-Go to [Test your requesting app](https://xaa.dev/developer/test-requesting-app?tab=oidc). Add your **IdP issuer URL** as your Okta Integrator account ID (i.e., https://your-okta-domain.okta.com). Put your email into the **Test user identifier**, for example, name1234...@okta.com. Add the **Client ID** from your Okta OIDC requesting app. After you enter all values, click **Register**.
+Go to [Test your requesting app](https://xaa.dev/developer/test-requesting-app?tab=oidc). Add your **IdP issuer URL** as your Okta Integrator account ID (i.e., https://your-okta-domain.okta.com). Put your email into the **Test user identifier**, for example, name1234...@okta.com. After you enter all values, click **Register**.
 
 ### Register and configure the AI Agent in Okta
 
@@ -240,10 +241,10 @@ Open the AI Agent you created, then go to **Client registration** tab: You'll se
   1. Select the **Resource connections** tab
   2. Select **+ Add resource connection**. Under **Resource**, select **Application** 
   3. Under **Application**, select **App configured for AI Agent access** 
-  4. In **Application instance** dropdown, choose your **Resource App for Testing - XAA** instance, then select **Enable**
-  6. **AI agent's client ID registered in this app**: paste the **Client ID** from xaa.dev (it should look similar to `byora...`)
-  7. **Scopes**: Select **Allow any scope**
-  8. Select **Add** to confirm
+  4. In **Application instance** dropdown, choose your **Resource App for Testing - XAA** instance. 
+  5. **AI agent's client ID registered in this app**: paste the **Client ID** from xaa.dev (it should look similar to `byora...`)
+  6. **Scopes**: Select **Allow any scope**
+  7. Select **Add** to confirm
 
 **Activate the AI Agent**
 
