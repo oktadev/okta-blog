@@ -344,25 +344,22 @@ In the Okta **Admin Console**:
 
 Select the AI Agent you just created to open its configuration. Configure the agent across the following tabs:
 
-1. On the **Owners** tab
-   1. Select **Assign individual owners**
-   1. Search for and add yourself as an owner
-   1. Press **Save**
-1. On the **Credentials** tab (select on the **Requesting Agent** to see this tab)
-   1. Copy the **AI agent ID**
-   1. Return to the [xaa.dev](https://xaa.dev/developer/test-resource?tab=saml) site to add the **AI agent ID** value as the **Client ID** and save
-   1. Back in Okta, select the **Add Public Key**, and then press **Generate new key**. Okta generates a key pair and displays the private key. Under **PEM**, press **Copy to clipboard** and store the key safely. Paste this private key into the **Private key (PKCS8 PEM or private JWK)** field in [xaa.dev](https://xaa.dev/developer/test-resource?tab=saml).
-   1. Copy and paste the associated **KEY ID** value and paste it into the **kid** field at  [xaa.dev](https://xaa.dev/developer/test-resource?tab=saml) and save. 
-1. Back at Okta, on the **Delegations** tab
-   1. Select **Add Caller**
-   1. Search for the newly created Okta SAML requesting app
-   1. Select **Add Caller** to confirm
-1. On the **Resource Connections** tab
-   1. Select **Add Resource Connection**. Under the **Resource** section, select **Application** as the **resource type**. 
-      1. Under the **Application** section, choose your **Application** instance – MCP (Resource App) – from the dropdown menu and paste the **Client ID** at the **Resource Authorization Server**.
-   2. Under **Scope Condition**, select **Allow all**
-1. Activate the agent
-   1. The final step is to activate the AI agent. Go to Actions and select **Activate**
+1. On the **Client registration** tab
+   1. Select the Public/private key section
+   1. In the **Define where keys are managed** choose Okta
+   1. Under the **Add and manage keys** section, select the **Add public key**, and then press **Generate new key**. Okta generates a key pair and displays the private key. Under **PEM**, press **Copy to clipboard** and store the key safely. Paste this private key into the **Private key (PKCS8 PEM or private JWK)** field in [xaa.dev](https://xaa.dev/developer/test-resource?tab=saml).
+   1. Copy and paste the associated **KEY ID** value and paste it into the **kid** field at [xaa.dev](https://xaa.dev/developer/test-resource?tab=saml) and click **Done**.
+   1. In the **Provide Client ID to AI agent builder or developer** step, copy the AI agent **Client ID**
+   1. Return to the [xaa.dev](https://xaa.dev/developer/test-resource?tab=saml) site to add the AI agent **Client ID** value as the **Client ID** and save.
+   1. Back in Okta, under the **Activate for your AI agent** select **Activate**, and then select **Enable**.
+1. On the **User access** tab
+   1. In the **App used for access configuration**, select the option **Select an existing SAML app** and in the drop down menu choose your **SAML Application**, e.g., (Requesting App for Testing)
+1. On the **Resource connections** tab
+   1. Select the **Application instance** and choose your application (e.g., Resource App) from the dropdown menu.
+   1. **AI agent's client ID registered in this app**: paste the **client ID** 
+   1. **Scopes**: Select **Allow any scope**
+   1. Select **Add** to confirm
+1. The final step is to activate the AI agent. Go to **Actions** dropdown menu at the top and select **Activate**.
 
 Once the AI Agent is active, the configuration is complete. All checkmarks on the agent configuration page must be green.
 
