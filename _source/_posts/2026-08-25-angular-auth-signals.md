@@ -268,10 +268,10 @@ Now the template. Open `src/app/user-groups/user-groups.html` and add:
 } @else if (groupsResource.error()) {
   <p class="text-sm text-red-600" role="alert">Failed to load groups.</p>
 } @else {
+  <p class="py-3">Group count: {{ groupCount() }}</p>
+
   <div class="grid gap-3 sm:grid-cols-2">
     @for (group of displayGroups(); track group.id) {
-      <p class="py-3">Group count: {{ groupCount() }}</p>
-
       <p>show group info here</p>
     } @empty {
       <p class="text-sm text-gray-500">No groups found.</p>
