@@ -6,13 +6,9 @@ by: advocate
 communities: [javascript]
 description: "The Okta Angular SDK is standalone-ready! Add authentication to an Angular v22 app and load user groups with signals and rxResource."
 tags: [angular, oidc, sdk]
-tweets:
-- ""
-- ""
-- ""
 image: blog/angular-auth-signals/social.jpg
 type: conversion
-github: https://github.com/oktadev/okta-angular-signals-example
+github: https://github.com/oktadev/okta-angular-auth-signals-example
 ---
 
 Have you noticed that the Okta Angular SDK went fully standalone? There's no `NgModule` left to import, no `importProvidersFrom` wrapper to remember, and the guards are plain functions now. If you've been waiting for the SDK to look like the rest of your standalone Angular app, this is the release you were waiting for.
@@ -23,7 +19,7 @@ In this post, we'll pick up a small Angular v22 project and finish it. We'll mak
   * Load each user's groups with `rxResource` and a signal input
   * Move the Okta configuration to runtime loading
 
-We're calling Okta's APIs directly for this project, so we don't have to stand up a separate backend. If you want to jump to the completed project, you can find it in the [okta-angular-signals-example](https://github.com/oktadev/okta-angular-signals-example) GitHub repository. Otherwise, warm up your fingers and let's get coding!
+We're calling Okta's APIs directly for this project, so we don't have to stand up a separate backend. If you want to jump to the completed project, you can find it in the [okta-angular-auth-signals-example](https://github.com/oktadev/okta-angular-auth-signals-example) GitHub repository. Otherwise, warm up your fingers and let's get coding!
 
 > **Note**
 >
@@ -48,8 +44,8 @@ For this tutorial, you will need the following tools:
 We're starting from a project instead of building everything from scratch, because a pile of `ng generate` commands would distract us from the exciting coding parts. Open a terminal window and run the following commands to get a local copy of the starter and install dependencies. Feel free to fork the repo so you can track your changes.
 
 ```shell
-git clone -b starter https://github.com/oktadev/okta-angular-signals-example.git
-cd okta-angular-signals-example
+git clone -b starter https://github.com/oktadev/okta-angular-auth-signals-example.git
+cd okta-angular-auth-signals-example
 npm ci
 ```
 
@@ -109,7 +105,7 @@ Here's the part I've been looking forward to. Open `src/app/app.config.ts`. You 
 
 There are a couple of OIDC properties worth calling out:
   * **`scopes`** includes `okta.users.read` alongside the usual OIDC scopes, which is how the access token ends up carrying the permission you granted a moment ago
-  * **`dpop: true`** is the client half of the DPoP setting you switched on in the Admin Console. The SDK handles the key pair and the proof headers from here
+  * **`dpop: true`** is the client half of the DPoP setting you switched on in the Okta app configuration. The SDK handles the key pair and the proof headers from here
 
 With the OIDC configuration set, now it's time to provide Okta authentication to the app. Update the app as shown:
 
@@ -425,7 +421,7 @@ Before you move on, let's talk about what belongs in that config file. Fetching 
 
 ## Learn more about Angular signals, standalone APIs, and OIDC
 
-In this post, you added authentication to a standalone Angular app with `provideOktaAuth`, protected a route with a functional guard, and loaded each user's groups with `rxResource` driven by a signal input. I hope you enjoyed it! You can find the completed project in the [okta-angular-signals-example](https://github.com/oktadev/okta-angular-signals-example) GitHub repository.
+In this post, you added authentication to a standalone Angular app with `provideOktaAuth`, protected a route with a functional guard, and loaded each user's groups with `rxResource` driven by a signal input. I hope you enjoyed it! You can find the completed project in the [okta-angular-auth-signals-example](https://github.com/oktadev/okta-angular-auth-signals-example) GitHub repository.
 
 If you liked this post, check out these resources.
 
