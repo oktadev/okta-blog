@@ -279,7 +279,7 @@ Now the template. Open `src/app/user-groups/user-groups.html` and add:
 
 Notice the template reads `isLoading()` and `error()` straight off the resource, so the loading and failure states come along for free. We'll replace that `show group info here` placeholder in the next section.
 
-The last step is handing the component a user. Open `src/app/dashboard/dashboard.html` and find the row that appears when you toggle a user. Replace its placeholder content with the new component:
+The next step is handing the component a user. Open `src/app/dashboard/dashboard.html` and find the row that appears when you toggle a user. Replace its placeholder content with the new component:
 
 ```html
 <app-user-groups [user]="user" />
