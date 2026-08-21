@@ -27,7 +27,7 @@ The [Identity Assertion Authorization Grant specification](https://datatracker.i
 
 When an agent (like one running in Claude) needs API access, it presents an **Identity Assertion Authorization Grant (ID-JAG)**. The ID-JAG is a short-lived JSON Web Token (JWT) issued by the Identity Provider (IdP) for your app's user. You exchange the ID-JAG token for an access token to the resource application you're connecting with.
 
-The sequence diagram shown below describes the OIDC XAA flow and how your application fits in. You'll handle the flow in two parts: where your application requests the `ID-JAG` from the IdP using the refresh token, and where your app requests the access token from the `ID-JAG` from the third-party resource app's authorization server.
+The sequence diagram below describes the OIDC XAA flow and how your application fits into it. You'll handle the flow in two parts: where your application requests the `ID-JAG` from the IdP using the refresh token, and where your app requests the access token from the `ID-JAG` from the third-party resource app's authorization server.
 
 {% img blog/xaa-oidc-requesting/xaa-oidc-sequence-diagram.svg alt:"Sequence diagram showing OIDC sign-in between the user and Okta IdP, a token exchange producing an ID-JAG, and then requests an access token from the ID-JAG to call the API." width:"800" %}{: .center-image }
 
@@ -71,7 +71,7 @@ Once the user completes signing in, you'll:
 
 ### Request the ID-JAG token
 
-Your OIDC application runs the authorization code flow as usual, requesting the `offline_access` scope, and receives an ID token and a refresh token at the callback. The ID token is still there for your app's own session, but it's the refresh token that's the credential for the exchange, so hold on to it for the session.
+Your OIDC application runs the authorization code flow as usual, requesting the `offline_access` scope, and receives an ID token and a refresh token at the callback. The ID token is still there for your app's session, but the refresh token is the credential for the exchange, so hold on to it for the session.
 
 When your application needs resources from a third-party app, exchange the refresh token for an ID-JAG at Okta's `/token` endpoint. This exchange follows the [OAuth 2.0 Token Exchange (RFC 8693)](https://datatracker.ietf.org/doc/html/rfc8693) mechanism. Authenticate the request with the client credentials from your OIDC app using `client_secret_post`.
 
@@ -126,7 +126,7 @@ Accept: application/json
 
 ### Handle token expiration
 
-ID-JAG tokens have a short timeline by design. When it expires, request a new ID-JAG using the same refresh token. Refresh tokens are long-lived, so you don't need to send the user through sign-in again for every ID-JAG. Refresh tokens eventually expire or get revoked, too. If the IdP rejects it (you'll see an `invalid_grant` error), send the user through sign-in again to get a fresh one.
+ID-JAG tokens have a short timeline by design. When it expires, request a new ID-JAG using the same refresh token. Refresh tokens are long-lived, so you don't need to send the user back to sign in again for every ID-JAG. Refresh tokens eventually expire or get revoked, too. If the IdP rejects it (you'll see an `invalid_grant` error), send the user through sign-in again to get a fresh one.
 
 ## Making cross-application requests from your OIDC app securely
 
@@ -138,11 +138,11 @@ Before you configure anything, here's who runs what in this walkthrough:
 
 | Component | Role |
 |---|---|
-| Your requesting app and its code | Runs on your infrastructure. The application XAA lets reach third-party resource apps |
+| Your requesting app and its code | Runs on your infrastructure. The application XAA let's reach third-party resource apps |
 | Your Okta org | The IdP. Authenticates your users and issues the ID-JAG |
-| The Okta app integration representing your requesting app | A registration in Okta, not a running service. Lets your users sign in and lets Okta issue ID-JAGs on your app's behalf |
+| The Okta app integration representing your requesting app | A registration in Okta, not a running service. Let's your users sign in and let's Okta issue ID-JAGs on your app's behalf |
 | The Okta app integration representing the test resource app | A registration in Okta, not a running service. Holds the XAA configuration Okta uses to mint ID-JAGs for xaa.dev's resource authorization server |
-| xaa.dev's resource authorization server (`https://auth.resource.xaa.dev`) | Runs on xaa.dev's infrastructure, not yours. Mints and validates the access tokens the test resource app accepts |
+| xaa.dev's resource authorization server (`https://auth.resource.xaa.dev`) | Runs on xaa.dev's infrastructure, not yours. Mints and validates the access tokens that the test resource app accepts |
 | xaa.dev | Plays the test resource app for this walkthrough, running against your requesting app |
 
 xaa.dev stands in for the third-party resource app so you can verify the requesting side, which is the only side you're actually building. Ownership here is the reverse of the companion resource-app post: there, xaa.dev played the requesting side while you built the resource side; here, xaa.dev plays the resource side while you build the requesting side.
@@ -160,7 +160,7 @@ Let's configure your OIDC requester application in Okta. Before you begin, you'l
 Create the Okta app integration representing your requesting app by following the guide's [OIDC app creation steps](https://developer.okta.com/docs/guides/xaa-agent-to-app/main/#supported-requesting-apps), using these tutorial-specific values:
 
 * **App integration name**: "Requesting App"
-* **Grant type**: Authorization Code, plus **Refresh Token** under **Core Grants**. You'll need Refresh Token to request the ID-JAG
+* **Grant type**: Authorization Code, plus **Refresh Token** under **Core Grants**. You'll need a Refresh Token to request the ID-JAG
 * **Sign-in redirect URIs**: the callback URL of your requesting app, e.g., "https://requester-app-uri/callback"
 * **Sign-out redirect URIs**: the sign-out URL of your requesting app
 * **Assignments**: keep **Skip group assignments for now**
@@ -253,9 +253,9 @@ Then return to [xaa.dev](https://xaa.dev/developer/test-requesting-app?tab=oidc)
   3. Resource Server accepted your access token
   4. The API call to /api/todos/ was successful
 
-In the companion resource-app post, xaa.dev acts as the client and you observe the result. Here, your requesting app acts as the client, and xaa.dev observes it.
+In the companion resource-app post, xaa.dev acts as the client, and you observe the result. Here, your requesting app acts as the client, and xaa.dev observes it.
 
-At this stage, the JSON conformance log has the complete details of the XAA flow. You can either download the log or have a URL to share with your IdP.
+At this stage, the JSON conformance log has the complete details of the XAA flow. You can either download the log or share a URL with your IdP.
 
 ## Learn more about Cross App Access, OIDC, and OAuth 2.0
 
