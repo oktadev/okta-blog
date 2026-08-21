@@ -91,9 +91,9 @@ Focus on these key claims noted in the decoded ID-JAG payload:
 * **`aud`**: Indicates the issuer identifier for your resource authorization server
 * **`client_id`**: This is the client's ID at your resource authorization server, which might differ from its ID at the IdP
 * **`email`**: Recommended by the specification for just-in-time provisioning if the user has not yet signed in
-* **`jti`**: This is the unique ID for the ID-JAG JWT that prevents replay attacks within the validity window
+* **`jti`**: The unique ID for this ID-JAG JWT, as required by JWT conventions
 
-Two optional claims matter if you run a multi-tenant service: the `tenant` claim scopes the subject when the IdP itself is multi-tenant, and `aud_sub` carries the identifier that the IdP believes *you* already have for this user.
+Three optional claims matter if you run a multi-tenant service: the `tenant` claim scopes the subject when the IdP itself is multi-tenant, `aud_tenant` scopes the subject when *your* resource authorization server is multi-tenant, and `aud_sub` carries the identifier that the IdP believes *you* already have for this user.
 
 ## XAA implementation checklist for OIDC-federated applications
 
