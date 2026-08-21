@@ -335,7 +335,7 @@ export class GroupPanel {
 
 This component has no services, no resources, and no idea Okta exists. It takes two inputs and renders them; the separation of concerns is exactly what we want. It makes this component reusable and minimal. Note `description` has a default of `''`, because group descriptions in Okta are optional.
 
-Back in `src/app/user-groups/user-groups.html`, swap the placeholder `<p>show group info here</p` for the panel:
+Back in `src/app/user-groups/user-groups.html`, swap the placeholder `<p>show group info here</p>` for the panel:
 
 ```html
 <app-group-panel
