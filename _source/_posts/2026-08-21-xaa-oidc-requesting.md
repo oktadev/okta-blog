@@ -257,6 +257,8 @@ In the companion resource-app post, xaa.dev acts as the client, and you observe 
 
 At this stage, the JSON conformance log has the complete details of the XAA flow. You can either download the log or share a URL with your IdP.
 
+{% img blog/xaa-oidc-requesting/requesting-conformance-log-success.jpg alt:"xaa.dev Live verification tab showing a green Conformance passed panel after a successful XAA flow." width:"1200" %}{: .center-image }
+
 ## Learn more about Cross App Access, OIDC, and OAuth 2.0
 
 If this guide helped you implement Cross App Access with OIDC, explore these resources:
