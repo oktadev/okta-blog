@@ -200,11 +200,11 @@ With the test resource app integration configured in Okta, register your request
 
 Go to [Test your requesting app](https://xaa.dev/developer/test-requesting-app?tab=oidc). Add your **IdP issuer URL** as your Okta Integrator account ID (i.e., https://your-okta-domain.okta.com). Put your email into the **Test user identifier**, for example, name1234...@okta.com. After you enter all values, click **Register**.
 
-Registering here registers your requesting app as an OAuth client at xaa.dev's resource authorization server, and returns a **Client ID** and **Client Secret**. Save them. You will use this **Client ID** in the AI agent's resource connection in the next section.
-`
+Registering here registers your requesting app as an OAuth client at xaa.dev's resource authorization server, and returns a **Client ID** and **Client Secret**. Save them. Use this **Client ID** in the AI agent's resource connection in the next section.
+
 When you get to the token exchange later in this walkthrough, substitute these values:
 
-* **`audience`**: `https://auth.resource.xaa.dev`, xaa.dev's resource AS issuer URL
+* **`audience`**: `https://auth.resource.xaa.dev`, xaa.dev's resource authorization server (AS) issuer URL
 * **`scope`**: `todos.read`, the scope required to call the test resource app's API 
 * **`resource`**: `https://api.resource.xaa.dev`, xaa.dev's resource API base URL 
 
@@ -215,8 +215,6 @@ Keep this site open; you'll return to it to run the validation flow after the Ok
 With your requesting app integration and the test resource app integration configured, register a new AI Agent in Okta. During registration, you'll link your requesting app integration under **User access and authentication**, register the agent's own OAuth client, and then connect the test resource app integration as a **Resource Connection**.
 
 **Register the AI Agent and link your requesting app integration**
-
-> ⚠️ **Note:** Link your requesting app integration during agent registration, not after. Okta only lets you link an existing custom OIDC app integration to an AI agent while registering the agent; once the agent is registered, you can't switch its linked app integration to a custom OIDC one.
 
 [Register the AI Agent and link its requesting app integration](https://developer.okta.com/docs/guides/xaa-agent-to-app/main/#register-ai-agent-user-access-and-authentication). Use these tutorial-specific values:
 
