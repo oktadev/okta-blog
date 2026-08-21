@@ -389,7 +389,7 @@ Select the request method and enter your API URL (xaa.dev adds the `Authorizatio
 
 A green **Conformance passed** panel appears. Select **Export conformance log (JSON)** to download the test results. The export includes the signed ID-JAG, the access token returned by your resource authorization server, and the API response.
 
-You can share this file with your IdP as proof that the Cross App Access integration works successfully.
+You can either download the log or have a URL to share with your IdP as proof that the Cross App Access integration works successfully.
 
 <!-- TODO: add xaadev-conformance.jpg to _source/_assets/img/blog/xaa-oidc-resource/, then uncomment below -->
 {% comment %}
