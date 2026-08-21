@@ -155,19 +155,15 @@ Let's configure your OIDC requester application in Okta. Before you begin, you'l
 - An Okta Integrator Free Plan account. [Sign up for a new account](https://developer.okta.com/signup/) to test out the XAA feature
 - [xaa.dev](https://xaa.dev/) for testing your requesting app
 
-> Cross App Access is an early access feature in Okta. New Integrator Free Plan account types include XAA support. If you have a paid Okta org plan and the following options are missing, contact your representative.
-
 ### Register the requesting app in Okta
 
-Create the Okta app integration representing your requesting app by following the guide's [OIDC app creation steps](https://developer.okta.com/docs/guides/xaa-agent-to-app/main/#supported-requesting-apps), starting from the **Classic experience** tab. Use these tutorial-specific values:
+Create the Okta app integration representing your requesting app by following the guide's [OIDC app creation steps](https://developer.okta.com/docs/guides/xaa-agent-to-app/main/#supported-requesting-apps), using these tutorial-specific values:
 
 * **App integration name**: "Requesting App"
 * **Grant type**: Authorization Code, plus **Refresh Token** under **Core Grants**. You'll need Refresh Token to request the ID-JAG
 * **Sign-in redirect URIs**: the callback URL of your requesting app, e.g., "https://requester-app-uri/callback"
 * **Sign-out redirect URIs**: the sign-out URL of your requesting app
 * **Assignments**: keep **Skip group assignments for now**
-
-> ⚠️ **Note:** Use the **Classic experience** tab when creating this app integration, not the new experience. A custom OIDC app integration can only be linked as an AI agent's user-access app if it was created with the Classic experience App Integration Wizard.
 
 After creating the app integration, copy the **Client ID** and **Client secret** from the **General** tab and add them to your requesting app. Your app uses these same credentials for sign-in and for the ID-JAG token exchange.
 
@@ -177,11 +173,10 @@ With your requesting app integration registered, you'll need an Okta app integra
 
 ### Register the test resource app in Okta
 
-Create the Okta app integration representing the test resource app by following the guide's [OIDC app creation steps](https://developer.okta.com/docs/guides/xaa-agent-to-app/main/#supported-resource-apps), again from the **Classic experience** tab. Use these tutorial-specific values:
+Create the Okta app integration representing the test resource app by following the guide's [OIDC app creation steps](https://developer.okta.com/docs/guides/xaa-agent-to-app/main/#supported-resource-apps), using these tutorial-specific values:
 
 * **App integration name**: "Resource App for Testing"
 * **Sign-in redirect URIs**: `https://idp.xaa.dev/oidc-resource/callback`
-* **Sign-out redirect URIs**: remove the default value; it's not needed for this walkthrough
 * **Assignments**: keep **Skip group assignments for now**
 
 > ⚠️ **Note:** These values are for setup only; they don't constitute a working single sign-on (SSO) connection to the test resource app.
@@ -205,15 +200,13 @@ With the test resource app integration configured in Okta, register your request
 
 Go to [Test your requesting app](https://xaa.dev/developer/test-requesting-app?tab=oidc). Add your **IdP issuer URL** as your Okta Integrator account ID (i.e., https://your-okta-domain.okta.com). Put your email into the **Test user identifier**, for example, name1234...@okta.com. After you enter all values, click **Register**.
 
-Registering here registers your requesting app as an OAuth client at xaa.dev's resource authorization server, and returns a **Client ID**. Save it: it goes into the AI agent's resource connection in the next section.
-
-> ⚠️ **Note:** The RFC 7523 redemption request later in this post authenticates with a client ID and a client secret. We couldn't confirm from xaa.dev's public pages whether registration here also issues a client secret, or what xaa.dev uses for client authentication if not. Check the registration screen directly before you build the redemption request, and use whatever credential xaa.dev actually issues.
-
+Registering here registers your requesting app as an OAuth client at xaa.dev's resource authorization server, and returns a **Client ID** and **Client Secret**. Save them. You will use this **Client ID** in the AI agent's resource connection in the next section.
+`
 When you get to the token exchange later in this walkthrough, substitute these values:
 
 * **`audience`**: `https://auth.resource.xaa.dev`, xaa.dev's resource AS issuer URL
-* **`scope`**: `todos.read`, per xaa.dev's published token structure documentation
-* **`resource`** (the test resource app's API base URL): we couldn't confirm this value from xaa.dev's public pages. The validation section below references an `/api/todos/` path; confirm the full base URL directly on xaa.dev before you build the request
+* **`scope`**: `todos.read`, the scope required to call the test resource app's API 
+* **`resource`** (the test resource app's API base URL): `https://api.resource.xaa.dev`, xaa.dev's resource API base URL 
 
 Keep this site open; you'll return to it to run the validation flow after the Okta configuration is complete.
 
@@ -243,8 +236,6 @@ Open the AI Agent you created, then go to the **Client registration** tab: you'l
 * **AI agent's client ID registered in this app**: the **Client ID** from xaa.dev (it should look similar to `byora...`)
 * **Scopes**: **Allow any scope**
 
-> ⚠️ **Note:** XAA as part of SSO is capped at 250 ID-JAG tokens per user, per test resource app integration, per month. This walkthrough won't come close, but if you outgrow it in production, talk to your Okta account team.
-
 **Activate the AI Agent**
 
 Activating the linked requesting app integration usually activates the AI Agent. If the agent's status is **STAGED**, [activate it manually](https://developer.okta.com/docs/guides/xaa-agent-to-app/main/#activate-the-ai-agent).
@@ -255,7 +246,7 @@ Once the AI Agent is active, the configuration is complete. Except for Machine a
 
 ### Validate the XAA connection end-to-end
 
-Once the Okta setup is complete, run the three checklist requests above from your own requesting app against the values you just configured: request the ID-JAG, redeem it for an access token at xaa.dev's resource authorization server, and call the test resource app's API.
+Once the Okta setup is complete, sign in to your requesting app and trigger whatever action in your code path calls the test resource app, for example, a button that fetches its data. That single action should exercise all three checklist requests in sequence: your app requests the ID-JAG, redeems it for an access token at xaa.dev's resource authorization server, and calls the test resource app's API with that token.
 
 Then return to [xaa.dev](https://xaa.dev/developer/test-requesting-app?tab=oidc) and open the **Live verification** tab. A green **Conformance passed** panel appears. This confirms all steps:
 
