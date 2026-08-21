@@ -31,7 +31,7 @@
 {% if include.install != "false" %} Next, i{% else %}I{% endif %}n the Admin Console:
 
 1. Go to **Applications and Resources** > **Applications**
-2. Click **Create App Integration** (if your org isn't an Okta Integrator Free Plan org, click **Create App Integration** > **Classic experience**)
+2. Click **Create App Integration**
 3. In the **Sign in Method** section, select **OIDC - OpenID Connect**
 4. Select **
   {%- if include.type == "spa" -%}Single-Page Application
@@ -47,7 +47,7 @@
 7. Configure the redirect URIs:
    - **Sign-in redirect URIs**: `{% if adoc %}\{% endif %}{{ include.loginRedirectUri }}`
    {% if include.logoutRedirectUri %}- **Sign-out redirect URIs**: `{% if adoc %}\{% endif %}{{ include.logoutRedirectUri }}`{% else %}- **Sign-out redirect URIs**: `{% if adoc %}\{% endif %}{{ baseUrl }}`{% endif %}
-8. In the **Assignments** section, assign a group or leave the default **Everyone** access
+8. In the **Assignments** section, assign a group or keep the default **Everyone** group assigned for all
 9. Click **Save**
   {% elsif include.type == "web" %}
 6. Configure the redirect URIs:
@@ -59,7 +59,7 @@
      - **Sign-in redirect URIs**: `{% if adoc %}\{% endif %}http://localhost:8080/login/oauth2/code/okta`
      - **Sign-out redirect URIs**: `{% if adoc %}\{% endif %}http://localhost:8080`{% endif %}
     {% endif %}
-7. In the **Assignments** section, assign a group or leave the default **Everyone** access
+7. In the **Assignments** section, assign a group or keep the default **Everyone** group assigned for all
 8. Click **Save**
   {% elsif include.type == "native" %}
 6. Configure the redirect URIs:
@@ -70,10 +70,10 @@
     {%- if include.loginRedirectUri contains 'com.okta.' -%}
    (where `{{ include.loginRedirectUri | remove: 'com.okta.' | remove: ':/callback' | remove: '[http://localhost:8100/callback,' | remove: ']' }}.okta.com` is your Okta domain name). Your domain name is reversed to provide a unique scheme to open your app on a device.
     {% else %}{% endif %}
-7. In the **Assignments** section, assign a group or leave the default **Everyone** access
+7. In the **Assignments** section, assign a group or keep the default **Everyone** group assigned for all
 8. Click **Save**
   {% elsif include.type == "service" %}
-6. In the **Assignments** section, assign a group or leave the default **Everyone** access
+6. In the **Assignments** section, assign a group or keep the default **Everyone** group assigned for all
 7. Click **Save**
   {% endif %}
 
