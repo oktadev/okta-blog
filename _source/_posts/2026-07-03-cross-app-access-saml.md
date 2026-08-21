@@ -255,7 +255,7 @@ In **General Settings**:
 
 In **Configure SAML**:
   1. **Single sign-on URL**: Use the ACS URL of your resource app, e.g., "https://idp.xaa.dev/saml-requester/acs"
-  2. **Audience URI (SP Entity ID)**: Use the SP Entity of your requester or resource app, e.g., "https://idp.xaa.dev/saml-requester/metadata"
+  2. **Audience URI (SP Entity ID)**: Use the SP Entity of your resource app, e.g., "https://idp.xaa.dev/saml-requester/metadata"
   3. **Name ID format**: select **EmailAddress**
   4. **Application username**: select **Email**
   5. **Update application username on**: select **Create and update**
@@ -321,9 +321,9 @@ It automatically discovers your SSO endpoint and token endpoint from the metadat
 
 ### Register and configure the AI Agent in Okta
 
-With your Okta SAML 2.0 requesting app configured, register a new AI Agent in Okta. The AI Agent configuration represents the relationship between the Okta SAML 2.0 app you created and your Model Context Protocol (MCP) Resource Application. You configure credentials, add your requesting app as a delegated caller, and connect your MCP resource app as a Resource Connection.
+With your Okta SAML 2.0 requesting app configured, register a new AI Agent in Okta. The AI Agent configuration represents the relationship between the Okta SAML 2.0 app you created and your Model Context Protocol (MCP) Resource Application. You configure credentials, link your requesting app during registration, and connect your MCP resource app as a Resource Connection.
 
-In the Okta **Admin Console**, [register the AI agent and link your requesting app](https://developer.okta.com/docs/guides/xaa-agent-to-app/main/#register-ai-agent-user-access-and-authentication):
+In the Okta **Admin Console**, [register the AI Agent and link your requesting app](https://developer.okta.com/docs/guides/xaa-agent-to-app/main/#register-ai-agent-user-access-and-authentication):
 
 1. Navigate to **Directory > AI Agents**
 2. Select **Register AI Agent > Register Manually**
@@ -336,16 +336,16 @@ Select the AI Agent you just created to open its configuration. Configure the ag
    1. Select the **Public/private key** section
    1. In the **Define where keys are managed** section, choose **Okta**
    1. Under the **Add and manage keys** section, select **Add public key**, then **Generate new key**. Under **PEM**, copy the private key into the **Private key (PKCS8 PEM or private JWK)** field in [xaa.dev](https://xaa.dev/developer/test-resource?tab=saml).
-   1. Copy the **KEY ID** into the **kid** field at [xaa.dev](https://xaa.dev/developer/test-resource?tab=saml), then click **Done**.
-   1. In the **Provide Client ID to AI agent builder or developer** step, copy the **Client ID**, paste it into the **Client ID** field at [xaa.dev](https://xaa.dev/developer/test-resource?tab=saml), and save.
-   1. Under **Activate for your AI agent**, select **Activate**, then **Enable**.
+   1. Copy the **KEY ID** into the **kid** field at [xaa.dev](https://xaa.dev/developer/test-resource?tab=saml), then click **Done**
+   1. In the **Provide Client ID to AI agent builder or developer** step, copy the **Client ID**, paste it into the **Client ID** field at [xaa.dev](https://xaa.dev/developer/test-resource?tab=saml), and save
+   1. Under **Activate for your AI agent**, select **Activate**, then **Enable**
 1. On the **User access** tab
    1. In the **App used for access configuration**, select **Select an existing SAML app**, then your **SAML Application**, e.g., "Requesting App for Testing"
-1. On the **Resource connections** tab, [add a resource connection to the AI agent](https://developer.okta.com/docs/guides/xaa-agent-to-app/main/#configure-the-xaa-connection). Use these values:
+1. On the **Resource connections** tab, [add a resource connection to the AI Agent](https://developer.okta.com/docs/guides/xaa-agent-to-app/main/#configure-the-xaa-connection). Use these values:
    1. **Application instance**: your resource app (e.g., "Resource App")
    1. **AI agent's client ID registered in this app**: the **Client ID**
    1. **Scopes**: **Allow any scope**
-1. [Activate the AI agent](https://developer.okta.com/docs/guides/xaa-agent-to-app/main/#activate-the-ai-agent): activating the linked requesting app integration usually activates the AI Agent. If the agent's status is **STAGED**, go to the **Actions** drop-down menu at the top and select **Activate**.
+1. [Activate the AI Agent](https://developer.okta.com/docs/guides/xaa-agent-to-app/main/#activate-the-ai-agent): activating the linked requesting app integration usually activates the AI Agent. If the agent's status is **STAGED**, go to the **Actions** drop-down menu at the top and select **Activate**.
 
 Once the AI Agent is active, the configuration is complete. Except for Machine access, all checkmarks on the agent configuration page must be green.
 
