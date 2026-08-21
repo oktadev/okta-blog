@@ -12,7 +12,7 @@ tweets:
   - ""
   - ""
 image: blog/xaa-oidc-requesting/social.jpg
-type: awareness
+type: conversion
 ---
 
 If you currently federate enterprise customers using OpenID Connect (OIDC) and want to connect with third-party applications, this Cross App Access (XAA) guide is for you.
