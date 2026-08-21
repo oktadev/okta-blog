@@ -244,7 +244,7 @@ Keep this site open in your browser; you return to it throughout the setup.
 
 Before you begin this step, you need an Okta Integrator Free Plan account. [Sign up for a new account](https://developer.okta.com/signup/) to test out the XAA features. 
 
-If you don't have Okta SAML 2.0 applications representing your requesting and resource apps, create them by following these instructions.
+If you don't have an Okta SAML 2.0 application representing your resource app, [create a custom SAML app integration](https://developer.okta.com/docs/guides/create-an-app-integration/saml2/main/#create-a-custom-app-integration).
 
 Navigate to **Applications and Resources > Applications**.
 
@@ -252,7 +252,6 @@ Select **Create App Integration**. In the **Create a new app integration** modal
 
 In **General Settings**:
   1. **App name**: Enter a descriptive name for the app, for example,  "Resource App"
-  2. Press **Next** to continue
 
 In **Configure SAML**:
   1. **Single sign-on URL**: Use the ACS URL of your resource app, e.g., "https://idp.xaa.dev/saml-requester/acs"
@@ -260,7 +259,6 @@ In **Configure SAML**:
   3. **Name ID format**: select **EmailAddress**
   4. **Application username**: select **Email**
   5. **Update application username on**: select **Create and update**
-  6. Press **Next** to continue
 
 Press **Finish** to create the Okta SAML 2.0 application.
 
@@ -274,19 +272,14 @@ It automatically discovers your SSO endpoint and token endpoint from the metadat
 
 **Assignments configuration**
 
-Navigate to the **Assignments** tab and make the following configuration changes:
-  1. Select **Assign > Assign to People** 
-  2. Search for your test user and select **Assign** 
-  3. Press **Save and Go Back**, then select **Done**
+[Assign your user](https://help.okta.com/oie/en-us/content/topics/provisioning/lcm/lcm-assign-app-user.htm) to the app on the **Assignments** tab.
 
 **Resource Server extra configuration**
 
-Navigate to the **Resource Server** tab. Next to **Cross App Access (XAA)**, select **Edit**, then choose **Enabled** to grant access to the app through XAA, and configure:
+[Enable Cross App Access (XAA)](https://developer.okta.com/docs/guides/xaa-agent-to-app/main/#enable-xaa-on-a-custom-app-integration) on the resource app integration from the **Resource Server** tab, and configure:
 
    1. **Issuer URL**: Use your resource authorization server issuer URL. This value becomes the `aud` claim in the ID-JAG and cannot change without deleting and resetting the connection.
    2. **Audience/tenant ID**: This is optional and not needed for this walkthrough
-
-Select **Save**.
 
 > ⚠️ **Note**
 >
