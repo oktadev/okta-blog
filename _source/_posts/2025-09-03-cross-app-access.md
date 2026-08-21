@@ -14,9 +14,21 @@ tweets:
 image: blog/cross-app-access/social.jpg
 type: conversion
 changelog:
+  - 2026-08-20: Added a notice directing readers to the current OIDC resource and requesting app guides, since the Admin Console steps in this post no longer apply.
   - 2026-06-30: Removed the self-service EA enablement steps as Cross App Access is no longer self-service. Updated the section to direct Okta customers to the customer support team and ISVs to developers@okta.com. Added a note clarifying that this guide covers the OIDC integration path. Changes to this article can be viewed in [oktadev/okta-blog#1663](https://github.com/oktadev/okta-blog/pull/1663).
   - 2026-05-22: Updated the Okta Admin Console steps to reflect the new **XAA Resource App** and **XAA Requesting App** App Catalog integrations, and the new required **Issuer URL** and **Client ID** fields. Changes to this article can be viewed in [oktadev/okta-blog#1641](https://github.com/oktadev/okta-blog/pull/1641).
 ---
+
+## ⚠️ This guide is out of date
+{: .no_toc }
+
+> The Okta Admin Console steps in this guide no longer work: the **XAA Resource App** and **XAA Requesting App** App Catalog integrations, along with the **Manage Connections** tab, have been replaced by AI agent registration under **Directory > AI Agents**.
+>
+> Building the app that owns the API, validates the ID-JAG, and issues its own access token? Read [Add Cross App Access to Your OIDC Resource Application](/blog/2026/08/17/xaa-oidc-resource).
+>
+> Building the app that acts on the user's behalf and exchanges a refresh token for an ID-JAG? Read [Add Cross App Access to Your OIDC Requesting Application](/blog/2026/08/17/xaa-oidc-requesting).
+>
+> Both guides cover the current Admin Console configuration and let you verify the flow against a hosted test app instead of running a local sample.
 
 So you want to get your AI agent in front of Okta customers or make your application securely accessible to agents — you're in the right place. Here's why it matters.
 

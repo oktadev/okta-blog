@@ -13,6 +13,8 @@ tweets:
   - ""
   - ""
 type: awareness
+changelog:
+  - 2026-08-20: Added the OIDC resource and requesting app implementation guides, and removed the superseded OIDC guide link.
 ---
 
 AI agents have evolved from novelties into active participants in enterprise workflows. They now operate across systems, reading data, executing actions, and calling APIs on behalf of users.
@@ -64,7 +66,8 @@ To begin development, select the guide corresponding to your application's authe
 
 * If your resource app uses SAML for SSO, follow our [SAML resource app implementation guide](/blog/2026/07/03/cross-app-access-saml).
 * If your requesting app uses SAML for SSO, follow our [SAML requesting app implementation guide](/blog/2026/07/17/xaa-saml-requester).
-* If your app uses OIDC for SSO, refer to the [OIDC implementation guide](/blog/2025/09/03/cross-app-access).
+* If your resource app uses OIDC for SSO, follow our [OIDC resource app implementation guide](/blog/2026/08/17/xaa-oidc-resource).
+* If your requesting app uses OIDC for SSO, follow our [OIDC requesting app implementation guide](/blog/2026/08/17/xaa-oidc-requesting).
 
 To verify your configuration, demonstrate a successful token exchange:
 
@@ -149,7 +152,8 @@ If this guide helped you plan your OIN and XAA submission, explore these resourc
 - 📄 [Okta Integration Network documentation](https://developer.okta.com/docs/guides/okta-integration-network/): everything you need to get your SSO integration listed on the OIN.
 - 🔐 [Enabling Cross App Access for SAML-Based Resource Apps](/blog/2026/07/03/cross-app-access-saml): the implementation guide for SAML SSO resource apps.
 - 🔐 [Enable Your SAML Requesting App for Cross App Access](/blog/2026/07/17/xaa-saml-requester): the implementation guide for SAML SSO requesting apps.
-- 🔑 [Build secure agent-to-app connections with Cross App Access (XAA)](/blog/2025/09/03/cross-app-access): the implementation guide for OIDC SSO apps.
+- 🔑 [Add Cross App Access to Your OIDC Resource Application](/blog/2026/08/17/xaa-oidc-resource): the implementation guide for OIDC SSO resource apps.
+- 🔑 [Add Cross App Access to Your OIDC Requesting Application](/blog/2026/08/17/xaa-oidc-requesting): the implementation guide for OIDC SSO requesting apps.
 - 🎙️ [Developer podcast on MCP and Cross App Access](https://www.youtube.com/watch?v=qKs4k5Y1x_s): hear the backstory, use cases, and why this matters for developers.
 
 Follow us on [LinkedIn](https://www.linkedin.com/company/oktadev) and [X](https://x.com/oktadev), and subscribe to our [YouTube](https://www.youtube.com/c/OktaDev/) channel. Leave a comment below if you have any questions!
