@@ -14,7 +14,7 @@ tweets:
   - ""
 type: awareness
 changelog:
-  - 2026-08-20: Added the OIDC resource and requesting app implementation guides, and removed the superseded OIDC guide link.
+  - 2026-08-20: Added the OIDC resource and requesting app implementation guides, and removed the superseded OIDC guide link. Changes to this article can be viewed in [oktadev/okta-blog#1701](https://github.com/oktadev/okta-blog/pull/1701).
 ---
 
 AI agents have evolved from novelties into active participants in enterprise workflows. They now operate across systems, reading data, executing actions, and calling APIs on behalf of users.
