@@ -206,7 +206,7 @@ When you get to the token exchange later in this walkthrough, substitute these v
 
 * **`audience`**: `https://auth.resource.xaa.dev`, xaa.dev's resource AS issuer URL
 * **`scope`**: `todos.read`, the scope required to call the test resource app's API 
-* **`resource`** (the test resource app's API base URL): `https://api.resource.xaa.dev`, xaa.dev's resource API base URL 
+* **`resource`**: `https://api.resource.xaa.dev`, xaa.dev's resource API base URL 
 
 Keep this site open; you'll return to it to run the validation flow after the Okta configuration is complete.
 
