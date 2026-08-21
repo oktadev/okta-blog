@@ -142,8 +142,8 @@ Before you configure anything, here's who runs what in this walkthrough:
 | Your Okta org | The IdP. Authenticates your users and issues the ID-JAG |
 | The Okta app integration representing your requesting app | A registration in Okta, not a running service. Lets your users sign in and lets Okta issue ID-JAGs on your app's behalf |
 | The Okta app integration representing the test resource app | A registration in Okta, not a running service. Holds the XAA configuration Okta uses to mint ID-JAGs for xaa.dev's resource authorization server |
-| xaa.dev's resource authorization server (`https://auth.resource.xaa.dev`) | Runs on xaa.dev's infrastructure, not yours. Mints and validates the access tokens the test resource app accepts |
-| xaa.dev | Plays the test resource app for this walkthrough, running against your requesting app |
+| xaa.dev's resource authorization server | Runs on xaa.dev's infrastructure, not yours. Mints and validates the access tokens the test resource app accepts |
+| xaa.dev's resource API server | Plays the test resource app for this walkthrough, running against your requesting app |
 
 xaa.dev stands in for the third-party resource app so you can verify the requesting side, which is the only side you're actually building. Ownership here is the reverse of the companion resource-app post: there, xaa.dev played the requesting side while you built the resource side; here, xaa.dev plays the resource side while you build the requesting side.
 
