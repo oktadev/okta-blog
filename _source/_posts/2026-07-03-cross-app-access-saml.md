@@ -244,23 +244,21 @@ Keep this site open in your browser; you return to it throughout the setup.
 
 Before you begin this step, you need an Okta Integrator Free Plan account. [Sign up for a new account](https://developer.okta.com/signup/) to test out the XAA features. 
 
-If you don't have Okta SAML 2.0 applications representing your requesting and resource apps, create them by following these instructions.
+If you don't have an Okta SAML 2.0 application representing your resource app, [create a custom SAML app integration](https://developer.okta.com/docs/guides/create-an-app-integration/saml2/main/#create-a-custom-app-integration).
 
-Navigate to **Applications > Applications**.
+Navigate to **Applications and Resources > Applications**.
 
 Select **Create App Integration**. In the **Create a new app integration** modal, select **SAML 2.0** and press **Next**.
 
 In **General Settings**:
   1. **App name**: Enter a descriptive name for the app, for example,  "Resource App"
-  2. Press **Next** to continue
 
 In **Configure SAML**:
   1. **Single sign-on URL**: Use the ACS URL of your resource app, e.g., "https://idp.xaa.dev/saml-requester/acs"
-  2. **Audience URI (SP Entity ID)**: Use the SP Entity of your requester or resource app, e.g., "https://idp.xaa.dev/saml-requester/metadata"
+  2. **Audience URI (SP Entity ID)**: Use the SP Entity of your resource app, e.g., "https://idp.xaa.dev/saml-requester/metadata"
   3. **Name ID format**: select **EmailAddress**
   4. **Application username**: select **Email**
   5. **Update application username on**: select **Create and update**
-  6. Press **Next** to continue
 
 Press **Finish** to create the Okta SAML 2.0 application.
 
@@ -268,37 +266,37 @@ After creating the app, you see more configuration options for your Okta SAML 2.
 
 **Sign On configuration**
 
-Select the **Sign On** tab. Locate the Metadata URL field and press Copy to save it to your clipboard. Paste this URL to the SAML app metadata URL field in [xaa.dev](https://xaa.dev/developer/test-resource?tab=saml) and save.
+[Copy the Metadata URL](https://developer.okta.com/docs/guides/create-an-app-integration/saml2/main/#create-a-custom-app-integration) from the **Sign On** tab, then paste it into the SAML app metadata URL field in [xaa.dev](https://xaa.dev/developer/test-resource?tab=saml) and save.
 
 It automatically discovers your SSO endpoint and token endpoint from the metadata.
 
 **Assignments configuration**
 
-Navigate to the **Assignments** tab and make the following configuration changes:
-  1. Select **Assign > Assign to People** 
-  2. Search for your test user and select **Assign** 
-  3. Press **Save and Go Back**, then select **Done**
+[Assign your user](https://help.okta.com/oie/en-us/content/topics/provisioning/lcm/lcm-assign-app-user.htm) to the app on the **Assignments** tab.
 
 **Resource Server extra configuration**
 
-Navigate to the **Resource Server** tab and make the following configuration changes:
+[Enable Cross App Access (XAA)](https://developer.okta.com/docs/guides/xaa-agent-to-app/main/#enable-xaa-on-a-custom-app-integration) on the resource app integration from the **Resource Server** tab, and configure:
 
-   1. Select **Enable XAA**
-   2. **Issuer URL**: Use your resource authorization server issuer URL. This value becomes the `aud` claim in the ID-JAG and cannot change without deleting and resetting the connection.
+   1. **Issuer URL**: Use your resource authorization server issuer URL. This value becomes the `aud` claim in the ID-JAG and cannot change without deleting and resetting the connection.
+   2. **Audience/tenant ID**: This is optional and not needed for this walkthrough
+
+> ⚠️ **Note**
+>
+> Use Audience/tenant ID when you have multiple tenants in your organization.
 
 ### Create a SAML 2.0 requester app for testing
 
 Return to [xaa.dev](https://xaa.dev/developer/test-resource?tab=saml). This is where you provide these two values: the **Single Sign-On URL** (the Assertion Consumer Service (ACS) URL) and the **Audience URI (SP Entity ID)**.
 
-Create another Okta SAML 2.0 application in the Okta Admin screen by following these instructions. 
+[Create a custom SAML app integration](https://developer.okta.com/docs/guides/create-an-app-integration/saml2/main/#create-a-custom-app-integration) for your requester app in the Okta Admin Console.
 
-Navigate to **Applications > Applications**.
+Navigate to **Applications and Resources > Applications**.
 
 Select **Create App Integration**. In the **Create a new app integration** modal, select **SAML 2.0** and press **Next**.
 
 In **General Settings**:
   1. **App name**: Enter a descriptive name for the app, for example,  "Requesting App for Testing"
-  2. Press **Next** to continue
 
 In **Configure SAML**:
   1. **Single sign-on URL**: Use the ACS URL from xaa.dev, e.g., "https://idp.xaa.dev/saml-requester/acs"
@@ -306,7 +304,6 @@ In **Configure SAML**:
   3. **Name ID format**: select **EmailAddress**
   4. **Application username**: select **Email**
   5. **Update application username on**: select **Create and update**
-  6. Press **Next** to continue
 
 Press **Finish** to create the Okta SAML 2.0 application.
 
@@ -314,51 +311,43 @@ After creating the app, you see more configuration options for your Okta SAML 2.
 
 **Sign On configuration**
 
-Select the **Sign On** tab. Locate the Metadata URL field and press Copy to save it to your clipboard. Paste this URL to the SAML app metadata URL field in [xaa.dev](https://xaa.dev/developer/test-resource?tab=saml) and save.
+[Copy the Metadata URL](https://developer.okta.com/docs/guides/create-an-app-integration/saml2/main/#create-a-custom-app-integration) from the **Sign On** tab, then paste it into the SAML app metadata URL field in [xaa.dev](https://xaa.dev/developer/test-resource?tab=saml) and save.
 
 It automatically discovers your SSO endpoint and token endpoint from the metadata.
 
 **Assignments configuration**
 
-Navigate to the **Assignments** tab and make the following configuration changes:
-  1. Select **Assign > Assign to People** 
-  2. Search for your test user and select **Assign** 
-  3. Press **Save and Go Back**, then select **Done**
+[Assign your test user](https://help.okta.com/oie/en-us/content/topics/provisioning/lcm/lcm-assign-app-user.htm) to the app on the **Assignments** tab.
 
 ### Register and configure the AI Agent in Okta
 
-With your Okta SAML 2.0 requesting app configured, register a new AI Agent in Okta. The AI Agent configuration represents the relationship between the Okta SAML 2.0 app you created and your Model Context Protocol (MCP) Resource Application. You configure credentials, add your requesting app as a delegated caller, and connect your MCP resource app as a Resource Connection.
+With your Okta SAML 2.0 requesting app configured, register a new AI Agent in Okta. The AI Agent configuration represents the relationship between the Okta SAML 2.0 app you created and your Model Context Protocol (MCP) Resource Application. You configure credentials, link your requesting app during registration, and connect your MCP resource app as a Resource Connection.
 
-In the Okta **Admin Console**:
+In the Okta **Admin Console**, [register the AI Agent and link your requesting app](https://developer.okta.com/docs/guides/xaa-agent-to-app/main/#register-ai-agent-user-access-and-authentication):
 
 1. Navigate to **Directory > AI Agents**
 2. Select **Register AI Agent > Register Manually**
-3. Enter a **Name**, e.g., "Requesting Agent" 
-4. Select Register
+3. Under **Profile**, enter a **Name**, e.g., "Requesting Agent", and an optional description, then press **Next**
+4. Under **User access and authentication > Allow users to access this agent**, select **Select an existing app**, then choose the Okta SAML requesting app you created earlier (e.g., "Requesting App for Testing"). This app acts as the requesting app for the XAA flow: your users sign in to the agentic app through it, and the agent then acts on their behalf. Press **Next**.
 
 Select the AI Agent you just created to open its configuration. Configure the agent across the following tabs:
 
-1. On the **Owners** tab
-   1. Select **Assign individual owners**
-   1. Search for and add yourself as an owner
-   1. Press **Save**
-1. On the **Credentials** tab (select on the **Requesting Agent** to see this tab)
-   1. Copy the **AI agent ID**
-   1. Return to the [xaa.dev](https://xaa.dev/developer/test-resource?tab=saml) site to add the **AI agent ID** value as the **Client ID** and save
-   1. Back in Okta, select the **Add Public Key**, and then press **Generate new key**. Okta generates a key pair and displays the private key. Under **PEM**, press **Copy to clipboard** and store the key safely. Paste this private key into the **Private key (PKCS8 PEM or private JWK)** field in [xaa.dev](https://xaa.dev/developer/test-resource?tab=saml).
-   1. Copy and paste the associated **KEY ID** value and paste it into the **kid** field at  [xaa.dev](https://xaa.dev/developer/test-resource?tab=saml) and save. 
-1. Back at Okta, on the **Delegations** tab
-   1. Select **Add Caller**
-   1. Search for the newly created Okta SAML requesting app
-   1. Select **Add Caller** to confirm
-1. On the **Resource Connections** tab
-   1. Select **Add Resource Connection**. Under the **Resource** section, select **Application** as the **resource type**. 
-      1. Under the **Application** section, choose your **Application** instance – MCP (Resource App) – from the dropdown menu and paste the **Client ID** at the **Resource Authorization Server**.
-   2. Under **Scope Condition**, select **Allow all**
-1. Activate the agent
-   1. The final step is to activate the AI agent. Go to Actions and select **Activate**
+1. On the **Client registration** tab, [choose a client registration method](https://developer.okta.com/docs/guides/xaa-agent-to-app/main/#register-ai-agent-user-access-and-authentication):
+   1. Select the **Public/private key** section
+   1. In the **Define where keys are managed** section, choose **Okta**
+   1. Under the **Add and manage keys** section, select **Add public key**, then **Generate new key**. Under **PEM**, copy the private key into the **Private key (PKCS8 PEM or private JWK)** field in [xaa.dev](https://xaa.dev/developer/test-resource?tab=saml).
+   1. Copy the **KEY ID** into the **kid** field at [xaa.dev](https://xaa.dev/developer/test-resource?tab=saml), then click **Done**
+   1. In the **Provide Client ID to AI agent builder or developer** step, copy the **Client ID**, paste it into the **Client ID** field at [xaa.dev](https://xaa.dev/developer/test-resource?tab=saml), and save
+   1. Under **Activate for your AI agent**, select **Activate**, then **Enable**
+1. On the **User access** tab
+   1. In the **App used for access configuration**, select **Select an existing SAML app**, then your **SAML Application**, e.g., "Requesting App for Testing"
+1. On the **Resource connections** tab, [add a resource connection to the AI Agent](https://developer.okta.com/docs/guides/xaa-agent-to-app/main/#configure-the-xaa-connection). Use these values:
+   1. **Application instance**: your resource app (e.g., "Resource App")
+   1. **AI agent's client ID registered in this app**: the **Client ID**
+   1. **Scopes**: **Allow any scope**
+1. [Activate the AI Agent](https://developer.okta.com/docs/guides/xaa-agent-to-app/main/#activate-the-ai-agent): activating the linked requesting app integration usually activates the AI Agent. If the agent's status is **STAGED**, go to the **Actions** drop-down menu at the top and select **Activate**.
 
-Once the AI Agent is active, the configuration is complete. All checkmarks on the agent configuration page must be green.
+Once the AI Agent is active, the configuration is complete. Except for Machine access, all checkmarks on the agent configuration page must be green.
 
 ## Verify your Okta XAA setup on xaa.dev
 
