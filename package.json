@@ -20,7 +20,8 @@
     "clean-post": "node scripts/dev-chars",
     "validate-front-matter": "node ./scripts/validate-front-matter",
     "validate-images": "node ./scripts/image-validation",
-    "optimize-images": "node ./scripts/image-optimization"
+    "optimize-images": "node ./scripts/image-optimization",
+    "pre-push": " npm run markdown-lint && npm run validate-front-matter && npm run validate-images"
   },
   "pre-push": [
     "dev-restore",
