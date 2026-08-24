@@ -24,7 +24,7 @@ changelog:
 
 > The Okta Admin Console steps in this guide no longer work: the **XAA Resource App** and **XAA Requesting App** App Catalog integrations, along with the **Manage Connections** tab, have been replaced by AI agent registration under **Directory > AI Agents**.
 >
-> Building the app that owns the API, validates the ID-JAG, and issues its own access token? Read [Add Cross App Access to Your OIDC Resource Application](/blog/2026/08/21/xaa-oidc-resource).
+> Building the app that owns the API, validates the ID-JAG, and issues its own access token? Read [Add Cross App Access to Your OIDC Resource Application](/blog/2026/08/24/xaa-oidc-resource).
 >
 > Building the app that acts on the user's behalf and exchanges a refresh token for an ID-JAG? Read [Add Cross App Access to Your OIDC Requesting Application](/blog/2026/08/21/xaa-oidc-requesting).
 >
