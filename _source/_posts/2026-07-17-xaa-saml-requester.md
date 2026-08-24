@@ -185,8 +185,8 @@ In **General Settings**:
   1. **App name**: Enter a descriptive name for the app, for example, "Requesting App".
 
 In **Configure SAML**:
-  1. **Single sign-on URL**: Use the ACS URL of your requestor app, e.g., "https://requester-app-uri/saml/acs"
-  2. **Audience URI (SP Entity ID)**: Use the SP Entity of your requestor, e.g., "https://requester-app-uri/saml/metadata"
+  1. **Single sign-on URL**: Use the ACS URL of your requester app, e.g., "https://requester-app-uri/saml/acs"
+  2. **Audience URI (SP Entity ID)**: Use the SP Entity of your requester, e.g., "https://requester-app-uri/saml/metadata"
   3. **Name ID format**: select **EmailAddress**
   4. **Application username**: select **Email**
   5. **Update application username on**: select **Create and update**
@@ -203,7 +203,7 @@ On the **Sign On** tab, [retrieve your SAML setup details](https://developer.okt
 
 [Assign your test user](https://help.okta.com/oie/en-us/content/topics/provisioning/lcm/lcm-assign-app-user.htm) to the app on the **Assignments** tab.
 
-Now that we have the requesting app registered, it's time to register a resource app on the Okta platform. You'll also need an Okta application representing the resource app.
+Now that we have the requesting app registered, it's time to [create a custom SAML app integration](https://developer.okta.com/docs/guides/create-an-app-integration/saml2/main/#create-a-custom-app-integration) representing the resource app.
 
 Navigate to **Applications and Resources > Applications**.
 
@@ -220,6 +220,7 @@ In **Configure SAML**:
   5. **Update application username on**: select **Create and update**
 
 > ⚠️ **Note**
+>
 > Please note that we're providing these for setup; they don't constitute a working SSO connection to the resource app. Also, don't assume the `NameID` is an email address; it is whatever the customer's SSO emits. Your matching set must remain consistent across your deployment.
 
 Press **Finish** to create the Okta SAML 2.0 application.
@@ -228,10 +229,9 @@ After creating the app, you'll see more configuration options for your Okta SAML
 
 **Resource Server extra configuration**
 
-Navigate to the **Resource Server** tab and make the following configuration changes:
+[Enable Cross App Access (XAA)](https://developer.okta.com/docs/guides/xaa-agent-to-app/main/#enable-xaa-on-a-custom-app-integration) on the resource app integration from the **Resource Server** tab, and configure:
 
-   1. Select **Enable XAA**
-   2. **Issuer URL**: Add this value to your **Issuer URL**: https://auth.resource.xaa.dev
+   1. **Issuer URL**: Add this value to your **Issuer URL**: https://auth.resource.xaa.dev
 
 **Assignments configuration**
 
