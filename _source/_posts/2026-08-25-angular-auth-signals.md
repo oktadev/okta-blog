@@ -51,7 +51,7 @@ npm ci
 
 Open the project in your IDE and take a look around. I already added [Okta Angular](https://www.npmjs.com/package/@okta/okta-angular) and [Okta Auth JS](https://www.npmjs.com/package/@okta/okta-auth-js) to the project, along with a few pieces you'd otherwise spend the afternoon typing:
 
-  * `src/app/okta.ts` is a service that calls the Okta management API for users and groups. It uses the `@Service()` decorator to declare a singleton service.
+  * `src/app/okta.ts` is a service that calls Okta's user management API. It uses the `@Service()` decorator to declare a singleton service.
   * `src/app/okta.types.ts` holds the `OktaUser` and `OktaGroup` interfaces
   * `src/app/okta-auth.interceptor.ts` attaches the access token and a proof of possession to Okta requests, and only to Okta requests
   * `src/app/app.routes.ts` has the routes, including the SDK's `OktaCallbackComponent` on `login/callback`
@@ -382,7 +382,7 @@ async function configInitializer(configService = inject(OktaAuthConfigService)):
     oktaAuth: new OktaAuth({
       ...authConfig,
       redirectUri: `${window.location.origin}/login/callback`,
-      scopes: ['openid', 'profile', 'email', 'okta.users.read'],
+      scopes: ['openid', 'profile', 'offline_access', 'email', 'okta.users.read'],
       pkce: true,
       dpop: true
     })
