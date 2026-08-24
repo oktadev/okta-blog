@@ -274,6 +274,7 @@ Select the **General** tab and copy the **Client ID** and **Client secret**. Pas
 
 Assign your test user to the requesting app integration. See [Assign an app integration to a user](https://help.okta.com/okta_help.htm?type=oie&id=ext-lcm-assign-app-user).
 > Note: The values here come from your Resource Authorization Server.
+
 ### Create the OIDC resource app in Okta
 
 Create the resource app integration the same way you created the requesting app integration, and use these tutorial-specific values:
