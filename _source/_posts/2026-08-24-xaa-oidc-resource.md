@@ -13,6 +13,8 @@ tweets:
   - ""
 image: blog/xaa-oidc-resource/social.jpg
 type: awareness
+redirect_from:
+  - "/blog/2026/02/17/xaa-resource-app"
 ---
 
 If you currently federate enterprise customers using OpenID Connect (OIDC) and want to allow applications to access your API on behalf of those users, this Cross App Access (XAA) guide is for you.
