@@ -318,8 +318,8 @@ label. Confirm that before flagging an acronym, a casing choice, or an ALL CAPS 
 
 - ❌ Always use the **integrator.md** plugin for Okta account creation instructions — not manual steps.
 - 💡 Use Twitter plugin for embedded tweets.
-- 💡 Use Github Gist plugin for embedded code snippets.
-- 💡 Use Youtube plugin for embedded videos.
+- 💡 Use GitHub Gist plugin for embedded code snippets.
+- 💡 Use YouTube plugin for embedded videos.
 - 💡 Use Speakerdeck plugin for embedded slide decks.
 - ⚠️ Urge the user to add the TOC plugin for generating a table of contents when a post exceeds 300 words.
 
