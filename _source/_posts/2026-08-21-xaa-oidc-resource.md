@@ -131,11 +131,6 @@ If you verify the signature before checking the issuer binding, an attacker coul
 
 Always resolve the connection from the `iss` first, then verify the signature against that connection's key. You'll compare this using the JSON Web Key Set (JWKS) metadata.
 
-<!-- TODO: add idjag-validation-order.jpeg to _source/_assets/img/blog/xaa-oidc-resource/, then uncomment below -->
-{% comment %}
-{% img blog/xaa-oidc-resource/idjag-validation-order.jpeg alt:"ID-JAG validation order" width:"800" %}{: .center-image }
-{% endcomment %}
-
 Below is the pseudocode for implementing the validation and resolving a user:
 
 ```python
@@ -347,23 +342,11 @@ In xaa.dev, enter the following values:
 
 By this point, you'll have every value from the checklist and your one-time Okta setup in place (AI Agent, owner, delegation, and resource connection), so we'll add the values from Okta and the apps to walk through the flow step by step, one button per step.
 
-The screenshot below shows the OIDC configuration values step on xaa.dev.
-
-<!-- TODO: add xaadev-sso.jpg to _source/_assets/img/blog/xaa-oidc-resource/, then uncomment below -->
-{% comment %}
-{% img blog/xaa-oidc-resource/xaadev-sso.jpg alt:"Register and test an OIDC resource app form values to establish an OIDC client." width:"800" %}{: .center-image }
-{% endcomment %}
-
 ### Configure OIDC SSO
 
 Press **Start OIDC login at your IdP** and complete the login in the pop-up.
 
 When it closes, the step turns green and shows a **✓ Auto-discovered SSO** endpoint, confirming that the tester resolved the real authorization and token endpoints from your org's discovery document and returned an ID token and a refresh token.
-
-<!-- TODO: add xaadev-oidc-sso-response.jpg to _source/_assets/img/blog/xaa-oidc-resource/, then uncomment below -->
-{% comment %}
-{% img blog/xaa-oidc-resource/xaadev-oidc-sso-response.jpg alt:"OIDC authorization code request to initiate login through your IdP." width:"800" %}{: .center-image }
-{% endcomment %}
 
 ### Verify the refresh token exchange for an ID-JAG token
 
@@ -375,11 +358,6 @@ Press **Exchange refresh token for ID-JAG**. The tester posts the refresh token 
 * The client ID and secret you issued to the AI agent when you registered it as an OAuth client at your resource AS. This must be the same client ID you entered in the resource connection step, or redemption fails the `client_id` check
 
 Press **Redeem** (`grant_type=jwt-bearer`). If the request succeeds, you'll receive a `200 OK` response with an access token. Inspect the token in the **Token** tab to verify that the `iss`, `aud`, and `scope` claims match the values configured in your resource authorization server. This validation confirms that the authorization server accepted the ID-JAG and issued its own access token.
-
-<!-- TODO: add redeem-id-jag.jpg to _source/_assets/img/blog/xaa-oidc-resource/, then uncomment below -->
-{% comment %}
-{% img blog/xaa-oidc-resource/redeem-id-jag.jpg alt:"Redeem-ID-JAG at your Resource Authorization Server screen, showing a successful execution with a 200 OK code." width:"800" %}{: .center-image }
-{% endcomment %}
 
 ### Call the resource API with the access token
 
