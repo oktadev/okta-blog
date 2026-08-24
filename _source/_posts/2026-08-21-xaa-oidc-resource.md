@@ -391,10 +391,7 @@ A green **Conformance passed** panel appears. Select **Export conformance log (J
 
 You can either download the log or have a URL to share with your IdP as proof that the Cross App Access integration works successfully.
 
-<!-- TODO: add xaadev-conformance.jpg to _source/_assets/img/blog/xaa-oidc-resource/, then uncomment below -->
-{% comment %}
-{% img blog/xaa-oidc-resource/xaadev-conformance.jpg alt:"Conformance passed. Export your proof. A button allows exporting a conformance log in JSON format." width:"800" %}{: .center-image }
-{% endcomment %}
+{% img blog/xaa-oidc-resource/export-conformance-log.jpg alt:"Conformance passed. Export your proof. A button allows exporting a conformance log in JSON format." width:"800" %}{: .center-image }
 
 ## Takeaways for implementors who also have SAML apps
 
