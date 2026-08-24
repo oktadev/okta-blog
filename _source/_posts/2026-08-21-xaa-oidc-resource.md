@@ -230,12 +230,12 @@ Before you configure anything, here's who runs what in this walkthrough:
 
 | Component | Role |
 |---|---|
-| Your resource server and API | Runs on your infrastructure. The service XAA protects |
-| Your resource authorization server (your resource AS) | Runs on your infrastructure. Mints and validates the access tokens your API accepts |
-| Your Okta org | The IdP. Authenticates users and issues the ID-JAG |
-| The Okta app integration representing your resource app | A registration in Okta, not a running service. Holds the XAA configuration Okta uses to mint ID-JAGs for your resource AS |
-| The Okta app integration representing the requesting app | A registration in Okta, not a running service. Lets users sign in to the AI agent and lets Okta issue ID-JAGs on its behalf |
-| xaa.dev | Plays the requesting app for this walkthrough, running against your resource server |
+| Your resource server and API | Runs on your infrastructure. The service XAA protects. |
+| Your resource authorization server (your resource AS) | Runs on your infrastructure. Mints and validates the access tokens your API accepts. |
+| Your Okta org | The IdP. Authenticates users and issues the ID-JAG. |
+| The Okta app integration representing your resource app | A registration in Okta, not a running service. Holds the XAA configuration Okta uses to mint ID-JAGs for your resource AS. |
+| The Okta app integration representing the requesting app | A registration in Okta, not a running service. Lets users sign in to the AI agent and lets Okta issue ID-JAGs on its behalf. |
+| xaa.dev | Plays the requesting app for this walkthrough, running against your resource server. |
 
 xaa.dev drives the requesting side so you can verify the resource side, which is the only side you're actually building.
 
@@ -278,7 +278,7 @@ Select the **General** tab and copy the **Client ID** and **Client secret**. Pas
 **Assignments configuration**
 
 Assign your test user to the requesting app integration. See [Assign an app integration to a user](https://help.okta.com/okta_help.htm?type=oie&id=ext-lcm-assign-app-user).
-
+> Note: The values here come from your Resource Authorization Server.
 ### Create the OIDC resource app in Okta
 
 Create the resource app integration the same way you created the requesting app integration, and use these tutorial-specific values:
@@ -293,7 +293,7 @@ After creating the app integration, select the **General** tab to get the **Clie
 **Resource Server extra configuration**
 
 [Enable Cross App Access (XAA) on the resource app integration](https://developer.okta.com/docs/guides/xaa-agent-to-app/main/#enable-xaa-on-a-custom-app-integration) from the **Resource Server** tab, and configure:
-
+Note: The values here come from your test Requestor SSO App on xaa.dev.
   1. **Issuer URL**: Your resource AS issuer URL, the issuer of the authorization server you run. Entering it here tells Okta which external server to mint ID-JAGs for; Okta doesn't host this server. This value becomes the `aud` claim in the ID-JAG and cannot change without deleting and resetting the connection.
   2. **Audience/tenant ID**: This is optional and not needed for this walkthrough
 
