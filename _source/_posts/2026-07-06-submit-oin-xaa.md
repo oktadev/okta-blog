@@ -66,7 +66,7 @@ To begin development, select the guide corresponding to your application's authe
 
 * If your resource app uses SAML for SSO, follow our [SAML resource app implementation guide](/blog/2026/07/03/cross-app-access-saml).
 * If your requesting app uses SAML for SSO, follow our [SAML requesting app implementation guide](/blog/2026/07/17/xaa-saml-requester).
-* If your resource app uses OIDC for SSO, follow our [OIDC resource app implementation guide](/blog/2026/08/21/xaa-oidc-resource).
+* If your resource app uses OIDC for SSO, follow our [OIDC resource app implementation guide](/blog/2026/08/24/xaa-oidc-resource).
 * If your requesting app uses OIDC for SSO, follow our [OIDC requesting app implementation guide](/blog/2026/08/21/xaa-oidc-requesting).
 
 To verify your configuration, demonstrate a successful token exchange:
