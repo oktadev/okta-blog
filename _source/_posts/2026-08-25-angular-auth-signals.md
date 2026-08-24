@@ -178,6 +178,8 @@ However, a user portal with only one user isn't much of a portal, so let's add a
 
 Add a totally made-up set of names for more fun. I went with Rosalind Park, Tobias Ferreira, and Ines Alvarez, but this is your org, and I'm not the boss of you.
 
+Ensure you assign the users to your Okta app. Depending on your Okta app's access policy, users may be automatically assigned to apps, but it's [always good to double check](https://help.okta.com/oie/en-us/content/topics/users-groups-profiles/usgp-assign-apps.htm). You went through the effort to create users, so you want to see them in your dashboard, right? 
+
 Every user you create automatically joins the built-in **Everyone** group, which means the groups view you're about to build has something to show from the first run. Thanks, Okta!
 
 ## Display users and review Angular's `rxResource` API
