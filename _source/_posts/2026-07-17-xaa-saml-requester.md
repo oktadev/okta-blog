@@ -242,7 +242,7 @@ The next step is to set up  [xaa.dev](https://xaa.dev/) for the resource app.
 Go to [Test your requesting app](https://xaa.dev/developer/test-requesting-app?tab=saml)
 Add your **IdP issuer URL** as your Okta Integrator account ID (i.e., https://your-okta-domain.okta.com)
 Put your email into the **Test user identifier** example, name1234...@okta.com
-Finally, select **My ID-JAG is SAML-derived** and add your **SAML IdP entityID** from the requesting app you created under the **Sign On** tab > **SAML Setup** > **View SAML setup instructions**, open the saml-doc file, and find the **Identity Provider Issuer** value (i.e., http://www.okta.com/<app-id>)
+Now add your **SAML IdP entityID** from the requesting app you created under the **Sign On** tab > **SAML Setup** > **View SAML setup instructions**, open the saml-doc file, and find the **Identity Provider Issuer** value (i.e., http://www.okta.com/<app-id>)
 After all values are entered, click on the **Register** 
 
 
