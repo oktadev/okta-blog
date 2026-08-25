@@ -330,7 +330,7 @@ In the Okta **Admin Console**, [register the AI Agent and link your requesting a
 3. Under **Profile**, enter a **Name**, e.g., "Requesting Agent", and an optional description, then press **Next**
 4. Under **User access and authentication > Allow users to access this agent**, select **Select an existing app**, then choose the Okta SAML requesting app you created earlier (e.g., "Requesting App for Testing"). This app acts as the requesting app for the XAA flow: your users sign in to the agentic app through it, and the agent then acts on their behalf. Press **Next**.
 
-Select the AI Agent you just created to open its configuration. Configure the agent across the following tabs:
+Select the AI agent you just created to open its configuration. Configure the agent across the following tabs:
 
 1. On the **Client registration** tab, [choose a client registration method](https://developer.okta.com/docs/guides/xaa-agent-to-app/main/#register-ai-agent-user-access-and-authentication):
    1. Select the **Public/private key** section
