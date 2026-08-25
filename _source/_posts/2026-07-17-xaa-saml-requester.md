@@ -175,23 +175,17 @@ Let's configure your SAML requester application in Okta. Before you begin, you'l
 
 Sign in to your Integrator Free Plan org and open the **Admin Console**.
 
-[Create a custom SAML app integration](https://developer.okta.com/docs/guides/create-an-app-integration/saml2/main/#create-a-custom-app-integration) representing your requesting app.
-
-Navigate to **Applications and Resources > Applications**.
-
-In the **Create a new app integration** model, select **SAML 2.0** and press **Next**.
+[Create a custom SAML app integration](https://developer.okta.com/docs/guides/create-an-app-integration/saml2/main/#create-a-custom-app-integration) representing your requesting app, using these values:
 
 In **General Settings**:
-  1. **App name**: Enter a descriptive name for the app, for example, "Requesting App".
+- **App name**: "Requesting App"
 
 In **Configure SAML**:
-  1. **Single sign-on URL**: Use the ACS URL of your requester app, e.g., "https://requester-app-uri/saml/acs"
-  2. **Audience URI (SP Entity ID)**: Use the SP Entity of your requester, e.g., "https://requester-app-uri/saml/metadata"
-  3. **Name ID format**: select **EmailAddress**
-  4. **Application username**: select **Email**
-  5. **Update application username on**: select **Create and update**
-
-Press **Finish** to create the Okta SAML 2.0 application.
+- **Single sign-on URL**: the ACS URL of your requester app, e.g., "https://requester-app-uri/saml/acs"
+- **Audience URI (SP Entity ID)**: the SP Entity of your requester, e.g., "https://requester-app-uri/saml/metadata"
+- **Name ID format**: select **EmailAddress**
+- **Application username**: select **Email**
+- **Update application username on**: select **Create and update**
 
 After creating the app, you'll see more configuration options for your Okta SAML 2.0 requesting app. You'll make changes in more than one tab.
 
@@ -203,35 +197,29 @@ On the **Sign On** tab, [retrieve your SAML setup details](https://developer.okt
 
 [Assign your test user](https://help.okta.com/oie/en-us/content/topics/provisioning/lcm/lcm-assign-app-user.htm) to the app on the **Assignments** tab.
 
-Now that we have the requesting app registered, it's time to [create a custom SAML app integration](https://developer.okta.com/docs/guides/create-an-app-integration/saml2/main/#create-a-custom-app-integration) representing the resource app.
-
-Navigate to **Applications and Resources > Applications**.
-
-In the **Create a new app integration** model, select **SAML 2.0** and press **Next**.
+Now that we have the requesting app registered, it's time to [create a custom SAML app integration](https://developer.okta.com/docs/guides/create-an-app-integration/saml2/main/#create-a-custom-app-integration) representing the resource app, using these values:
 
 In **General Settings**:
-  1. **App name**: Enter a descriptive name for the app, for example, "Resource App for Testing".
+- **App name**: "Resource App for Testing"
 
 In **Configure SAML**:
-  1. Add https://idp.xaa.dev/saml-resource/acs for **Single sign-on URL**
-  2. Add https://idp.xaa.dev/saml-resource/metadata for **Audience URI (SP Entity ID)**
-  3. **Name ID format**: select **EmailAddress**
-  4. **Application username**: select **Email**
-  5. **Update application username on**: select **Create and update**
+- **Single sign-on URL**: "https://idp.xaa.dev/saml-resource/acs"
+- **Audience URI (SP Entity ID)**: "https://idp.xaa.dev/saml-resource/metadata"
+- **Name ID format**: select **EmailAddress**
+- **Application username**: select **Email**
+- **Update application username on**: select **Create and update**
 
 > ⚠️ **Note**
 >
 > Please note that we're providing these for setup; they don't constitute a working SSO connection to the resource app. Also, don't assume the `NameID` is an email address; it is whatever the customer's SSO emits. Your matching set must remain consistent across your deployment.
 
-Press **Finish** to create the Okta SAML 2.0 application.
-
-After creating the app, you'll see more configuration options for your Okta SAML 2.0 app. You'll make changes in the resource server tab.  
+After creating the app, you'll see more configuration options for your Okta SAML 2.0 app. You'll make changes in the resource server tab.
 
 **Resource Server extra configuration**
 
 [Enable Cross App Access (XAA)](https://developer.okta.com/docs/guides/xaa-agent-to-app/main/#enable-xaa-on-a-custom-app-integration) on the resource app integration from the **Resource Server** tab, and configure:
 
-   1. **Issuer URL**: Add this value to your **Issuer URL**: https://auth.resource.xaa.dev
+   1. **Issuer URL**: https://auth.resource.xaa.dev
 
 **Assignments configuration**
 
@@ -239,11 +227,13 @@ After creating the app, you'll see more configuration options for your Okta SAML
 
 The next step is to set up  [xaa.dev](https://xaa.dev/) for the resource app.
 
-Go to [Test your requesting app](https://xaa.dev/developer/test-requesting-app?tab=saml)
-Add your **IdP issuer URL** as your Okta Integrator account ID (i.e., https://your-okta-domain.okta.com)
-Put your email into the **Test user identifier** example, name1234...@okta.com
-Now add your **SAML IdP entityID** from the requesting app you created under the **Sign On** tab > **SAML Setup** > **View SAML setup instructions**, open the saml-doc file, and find the **Identity Provider Issuer** value (i.e., http://www.okta.com/<app-id>)
-After all values are entered, click on the **Register** 
+Go to [Test your requesting app](https://xaa.dev/developer/test-requesting-app?tab=saml) and use these values:
+
+- **IdP issuer URL**: your Okta Integrator account ID (i.e., https://your-okta-domain.okta.com)
+- **Test user identifier**: your email, e.g., name1234...@okta.com
+- **SAML IdP entityID**: from the requesting app's **Sign On** tab > **SAML Setup** > **View SAML setup instructions**, the **Identity Provider Issuer** value (i.e., http://www.okta.com/<app-id>)
+
+After all values are entered, click **Register**.
 
 
 ### Register and configure the AI Agent in Okta
