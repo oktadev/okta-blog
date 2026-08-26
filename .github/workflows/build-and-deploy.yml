@@ -22,6 +22,19 @@ jobs:
     - name: Install node dependencies
       run: npm install
 
+    # These are the same checks the local pre-push hook runs. The hook is
+    # unreliable — it fails open on some machines and doesn't install at all on
+    # newer npm versions — so enforce them here where they can't be skipped.
+    # Runs before the Ruby build so lint failures surface without waiting on Jekyll.
+    - name: Lint markdown
+      run: npm run markdown-lint
+
+    - name: Validate front matter
+      run: npm run validate-front-matter
+
+    - name: Validate images
+      run: npm run validate-images
+
     - name: Set up ruby and bundler
       uses: ruby/setup-ruby@v1
       with:
