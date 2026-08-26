@@ -23,6 +23,12 @@ Core principles that guide all writing on the OktaDev blog.
   - Correct: "You can continue without a path."
   - Incorrect: "A missing path won't prevent you from continuing."
 - ❌ Expand **acronyms and abbreviations** on first use. Flag any that are not defined on first use.
+  - Exception: acronyms appearing only inside a UI label (e.g. the **CORS** checkbox). Reproduce
+    the label exactly and leave it unexpanded — see [UI labels and product text](./formatting.md#ui-labels-and-product-text).
+  - Exception: acronyms a general, junior-level developer audience already knows. Don't expand IDE, API, URL, HTML, CSS,
+    JSON, HTTP, CLI, SDK, npm, or similar everyday tooling terms — spelling them out adds noise
+    without adding clarity. **Do** expand domain, IAM, and specification acronyms: OIDC, DPoP, PKCE,
+    SAML, JWT, SCIM, MFA, and CORS when used in prose rather than as a UI label.
 
 ---
 
