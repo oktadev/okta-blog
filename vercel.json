@@ -40,32 +40,62 @@
   ],
   "redirects": [
     {
-      "source": "/blog/2018/07/19/simple-crud-react-and-spring-boot(/)?",
+      "source": "/blog/2018/07/19/simple-crud-react-and-spring-boot",
       "destination": "/blog/2022/06/17/simple-crud-react-and-spring-boot",
       "permanent": true
     },
     {
-      "source": "/blog/2017/03/16/spring-boot-saml(/)?",
+      "source": "/blog/2018/07/19/simple-crud-react-and-spring-boot/",
+      "destination": "/blog/2022/06/17/simple-crud-react-and-spring-boot",
+      "permanent": true
+    },
+    {
+      "source": "/blog/2017/03/16/spring-boot-saml",
       "destination": "/blog/2022/08/05/spring-boot-saml",
       "permanent": true
     },
     {
-      "source": "/blog/2018/11/20/build-crud-spring-and-vue(/)?",
+      "source": "/blog/2017/03/16/spring-boot-saml/",
+      "destination": "/blog/2022/08/05/spring-boot-saml",
+      "permanent": true
+    },
+    {
+      "source": "/blog/2018/11/20/build-crud-spring-and-vue",
       "destination": "/blog/2022/08/19/build-crud-spring-and-vue",
       "permanent": true
     },
     {
-      "source": "/blog/2020/01/22/kafka-microservices(/)?",
+      "source": "/blog/2018/11/20/build-crud-spring-and-vue/",
+      "destination": "/blog/2022/08/19/build-crud-spring-and-vue",
+      "permanent": true
+    },
+    {
+      "source": "/blog/2020/01/22/kafka-microservices",
       "destination": "/blog/2022/09/15/kafka-microservices",
       "permanent": true
     },
     {
-      "source": "/blog/2020/05/04/spring-vault(/)?",
+      "source": "/blog/2020/01/22/kafka-microservices/",
+      "destination": "/blog/2022/09/15/kafka-microservices",
+      "permanent": true
+    },
+    {
+      "source": "/blog/2020/05/04/spring-vault",
       "destination": "/blog/2022/10/20/spring-vault",
       "permanent": true
     },
     {
-      "source": "/blog/2019/11/07/java-jetty-oauth(/)?",
+      "source": "/blog/2020/05/04/spring-vault/",
+      "destination": "/blog/2022/10/20/spring-vault",
+      "permanent": true
+    },
+    {
+      "source": "/blog/2019/11/07/java-jetty-oauth",
+      "destination": "/blog/2023/04/26/java-jetty-oauth",
+      "permanent": true
+    },
+    {
+      "source": "/blog/2019/11/07/java-jetty-oauth/",
       "destination": "/blog/2023/04/26/java-jetty-oauth",
       "permanent": true
     }
