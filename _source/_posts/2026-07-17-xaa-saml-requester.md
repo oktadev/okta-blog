@@ -246,6 +246,7 @@ In the Okta **Admin Console**, [register the AI Agent and link your requesting a
 2. Select **Register AI Agent > Register Manually**
 3. Under **Profile**, enter a **Name**, e.g., "Agent", and an optional description, then press **Next**
 4. Under **User access and authentication > Allow users to access this agent**, select **Select an existing app**, then choose the Okta SAML requesting app you created earlier (e.g., "Requesting App"). This app acts as the requesting app for the XAA flow: your users sign in to the agentic app through it, and the agent then acts on their behalf. Press **Next**.
+5. Under **owners**: assign your test user as an individual owner
 
 Select the AI Agent you just created to open its configuration. Configure the agent across the following tabs:
 
@@ -255,7 +256,6 @@ Select the AI Agent you just created to open its configuration. Configure the ag
    1. Under the **Add and manage keys** section, select **Add public key**, then **Generate new key**. Under **PEM**, copy the private key into the **Private key (PKCS8 PEM or private JWK)** field in your requesting app
    1. Copy the **KEY ID** and add it back to your requesting app
    1. In the **Provide Client ID to AI agent builder or developer** step, copy the **Client ID**, and add it back to your requesting app
-   1. Under **Activate for your AI agent**, select **Activate**, then **Enable**
 1. On the **User access** tab
    1. In the **App used for access configuration**, select **Select an existing SAML app**, then your **SAML Application**, e.g., "Requesting App"
 1. On the **Resource connections** tab, [add a resource connection to the AI Agent](https://developer.okta.com/docs/guides/xaa-agent-to-app/main/#configure-the-xaa-connection). Use these values:
@@ -280,6 +280,8 @@ Once the flow is complete in the SAML 2.0 application, return to [xaa.dev](https
 4. API call to the /api/todos/ was a success. 
 
 At this stage, the JSON conformance log will have the complete details of the XAA flow. 
+
+{% img blog/xaa-saml-requester/conformance-log.jpg alt:"conformance log" width:"800" %}{: .center-image }
 
 ## Learn more about Cross App Access, SAML, and OAuth 2.0
 
