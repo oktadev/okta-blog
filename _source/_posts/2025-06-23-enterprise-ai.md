@@ -44,11 +44,11 @@ First, the user logs in to Agent0 through the IdP as normal. This results in Age
 Then, instead of prompting the user to connect to Todo0, Agent0 takes the ID token back to the IdP in a request that says, "Agent0 is requesting access to this user's Todo0 account."
 The IdP validates the ID token, sees that it was issued to Agent0, and verifies that the admin has allowed Agent0 to access Todo0 on behalf of the given user. Assuming everything checks out, the IdP issues a new token back to Agent0.
 
-{% img blog/enterprise-ai/cross-domain-jwt.jpeg alt:"A diagram flow of cross app jwt returned." width:"800" %}{: .center-image }
+{% img blog/enterprise-ai/cross-domain-jwt.jpeg alt:"A diagram flow of xaa jwt returned." width:"800" %}{: .center-image }
 
 Agent0 takes the intermediate token from the IdP to Todo0, saying, "Hi, I would like an access token for the Todo0 MCP server. The IdP gave me this token with the details of the user to issue the access token for." Todo0 validates the token the same way it would have validated an ID token. (Remember, Todo0 is already configured for SSO to the IdP for this customer as well, so it already has a way to validate these tokens.) Todo0 is able to issue an access token giving Agent0 access to this user's resources in its MCP server.
 
-{% img blog/enterprise-ai/jwt-validation.jpeg alt:"A diagram flow of cross app jwt return." width:"800" %}{: .center-image }
+{% img blog/enterprise-ai/jwt-validation.jpeg alt:"A diagram flow of xaa jwt return." width:"800" %}{: .center-image }
 
 This solves the two big problems:
 
