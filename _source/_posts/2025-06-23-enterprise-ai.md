@@ -178,9 +178,9 @@ Here's the flow again, this time as a sequence diagram.
 ## Next steps
 So, with stringent expectations set for buying SaaS apps, this also applies to AI tools accessing these SaaS apps now more than ever. XAA aims to help manage ALL identity access, including AI, especially in the workplace. You can read more about how XAA plays a key role in securing AI agents on this [blog by Okta's Chief Product Officer Arnab Bose](https://www.okta.com/newsroom/articles/understanding-the-ai-agent-identity-challenge/). And for a more detailed step-by-step explanation of the flow, see [Appendix A.3](https://www.ietf.org/archive/id/draft-parecki-oauth-identity-assertion-authz-grant-04.html#appendix-A.3) of the Identity Assertion Authorization Grant. Interested in integrating XAA with Okta? You can get started with the following posts:
 
-* If your resource app uses SAML for SSO, follow our [SAML resource app implementation guide](/blog/2026/07/03/cross-app-access-saml).
-* If your requesting app uses SAML for SSO, follow our [SAML requesting app implementation guide](/blog/2026/07/17/xaa-saml-requester).
-* If your resource app uses OIDC for SSO, follow our [OIDC resource app implementation guide](/blog/2026/08/24/xaa-oidc-resource).
-* If your requesting app uses OIDC for SSO, follow our [OIDC requesting app implementation guide](/blog/2026/08/21/xaa-oidc-requesting).
+- If your resource app uses SAML for SSO, follow our [SAML resource app implementation guide](/blog/2026/07/03/cross-app-access-saml).
+- If your requesting app uses SAML for SSO, follow our [SAML requesting app implementation guide](/blog/2026/07/17/xaa-saml-requester).
+- If your resource app uses OIDC for SSO, follow our [OIDC resource app implementation guide](/blog/2026/08/24/xaa-oidc-resource).
+- If your requesting app uses OIDC for SSO, follow our [OIDC requesting app implementation guide](/blog/2026/08/21/xaa-oidc-requesting).
 
 Follow us on OktaDev on [X](https://twitter.com/oktadev) and subscribe to our [YouTube channel](https://www.youtube.com/c/OktaDev/) to learn about additional enterprise-ready AI resources as soon as they're available. We also want to hear from you about topics you want to see and questions you may have. Leave us a comment below!
