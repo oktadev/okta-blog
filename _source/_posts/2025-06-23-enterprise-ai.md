@@ -13,7 +13,7 @@ tweets:
 image: blog/enterprise-ai/enterprise-ai-social-image.jpg
 type: awareness
 changelog:
-- 2026-08-28: Fixed the sequence diagram so step 1 correctly reads "ID Token Requested" instead of "ID Token Returned."
+- 2026-08-31: Fixed the sequence diagram so step 1 correctly reads "ID Token Requested" instead of "ID Token Returned."
 - 2025-07-08: Changed the resource parameter to audience in the token exchange request per spec update (https://www.ietf.org/archive/id/draft-ietf-oauth-identity-chaining-05.html#name-token-exchange)
 ---
 SaaS apps not only have to meet the rigorous demands of managing users at an enterprise level but must also be **secure and resilient by design**.
