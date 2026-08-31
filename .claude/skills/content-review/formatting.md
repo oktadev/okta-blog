@@ -4,6 +4,46 @@ Standardized formatting rules for consistency across all OktaDev blog posts.
 
 ---
 
+## UI labels and product text
+
+> **Read this before applying any rule below to bolded text.**
+
+Text quoted from a product interface — button labels, tab names, checkbox labels, field
+names, navigation paths — is **quoted material, not prose**. Reproduce it exactly as the
+product renders it, and bold it so readers can match it against their screen.
+
+The editorial rules in this file and in [Writing Principles](./writing-principles.md) do
+**not** apply inside a UI label:
+
+- ❌ Do not expand an acronym that appears only as a UI label. A reader has to find **CORS**
+  on screen; rendering it "Cross-Origin Resource Sharing (CORS)" makes that harder, and the
+  term never appears in your prose anyway.
+- ❌ Do not re-case a label to satisfy sentence-case or title-case rules. If the product says
+  **Okta API Scopes**, **Proof of possession**, **Applications and Resources**, or
+  **Add person**, write each exactly that way — even though the casing is inconsistent
+  between them. It's inconsistent in the product.
+- ❌ Do not correct a label's wording, punctuation, or capitalization for style. ALL CAPS,
+  odd spacing, and missing articles all stay.
+- If a label uses a term the guidelines otherwise avoid, quote the label as-is and use
+  preferred terminology in your own prose around it.
+
+**Why:** the goal is reducing reader friction, not formatting consistency. A reader working
+through setup steps is pattern-matching your text against pixels on their screen. Every
+edit that makes the text tidier and less literal costs them time and confidence — and a
+label they can't find reads as a broken tutorial, not a style choice.
+
+Mark UI elements with bold and show navigation with `>`:
+
+> Navigate to **Security** > **API** > **Trusted Origins** and activate the **CORS** checkbox.
+
+If a label needs explanation, explain it in the surrounding prose rather than altering the
+label.
+
+**When reviewing:** bolded text naming something clickable or visible in a product is a UI
+label. Confirm that before flagging an acronym, a casing choice, or an ALL CAPS term.
+
+---
+
 ## Headings
 
 > **Title vs. headings use DIFFERENT casing rules — do not apply the same rule to both.**
@@ -46,6 +86,7 @@ Standardized formatting rules for consistency across all OktaDev blog posts.
   - Technical terms (API, URL, HTML, etc.)
   - Constants idiomatic to the programming language (e.g. `OKTA_APPLICATION_HREF`)
   - Proper nouns
+  - Text quoted verbatim from a UI label — see [UI labels and product text](#ui-labels-and-product-text)
 
 ---
 
