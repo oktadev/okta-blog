@@ -135,7 +135,7 @@ Use this subject line: `Request to enable XAA support for <App Name> on OIN`
   * Token exchange result
 
 If you're an ISV on the Auth0 platform, you can use [Express Submission](https://auth0.com/docs/authenticate/identity-providers/enterprise-identity-providers/okta/express-configuration#publish-your-integration-to-the-oin) to submit your SSO integration. Once that's done or if you already have an SSO app published on OIN, [enable XAA on the Auth0 dashboard](https://auth0.com/docs/ai-agents-mcp/cross-app-access) and share the resulting logs as your token exchange evidence, along with the information requested above. 
-If you're testing with [xaa.dev](http://xaa.dev) instead, send the test logs link it generates, along with the same information, to the OIN Ops team.
+If you're testing with [xaa.dev](http://xaa.dev) instead, send the test logs link it generates, along with the same information, to the OIN submissions team.
 
 ### What happens next after you submit your OIN and XAA request?
 
