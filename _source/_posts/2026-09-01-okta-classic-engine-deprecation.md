@@ -1,6 +1,6 @@
 ---
 layout: blog_post
-title: "Okta Classic Engine End of Support: What You Need to Know"
+title: "Okta Classic Engine end of support: What you need to know"
 author: vanshika
 by: advocate
 communities: [security, devops]
