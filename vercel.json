@@ -68,6 +68,11 @@
       "source": "/blog/2019/11/07/java-jetty-oauth",
       "destination": "/blog/2023/04/26/java-jetty-oauth",
       "permanent": true
+    },
+    {
+      "source": "/blog/2026/02/17/xaa-resource-app",
+      "destination": "/blog/2026/08/24/xaa-oidc-resource",
+      "permanent": true
     }
   ]
 }
