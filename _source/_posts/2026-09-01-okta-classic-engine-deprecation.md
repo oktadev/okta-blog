@@ -127,7 +127,7 @@ Since Okta is also ending support for Self-Service Registration, Desktop SSO (IW
 
 
 - Self-Service Registration: Slack [#classic-ssr-eol-support](https://okta.enterprise.slack.com/archives/C0BLJ41FR2B)
-- Desktop SSO (IWA): Slack [#classic-iwa-eol-support](https://okta.enterprise.slack.com/archives/C0BMTR5PHPS)
+- Desktop SSO (IWA): Slack [#classic-iwa-eol-support](https://okta.enterprise.slack.com/archives/C0BLJ41FR2B)
 - Mobile Device Trust: Slack [#classic-mobile-dt-eol-support](https://okta.enterprise.slack.com/archives/C0BLXFU4SNA)
 - Slack [#cso-ie-upgrade-feedback](https://okta.enterprise.slack.com/archives/C03GRQSU77B) for quick answers to upgrade questions
 
