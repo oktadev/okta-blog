@@ -28,7 +28,7 @@ This page is designed for authors of the Okta developer blog. However, these sni
 
 ## Use the Okta CLI to Register Your App
 
-To describe how to set up a new application on Okta, you can use `cli.md`, `maven.md`, and `oidcdebugger.md` includes.
+To describe how to set up a new application on Okta, you can use `cli.md` and `oidcdebugger.md` includes.
 
 These will render instructions using the [Okta CLI](https://cli.okta.com) (or [Okta Maven Plugin](https://github.com/oktadev/okta-maven-plugin)) and link to instructions for the Admin Console. Screenshots are discouraged because they're hard to keep up-to-date.
   
@@ -248,20 +248,6 @@ This will render the following HTML:
 
 <div class="separator"></div>
 {% include setup/cli.md type="token" %}
-<div class="separator"></div>
-
-### Maven
-
-{% raw %}
-```
-{% include setup/maven.md %}
-```
-{% endraw %}
-
-This will render the following HTML:
-
-<div class="separator"></div>
-{% include setup/maven.md %}
 <div class="separator"></div>
 
 ### OIDC Debugger
