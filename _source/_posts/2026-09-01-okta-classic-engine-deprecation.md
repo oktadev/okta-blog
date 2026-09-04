@@ -1,6 +1,6 @@
 ---
 layout: blog_post
-title: "Okta Classic Engine end of support: What you need to know"
+title: "Okta Classic Engine End of Support: What You Need to Know"
 author: vanshika
 by: advocate
 communities: [security, devops]
@@ -9,11 +9,11 @@ tags: [identity-engine, migration, security, passwordless]
 image: blog/okta-classic-engine-deprecation/social.jpg
 type: awareness
 ---
-Identity and security requirements continue to evolve. Organizations expect authentication experiences that are more secure, flexible, and adaptable to changing users, devices, and applications. Okta invests in Okta Identity Engine, the modern foundation for passwordless authentication, device assurance, phishing-resistant multifactor authentication, and adaptive security policies.
+Starting March 5, 2027, Okta ends support for a few capabilities on Classic Engine. Identity and security requirements continue to evolve. Organizations expect authentication experiences that are more secure, flexible, and adaptable to changing users, devices, and applications. Okta invests in Okta Identity Engine, the modern foundation for passwordless authentication, device assurance, phishing-resistant multifactor authentication, and adaptive security policies.
 
 By moving to Okta Identity Engine, you access an environment aligned with modern security practices that is stronger, more capable, and built to support how you protect access.
 
-## What's changing
+## Okta Classic Engine end of life: what's changing
 
 Here's the full list of affected capabilities:
 
@@ -30,18 +30,18 @@ Identity Engine gives you authentication capabilities Classic Engine doesn't hav
 Identity Engine accelerates three core use cases:
 
 - **Passwordless**: Secure, phishing-resistant authentication that removes passwords from your sign-in flow
-- **Zero trust**: FFoundational, secure identity and access management that goes beyond NIST authenticator assurance level Authenticator Assurance Level(AAL)recommendations.
+- **Zero trust**: Identity and access management that goes beyond the recommendations in the NIST Authenticator Assurance Level (AAL) guidelines
 - **Device assurance**: Fine-grained controls that verify device posture before granting access
 
 ## Affected capabilities and modern replacements
 
 Self-Service Registration allows end users to create their own accounts without administrator involvement. In Identity Engine, you use the Profile Enrollment Policy, which provides the same user self-service experience while enhancing security and modern account management.
 
-Desktop Single Sign-On (SSO), specifically IWA, provides silent desktop authentication through on-premises infrastructure. Migrate to Agentless Desktop Single Sign-On (ADSSO) for modern desktop authentication without agents, or to Okta FastPass or passwordless platform authentication. Consult your Okta account team to determine which option fits your authentication and device management strategy.
+Desktop Single Sign-On (SSO), specifically IWA, provides silent desktop authentication through on-premises infrastructure. Migrate to Agentless Desktop Single Sign-On (ADSSO) for modern desktop authentication without agents, or to Okta FastPass for passwordless platform authentication. Consult your Okta account team to determine which option fits your authentication and device management strategy.
 
 Mobile Device Trust restricts app access to managed devices through Workspace ONE. In Identity Engine, migrate to management attestation with Okta Verify instead, which verifies that Okta Verify manages and trusts the mobile device before allowing access — providing enhanced device assurance beyond the previous Mobile Device Trust feature.
 
-## Planning your migration
+## Planning your migration to Okta Identity Engine
 
 Before scheduling your upgrade, identify which of the three affected capabilities your organization currently uses. Then navigate to **Dashboard** > **OIE Upgrade Hub** to schedule your upgrade. Contact support directly from there if you run into any issues.
 
@@ -122,20 +122,14 @@ Not every Classic Engine feature carries over to Identity Engine. Identity Engin
 
 Okta's upgrade team selects organizations for upgrade based on each organization's configuration and feature usage, so Okta upgrades some organizations earlier than others. Okta eventually upgrades every organization to Identity Engine. If you want to upgrade sooner, contact your account executive.
 
-
-Since Okta is also ending support for Self-Service Registration, Desktop SSO (IWA), and Mobile Device Trust on Classic Engine, join the Slack channels below if you have questions about any part of this transition:
-
-
-- Self-Service Registration: Slack [#classic-ssr-eol-support](https://okta.enterprise.slack.com/archives/C0BLJ41FR2B)
-- Desktop SSO (IWA): Slack [#classic-iwa-eol-support](https://okta.enterprise.slack.com/archives/C0BLJ41FR2B)
-- Mobile Device Trust: Slack [#classic-mobile-dt-eol-support](https://okta.enterprise.slack.com/archives/C0BLXFU4SNA)
-- Slack [#cso-ie-upgrade-feedback](https://okta.enterprise.slack.com/archives/C03GRQSU77B) for quick answers to upgrade questions
+If you have questions about any part of this transition, contact Okta Support or your account team.
 
 
 ## Plan your migration now!
 
 
-Schedule testing in a non-production environment before planning your production upgrade during an appropriate maintenance window.
-You contact Okta Support or your account team with any questions. You have until March 5, 2027, to complete your upgrade. You start your assessment now to ensure you select the best upgrade window for your organization.
+Schedule testing in a non-production environment before planning your production upgrade during an appropriate maintenance window. Contact Okta Support or your account team with any questions. You have until March 5, 2027, to complete your upgrade, so start your assessment now to make sure you land on the best upgrade window for your organization.
+
+If you want to dig deeper into modern Okta authentication, check out [Introducing Okta Journeys: A Better Way for Developers to Learn Identity](/blog/2026-07-07-okta-journeys-for-developers).
 
 Remember to follow us on [LinkedIn](https://www.linkedin.com/company/oktadev) and subscribe to our [YouTube](https://www.youtube.com/c/oktadev) for more exciting content. Let us know how your Identity Engine upgrade goes in the comments below – we'd love to hear about it.
