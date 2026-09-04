@@ -5,7 +5,7 @@ author: vanshika
 by: advocate
 communities: [security, devops]
 description: "Okta Classic Engine's Self-Service Registration, Desktop SSO, and Mobile Device Trust reach end of support – upgrade to Identity Engine now."
-tags: [identity-engine, migration, security, passwordless]
+tags: [okta, identity, security, advocacy]
 image: blog/okta-classic-engine-deprecation/social.jpg
 type: awareness
 ---
