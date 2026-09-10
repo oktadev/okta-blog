@@ -82,7 +82,7 @@ These actions don't impact your upgrade and remain safe to perform:
 - Adding, editing, or removing users, groups, applications, or group rules
 - Any other routine user management task
 
-Create an Identity Engine free trial organization to compare Classic Engine and Identity Engine side by side. Send a message to your end users and admins to prepare them for the upgrade.
+If you want to compare Classic Engine and Identity Engine side by side, use a non-production Okta Identity Engine org (for example, an Okta Integrator Free Plan org). Send a message to your end users and admins to prepare them for the upgrade.
 
 ## Key timeline
 
