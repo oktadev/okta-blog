@@ -1,6 +1,6 @@
 ---
 layout: blog_post
-title: "Okta Classic Engine End of Support: What You Need to Know"
+title: "Classic Engine Feature EOL: SSR, Desktop SSO, Mobile Device Trust"
 author: vanshika
 by: advocate
 communities: [security, devops]
@@ -25,7 +25,7 @@ Once support ends, Okta turns off these capabilities on Classic Engine, and you 
 
 ## Why upgrade to Okta Identity Engine
 
-Identity Engine gives you authentication capabilities Classic Engine doesn't have, including passwordless authentication, device assurance, and a modernized policy framework built on a newer authentication pipeline. The upgrade itself is free — you get all these capabilities at no additional licensing cost as part of your existing Okta subscription.
+Identity Engine gives you authentication capabilities Classic Engine doesn't have, including passwordless authentication, device assurance, and a modernized policy framework built on a newer authentication pipeline. The upgrade itself is free, you get all these capabilities at no additional licensing cost as part of your existing Okta subscription.
 
 Identity Engine accelerates three core use cases:
 
@@ -39,7 +39,7 @@ Self-Service Registration allows end users to create their own accounts without 
 
 Desktop Single Sign-On (SSO), specifically IWA, provides silent desktop authentication through on-premises infrastructure. Migrate to Agentless Desktop Single Sign-On (ADSSO) for modern desktop authentication without agents, or to Okta FastPass for passwordless platform authentication. Consult your Okta account team to determine which option fits your authentication and device management strategy.
 
-Mobile Device Trust restricts app access to managed devices through Workspace ONE. In Identity Engine, migrate to management attestation with Okta Verify instead, which verifies that Okta Verify manages and trusts the mobile device before allowing access — providing enhanced device assurance beyond the previous Mobile Device Trust feature.
+Mobile Device Trust restricts app access to managed devices through Workspace ONE. In Identity Engine, migrate to management attestation with Okta Verify instead, which verifies that Okta Verify manages and trusts the mobile device before allowing access, providing enhanced device assurance beyond the previous Mobile Device Trust feature.
 
 ## Planning your migration to Okta Identity Engine
 
@@ -49,7 +49,7 @@ If you don't see these self-service upgrade options in your dashboard, there may
 
 Most customers complete their upgrade in under a day. The effort depends on the number of integrations, custom policies, user volume, device configurations, and development and test environments. Organizations with few integrations and minimal custom policies finish in under a day. Those with multiple integrations and some custom policies require one to three days.
 
-Here's what the Admin Console dashboard looks like before and after the upgrade — notice the new **Applications** and **Security** navigation items and the upgrade-complete confirmation:
+ After the upgrade, notice the new **Applications** and **Security** navigation items and the upgrade-complete confirmation in the Admin Console.
 
 {% img blog/okta-classic-engine-deprecation/oci-before.jpg alt:"Okta Admin Console before the Identity Engine upgrade" width:"800" %}{: .center-image }
 
@@ -132,4 +132,4 @@ Schedule testing in a non-production environment before planning your production
 
 If you want to dig deeper into identity, check out [Introducing Okta Journeys: A Better Way for Developers to Learn Identity](/blog/2026/07/07/okta-journeys-for-developers).
 
-Remember to follow us on [LinkedIn](https://www.linkedin.com/company/oktadev) and subscribe to our [YouTube](https://www.youtube.com/c/oktadev) for more exciting content. Let us know how your Identity Engine upgrade goes in the comments below – we'd love to hear about it.
+Remember to follow us on [LinkedIn](https://www.linkedin.com/company/oktadev) and subscribe to our [YouTube](https://www.youtube.com/c/oktadev) for more exciting content. Let us know how your Identity Engine upgrade goes in the comments below, we'd love to hear about it.
