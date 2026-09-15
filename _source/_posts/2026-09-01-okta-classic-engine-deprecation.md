@@ -114,7 +114,7 @@ If you need to roll back, contact Okta Support and open a P1 (highest-severity) 
 Identity Engine rollbacks carry cost and risk, so Okta limits them to production organizations with a significant issue following the upgrade. Some large or complex customers choose not to upgrade production without first testing a rollback in a preview environment; this rollback testing requires approval, and Okta doesn't guarantee it. When an Identity Engine upgrade impacts your organization, Okta's upgrade team generally attempts a fall-forward fix before considering a rollback.
 
 
-## Best practices after your upgrade
+## Best practices after your Okta Identity Engine upgrade
 
 
 Not every Classic Engine feature carries over to Identity Engine. Identity Engine fully supports most features, and in most cases, a comparable feature is available. Your Okta field and upgrade teams tell you which features are unsupported and provide steps to migrate to the replacement feature.
