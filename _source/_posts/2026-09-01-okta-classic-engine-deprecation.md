@@ -61,7 +61,7 @@ Self-Service Registration, Desktop SSO (IWA), and Mobile Device Trust sunset on 
 
 Mark your calendar: March 5, 2027, is the hard deadline. Upgrade before then to avoid losing access to Self-Service Registration, Desktop SSO (IWA), and Mobile Device Trust on Classic Engine.
 
-## Best practices after your upgrade
+## Best practices after your Okta Identity Engine upgrade
 
 Not every Classic Engine feature carries over to Identity Engine. Identity Engine fully supports most features, and in most cases, a comparable feature is available. Your Okta field and upgrade teams tell you which features are unsupported and provide steps to migrate to the replacement feature.
 
@@ -73,6 +73,10 @@ If you have questions about any part of this transition, contact Okta Support or
 
 Schedule testing in a non-production environment before planning your production upgrade during an appropriate maintenance window. Contact Okta Support or your account team with any questions. You have until March 5, 2027, to complete your upgrade, so start your assessment now to make sure you land on the best upgrade window for your organization.
 
-If you want to dig deeper into identity, check out [Introducing Okta Journeys: A Better Way for Developers to Learn Identity](/blog/2026/07/07/okta-journeys-for-developers). For hands-on guidance replacing these Classic Engine auth flows, see [Replace Classic Engine authentication flows with Okta Identity Engine](https://developer.okta.com/docs/journeys/OCI-replace-ce-auth-flows/main/).
+## Resources
+
+If you'd like to learn more about identity and the concepts covered in this post, explore these official Okta resources:
+- [Introducing Okta Journeys: A Better Way for Developers to Learn Identity](/blog/2026/07/07/okta-journeys-for-developers)
+- [Replace Classic Engine authentication flows with Okta Identity Engine](https://developer.okta.com/docs/journeys/OCI-replace-ce-auth-flows/main/)
 
 Remember to follow us on [LinkedIn](https://www.linkedin.com/company/oktadev) and subscribe to our [YouTube](https://www.youtube.com/c/oktadev) for more exciting content. Let us know how your Identity Engine upgrade goes in the comments below, we'd love to hear about it.
