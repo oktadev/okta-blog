@@ -13,7 +13,7 @@ Starting March 5, 2027, Okta ends support for a few capabilities on Classic Engi
 
 By moving to Okta Identity Engine, you access an environment aligned with modern security practices that is stronger, more capable, and built to support how you protect access.
 
-## What's changing
+## What's changing in Okta Classic Engine
 
 Here's the full list of affected capabilities:
 
