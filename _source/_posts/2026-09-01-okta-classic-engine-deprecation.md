@@ -73,7 +73,7 @@ If you have questions about any part of this transition, contact Okta Support or
 
 Schedule testing in a non-production environment before planning your production upgrade during an appropriate maintenance window. Contact Okta Support or your account team with any questions. You have until March 5, 2027, to complete your upgrade, so start your assessment now to make sure you land on the best upgrade window for your organization.
 
-## Resources
+## Resources to aid your Okta Identity Engine migration
 
 If you'd like to learn more about identity and the concepts covered in this post, explore these official Okta resources:
 - [Introducing Okta Journeys: A Better Way for Developers to Learn Identity](/blog/2026/07/07/okta-journeys-for-developers)
