@@ -47,7 +47,7 @@ For step-by-step guidance on replacing these Classic Engine auth flows, see [Rep
 
 Every organization's environment differs, so your timeline and steps depend on your current configuration and feature usage. Reach out to your account executive for help and clarification on scheduling your upgrade.
 
-## Key timeline
+## Key timeline for Classic Engine capabilities sunsetting
 
 Self-Service Registration, Desktop SSO (IWA), and Mobile Device Trust sunset on Classic Engine according to the timeline below.
 
