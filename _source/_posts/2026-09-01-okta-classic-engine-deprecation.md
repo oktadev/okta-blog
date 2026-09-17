@@ -3,8 +3,8 @@ layout: blog_post
 title: "Classic Engine Feature EOL: SSR, Desktop SSO, Mobile Device Trust"
 author: vanshika
 by: advocate
-communities: [security, devops]
-tags: []
+communities: []
+tags: [announcement]
 description: "Okta Classic Engine's Self-Service Registration, Desktop SSO, and Mobile Device Trust reach end of support – upgrade to Identity Engine now."
 image: blog/okta-classic-engine-deprecation/social.jpg
 type: awareness
@@ -13,7 +13,7 @@ Starting March 5, 2027, Okta ends support for a few capabilities on Classic Engi
 
 By moving to Okta Identity Engine, you access an environment aligned with modern security practices that is stronger, more capable, and built to support how you protect access.
 
-## What's changing
+## What's changing in Okta Classic Engine
 
 Here's the full list of affected capabilities:
 
@@ -30,7 +30,7 @@ Identity Engine gives you authentication capabilities Classic Engine doesn't hav
 Identity Engine accelerates three core use cases:
 
 - **Passwordless**: Secure, phishing-resistant authentication that removes passwords from your sign-in flow
-- **Zero trust**: Identity and access management that goes beyond the recommendations in the NIST Authenticator Assurance Level (AAL) guidelines
+- **Zero trust**: Identity and access management that goes beyond the recommendations in the [NIST Authenticator Assurance Level (AAL) guidelines](https://pages.nist.gov/800-63-3/sp800-63b.html)
 - **Device assurance**: Fine-grained controls that verify device posture before granting access
 
 ## Okta Identity Engine elevates identity capabilities
@@ -47,7 +47,7 @@ For step-by-step guidance on replacing these Classic Engine auth flows, see [Rep
 
 Every organization's environment differs, so your timeline and steps depend on your current configuration and feature usage. Reach out to your account executive for help and clarification on scheduling your upgrade.
 
-## Key timeline
+## Key timeline for Classic Engine capabilities sunsetting
 
 Self-Service Registration, Desktop SSO (IWA), and Mobile Device Trust sunset on Classic Engine according to the timeline below.
 
@@ -69,7 +69,7 @@ If you have questions about any part of this transition, contact Okta Support or
 
 Schedule testing in a non-production environment before planning your production upgrade during an appropriate maintenance window. Contact Okta Support or your account team with any questions. You have until March 5, 2027, to complete your upgrade, so start your assessment now to make sure you land on the best upgrade window for your organization.
 
-## Resources
+## Resources to aid your Okta Identity Engine migration
 
 If you'd like to learn more about identity and the concepts covered in this post, explore these official Okta resources:
 - [Introducing Okta Journeys: A Better Way for Developers to Learn Identity](/blog/2026/07/07/okta-journeys-for-developers)
