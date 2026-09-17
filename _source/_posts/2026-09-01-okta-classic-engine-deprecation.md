@@ -3,7 +3,7 @@ layout: blog_post
 title: "Classic Engine Feature EOL: SSR, Desktop SSO, Mobile Device Trust"
 author: vanshika
 by: advocate
-communities: [security, devops]
+communities: []
 tags: [announcement]
 description: "Okta Classic Engine's Self-Service Registration, Desktop SSO, and Mobile Device Trust reach end of support – upgrade to Identity Engine now."
 image: blog/okta-classic-engine-deprecation/social.jpg
