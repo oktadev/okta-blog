@@ -51,21 +51,17 @@ Every organization's environment differs, so your timeline and steps depend on y
 
 Self-Service Registration, Desktop SSO (IWA), and Mobile Device Trust sunset on Classic Engine according to the timeline below.
 
-| Milestone | Audience | Date(s) |
-| --- | --- | --- |
-| Initial notice | Internal | August 3, 2026 |
-| Initial notice | Customer | August 5, 2026 |
-| Reminders | Internal | October 7, 2026; January 11 and February 15, 2027 |
-| Reminders | Customer | September 7, October 7, and November 9, 2026; January 11, February 15, and March 1, 2027 |
-| End of support | Customer | March 5, 2027 |
+| Milestone | Date(s) |
+| --- | --- |
+| Initial notice | August 5, 2026 |
+| Reminders | September 7, October 7, and November 9, 2026; January 11, February 15, and March 1, 2027 |
+| End of support | March 5, 2027 |
 
 Mark your calendar: March 5, 2027, is the hard deadline. Upgrade before then to avoid losing access to Self-Service Registration, Desktop SSO (IWA), and Mobile Device Trust on Classic Engine.
 
 ## Best practices after your Okta Identity Engine upgrade
 
 Not every Classic Engine feature carries over to Identity Engine. Identity Engine fully supports most features, and in most cases, a comparable feature is available. Your Okta field and upgrade teams tell you which features are unsupported and provide steps to migrate to the replacement feature.
-
-Okta's upgrade team selects organizations for upgrade based on each organization's configuration and feature usage, so Okta upgrades some organizations earlier than others. Okta eventually upgrades every organization to Identity Engine. If you want to upgrade sooner, contact your account executive.
 
 If you have questions about any part of this transition, contact Okta Support or your account team.
 
