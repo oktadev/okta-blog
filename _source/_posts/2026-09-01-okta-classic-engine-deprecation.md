@@ -41,7 +41,7 @@ Self-Service Registration allows end users to create their own accounts without 
 
 Desktop Single Sign-On (SSO), specifically IWA, provides silent desktop authentication through on-premises infrastructure. Migrate to Agentless Desktop Single Sign-On (ADSSO) for modern desktop authentication without agents, or to Okta FastPass for passwordless platform authentication. Consult your Okta account team to determine which option fits your authentication and device management strategy.
 
-Mobile Device Trust restricts app access to managed devices through Workspace ONE. In Identity Engine, migrate to management attestation with Okta Verify instead, which verifies that Okta Verify manages and trusts the mobile device before allowing access, providing enhanced device assurance beyond the previous Mobile Device Trust feature.
+Device Trust restricts app access to managed devices through Workspace ONE. In Identity Engine, migrate to management attestation with Okta Verify instead, which verifies that Okta Verify manages and trusts the mobile device before allowing access, providing enhanced device assurance beyond the previous Device Trust feature.
 
 For step-by-step guidance on replacing these Classic Engine auth flows, see [Replace Classic Engine authentication flows with Okta Identity Engine](https://developer.okta.com/docs/journeys/OCI-replace-ce-auth-flows/main/).
 
