@@ -59,7 +59,7 @@ Self-Service Registration, Desktop SSO (IWA), and Mobile Device Trust sunset on 
 | Reminders | September 7, October 7, and November 9, 2026; January 11, February 15, and March 1, 2027 |
 | End of support | March 5, 2027 |
 
-Mark your calendar: March 5, 2027, is the hard deadline. Upgrade before then to avoid losing access to Self-Service Registration, Desktop SSO (IWA), and Mobile Device Trust on Classic Engine.
+Mark your calendar: March 5, 2027, is the hard deadline. Upgrade before then to avoid losing access to Self-Service Registration, Desktop SSO (IWA), and Device Trust on Classic Engine.
 
 ## Best practices after your Okta Identity Engine upgrade
 
