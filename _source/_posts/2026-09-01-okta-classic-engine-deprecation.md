@@ -76,6 +76,6 @@ Schedule testing in a non-production environment before planning your production
 If you'd like to learn more about identity and the concepts covered in this post, explore these official Okta resources:
 - [Introducing Okta Journeys: A Better Way for Developers to Learn Identity](/blog/2026/07/07/okta-journeys-for-developers)
 - [Replace Classic Engine authentication flows with Okta Identity Engine](https://developer.okta.com/docs/journeys/OCI-replace-ce-auth-flows/main/)
-- [It's Time to Evolve Authentication Security](https://developer.okta.com/blog/2025/08/06/authentication-identity-security)
+- [It's Time to Evolve Authentication Security](/blog/2025/08/06/authentication-identity-security)
 
 Remember to follow us on [LinkedIn](https://www.linkedin.com/company/oktadev) and subscribe to our [YouTube](https://www.youtube.com/c/oktadev) for more exciting content. Let us know how your Identity Engine upgrade goes in the comments below, we'd love to hear about it.
