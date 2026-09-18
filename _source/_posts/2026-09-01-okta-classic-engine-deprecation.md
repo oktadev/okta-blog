@@ -19,7 +19,7 @@ Here's the full list of affected capabilities:
 
 - Self-Service Registration
 - Desktop Single Sign-On (Integrated Windows Authentication, or IWA)
-- Mobile Device Trust
+- Device Trust
 
 Once support ends, Okta turns off these capabilities on Classic Engine, and you lose access to them unless you upgrade to Okta Identity Engine first. Okta no longer addresses bugs, security vulnerabilities, or broken flows associated with them after that date. Each capability moves to a modern, more secure approach within Identity Engine, where it continues to benefit from ongoing innovation.
 
