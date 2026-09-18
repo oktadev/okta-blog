@@ -27,7 +27,7 @@ Once support ends, Okta turns off these capabilities on Classic Engine, and you 
 
 Identity Engine gives you authentication capabilities Classic Engine doesn't have, including passwordless authentication, device assurance, and a modernized policy framework built on a newer authentication pipeline. The upgrade itself is free, you get all these capabilities at no additional licensing cost as part of your existing Okta subscription.
 
-Identity Engine accelerates three core use cases:
+Identity Engine accelerates five core use cases:
 
 - **Passwordless**: Remove password from the sign-in flow entirely, instead of layering a second factor on top of it
 - **Phishing-resistant**: Close every route to the account, not just the front door. An account is only as phishing-resistant as its weakest enrollment and recovery path. 
