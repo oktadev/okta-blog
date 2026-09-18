@@ -14,8 +14,8 @@ tweets:
   - ""
 type: awareness
 changelog:
+  - 2026-09-19: Rewrote the guide around the self-service OIN Wizard submission flow for Cross App Access, added Model Context Protocol (MCP) role guidance, and removed the manual XAA enablement questionnaire that the wizard replaces. Changes to this article can be viewed in [oktadev/okta-blog#1715](https://github.com/oktadev/okta-blog/pull/1715).
   - 2026-08-24: Added the OIDC resource and requesting app implementation guides, and removed the superseded OIDC guide link. Changes to this article can be viewed in [oktadev/okta-blog#1701](https://github.com/oktadev/okta-blog/pull/1701).
-  - 2026-09-19: Rewrote the guide around the self-service OIN Wizard submission flow for Cross App Access, added Model Context Protocol (MCP) role guidance, and removed the manual XAA enablement questionnaire that the wizard replaces.
 ---
 
 Cross App Access (XAA) lets your application request data from another vendor's API on behalf of a signed-in enterprise user, without static API keys and without a separate consent prompt for every connection. If enterprises buy your software, supporting XAA turns your integration into something their IT team can govern centrally.
