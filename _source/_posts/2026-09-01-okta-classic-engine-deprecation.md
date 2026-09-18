@@ -1,6 +1,6 @@
 ---
 layout: blog_post
-title: "Classic Engine Feature EOL: SSR, Desktop SSO, Mobile Device Trust"
+title: "Classic Engine Feature EOL: SSR, Desktop SSO, Device Trust"
 author: vanshika
 by: advocate
 communities: []
