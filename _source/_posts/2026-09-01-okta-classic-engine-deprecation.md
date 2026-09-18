@@ -31,7 +31,7 @@ Identity Engine accelerates three core use cases:
 
 - **Passwordless**: Secure, phishing-resistant authentication that removes passwords from your sign-in flow
 - **Zero trust**: Identity and access management that goes beyond what [NIST Authenticator Assurance Level (AAL) guidelines](https://pages.nist.gov/800-63-3/sp800-63b.html) recommends
-- **Device assurance**: Fine-grained controls that verify device posture before granting access
+- **Device assurance**: Fine-grained controls that check device posture as a condition of access
 
 ## Okta Identity Engine elevates identity capabilities
 
