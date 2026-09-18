@@ -29,7 +29,9 @@ Identity Engine gives you authentication capabilities Classic Engine doesn't hav
 
 Identity Engine accelerates three core use cases:
 
-- **Passwordless**: Secure, phishing-resistant authentication that removes passwords from your sign-in flow
+- **Passwordless**: Remove password from the sign-in flow entirely, instead of layering a second factor on top of it
+- **Phishing-resistant**: Close every route to the account, not just the front door. An account is only as phishing-resistant as its weakest enrollment and recovery path. 
+- **ID verification** : Confirm that employees and customers are who they claim to be before you issue a credential or reset one
 - **Zero trust**: Identity and access management that goes beyond what [NIST Authenticator Assurance Level (AAL) guidelines](https://pages.nist.gov/800-63-3/sp800-63b.html) recommends
 - **Device assurance**: Fine-grained controls that check device posture as a condition of access
 
