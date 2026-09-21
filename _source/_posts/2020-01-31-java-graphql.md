@@ -370,7 +370,9 @@ Okta offers a very handy Maven plugin to set up your app's security quickly and 
 </dependency>
 ```
 
-{% include setup/maven.md %}
+### Create the Application in Okta
+
+{% include setup/integrator.md type="web" framework="Okta Spring Boot Starter" %}
 
 If you start your app again, you'll notice that you can't run GraphQL queries anymore. That's because you're not authenticated.
 

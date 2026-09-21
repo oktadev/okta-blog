@@ -26,7 +26,7 @@ This page is designed for authors of the Okta developer blog. However, these sni
 
 ## Use the Admin Console to Register Your App
 
-To describe how to set up a new application on Okta manually, you can use `integrator.md`, `maven.md`, and `oidcdebugger.md` includes.
+To describe how to set up a new application on Okta manually, you can use `integrator.md` and `oidcdebugger.md` includes.
 
 These will render step-by-step Admin Console instructions for manual setup. You can optionally mention the [Okta CLI Client](https://github.com/okta/okta-cli-client) (or [Okta Maven Plugin](https://github.com/oktadev/okta-maven-plugin)) as alternatives for automation. Screenshots are discouraged because they're hard to keep up-to-date.
   
@@ -218,20 +218,6 @@ This will render the following HTML:
 
 <div class="separator"></div>
 {% include setup/integrator.md type="service" %}
-<div class="separator"></div>
-
-### Maven
-
-{% raw %}
-```
-{% include setup/maven.md %}
-```
-{% endraw %}
-
-This will render the following HTML:
-
-<div class="separator"></div>
-{% include setup/maven.md %}
 <div class="separator"></div>
 
 ### OIDC Debugger

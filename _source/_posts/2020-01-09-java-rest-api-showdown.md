@@ -54,11 +54,7 @@ There's no need to reinvent the wheel!
 
 ### Create an Okta Account for User Management
 
-{% include setup/maven.md %}
-
-This command creates an application for you with auth code flow and Spring Security's redirect URI for Okta.
-
-To remember it better, you can create the same app manually:
+Create the same app manually:
 
 * Go to the [Okta's developer homepage](https://developer.okta.com/) and log in to your account.
 * Go to the **Applications** section > **Create App Integration** > **OIDC** > **Web Application**, and click **Next**.
@@ -78,7 +74,7 @@ _The implicit grant type (with ID and Access Token allowed checked) is necessary
 
 The fields not mentioned above can keep their default values. 
 
-After you finish it, click **Save**. Your app is ready! 
+Your app is ready! 
 
 The next step is to learn how to generate a valid token using it.
 
