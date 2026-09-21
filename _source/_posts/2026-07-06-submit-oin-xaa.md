@@ -1,7 +1,7 @@
 ---
 layout: blog_post
 title: "Build, Test, and Publish a Cross App Access App in the Okta Integration Network"
-author: gagan-sikri
+author: [gagan-sikri, alex-silk]
 by: advocate
 communities: [javascript, python, .net, java, go]
 description: "Build Cross App Access into your app or MCP server, test it with Okta's developer tools, and publish it free to the Okta Integration Network."
@@ -80,13 +80,6 @@ If you are an Auth0 customer, refer to the [Auth0 documentation](https://auth0.c
 ## 2. Publish your SSO with XAA integration to the Okta Integration Network
 
 Submit your integration from the same Okta Integrator Free Plan org you built in. [Follow the OIN Wizard instructions](https://developer.okta.com/docs/guides/submit-oin-app/scrossapp/main/) for an SSO with XAA submission.
-
-The wizard collects your OIN catalog details, your SSO configuration, and your XAA role. Have these ready before you start:
-
-* A company-domain email address, because the wizard rejects personal email addresses
-* Your XAA role configuration. Requesting apps list their resource client registrations, meaning an issuer URL and client ID for each resource app, and resource apps supply an issuer URL, resource identifiers, and supported scopes
-* A dedicated test admin account that stays active throughout review
-* A conformance log exported from [xaa.dev](https://xaa.dev) that passed within the last 48 hours
 
 Our OIN Operations team reviews your submission and contacts you about its status or any issues. Expect about one business week for initial review, with publication to the OIN following shortly after. Track progress on the **Your OIN Integrations** dashboard in your org.
 
