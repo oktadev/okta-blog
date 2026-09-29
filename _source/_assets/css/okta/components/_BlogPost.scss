@@ -288,16 +288,21 @@
         }
       }
 
+      /* Position the icon out of the inline flow so it claims no width.
+         Inline-block made it reserve space only on hover, which reflowed
+         long headings and shifted the content below them. */
       &:hover a:after,
       a:active:after,
       a:hover:after {
         background: image_url("icon-link.svg") no-repeat center;
         background-size: contain;
         content: "";
-        display: inline-block;
+        position: absolute;
+        left: 100%;
+        top: 50%;
+        transform: translateY(-50%);
         height: 18px;
         margin-left: get-spacing("small");
-        vertical-align: middle;
         width: 18px;
       }
     }
