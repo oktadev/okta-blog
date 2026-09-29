@@ -100,7 +100,7 @@ The MCP community evolves the specification through Specification Enhancement Pr
 
 With SEP-990 implemented in the SDK, an XAA-enabled MCP client differs from a plain one by a single `authProvider` option and one callback, plus any compatibility adjustments your authorization server needs. The protocol work (discovery, token exchange, the JWT bearer grant, and retries) lives in the SDK rather than in your app.
 
-## Inside the MCP TypeScript SDK's crossAppAccess module
+## Inside the MCP TS SDK's crossAppAccess module
 
 Three pieces of the TypeScript SDK matter for this tutorial:
 
@@ -197,7 +197,7 @@ The sample's `.gitignore` excludes `.env`. Never commit client secrets, ID token
 
 ## Walk through the XAA flow in TypeScript
 
-The next four sections take each step in turn, as explicit code, so you can trace every token in the chain. The fifth shows how `CrossAppAccessProvider` collapses steps 2 through 4 into a single provider configuration, which is what the sample actually does.
+The next four sections take each step in turn, as explicit code, so that you can trace every token in the chain. The fifth shows how `CrossAppAccessProvider` collapses steps 2 through 4 into a single provider configuration, which is what the sample actually does.
 
 ### Sign the user in with OpenID Connect and PKCE
 
