@@ -18,7 +18,7 @@ type: conversion
 
 Enterprise apps rarely work alone. A new hire signs in on their first day, opens the onboarding app, and expects their checklist to be there, pulled in real time from the company task system. Delivering that usually costs the user another OAuth consent screen, or costs IT a ticket to wire up a shared service account. Cross App Access (XAA) removes that step. The company's identity provider vouches for the user across app boundaries, under a policy the admin sets in advance. In this tutorial, you'll build that flow end-to-end in TypeScript.
 
-You build an MCP requesting app: a web app that signs a user in through an enterprise Identity Provider (IdP), exchanges that identity for a delegation token called an ID-JAG, trades the ID-JAG for an access token, and calls a protected Model Context Protocol (MCP) server to fetch real data. You use the MCP TypeScript SDK, which added first-class Cross App Access support, and you test everything against [xaa.dev](https://xaa.dev), the free XAA playground from the Okta Dev Advocacy team.
+You build a Model Context Protocol (MCP) requesting app: a web app that signs a user in through an enterprise Identity Provider (IdP), exchanges that identity for a delegation token called an Identity Assertion JWT Authorization Grant (ID-JAG), trades the ID-JAG for an access token, and calls a protected MCP server to fetch real data. You use the MCP TypeScript SDK, which added first-class Cross App Access support, and you test everything against [xaa.dev](https://xaa.dev), the free XAA playground from the Okta Dev Advocacy team.
 
 By the end of this post, you can:
 
@@ -41,7 +41,7 @@ Cross App Access is the industry term for a pattern built on the [Identity Asser
 
 ## ID-JAG: the token that carries identity across apps
 
-The Identity Assertion JWT Authorization Grant (ID-JAG) is the one new token XAA introduces. It's a signed JSON Web Token (JWT) that the IdP issues when your app exchanges the user's ID token for it. Think of it as a sealed envelope from the IdP that says: "This app acts for this user, toward this specific resource, with these scopes, for the next five minutes."
+The ID-JAG is the one new token XAA introduces. It's a signed JSON Web Token (JWT) that the IdP issues when your app exchanges the user's ID token for it. Think of it as a sealed envelope from the IdP that says: "This app acts for this user, toward this specific resource, with these scopes, for the next five minutes."
 
 Here is a decoded ID-JAG from the app you are about to build:
 
@@ -90,7 +90,7 @@ Step 4: Call the resource (RFC 6750)
 
 In words: the user authenticates once with the IdP, and your app receives an ID token. Your app exchanges that ID token at the IdP for an ID-JAG using [OAuth 2.0 Token Exchange](https://datatracker.ietf.org/doc/html/rfc8693) (Request for Comments (RFC) 8693). Your app presents the ID-JAG to the resource's authorization server using the [JWT bearer grant](https://datatracker.ietf.org/doc/html/rfc7523) (RFC 7523) and receives a scoped access token. Finally, your app calls the protected resource with that token as a standard [Bearer credential](https://datatracker.ietf.org/doc/html/rfc6750) (RFC 6750).
 
-The user never sees a consent screen after step 1. The IdP replaces the consent step with a policy configured by the admin in advance.
+The user never sees a consent screen after step 1. The IdP replaces the consent step with a policy the admin configures in advance.
 
 ## The Model Context Protocol and its TypeScript SDK
 
@@ -98,7 +98,7 @@ Before diving into code, a quick word on the other protocol in this tutorial. Th
 
 The MCP community evolves the specification through Specification Enhancement Proposals (SEPs). Cross App Access support entered the protocol as [Specification Enhancement Proposal (SEP) 990, Enterprise Managed Authorization](https://github.com/modelcontextprotocol/ext-auth), and the TypeScript SDK ships the implementation in its `crossAppAccess` module.
 
-With SEP-990 implemented in the SDK, an XAA-enabled MCP client differs from a plain one by a single `authProvider` option and one callback. The protocol work (discovery, token exchange, the JWT bearer grant, and retries) lives in the SDK rather than in your app.
+With SEP-990 implemented in the SDK, an XAA-enabled MCP client differs from a plain one by a single `authProvider` option and one callback, plus any compatibility adjustments your authorization server needs. The protocol work (discovery, token exchange, the JWT bearer grant, and retries) lives in the SDK rather than in your app.
 
 ## Inside the MCP TypeScript SDK's crossAppAccess module
 
@@ -108,7 +108,7 @@ Three pieces of the TypeScript SDK matter for this tutorial:
 - **`exchangeJwtAuthGrant()`** performs step 3: it presents the ID-JAG and returns the access token
 - **`CrossAppAccessProvider`** is the production path. It plugs into the SDK's transport as an `OAuthClientProvider` and runs steps 2 through 4 automatically: it calls the MCP server, receives a `401` challenge, discovers the authorization server through [protected resource metadata (RFC 9728)](https://datatracker.ietf.org/doc/html/rfc9728), invokes your callback to obtain a fresh ID-JAG, exchanges it, and retries the request with the new access token.
 
-The sections below walk through each step so you can trace every token in the chain. The final section shows how `CrossAppAccessProvider` reduces all of that to a single provider configuration.
+You use all three later in this tutorial: the two functions to follow the token flow step by step, then the provider to run the whole thing.
 
 ## What you'll build: a TypeScript MCP requesting app
 
@@ -196,6 +196,8 @@ Keep the URLs free of trailing slashes. The IdP compares the `audience` value as
 The sample's `.gitignore` excludes `.env`. Never commit client secrets, ID tokens, ID-JAGs, or access tokens to version control.
 
 ## Walk through the XAA flow in TypeScript
+
+The next four sections take each step in turn, as explicit code, so you can trace every token in the chain. The fifth shows how `CrossAppAccessProvider` collapses steps 2 through 4 into a single provider configuration, which is what the sample actually does.
 
 ### Sign the user in with OpenID Connect and PKCE
 
@@ -319,14 +321,16 @@ import {
   CrossAppAccessProvider,
   StreamableHTTPClientTransport,
   discoverAndRequestJwtAuthGrant,
+  requestJwtAuthorizationGrant,
 } from '@modelcontextprotocol/client';
 
 const provider = new CrossAppAccessProvider({
   // Called when the transport needs an ID-JAG. The provider has already
   // discovered the authorization server and resource via RFC 9728.
   assertion: async (ctx) => {
-    const jag = await discoverAndRequestJwtAuthGrant({
-      idpUrl: 'https://idp.xaa.dev',
+    // idpTokenEndpoint is the IdP token endpoint this app cached during
+    // sign-in, passed in by the caller. Falls back to discovery without it.
+    const jagOptions = {
       audience: ctx.authorizationServerUrl.replace(/\/+$/, ''),
       resource: ctx.resourceUrl,
       idToken: await getIdTokenFromSession(),
@@ -334,7 +338,10 @@ const provider = new CrossAppAccessProvider({
       clientSecret: process.env.XAA_CLIENT_SECRET,
       scope: ctx.scope ?? 'todos.read mcp.access',
       fetchFn: ctx.fetchFn,
-    });
+    };
+    const jag = idpTokenEndpoint
+      ? await requestJwtAuthorizationGrant({ ...jagOptions, tokenEndpoint: idpTokenEndpoint })
+      : await discoverAndRequestJwtAuthGrant({ ...jagOptions, idpUrl: 'https://idp.xaa.dev' });
     return jag.jwtAuthGrant;
   },
   clientId: process.env.MCP_CLIENT_ID,
@@ -372,7 +379,7 @@ await client.connect(transport); // 401 -> discovery -> ID-JAG -> token -> retry
 
 Walk through what the provider does on that one `connect()` call. It sends the first request without a token and receives a `401` with a `WWW-Authenticate` header pointing at the server's protected resource metadata. It fetches that metadata, learns which authorization server protects this resource, and then fetches the authorization server's metadata to find the token endpoint. It calls your `assertion` callback with the discovered URLs, exchanges the returned ID-JAG for an access token, stores the token, and then retries the original request. When the access token later expires, the next `401` response triggers the same sequence again, without any code from you. Both adjustments in the snippet come from testing this flow against the live playground.
 
-Your code never mentions `auth.resource.xaa.dev`. The provider discovered it, so the same client code works against any spec-compliant protected MCP server.
+Nothing in this snippet names `auth.resource.xaa.dev`. The provider discovered it, so the same client code works against any spec-compliant protected MCP server.
 
 ## Run your TypeScript MCP app with xaa.dev
 
