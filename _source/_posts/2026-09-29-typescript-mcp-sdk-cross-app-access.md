@@ -3,7 +3,7 @@ layout: blog_post
 title: "Build a Secure TypeScript MCP App with Cross App Access (XAA)"
 author: akanksha-bhasin
 by: advocate
-communities: [security, javascript]
+communities: [javascript]
 description: "Build a TypeScript MCP app with Cross App Access (XAA): exchange ID-JAG tokens, discover auth servers, and delegate OAuth with no consent screens."
 tags: [cross-app-access, xaa, mcp, oidc, sso, typescript, oauth, enterprise-ai]
 tweets:
