@@ -88,7 +88,7 @@ func exchangeForJAG(ctx context.Context, cfg config.XaaConfig, idToken string) (
 ```
 If the IdP's policy allows it, it signs the ID-JAG and sends it back. That JWT is the app's ticket to the next server.
 
-Checkpoint: once you run the full flow later in this post, watch the dashboard's **Step 2 — Token Exchange (RFC 8693)** entry – it streams back the raw ID-JAG your app just received, confirming the IdP handed one over.
+Checkpoint: once you run the full flow later in this post, watch the dashboard's **Step 2, Token Exchange (RFC 8693)** entry – it streams back the raw ID-JAG your app just received, confirming the IdP handed one over.
 
 ### Exchanging the ID-JAG for an access token with RFC 7523
 
@@ -120,7 +120,7 @@ func GetAccessToken(ctx context.Context, cfg config.XaaConfig, idToken string) (
 
 Call `GetAccessToken` once, and an ID token walks out the other side as an access token good for one specific MCP server. The user never sees a second login or consent screen for any of it.
 
-Checkpoint: the dashboard's **Step 3 — Access Token Request (RFC 7523)** entry shows the resulting access token and its decoded claims, proof the resource server's authorization server accepted the ID-JAG.
+Checkpoint: the dashboard's **Step 3, Access Token Request (RFC 7523)** entry shows the resulting access token and its decoded claims, proof the resource server's authorization server accepted the ID-JAG.
 
 ### Calling the MCP server
 
@@ -161,7 +161,7 @@ func Fetch(ctx context.Context, cfg config.XaaConfig, accessToken string) (*Fetc
 
 The XAA playground's resource server only speaks to-dos, not notes, so AI Notes Assistant reshapes each item into a note before it ever reaches the screen.
 
-Checkpoint: the dashboard's **Step 4 — MCP Server (Streamable HTTP)** entry lists the resources it read and the notes it built from them – the live MCP round trip, not mocked data.
+Checkpoint: the dashboard's **Step 4, MCP Server (Streamable HTTP)** entry lists the resources it read and the notes it built from them – the live MCP round trip, not mocked data.
 
 All four steps run inside one handler, `FlowHandler`, fired the instant a user finishes logging in. From the browser, it looks like two clicks: **Sign in**, then **Analyze My Notes**. Everything above happens in between, invisible to whoever is actually using the app.
 
