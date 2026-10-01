@@ -41,7 +41,7 @@ Cross App Access is the industry term for a pattern built on the [Identity Asser
 
 ## ID-JAG: the token that carries identity across apps
 
-The ID-JAG is the one new token XAA introduces. It's a signed JSON Web Token (JWT) that the IdP issues when your app exchanges the user's ID token for it. Think of it as a sealed envelope from the IdP that says: "This app acts for this user, toward this specific resource, with these scopes, for the next five minutes."
+The ID-JAG is a new token type introduced by XAA. It's a signed JSON Web Token (JWT) that the IdP issues when your app exchanges the user's ID token for it. Think of it as a sealed envelope from the IdP that says: "This app acts for this user, toward this specific resource, with these scopes, for the next five minutes."
 
 Here is a decoded ID-JAG from the app you're building:
 
