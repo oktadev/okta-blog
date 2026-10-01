@@ -72,7 +72,7 @@ The JWT header also carries `"typ": "oauth-id-jag+jwt"`, and authorization serve
 
 ## The four-step XAA flow
 
-Every XAA integration follows the same four steps. Steps 1, 3, and 4 are standard OAuth 2.0. Step 2 is where XAA adds the new move.
+Every XAA integration follows the same four steps. Steps 1, 3, and 4 are standard OAuth 2.0. Step 2 is where XAA adds a new exchange.
 
 ```plaintext
 Step 1: User signs in (OpenID Connect + PKCE)
