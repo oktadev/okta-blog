@@ -5,7 +5,7 @@ author: akanksha-bhasin
 by: advocate
 communities: [javascript]
 description: "Build a TypeScript MCP app with Cross App Access (XAA): exchange ID-JAG tokens, discover auth servers, and delegate OAuth with no consent screens."
-tags: [cross-app-access, xaa, mcp, oidc, sso, typescript, oauth, enterprise-ai]
+tags: [cross-app-access, xaa, mcp, oidc, typescript, oauth]
 tweets:
 - ""
 - ""
@@ -16,9 +16,9 @@ github: https://github.com/oktadev/okta-xaa-typescript-mcp-sdk-example
 type: conversion
 ---
 
-Enterprise apps rarely work alone. A new hire signs in on their first day, opens the onboarding app, and expects their checklist to be there, pulled in real time from the company task system. Delivering that usually costs the user another OAuth consent screen, or costs IT a ticket to wire up a shared service account. Cross App Access (XAA) removes that step. The company's identity provider vouches for the user across app boundaries, under a policy the admin sets in advance. In this tutorial, you'll build that flow end-to-end in TypeScript.
+Enterprise apps rarely work alone. IT wants a new hire's onboarding dashboard to list the tasks they need to finish, but those tasks live in a separate task tracker from a different vendor, on a different domain. Wiring the two together normally costs the user an OAuth consent screen or costs IT a shared service account. Cross App Access (XAA) removes that step. The company's identity provider vouches for the user across the boundary, under a policy the admin sets in advance. In this tutorial, you'll build that flow end-to-end in TypeScript.
 
-You build a Model Context Protocol (MCP) requesting app: a web app that signs a user in through an enterprise Identity Provider (IdP), exchanges that identity for a delegation token called an Identity Assertion JWT Authorization Grant (ID-JAG), trades the ID-JAG for an access token, and calls a protected MCP server to fetch real data. You use the MCP TypeScript SDK, which added first-class Cross App Access support, and you test everything against [xaa.dev](https://xaa.dev), the free XAA playground from the Okta Dev Advocacy team.
+You'll build a Model Context Protocol (MCP) requesting app: a web app that signs a user in through an enterprise Identity Provider (IdP), exchanges that identity for a delegation token called an Identity Assertion JWT Authorization Grant (ID-JAG), trades the ID-JAG for an access token, and calls a protected MCP server to fetch real data. You'll use the MCP TypeScript SDK, which added first-class Cross App Access support, and you'll test everything against [xaa.dev](https://xaa.dev), the free XAA playground from the Okta Dev Advocacy team.
 
 By the end of this post, you can:
 
@@ -27,6 +27,8 @@ By the end of this post, you can:
 - Understand each step of the XAA flow through the SDK functions
 - Let the SDK's `CrossAppAccessProvider` run the whole flow for you
 
+**Table of Contents**{: .hide }
+* Table of Contents
 {% include toc.md %}
 
 ## Why Cross App Access matters for AI agents
