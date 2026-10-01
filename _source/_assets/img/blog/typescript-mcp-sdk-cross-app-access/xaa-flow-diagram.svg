@@ -1,0 +1,91 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1005 1098" width="1005" height="1098" font-family="Helvetica,Arial,sans-serif">
+<rect x="0" y="0" width="1005" height="1098" fill="#ffffff"/>
+<text x="502" y="36" text-anchor="middle" font-size="18" font-weight="bold" fill="#1f5b2a">Cross App Access flow in the TypeScript MCP app</text>
+<line x1="70" y1="80" x2="70" y2="1016" stroke="#93c79d" stroke-width="2" stroke-dasharray="7 6"/>
+<line x1="270" y1="80" x2="270" y2="1016" stroke="#93c79d" stroke-width="2" stroke-dasharray="7 6"/>
+<line x1="530" y1="80" x2="530" y2="1016" stroke="#93c79d" stroke-width="2" stroke-dasharray="7 6"/>
+<line x1="750" y1="80" x2="750" y2="1016" stroke="#93c79d" stroke-width="2" stroke-dasharray="7 6"/>
+<line x1="935" y1="80" x2="935" y2="1016" stroke="#93c79d" stroke-width="2" stroke-dasharray="7 6"/>
+<rect x="5" y="54" width="130" height="30" rx="5" fill="#eaf7ec" stroke="#3f8f4a" stroke-width="2"/>
+<text x="70" y="74" text-anchor="middle" font-size="12.5" font-weight="bold" fill="#1f5b2a">User</text>
+<rect x="5" y="1016" width="130" height="30" rx="5" fill="#eaf7ec" stroke="#3f8f4a" stroke-width="2"/>
+<text x="70" y="1036" text-anchor="middle" font-size="12.5" font-weight="bold" fill="#1f5b2a">User</text>
+<rect x="205" y="54" width="130" height="30" rx="5" fill="#eaf7ec" stroke="#3f8f4a" stroke-width="2"/>
+<text x="270" y="74" text-anchor="middle" font-size="12.5" font-weight="bold" fill="#1f5b2a">Web App</text>
+<rect x="205" y="1016" width="130" height="30" rx="5" fill="#eaf7ec" stroke="#3f8f4a" stroke-width="2"/>
+<text x="270" y="1036" text-anchor="middle" font-size="12.5" font-weight="bold" fill="#1f5b2a">Web App</text>
+<rect x="465" y="54" width="130" height="30" rx="5" fill="#eaf7ec" stroke="#3f8f4a" stroke-width="2"/>
+<text x="530" y="74" text-anchor="middle" font-size="12.5" font-weight="bold" fill="#1f5b2a">IdP</text>
+<rect x="465" y="1016" width="130" height="30" rx="5" fill="#eaf7ec" stroke="#3f8f4a" stroke-width="2"/>
+<text x="530" y="1036" text-anchor="middle" font-size="12.5" font-weight="bold" fill="#1f5b2a">IdP</text>
+<rect x="685" y="54" width="130" height="30" rx="5" fill="#eaf7ec" stroke="#3f8f4a" stroke-width="2"/>
+<text x="750" y="74" text-anchor="middle" font-size="12.5" font-weight="bold" fill="#1f5b2a">Auth Server</text>
+<rect x="685" y="1016" width="130" height="30" rx="5" fill="#eaf7ec" stroke="#3f8f4a" stroke-width="2"/>
+<text x="750" y="1036" text-anchor="middle" font-size="12.5" font-weight="bold" fill="#1f5b2a">Auth Server</text>
+<rect x="870" y="54" width="130" height="30" rx="5" fill="#eaf7ec" stroke="#3f8f4a" stroke-width="2"/>
+<text x="935" y="74" text-anchor="middle" font-size="12.5" font-weight="bold" fill="#1f5b2a">MCP Server</text>
+<rect x="870" y="1016" width="130" height="30" rx="5" fill="#eaf7ec" stroke="#3f8f4a" stroke-width="2"/>
+<text x="935" y="1036" text-anchor="middle" font-size="12.5" font-weight="bold" fill="#1f5b2a">MCP Server</text>
+<rect x="16" y="112" width="973" height="34" rx="4" fill="#d7f0d9" stroke="#3f8f4a" stroke-width="1.6"/>
+<text x="502" y="134" text-anchor="middle" font-size="13.5" font-weight="bold" fill="#1f5b2a">1 - OIDC login + PKCE</text>
+<line x1="70" y1="173" x2="261" y2="173" stroke="#2f7d3a" stroke-width="2"/>
+<path d="M268,173 L259,168.5 L259,177.5 Z" fill="#2f7d3a"/>
+<text x="170" y="165" text-anchor="middle" font-size="11.5" fill="#1f5b2a">GET /login</text>
+<line x1="270" y1="211" x2="521" y2="211" stroke="#2f7d3a" stroke-width="2"/>
+<path d="M528,211 L519,206.5 L519,215.5 Z" fill="#2f7d3a"/>
+<text x="400" y="203" text-anchor="middle" font-size="11.5" fill="#1f5b2a">GET /.well-known/openid-configuration</text>
+<line x1="270" y1="249" x2="521" y2="249" stroke="#2f7d3a" stroke-width="2"/>
+<path d="M528,249 L519,244.5 L519,253.5 Z" fill="#2f7d3a"/>
+<text x="400" y="241" text-anchor="middle" font-size="11.5" fill="#1f5b2a">authorize + code_challenge (S256)</text>
+<line x1="530" y1="287" x2="279" y2="287" stroke="#2f7d3a" stroke-width="2" stroke-dasharray="8 5"/>
+<path d="M272,287 L281,282.5 L281,291.5 Z" fill="#2f7d3a"/>
+<text x="400" y="279" text-anchor="middle" font-size="11.5" fill="#1f5b2a">GET /callback?code=...</text>
+<line x1="270" y1="325" x2="521" y2="325" stroke="#2f7d3a" stroke-width="2"/>
+<path d="M528,325 L519,320.5 L519,329.5 Z" fill="#2f7d3a"/>
+<text x="400" y="317" text-anchor="middle" font-size="11.5" fill="#1f5b2a">POST /token (code + code_verifier)</text>
+<line x1="530" y1="363" x2="279" y2="363" stroke="#2f7d3a" stroke-width="2" stroke-dasharray="8 5"/>
+<path d="M272,363 L281,358.5 L281,367.5 Z" fill="#2f7d3a"/>
+<text x="400" y="355" text-anchor="middle" font-size="11.5" fill="#1f5b2a">id_token</text>
+<line x1="270" y1="401" x2="79" y2="401" stroke="#2f7d3a" stroke-width="2" stroke-dasharray="8 5"/>
+<path d="M72,401 L81,396.5 L81,405.5 Z" fill="#2f7d3a"/>
+<text x="170" y="393" text-anchor="middle" font-size="11.5" fill="#1f5b2a">session cookie</text>
+<rect x="16" y="432" width="973" height="34" rx="4" fill="#d7f0d9" stroke="#3f8f4a" stroke-width="1.6"/>
+<text x="502" y="454" text-anchor="middle" font-size="13.5" font-weight="bold" fill="#1f5b2a">2 - Token exchange (RFC 8693)</text>
+<line x1="70" y1="493" x2="261" y2="493" stroke="#2f7d3a" stroke-width="2"/>
+<path d="M268,493 L259,488.5 L259,497.5 Z" fill="#2f7d3a"/>
+<text x="170" y="485" text-anchor="middle" font-size="11.5" fill="#1f5b2a">GET /api/flow (SSE)</text>
+<line x1="270" y1="531" x2="926" y2="531" stroke="#2f7d3a" stroke-width="2"/>
+<path d="M933,531 L924,526.5 L924,535.5 Z" fill="#2f7d3a"/>
+<text x="602" y="523" text-anchor="middle" font-size="11.5" fill="#1f5b2a">client.connect(transport)</text>
+<line x1="935" y1="569" x2="279" y2="569" stroke="#2f7d3a" stroke-width="2" stroke-dasharray="8 5"/>
+<path d="M272,569 L281,564.5 L281,573.5 Z" fill="#2f7d3a"/>
+<text x="602" y="561" text-anchor="middle" font-size="11.5" fill="#1f5b2a">401 + WWW-Authenticate</text>
+<line x1="270" y1="607" x2="926" y2="607" stroke="#2f7d3a" stroke-width="2"/>
+<path d="M933,607 L924,602.5 L924,611.5 Z" fill="#2f7d3a"/>
+<text x="602" y="599" text-anchor="middle" font-size="11.5" fill="#1f5b2a">RFC 9728 resource metadata</text>
+<line x1="270" y1="645" x2="521" y2="645" stroke="#2f7d3a" stroke-width="2"/>
+<path d="M528,645 L519,640.5 L519,649.5 Z" fill="#2f7d3a"/>
+<text x="400" y="637" text-anchor="middle" font-size="11.5" fill="#1f5b2a">requestJwtAuthorizationGrant() (cached endpoint)</text>
+<line x1="530" y1="683" x2="279" y2="683" stroke="#2f7d3a" stroke-width="2" stroke-dasharray="8 5"/>
+<path d="M272,683 L281,678.5 L281,687.5 Z" fill="#2f7d3a"/>
+<text x="400" y="675" text-anchor="middle" font-size="11.5" fill="#1f5b2a">ID-JAG (oauth-id-jag+jwt)</text>
+<rect x="16" y="714" width="973" height="34" rx="4" fill="#d7f0d9" stroke="#3f8f4a" stroke-width="1.6"/>
+<text x="502" y="736" text-anchor="middle" font-size="13.5" font-weight="bold" fill="#1f5b2a">3 - JWT bearer grant (RFC 7523)</text>
+<line x1="270" y1="775" x2="741" y2="775" stroke="#2f7d3a" stroke-width="2"/>
+<path d="M748,775 L739,770.5 L739,779.5 Z" fill="#2f7d3a"/>
+<text x="510" y="767" text-anchor="middle" font-size="11.5" fill="#1f5b2a">JWT bearer grant - ID-JAG assertion + scope</text>
+<line x1="750" y1="813" x2="279" y2="813" stroke="#2f7d3a" stroke-width="2" stroke-dasharray="8 5"/>
+<path d="M272,813 L281,808.5 L281,817.5 Z" fill="#2f7d3a"/>
+<text x="510" y="805" text-anchor="middle" font-size="11.5" fill="#1f5b2a">access_token (Bearer)</text>
+<rect x="16" y="844" width="973" height="34" rx="4" fill="#d7f0d9" stroke="#3f8f4a" stroke-width="1.6"/>
+<text x="502" y="866" text-anchor="middle" font-size="13.5" font-weight="bold" fill="#1f5b2a">4 - MCP resource read (RFC 6750)</text>
+<line x1="270" y1="905" x2="926" y2="905" stroke="#2f7d3a" stroke-width="2"/>
+<path d="M933,905 L924,900.5 L924,909.5 Z" fill="#2f7d3a"/>
+<text x="602" y="897" text-anchor="middle" font-size="11.5" fill="#1f5b2a">client.readResource({ uri: 'todo0://todos' })</text>
+<line x1="935" y1="943" x2="279" y2="943" stroke="#2f7d3a" stroke-width="2" stroke-dasharray="8 5"/>
+<path d="M272,943 L281,938.5 L281,947.5 Z" fill="#2f7d3a"/>
+<text x="602" y="935" text-anchor="middle" font-size="11.5" fill="#1f5b2a">todos JSON</text>
+<line x1="270" y1="981" x2="79" y2="981" stroke="#2f7d3a" stroke-width="2" stroke-dasharray="8 5"/>
+<path d="M72,981 L81,976.5 L81,985.5 Z" fill="#2f7d3a"/>
+<text x="170" y="973" text-anchor="middle" font-size="11.5" fill="#1f5b2a">SSE step events + checklist</text>
+</svg>
