@@ -88,7 +88,7 @@ Step 4: Call the resource (RFC 6750)
   Your app -> MCP server (Bearer token)     -> data
 ```
 
-In words: the user authenticates once with the IdP, and your app receives an ID token. Your app exchanges that ID token at the IdP for an ID-JAG using [OAuth 2.0 Token Exchange](https://datatracker.ietf.org/doc/html/rfc8693) (Request for Comments (RFC) 8693). Your app presents the ID-JAG to the resource's authorization server using the [JWT bearer grant](https://datatracker.ietf.org/doc/html/rfc7523) (RFC 7523) and receives a scoped access token. Finally, your app calls the protected resource with that token as a standard [Bearer credential](https://datatracker.ietf.org/doc/html/rfc6750) (RFC 6750).
+The user authenticates once with the IdP, and your app receives an ID token. Your app exchanges that ID token at the IdP for an ID-JAG using [OAuth 2.0 Token Exchange](https://datatracker.ietf.org/doc/html/rfc8693) (Request for Comments (RFC) 8693). Your app presents the ID-JAG to the resource's authorization server using the [JWT bearer grant](https://datatracker.ietf.org/doc/html/rfc7523) (RFC 7523) and receives a scoped access token. Finally, your app calls the protected resource with that token as a standard [Bearer credential](https://datatracker.ietf.org/doc/html/rfc6750) (RFC 6750).
 
 The user never sees a consent screen after step 1. The IdP replaces the consent step with a policy the admin configures in advance.
 
