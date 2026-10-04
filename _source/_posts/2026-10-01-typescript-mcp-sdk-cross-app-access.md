@@ -35,7 +35,7 @@ By the end of this post, you can:
 
 OAuth 2.0 solved authorization for a single app interacting with a single user. Enterprise software no longer works that way. A single user action now fans out across many systems, and AI agents make the fan-out constant: an assistant reads a document, files a ticket, checks a calendar, and logs an audit event, all on behalf of one person.
 
-Each of those hops needs the user's identity. The traditional answer is a consent screen at every boundary. Users click through prompts they don't read. IT teams lose visibility into which app talks to which other app. Some teams give up and share service accounts, which puts a single overprivileged credential in front of everyone's data.
+Each of those hops needs the user's identity. The traditional answer is a consent screen at every boundary. Users click through prompts they don't read. IT teams lose visibility into which app talks to which other app because the authorization is based on personal consent. Some teams give up and share service accounts, which puts a single overprivileged credential in front of everyone's data.
 
 XAA takes a different approach. Your enterprise IdP already knows who the user is, because the user signed in this morning. XAA lets the IdP vouch for that identity across app boundaries by issuing a short-lived, signed delegation token. The enterprise admin decides which app connects to which resource, with which scopes. The user signs in once. Everything after that is a chain of cryptographic handoffs: no pop-ups, no shared service accounts, and every hop is auditable.
 
