@@ -23,7 +23,7 @@ You'll build a Model Context Protocol (MCP) requesting app: a web app that signs
 By the end of this post, you can:
 
 - Explain what XAA is and why AI agents and enterprise apps need it
-- Read an ID-JAG and understand every claim in it
+- Read an ID-JAG and understand key claims in it
 - Understand each step of the XAA flow through the SDK functions
 - Let the SDK's `CrossAppAccessProvider` run the whole flow for you
 
