@@ -69,14 +69,16 @@ Rather than stand up an enterprise IdP and a protected resource yourself, you'll
    - **Connect to Resource**: select the **Todo MCP server** resource (`todo0-mcp`) and keep the `todos.read` and `mcp.access` scopes
 4. Save the credentials from the confirmation modal
 
-Registration creates two OAuth clients, and mixing them up is the most common XAA mistake:
+Registration gives you at least two sets of credentials, and mixing them up is the most common XAA mistake:
 
 | Client | Credentials | Identifies your app at |
 |---|---|---|
 | Main client | `client_id` / `client_secret` | the IdP, for sign-in and for the token exchange |
 | Resource client | `resource_client_id` / `resource_client_secret` (the ID looks like `client_xxx-at-todo0-mcp`) | the resource's authorization server |
 
-Why two? The IdP and the resource's authorization server are separate trust domains, so your app holds a separate identity at each. Using the main client's credentials at the resource's authorization server results in an `invalid_client` error.
+Why separate credentials? The IdP and the resource's authorization server are separate trust domains, so your app holds a separate identity at each. Using the main client's credentials at the resource's authorization server results in an `invalid_client` error.
+
+Some registrations also show a distinct pair for the token exchange itself. If yours does, keep it aside; the sample has a slot for it, and reuses the main client when you leave that slot empty.
 
 ## Set up the TypeScript project
 
@@ -95,6 +97,11 @@ Fill in `.env` with the credentials from your registration:
 # Main client: identifies your app at the IdP
 XAA_CLIENT_ID=YOUR_CLIENT_ID
 XAA_CLIENT_SECRET=YOUR_CLIENT_SECRET
+
+# Token-exchange client, if your registration shows a separate pair for it.
+# Leave both blank to reuse the main client above.
+EXCHANGE_CLIENT_ID=
+EXCHANGE_CLIENT_SECRET=
 
 # Resource client: identifies your app at the resource's authorization server
 MCP_CLIENT_ID=YOUR_RESOURCE_CLIENT_ID
