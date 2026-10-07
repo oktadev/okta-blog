@@ -36,7 +36,7 @@ By the end of this post, you can:
 - A free [xaa.dev](https://xaa.dev) registration (email only)
 - Familiarity with OAuth 2.0 concepts. If Proof Key for Code Exchange (PKCE) is new to you, read [Secure Your Express App with OAuth 2.0, OIDC, and PKCE](/blog/2025/07/28/express-oauth-pkce) first.
 
-The code in this tutorial runs against `@modelcontextprotocol/client` version `2.0.0-alpha.2`, Express 4, and the xaa.dev playground services. The SDK version is a prerelease of the v2 line, and APIs can change between prereleases, so check the sample repository for the exact dependency versions.
+The code in this tutorial runs against `@modelcontextprotocol/client` version `2.0.0-alpha.2`, `openid-client` 6, Express 4, and the xaa.dev playground services. The MCP SDK version is a prerelease of the v2 line, and APIs can change between prereleases, so check the sample repository for the exact dependency versions.
 
 **Table of Contents**{: .hide }
 * Table of Contents
@@ -50,7 +50,7 @@ One naming note before the build: in this post, the MCP client and the requestin
 
 The app spans four files:
 
-- `src/server.ts`: an Express server that handles the OpenID Connect sign-in and streams the flow steps to the browser over server-sent events (SSE)
+- `src/server.ts`: an Express server that handles the OpenID Connect sign-in with `openid-client` and streams the flow steps to the browser over server-sent events (SSE)
 - `src/xaa.ts`: the XAA flow via `CrossAppAccessProvider`, built on the MCP TypeScript SDK
 - `src/config.ts`: environment variables and app configuration
 - `public/index.html`: the dashboard
@@ -242,31 +242,62 @@ The next four sections take each step in turn, as explicit code, so that you can
 
 ### Sign the user in with OpenID Connect and PKCE
 
-Step 1 is a standard OpenID Connect Authorization Code flow with [PKCE](https://datatracker.ietf.org/doc/html/rfc7636). The app redirects the browser to the IdP's authorization endpoint with a PKCE challenge, then exchanges the returned code for tokens at the token endpoint. The piece XAA cares about is the ID token in the response, because it becomes the input to step 2.
+Step 1 is a standard OpenID Connect Authorization Code flow with [PKCE](https://datatracker.ietf.org/doc/html/rfc7636), and standard means you shouldn't write it yourself. The sample uses [`openid-client`](https://github.com/panva/openid-client), which handles discovery, the PKCE challenge, and the code exchange. The piece XAA cares about is the ID token in the response, because it becomes the input to step 2.
 
-The relevant part of the callback route in `src/server.ts`:
+Discovery returns a configuration object that the other calls take as their first argument. In `src/server.ts`:
 
 ```typescript
-const tokenRes = await fetch(meta.token_endpoint, {
-  method: 'POST',
-  headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-  body: new URLSearchParams({
-    grant_type: 'authorization_code',
-    code,
-    redirect_uri: REDIRECT_URI,
-    client_id: XAA_CLIENT_ID,
-    client_secret: XAA_CLIENT_SECRET,
-    code_verifier: session.pkceVerifier,
-  }),
+import * as client from 'openid-client';
+
+const config = await client.discovery(
+  new URL('https://idp.xaa.dev'),
+  process.env.XAA_CLIENT_ID,
+  process.env.XAA_CLIENT_SECRET,
+);
+```
+
+The `/login` route generates a fresh PKCE verifier, `state`, and `nonce`, stores them in the session, and builds the authorization URL:
+
+```typescript
+const verifier = client.randomPKCECodeVerifier();
+session.pkceVerifier = verifier;
+session.state = client.randomState();
+session.nonce = client.randomNonce();
+
+const url = client.buildAuthorizationUrl(config, {
+  redirect_uri: REDIRECT_URI,
+  scope: 'openid email profile',
+  state: session.state,
+  nonce: session.nonce,
+  code_challenge: await client.calculatePKCECodeChallenge(verifier),
+  code_challenge_method: 'S256',
 });
 
-const tokens = await tokenRes.json();
-session.idToken = tokens.id_token;
+res.redirect(url.href);
 ```
+
+The `/callback` route then exchanges the code for tokens in one call:
+
+```typescript
+const tokens = await client.authorizationCodeGrant(
+  config,
+  new URL(req.originalUrl, BASE_URL),
+  {
+    pkceCodeVerifier: session.pkceVerifier,
+    expectedState: session.state,
+    expectedNonce: session.nonce,
+  },
+);
+
+session.idToken = tokens.id_token;
+session.claims = tokens.claims();
+```
+
+That one call verifies the ID token's signature against the IdP's published keys, checks the `iss`, `aud`, and `exp` claims, and confirms the `state` and `nonce` match what you stored. Hand-rolled sign-in code tends to decode the ID token payload without verifying any of it, which means trusting claims from a token you haven't proven came from your IdP. Here, the ID token is the `subject_token` for step 2 and the root of the whole delegation chain, so that verification is load-bearing.
 
 The app keeps the ID token in a server-side session. It never sends the ID token to the resource server; the token's only job now is to prove the user's identity to the IdP during token exchange.
 
-> **Production note:** The sample validates `state` and a `nonce` and keeps tokens in a server-side session. Before trusting an ID token in production, also verify its signature against the IdP's published keys, along with the `iss`, `aud`, and `exp` claims. Configure session cookies with `HttpOnly`, `Secure`, and an appropriate `SameSite` value, and keep client secrets out of browser code.
+> **Production note:** Configure session cookies with `HttpOnly`, `Secure`, and an appropriate `SameSite` value, and keep client secrets out of browser code. The sample stores sessions in memory, which is fine for a local demo and wrong for production: use a session store so tokens survive a restart and scale past one process.
 
 ### Exchange the ID token for an ID-JAG
 
