@@ -22,8 +22,18 @@ These are the primary editorial standards for OktaDev blog content. When conflic
 
 - ❌ Tell the reader **why the post is valuable up front**.
 - ❌ **Preface all tools and technologies** required (e.g. Okta account, AWS account, API key and secret).
+- ⚠️ **Get the reader into the app as fast as possible.** Prefacing required tools (above) is just naming what's needed — it's not the same as the hands-on setup steps. Among the hands-on steps, the goal is engagement: have the reader spin up a new app or run a starter/sample app before anything else. Flag tutorials whose first hands-on step is Okta configuration (creating the org, registering an OIDC app, Admin Console setup) rather than touching the actual application — based on prior engagement metrics, that ordering is a proven way to lose readers before they've started. Okta setup steps should come after the reader is already running something, not as the first hands-on step.
+- ⚠️ **Don't front-load all the technical explanation, and don't save it all for the end either.** Interleave background with hands-on steps so the reader isn't reading paragraphs of explanation before getting hands-on-keyboard. There's no single required structure — authors should organize a post however fits the content best — but all the explanation up front, or all of it held until after the walkthrough, is a red flag worth calling out.
+- ❌ **The reader must write code, not just read about it.** A tutorial where the reader only clones and runs an already-complete sample, without adding, modifying, or building anything themselves, misses the mark.
 - ⚠️ **Be careful with "first," "last," and "finally"** — these can confuse readers who are partway through. Flag any awkward use.
 - ⚠️ Add **checkpoints** throughout the tutorial so readers can verify they are on the right track before moving to the next step.
+
+---
+
+## Thought Leadership and Conceptual Posts (if applicable)
+
+- ❌ Content must leave the reader with a **concrete takeaway** — something they can do, evaluate, or prepare for. Flag posts that are purely informational with no actionable next step.
+- ❌ For posts about **upcoming specs, drafts, or future-looking topics**, flag if there's no "what should I do now?" guidance — what to evaluate, prepare, or watch for.
 
 ---
 
@@ -132,7 +142,8 @@ out inside the intro, that's usually expected rather than a defect.
 - ❌ **No drop shadows**.
 - ❌ **No borders** in diagrams.
 - ❌ Do not put titles, descriptions, or captions inside the diagram — use surrounding content text instead.
-- ⚠️ Prefer **Mermaid** for diagrams and add the diagram in SVG format.
+- ⚠️ **Strongly prefer SVG** for diagrams.
+- ⚠️ If the diagram was generated from **Mermaid**, include the Mermaid syntax as a Liquid comment (`{% comment %}` / `{% endcomment %}`) before or after the image. This lets the diagram be regenerated or edited on the author's behalf later, and sets the post up for a planned future where Mermaid diagrams render natively. Flag an SVG diagram with no accompanying Mermaid source as a missed opportunity, not a hard failure, if the diagram wasn't Mermaid-generated to begin with.
 
 ### Social Images
 - ❌ 1600x900 JPG at `blog/<post-slug>/social.jpg`, referenced by the `image:` front matter field. Under 400KB.

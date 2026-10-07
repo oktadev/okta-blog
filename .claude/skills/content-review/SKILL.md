@@ -109,7 +109,7 @@ If the content passes a section cleanly, state "✅ No issues found" for that se
 
 Each guideline category is documented separately for focused review:
 
-1. **[Editorial Standards](./editorial-standards.md)** — Content quality, tutorials, image markup, diagram guidelines, legal, content updates
+1. **[Editorial Standards](./editorial-standards.md)** — Content quality, tutorials, thought leadership, image markup, diagram guidelines, legal, content updates
 2. **[Writing Principles](./writing-principles.md)** — Conciseness, consistency, clarity, considerateness
 3. **[Voice, Tone, and Tense](./voice-tone-tense.md)** — Active voice, tone, tense, banned words
 4. **[Formatting and Punctuation](./formatting.md)** — Headings, dashes, punctuation, code blocks, Jekyll tags, file names
