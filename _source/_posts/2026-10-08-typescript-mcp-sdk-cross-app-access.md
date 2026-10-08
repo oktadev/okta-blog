@@ -165,6 +165,54 @@ The user authenticates once with the IdP, and your app receives an ID token. You
 
 {% img blog/typescript-mcp-sdk-cross-app-access/xaa-flow-diagram.svg alt:"The Cross App Access flow in the TypeScript MCP app, in which the user, web app, IdP, authorization server, and MCP server exchange an ID token, an ID-JAG, and a Bearer access token across four steps" width:"800" %}{: .center-image }
 
+{% comment %}
+Tweak the diagram on https://mermaid.live/ with the following content
+%%{init: {'themeVariables': {'fontSize': '18px'}}}%%
+sequenceDiagram
+    participant U as User
+    participant APP as Web App
+    participant IDP as IdP (IdenX)
+    participant AS as Auth Server
+    participant MCP as MCP Server
+
+    rect rgb(224, 242, 227)
+    Note over U,MCP: 1 - OIDC login + PKCE
+    U->>APP: GET /login
+    APP->>IDP: GET /.well-known/openid-configuration
+    APP-->>U: redirect to authorize + code_challenge (S256)
+    U->>IDP: sign in
+    IDP-->>U: redirect to /callback?code=...
+    U->>APP: GET /callback?code=...
+    APP->>IDP: POST /token (code + code_verifier)
+    IDP-->>APP: id_token (signature verified)
+    APP-->>U: session cookie
+    end
+
+    rect rgb(224, 242, 227)
+    Note over U,MCP: 2 - Token exchange (RFC 8693)
+    U->>APP: GET /api/flow (SSE)
+    APP->>MCP: client.connect(transport)
+    MCP-->>APP: 401 + WWW-Authenticate
+    APP->>MCP: GET RFC 9728 resource metadata
+    MCP-->>APP: authorization server URL
+    APP->>IDP: requestJwtAuthorizationGrant() (cached endpoint)
+    IDP-->>APP: ID-JAG (oauth-id-jag+jwt)
+    end
+
+    rect rgb(224, 242, 227)
+    Note over U,MCP: 3 - JWT bearer grant (RFC 7523)
+    APP->>AS: JWT bearer grant - ID-JAG assertion + scope
+    AS-->>APP: access_token (Bearer)
+    end
+
+    rect rgb(224, 242, 227)
+    Note over U,MCP: 4 - MCP resource read (RFC 6750)
+    APP->>MCP: client.readResource({ uri: 'todo0://todos' })
+    MCP-->>APP: todos JSON
+    APP-->>U: SSE step events + checklist
+    end
+{% endcomment %}
+
 ## Why Cross App Access matters for AI agents
 
 You just watched one user action cross one app boundary. Enterprise software rarely stops at one. A single action fans out across many systems, and AI agents make the fan-out constant: an assistant reads a document, files a ticket, checks a calendar, and logs an audit event, all on behalf of one person.
