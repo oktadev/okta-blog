@@ -231,14 +231,14 @@ With SEP-990 implemented in the SDK, an XAA-enabled MCP client differs from a pl
 Three pieces of the TypeScript SDK matter for this tutorial:
 
 - **`discoverAndRequestJwtAuthGrant()`** performs step 2. It discovers the IdP's token endpoint from its metadata, then sends an RFC 8693 token-exchange request and returns the ID-JAG. A sibling function, `requestJwtAuthorizationGrant()`, skips discovery when you already know the token endpoint.
-- **`exchangeJwtAuthGrant()`** performs step 3: it presents the ID-JAG and returns the access token
+- **`exchangeJwtAuthGrant()`** performs step 3: given the resource authorization server's token endpoint, it presents the ID-JAG with the RFC 7523 JWT bearer grant and returns the access token. Unlike the step 2 function, it does no discovery of its own.
 - **`CrossAppAccessProvider`** is the production path. It plugs into the SDK's transport as an `OAuthClientProvider` and runs steps 2 through 4 automatically: it calls the MCP server, receives a `401` challenge, discovers the authorization server through [protected resource metadata (RFC 9728)](https://datatracker.ietf.org/doc/html/rfc9728), invokes your callback to obtain a fresh ID-JAG, exchanges it, and retries the request with the new access token.
 
-You use all three later in this tutorial: the two functions to follow the token flow step by step, then the provider to run the whole thing.
+You see `discoverAndRequestJwtAuthGrant()` in step 2 and the provider in the final section. `exchangeJwtAuthGrant()` is the standalone way to do step 3; the sample never calls it, because the provider builds that same JWT bearer request itself.
 
 ## Walk through the XAA flow in TypeScript
 
-The next four sections take each step in turn, as explicit code, so that you can trace every token in the chain. The fifth shows how `CrossAppAccessProvider` collapses steps 2 through 4 into a single provider configuration, which is what the sample actually does.
+The next four sections take each step in turn, so that you can trace every token in the chain. The fifth shows `CrossAppAccessProvider`, which drives steps 2 through 4 from one configuration. The code below is adapted from `src/server.ts` and `src/xaa.ts`, trimmed to the lines that matter for each step.
 
 ### Sign the user in with OpenID Connect and PKCE
 
@@ -328,64 +328,34 @@ One optimization worth noting: the discovery call incurs an extra network round 
 
 ### Exchange the ID-JAG for an access token
 
-In step 3, your app presents the ID-JAG to the resource's authorization server with the RFC 7523 JWT bearer grant, authenticating with the resource client credentials:
+In step 3, your app presents the ID-JAG to the resource's authorization server with the RFC 7523 JWT bearer grant, authenticating with the resource client credentials. The request posts `grant_type=urn:ietf:params:oauth:grant-type:jwt-bearer` with the ID-JAG as the `assertion`, and the response is an ordinary OAuth token response: an `access_token`, `token_type` of `Bearer`, and an `expires_in` lifetime worth reading rather than assuming.
 
-```typescript
-const params = new URLSearchParams({
-  grant_type: 'urn:ietf:params:oauth:grant-type:jwt-bearer',
-  assertion: jag.jwtAuthGrant,
-  scope: 'todos.read mcp.access',
-  client_id: process.env.MCP_CLIENT_ID,       // client_xxx-at-todo0-mcp
-  client_secret: process.env.MCP_CLIENT_SECRET,
-});
+You don't write that request yourself. `CrossAppAccessProvider` makes it, and the next section shows how it is configured. Two details about this step save you real debugging time:
 
-const res = await fetch('https://auth.resource.xaa.dev/token', {
-  method: 'POST',
-  headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-  body: params,
-});
-
-const tokens = await res.json();
-// tokens.access_token, tokens.token_type ("Bearer"),
-// tokens.expires_in (lifetime in seconds; read it rather than assuming a value)
-```
-
-Two details in this request save you real debugging time:
-
-1. **Client authentication method.** Developer-registered clients on xaa.dev use `client_secret_post`, which means credentials belong in the request body. The SDK's `exchangeJwtAuthGrant()` helper defaults to `client_secret_basic` (an `Authorization: Basic` header), so pass `authMethod: 'client_secret_post'` if you use the helper, or build the request yourself as shown above.
-2. **Send the `scope` parameter.** If you omit it, the playground's authorization server issues an access token with an empty scope, and the failure that follows is quiet. The MCP server still completes the handshake, `resources/list` still returns the resource names, and reading the todos still returns HTTP `200` with a JSON-RPC result. The rejection hides inside the resource payload: `{"error":"Unauthorized","message":"Invalid or expired token"}`. Nothing throws, so your app parses that error object instead of a todo list and renders an empty checklist. Request the scopes you need, then verify the `scope` claim in the decoded access token.
+1. **Client authentication method.** Developer-registered clients on xaa.dev use `client_secret_post`, which means credentials belong in the request body. The provider declares `client_secret_basic` (an `Authorization: Basic` header) by default, so the client information has to name the method explicitly.
+2. **Send the `scope` parameter.** The provider only sends a scope when the authorization server's metadata advertises one, and xaa.dev's does not. Omit it and the authorization server issues an access token with an empty scope, after which the failure is quiet. The MCP server still completes the handshake, `resources/list` still returns the resource names, and reading the todos still returns HTTP `200` with a JSON-RPC result. The rejection hides inside the resource payload: `{"error":"Unauthorized","message":"Invalid or expired token"}`. Nothing throws, so your app parses that error object instead of a todo list and renders an empty checklist. Request the scopes you need, then verify the `scope` claim in the decoded access token.
 
 The resulting access token is itself a JWT. Its `aud` claim matches the `resource` you sent in step 2, its `sub` identifies the user, and its `client_id` is the resource client. This is the delegation chain made visible: user identity from step 1, admin policy from the resource connection, and app identity from your registration, all cryptographically bound into one credential.
 
 ### Fetch data from the MCP server
 
-With a Bearer token in hand, step 4 is regular MCP SDK code. The transport carries the token in the `Authorization` header:
+With a token in hand, step 4 is regular MCP SDK code. Given a connected `Client`, which the next section builds, reading a resource takes one call:
 
 ```typescript
-import { Client, StreamableHTTPClientTransport } from '@modelcontextprotocol/client';
-
-const transport = new StreamableHTTPClientTransport(
-  new URL('https://mcp.xaa.dev/mcp'),
-  { requestInit: { headers: { Authorization: `Bearer ${tokens.access_token}` } } },
-);
-
-const client = new Client({ name: 'xaa-requesting-app-typescript', version: '1.0.0' });
-await client.connect(transport);
-
 const read = await client.readResource({ uri: 'todo0://todos' });
 
 // A resource's contents can be text or binary, so narrow before parsing.
 const first = read.contents[0];
 const todos = first && 'text' in first ? JSON.parse(first.text) : [];
-
-await client.close();
 ```
 
-`client.connect()` runs the MCP initialization handshake, and `readResource()` returns the user's todo list as JSON. The playground's MCP server exposes the todos as an MCP *resource* (read-only data at a URI) rather than a *tool*. Both primitives ride the same authenticated pipeline, so switching to a tool call is a one-line change to `client.callTool()` when your resource server offers tools.
+`readResource()` returns the user's todo list as JSON. The playground's MCP server exposes the todos as an MCP *resource* (read-only data at a URI) rather than a *tool*. Both primitives ride the same authenticated pipeline, so switching to a tool call is a one-line change to `client.callTool()` when your resource server offers tools.
+
+Notice that the access token never appears in this code. You can attach it to the transport yourself through `requestInit.headers`, but the sample gives the transport an `authProvider` instead, and the SDK fetches the token, attaches it, and refreshes it when it expires.
 
 ### CrossAppAccessProvider runs the whole flow
 
-The sections above show each protocol step explicitly to make the token flow visible. The sample implements all three steps through `CrossAppAccessProvider` in `src/xaa.ts`, so the repo has no separate step functions:
+The sections above describe what each step sends and receives. Here is the code that runs all three, from `src/xaa.ts`:
 
 ```typescript
 import {
