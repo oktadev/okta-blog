@@ -1,6 +1,6 @@
 ---
 layout: blog_post
-title: "Build a Secure TypeScript MCP App with Cross App Access (XAA)"
+title: "Build a Secure TypeScript MCP Client with Cross App Access (XAA)"
 author: akanksha-bhasin
 by: advocate
 communities: [javascript]
