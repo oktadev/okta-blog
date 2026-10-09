@@ -16,7 +16,7 @@ github: https://github.com/oktadev/okta-xaa-typescript-mcp-sdk-example
 type: conversion
 ---
 
-Enterprise apps rarely work alone. Imagine this scenario: HR wants to ensure that a new employee completes their new hire onboarding, and they want this verification in the company's HR app so it's tied to the employee's personnel file. But the onboarding tasks come from a task-tracking tool with requirements defined by each department, from a different vendor and on a different domain than the HR app. It's on IT to bridge the two together.
+Enterprise apps rarely work alone. Imagine this scenario: HR wants to ensure that a new employee completes their new hire onboarding, and they want this verification in the company's HR app so it's tied to the employee's personnel file. But the onboarding tasks come from a task-tracking tool with requirements defined by each department, from a different vendor and on a different domain than the HR app. It's on IT to bridge the two.
 
 Wiring the two together normally costs the user an OAuth consent screen or costs IT a shared service account. Cross App Access (XAA) removes that step. The company's identity provider vouches for the user across the boundary, under a policy the admin sets in advance. In this tutorial, you'll build that flow end-to-end in TypeScript.
 
@@ -59,7 +59,7 @@ The complete project is on GitHub in the [okta-xaa-typescript-mcp-sdk-example re
 
 ## Register your requesting app on xaa.dev
 
-Rather than stand up an enterprise IdP and a protected resource yourself, you'll code against [xaa.dev](https://xaa.dev), the free XAA playground from the Okta Dev Advocacy team. It hosts the three services you don't have to build: the IdP (IdenX at `https://idp.xaa.dev`), the resource's authorization server (`https://auth.resource.xaa.dev`), and a protected todo resource available as both a REST API and an MCP server (`https://mcp.xaa.dev/mcp`). You register your app once and get the credentials your project needs. For a tour of the playground itself, read [Introducing xaa.dev: A Playground for Cross App Access](/blog/2026/01/20/xaa-dev-playground).
+Rather than stand up an enterprise IdP and a protected resource yourself, you'll code against [xaa.dev](https://xaa.dev), the free XAA playground from the Okta Dev Advocacy team. It hosts the three services you don't have to build: the IdP (IdenX at `https://idp.xaa.dev`), the resource's authorization server (`https://auth.resource.xaa.dev`), and a protected todo resource available as both a REST API and an MCP server (`https://mcp.xaa.dev/mcp`). You register your app once and get the credentials your project needs because XAA spans two trust domains: your app needs one identity at the IdP to sign users in and another at the resource's authorization server to get access tokens. For a tour of the playground itself, read [Introducing xaa.dev: A Playground for Cross App Access](/blog/2026/01/20/xaa-dev-playground).
 
 1. Go to the [requesting app registration page](https://xaa.dev/developer/register)
 2. Enter your email address. It scopes which registered apps are visible to you; xaa.dev creates no account and sends no email.
@@ -76,9 +76,9 @@ Registration gives you at least two sets of credentials, and mixing them up is t
 | Main client | `client_id` / `client_secret` | the IdP, for sign-in and for the token exchange |
 | Resource client | `resource_client_id` / `resource_client_secret` (the ID looks like `client_xxx-at-todo0-mcp`) | the resource's authorization server |
 
-Why separate credentials? The IdP and the resource's authorization server are separate trust domains, so your app holds a separate identity at each. Using the main client's credentials at the resource's authorization server results in an `invalid_client` error.
+> **Note:** Why separate credentials? The IdP and the resource's authorization server are separate trust domains, so your app holds a separate identity at each. Using the main client's credentials at the resource's authorization server results in an `invalid_client` error.
 
-Some registrations also show a distinct pair for the token exchange itself. If yours does, keep it aside; the sample has a slot for it, and reuses the main client when you leave that slot empty.
+> **Note:** Some registrations also show a distinct pair for the token exchange itself. If yours does, keep it aside; the sample has a slot for it, and reuses the main client when you leave that slot empty.
 
 ## Set up the TypeScript project
 
@@ -117,9 +117,9 @@ BASE_URL=http://localhost:3001
 XAA_SCOPE=todos.read mcp.access
 ```
 
-Keep the URLs free of trailing slashes. The IdP compares the `audience` value as an exact string, so `https://auth.resource.xaa.dev/` with a slash fails where `https://auth.resource.xaa.dev` succeeds.
+> **Note:** Keep the URLs free of trailing slashes. The IdP compares the `audience` value as an exact string, so `https://auth.resource.xaa.dev/` with a slash fails where `https://auth.resource.xaa.dev` succeeds.
 
-The sample's `.gitignore` excludes `.env`. Never commit client secrets, ID tokens, ID-JAGs, or access tokens to version control.
+> **Note:** The sample's `.gitignore` excludes `.env`. Never commit client secrets, ID tokens, ID-JAGs, or access tokens to version control.
 
 ## Run your TypeScript MCP app with xaa.dev
 
@@ -167,7 +167,7 @@ The user authenticates once with the IdP, and your app receives an ID token. You
 
 {% comment %}
 Tweak the diagram on https://mermaid.live/ with the following content
-%%{init: {'themeVariables': {'fontSize': '18px'}}}%%
+%%{init: {'themeVariables': {'fontSize': '18px'}, 'sequence': {'actorMargin': 180, 'messageMargin': 28, 'boxMargin': 8}}}%%
 sequenceDiagram
     participant U as User
     participant APP as Web App
@@ -213,16 +213,6 @@ sequenceDiagram
     end
 {% endcomment %}
 
-## Why Cross App Access matters for AI agents
-
-You just watched one user action cross one app boundary. Enterprise software rarely stops at one. A single action fans out across many systems, and AI agents make the fan-out constant: an assistant reads a document, files a ticket, checks a calendar, and logs an audit event, all on behalf of one person.
-
-Each of those hops needs the user's identity. The traditional answer is a consent screen at every boundary. Users click through prompts they don't read, and IT teams lose visibility into which app talks to which other app, because the authorization rests on personal consent. Some teams give up and share a service account, which puts a single overprivileged credential in front of everyone's data.
-
-XAA replaces that consent step with a policy the admin configures in advance. Your enterprise IdP already knows who the user is, because the user signed in this morning, so it vouches for that identity across the boundary with a short-lived signed token. The admin decides which app connects to which resource, with which scopes. The user signs in once, and every hop after that is an auditable cryptographic handoff.
-
-Cross App Access is the industry term for a pattern built on the [Identity Assertion Authorization Grant](https://datatracker.ietf.org/doc/draft-ietf-oauth-identity-assertion-authz-grant/) specification, an active Internet-Draft at the Internet Engineering Task Force (IETF) that defines the ID-JAG token and the exchange flow that XAA uses. To go deeper on the protocol itself, read [Build Secure Agent-to-App Connections with Cross App Access (XAA)](/blog/2025/09/03/cross-app-access).
-
 ## Inspect the tokens in the dashboard
 
 Select any step card to expand its decoded token. The next section walks through what the ID-JAG's claims mean; for now, the one thing worth confirming is that the access token's `aud` matches the ID-JAG's `resource`, byte for byte. That match is the delegation chain holding together, and a mismatch is the most common cause of a `401` from the resource server.
@@ -231,9 +221,9 @@ Below the flow steps, the **ACCESS TOKEN** card displays the Bearer token issued
 
 Select **🔄 Re-run (SDK discovers the auth server)** at any time to replay the flow and watch `CrossAppAccessProvider` handle discovery automatically.
 
-The dashboard's token inspector exists for learning and local debugging. Keep raw tokens out of production interfaces and logs; when troubleshooting in production, log redacted identifiers and non-sensitive claims instead.
+> **Note:** The dashboard's token inspector exists for learning and local debugging. Keep raw tokens out of production interfaces and logs; when troubleshooting in production, log redacted identifiers and non-sensitive claims instead.
 
-**Note on scopes:** This app is read-only by design. It requests `todos.read` and `mcp.access`, and nothing else. Least privilege applies to AI agents and requesting apps the same way it applies to users.
+> **Note:** This app is read-only by design. It requests `todos.read` and `mcp.access`, and nothing else. Least privilege applies to AI agents and requesting apps the same way it applies to users.
 
 ## ID-JAG: the token that carries identity across apps
 
@@ -266,9 +256,19 @@ Get `aud` and `resource` backwards and the exchange either fails outright or suc
 
 The JWT header also carries `"typ": "oauth-id-jag+jwt"`, and authorization servers reject anything else. That prevents attackers from replaying other JWTs, such as ID tokens, as authorization grants. The five-minute `exp` window and the one-time `jti` close off replay from the other direction.
 
+## Why Cross App Access matters for AI agents
+
+You just watched one user action cross one app boundary. Enterprise software rarely stops at one. A single action fans out across many systems, and AI agents make the fan-out constant: an assistant reads a document, files a ticket, checks a calendar, and logs an audit event, all on behalf of one person.
+
+Each of those hops needs the user's identity. The traditional answer is a consent screen at every boundary. Users click through prompts they don't read, and IT teams lose visibility into which app talks to which other app, because the authorization rests on personal consent. Some teams give up and share a service account, which puts a single overprivileged credential in front of everyone's data.
+
+XAA replaces that consent step with a policy the admin configures in advance. Your enterprise IdP already knows who the user is, because the user signed in this morning, so it vouches for that identity across the boundary with a short-lived signed token. The admin decides which app connects to which resource, with which scopes. The user signs in once, and every hop after that is an auditable cryptographic handoff.
+
+Cross App Access is the industry term for a pattern built on the [Identity Assertion Authorization Grant](https://datatracker.ietf.org/doc/draft-ietf-oauth-identity-assertion-authz-grant/) specification, an active Internet-Draft at the Internet Engineering Task Force (IETF) that defines the ID-JAG token and the exchange flow that XAA uses. To go deeper on the protocol itself, read [Build Secure Agent-to-App Connections with Cross App Access (XAA)](/blog/2025/09/03/cross-app-access).
+
 ## The Model Context Protocol and its TypeScript SDK
 
-Before diving into code, a quick word on the other protocol in this tutorial. The [Model Context Protocol](https://modelcontextprotocol.io/) is an open standard that Anthropic created and continues to develop, providing AI applications with a common way to connect to tools and data. An MCP server exposes capabilities (tools to call, resources to read, prompts to use), and an MCP client connects to those servers over a standard transport. Instead of building one custom integration per data source, build to one protocol so any MCP-capable AI application can use it. The [MCP TypeScript SDK](https://github.com/modelcontextprotocol/typescript-sdk) is the official implementation for JavaScript and TypeScript developers, handling protocol details such as transports, the initialization handshake, message schemas, and authorization.
+Before diving into code, a quick word on the other protocol in this tutorial. The [Model Context Protocol](https://modelcontextprotocol.io/) is an open standard created by Anthropic that continues to evolve, providing AI applications with a common way to connect to tools and data. An MCP server exposes capabilities (tools to call, resources to read, prompts to use), and an MCP client connects to those servers over a standard transport. Instead of building one custom integration per data source, build to one protocol so any MCP-capable AI application can use it. The [MCP TypeScript SDK](https://github.com/modelcontextprotocol/typescript-sdk) is the official implementation for JavaScript and TypeScript developers, handling protocol details such as transports, the initialization handshake, message schemas, and authorization.
 
 The MCP community evolves the specification through Specification Enhancement Proposals (SEPs). Cross App Access support entered the protocol as [Specification Enhancement Proposal (SEP) 990, Enterprise Managed Authorization](https://github.com/modelcontextprotocol/ext-auth), and the TypeScript SDK ships the implementation in its `crossAppAccess` module.
 
@@ -378,7 +378,7 @@ One optimization worth noting: the discovery call incurs an extra network round 
 
 In step 3, your app presents the ID-JAG to the resource's authorization server with the RFC 7523 JWT bearer grant, authenticating with the resource client credentials. The request posts `grant_type=urn:ietf:params:oauth:grant-type:jwt-bearer` with the ID-JAG as the `assertion`, and the response is an ordinary OAuth token response: an `access_token`, `token_type` of `Bearer`, and an `expires_in` lifetime worth reading rather than assuming.
 
-You don't write that request yourself. `CrossAppAccessProvider` makes it, and the next section shows how it is configured. Two details about this step save you real debugging time:
+You don't write that request yourself. `CrossAppAccessProvider` makes it, and the last section of this walkthrough shows how to configure it. Two details about this step save you real debugging time:
 
 1. **Client authentication method.** Developer-registered clients on xaa.dev use `client_secret_post`, which means credentials belong in the request body. The provider declares `client_secret_basic` (an `Authorization: Basic` header) by default, so the client information has to name the method explicitly.
 2. **Send the `scope` parameter.** The provider only sends a scope when the authorization server's metadata advertises one, and xaa.dev's does not. Omit it and the authorization server issues an access token with an empty scope, after which the failure is quiet. The MCP server still completes the handshake, `resources/list` still returns the resource names, and reading the todos still returns HTTP `200` with a JSON-RPC result. The rejection hides inside the resource payload: `{"error":"Unauthorized","message":"Invalid or expired token"}`. Nothing throws, so your app parses that error object instead of a todo list and renders an empty checklist. Request the scopes you need, then verify the `scope` claim in the decoded access token.
@@ -473,9 +473,9 @@ Nothing in this snippet names `auth.resource.xaa.dev`. The provider discovered i
 
 ## Where XAA fits in your real architecture
 
-The playground stands in for real systems, and the mapping is direct. IdenX serves as your production IdP. Okta offers Cross App Access as an Early Access feature, and the token exchange in this tutorial works the same way against an Okta org once you enable the feature; check the [Okta Cross App Access documentation](https://help.okta.com/oie/en-us/content/topics/apps/apps-cross-app-access.htm) for current availability. To try it against a real org, [sign up for an Okta Integrator Free Plan](https://developer.okta.com/signup/). The todo MCP server serves as an enterprise resource you can make available to agents and apps. Your requesting app serves as the AI agent or SaaS integration acting on the user's behalf.
+The playground stands in for real systems, and the mapping is direct. IdenX stands in for your production IdP. Okta offers Cross App Access as an Early Access feature, and the token exchange in this tutorial works the same way against an Okta org once you enable the feature; check the [Okta Cross App Access documentation](https://help.okta.com/oie/en-us/content/topics/apps/apps-cross-app-access.htm) for current availability. To try it against a real org, [sign up for an Okta Integrator Free Plan](https://developer.okta.com/signup/). The todo MCP server serves as an enterprise resource you can make available to agents and apps. Your requesting app serves as the AI agent or SaaS integration acting on the user's behalf.
 
-The read-only scope in this tutorial is a deliberate starting point, not a limitation of the protocol. Scopes are strings that your resource server defines, and an admin grants. When you're ready to build the other side of the boundary, the resource app guides show how to validate ID-JAGs and issue access tokens from your own authorization server, whether your app federates with [OpenID Connect (OIDC)](/blog/2026/08/24/xaa-oidc-resource) or [Security Assertion Markup Language (SAML)](/blog/2026/07/03/cross-app-access-saml).
+The read-only scope in this tutorial is a deliberate starting point, not a limitation of the protocol. Scopes are strings that your resource server defines and an admin grants. When you're ready to build the other side of the boundary, the resource app guides show how to validate ID-JAGs and issue access tokens from your own authorization server, whether your app federates with [OpenID Connect (OIDC)](/blog/2026/08/24/xaa-oidc-resource) or [Security Assertion Markup Language (SAML)](/blog/2026/07/03/cross-app-access-saml).
 
 ## Learn more about Cross App Access, ID-JAG, and MCP
 
