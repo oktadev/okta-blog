@@ -213,11 +213,11 @@ In **Configure SAML**:
 >
 > Please note that we're providing these for setup; they don't constitute a working SSO connection to the resource app. Also, don't assume the `NameID` is an email address; it is whatever the customer's SSO emits. Your matching set must remain consistent across your deployment.
 
-After creating the app, you'll see more configuration options for your Okta SAML 2.0 app. You'll make changes in the resource server tab.
+After creating the app, you'll see more configuration options for your Okta SAML 2.0 app. You'll make changes in the **Machine Assignments** tab.
 
-**Resource Server extra configuration**
+**Machine Assignments extra configuration**
 
-[Enable Cross App Access (XAA)](https://developer.okta.com/docs/guides/xaa-agent-to-app/main/#enable-xaa-on-a-custom-app-integration) on the resource app integration from the **Resource Server** tab, and configure:
+[Enable Cross App Access (XAA)](https://developer.okta.com/docs/guides/xaa-agent-to-app/main/#enable-xaa-on-a-custom-app-integration) on the resource app integration from the **Machine Assignments** tab (in the **Callers** tile), and configure:
 
    1. **Issuer URL**: https://auth.resource.xaa.dev
 

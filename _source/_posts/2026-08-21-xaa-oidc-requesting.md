@@ -183,16 +183,16 @@ Create the Okta app integration representing the test resource app by following 
 
 Assign your test user to this app integration the same way you did for the requesting app integration above.
 
-**Resource Server extra configuration**
+**Machine Assignments extra configuration**
 
-[Enable Cross App Access (XAA) on this app integration](https://developer.okta.com/docs/guides/xaa-agent-to-app/main/#enable-xaa-on-a-custom-app-integration) from the **Resource Server** tab, and configure:
+[Enable Cross App Access (XAA) on this app integration](https://developer.okta.com/docs/guides/xaa-agent-to-app/main/#enable-xaa-on-a-custom-app-integration) from the **Machine Assignments** tab (in the **Callers** tile), and configure:
 
   1. **Issuer URL**: Use `https://auth.resource.xaa.dev`. This is xaa.dev's resource authorization server, not yours. Entering it here tells Okta which external server to mint ID-JAGs for
   2. **Audience/tenant ID**: This is optional and not needed for this walkthrough
 
 > ⚠️ **Note:** Use Audience/tenant ID when you have multiple tenants in your organization.
 
-{% img blog/xaa-oidc-requesting/resource-app-config.jpg alt:"Resource Server tab showing Cross-app access (XAA) enabled with Issuer URL configured." width:"1200" %}{: .center-image }
+{% img blog/xaa-oidc-requesting/resource-app-config.jpg alt:"Machine Assignments tab showing Cross-app access (XAA) enabled with Issuer URL configured." width:"1200" %}{: .center-image }
 
 With the test resource app integration configured in Okta, register your requesting app at xaa.dev next.
 
