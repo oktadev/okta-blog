@@ -288,7 +288,7 @@ After creating the app integration, select the **General** tab to get the **Clie
 
 **Machine Assignments extra configuration**
 
-[Enable Cross App Access (XAA) on the resource app integration](https://developer.okta.com/docs/guides/xaa-agent-to-app/main/#enable-xaa-on-a-custom-app-integration) from the **Machine Assignments** tab (in the **Callers** tile), and configure:
+[Enable Cross App Access (XAA) on the resource app integration](https://developer.okta.com/docs/guides/xaa-agent-to-app/main/#enable-xaa-on-a-custom-app-integration) from the **Machine Assignments** tab, under **Callers**, and configure:
 Note: The values here come from your test Requestor SSO App on xaa.dev.
   1. **Issuer URL**: Your resource AS issuer URL, the issuer of the authorization server you run. Entering it here tells Okta which external server to mint ID-JAGs for; Okta doesn't host this server. This value becomes the `aud` claim in the ID-JAG and cannot change without deleting and resetting the connection.
   2. **Audience/tenant ID**: This is optional and not needed for this walkthrough

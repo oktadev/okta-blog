@@ -185,7 +185,7 @@ Assign your test user to this app integration the same way you did for the reque
 
 **Machine Assignments extra configuration**
 
-[Enable Cross App Access (XAA) on this app integration](https://developer.okta.com/docs/guides/xaa-agent-to-app/main/#enable-xaa-on-a-custom-app-integration) from the **Machine Assignments** tab (in the **Callers** tile), and configure:
+[Enable Cross App Access (XAA) on this app integration](https://developer.okta.com/docs/guides/xaa-agent-to-app/main/#enable-xaa-on-a-custom-app-integration) from the **Machine Assignments** tab, under **Callers**, and configure:
 
   1. **Issuer URL**: Use `https://auth.resource.xaa.dev`. This is xaa.dev's resource authorization server, not yours. Entering it here tells Okta which external server to mint ID-JAGs for
   2. **Audience/tenant ID**: This is optional and not needed for this walkthrough
