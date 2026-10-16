@@ -281,17 +281,25 @@ Create the resource app integration the same way you created the requesting app 
 
 * **App integration name**: "Resource App"
 * **Grant type**: Authorization Code
-* **Sign-in redirect URIs**: any valid placeholder URL. This app integration never performs an interactive login in this walkthrough; it only holds the Resource Server XAA configuration and the user assignment, and Okta requires the field to be non-empty. Don't reuse the xaa.dev URI here
+* **Sign-in redirect URIs**: any valid placeholder URL. This app integration never performs an interactive login in this walkthrough; it only holds the Machine Assignments XAA configuration and the user assignment, and Okta requires the field to be non-empty. Don't reuse the xaa.dev URI here
 * **Assignments**: keep **Skip group assignments for now**
 
 After creating the app integration, select the **General** tab to get the **Client ID** and **Client secret**. Use these credentials in your resource server.
 
-**Resource Server extra configuration**
+**Machine Assignments extra configuration**
 
-[Enable Cross App Access (XAA) on the resource app integration](https://developer.okta.com/docs/guides/xaa-agent-to-app/main/#enable-xaa-on-a-custom-app-integration) from the **Resource Server** tab, and configure:
+[Enable Cross App Access (XAA) on the resource app integration](https://developer.okta.com/docs/guides/xaa-agent-to-app/main/#enable-xaa-on-a-custom-app-integration):
+
 Note: The values here come from your test Requestor SSO App on xaa.dev.
-  1. **Issuer URL**: Your resource AS issuer URL, the issuer of the authorization server you run. Entering it here tells Okta which external server to mint ID-JAGs for; Okta doesn't host this server. This value becomes the `aud` claim in the ID-JAG and cannot change without deleting and resetting the connection.
-  2. **Audience/tenant ID**: This is optional and not needed for this walkthrough
+
+1. Select the **Machine Assignments** tab. **Callers** is selected by default.
+2. Under **Access method**, find the **Cross-app access (XAA)** card, which shows **Disabled**, and click **Edit**. The **Edit access method** panel opens on the right.
+3. Set the status dropdown to **Enabled**.
+4. Fill in the fields:
+    - **Issuer URL**: Your resource AS issuer URL, the issuer of the authorization server you run. Entering it here tells Okta which external server to mint ID-JAGs for; Okta doesn't host this server. This value becomes the `aud` claim in the ID-JAG and cannot change without deleting and resetting the connection.
+    - **Audience/tenant ID**: This is optional and not needed for this walkthrough
+    - **Scopes**: This is optional and not needed for this walkthrough
+5. Click **Save**.
 
 > ⚠️ **Note**
 >
@@ -337,7 +345,7 @@ In xaa.dev, enter the following values:
 
 1. **Client ID**: Use the values from the AI Agent's client registration tab. 
 2. **Client Secret**: Use the values from the AI Agent's client registration tab.
-3. **Resource AS issuer (ID-JAG audience)**: Use your resource AS issuer URL. This must exactly match the **Issuer URL** you set on the resource app integration's Resource Server tab.
+3. **Resource AS issuer (ID-JAG audience)**: Use your resource AS issuer URL. This must exactly match the **Issuer URL** you set on the resource app integration's Machine Assignments tab.
 4. **Scopes**: Enter the scopes you want to request for the access token. For example, `chat:read chat:write`.
 5. Press **Save** to store the values.
 
