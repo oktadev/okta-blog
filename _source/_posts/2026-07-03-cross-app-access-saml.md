@@ -276,10 +276,16 @@ It automatically discovers your SSO endpoint and token endpoint from the metadat
 
 **Machine Assignments extra configuration**
 
-[Enable Cross App Access (XAA)](https://developer.okta.com/docs/guides/xaa-agent-to-app/main/#enable-xaa-on-a-custom-app-integration) on the resource app integration from the **Machine Assignments** tab, under **Callers**, and configure:
+[Enable Cross App Access (XAA)](https://developer.okta.com/docs/guides/xaa-agent-to-app/main/#enable-xaa-on-a-custom-app-integration) on the resource app integration:
 
-   1. **Issuer URL**: Use your resource authorization server issuer URL. This value becomes the `aud` claim in the ID-JAG and cannot change without deleting and resetting the connection.
-   2. **Audience/tenant ID**: This is optional and not needed for this walkthrough
+1. Select the **Machine Assignments** tab. **Callers** is selected by default.
+2. Under **Access method**, find the **Cross-app access (XAA)** card, which shows **Disabled**, and click **Edit**. The **Edit access method** panel opens on the right.
+3. Set the status dropdown to **Enabled**.
+4. Fill in the fields:
+    - **Issuer URL**: Use your resource authorization server issuer URL. This value becomes the `aud` claim in the ID-JAG and cannot change without deleting and resetting the connection.
+    - **Audience/tenant ID**: This is optional and not needed for this walkthrough
+    - **Scopes**: This is optional and not needed for this walkthrough
+5. Click **Save**.
 
 > ⚠️ **Note**
 >

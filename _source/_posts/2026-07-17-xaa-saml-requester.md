@@ -217,9 +217,15 @@ After creating the app, you'll see more configuration options for your Okta SAML
 
 **Machine Assignments extra configuration**
 
-[Enable Cross App Access (XAA)](https://developer.okta.com/docs/guides/xaa-agent-to-app/main/#enable-xaa-on-a-custom-app-integration) on the resource app integration from the **Machine Assignments** tab, under **Callers**, and configure:
+[Enable Cross App Access (XAA)](https://developer.okta.com/docs/guides/xaa-agent-to-app/main/#enable-xaa-on-a-custom-app-integration) on the resource app integration:
 
-   1. **Issuer URL**: https://auth.resource.xaa.dev
+1. Select the **Machine Assignments** tab. **Callers** is selected by default.
+2. Under **Access method**, find the **Cross-app access (XAA)** card, which shows **Disabled**, and click **Edit**. The **Edit access method** panel opens on the right.
+3. Set the status dropdown to **Enabled**.
+4. Fill in the fields:
+    - **Issuer URL**: https://auth.resource.xaa.dev
+    - **Scopes**: This is optional and not needed for this walkthrough
+5. Click **Save**.
 
 **Assignments configuration**
 
