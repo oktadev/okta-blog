@@ -345,7 +345,7 @@ In xaa.dev, enter the following values:
 
 1. **Client ID**: Use the values from the AI Agent's client registration tab. 
 2. **Client Secret**: Use the values from the AI Agent's client registration tab.
-3. **Resource AS issuer (ID-JAG audience)**: Use your resource AS issuer URL. This must exactly match the **Issuer URL** you set on the resource app integration's Machine Assignments tab.
+3. **Resource AS issuer (ID-JAG audience)**: Use your resource AS issuer URL. This must exactly match the **Issuer URL** you set on the resource app integration's **Machine Assignments** tab.
 4. **Scopes**: Enter the scopes you want to request for the access token. For example, `chat:read chat:write`.
 5. Press **Save** to store the values.
 
