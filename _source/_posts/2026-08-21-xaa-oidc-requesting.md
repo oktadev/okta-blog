@@ -198,7 +198,7 @@ Assign your test user to this app integration the same way you did for the reque
 
 > ⚠️ **Note:** Use Audience/tenant ID when you have multiple tenants in your organization.
 
-{% img blog/xaa-oidc-requesting/resource-app-config.jpg alt:"Machine Assignments tab showing Cross-app access (XAA) enabled with Issuer URL configured." width:"1200" %}{: .center-image }
+{% img blog/xaa-oidc-requesting/resource-app-config.jpg alt:"Machine Assignments tab of Resource App for Testing showing the Cross-app access (XAA) card with an Enabled status." width:"1200" %}{: .center-image }
 
 With the test resource app integration configured in Okta, register your requesting app at xaa.dev next.
 

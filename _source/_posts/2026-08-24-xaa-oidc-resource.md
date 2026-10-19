@@ -281,7 +281,7 @@ Create the resource app integration the same way you created the requesting app 
 
 * **App integration name**: "Resource App"
 * **Grant type**: Authorization Code
-* **Sign-in redirect URIs**: any valid placeholder URL. This app integration never performs an interactive login in this walkthrough; it only holds the Machine Assignments XAA configuration and the user assignment, and Okta requires the field to be non-empty. Don't reuse the xaa.dev URI here
+* **Sign-in redirect URIs**: any valid placeholder URL. This app integration never performs an interactive login in this walkthrough; it only holds the XAA configuration (on the **Machine Assignments** tab) and the user assignment, and Okta requires the field to be non-empty. Don't reuse the xaa.dev URI here
 * **Assignments**: keep **Skip group assignments for now**
 
 After creating the app integration, select the **General** tab to get the **Client ID** and **Client secret**. Use these credentials in your resource server.
